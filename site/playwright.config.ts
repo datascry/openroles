@@ -1,7 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PREVIEW_PORT = 4321;
-const BASE_URL = `http://127.0.0.1:${PREVIEW_PORT}/openroles`;
+const HOST_URL = `http://127.0.0.1:${PREVIEW_PORT}`;
+// Astro serves under base="/openroles"; baseURL only sets the host so test paths
+// can stay literal (`/openroles/feed.xml`). URL resolution drops the base path
+// when paths are root-relative, which is why we don't include it here.
+export const SITE_BASE = "/openroles";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -11,7 +15,7 @@ export default defineConfig({
   workers: process.env["CI"] ? 1 : undefined,
   reporter: process.env["CI"] ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
-    baseURL: BASE_URL,
+    baseURL: HOST_URL,
     trace: "on-first-retry",
   },
   projects: [
@@ -19,8 +23,8 @@ export default defineConfig({
     { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
   ],
   webServer: {
-    command: "bun --bun astro preview --host 127.0.0.1 --port " + PREVIEW_PORT,
-    url: BASE_URL,
+    command: `bun --bun astro preview --host 127.0.0.1 --port ${PREVIEW_PORT}`,
+    url: `${HOST_URL}${SITE_BASE}`,
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,
   },
