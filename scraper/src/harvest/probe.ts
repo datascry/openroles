@@ -9,7 +9,9 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   lever: (slug) => `https://api.lever.co/v0/postings/${slug}?mode=json&limit=1`,
   ashby: (slug) => `https://api.ashbyhq.com/posting-api/job-board/${slug}`,
   bamboohr: (slug) => `https://${slug}.bamboohr.com/careers/list`,
-  icims: (slug) => `https://careers-${slug}.icims.com/sitemap.xml`,
+  // iCIMS slug = full subdomain label (most use a `careers-` prefix but many
+  // use other branded prefixes; see harvest/patterns.ts).
+  icims: (slug) => `https://${slug}.icims.com/sitemap.xml`,
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {

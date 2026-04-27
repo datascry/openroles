@@ -52,13 +52,19 @@ describe("extractSlugs", () => {
     { url: "https://boards.greenhouse.io/stripe/jobs/1", status: "200", timestamp: "" },
     { url: "https://boards.greenhouse.io/anthropic", status: "200", timestamp: "" },
     { url: "https://boards.greenhouse.io/stripe/jobs/2", status: "200", timestamp: "" },
+    // /embed/* is filtered by the deny list (greenhouse robots disallow that
+    // path so it never appears in real CDX records, but a stray URL must
+    // still be rejected for safety).
     { url: "https://boards.greenhouse.io/embed/job_app?for=evil", status: "200", timestamp: "" },
     { url: "https://example.com/unrelated", status: "200", timestamp: "" },
   ];
 
-  it("dedupes slugs and extracts both /{slug} and /embed/job_app?for={slug} forms", () => {
+  it("dedupes slugs from the canonical /{slug} URL form and applies the deny list", () => {
     const { slugs } = extractSlugs(records, harvestPatternFor("greenhouse"));
-    expect(slugs).toEqual(["anthropic", "evil", "stripe"]);
+    // `embed` is captured by the path regex but filtered by PATH_DENY; the
+    // `evil` segment is not extracted because the regex stops at the first
+    // path component (no second iteration through `embed/job_app`).
+    expect(slugs).toEqual(["anthropic", "stripe"]);
   });
 
   it("returns the ats id from the pattern", () => {

@@ -37,17 +37,19 @@ const SUBDOMAIN_DENY: ReadonlySet<string> = new Set([
   "assets",
   "static",
   "cdn",
+  "admin",
+  "login",
+  "auth",
 ]);
 
 const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
   {
     ats: "greenhouse",
     cdxQuery: "boards.greenhouse.io/*",
-    // Two alternations: the canonical /{slug} board URL and the iframe embed
-    // URL boards.greenhouse.io/embed/job_app?for={slug}. Whichever alternation
-    // fires populates the corresponding capture group.
-    regex:
-      /boards\.greenhouse\.io\/(?:embed\/job_app\?for=([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)|([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$))/gi,
+    // The canonical /{slug} board URL is the only path Common Crawl ever
+    // captures: greenhouse's robots.txt sets `Disallow: /embed/`, so iframe-
+    // embed URLs (`/embed/job_app?for={slug}`) never appear in CDX results.
+    regex: /boards\.greenhouse\.io\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
     denyList: PATH_DENY,
   },
   {
@@ -77,8 +79,17 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
   },
   {
     ats: "icims",
-    cdxQuery: "careers-*.icims.com/*",
-    regex: /careers-([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.icims\.com/gi,
+    // CDX's prefix-match semantics on URL queries do not honor wildcards
+    // inside a host segment (the SURT urlkey is rooted at the registrable
+    // domain), so `careers-*.icims.com/*` never matches anything. The full
+    // `*.icims.com/*` form does. Only ~57% of real iCIMS career sites use
+    // the `careers-` subdomain prefix; the other 43% use varied prefixes
+    // (`{branded}careers-{tenant}`, `{tenant1}-{tenant2}`, etc.), so the
+    // tenant slug is the entire subdomain label rather than a stripped
+    // suffix. The probe and scraper compose the URL as
+    // `https://{slug}.icims.com/sitemap.xml`.
+    cdxQuery: "*.icims.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.icims\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
 ];

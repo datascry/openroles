@@ -29,7 +29,12 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("lever", "stripe")).toContain("/v0/postings/stripe");
     expect(probeUrlFor("ashby", "stripe")).toContain("/posting-api/job-board/stripe");
     expect(probeUrlFor("bamboohr", "stripe")).toContain("stripe.bamboohr.com");
-    expect(probeUrlFor("icims", "stripe")).toContain("careers-stripe.icims.com");
+    // iCIMS slug is the full subdomain label — most real tenants don't use
+    // a `careers-` prefix, so the probe URL composes `{slug}.icims.com`.
+    expect(probeUrlFor("icims", "careers-stripe")).toContain("careers-stripe.icims.com");
+    expect(probeUrlFor("icims", "1stheritage-attainfinance")).toContain(
+      "1stheritage-attainfinance.icims.com",
+    );
   });
 });
 

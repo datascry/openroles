@@ -89,7 +89,7 @@ describe("parseIcimsJobPage (fixture replay)", () => {
   it("parses a job page with full JSON-LD", () => {
     const html = readFixtureText("icims.job1001.html");
     const job = parseIcimsJobPage({
-      tenant: { slug: "example", display_name: "Example" },
+      tenant: { slug: "careers-example", display_name: "Example" },
       company: "Example",
       url: "https://careers-example.icims.com/jobs/1001/senior-software-engineer/job",
       html,
@@ -104,7 +104,7 @@ describe("parseIcimsJobPage (fixture replay)", () => {
   it("parses a job page with single-object jobLocation and string identifier", () => {
     const html = readFixtureText("icims.job1002.html");
     const job = parseIcimsJobPage({
-      tenant: { slug: "example" },
+      tenant: { slug: "careers-example" },
       company: "Example",
       url: "https://careers-example.icims.com/jobs/1002/staff-data-scientist/job",
       html,
@@ -118,7 +118,7 @@ describe("parseIcimsJobPage (fixture replay)", () => {
   it("flags recruiter titles", () => {
     const html = readFixtureText("icims.job1003.html");
     const job = parseIcimsJobPage({
-      tenant: { slug: "example" },
+      tenant: { slug: "careers-example" },
       company: "Example",
       url: "https://careers-example.icims.com/jobs/1003/talent-acquisition-partner/job",
       html,
@@ -132,7 +132,7 @@ describe("parseIcimsJobPage (fixture replay)", () => {
     const html = readFixtureText("icims.edge-no-jsonld.html");
     expect(
       parseIcimsJobPage({
-        tenant: { slug: "edge" },
+        tenant: { slug: "careers-edge" },
         company: "Edge",
         url: "https://careers-edge.icims.com/jobs/2001/no-jsonld/job",
         html,
@@ -148,7 +148,7 @@ describe("parseIcimsJobPage (fixture replay)", () => {
       hiringOrganization: { name: "X" },
     })}</script>`;
     const job = parseIcimsJobPage({
-      tenant: { slug: "x" },
+      tenant: { slug: "careers-x" },
       company: "X",
       url: "https://careers-x.icims.com/jobs/9999/no-id/job",
       html,
@@ -202,7 +202,7 @@ describe("scrapeIcimsTenant", () => {
     );
     const client = clientWithRobotsAllowAll();
     const out = await scrapeIcimsTenant({
-      tenant: { slug: "example", display_name: "Example" },
+      tenant: { slug: "careers-example", display_name: "Example" },
       client,
       observedAt: OBSERVED_AT,
     });
@@ -228,7 +228,7 @@ describe("scrapeIcimsTenant", () => {
     );
     const client = clientWithRobotsAllowAll();
     const out = await scrapeIcimsTenant({
-      tenant: { slug: "edge" },
+      tenant: { slug: "careers-edge" },
       client,
       observedAt: OBSERVED_AT,
       perTenantConcurrency: 2,
@@ -252,7 +252,7 @@ describe("scrapeIcimsTenant", () => {
     );
     const client = clientWithRobotsAllowAll();
     const out = await scrapeIcimsTenant({
-      tenant: { slug: "flake" },
+      tenant: { slug: "careers-flake" },
       client,
       observedAt: OBSERVED_AT,
     });
@@ -272,7 +272,7 @@ describe("scrapeIcimsTenant", () => {
       retry: { maxAttempts: 1, baseMs: 1, maxMs: 1 },
     });
     const out = await scrapeIcimsTenant({
-      tenant: { slug: "blocked" },
+      tenant: { slug: "careers-blocked" },
       client,
       observedAt: OBSERVED_AT,
     });

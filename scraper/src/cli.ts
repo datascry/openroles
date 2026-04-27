@@ -50,7 +50,7 @@ build-db:
 
 harvest:
   --ats <id>              ATS to harvest (greenhouse | lever | ashby | bamboohr | workday | icims)
-  --snapshots <list>      Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 4 from collinfo.json
+  --snapshots <list>      Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 8 from collinfo.json
   --output-dir <dir>      Where to write tenants/{ats}.json (default: ./data)
   --skip-probe            Emit slugs without liveness probing
   --user-agent <ua>       Override the full User-Agent string
@@ -303,7 +303,13 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
     }
     snapshots = requested;
   } else {
-    snapshots = await resolveLatestSnapshots(client, 4);
+    // Widened from 4 to 8 snapshots so harvests survive per-ATS robots
+    // changes: when an ATS starts blocking CCBot (e.g. Cloudflare's recent
+    // managed-content rules), recent snapshots return zero records but
+    // older snapshots still hold a valid tenant list. Eight × ~6 weeks of
+    // CC-MAIN cadence covers roughly a year, which is the longest empirical
+    // gap we have evidence for.
+    snapshots = await resolveLatestSnapshots(client, 8);
     if (snapshots.length === 0) {
       console.error("harvest: failed to resolve latest CC-MAIN snapshots; pass --snapshots");
       return 2;

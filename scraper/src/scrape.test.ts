@@ -135,7 +135,10 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata");
   });
 
-  it("dispatches icims", async () => {
+  it("dispatches icims using the full subdomain label as the slug", async () => {
+    // iCIMS slug is the entire subdomain label (most production tenants use
+    // the `careers-` prefix, but many use other branded prefixes); the URL
+    // composer is `https://{slug}.icims.com/sitemap.xml` with no stripping.
     server.use(
       http.get("https://careers-tinyco.icims.com/sitemap.xml", () =>
         HttpResponse.xml(readFixtureText("icims.sitemap.small.xml")),
@@ -147,7 +150,7 @@ describe("runScrape", () => {
     const out = await runScrape({
       input: {
         ats: "icims",
-        tenants: [{ slug: "tinyco" }],
+        tenants: [{ slug: "careers-tinyco" }],
         userAgent: "openroles/0.0.0",
         contactUrl: "https://example.com",
       },

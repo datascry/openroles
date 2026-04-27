@@ -170,10 +170,14 @@ describe("runHarvest", () => {
     expect(result.cdx_pages_fetched).toBe(4);
   });
 
-  it("captures greenhouse iframe embed slugs (boards.greenhouse.io/embed/job_app?for=)", async () => {
+  it("captures icims tenants whose subdomain prefix is not 'careers-'", async () => {
+    // ~43% of real iCIMS tenants use varied prefixes (`newprocareers-`,
+    // `accesssolutions-`, composite labels like `1stheritage-attainfinance`).
+    // The harvest pattern treats the entire subdomain label as the slug.
     const body = [
-      '{"url":"https://boards.greenhouse.io/embed/job_app?for=evil","status":"200"}',
-      '{"url":"https://boards.greenhouse.io/embed/job_app?for=stripe","status":"200"}',
+      '{"url":"https://careers-callhero.icims.com/jobs/1","status":"200"}',
+      '{"url":"https://newprocareers-renovo.icims.com/jobs/2","status":"200"}',
+      '{"url":"https://1stheritage-attainfinance.icims.com/","status":"200"}',
     ].join("\n");
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
@@ -181,12 +185,16 @@ describe("runHarvest", () => {
       return new Response(body, { status: 200 });
     });
     const result = await runHarvest({
-      ats: "greenhouse",
+      ats: "icims",
       snapshots: ["2026-13"],
       client: clientWith(fetchFn),
       observedAt: OBSERVED_AT,
       skipProbe: true,
     });
-    expect(result.tenants.map((t) => t.slug).sort()).toEqual(["evil", "stripe"]);
+    expect(result.tenants.map((t) => t.slug).sort()).toEqual([
+      "1stheritage-attainfinance",
+      "careers-callhero",
+      "newprocareers-renovo",
+    ]);
   });
 });

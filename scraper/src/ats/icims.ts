@@ -215,7 +215,7 @@ export async function scrapeIcimsTenant(opts: ScrapeIcimsOptions): Promise<Scrap
   let sitemapStatus = 0;
   try {
     assertSafeSlug(opts.tenant.slug);
-    const sitemapUrl = `https://careers-${opts.tenant.slug}.icims.com/sitemap.xml`;
+    const sitemapUrl = `https://${opts.tenant.slug}.icims.com/sitemap.xml`;
     const sitemapRes = await opts.client.request(sitemapUrl);
     sitemapStatus = sitemapRes.status;
     const xml = await sitemapRes.text();

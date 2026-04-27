@@ -16,16 +16,17 @@ describe("harvestPatternFor", () => {
     expect(new Set(HARVEST_ATS_IDS)).toEqual(new Set(ATS_IDS));
   });
 
-  it("greenhouse pattern extracts canonical /{slug} and /embed/job_app?for={slug}", () => {
+  it("greenhouse pattern extracts the canonical /{slug} board URL", () => {
     const { regex, denyList } = harvestPatternFor("greenhouse");
     const sample =
       "https://boards.greenhouse.io/stripe/jobs/123 " +
-      "https://boards.greenhouse.io/anthropic?utm=x " +
-      "https://boards.greenhouse.io/embed/job_app?for=acme";
-    const matches = Array.from(sample.matchAll(regex)).map((m) => (m[1] ?? m[2]) as string);
+      "https://boards.greenhouse.io/anthropic?utm=x";
+    const matches = Array.from(sample.matchAll(regex)).map((m) => m[1] as string);
     expect(matches).toContain("stripe");
     expect(matches).toContain("anthropic");
-    expect(matches).toContain("acme");
+    // /embed/* paths are blocked by greenhouse's robots.txt and never appear
+    // in CDX; the pattern intentionally has no `embed` arm. The deny list
+    // still excludes `embed` in case a stray URL matches the path-after-host.
     expect(denyList.has("embed")).toBe(true);
   });
 
@@ -48,12 +49,32 @@ describe("harvestPatternFor", () => {
     expect(m).toContain("stripe");
   });
 
-  it("icims pattern matches careers-{slug}.icims.com", () => {
+  it("icims pattern captures the full subdomain label as the slug", () => {
     const { regex } = harvestPatternFor("icims");
-    const m = Array.from(
-      "https://careers-example.icims.com/jobs/1234/role/job".matchAll(regex),
-    ).map((x) => x[1]);
-    expect(m).toEqual(["example"]);
+    // Real-world iCIMS hostname shapes — only ~57% start with `careers-`,
+    // the rest use varied branded prefixes or composite labels.
+    const sample = [
+      "https://careers-example.icims.com/jobs/1234/role/job",
+      "https://newprocareers-renovo.icims.com/jobs/1/x",
+      "https://1stheritage-attainfinance.icims.com/",
+      "https://accesssolutions-skyclimber.icims.com/jobs",
+    ].join(" ");
+    const m = Array.from(sample.matchAll(regex)).map((x) => x[1]);
+    expect(m).toEqual(
+      expect.arrayContaining([
+        "careers-example",
+        "newprocareers-renovo",
+        "1stheritage-attainfinance",
+        "accesssolutions-skyclimber",
+      ]),
+    );
+  });
+
+  it("icims cdxQuery uses the * domain prefix that CDX actually honors", () => {
+    // CDX prefix-match semantics on URL queries are rooted at the registrable
+    // domain in SURT form; wildcards inside a host segment do not work. The
+    // legacy `careers-*.icims.com/*` query returned 0 records empirically.
+    expect(harvestPatternFor("icims").cdxQuery).toBe("*.icims.com/*");
   });
 
   it("regex enforces RFC 1123 (no leading or trailing hyphen) for slugs", () => {
