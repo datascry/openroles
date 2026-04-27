@@ -1,0 +1,101 @@
+---
+import {
+  dataDirIsPopulated,
+  openSiteDb,
+  selectTenantJobs,
+  selectTenants,
+} from "../../../lib/db.ts";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  if (!dataDirIsPopulated()) return [];
+  const site = openSiteDb();
+  try {
+    const rows = selectTenants(site.db);
+    return rows.map((r) => ({
+      params: { ats: r.ats, slug: r.slug },
+      props: {
+        displayName: r.display_name,
+        homepageUrl: r.homepage_url,
+        status: r.status,
+        jobCount: r.job_count,
+      },
+    }));
+  } finally {
+    site.close();
+  }
+}
+
+const ats = Astro.params.ats;
+const slug = Astro.params.slug;
+if (!ats || !slug) {
+  throw new Error("tenant page: getStaticPaths must populate ats and slug params");
+}
+const { displayName, homepageUrl, status, jobCount } = Astro.props as {
+  displayName: string | null;
+  homepageUrl: string | null;
+  status: string;
+  jobCount: number;
+};
+
+const site = openSiteDb();
+let jobs;
+try {
+  jobs = selectTenantJobs(site.db, ats, slug);
+} finally {
+  site.close();
+}
+
+const company = displayName ?? slug;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{company} jobs · openroles</title>
+    <meta
+      name="description"
+      content={`Open roles at ${company} (${ats} · ${slug}). ${jobCount} listings tracked.`}
+    />
+    <link rel="alternate" type="application/rss+xml" title={`openroles — ${ats}`} href={`${base}/feed/${ats}.xml`} />
+    <link rel="stylesheet" href={`${base}/styles/global.css`} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href={`${base}/`} class="brand">openroles</a>
+    </header>
+    <main class="tenant-page">
+      <h1>{company}</h1>
+      <p class="meta">
+        <span>{ats}</span>
+        <span>·</span>
+        <span>{slug}</span>
+        {homepageUrl ? <><span>·</span><a href={homepageUrl} rel="nofollow noopener">site</a></> : null}
+        <span>·</span>
+        <span>status: {status}</span>
+      </p>
+      <p class="count">{jobCount} listing{jobCount === 1 ? "" : "s"}</p>
+      {jobs.length === 0 ? (
+        <p>No active listings.</p>
+      ) : (
+        <ul role="list" class="jobs">
+          {jobs.map((j) => (
+            <li class="job">
+              <a href={j.url} rel="nofollow noopener">{j.title}</a>
+              <p class="job-meta">
+                {j.level ?? "unclassified"}
+                {j.workplace_type ? <> · {j.workplace_type}</> : null}
+                {j.location_text ? <> · {j.location_text}</> : null}
+                {j.posted_at ? <> · posted {j.posted_at.slice(0, 10)}</> : null}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  </body>
+</html>

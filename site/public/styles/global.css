@@ -1,0 +1,154 @@
+@import "open-props/style";
+
+:root {
+  color-scheme: light dark;
+  --link: var(--blue-7);
+  --surface-1: var(--gray-0);
+  --surface-2: var(--gray-1);
+  --surface-3: var(--gray-3);
+  --text-1: var(--gray-9);
+  --text-2: var(--gray-7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-1: var(--gray-12);
+    --surface-2: var(--gray-11);
+    --surface-3: var(--gray-9);
+    --text-1: var(--gray-1);
+    --text-2: var(--gray-3);
+    --link: var(--blue-3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-1);
+  color: var(--text-1);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--font-size-2);
+  line-height: 1.5;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--size-3) var(--size-4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--surface-3);
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+main {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: var(--size-3) var(--size-4) var(--size-9);
+}
+
+h1 {
+  margin: var(--size-4) 0 var(--size-2);
+  font-size: var(--font-size-5);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: var(--size-5) 0 var(--size-2);
+  font-size: var(--font-size-4);
+}
+
+.lede {
+  color: var(--text-2);
+  margin-top: 0;
+}
+
+.manifest {
+  margin: var(--size-3) 0;
+  padding: var(--size-2) var(--size-3);
+  background: var(--surface-2);
+  border-left: 3px solid var(--link);
+  border-radius: var(--radius-2);
+  font-size: var(--font-size-1);
+  color: var(--text-2);
+}
+
+.manifest.pending {
+  border-left-color: var(--orange-5, #f59e0b);
+}
+
+.tenants ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--size-1);
+}
+
+.tenants li {
+  padding: var(--size-2);
+  border-bottom: 1px solid var(--surface-3);
+}
+
+.jobs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--size-3);
+}
+
+.job {
+  padding: var(--size-3);
+  background: var(--surface-2);
+  border-radius: var(--radius-3);
+}
+
+.job-meta {
+  margin: var(--size-1) 0 0;
+  color: var(--text-2);
+  font-size: var(--font-size-1);
+}
+
+.tenant-page .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--text-2);
+  font-size: var(--font-size-1);
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-inline: var(--size-5);
+  }
+  .site-header {
+    padding-inline: var(--size-7);
+  }
+}

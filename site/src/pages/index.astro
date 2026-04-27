@@ -1,5 +1,26 @@
 ---
-// Index page placeholder. The filter island lands in Phase 4.
+import FilterTable from "../components/FilterTable.svelte";
+import { dataDirIsPopulated, openSiteDb, selectTenants } from "../lib/db.ts";
+
+let dbBuilt = dataDirIsPopulated();
+let manifest: { built_at: string; total_rows: number; tenants_total: number } | null = null;
+let tenants: ReturnType<typeof selectTenants> = [];
+
+if (dbBuilt) {
+  const site = openSiteDb();
+  try {
+    manifest = {
+      built_at: site.manifest.built_at,
+      total_rows: site.manifest.total_rows,
+      tenants_total: site.manifest.tenants_total,
+    };
+    tenants = selectTenants(site.db).slice(0, 50);
+  } finally {
+    site.close();
+  }
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -9,12 +30,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0b0d0e" />
     <title>openroles</title>
+    <meta
+      name="description"
+      content="Static, queryable job board aggregator across major Applicant Tracking Systems."
+    />
+    <link rel="alternate" type="application/rss+xml" title="openroles — all jobs" href={`${base}/feed.xml`} />
+    <link rel="stylesheet" href={`${base}/styles/global.css`} />
   </head>
   <body>
+    <header class="site-header">
+      <span class="brand">openroles</span>
+      <nav>
+        <a href={`${base}/feed.xml`}>RSS</a>
+      </nav>
+    </header>
     <main>
       <h1>openroles</h1>
-      <p>Static job board scaffold. Filter UI lands in Phase 4.</p>
-      <p><small>Build: {new Date().toISOString()}</small></p>
+      <p class="lede">
+        Static, queryable job board across Greenhouse, Lever, Ashby, BambooHR, Workday, and iCIMS.
+      </p>
+
+      {manifest ? (
+        <p class="manifest" data-built-at={manifest.built_at}>
+          {manifest.total_rows} jobs across {manifest.tenants_total} tenants ·
+          built {manifest.built_at.slice(0, 10)}
+        </p>
+      ) : (
+        <p class="manifest pending">
+          No build artifacts yet. Run <code>bun run scrape</code> then <code>bun run build-db</code>.
+        </p>
+      )}
+
+      <FilterTable client:idle />
+
+      {tenants.length > 0 ? (
+        <section class="tenants">
+          <h2>Tenants</h2>
+          <ul role="list">
+            {tenants.map((t) => (
+              <li>
+                <a href={`${base}/tenant/${t.ats}/${t.slug}`}>
+                  {t.display_name ?? t.slug}
+                </a>
+                <small> · {t.ats} · {t.job_count} listings</small>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </main>
   </body>
 </html>
