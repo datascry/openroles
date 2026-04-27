@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { ATSIdSchema } from "./ats.ts";
 import { JobSchema } from "./job.ts";
+import { HttpUrl } from "./url.ts";
 
 const Slug = z
   .string()
@@ -35,7 +36,7 @@ export const ScrapeInputSchema = z.object({
   tenants: z.array(TenantInputSchema),
   concurrency: z.int().min(1).max(64).optional(),
   userAgent: z.string().min(1),
-  contactUrl: z.url(),
+  contactUrl: HttpUrl,
   retry: RetryPolicySchema.optional(),
 });
 

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { ATSIdSchema } from "./ats.ts";
 import { LEVEL_RANK, LevelSchema } from "./level.ts";
+import { HttpUrl } from "./url.ts";
 import { WorkplaceTypeSchema } from "./workplace.ts";
 
 // biome-ignore lint/suspicious/noControlCharactersInRegex: rejects control chars in user-facing fields
@@ -69,7 +70,7 @@ export const JobSchema = z
     updated_at: IsoUtc.optional(),
     first_seen_at: IsoUtc,
     last_seen_at: IsoUtc,
-    url: z.url(),
+    url: HttpUrl,
   })
   .superRefine((job, ctx) => {
     if (job.level === null) {

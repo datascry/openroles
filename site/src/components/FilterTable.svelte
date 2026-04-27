@@ -48,6 +48,7 @@ let qDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 let clientDb: ClientDb | null = $state(null);
 let dbStatus: DbStatus = $state("loading");
 let dbError: string | null = $state(null);
+let queryError: string | null = $state(null);
 let rows: JobRow[] = $state([]);
 let totalCount: number = $state(0);
 let queryToken: number = 0;
@@ -119,6 +120,7 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     if (token !== queryToken) return; // a newer query already started
     rows = resultRows;
     totalCount = countRows[0]?.c ?? 0;
+    queryError = null;
     if (typeof console !== "undefined" && console.debug) {
       console.debug("filter-table:query", {
         rows: resultRows.length,
@@ -128,8 +130,11 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     }
   } catch (err) {
     if (token !== queryToken) return;
-    dbStatus = "error";
-    dbError = err instanceof Error ? err.message : String(err);
+    // Per-query failure (transient): surface the error inline but keep the
+    // worker live so subsequent state changes can retry. Reserve dbStatus
+    // = "error" for terminal load failures (worker bootstrap / manifest
+    // fetch). Audit-driven (Phase 8 review M3).
+    queryError = err instanceof Error ? err.message : String(err);
     if (typeof console !== "undefined" && console.error) {
       console.error(
         "filter-table:query-failed",
@@ -261,9 +266,13 @@ function formatPostedAt(iso: string | null): string {
   <p class="data-error" role="alert">
     {dbError ?? "Unknown error loading the database."}
   </p>
-{:else if rows.length === 0}
-  <p class="data-empty" aria-live="polite">No jobs match the current filters.</p>
 {:else}
+  {#if queryError}
+    <p class="data-error" role="status">{queryError}</p>
+  {/if}
+  {#if rows.length === 0}
+    <p class="data-empty" aria-live="polite">No jobs match the current filters.</p>
+  {:else}
   <ul class="results" role="list" data-testid="job-results">
     {#each rows as row (row.id)}
       <li class="job">
@@ -292,6 +301,7 @@ function formatPostedAt(iso: string | null): string {
       </li>
     {/each}
   </ul>
+  {/if}
 {/if}
 
 <style>

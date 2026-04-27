@@ -53,6 +53,21 @@ describe("JobSchema", () => {
     expect(() => JobSchema.parse({ ...baseJob, url: "" })).toThrow();
   });
 
+  it("rejects non-http(s) URL schemes (javascript:, data:, file:) — XSS guard", () => {
+    // <a href={row.url}> renders this directly; the scheme guard closes the
+    // class of injection that would let a recruiter-controlled job description
+    // bridge into one-click XSS on the deployed site.
+    for (const u of [
+      "javascript:alert(1)",
+      "JaVaScRiPt:alert(1)",
+      "data:text/html,<x>",
+      "file:///etc/passwd",
+      "vbscript:msgbox('x')",
+    ]) {
+      expect(() => JobSchema.parse({ ...baseJob, url: u })).toThrow();
+    }
+  });
+
   it("rejects compensation_min > compensation_max", () => {
     expect(() =>
       JobSchema.parse({

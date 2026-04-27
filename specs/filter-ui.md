@@ -1,8 +1,41 @@
 # Spec: Filter UI
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 
 The filter UI is the primary interactive surface. It runs as a Svelte island hydrated with `client:idle` over a static Astro page. State lives in two places: the URL query string (shareable, deep-linkable) and `localStorage` (saved/applied/ignored).
+
+## Implementation status (as of Phase 8)
+
+The runtime contract below is the design target. What ships today, plus what is deferred:
+
+**Shipped:**
+- Search input with 250 ms debounce
+- ATS / Level / Workplace multi-select chips
+- Sort dropdown (all 6 options)
+- Hide-recruiter toggle
+- URL ↔ FilterState round-trip via `history.replaceState`
+- sql.js-httpvfs runtime — Worker boots on `client:idle`, fetches `data/manifest.json`, queries SQLite over HTTP `Range` requests
+- Loading / empty / per-query-error / terminal-load-error states
+- `aria-live="polite"` results-status; `role="alert"` on terminal errors
+
+**Deferred (no UI surface, but state model exists):**
+- Pagination controls — `state.page` round-trips through the URL but no pager renders. LIMIT 50 caps unreachable pages.
+- Country / region / since-window / min-comp inputs
+- Save / Apply / Ignore lists (localStorage helpers exist in `lib/storage.ts`; no UI)
+- Mobile bottom-sheet drawer for filters (chips render inline on all viewports today)
+- Desktop `<table>` with sortable column headers (cards on all viewports today)
+
+## Runtime contract
+
+1. Astro pre-renders the page with the filter shell + a manifest-pending placeholder.
+2. The Svelte island hydrates on `client:idle`, calls `loadClientDb({ basePath })` which:
+   - Fetches `${basePath}/data/manifest.json` with `cache: "no-cache"`.
+   - Validates the response shape via `parseManifest` (per-field type + regex checks; cross-checks `db_filename` against `short_sha`).
+   - Dynamic-imports `sql.js-httpvfs` (kept out of the main bundle).
+   - Calls `createDbWorker` against `${basePath}/sqlite-vfs/sqlite.worker.js` and `sql-wasm.wasm`, with `requestChunkSize: 1024` matching the build-time `pragma page_size = 1024` from ADR-0002.
+3. A Svelte 5 `$effect` re-runs the query whenever `clientDb` is non-null, `dbStatus === "ready"`, and any read-tracked field of `state` changes. Each run issues two parallel queries (rows + count) via `buildFilterQuery` / `buildFilterCountQuery`.
+4. A monotonic `queryToken` discards stale results — fast successive state changes don't clobber the freshest query.
+5. Per-query failures populate `queryError` (rendered inline above results) without latching the panel; the worker stays live for the next attempt. Terminal Worker-bootstrap or manifest-fetch failures set `dbStatus = "error"` and render a `role="alert"` panel — that state is intentionally non-recoverable without a page reload.
 
 ## Visible behavior
 

@@ -30,14 +30,31 @@ function mirrorDir(from: string, to: string): void {
   }
 }
 
+function buildSiteIfMissing(distDir: string): void {
+  if (existsSync(distDir)) return;
+  // playwright.config.ts's webServer runs `astro preview`, which serves dist/
+  // verbatim. If dist/ doesn't exist (fresh checkout, no prior `bun run build`),
+  // preview falls back behaviorally and the runtime can't fetch its assets.
+  // Build deterministically here so e2e is robust to invocation order.
+  // Audit-driven (Phase 8 review M2).
+  const res = spawnSync("bun", ["--bun", "astro", "build"], {
+    cwd: SITE_ROOT,
+    stdio: "inherit",
+    env: process.env,
+  });
+  if (res.status !== 0) {
+    throw new Error(`globalSetup: astro build exited with status ${res.status}`);
+  }
+}
+
 export default function globalSetup(): void {
+  const distDir = join(SITE_ROOT, "dist");
   runScript("scripts/copy-sqlite-vfs.ts");
   runScript("scripts/build-fixture-db.ts");
-  // If dist/ exists (i.e. `astro build` already ran), mirror the freshly
-  // copied/built artifacts into it so `astro preview` serves them.
-  const distDir = join(SITE_ROOT, "dist");
-  if (existsSync(distDir)) {
-    mirrorDir(join(SITE_ROOT, "public", "sqlite-vfs"), join(distDir, "sqlite-vfs"));
-    mirrorDir(join(SITE_ROOT, "public", "data"), join(distDir, "data"));
-  }
+  buildSiteIfMissing(distDir);
+  // Mirror the freshly built/written artifacts into dist/ so astro preview
+  // serves them. (`astro build` already copied public/* once at build time;
+  // these mirrors handle the case where build-fixture-db wrote AFTER build.)
+  mirrorDir(join(SITE_ROOT, "public", "sqlite-vfs"), join(distDir, "sqlite-vfs"));
+  mirrorDir(join(SITE_ROOT, "public", "data"), join(distDir, "data"));
 }
