@@ -31,5 +31,7 @@ Do not hand-edit; edit commit messages instead.
 - Static per-tenant pages at `/tenant/{ats}/{slug}` rendered from the SQLite database at build time.
 - Index page with the `FilterTable` Svelte island hydrated `client:idle`, mobile-first CSS layered on Open Props tokens, and a manifest-aware empty state when the database has not been built yet.
 - Site build runs under Bun (`bun --bun astro build`) so endpoints and pages can use `bun:sqlite` directly at static-route generation time.
+- Common Crawl harvester: per-ATS regex patterns + deny-list (`scraper/src/harvest/patterns.ts`), CDX-index URL builder + JSON Lines parser, deterministic slug extractor that dedupes across snapshots, RFC-1123-style slug guard, and a liveness probe that maps HTTP results onto the `Tenant.status` enum (live / dead / transient_failure).
+- CLI `harvest` subcommand reads one or more CC-MAIN snapshots, extracts tenant slugs through the per-ATS regex, optionally probes each candidate, and writes `data/tenants/{ats}.json` atomically via tmp + rename.
 
 [Unreleased]: https://github.com/datascry/openroles/compare/HEAD...HEAD
