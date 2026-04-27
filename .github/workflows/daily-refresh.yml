@@ -1,0 +1,161 @@
+name: Daily refresh
+
+on:
+  schedule:
+    # 05:17 UTC daily — off-the-hour to avoid GitHub Actions schedule herding.
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to GitHub Pages after build (default: true)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: daily-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  BUN_VERSION: "1.3.13"
+  CONTACT_URL: "https://github.com/datascry/openroles"
+  USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
+  ATS_LIST: "greenhouse lever ashby bamboohr workday icims"
+
+jobs:
+  build:
+    name: Scrape, build DB, build site
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      short_sha: ${{ steps.identity.outputs.short_sha }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - run: bun install --frozen-lockfile
+
+      - name: Resolve build identity
+        id: identity
+        run: |
+          short_sha="$(git rev-parse --short=12 HEAD)"
+          echo "short_sha=${short_sha}" >> "$GITHUB_OUTPUT"
+          echo "BUILD_SHORT_SHA=${short_sha}" >> "$GITHUB_ENV"
+
+      - name: Verify tenant lists are present
+        run: |
+          missing=0
+          for ats in $ATS_LIST; do
+            if [ ! -s "data/tenants/${ats}.json" ]; then
+              echo "::warning::data/tenants/${ats}.json is missing or empty — run weekly-harvest.yml to populate it"
+              missing=$((missing + 1))
+            fi
+          done
+          if [ "$missing" -eq 6 ]; then
+            echo "::error::no tenant lists found; cannot scrape"
+            exit 1
+          fi
+
+      - name: Build per-ATS scrape inputs from live tenants
+        run: |
+          mkdir -p data/scrape-inputs data/scrape-outputs
+          for ats in $ATS_LIST; do
+            tenants_file="data/tenants/${ats}.json"
+            if [ ! -s "$tenants_file" ]; then continue; fi
+            jq --arg ats "$ats" --arg ua "$USER_AGENT" --arg contact "$CONTACT_URL" '
+              {
+                ats: $ats,
+                userAgent: $ua,
+                contactUrl: $contact,
+                concurrency: 8,
+                retry: { maxAttempts: 3, baseMs: 500, maxMs: 30000 },
+                tenants: [
+                  .[]
+                  | select(.status == "live")
+                  | { slug: .slug }
+                ]
+              }
+            ' "$tenants_file" > "data/scrape-inputs/${ats}.json"
+          done
+
+      - name: Scrape each ATS
+        run: |
+          for ats in $ATS_LIST; do
+            input="${GITHUB_WORKSPACE}/data/scrape-inputs/${ats}.json"
+            if [ ! -s "$input" ]; then continue; fi
+            count="$(jq '.tenants | length' "$input")"
+            echo "::group::scrape ${ats} (${count} tenants)"
+            bun run scraper/bin/openroles-scrape.ts scrape \
+              --input "$input" \
+              --output "${GITHUB_WORKSPACE}/data/scrape-outputs/${ats}.json" || {
+                echo "::warning::scrape ${ats} failed; continuing with remaining ATSes"
+              }
+            echo "::endgroup::"
+          done
+
+      - name: Merge tenant lists for build-db
+        run: |
+          jq -s 'add' data/tenants/*.json > data/tenants-merged.json
+
+      - name: Build SQLite database
+        run: |
+          bun run scraper/bin/openroles-scrape.ts build-db \
+            --input "${GITHUB_WORKSPACE}/data/scrape-outputs" \
+            --tenants "${GITHUB_WORKSPACE}/data/tenants-merged.json" \
+            --short-sha "$BUILD_SHORT_SHA" \
+            --output-dir "${GITHUB_WORKSPACE}/data"
+
+      - name: Run drift report (non-fatal)
+        run: |
+          # report reads manifest.json + ScrapeOutput JSONs from a single dir.
+          cp data/manifest.json data/scrape-outputs/manifest.json
+          bun run scraper/bin/openroles-scrape.ts report \
+            --input "${GITHUB_WORKSPACE}/data/scrape-outputs" \
+            --output "${GITHUB_WORKSPACE}/data/run-report.md" \
+            --fail-on error || echo "::warning::drift report flagged regressions; see artifact"
+
+      - name: Stage SQLite + manifest for runtime fetch
+        run: |
+          mkdir -p site/public/data
+          cp data/manifest.json site/public/data/manifest.json
+          cp "data/jobs.${BUILD_SHORT_SHA}.sqlite" site/public/data/
+
+      - name: Build static site
+        env:
+          OPENROLES_DATA_DIR: ${{ github.workspace }}/data
+        run: bun run build
+
+      - name: Upload run report + manifest as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report-${{ steps.identity.outputs.short_sha }}
+          path: |
+            data/manifest.json
+            data/run-report.md
+          retention-days: 30
+
+      - name: Upload Pages artifact
+        if: ${{ github.event_name == 'schedule' || inputs.deploy != 'false' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: ${{ github.event_name == 'schedule' || inputs.deploy != 'false' }}
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

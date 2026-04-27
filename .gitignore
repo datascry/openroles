@@ -16,14 +16,18 @@ test-results/
 playwright-report/
 playwright/.cache/
 
-# Generated data (built fresh in CI; never committed)
+# Generated build outputs (built fresh in CI; never committed)
 data/*.sqlite
 data/*.sqlite.gz
 data/*.parquet
 data/manifest.json
 data/run-report.json
-data/tenants/
+data/run-report.md
+data/scrape-inputs/
+data/scrape-outputs/
+data/tenants-merged.json
 
+# Tenant lists are checked-in inputs (refreshed weekly by .github/workflows/weekly-harvest.yml)
 # Keep checked-in seed dataset
 !data/seed/
 

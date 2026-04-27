@@ -1,0 +1,89 @@
+name: Weekly harvest
+
+on:
+  schedule:
+    # 02:43 UTC every Monday — off-the-hour to avoid schedule herding.
+    - cron: "43 2 * * 1"
+  workflow_dispatch:
+    inputs:
+      snapshots:
+        description: "Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 4 from collinfo.json."
+        required: false
+        type: string
+      probe:
+        description: "Probe each candidate for liveness (slow). Default: true."
+        type: boolean
+        default: true
+
+concurrency:
+  group: weekly-harvest
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  BUN_VERSION: "1.3.13"
+  CONTACT_URL: "https://github.com/datascry/openroles"
+  USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
+  ATS_LIST: "greenhouse lever ashby bamboohr workday icims"
+
+jobs:
+  harvest:
+    name: Harvest tenant lists from Common Crawl
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - run: bun install --frozen-lockfile
+
+      - name: Harvest each ATS
+        env:
+          PROBE_INPUT: ${{ inputs.probe }}
+          SNAPSHOTS_INPUT: ${{ inputs.snapshots }}
+        run: |
+          mkdir -p data/tenants
+          probe_flag=""
+          # Probe by default; pass --skip-probe only when the dispatch input is explicitly false.
+          if [ "$PROBE_INPUT" = "false" ]; then probe_flag="--skip-probe"; fi
+          snap_flag=""
+          if [ -n "$SNAPSHOTS_INPUT" ]; then snap_flag="--snapshots $SNAPSHOTS_INPUT"; fi
+          for ats in $ATS_LIST; do
+            echo "::group::harvest ${ats}"
+            bun run scraper/bin/openroles-scrape.ts harvest \
+              --ats "$ats" \
+              --user-agent "$USER_AGENT" \
+              --output-dir "${GITHUB_WORKSPACE}/data" \
+              $probe_flag $snap_flag || {
+                echo "::warning::harvest ${ats} failed; skipping"
+              }
+            echo "::endgroup::"
+          done
+
+      - name: Show diff summary
+        run: |
+          echo "## Tenant list diffs" >> "$GITHUB_STEP_SUMMARY"
+          for ats in $ATS_LIST; do
+            file="data/tenants/${ats}.json"
+            if [ ! -s "$file" ]; then continue; fi
+            count="$(jq 'length' "$file")"
+            live="$(jq '[.[] | select(.status == "live")] | length' "$file")"
+            echo "- **${ats}**: ${count} tenants (${live} live)" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Commit updated tenant lists
+        run: |
+          if [ -z "$(git status --porcelain data/tenants/)" ]; then
+            echo "no tenant changes; skipping commit"
+            exit 0
+          fi
+          git config user.name "openroles-bot"
+          git config user.email "openroles-bot@users.noreply.github.com"
+          git add data/tenants/
+          git commit -m "chore(harvest): refresh tenant lists [skip ci]"
+          git push

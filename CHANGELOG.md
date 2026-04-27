@@ -38,5 +38,8 @@ Do not hand-edit; edit commit messages instead.
 - Run-report generator renders a Markdown summary including build identity, totals, per-ATS counts, drift findings, and dead-tenant alerts; locale-stable number and duration formatting.
 - CLI `report` subcommand reads `data/manifest.json` plus per-ATS scrape outputs, optionally compares against `--previous-manifest` for drift, optionally walks `--tenants-history` for dead-tenant alerts, and exits non-zero when drift severity reaches `--fail-on` so CI fails loudly on regressions.
 - Mutation testing is deferred until StrykerJS gains first-class Bun support; the rationale is recorded in [ADR-0010](docs/adr/0010-phase-plan.md).
+- Daily refresh GitHub Action (`.github/workflows/daily-refresh.yml`): builds per-ATS scrape inputs from the checked-in tenant lists, runs each scraper, builds `jobs.{sha}.sqlite` and `manifest.json`, runs the drift report, builds the static site, and deploys to GitHub Pages via `actions/upload-pages-artifact@v3` + `actions/deploy-pages@v4`. Scheduled at 05:17 UTC daily; manual dispatch supports a `deploy: false` dry-run.
+- Weekly harvest GitHub Action (`.github/workflows/weekly-harvest.yml`): runs the Common Crawl harvester for each ATS, summarizes tenant counts, and commits `data/tenants/{ats}.json` back to `main` with `[skip ci]`. Scheduled at 02:43 UTC each Monday; manual dispatch accepts `--snapshots` and `probe` overrides.
+- Tenant lists (`data/tenants/{ats}.json`) are now treated as checked-in inputs rather than build outputs, refreshed by the weekly harvest workflow.
 
 [Unreleased]: https://github.com/datascry/openroles/compare/HEAD...HEAD
