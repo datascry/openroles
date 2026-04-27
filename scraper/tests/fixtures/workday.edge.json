@@ -1,0 +1,18 @@
+{
+  "total": 3,
+  "jobPostings": [
+    {
+      "title": "No JobReqId",
+      "externalPath": "/job/no-req-id-job",
+      "locationsText": "Remote"
+    },
+    {
+      "title": "Path with no leading slash",
+      "externalPath": "job/no-leading-slash"
+    },
+    {
+      "title": "No JobReqId",
+      "externalPath": "/job/no-req-id-job"
+    }
+  ]
+}

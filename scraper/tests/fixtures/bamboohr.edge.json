@@ -1,0 +1,22 @@
+{
+  "result": [
+    {
+      "id": 100,
+      "jobOpeningName": "Job with no description",
+      "datePosted": "2026-04-22T12:00:00Z"
+    },
+    {
+      "id": 101,
+      "jobOpeningName": "Job with two-letter country override",
+      "locationCity": "Berlin",
+      "locationCountry": "DE",
+      "datePosted": "invalid-date"
+    },
+    {
+      "id": 101,
+      "jobOpeningName": "Repeated id (should dedupe)",
+      "locationCity": "Berlin",
+      "locationCountry": "DE"
+    }
+  ]
+}

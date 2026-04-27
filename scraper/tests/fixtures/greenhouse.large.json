@@ -1,0 +1,57 @@
+{
+  "jobs": [
+    {
+      "id": 4587220,
+      "title": "Senior Software Engineer, Payments",
+      "absolute_url": "https://boards.greenhouse.io/example/jobs/4587220",
+      "updated_at": "2026-04-22T17:14:00.000Z",
+      "requisition_id": "REQ-PAY-001",
+      "location": { "name": "San Francisco, CA" },
+      "departments": [{ "id": 12, "name": "Engineering" }],
+      "offices": [{ "id": 1, "name": "San Francisco" }],
+      "content": "<p>We&#39;re looking for an experienced engineer to build the systems that move money worldwide.</p><ul><li>5+ years experience</li><li>Distributed systems</li></ul>"
+    },
+    {
+      "id": 4587221,
+      "title": "Staff Software Engineer, Risk",
+      "absolute_url": "https://boards.greenhouse.io/example/jobs/4587221",
+      "updated_at": "2026-04-23T09:30:00.000Z",
+      "requisition_id": "REQ-RISK-002",
+      "location": { "name": "Remote, US" },
+      "departments": [{ "id": 13, "name": "Engineering" }],
+      "offices": [{ "id": 99, "name": "Remote - Americas" }],
+      "content": "<p>Lead the next generation of risk infrastructure.</p>"
+    },
+    {
+      "id": 4587222,
+      "title": "Engineering Manager, Platform",
+      "absolute_url": "https://boards.greenhouse.io/example/jobs/4587222",
+      "updated_at": "2026-04-24T12:00:00.000Z",
+      "location": { "name": "New York, NY, US" },
+      "departments": [{ "id": 12, "name": "Engineering" }],
+      "offices": [{ "id": 2, "name": "New York" }],
+      "content": "<p>Manage a team of platform engineers building shared services.</p>"
+    },
+    {
+      "id": 4587223,
+      "title": "Technical Recruiter",
+      "absolute_url": "https://boards.greenhouse.io/example/jobs/4587223",
+      "updated_at": "2026-04-25T08:00:00.000Z",
+      "location": { "name": "Remote" },
+      "departments": [{ "id": 22, "name": "Talent" }],
+      "offices": [{ "id": 99, "name": "Remote" }],
+      "content": "<p>Help us hire amazing engineers.</p>"
+    },
+    {
+      "id": 4587224,
+      "title": "Junior Frontend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/example/jobs/4587224",
+      "updated_at": "2026-04-25T10:15:00.000Z",
+      "location": { "name": "Hybrid - London, UK" },
+      "departments": [{ "id": 12, "name": "Engineering" }],
+      "offices": [{ "id": 3, "name": "London" }],
+      "content": "<p>Build delightful UIs in React.</p>"
+    }
+  ],
+  "meta": { "total": 5 }
+}

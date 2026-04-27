@@ -1,0 +1,15 @@
+{
+  "jobs": [
+    {
+      "id": 1001,
+      "title": "Founding Engineer",
+      "absolute_url": "https://boards.greenhouse.io/tinyco/jobs/1001",
+      "updated_at": "2026-04-20T00:00:00.000Z",
+      "location": { "name": "Remote" },
+      "departments": [{ "id": 1, "name": "Engineering" }],
+      "offices": [{ "id": 1, "name": "Remote" }],
+      "content": "<p>Join us at the start.</p>"
+    }
+  ],
+  "meta": { "total": 1 }
+}

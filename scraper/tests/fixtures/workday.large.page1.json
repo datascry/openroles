@@ -1,0 +1,22 @@
+{
+  "total": 4,
+  "jobPostings": [
+    {
+      "title": "Senior Software Engineer",
+      "externalPath": "/job/Senior_Software_Engineer-100",
+      "locationsText": "San Francisco, California, United States of America",
+      "postedOn": "Posted Today",
+      "bulletFields": [],
+      "jobReqId": "REQ-100",
+      "jobFamily": "Engineering"
+    },
+    {
+      "title": "Senior Recruiter",
+      "externalPath": "/job/Senior_Recruiter-101",
+      "locationsText": "Remote",
+      "postedOn": "Posted Yesterday",
+      "jobReqId": "REQ-101",
+      "jobFamily": "Talent"
+    }
+  ]
+}

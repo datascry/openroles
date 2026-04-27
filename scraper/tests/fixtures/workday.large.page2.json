@@ -1,0 +1,21 @@
+{
+  "total": 4,
+  "jobPostings": [
+    {
+      "title": "Staff Engineer",
+      "externalPath": "/job/Staff_Engineer-102",
+      "locationsText": "London, United Kingdom",
+      "postedOn": "Posted 5 Days Ago",
+      "jobReqId": "REQ-102",
+      "jobFamily": "Engineering"
+    },
+    {
+      "title": "Engineering Director",
+      "externalPath": "/job/Engineering_Director-103",
+      "locationsText": "New York, NY, United States of America",
+      "postedOn": "Posted 7 Days Ago",
+      "jobReqId": "REQ-103",
+      "jobFamily": "Engineering"
+    }
+  ]
+}

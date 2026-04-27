@@ -1,0 +1,21 @@
+[
+  {
+    "id": "no-categories",
+    "text": "Job with no categories",
+    "hostedUrl": "https://jobs.lever.co/edge/no-categories",
+    "createdAt": 1709000000000,
+    "description": "<style>body{}</style><p>HTML body only.</p>"
+  },
+  {
+    "id": "no-timestamps",
+    "text": "  Job with leading/trailing space  ",
+    "hostedUrl": "https://jobs.lever.co/edge/no-timestamps",
+    "categories": {}
+  },
+  {
+    "id": "no-timestamps",
+    "text": "Same id returned twice",
+    "hostedUrl": "https://jobs.lever.co/edge/no-timestamps",
+    "categories": {}
+  }
+]

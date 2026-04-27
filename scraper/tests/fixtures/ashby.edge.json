@@ -1,0 +1,21 @@
+{
+  "apiVersion": "1",
+  "jobs": [
+    {
+      "id": "no-description",
+      "title": "Job without description",
+      "jobUrl": "https://jobs.ashbyhq.com/edge/no-description"
+    },
+    {
+      "id": "html-only",
+      "title": "Job with HTML-only description",
+      "jobUrl": "https://jobs.ashbyhq.com/edge/html-only",
+      "descriptionHtml": "<script>x()</script><p>Real text.</p>"
+    },
+    {
+      "id": "html-only",
+      "title": "Repeated id (server returned twice)",
+      "jobUrl": "https://jobs.ashbyhq.com/edge/html-only"
+    }
+  ]
+}

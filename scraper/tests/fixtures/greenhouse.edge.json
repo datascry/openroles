@@ -1,0 +1,28 @@
+{
+  "jobs": [
+    {
+      "id": "job-without-numeric-id",
+      "title": "  Engineer with weird id  ",
+      "absolute_url": "https://boards.greenhouse.io/edge/jobs/weird-id",
+      "location": { "name": "" },
+      "departments": [],
+      "offices": [],
+      "content": ""
+    },
+    {
+      "id": 999,
+      "title": "Job with HTML entities &amp; <em>tags</em>",
+      "absolute_url": "https://boards.greenhouse.io/edge/jobs/999",
+      "updated_at": "2026-04-21T12:00:00.000Z",
+      "location": { "name": "Tokyo, JP" },
+      "content": "<style>body{color:red}</style><script>alert(1)</script><p>Real body</p>"
+    },
+    {
+      "id": 999,
+      "title": "Same id returned twice",
+      "absolute_url": "https://boards.greenhouse.io/edge/jobs/999",
+      "location": { "name": "Tokyo, JP" }
+    }
+  ],
+  "meta": { "total": 3 }
+}

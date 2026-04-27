@@ -1,0 +1,17 @@
+[
+  {
+    "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    "text": "Founding Engineer",
+    "hostedUrl": "https://jobs.lever.co/tinyco/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    "createdAt": 1709000000000,
+    "updatedAt": 1709500000000,
+    "workplaceType": "remote",
+    "categories": {
+      "team": "Engineering",
+      "department": "Engineering",
+      "location": "Remote",
+      "commitment": "Full-time"
+    },
+    "descriptionPlain": "Build the product from zero to one."
+  }
+]

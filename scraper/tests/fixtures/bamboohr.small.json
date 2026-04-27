@@ -1,0 +1,14 @@
+{
+  "result": [
+    {
+      "id": 1,
+      "jobOpeningName": "Founding Engineer",
+      "departmentLabel": "Engineering",
+      "locationCity": "Remote",
+      "isRemote": true,
+      "datePosted": "2026-04-01",
+      "description": "<p>Founding role.</p>"
+    }
+  ],
+  "meta": { "totalRecords": 1 }
+}

@@ -1,0 +1,15 @@
+{
+  "apiVersion": "1",
+  "jobs": [
+    {
+      "id": "ashby-only",
+      "title": "Founding Engineer",
+      "departmentName": "Engineering",
+      "location": "Remote",
+      "isRemote": true,
+      "publishedAt": "2026-04-20T00:00:00.000Z",
+      "jobUrl": "https://jobs.ashbyhq.com/tinyco/ashby-only",
+      "descriptionPlain": "Build it from zero."
+    }
+  ]
+}

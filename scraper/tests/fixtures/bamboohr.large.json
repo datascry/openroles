@@ -1,0 +1,38 @@
+{
+  "result": [
+    {
+      "id": 12345,
+      "jobOpeningName": "Senior Backend Engineer",
+      "departmentLabel": "Engineering",
+      "employmentStatusLabel": "Full-Time",
+      "locationCity": "Austin",
+      "locationState": "TX",
+      "locationCountry": "United States",
+      "isRemote": "No",
+      "datePosted": "2026-04-22",
+      "description": "<p>Build the backend systems that power our app.</p>"
+    },
+    {
+      "id": 12346,
+      "jobOpeningName": "Director of People",
+      "departmentLabel": "People",
+      "employmentStatusLabel": "Full-Time",
+      "locationCity": "Remote",
+      "locationCountry": "United States",
+      "isRemote": "Yes",
+      "datePosted": "2026-04-23",
+      "description": "<p>Lead our people function.</p>"
+    },
+    {
+      "id": "12347",
+      "jobOpeningName": "Talent Sourcer",
+      "departmentLabel": "People",
+      "locationCity": "London",
+      "locationCountry": "United Kingdom",
+      "isRemote": false,
+      "datePosted": "2026-04-24",
+      "description": "<p>Source candidates across Europe.</p>"
+    }
+  ],
+  "meta": { "totalRecords": 3 }
+}

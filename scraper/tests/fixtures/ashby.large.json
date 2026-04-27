@@ -1,0 +1,42 @@
+{
+  "apiVersion": "1",
+  "jobs": [
+    {
+      "id": "ashby-001",
+      "title": "Principal Engineer, Infrastructure",
+      "departmentName": "Engineering",
+      "team": "Platform",
+      "location": "San Francisco, CA",
+      "secondaryLocations": [],
+      "employmentType": "FullTime",
+      "isRemote": false,
+      "publishedAt": "2026-04-22T17:14:00.000Z",
+      "updatedAt": "2026-04-25T09:03:00.000Z",
+      "jobUrl": "https://jobs.ashbyhq.com/example/ashby-001",
+      "applyUrl": "https://jobs.ashbyhq.com/example/ashby-001/apply",
+      "descriptionHtml": "<p>Lead architecture for our infrastructure stack.</p>",
+      "descriptionPlain": "Lead architecture for our infrastructure stack."
+    },
+    {
+      "id": "ashby-002",
+      "title": "Senior Data Engineer",
+      "departmentName": "Data",
+      "location": "Remote",
+      "isRemote": true,
+      "publishedAt": "2026-04-23T10:00:00.000Z",
+      "updatedAt": "2026-04-25T08:00:00.000Z",
+      "jobUrl": "https://jobs.ashbyhq.com/example/ashby-002",
+      "descriptionPlain": "Build the next-generation data warehouse."
+    },
+    {
+      "id": "ashby-003",
+      "title": "Recruiter, Engineering",
+      "departmentName": "Talent",
+      "location": "New York, NY",
+      "isRemote": false,
+      "publishedAt": "2026-04-24T12:00:00.000Z",
+      "jobUrl": "https://jobs.ashbyhq.com/example/ashby-003",
+      "descriptionPlain": "Find and hire engineering talent."
+    }
+  ]
+}
