@@ -13,7 +13,6 @@
 // manifest-runtime.ts so it can be unit-tested in bun:test without a Worker
 // environment. This file is the Web-Worker glue and is exercised by Playwright.
 
-import type { QueryPlan } from "./filter-sql.ts";
 import { buildRuntimeUrls, fetchManifest, type ManifestRuntime } from "./manifest-runtime.ts";
 
 export type { ManifestRuntime, RuntimeUrls } from "./manifest-runtime.ts";
@@ -74,8 +73,4 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
       // close() is effectively a marker that future usage is invalid.
     },
   };
-}
-
-export function runPlan<T>(db: ClientDb, plan: QueryPlan): Promise<T[]> {
-  return db.query<T>(plan.sql, plan.params);
 }

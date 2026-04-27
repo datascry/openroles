@@ -42,28 +42,89 @@ test.describe("index page smoke", () => {
 
   test("renders job results from the fixture database", async ({ page }) => {
     await page.goto(INDEX);
-    // The fixture has 4 jobs across greenhouse/lever/ashby. Wait for results.
+    // Fixture has 4 headline jobs (Stripe/Vercel/Linear) + 52 filler rows so
+    // pagination has something to do; assert the headline rows are visible
+    // rather than a fixed count, which is robust to fixture growth.
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
-    const items = results.locator("li.job");
-    await expect(items).toHaveCount(4, { timeout: 15_000 });
-    // Each company appears at least once; .first() avoids strict-mode collisions
-    // for companies with multiple postings (Stripe has 2 in the fixture).
     await expect(results.locator(".company", { hasText: "Stripe" }).first()).toBeVisible();
     await expect(results.locator(".company", { hasText: "Vercel" }).first()).toBeVisible();
     await expect(results.locator(".company", { hasText: "Linear" }).first()).toBeVisible();
   });
 
-  test("clicking an ATS chip narrows the result set", async ({ page }) => {
+  test("clicking an ATS chip narrows the result set to that ATS only", async ({ page }) => {
     await page.goto(INDEX);
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
-    await expect(results.locator("li.job")).toHaveCount(4, { timeout: 15_000 });
-    // Toggle greenhouse only; fixture has 2 greenhouse jobs.
+    // Wait until rows render; lever/ashby are present in the unfiltered set.
+    await expect(results.locator(".ats", { hasText: "lever" }).first()).toBeVisible({
+      timeout: 15_000,
+    });
     await page.getByRole("checkbox", { name: "greenhouse" }).click();
-    await expect(results.locator("li.job")).toHaveCount(2, { timeout: 5_000 });
-    await expect(results.locator(".company", { hasText: "Stripe" }).first()).toBeVisible();
-    await expect(results.locator(".company", { hasText: "Vercel" })).toHaveCount(0);
+    // Assert the property — only greenhouse rows remain — rather than the
+    // fixture cardinality, so the test survives fixture growth. (Audit m5.)
+    await expect(results.locator(".ats", { hasText: "lever" })).toHaveCount(0, { timeout: 5_000 });
+    await expect(results.locator(".ats", { hasText: "ashby" })).toHaveCount(0);
+    await expect(results.locator(".ats", { hasText: "greenhouse" }).first()).toBeVisible();
+  });
+
+  test("pager renders when total exceeds page size and prev/next navigates pages", async ({
+    page,
+  }) => {
+    await page.goto(INDEX);
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    const pager = page.getByTestId("pager");
+    await expect(pager).toBeVisible({ timeout: 15_000 });
+    await expect(pager.getByText(/Page 1 of/)).toBeVisible();
+    // Prev is disabled on page 1.
+    await expect(pager.getByRole("button", { name: "Previous page" })).toBeDisabled();
+    // Click next; page indicator updates and URL reflects ?page=2.
+    await pager.getByRole("button", { name: "Next page" }).click();
+    await expect(pager.getByText(/Page 2 of/)).toBeVisible();
+    await expect(page).toHaveURL(/[?&]page=2(\b|&|$)/);
+  });
+
+  test("save button toggles aria-pressed and persists across navigation", async ({ page }) => {
+    await page.goto(INDEX);
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    const stripeRow = results
+      .locator("li.job")
+      .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
+      .first();
+    const saveBtn = stripeRow.getByRole("button", { name: /Save/ });
+    await expect(saveBtn).toHaveAttribute("aria-pressed", "false");
+    await saveBtn.click();
+    await expect(saveBtn).toHaveAttribute("aria-pressed", "true");
+    // Reload and confirm persistence via localStorage.
+    await page.reload();
+    const reloadedRow = page
+      .getByTestId("job-results")
+      .locator("li.job")
+      .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
+      .first();
+    await expect(reloadedRow.getByRole("button", { name: /★ Saved/ })).toBeVisible({
+      timeout: 15_000,
+    });
+  });
+
+  test("ignore button removes the row from the visible set", async ({ page }) => {
+    await page.goto(INDEX);
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    // Wait for Linear (the only mid-level non-filler) to render before clicking.
+    const linearCompany = results.locator(".company", { hasText: "Linear" }).first();
+    await expect(linearCompany).toBeVisible({ timeout: 15_000 });
+    const linearRow = results
+      .locator("li.job")
+      .filter({ has: page.locator(".company", { hasText: "Linear" }) })
+      .first();
+    await linearRow.getByRole("button", { name: /^Ignore$/ }).click();
+    // With "Hide ignored" on by default, the Linear row disappears.
+    await expect(results.locator(".company", { hasText: "Linear" })).toHaveCount(0, {
+      timeout: 5_000,
+    });
   });
 });
 

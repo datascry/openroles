@@ -11,7 +11,7 @@
     "build": "bun run scripts/copy-sqlite-vfs.ts && bun --bun astro build",
     "preview": "bun --bun astro preview",
     "e2e": "playwright test",
-    "lighthouse": "lhci autorun",
+    "lighthouse": "playwright test --project=lighthouse",
     "size-limit": "size-limit",
     "vfs:copy": "bun run scripts/copy-sqlite-vfs.ts"
   },
@@ -31,6 +31,8 @@
     "@testing-library/svelte": "5.3.1",
     "@types/bun": "1.3.13",
     "fast-check": "4.7.0",
+    "lighthouse": "13.1.0",
+    "playwright-lighthouse": "4.0.0",
     "size-limit": "12.1.0"
   }
 }

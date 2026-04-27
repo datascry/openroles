@@ -24,7 +24,8 @@ const DATA_DIR = process.env["FIXTURE_OUT_DIR"]
   ? process.env["FIXTURE_OUT_DIR"]
   : join(SITE_ROOT, "public", "data");
 
-// 7-hex-char placeholder sha matching the canonical jobs.{sha}.sqlite shape.
+// 7-hex-char fixture sha (deterministic, not a real git sha) matching the
+// canonical jobs.{sha}.sqlite shape required by the manifest schema.
 const FIXTURE_SHA = "f1c50f0";
 const BUILT_AT = "2026-04-26T00:00:00Z";
 
@@ -72,7 +73,7 @@ function makeJob(args: {
   };
 }
 
-const jobs: Job[] = [
+const headlineJobs: Job[] = [
   makeJob({
     ats: "greenhouse",
     tenant_slug: "stripe",
@@ -118,6 +119,27 @@ const jobs: Job[] = [
     posted_at: "2026-04-15T10:00:00Z",
   }),
 ];
+
+// Pad with deterministic filler jobs so the fixture has enough rows to
+// exercise pagination (PAGE_SIZE = 50 in the FilterTable). Filler companies
+// stay distinct from the headline jobs so e2e assertions on Stripe/Vercel/
+// Linear remain unambiguous.
+const FILLER_COUNT = 52;
+const fillerJobs: Job[] = Array.from({ length: FILLER_COUNT }, (_, i) =>
+  makeJob({
+    ats: "greenhouse",
+    tenant_slug: "filler",
+    source_id: `filler-${i.toString().padStart(3, "0")}`,
+    title: `Engineering Role ${i + 1}`,
+    company: `Filler Co ${(i % 7) + 1}`,
+    level: "mid",
+    workplace_type: "remote",
+    url: `https://boards.greenhouse.io/filler/jobs/${i + 1}`,
+    posted_at: `2026-04-${(1 + (i % 14)).toString().padStart(2, "0")}T08:00:00Z`,
+  }),
+);
+
+const jobs: Job[] = [...headlineJobs, ...fillerJobs];
 
 const tenants: Tenant[] = [
   {

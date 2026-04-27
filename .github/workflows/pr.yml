@@ -105,23 +105,11 @@ jobs:
       - run: bun run build
       - run: bun run size-limit
 
-  lighthouse:
-    name: Lighthouse CI
-    runs-on: ubuntu-24.04
-    if: false  # awaiting site/lighthouserc.cjs + @lhci/cli (see CHANGELOG [Unreleased])
-    steps:
-      - uses: actions/checkout@v5
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
-      - run: bun run build
-      - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
-        with:
-          configPath: ./site/lighthouserc.cjs
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+  # The Lighthouse audit runs as the "lighthouse" Playwright project, executed
+  # by the e2e job above (`bun run e2e` runs every project, including this one).
+  # Keeping it inside the Playwright runner means one webServer, one
+  # globalSetup (so the fixture DB is loaded for the audit), and one set of
+  # browser binaries to install — see site/tests/e2e/lighthouse.spec.ts.
 
   codeql:
     name: CodeQL

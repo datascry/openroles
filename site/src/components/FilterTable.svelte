@@ -1,5 +1,7 @@
 <script lang="ts">
 // biome-ignore lint/correctness/noUnusedImports: ATS_IDS / WORKPLACE_TYPES are used in the Svelte template (each block) below
+
+import type { Job } from "@openroles/shared";
 import { ATS_IDS, LEVELS, WORKPLACE_TYPES } from "@openroles/shared/constants";
 import { onMount } from "svelte";
 import { type ClientDb, loadClientDb } from "../lib/client-db.ts";
@@ -9,8 +11,17 @@ import {
   decodeFilterState,
   encodeFilterState,
   type FilterState,
+  type SinceWindow,
   type SortOption,
 } from "../lib/filter-state.ts";
+import {
+  loadApplied,
+  loadIgnored,
+  loadSaved,
+  markApplied,
+  toggleIgnored,
+  toggleSaved,
+} from "../lib/storage.ts";
 
 interface Props {
   basePath?: string;
@@ -20,19 +31,32 @@ const { basePath = "" }: Props = $props();
 
 const NON_NULL_LEVELS = LEVELS.filter((l): l is NonNullable<(typeof LEVELS)[number]> => l !== null);
 
-interface JobRow {
-  id: string;
-  ats: string;
-  tenant_slug: string;
-  title: string;
-  company: string;
-  location_text: string | null;
-  level: string | null;
-  workplace_type: string | null;
-  is_recruiter_post: number;
-  posted_at: string | null;
-  url: string;
-}
+const SINCE_OPTIONS: ReadonlyArray<{ value: SinceWindow; label: string }> = [
+  { value: "all", label: "Any time" },
+  { value: "24h", label: "Last 24h" },
+  { value: "7d", label: "Last 7 days" },
+  { value: "30d", label: "Last 30 days" },
+];
+
+const PAGE_SIZE = 50;
+
+// Pick the columns the SELECT projects so the row type stays in lockstep with
+// shared/src/schema/job.ts. SQLite returns booleans as 0/1, so override the
+// is_recruiter_post field. `import type { Job }` is erased at compile time —
+// no zod weight reaches the client bundle.
+type JobRow = Pick<
+  Job,
+  | "id"
+  | "ats"
+  | "tenant_slug"
+  | "title"
+  | "company"
+  | "location_text"
+  | "level"
+  | "workplace_type"
+  | "posted_at"
+  | "url"
+> & { is_recruiter_post: 0 | 1 };
 
 type DbStatus = "loading" | "ready" | "error";
 
@@ -52,6 +76,60 @@ let queryError: string | null = $state(null);
 let rows: JobRow[] = $state([]);
 let totalCount: number = $state(0);
 let queryToken: number = 0;
+
+// localStorage-backed sets for saved / applied / ignored job ids. Read once
+// on mount; each toggle re-reads + writes to keep cross-tab consistency
+// loose-but-correct (a write from another tab is picked up on next render).
+let savedIds: ReadonlyArray<string> = $state([]);
+let appliedIds: ReadonlyArray<string> = $state([]);
+let ignoredIds: ReadonlyArray<string> = $state([]);
+let hideIgnored = $state(true);
+
+function refreshUserLists(): void {
+  if (typeof window === "undefined") return;
+  savedIds = loadSaved(window.localStorage).ids;
+  appliedIds = loadApplied(window.localStorage).entries.map((e) => e.id);
+  ignoredIds = loadIgnored(window.localStorage).ids;
+}
+
+function isSaved(id: string): boolean {
+  return savedIds.includes(id);
+}
+
+function isApplied(id: string): boolean {
+  return appliedIds.includes(id);
+}
+
+function isIgnored(id: string): boolean {
+  return ignoredIds.includes(id);
+}
+
+function onToggleSaved(id: string): void {
+  if (typeof window === "undefined") return;
+  toggleSaved(window.localStorage, id);
+  refreshUserLists();
+}
+
+function onToggleIgnored(id: string): void {
+  if (typeof window === "undefined") return;
+  toggleIgnored(window.localStorage, id);
+  refreshUserLists();
+}
+
+function onMarkApplied(id: string): void {
+  if (typeof window === "undefined") return;
+  markApplied(window.localStorage, id, new Date().toISOString());
+  refreshUserLists();
+}
+
+const visibleRows = $derived(hideIgnored ? rows.filter((r) => !isIgnored(r.id)) : rows);
+
+// Debounce window for query execution. Coalesces double-clicks and rapid
+// chip toggles so the worker does not pile up superseded queries behind the
+// live one. Audit-driven (Phase 8 review M4); 50 ms is fast enough to feel
+// instant, slow enough to coalesce.
+const QUERY_DEBOUNCE_MS = 50;
+let queryDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 
 function syncUrl(next: FilterState) {
   if (typeof window === "undefined") return;
@@ -92,13 +170,37 @@ function setSort(value: SortOption) {
   updateState({ sort: value });
 }
 
+function setSince(value: SinceWindow) {
+  updateState({ since: value });
+}
+
+function setMinComp(raw: string) {
+  if (raw.trim() === "") {
+    updateState({ minComp: undefined });
+    return;
+  }
+  const n = Number.parseInt(raw, 10);
+  if (Number.isFinite(n) && n >= 0) updateState({ minComp: n });
+}
+
+function gotoPage(page: number) {
+  if (page < 1) return;
+  state = { ...state, page };
+  syncUrl(state);
+}
+
 function resetAll() {
   state = { ...DEFAULT_FILTER_STATE };
   qInput = "";
   syncUrl(state);
 }
 
+const totalPages = $derived(Math.max(1, Math.ceil(totalCount / PAGE_SIZE)));
+const hasPrev = $derived(state.page > 1);
+const hasNext = $derived(state.page < totalPages);
+
 onMount(async () => {
+  refreshUserLists();
   try {
     clientDb = await loadClientDb({ basePath });
     dbStatus = "ready";
@@ -121,7 +223,7 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     rows = resultRows;
     totalCount = countRows[0]?.c ?? 0;
     queryError = null;
-    if (typeof console !== "undefined" && console.debug) {
+    if (import.meta.env.DEV && typeof console !== "undefined" && console.debug) {
       console.debug("filter-table:query", {
         rows: resultRows.length,
         total: totalCount,
@@ -135,7 +237,8 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     // = "error" for terminal load failures (worker bootstrap / manifest
     // fetch). Audit-driven (Phase 8 review M3).
     queryError = err instanceof Error ? err.message : String(err);
-    if (typeof console !== "undefined" && console.error) {
+    // biome-ignore lint/suspicious/noConsole: dev-only diagnostic for query failures
+    if (import.meta.env.DEV && typeof console !== "undefined" && console.error) {
       console.error(
         "filter-table:query-failed",
         err,
@@ -149,14 +252,24 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
 }
 
 $effect(() => {
-  if (clientDb && dbStatus === "ready") {
-    void runQuery(state, clientDb);
-  }
+  // Read-track the fields runQuery depends on so the effect re-fires.
+  const snapshot = state;
+  const db = clientDb;
+  if (!db || dbStatus !== "ready") return;
+  if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
+  queryDebounceHandle = setTimeout(() => {
+    void runQuery(snapshot, db);
+  }, QUERY_DEBOUNCE_MS);
 });
 
-function formatPostedAt(iso: string | null): string {
+function formatPostedAt(iso: string | null | undefined): string {
   if (!iso) return "—";
-  return iso.slice(0, 10);
+  // Round-trip through Date so the YYYY-MM-DD slice survives any future
+  // schema drift (e.g. RFC 3339 offsets like `+00:00` instead of `Z`).
+  // Audit-driven (Phase 8 review m7).
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toISOString().slice(0, 10);
 }
 </script>
 
@@ -214,6 +327,31 @@ function formatPostedAt(iso: string | null): string {
     {/each}
   </fieldset>
 
+  <label class="since-label">
+    <span>Posted within</span>
+    <select
+      value={state.since}
+      onchange={(e) => setSince((e.currentTarget as HTMLSelectElement).value as SinceWindow)}
+    >
+      {#each SINCE_OPTIONS as opt (opt.value)}
+        <option value={opt.value}>{opt.label}</option>
+      {/each}
+    </select>
+  </label>
+
+  <label class="min-comp-label">
+    <span>Min comp (USD)</span>
+    <input
+      type="number"
+      min="0"
+      step="1000"
+      inputmode="numeric"
+      placeholder="—"
+      value={state.minComp ?? ""}
+      onchange={(e) => setMinComp((e.currentTarget as HTMLInputElement).value)}
+    />
+  </label>
+
   <label class="recruiter-toggle">
     <input
       type="checkbox"
@@ -222,6 +360,15 @@ function formatPostedAt(iso: string | null): string {
         updateState({ hideRecruiter: (e.currentTarget as HTMLInputElement).checked })}
     />
     <span>Hide recruiter posts</span>
+  </label>
+
+  <label class="recruiter-toggle">
+    <input
+      type="checkbox"
+      checked={hideIgnored}
+      onchange={(e) => (hideIgnored = (e.currentTarget as HTMLInputElement).checked)}
+    />
+    <span>Hide ignored ({ignoredIds.length})</span>
   </label>
 
   <label class="sort-label">
@@ -242,7 +389,7 @@ function formatPostedAt(iso: string | null): string {
   <button type="button" class="reset" onclick={resetAll}>Reset</button>
 </section>
 
-<p class="results-status" aria-live="polite">
+<p class="results-status" aria-live="polite" aria-busy={dbStatus === "loading"}>
   {#if dbStatus === "ready"}
     {totalCount.toLocaleString()} {totalCount === 1 ? "job" : "jobs"} ·
     sort: {state.sort} · page {state.page}
@@ -259,7 +406,7 @@ function formatPostedAt(iso: string | null): string {
 </noscript>
 
 {#if dbStatus === "loading"}
-  <p class="data-pending" aria-live="polite" role="status">
+  <p class="data-pending">
     Loading data…
   </p>
 {:else if dbStatus === "error"}
@@ -274,9 +421,15 @@ function formatPostedAt(iso: string | null): string {
     <p class="data-empty" aria-live="polite">No jobs match the current filters.</p>
   {:else}
   <ul class="results" role="list" data-testid="job-results">
-    {#each rows as row (row.id)}
-      <li class="job">
-        <a href={row.url} class="job-title" rel="noopener noreferrer" target="_blank">
+    {#each visibleRows as row (row.id)}
+      <li class="job" class:applied={isApplied(row.id)}>
+        <a
+          href={row.url}
+          class="job-title"
+          rel="noopener noreferrer"
+          target="_blank"
+          onclick={() => onMarkApplied(row.id)}
+        >
           {row.title}
         </a>
         <p class="job-meta">
@@ -297,10 +450,50 @@ function formatPostedAt(iso: string | null): string {
           {#if row.is_recruiter_post}
             <span class="recruiter-badge"> · recruiter</span>
           {/if}
+          {#if isApplied(row.id)}
+            <span class="applied-badge"> · applied</span>
+          {/if}
         </p>
+        <div class="job-actions">
+          <button
+            type="button"
+            class="job-action save"
+            aria-pressed={isSaved(row.id)}
+            onclick={() => onToggleSaved(row.id)}
+          >
+            {isSaved(row.id) ? "★ Saved" : "☆ Save"}
+          </button>
+          <button
+            type="button"
+            class="job-action ignore"
+            aria-pressed={isIgnored(row.id)}
+            onclick={() => onToggleIgnored(row.id)}
+          >
+            {isIgnored(row.id) ? "Unignore" : "Ignore"}
+          </button>
+        </div>
       </li>
     {/each}
   </ul>
+  {#if totalPages > 1}
+    <nav class="pager" aria-label="Pagination" data-testid="pager">
+      <button
+        type="button"
+        disabled={!hasPrev}
+        onclick={() => gotoPage(state.page - 1)}
+        aria-label="Previous page"
+      >‹ Prev</button>
+      <span class="pager-status" aria-live="polite">
+        Page {state.page} of {totalPages.toLocaleString()}
+      </span>
+      <button
+        type="button"
+        disabled={!hasNext}
+        onclick={() => gotoPage(state.page + 1)}
+        aria-label="Next page"
+      >Next ›</button>
+    </nav>
+  {/if}
   {/if}
 {/if}
 
@@ -344,10 +537,25 @@ function formatPostedAt(iso: string | null): string {
     accent-color: var(--link, #0366d6);
   }
   .recruiter-toggle,
-  .sort-label {
+  .sort-label,
+  .since-label,
+  .min-comp-label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .min-comp-label input,
+  .since-label select,
+  .sort-label select {
+    min-height: 36px;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--surface-3, #ccc);
+    border-radius: var(--radius-2, 4px);
+    font-size: var(--font-size-1, 0.875rem);
+  }
+  .min-comp-label input {
+    width: 8rem;
   }
   .reset {
     align-self: start;
@@ -400,6 +608,55 @@ function formatPostedAt(iso: string | null): string {
   }
   .job-meta.secondary {
     color: var(--text-3, #777);
+  }
+  .job.applied {
+    opacity: 0.7;
+  }
+  .applied-badge {
+    color: var(--green-7, #1a7f37);
+    font-weight: 600;
+  }
+  .job-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .job-action {
+    min-height: 36px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--surface-3, #ccc);
+    background: var(--surface-1, #fff);
+    border-radius: var(--radius-2, 4px);
+    font-size: var(--font-size-1, 0.875rem);
+    cursor: pointer;
+  }
+  .job-action[aria-pressed="true"] {
+    background: var(--surface-2, #f6f8fa);
+    border-color: var(--link, #0366d6);
+  }
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: var(--size-3, 1rem);
+    margin-top: var(--size-3, 1rem);
+  }
+  .pager button {
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--surface-3, #ccc);
+    background: var(--surface-1, #fff);
+    border-radius: var(--radius-2, 4px);
+    font-size: var(--font-size-1, 0.875rem);
+  }
+  .pager button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .pager-status {
+    color: var(--text-2, #555);
+    font-size: var(--font-size-1, 0.875rem);
   }
   .visually-hidden {
     position: absolute;
