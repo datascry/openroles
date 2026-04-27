@@ -1,5 +1,7 @@
 import { Database } from "bun:sqlite";
 import {
+  ATS_IDS,
+  type ATSId,
   classifyLevel,
   classifyRecruiter,
   type Job,
@@ -54,14 +56,6 @@ export function buildDb(input: BuildDbInput, dbPath = ":memory:"): BuildDbResult
   db.exec(INDEX_DDL);
 
   const allJobs: Job[] = [];
-  const atsCounts: Record<string, number> = {
-    greenhouse: 0,
-    lever: 0,
-    ashby: 0,
-    bamboohr: 0,
-    workday: 0,
-    icims: 0,
-  };
   for (const out of input.outputs) {
     for (const job of out.jobs) {
       allJobs.push(classifyJob(job));
@@ -89,7 +83,6 @@ export function buildDb(input: BuildDbInput, dbPath = ":memory:"): BuildDbResult
     for (const j of jobs) {
       if (seenUrls.has(j.url)) continue;
       seenUrls.add(j.url);
-      atsCounts[j.ats] = (atsCounts[j.ats] ?? 0) + 1;
       insertJob.run({
         $id: j.id,
         $ats: j.ats,
@@ -142,6 +135,23 @@ export function buildDb(input: BuildDbInput, dbPath = ":memory:"): BuildDbResult
   const tenantsLive = (
     db.query("SELECT COUNT(*) AS c FROM tenants WHERE status='live'").get() as { c: number }
   ).c;
+  const atsRows = db.query("SELECT ats, COUNT(*) AS c FROM jobs GROUP BY ats").all() as Array<{
+    ats: string;
+    c: number;
+  }>;
+  const atsCounts: Record<ATSId, number> = {
+    greenhouse: 0,
+    lever: 0,
+    ashby: 0,
+    bamboohr: 0,
+    workday: 0,
+    icims: 0,
+  };
+  for (const row of atsRows) {
+    if ((ATS_IDS as ReadonlyArray<string>).includes(row.ats)) {
+      atsCounts[row.ats as ATSId] = row.c;
+    }
+  }
 
   db.prepare(
     "INSERT INTO crawls (build_short_sha, built_at, total_rows, notes) VALUES (?, ?, ?, ?)",
@@ -156,14 +166,7 @@ export function buildDb(input: BuildDbInput, dbPath = ":memory:"): BuildDbResult
     short_sha: input.buildShortSha,
     db_filename: `jobs.${input.buildShortSha}.sqlite`,
     total_rows: totalRows,
-    ats_counts: {
-      greenhouse: atsCounts["greenhouse"] ?? 0,
-      lever: atsCounts["lever"] ?? 0,
-      ashby: atsCounts["ashby"] ?? 0,
-      bamboohr: atsCounts["bamboohr"] ?? 0,
-      workday: atsCounts["workday"] ?? 0,
-      icims: atsCounts["icims"] ?? 0,
-    },
+    ats_counts: atsCounts,
     tenants_total: tenantsTotal,
     tenants_live: tenantsLive,
   });

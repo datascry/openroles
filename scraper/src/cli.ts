@@ -96,6 +96,16 @@ export async function runScrapeCommand(argv: ReadonlyArray<string>): Promise<num
 
 const SHORT_SHA_RE = /^[0-9a-f]{7,40}$/;
 
+async function readJsonOrThrow(path: string): Promise<unknown> {
+  const text = await readFile(path, "utf8");
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(`build-db: failed to parse ${path}: ${msg}`);
+  }
+}
+
 export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<number> {
   const args = parseArgs(argv);
   if (args.help) {
@@ -120,18 +130,17 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
   const outputDir = args.outputDir ?? "./data";
   await mkdir(outputDir, { recursive: true });
 
-  const entries = (await readdir(args.input)).slice().sort();
+  const entries = (await readdir(args.input)).sort();
   const outputs: ScrapeOutput[] = [];
   for (const name of entries) {
     if (!name.endsWith(".json")) continue;
-    const raw = JSON.parse(await readFile(join(args.input, name), "utf8"));
-    outputs.push(ScrapeOutputSchema.parse(raw));
+    const path = join(args.input, name);
+    outputs.push(ScrapeOutputSchema.parse(await readJsonOrThrow(path)));
   }
 
   let tenants: Tenant[] = [];
   if (args.tenants !== undefined) {
-    const raw = JSON.parse(await readFile(args.tenants, "utf8"));
-    tenants = z.array(TenantSchema).parse(raw);
+    tenants = z.array(TenantSchema).parse(await readJsonOrThrow(args.tenants));
   }
 
   const builtAt = new Date().toISOString();

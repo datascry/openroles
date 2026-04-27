@@ -174,6 +174,52 @@ describe("runBuildDbCommand", () => {
     expect(manifest.total_rows).toBe(0);
   });
 
+  it("loads --tenants and reflects them in the manifest", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "out.json"), JSON.stringify(emptyOutput()));
+    const tenantsPath = join(dir, "tenants.json");
+    writeFileSync(
+      tenantsPath,
+      JSON.stringify([
+        {
+          ats: "greenhouse",
+          slug: "alpha",
+          status: "live",
+          last_probed_at: "2026-04-26T00:00:00Z",
+        },
+        { ats: "lever", slug: "beta", status: "dead", last_probed_at: "2026-04-26T00:00:00Z" },
+      ]),
+    );
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+      "--tenants",
+      tenantsPath,
+    ]);
+    expect(code).toBe(0);
+    const manifest = JSON.parse(readFileSync(join(outputDir, "manifest.json"), "utf8"));
+    expect(manifest.tenants_total).toBe(2);
+    expect(manifest.tenants_live).toBe(1);
+  });
+
+  it("wraps malformed scrape JSON with the file path in the error", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "broken.json"), "{not json");
+    await expect(
+      runBuildDbCommand(["--input", inputDir, "--output-dir", outputDir, "--short-sha", "abc1234"]),
+    ).rejects.toThrow(/broken\.json/);
+  });
+
   it("dispatches build-db via main() too", async () => {
     const dir = tmpDir();
     const inputDir = join(dir, "in");
