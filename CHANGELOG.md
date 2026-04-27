@@ -33,5 +33,10 @@ Do not hand-edit; edit commit messages instead.
 - Site build runs under Bun (`bun --bun astro build`) so endpoints and pages can use `bun:sqlite` directly at static-route generation time.
 - Common Crawl harvester: per-ATS regex patterns + deny-list (`scraper/src/harvest/patterns.ts`), CDX-index URL builder + JSON Lines parser, deterministic slug extractor that dedupes across snapshots, RFC-1123-style slug guard, and a liveness probe that maps HTTP results onto the `Tenant.status` enum (live / dead / transient_failure).
 - CLI `harvest` subcommand reads one or more CC-MAIN snapshots, extracts tenant slugs through the per-ATS regex, optionally probes each candidate, and writes `data/tenants/{ats}.json` atomically via tmp + rename.
+- Drift detector compares the current build's manifest against the previous build, emitting categorized findings (info / warn / error) for total-row drops, per-ATS drops, ATS counts that zeroed out, schema-version changes, and tenants_live drops.
+- Dead-tenant tracker walks a sequence of historical tenant snapshots and surfaces tenants that were dead in every snapshot of the trailing window, with deterministic (ats, slug) ordering.
+- Run-report generator renders a Markdown summary including build identity, totals, per-ATS counts, drift findings, and dead-tenant alerts; locale-stable number and duration formatting.
+- CLI `report` subcommand reads `data/manifest.json` plus per-ATS scrape outputs, optionally compares against `--previous-manifest` for drift, optionally walks `--tenants-history` for dead-tenant alerts, and exits non-zero when drift severity reaches `--fail-on` so CI fails loudly on regressions.
+- Mutation testing is deferred until StrykerJS gains first-class Bun support; the rationale is recorded in [ADR-0010](docs/adr/0010-phase-plan.md).
 
 [Unreleased]: https://github.com/datascry/openroles/compare/HEAD...HEAD
