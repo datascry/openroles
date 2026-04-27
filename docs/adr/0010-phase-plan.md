@@ -27,6 +27,7 @@ The implementation is sequenced into seven phases. **Each phase ends with a mand
 | 7 | Quality + observability: drift detector, dead-tenant alerts, run reports, mutation testing | 0.5 day |
 | 8 | Client-side query runtime: sql.js-httpvfs Worker, results rendering, hydration-verifying e2e | 0.5 day |
 | 9 | ATS breadth: widen the supported set from 6 to 12 (adds recruitee, breezy, personio, workable, teamtailor, smartrecruiters) — schema migration, harvest patterns, probes, and minimal scrapers for the 4 highest-volume additions | 1 day |
+| 10 | ATS long-tail: widen further from 12 to 24 (adds csod, taleo, ultipro, jobvite, zohorecruit, talentlyft, pinpointhq, applicantpro, applicantstack, homerun, factorial, eightfold) — harvest patterns and probes for all twelve, scrapers progress per follow-up commits as fixture-replay tests land. Empirical CC-MAIN-2026-12 sweep validated each addition with ≥ 47 distinct hosts. | 1 day |
 
 **Mutation testing in Phase 7 is deferred** — the established mutation-testing harnesses (StrykerJS) do not yet have first-class Bun support and run only against Node, requiring a parallel test harness. The unit-test suite already has property tests for every classifier and parser, schema-validation round-trips for every on-disk shape, and adversarial-audit gates per phase, which substantively cover the same defect-detection surface. We will revisit when StrykerJS adds Bun coverage natively or when a Bun-native mutator ships.
 

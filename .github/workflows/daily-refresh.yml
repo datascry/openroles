@@ -24,7 +24,7 @@ env:
   BUN_VERSION: "1.3.13"
   CONTACT_URL: "https://github.com/datascry/openroles"
   USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
-  ATS_LIST: "greenhouse lever ashby bamboohr workday icims recruitee breezy personio workable teamtailor smartrecruiters"
+  ATS_LIST: "greenhouse lever ashby bamboohr workday icims recruitee breezy personio workable teamtailor smartrecruiters csod taleo ultipro jobvite zohorecruit talentlyft pinpointhq applicantpro applicantstack homerun factorial eightfold"
 
 jobs:
   build:

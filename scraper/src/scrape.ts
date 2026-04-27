@@ -141,9 +141,23 @@ function dispatchPerAts(
       return scrapeWorkableTenant(opts);
     case "teamtailor":
     case "smartrecruiters":
+    case "csod":
+    case "taleo":
+    case "ultipro":
+    case "jobvite":
+    case "zohorecruit":
+    case "talentlyft":
+    case "pinpointhq":
+    case "applicantpro":
+    case "applicantstack":
+    case "homerun":
+    case "factorial":
+    case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher
       // surfaces the gap as transient_failure rather than a thrown error.
+      // Scrapers land progressively; tenants harvested today are already
+      // available for the moment a scraper ships.
       return Promise.resolve({
         jobs: [],
         result: {

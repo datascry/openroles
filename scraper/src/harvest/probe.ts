@@ -19,6 +19,24 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   teamtailor: (slug) => `https://${slug}.teamtailor.com/jobs.json`,
   smartrecruiters: (slug) =>
     `https://api.smartrecruiters.com/v1/companies/${slug}/postings?limit=1`,
+  csod: (slug) => `https://${slug}.csod.com/`,
+  // Taleo career sites live under either `{tenant}.taleo.net` or the TBE
+  // pool `{tenant}.tbe.taleo.net`; the careersection root returns 200 on both.
+  taleo: (slug) => `https://${slug}.taleo.net/careersection/`,
+  jobvite: (slug) => `https://jobs.jobvite.com/${slug}`,
+  zohorecruit: (slug) => `https://${slug}.zohorecruit.com/jobs/Careers`,
+  talentlyft: (slug) => `https://${slug}.talentlyft.com/`,
+  pinpointhq: (slug) => `https://${slug}.pinpointhq.com/`,
+  applicantpro: (slug) => `https://${slug}.applicantpro.com/jobs/`,
+  applicantstack: (slug) => `https://${slug}.applicantstack.com/`,
+  homerun: (slug) => `https://${slug}.homerun.co/`,
+  factorial: (slug) => `https://${slug}.factorialhr.com/`,
+  eightfold: (slug) => `https://${slug}.eightfold.ai/careers`,
+  // ultipro: deliberately omitted — `recruiting.ultipro.com/{CODE}/JobBoard/`
+  // requires a per-tenant GUID we cannot derive from the slug alone, so the
+  // probe would always return a misleading 404. Treated like workday: the
+  // dispatcher emits transient_failure and the caller may supply the
+  // tenant.metadata.{board_id} once a scraper lands.
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {
@@ -45,7 +63,10 @@ export async function probeOne(
   if (!SLUG_RE.test(slug)) {
     return { ats, slug, status: "dead", last_probed_at: observedAt };
   }
-  if (ats === "workday") {
+  // workday and ultipro both compose URLs from a (tenant_code + per-board
+  // GUID) pair we cannot derive from the slug alone; mark transient until
+  // the metadata is supplied.
+  if (ats === "workday" || ats === "ultipro") {
     return { ats, slug, status: "transient_failure", last_probed_at: observedAt };
   }
   try {

@@ -137,6 +137,84 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /careers\.smartrecruiters\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
     denyList: PATH_DENY,
   },
+  {
+    ats: "csod",
+    cdxQuery: "*.csod.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.csod\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "taleo",
+    // Two surface forms: bare `{tenant}.taleo.net/...` and the TBE pool
+    // `{tenant}.tbe.taleo.net/...`. Both use the first label as the slug.
+    cdxQuery: "*.taleo.net/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:\.tbe)?\.taleo\.net/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "ultipro",
+    // Path-based: recruiting.ultipro.com/{TENANT_CODE}/JobBoard/{guid}/...
+    // The slug is the first path segment, an uppercase alphanumeric code
+    // (5-32 chars). Lowercased on extraction so it round-trips through the
+    // shared SLUG_PATTERN, then uppercased again at probe/scrape URL time.
+    cdxQuery: "recruiting.ultipro.com/*",
+    regex: /recruiting\.ultipro\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+  },
+  {
+    ats: "jobvite",
+    cdxQuery: "jobs.jobvite.com/*",
+    regex: /jobs\.jobvite\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+  },
+  {
+    ats: "zohorecruit",
+    cdxQuery: "*.zohorecruit.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.zohorecruit\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "talentlyft",
+    cdxQuery: "*.talentlyft.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.talentlyft\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "pinpointhq",
+    cdxQuery: "*.pinpointhq.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.pinpointhq\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "applicantpro",
+    cdxQuery: "*.applicantpro.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applicantpro\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "applicantstack",
+    cdxQuery: "*.applicantstack.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applicantstack\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "homerun",
+    cdxQuery: "*.homerun.co/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.homerun\.co/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "factorial",
+    cdxQuery: "*.factorialhr.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.factorialhr\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "eightfold",
+    cdxQuery: "*.eightfold.ai/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.eightfold\.ai/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

@@ -45,11 +45,24 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("smartrecruiters", "stripe")).toContain(
       "api.smartrecruiters.com/v1/companies/stripe/postings",
     );
+    expect(probeUrlFor("csod", "stripe")).toBe("https://stripe.csod.com/");
+    expect(probeUrlFor("taleo", "aa067")).toBe("https://aa067.taleo.net/careersection/");
+    expect(probeUrlFor("jobvite", "stripe")).toBe("https://jobs.jobvite.com/stripe");
+    expect(probeUrlFor("zohorecruit", "stripe")).toContain("stripe.zohorecruit.com/jobs/Careers");
+    expect(probeUrlFor("talentlyft", "stripe")).toBe("https://stripe.talentlyft.com/");
+    expect(probeUrlFor("pinpointhq", "stripe")).toBe("https://stripe.pinpointhq.com/");
+    expect(probeUrlFor("applicantpro", "stripe")).toBe("https://stripe.applicantpro.com/jobs/");
+    expect(probeUrlFor("applicantstack", "stripe")).toBe("https://stripe.applicantstack.com/");
+    expect(probeUrlFor("homerun", "stripe")).toBe("https://stripe.homerun.co/");
+    expect(probeUrlFor("factorial", "stripe")).toBe("https://stripe.factorialhr.com/");
+    expect(probeUrlFor("eightfold", "stripe")).toBe("https://stripe.eightfold.ai/careers");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
-    // workday is intentionally absent; site/host pair are tenant metadata.
+    // workday and ultipro both compose URLs from a (tenant_code + GUID) pair
+    // we can't derive from the slug alone — they are intentionally absent.
     expect(() => probeUrlFor("workday", "stripe")).toThrow();
+    expect(() => probeUrlFor("ultipro", "ABC1002XYZ")).toThrow();
   });
 });
 

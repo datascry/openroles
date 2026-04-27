@@ -16,6 +16,18 @@ export const ATS_IDS = Object.freeze([
   "workable",
   "teamtailor",
   "smartrecruiters",
+  "csod",
+  "taleo",
+  "ultipro",
+  "jobvite",
+  "zohorecruit",
+  "talentlyft",
+  "pinpointhq",
+  "applicantpro",
+  "applicantstack",
+  "homerun",
+  "factorial",
+  "eightfold",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
