@@ -29,9 +29,7 @@ test.describe("index page smoke", () => {
     // SSR renders the chip <input> elements; only after hydration does clicking
     // a chip fire toggleAts → syncUrl(state) → history.replaceState. Asserting
     // on the URL change proves the island actually hydrated, not just that the
-    // SSR template rendered. (The earlier version of this test asserted on
-    // `getByRole("status")` and a sort <select> — both are present in the SSR
-    // shell and would pass even if hydration crashed entirely.)
+    // SSR template rendered.
     //
     // The island is `client:idle`, so hydration happens after the page idles.
     // We poll the click until the URL reflects the toggle: if Playwright clicks
@@ -40,6 +38,32 @@ test.describe("index page smoke", () => {
       await page.getByRole("checkbox", { name: "greenhouse" }).click();
       await expect(page).toHaveURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 500 });
     }).toPass({ timeout: 5_000 });
+  });
+
+  test("renders job results from the fixture database", async ({ page }) => {
+    await page.goto(INDEX);
+    // The fixture has 4 jobs across greenhouse/lever/ashby. Wait for results.
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    const items = results.locator("li.job");
+    await expect(items).toHaveCount(4, { timeout: 15_000 });
+    // Each company appears at least once; .first() avoids strict-mode collisions
+    // for companies with multiple postings (Stripe has 2 in the fixture).
+    await expect(results.locator(".company", { hasText: "Stripe" }).first()).toBeVisible();
+    await expect(results.locator(".company", { hasText: "Vercel" }).first()).toBeVisible();
+    await expect(results.locator(".company", { hasText: "Linear" }).first()).toBeVisible();
+  });
+
+  test("clicking an ATS chip narrows the result set", async ({ page }) => {
+    await page.goto(INDEX);
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    await expect(results.locator("li.job")).toHaveCount(4, { timeout: 15_000 });
+    // Toggle greenhouse only; fixture has 2 greenhouse jobs.
+    await page.getByRole("checkbox", { name: "greenhouse" }).click();
+    await expect(results.locator("li.job")).toHaveCount(2, { timeout: 5_000 });
+    await expect(results.locator(".company", { hasText: "Stripe" }).first()).toBeVisible();
+    await expect(results.locator(".company", { hasText: "Vercel" })).toHaveCount(0);
   });
 });
 

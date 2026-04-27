@@ -7,12 +7,13 @@
   "license": "MIT",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "dev": "bun --bun astro dev",
-    "build": "bun --bun astro build",
+    "dev": "bun run scripts/copy-sqlite-vfs.ts && bun --bun astro dev",
+    "build": "bun run scripts/copy-sqlite-vfs.ts && bun --bun astro build",
     "preview": "bun --bun astro preview",
     "e2e": "playwright test",
     "lighthouse": "lhci autorun",
-    "size-limit": "size-limit"
+    "size-limit": "size-limit",
+    "vfs:copy": "bun run scripts/copy-sqlite-vfs.ts"
   },
   "dependencies": {
     "@astrojs/svelte": "8.0.5",

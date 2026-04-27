@@ -1,0 +1,210 @@
+#!/usr/bin/env bun
+// Builds a deterministic fixture SQLite + manifest for e2e tests.
+// Output goes to site/public/data/, matching the daily-refresh layout.
+//
+// Used by Playwright globalSetup so the runtime FilterTable has a real
+// database to query against. Independent of any live ATS data.
+
+import { existsSync, rmSync, writeFileSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import type { Job, Tenant } from "@openroles/shared";
+import { jobId, levelRank } from "@openroles/shared";
+// Build-time-only import. The script runs from bun (not the browser bundle),
+// so reaching across the workspace is fine.
+import { buildDb } from "../../scraper/src/db/build-db.ts";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const SITE_ROOT = dirname(HERE);
+// Default to public/ (where Astro picks it up at next build); override with
+// FIXTURE_OUT_DIR to write directly into dist/data/ for already-built sites.
+const DATA_DIR = process.env["FIXTURE_OUT_DIR"]
+  ? process.env["FIXTURE_OUT_DIR"]
+  : join(SITE_ROOT, "public", "data");
+
+// 7-hex-char placeholder sha matching the canonical jobs.{sha}.sqlite shape.
+const FIXTURE_SHA = "f1c50f0";
+const BUILT_AT = "2026-04-26T00:00:00Z";
+
+function makeJob(args: {
+  ats: Job["ats"];
+  tenant_slug: string;
+  source_id: string;
+  title: string;
+  company: string;
+  level: Job["level"];
+  workplace_type: Job["workplace_type"];
+  url: string;
+  posted_at: string;
+}): Job {
+  const id = jobId({
+    ats: args.ats,
+    tenant_slug: args.tenant_slug,
+    source_id: args.source_id,
+    url: args.url,
+  });
+  return {
+    id,
+    ats: args.ats,
+    tenant_slug: args.tenant_slug,
+    source_id: args.source_id,
+    title: args.title,
+    company: args.company,
+    description_excerpt: `Excerpt for ${args.title} at ${args.company}.`,
+    level: args.level,
+    level_rank: levelRank(args.level),
+    workplace_type: args.workplace_type,
+    is_recruiter_post: false,
+    location_text: "Remote",
+    location_country: null,
+    location_region: null,
+    compensation_min: null,
+    compensation_max: null,
+    compensation_currency: null,
+    department: null,
+    posted_at: args.posted_at,
+    updated_at: args.posted_at,
+    first_seen_at: args.posted_at,
+    last_seen_at: args.posted_at,
+    url: args.url,
+  };
+}
+
+const jobs: Job[] = [
+  makeJob({
+    ats: "greenhouse",
+    tenant_slug: "stripe",
+    source_id: "stripe-1",
+    title: "Senior Software Engineer, Payments",
+    company: "Stripe",
+    level: "senior",
+    workplace_type: "remote",
+    url: "https://boards.greenhouse.io/stripe/jobs/1",
+    posted_at: "2026-04-20T10:00:00Z",
+  }),
+  makeJob({
+    ats: "greenhouse",
+    tenant_slug: "stripe",
+    source_id: "stripe-2",
+    title: "Staff Software Engineer, Infrastructure",
+    company: "Stripe",
+    level: "staff",
+    workplace_type: "hybrid",
+    url: "https://boards.greenhouse.io/stripe/jobs/2",
+    posted_at: "2026-04-22T10:00:00Z",
+  }),
+  makeJob({
+    ats: "lever",
+    tenant_slug: "vercel",
+    source_id: "vercel-a",
+    title: "Senior Frontend Engineer",
+    company: "Vercel",
+    level: "senior",
+    workplace_type: "remote",
+    url: "https://jobs.lever.co/vercel/a",
+    posted_at: "2026-04-18T10:00:00Z",
+  }),
+  makeJob({
+    ats: "ashby",
+    tenant_slug: "linear",
+    source_id: "linear-x",
+    title: "Software Engineer, Platform",
+    company: "Linear",
+    level: "mid",
+    workplace_type: "remote",
+    url: "https://jobs.ashbyhq.com/linear/x",
+    posted_at: "2026-04-15T10:00:00Z",
+  }),
+];
+
+const tenants: Tenant[] = [
+  {
+    ats: "greenhouse",
+    slug: "stripe",
+    display_name: "Stripe",
+    status: "live",
+    last_probed_at: BUILT_AT,
+  },
+  {
+    ats: "lever",
+    slug: "vercel",
+    display_name: "Vercel",
+    status: "live",
+    last_probed_at: BUILT_AT,
+  },
+  {
+    ats: "ashby",
+    slug: "linear",
+    display_name: "Linear",
+    status: "live",
+    last_probed_at: BUILT_AT,
+  },
+];
+
+async function main(): Promise<void> {
+  await mkdir(DATA_DIR, { recursive: true });
+  const dbPath = join(DATA_DIR, `jobs.${FIXTURE_SHA}.sqlite`);
+  // buildDb runs CREATE TABLE without IF NOT EXISTS; remove a prior fixture
+  // so re-running this script is idempotent.
+  if (existsSync(dbPath)) rmSync(dbPath);
+  const { db, manifest } = buildDb(
+    {
+      outputs: [
+        {
+          ats: "greenhouse",
+          jobs: jobs.filter((j) => j.ats === "greenhouse"),
+          tenant_results: [],
+          metrics: {
+            started_at: BUILT_AT,
+            finished_at: BUILT_AT,
+            duration_ms: 0,
+            requests_made: 0,
+            requests_failed: 0,
+            requests_retried: 0,
+            bytes_received: 0,
+          },
+        },
+        {
+          ats: "lever",
+          jobs: jobs.filter((j) => j.ats === "lever"),
+          tenant_results: [],
+          metrics: {
+            started_at: BUILT_AT,
+            finished_at: BUILT_AT,
+            duration_ms: 0,
+            requests_made: 0,
+            requests_failed: 0,
+            requests_retried: 0,
+            bytes_received: 0,
+          },
+        },
+        {
+          ats: "ashby",
+          jobs: jobs.filter((j) => j.ats === "ashby"),
+          tenant_results: [],
+          metrics: {
+            started_at: BUILT_AT,
+            finished_at: BUILT_AT,
+            duration_ms: 0,
+            requests_made: 0,
+            requests_failed: 0,
+            requests_retried: 0,
+            bytes_received: 0,
+          },
+        },
+      ],
+      tenants,
+      buildShortSha: FIXTURE_SHA,
+      builtAt: BUILT_AT,
+      notes: "e2e fixture",
+    },
+    dbPath,
+  );
+  db.close();
+  writeFileSync(join(DATA_DIR, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+  console.log(`build-fixture-db: ${jobs.length} jobs → ${dbPath}`);
+}
+
+await main();

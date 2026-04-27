@@ -61,7 +61,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </p>
       )}
 
-      <FilterTable client:idle />
+      <FilterTable client:idle basePath={base} />
 
       {tenants.length > 0 ? (
         <section class="tenants">

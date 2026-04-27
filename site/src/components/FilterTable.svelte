@@ -1,6 +1,9 @@
 <script lang="ts">
 // biome-ignore lint/correctness/noUnusedImports: ATS_IDS / WORKPLACE_TYPES are used in the Svelte template (each block) below
 import { ATS_IDS, LEVELS, WORKPLACE_TYPES } from "@openroles/shared/constants";
+import { onMount } from "svelte";
+import { type ClientDb, loadClientDb } from "../lib/client-db.ts";
+import { buildFilterCountQuery, buildFilterQuery } from "../lib/filter-sql.ts";
 import {
   DEFAULT_FILTER_STATE,
   decodeFilterState,
@@ -9,7 +12,29 @@ import {
   type SortOption,
 } from "../lib/filter-state.ts";
 
+interface Props {
+  basePath?: string;
+}
+
+const { basePath = "" }: Props = $props();
+
 const NON_NULL_LEVELS = LEVELS.filter((l): l is NonNullable<(typeof LEVELS)[number]> => l !== null);
+
+interface JobRow {
+  id: string;
+  ats: string;
+  tenant_slug: string;
+  title: string;
+  company: string;
+  location_text: string | null;
+  level: string | null;
+  workplace_type: string | null;
+  is_recruiter_post: number;
+  posted_at: string | null;
+  url: string;
+}
+
+type DbStatus = "loading" | "ready" | "error";
 
 let state: FilterState = $state(
   typeof window === "undefined"
@@ -19,6 +44,13 @@ let state: FilterState = $state(
 
 let qInput = $state(state.q);
 let qDebounceHandle: ReturnType<typeof setTimeout> | undefined;
+
+let clientDb: ClientDb | null = $state(null);
+let dbStatus: DbStatus = $state("loading");
+let dbError: string | null = $state(null);
+let rows: JobRow[] = $state([]);
+let totalCount: number = $state(0);
+let queryToken: number = 0;
 
 function syncUrl(next: FilterState) {
   if (typeof window === "undefined") return;
@@ -63,6 +95,63 @@ function resetAll() {
   state = { ...DEFAULT_FILTER_STATE };
   qInput = "";
   syncUrl(state);
+}
+
+onMount(async () => {
+  try {
+    clientDb = await loadClientDb({ basePath });
+    dbStatus = "ready";
+  } catch (err) {
+    dbStatus = "error";
+    dbError = err instanceof Error ? err.message : String(err);
+  }
+});
+
+async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> {
+  const token = ++queryToken;
+  const plan = buildFilterQuery(currentState);
+  const countPlan = buildFilterCountQuery(currentState);
+  try {
+    const [resultRows, countRows] = await Promise.all([
+      db.query<JobRow>(plan.sql, plan.params),
+      db.query<{ c: number }>(countPlan.sql, countPlan.params),
+    ]);
+    if (token !== queryToken) return; // a newer query already started
+    rows = resultRows;
+    totalCount = countRows[0]?.c ?? 0;
+    if (typeof console !== "undefined" && console.debug) {
+      console.debug("filter-table:query", {
+        rows: resultRows.length,
+        total: totalCount,
+        sql: plan.sql,
+      });
+    }
+  } catch (err) {
+    if (token !== queryToken) return;
+    dbStatus = "error";
+    dbError = err instanceof Error ? err.message : String(err);
+    if (typeof console !== "undefined" && console.error) {
+      console.error(
+        "filter-table:query-failed",
+        err,
+        "plan.sql=",
+        plan.sql,
+        "params=",
+        JSON.stringify(plan.params),
+      );
+    }
+  }
+}
+
+$effect(() => {
+  if (clientDb && dbStatus === "ready") {
+    void runQuery(state, clientDb);
+  }
+});
+
+function formatPostedAt(iso: string | null): string {
+  if (!iso) return "—";
+  return iso.slice(0, 10);
 }
 </script>
 
@@ -148,8 +237,15 @@ function resetAll() {
   <button type="button" class="reset" onclick={resetAll}>Reset</button>
 </section>
 
-<p class="results-status">
-  {state.q ? `Search: "${state.q}"` : "All jobs"} · sort: {state.sort} · page {state.page}
+<p class="results-status" aria-live="polite">
+  {#if dbStatus === "ready"}
+    {totalCount.toLocaleString()} {totalCount === 1 ? "job" : "jobs"} ·
+    sort: {state.sort} · page {state.page}
+  {:else if dbStatus === "loading"}
+    {state.q ? `Search: "${state.q}"` : "All jobs"} · sort: {state.sort} · page {state.page}
+  {:else}
+    Could not load the job database.
+  {/if}
 </p>
 
 <noscript>
@@ -157,9 +253,46 @@ function resetAll() {
     <code>sql.js-httpvfs</code>; results are rendered after the database loads.</p>
 </noscript>
 
-<p class="data-pending" aria-live="polite" role="status">
-  Loading data…
-</p>
+{#if dbStatus === "loading"}
+  <p class="data-pending" aria-live="polite" role="status">
+    Loading data…
+  </p>
+{:else if dbStatus === "error"}
+  <p class="data-error" role="alert">
+    {dbError ?? "Unknown error loading the database."}
+  </p>
+{:else if rows.length === 0}
+  <p class="data-empty" aria-live="polite">No jobs match the current filters.</p>
+{:else}
+  <ul class="results" role="list" data-testid="job-results">
+    {#each rows as row (row.id)}
+      <li class="job">
+        <a href={row.url} class="job-title" rel="noopener noreferrer" target="_blank">
+          {row.title}
+        </a>
+        <p class="job-meta">
+          <span class="company">{row.company}</span>
+          {#if row.location_text}
+            <span class="location"> · {row.location_text}</span>
+          {/if}
+          {#if row.level}
+            <span class="level"> · {row.level}</span>
+          {/if}
+          {#if row.workplace_type}
+            <span class="wt"> · {row.workplace_type}</span>
+          {/if}
+        </p>
+        <p class="job-meta secondary">
+          <span class="ats">{row.ats}</span>
+          <span class="posted-at"> · posted {formatPostedAt(row.posted_at)}</span>
+          {#if row.is_recruiter_post}
+            <span class="recruiter-badge"> · recruiter</span>
+          {/if}
+        </p>
+      </li>
+    {/each}
+  </ul>
+{/if}
 
 <style>
   .filters {
@@ -219,9 +352,44 @@ function resetAll() {
     color: var(--text-2, #555);
     font-size: var(--font-size-1, 0.875rem);
   }
-  .data-pending {
+  .data-pending,
+  .data-empty {
     padding: var(--size-3, 1rem);
     color: var(--text-2, #555);
+  }
+  .data-error {
+    padding: var(--size-3, 1rem);
+    color: var(--text-2, #b00020);
+    background: var(--surface-2, #fff5f5);
+    border: 1px solid currentcolor;
+    border-radius: var(--radius-2, 4px);
+    margin: var(--size-3, 1rem);
+  }
+  .results {
+    list-style: none;
+    padding: 0 var(--size-3, 1rem);
+    margin: 0;
+    display: grid;
+    gap: var(--size-3, 1rem);
+  }
+  .job {
+    padding: var(--size-3, 0.75rem);
+    border: 1px solid var(--surface-3, #ddd);
+    border-radius: var(--radius-2, 4px);
+    background: var(--surface-1, #fff);
+  }
+  .job-title {
+    font-weight: 600;
+    font-size: var(--font-size-3, 1.125rem);
+    color: var(--link, #0366d6);
+  }
+  .job-meta {
+    margin: 0.25rem 0 0;
+    color: var(--text-2, #555);
+    font-size: var(--font-size-1, 0.875rem);
+  }
+  .job-meta.secondary {
+    color: var(--text-3, #777);
   }
   .visually-hidden {
     position: absolute;
