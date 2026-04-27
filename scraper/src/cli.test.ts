@@ -2,7 +2,13 @@ import { describe, expect, it } from "bun:test";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { main, runBuildDbCommand, runHarvestCommand, runScrapeCommand } from "./cli.ts";
+import {
+  main,
+  runBuildDbCommand,
+  runHarvestCommand,
+  runReportCommand,
+  runScrapeCommand,
+} from "./cli.ts";
 
 function tmpDir(): string {
   return mkdtempSync(join(tmpdir(), "openroles-cli-"));
@@ -19,9 +25,209 @@ describe("main", () => {
     expect(code).toBe(1);
   });
 
-  it("returns 2 for unimplemented commands", async () => {
-    const code = await main(["bun", "cli.ts", "report"]);
+  it("returns 2 for unknown commands", async () => {
+    const code = await main(["bun", "cli.ts", "wat"]);
     expect(code).toBe(2);
+  });
+});
+
+const SAMPLE_MANIFEST = {
+  schema_version: "1.0.0",
+  built_at: "2026-04-26T00:00:00Z",
+  short_sha: "abc1234",
+  db_filename: "jobs.abc1234.sqlite",
+  total_rows: 12,
+  ats_counts: {
+    greenhouse: 5,
+    lever: 3,
+    ashby: 1,
+    bamboohr: 1,
+    workday: 1,
+    icims: 1,
+  },
+  tenants_total: 5,
+  tenants_live: 4,
+};
+
+function setupReportDir(): string {
+  const dir = tmpDir();
+  writeFileSync(join(dir, "manifest.json"), JSON.stringify(SAMPLE_MANIFEST));
+  writeFileSync(
+    join(dir, "greenhouse.json"),
+    JSON.stringify({
+      ats: "greenhouse",
+      jobs: [],
+      tenant_results: [],
+      metrics: {
+        started_at: "2026-04-26T00:00:00Z",
+        finished_at: "2026-04-26T00:00:00Z",
+        duration_ms: 1500,
+        requests_made: 10,
+        requests_failed: 1,
+        requests_retried: 1,
+        bytes_received: 4096,
+      },
+    }),
+  );
+  return dir;
+}
+
+describe("runReportCommand", () => {
+  it("returns 0 on --help", async () => {
+    expect(await runReportCommand(["--help"])).toBe(0);
+  });
+
+  it("renders a report and writes to --output", async () => {
+    const dir = setupReportDir();
+    const out = join(dir, "report.md");
+    const code = await runReportCommand(["--input", dir, "--output", out]);
+    expect(code).toBe(0);
+    const md = readFileSync(out, "utf8");
+    expect(md).toContain("openroles run report — abc1234");
+    expect(md).toContain("Jobs: **12**");
+  });
+
+  it("writes the report to stdout when --output is omitted", async () => {
+    const dir = setupReportDir();
+    const original = process.stdout.write.bind(process.stdout);
+    let captured = "";
+    process.stdout.write = ((chunk: string | Uint8Array) => {
+      captured += typeof chunk === "string" ? chunk : new TextDecoder().decode(chunk);
+      return true;
+    }) as typeof process.stdout.write;
+    try {
+      const code = await runReportCommand(["--input", dir]);
+      expect(code).toBe(0);
+    } finally {
+      process.stdout.write = original;
+    }
+    expect(captured).toContain("openroles run report");
+  });
+
+  it("compares against a previous manifest and includes drift findings", async () => {
+    const dir = setupReportDir();
+    const prevManifest = {
+      ...SAMPLE_MANIFEST,
+      total_rows: 100,
+      short_sha: "0000000",
+      ats_counts: {
+        greenhouse: 50,
+        lever: 25,
+        ashby: 10,
+        bamboohr: 10,
+        workday: 3,
+        icims: 2,
+      },
+    };
+    const prevPath = join(dir, "previous-manifest.json");
+    writeFileSync(prevPath, JSON.stringify(prevManifest));
+    const out = join(dir, "report.md");
+    const code = await runReportCommand([
+      "--input",
+      dir,
+      "--previous-manifest",
+      prevPath,
+      "--output",
+      out,
+      "--fail-on",
+      "warn",
+    ]);
+    // total_rows dropped 100 → 12 = 88% drop = error
+    expect(code).toBe(1);
+    const md = readFileSync(out, "utf8");
+    expect(md).toContain("total-rows-drop");
+  });
+
+  it("returns 0 when drift severity is below --fail-on", async () => {
+    const dir = setupReportDir();
+    const out = join(dir, "report.md");
+    const code = await runReportCommand(["--input", dir, "--output", out, "--fail-on", "error"]);
+    expect(code).toBe(0);
+  });
+
+  it("returns 0 with --fail-on=info on a stable build (no drift)", async () => {
+    const dir = setupReportDir();
+    const prevPath = join(dir, "previous-manifest.json");
+    writeFileSync(prevPath, JSON.stringify(SAMPLE_MANIFEST));
+    const out = join(dir, "report.md");
+    const code = await runReportCommand([
+      "--input",
+      dir,
+      "--previous-manifest",
+      prevPath,
+      "--output",
+      out,
+      "--fail-on",
+      "info",
+    ]);
+    expect(code).toBe(0);
+  });
+
+  it("returns 1 with --fail-on=info when only info findings are present (first build)", async () => {
+    const dir = setupReportDir();
+    const out = join(dir, "report.md");
+    // No --previous-manifest → drift returns one "first-build" info finding.
+    const code = await runReportCommand(["--input", dir, "--output", out, "--fail-on", "info"]);
+    expect(code).toBe(1);
+  });
+
+  it("includes dead-tenant alerts from --tenants-history", async () => {
+    const dir = setupReportDir();
+    const historyPath = join(dir, "history.json");
+    writeFileSync(
+      historyPath,
+      JSON.stringify([
+        {
+          observed_at: "2026-03-01T00:00:00Z",
+          tenants: [
+            {
+              ats: "greenhouse",
+              slug: "alpha",
+              status: "dead",
+              last_probed_at: "2026-03-01T00:00:00Z",
+            },
+          ],
+        },
+        {
+          observed_at: "2026-04-01T00:00:00Z",
+          tenants: [
+            {
+              ats: "greenhouse",
+              slug: "alpha",
+              status: "dead",
+              last_probed_at: "2026-04-01T00:00:00Z",
+            },
+          ],
+        },
+      ]),
+    );
+    const out = join(dir, "report.md");
+    const code = await runReportCommand([
+      "--input",
+      dir,
+      "--tenants-history",
+      historyPath,
+      "--consecutive-dead",
+      "2",
+      "--output",
+      out,
+    ]);
+    expect(code).toBe(0);
+    expect(readFileSync(out, "utf8")).toContain("| greenhouse | alpha |");
+  });
+
+  it("dispatches report via main() too", async () => {
+    const dir = setupReportDir();
+    const code = await main([
+      "bun",
+      "cli.ts",
+      "report",
+      "--input",
+      dir,
+      "--output",
+      join(dir, "r.md"),
+    ]);
+    expect(code).toBe(0);
   });
 });
 

@@ -4,6 +4,8 @@ import { join } from "node:path";
 import {
   type ATSId,
   ATSIdSchema,
+  type Manifest,
+  ManifestSchema,
   SCHEMA_VERSION,
   type ScrapeOutput,
   ScrapeOutputSchema,
@@ -16,6 +18,9 @@ import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
 import { runHarvest } from "./harvest/runner.ts";
 import { resolveLatestSnapshots } from "./harvest/snapshots.ts";
 import { HttpClient } from "./http.ts";
+import { detectDeadTenants, type TenantSnapshot } from "./observability/dead-tenants.ts";
+import { detectDrift, maxSeverity } from "./observability/drift.ts";
+import { renderRunReport } from "./observability/run-report.ts";
 import { RobotsTxtCache } from "./robots.ts";
 import { runScrape } from "./scrape.ts";
 
@@ -50,6 +55,14 @@ harvest:
   --skip-probe            Emit slugs without liveness probing
   --user-agent <ua>       Override the full User-Agent string
   --contact-url <url>     Contact URL interpolated into the default User-Agent (required if --user-agent is omitted)
+
+report:
+  --input <dir>           Directory containing manifest.json + per-ATS scrape outputs (default: ./data)
+  --previous-manifest <p> Optional path to the previous build's manifest.json for drift detection
+  --tenants-history <p>   Optional path to a JSON array of TenantSnapshot for dead-tenant analysis
+  --consecutive-dead <n>  Number of consecutive snapshots a tenant must be dead to be reported (default: 3)
+  --output <path>         Path to write the Markdown report (default: stdout)
+  --fail-on <severity>    Exit non-zero when drift severity reaches this level (info | warn | error; default: error)
 `);
 }
 
@@ -65,6 +78,10 @@ interface ParsedArgs {
   readonly skipProbe: boolean;
   readonly userAgent: string | undefined;
   readonly contactUrl: string | undefined;
+  readonly previousManifest: string | undefined;
+  readonly tenantsHistory: string | undefined;
+  readonly consecutiveDead: string | undefined;
+  readonly failOn: string | undefined;
   readonly help: boolean;
 }
 
@@ -80,6 +97,10 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
   let skipProbe = false;
   let userAgent: string | undefined;
   let contactUrl: string | undefined;
+  let previousManifest: string | undefined;
+  let tenantsHistory: string | undefined;
+  let consecutiveDead: string | undefined;
+  let failOn: string | undefined;
   let help = false;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -101,6 +122,10 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     else if (a === "--snapshots") snapshots = argv[++i];
     else if (a === "--user-agent") userAgent = argv[++i];
     else if (a === "--contact-url") contactUrl = argv[++i];
+    else if (a === "--previous-manifest") previousManifest = argv[++i];
+    else if (a === "--tenants-history") tenantsHistory = argv[++i];
+    else if (a === "--consecutive-dead") consecutiveDead = argv[++i];
+    else if (a === "--fail-on") failOn = argv[++i];
   }
   return {
     input,
@@ -114,6 +139,10 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     skipProbe,
     userAgent,
     contactUrl,
+    previousManifest,
+    tenantsHistory,
+    consecutiveDead,
+    failOn,
     help,
   };
 }
@@ -142,13 +171,13 @@ export async function runScrapeCommand(argv: ReadonlyArray<string>): Promise<num
 
 const SHORT_SHA_RE = /^[0-9a-f]{7,40}$/;
 
-async function readJsonOrThrow(path: string): Promise<unknown> {
+async function readJsonOrThrow(path: string, context: string = "read-json"): Promise<unknown> {
   const text = await readFile(path, "utf8");
   try {
     return JSON.parse(text);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    throw new Error(`build-db: failed to parse ${path}: ${msg}`);
+    throw new Error(`${context}: failed to parse ${path}: ${msg}`);
   }
 }
 
@@ -182,12 +211,12 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
   for (const name of entries) {
     if (!name.endsWith(".json")) continue;
     const path = join(args.input, name);
-    outputs.push(ScrapeOutputSchema.parse(await readJsonOrThrow(path)));
+    outputs.push(ScrapeOutputSchema.parse(await readJsonOrThrow(path, "build-db")));
   }
 
   let tenants: Tenant[] = [];
   if (args.tenants !== undefined) {
-    tenants = z.array(TenantSchema).parse(await readJsonOrThrow(args.tenants));
+    tenants = z.array(TenantSchema).parse(await readJsonOrThrow(args.tenants, "build-db"));
   }
 
   const builtAt = new Date().toISOString();
@@ -305,6 +334,76 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   return 0;
 }
 
+type FailSeverity = "info" | "warn" | "error";
+
+const SEVERITY_ORDER: Record<FailSeverity, number> = { info: 0, warn: 1, error: 2 };
+
+function parseFailOn(raw: string | undefined): FailSeverity {
+  if (raw === "info" || raw === "warn" || raw === "error") return raw;
+  return "error";
+}
+
+export async function runReportCommand(argv: ReadonlyArray<string>): Promise<number> {
+  const args = parseArgs(argv);
+  if (args.help) {
+    usage();
+    return 0;
+  }
+  const inputDir = args.input ?? "./data";
+  const manifestPath = join(inputDir, "manifest.json");
+  const manifest: Manifest = ManifestSchema.parse(await readJsonOrThrow(manifestPath, "report"));
+
+  const outputs: ScrapeOutput[] = [];
+  const entries = (await readdir(inputDir)).sort();
+  for (const name of entries) {
+    if (!name.endsWith(".json")) continue;
+    if (name === "manifest.json") continue;
+    if (name.startsWith("tenants")) continue;
+    const path = join(inputDir, name);
+    const parsed = ScrapeOutputSchema.safeParse(await readJsonOrThrow(path, "report"));
+    if (parsed.success) outputs.push(parsed.data);
+  }
+
+  let previous: Manifest | null = null;
+  if (args.previousManifest !== undefined) {
+    previous = ManifestSchema.parse(await readJsonOrThrow(args.previousManifest, "report"));
+  }
+  const drift = detectDrift(previous, manifest);
+
+  let deadTenants: ReturnType<typeof detectDeadTenants> = [];
+  if (args.tenantsHistory !== undefined) {
+    const history = z
+      .array(
+        z.object({
+          observed_at: z.string(),
+          tenants: z.array(TenantSchema),
+        }),
+      )
+      .parse(
+        await readJsonOrThrow(args.tenantsHistory, "report"),
+      ) satisfies ReadonlyArray<TenantSnapshot>;
+    const consecutive = Math.max(1, Number.parseInt(args.consecutiveDead ?? "3", 10) || 3);
+    deadTenants = detectDeadTenants(history, consecutive);
+  }
+
+  const md = renderRunReport({ manifest, outputs, drift, deadTenants });
+  if (args.output !== undefined) {
+    await writeFile(args.output, md);
+  } else {
+    process.stdout.write(md);
+  }
+
+  const failOn = parseFailOn(args.failOn);
+  if (drift.length > 0) {
+    const observed = maxSeverity(drift);
+    if (SEVERITY_ORDER[observed] >= SEVERITY_ORDER[failOn]) {
+      console.error(`report: drift severity ${observed} reached --fail-on=${failOn}`);
+      return 1;
+    }
+  }
+  return 0;
+}
+
 export async function main(argv: ReadonlyArray<string>): Promise<number> {
   const [, , command, ...rest] = argv;
   if (!command || command === "--help" || command === "-h") {
@@ -314,6 +413,7 @@ export async function main(argv: ReadonlyArray<string>): Promise<number> {
   if (command === "scrape") return await runScrapeCommand(rest);
   if (command === "build-db") return await runBuildDbCommand(rest);
   if (command === "harvest") return await runHarvestCommand(rest);
-  console.error(`Command '${command}' is not implemented yet (Phase 6+).`);
+  if (command === "report") return await runReportCommand(rest);
+  console.error(`Command '${command}' is not implemented yet.`);
   return 2;
 }
