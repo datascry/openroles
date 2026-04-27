@@ -16,7 +16,7 @@ on:
         default: true
 
 concurrency:
-  group: weekly-harvest
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 permissions:
@@ -48,14 +48,24 @@ jobs:
           SNAPSHOTS_INPUT: ${{ inputs.snapshots }}
         run: |
           mkdir -p data/tenants
+          # Probe by default. The empty-string case (scheduled run, no dispatch
+          # input) is the same as PROBE_INPUT=true; only an explicit "false"
+          # disables liveness probing.
           probe_flag=""
-          # Probe by default; pass --skip-probe only when the dispatch input is explicitly false.
           if [ "$PROBE_INPUT" = "false" ]; then probe_flag="--skip-probe"; fi
+          # Validate snapshots input shape before splatting it into argv —
+          # the dispatch input is otherwise free-form and could re-flag args.
           snap_flag=""
-          if [ -n "$SNAPSHOTS_INPUT" ]; then snap_flag="--snapshots $SNAPSHOTS_INPUT"; fi
+          if [ -n "$SNAPSHOTS_INPUT" ]; then
+            if ! printf '%s' "$SNAPSHOTS_INPUT" | grep -Eq '^[0-9]{4}-[0-9]{2}(,[0-9]{4}-[0-9]{2})*$'; then
+              echo "::error::snapshots input must match YYYY-NN(,YYYY-NN)*; got: $SNAPSHOTS_INPUT"
+              exit 1
+            fi
+            snap_flag="--snapshots=$SNAPSHOTS_INPUT"
+          fi
           for ats in $ATS_LIST; do
             echo "::group::harvest ${ats}"
-            bun run scraper/bin/openroles-scrape.ts harvest \
+            bun run harvest \
               --ats "$ats" \
               --user-agent "$USER_AGENT" \
               --output-dir "${GITHUB_WORKSPACE}/data" \

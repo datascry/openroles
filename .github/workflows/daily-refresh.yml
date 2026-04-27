@@ -12,7 +12,7 @@ on:
         default: true
 
 concurrency:
-  group: daily-refresh
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 permissions:
@@ -51,16 +51,37 @@ jobs:
 
       - name: Verify tenant lists are present
         run: |
+          # Tenant lists are checked-in inputs refreshed by weekly-harvest.yml.
+          # On a fresh repo where weekly-harvest has not yet run, the lists
+          # exist as empty arrays — daily-refresh proceeds, builds an empty
+          # SQLite, and the site renders the "manifest pending" empty state.
+          # This is the documented first-run behavior, not a regression.
+          total=0
           missing=0
+          empty=0
+          live_total=0
           for ats in $ATS_LIST; do
-            if [ ! -s "data/tenants/${ats}.json" ]; then
-              echo "::warning::data/tenants/${ats}.json is missing or empty — run weekly-harvest.yml to populate it"
+            total=$((total + 1))
+            file="data/tenants/${ats}.json"
+            if [ ! -f "$file" ]; then
+              echo "::warning::${file} not found — run weekly-harvest.yml to populate it"
               missing=$((missing + 1))
+              continue
             fi
+            count="$(jq 'length' "$file" 2>/dev/null || echo 0)"
+            live="$(jq '[.[] | select(.status == "live")] | length' "$file" 2>/dev/null || echo 0)"
+            if [ "$count" -eq 0 ]; then
+              empty=$((empty + 1))
+            fi
+            live_total=$((live_total + live))
           done
-          if [ "$missing" -eq 6 ]; then
-            echo "::error::no tenant lists found; cannot scrape"
-            exit 1
+          if [ "$missing" -gt 0 ]; then
+            echo "::warning::${missing} of ${total} tenant files are missing"
+          fi
+          if [ "$live_total" -eq 0 ]; then
+            echo "::warning::no live tenants across any ATS; this build will produce an empty SQLite (run weekly-harvest.yml to seed)"
+          else
+            echo "verify-tenants: ${live_total} live tenants across ${total} ATSes"
           fi
 
       - name: Build per-ATS scrape inputs from live tenants
@@ -92,7 +113,7 @@ jobs:
             if [ ! -s "$input" ]; then continue; fi
             count="$(jq '.tenants | length' "$input")"
             echo "::group::scrape ${ats} (${count} tenants)"
-            bun run scraper/bin/openroles-scrape.ts scrape \
+            bun run scrape \
               --input "$input" \
               --output "${GITHUB_WORKSPACE}/data/scrape-outputs/${ats}.json" || {
                 echo "::warning::scrape ${ats} failed; continuing with remaining ATSes"
@@ -106,7 +127,7 @@ jobs:
 
       - name: Build SQLite database
         run: |
-          bun run scraper/bin/openroles-scrape.ts build-db \
+          bun run build-db \
             --input "${GITHUB_WORKSPACE}/data/scrape-outputs" \
             --tenants "${GITHUB_WORKSPACE}/data/tenants-merged.json" \
             --short-sha "$BUILD_SHORT_SHA" \
@@ -115,8 +136,10 @@ jobs:
       - name: Run drift report (non-fatal)
         run: |
           # report reads manifest.json + ScrapeOutput JSONs from a single dir.
+          # Daily-refresh relies on cli.ts skipping `manifest.json` when it
+          # walks the dir for ScrapeOutputs (scraper/src/cli.ts:runReportCommand).
           cp data/manifest.json data/scrape-outputs/manifest.json
-          bun run scraper/bin/openroles-scrape.ts report \
+          bun run report \
             --input "${GITHUB_WORKSPACE}/data/scrape-outputs" \
             --output "${GITHUB_WORKSPACE}/data/run-report.md" \
             --fail-on error || echo "::warning::drift report flagged regressions; see artifact"
@@ -143,7 +166,7 @@ jobs:
           retention-days: 30
 
       - name: Upload Pages artifact
-        if: ${{ github.event_name == 'schedule' || inputs.deploy != 'false' }}
+        if: ${{ github.event_name == 'schedule' || inputs.deploy }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist
@@ -151,7 +174,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-    if: ${{ github.event_name == 'schedule' || inputs.deploy != 'false' }}
+    if: ${{ github.event_name == 'schedule' || inputs.deploy }}
     runs-on: ubuntu-24.04
     environment:
       name: github-pages

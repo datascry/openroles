@@ -65,7 +65,7 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
       - run: bun install --frozen-lockfile
       - name: Run tests with coverage
-        run: bun test --coverage
+        run: bun run test
       - name: Upload coverage to Codecov
         if: always()
         uses: codecov/codecov-action@v5
@@ -108,7 +108,7 @@ jobs:
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-24.04
-    if: false  # enabled in Phase 4
+    if: false  # awaiting site/lighthouserc.cjs + @lhci/cli (see CHANGELOG [Unreleased])
     steps:
       - uses: actions/checkout@v5
       - uses: oven-sh/setup-bun@v2

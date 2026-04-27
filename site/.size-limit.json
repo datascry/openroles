@@ -22,5 +22,11 @@
     "path": "dist/styles/*.css",
     "limit": "15 KB",
     "gzip": true
+  },
+  {
+    "name": "Index HTML (gzip; covers inlined CSS)",
+    "path": "dist/index.html",
+    "limit": "30 KB",
+    "gzip": true
   }
 ]

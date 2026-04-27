@@ -24,12 +24,22 @@ test.describe("index page smoke", () => {
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
   });
 
-  test("filter table island hydrates with interactive controls", async ({ page }) => {
+  test("filter table island hydrates and event handlers update the URL", async ({ page }) => {
     await page.goto(INDEX);
-    // Hydration is deferred to client:idle; wait for the loading status to appear,
-    // then for the interactive sort control rendered by the Svelte island.
-    await expect(page.getByRole("status").getByText(/loading data/i)).toBeVisible();
-    await expect(page.getByRole("combobox", { name: /sort/i })).toBeVisible();
+    // SSR renders the chip <input> elements; only after hydration does clicking
+    // a chip fire toggleAts → syncUrl(state) → history.replaceState. Asserting
+    // on the URL change proves the island actually hydrated, not just that the
+    // SSR template rendered. (The earlier version of this test asserted on
+    // `getByRole("status")` and a sort <select> — both are present in the SSR
+    // shell and would pass even if hydration crashed entirely.)
+    //
+    // The island is `client:idle`, so hydration happens after the page idles.
+    // We poll the click until the URL reflects the toggle: if Playwright clicks
+    // before the onchange handler is wired, the click is a no-op and we retry.
+    await expect(async () => {
+      await page.getByRole("checkbox", { name: "greenhouse" }).click();
+      await expect(page).toHaveURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 500 });
+    }).toPass({ timeout: 5_000 });
   });
 });
 
@@ -39,6 +49,7 @@ test.describe("RSS feed", () => {
   }) => {
     const res = await request.get(FEED);
     expect(res.status()).toBeLessThan(500);
+    expect(res.headers()["content-type"] ?? "").toMatch(/xml/i);
     const body = await res.text();
     // Astro pre-renders feed.xml at build time. Whatever body the route handler
     // returned for the unbuilt case is frozen into a static file (and served
