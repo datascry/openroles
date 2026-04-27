@@ -23,5 +23,8 @@ Do not hand-edit; edit commit messages instead.
 - HTTP client with project-identifying User-Agent, exponential backoff with jitter, `Retry-After` honoring, per-host robots.txt cache (24h TTL, fail-closed on 5xx/network), 30s timeout, no cookies.
 - Six ATS scrapers — Greenhouse, Lever, Ashby, BambooHR, Workday (paginated), iCIMS (sitemap + JSON-LD walk) — each with three fixture-replay tests, a determinism property test, retry coverage, and a robots.txt block test.
 - Scrape orchestrator with per-ATS p-limit concurrency, dispatch by ATS id, and a CLI `scrape` subcommand reading a `ScrapeInput` JSON file.
+- Level and recruiter classifiers as pure functions over title/department text, with property tests asserting determinism and closed-set output.
+- SQLite build pipeline (`bun:sqlite`): per-spec schema (jobs/tenants/crawls), seven covering indexes, and an FTS5 virtual table over title/company/description with porter+unicode61 tokenization; `page_size = 1024` matches the `sql.js-httpvfs` request chunk size, and `VACUUM` plus FTS `optimize` run as the final build step.
+- CLI `build-db` subcommand reads a directory of scrape outputs, validates them through the zod schema boundary, applies classifiers, writes `jobs.{sha}.sqlite`, and emits `manifest.json` alongside.
 
 [Unreleased]: https://github.com/datascry/openroles/compare/HEAD...HEAD
