@@ -6,14 +6,15 @@ const IsoUtc = z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z
 const SemVer = z.string().regex(/^\d+\.\d+\.\d+$/);
 const ShortSha = z.string().regex(/^[0-9a-f]{7,40}$/);
 
-const atsCountsShape: Record<ATSId, z.ZodNumber> = {
-  greenhouse: z.int().nonnegative(),
-  lever: z.int().nonnegative(),
-  ashby: z.int().nonnegative(),
-  bamboohr: z.int().nonnegative(),
-  workday: z.int().nonnegative(),
-  icims: z.int().nonnegative(),
-};
+// ats_counts is generated programmatically so the schema picks up new ATS
+// ids automatically as ATS_IDS widens. Each key defaults to 0 so old
+// manifests (built when ATS_IDS was narrower) remain readable; strict()
+// still rejects unknown keys to catch typos. Downstream readers can
+// `manifest.ats_counts[id]` without an undefined check because the parser
+// fills missing keys.
+const atsCountsShape = Object.fromEntries(
+  ATS_IDS.map((id) => [id, z.int().nonnegative().default(0)]),
+) as unknown as Record<ATSId, z.ZodDefault<z.ZodNumber>>;
 
 const ATSCountsSchema = z.object(atsCountsShape).strict();
 

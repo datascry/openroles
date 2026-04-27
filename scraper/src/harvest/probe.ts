@@ -12,6 +12,13 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // iCIMS slug = full subdomain label (most use a `careers-` prefix but many
   // use other branded prefixes; see harvest/patterns.ts).
   icims: (slug) => `https://${slug}.icims.com/sitemap.xml`,
+  recruitee: (slug) => `https://${slug}.recruitee.com/api/offers/`,
+  breezy: (slug) => `https://${slug}.breezy.hr/json`,
+  personio: (slug) => `https://${slug}.jobs.personio.com/xml`,
+  workable: (slug) => `https://apply.workable.com/api/v3/accounts/${slug}/jobs?limit=1`,
+  teamtailor: (slug) => `https://${slug}.teamtailor.com/jobs.json`,
+  smartrecruiters: (slug) =>
+    `https://api.smartrecruiters.com/v1/companies/${slug}/postings?limit=1`,
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {

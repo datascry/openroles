@@ -160,6 +160,248 @@ describe("runScrape", () => {
     expect(out.jobs).toHaveLength(1);
   });
 
+  it("dispatches recruitee against the public /api/offers/ endpoint", async () => {
+    server.use(
+      http.get("https://example.recruitee.com/api/offers/", () =>
+        HttpResponse.json({
+          offers: [
+            {
+              id: 42,
+              title: "Senior Software Engineer",
+              location: "Remote",
+              country_code: "us",
+              city: "Remote",
+              remote: true,
+              description: "Build cool stuff.",
+              careers_url: "https://example.recruitee.com/o/senior-software-engineer-42",
+              created_at: "2026-04-20T09:00:00Z",
+              department: "Engineering",
+            },
+          ],
+        }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "recruitee",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.workplace_type).toBe("remote");
+    expect(out.jobs[0]?.location_country).toBe("US");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches breezy against the public /json endpoint", async () => {
+    server.use(
+      http.get("https://example.breezy.hr/json", () =>
+        HttpResponse.json({
+          company: { name: "Example Inc" },
+          positions: [
+            {
+              _id: "abc123",
+              name: "Staff Engineer",
+              location: { name: "Berlin", country: { code: "de" }, city: { name: "Berlin" } },
+              category: { name: "Engineering" },
+              description: "Lead the platform.",
+              url: "https://example.breezy.hr/p/abc123",
+              published_date: "2026-04-22T12:00:00Z",
+              is_remote: false,
+            },
+          ],
+        }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "breezy",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.company).toBe("Example Inc");
+    expect(out.jobs[0]?.location_country).toBe("DE");
+    expect(out.jobs[0]?.workplace_type).toBeNull();
+  });
+
+  it("dispatches personio against the public /xml feed", async () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<workzag-jobs>
+  <position>
+    <id>9001</id>
+    <name>Backend Engineer</name>
+    <office>Munich</office>
+    <department>Engineering</department>
+    <createdAt>2026-04-18T08:00:00Z</createdAt>
+    <jobDescription>
+      <jobDescription>
+        <name>About</name>
+        <value>We build payment infra.</value>
+      </jobDescription>
+    </jobDescription>
+  </position>
+</workzag-jobs>`;
+    server.use(http.get("https://example.jobs.personio.com/xml", () => HttpResponse.xml(xml)));
+    const out = await runScrape({
+      input: {
+        ats: "personio",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.title).toBe("Backend Engineer");
+    expect(out.jobs[0]?.location_text).toBe("Munich");
+  });
+
+  it("dispatches workable against the apply.workable.com v3 API", async () => {
+    server.use(
+      http.get("https://apply.workable.com/api/v3/accounts/example/jobs", () =>
+        HttpResponse.json({
+          results: [
+            {
+              shortcode: "ABCD1234",
+              title: "Principal Engineer",
+              location: { country_code: "GB", city: "London", location_str: "London, UK" },
+              department: "Engineering",
+              workplace: "hybrid",
+              published_on: "2026-04-19T10:00:00Z",
+              description: "Lead architecture.",
+            },
+          ],
+        }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workable",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.workplace_type).toBe("hybrid");
+    expect(out.jobs[0]?.location_country).toBe("GB");
+  });
+
+  it("recruitee handles hybrid workplace_type and surfaces failures as errorToResult", async () => {
+    server.use(
+      http.get("https://hybridco.recruitee.com/api/offers/", () =>
+        HttpResponse.json({
+          offers: [
+            {
+              id: 1,
+              title: "Hybrid Role",
+              hybrid: true,
+              created_at: 1714000000, // epoch seconds
+            },
+          ],
+        }),
+      ),
+      http.get("https://broken.recruitee.com/api/offers/", () =>
+        HttpResponse.text("nope", { status: 503 }),
+      ),
+    );
+    const ok = await runScrape({
+      input: {
+        ats: "recruitee",
+        tenants: [{ slug: "hybridco" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(ok.jobs[0]?.workplace_type).toBe("hybrid");
+    expect(ok.jobs[0]?.posted_at).toBeDefined();
+    const failed = await runScrape({
+      input: {
+        ats: "recruitee",
+        tenants: [{ slug: "broken" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(failed.tenant_results[0]?.status).not.toBe("success");
+  });
+
+  it("workable maps onsite workplace and surfaces 5xx as transient_failure", async () => {
+    server.use(
+      http.get("https://apply.workable.com/api/v3/accounts/onsiteco/jobs", () =>
+        HttpResponse.json({
+          results: [
+            {
+              shortcode: "X1",
+              title: "Onsite Engineer",
+              workplace: "On-site",
+              published_on: "2026-04-19T10:00:00Z",
+            },
+          ],
+        }),
+      ),
+      http.get("https://apply.workable.com/api/v3/accounts/down/jobs", () =>
+        HttpResponse.text("oops", { status: 503 }),
+      ),
+    );
+    const ok = await runScrape({
+      input: {
+        ats: "workable",
+        tenants: [{ slug: "onsiteco" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(ok.jobs[0]?.workplace_type).toBe("onsite");
+    const failed = await runScrape({
+      input: {
+        ats: "workable",
+        tenants: [{ slug: "down" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(failed.tenant_results[0]?.status).not.toBe("success");
+  });
+
+  it("flags teamtailor / smartrecruiters as transient_failure (scrapers not yet implemented)", async () => {
+    for (const ats of ["teamtailor", "smartrecruiters"] as const) {
+      const out = await runScrape({
+        input: {
+          ats,
+          tenants: [{ slug: "example" }],
+          userAgent: "openroles/0.0.0",
+          contactUrl: "https://example.com",
+        },
+        clock: fixedClock,
+        httpClient: clientWithRobotsAllowAll(),
+      });
+      expect(out.jobs).toHaveLength(0);
+      expect(out.tenant_results[0]?.status).toBe("transient_failure");
+      expect(out.tenant_results[0]?.error).toContain("not yet implemented");
+    }
+  });
+
   it("returns an empty output for an empty tenants array", async () => {
     const out = await runScrape({
       input: {

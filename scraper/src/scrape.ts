@@ -10,9 +10,13 @@ import {
 import pLimit from "p-limit";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
+import { scrapeBreezyTenant } from "./ats/breezy.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
+import { scrapePersonioTenant } from "./ats/personio.ts";
+import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
 import { RobotsTxtCache } from "./robots.ts";
@@ -127,5 +131,27 @@ function dispatchPerAts(
     }
     case "icims":
       return scrapeIcimsTenant(opts);
+    case "recruitee":
+      return scrapeRecruiteeTenant(opts);
+    case "breezy":
+      return scrapeBreezyTenant(opts);
+    case "personio":
+      return scrapePersonioTenant(opts);
+    case "workable":
+      return scrapeWorkableTenant(opts);
+    case "teamtailor":
+    case "smartrecruiters":
+      // Harvest patterns and probe URLs are wired (so tenant lists populate)
+      // but the scraper modules are not yet implemented; the dispatcher
+      // surfaces the gap as transient_failure rather than a thrown error.
+      return Promise.resolve({
+        jobs: [],
+        result: {
+          slug: opts.tenant.slug,
+          status: "transient_failure",
+          error: `${ats} scraper not yet implemented`,
+          jobs_count: 0,
+        },
+      });
   }
 }

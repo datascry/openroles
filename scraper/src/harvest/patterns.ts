@@ -92,6 +92,51 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.icims\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "recruitee",
+    cdxQuery: "*.recruitee.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.recruitee\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "breezy",
+    cdxQuery: "*.breezy.hr/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.breezy\.hr/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "personio",
+    // Personio production career sites live under `{tenant}.jobs.personio.com`
+    // (and a smaller `.de` mirror; the probe accepts either via the dedicated
+    // probe URL builder).
+    cdxQuery: "*.jobs.personio.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.jobs\.personio\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "workable",
+    // Two URL surfaces are both common: subdomain `{tenant}.workable.com`
+    // and path-based `apply.workable.com/{tenant}`. The alternation covers
+    // both so the regex ignores the route the URL happened to be linked from.
+    cdxQuery: "*.workable.com/*",
+    regex:
+      /https?:\/\/(?:apply\.workable\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)|([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.workable\.com)/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "teamtailor",
+    cdxQuery: "*.teamtailor.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.teamtailor\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "smartrecruiters",
+    // Path-based slug under careers.smartrecruiters.com/{tenant}. The host
+    // itself is constant; the company identifier is the first path segment.
+    cdxQuery: "careers.smartrecruiters.com/*",
+    regex: /careers\.smartrecruiters\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

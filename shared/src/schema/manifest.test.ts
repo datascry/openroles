@@ -72,7 +72,26 @@ describe("ManifestSchema", () => {
     }
   });
 
-  it("rejects ats_counts missing a required ATS key", () => {
+  it("fills missing ats_counts keys with zero (forward-compat for older manifests)", () => {
+    // Schema 1.1.0 widened ATS_IDS from 6 to 12; manifests written by 1.0.0
+    // build-db only carry the original 6 keys. Defaults fill the rest so old
+    // artifacts remain readable.
+    const m = ManifestSchema.parse({
+      schema_version: "1.0.0",
+      built_at: "2026-04-26T00:00:00Z",
+      short_sha: "a3f2b1c",
+      db_filename: "jobs.a3f2b1c.sqlite.gz",
+      total_rows: 100,
+      ats_counts: { greenhouse: 100 },
+      tenants_total: 50,
+      tenants_live: 45,
+    });
+    expect(m.ats_counts.greenhouse).toBe(100);
+    expect(m.ats_counts.recruitee).toBe(0);
+    expect(m.ats_counts.smartrecruiters).toBe(0);
+  });
+
+  it("rejects ats_counts containing an unknown ATS key (strict catches typos)", () => {
     expect(() =>
       ManifestSchema.parse({
         schema_version: "1.0.0",
@@ -80,7 +99,7 @@ describe("ManifestSchema", () => {
         short_sha: "a3f2b1c",
         db_filename: "jobs.a3f2b1c.sqlite.gz",
         total_rows: 100,
-        ats_counts: { greenhouse: 100 },
+        ats_counts: { greenhouse: 100, greenhuose: 0 },
         tenants_total: 50,
         tenants_live: 45,
       }),

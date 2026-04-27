@@ -121,10 +121,13 @@ describe("feed.xml endpoints", () => {
     expect(res.status).toBe(200);
   });
 
-  it("getStaticPaths emits one entry per ATS", () => {
+  it("getStaticPaths emits one entry per ATS in canonical order", async () => {
+    const { ATS_IDS } = await import("@openroles/shared");
     const paths = (getAtsPaths as () => Array<{ params: { ats: string } }>)();
-    const ats = paths.map((p) => p.params.ats).sort();
-    expect(ats).toEqual(["ashby", "bamboohr", "greenhouse", "icims", "lever", "workday"]);
+    const ats = paths.map((p) => p.params.ats);
+    // Build-time path order matches ATS_IDS canonical order; future-proofs
+    // against schema widening.
+    expect(ats).toEqual([...ATS_IDS]);
   });
 
   it("getStaticPaths for level emits one entry per non-null level", () => {

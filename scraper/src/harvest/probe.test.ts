@@ -35,6 +35,21 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("icims", "1stheritage-attainfinance")).toContain(
       "1stheritage-attainfinance.icims.com",
     );
+    expect(probeUrlFor("recruitee", "stripe")).toContain("stripe.recruitee.com/api/offers");
+    expect(probeUrlFor("breezy", "stripe")).toContain("stripe.breezy.hr/json");
+    expect(probeUrlFor("personio", "stripe")).toContain("stripe.jobs.personio.com/xml");
+    expect(probeUrlFor("workable", "stripe")).toContain(
+      "apply.workable.com/api/v3/accounts/stripe/jobs",
+    );
+    expect(probeUrlFor("teamtailor", "stripe")).toContain("stripe.teamtailor.com/jobs.json");
+    expect(probeUrlFor("smartrecruiters", "stripe")).toContain(
+      "api.smartrecruiters.com/v1/companies/stripe/postings",
+    );
+  });
+
+  it("throws for ATSes with no probe URL configured (defensive)", () => {
+    // workday is intentionally absent; site/host pair are tenant metadata.
+    expect(() => probeUrlFor("workday", "stripe")).toThrow();
   });
 });
 

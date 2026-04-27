@@ -139,14 +139,12 @@ export function buildDb(input: BuildDbInput, dbPath = ":memory:"): BuildDbResult
     ats: string;
     c: number;
   }>;
-  const atsCounts: Record<ATSId, number> = {
-    greenhouse: 0,
-    lever: 0,
-    ashby: 0,
-    bamboohr: 0,
-    workday: 0,
-    icims: 0,
-  };
+  // Seed every known ATS to 0 so the manifest always carries the full key
+  // set even when an ats has no rows; build it from ATS_IDS so adding new
+  // entries doesn't require touching this site.
+  const atsCounts: Record<ATSId, number> = Object.fromEntries(
+    ATS_IDS.map((id) => [id, 0]),
+  ) as Record<ATSId, number>;
   for (const row of atsRows) {
     if ((ATS_IDS as ReadonlyArray<string>).includes(row.ats)) {
       atsCounts[row.ats as ATSId] = row.c;
