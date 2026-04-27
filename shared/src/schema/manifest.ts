@@ -47,6 +47,18 @@ export const ManifestSchema = z
         message: `sum (${sum}) must equal total_rows (${m.total_rows})`,
       });
     }
+    // Defense in depth: db_filename must embed short_sha. Both fields pass
+    // their per-field regex independently, so a tampered manifest could ship
+    // mismatched values; the cross-check rejects that. Mirrors the same
+    // guard in site/src/lib/manifest-runtime.ts.
+    const expectedPrefix = `jobs.${m.short_sha}.sqlite`;
+    if (!m.db_filename.startsWith(expectedPrefix)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["db_filename"],
+        message: `must embed short_sha (${m.short_sha}); got ${m.db_filename}`,
+      });
+    }
   });
 
 export type Manifest = z.infer<typeof ManifestSchema>;

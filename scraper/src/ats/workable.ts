@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
@@ -79,14 +79,15 @@ export async function scrapeWorkableTenant(
         url: jobUrl,
       });
       const postedAt = isoOrUndefined(j.published_on ?? j.created_at);
-      jobs.push({
+      const trimmedDesc = j.description?.trim();
+      const candidate = {
         id,
         ats: "workable",
         tenant_slug: opts.tenant.slug,
         source_id: sourceId,
         title,
         company,
-        ...(j.description ? { description_excerpt: j.description.slice(0, 4000) } : {}),
+        ...(trimmedDesc ? { description_excerpt: trimmedDesc.slice(0, 4000) } : {}),
         level: null,
         level_rank: null,
         workplace_type: workplaceFromJob(j),
@@ -101,7 +102,9 @@ export async function scrapeWorkableTenant(
         first_seen_at: opts.observedAt,
         last_seen_at: opts.observedAt,
         url: jobUrl,
-      });
+      };
+      const validated = JobSchema.safeParse(candidate);
+      if (validated.success) jobs.push(validated.data);
     }
     return {
       jobs: dedupeById(jobs),

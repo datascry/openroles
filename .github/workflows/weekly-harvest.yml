@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       snapshots:
-        description: "Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 4 from collinfo.json."
+        description: "Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 40 from collinfo.json (~4 years)."
         required: false
         type: string
       probe:

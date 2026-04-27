@@ -522,7 +522,10 @@ describe("runScrape", () => {
     expect(ok.jobs).toHaveLength(3);
     expect(ok.jobs[0]?.workplace_type).toBe("hybrid");
     expect(ok.jobs[0]?.url).toBe("https://multico.pinpointhq.com/en/jobs/1");
-    expect(ok.jobs[0]?.updated_at).toBeDefined();
+    // deadline_at is intentionally NOT mapped to updated_at (audit M4):
+    // it's a future application close date, not a last-modified marker, and
+    // mapping it would violate JobSchema's updated_at <= last_seen_at rule.
+    expect(ok.jobs[0]?.updated_at).toBeUndefined();
     expect(ok.jobs[1]?.workplace_type).toBe("onsite");
     // negative compensation rejected; bad currency code rejected.
     expect(ok.jobs[1]?.compensation_min).toBeUndefined();

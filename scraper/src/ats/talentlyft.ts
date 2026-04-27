@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import { XMLParser } from "fast-xml-parser";
 import pLimit from "p-limit";
 import type { HttpClient } from "../http.ts";
@@ -144,13 +144,29 @@ export async function scrapeTalentlyftTenant(
   let sitemapStatus = 0;
   try {
     assertSafeSlug(opts.tenant.slug);
-    const sitemapUrl = `https://${opts.tenant.slug}.talentlyft.com/sitemap.xml`;
+    const expectedHost = `${opts.tenant.slug}.talentlyft.com`;
+    const sitemapUrl = `https://${expectedHost}/sitemap.xml`;
     const sitemapRes = await opts.client.request(sitemapUrl);
     sitemapStatus = sitemapRes.status;
     const xml = await sitemapRes.text();
     const allUrls = parseSitemap(xml);
+    // SSRF guard: a hostile or compromised sitemap can list arbitrary URLs.
+    // Restrict per-job fetches to the expected tenant host so an attacker
+    // cannot pivot the scraper into internal/metadata addresses.
     const jobUrls = allUrls
-      .filter((u) => u.includes("/jobs/") && !u.endsWith("/jobs/"))
+      .filter((u) => {
+        try {
+          const parsed = new URL(u);
+          return (
+            parsed.host === expectedHost &&
+            parsed.protocol === "https:" &&
+            parsed.pathname.includes("/jobs/") &&
+            !parsed.pathname.endsWith("/jobs/")
+          );
+        } catch {
+          return false;
+        }
+      })
       .slice(0, MAX_JOBS_PER_TENANT);
 
     const limit = pLimit(opts.perTenantConcurrency ?? DEFAULT_CONCURRENCY);
@@ -175,15 +191,16 @@ export async function scrapeTalentlyftTenant(
             url,
           });
           const loc = locationFromJobLd(ld);
-          const desc = ld.description
-            ? decodeHtmlEntities(ld.description).slice(0, 4000)
+          const decodedDesc = ld.description
+            ? decodeHtmlEntities(ld.description).trim()
             : undefined;
+          const desc =
+            decodedDesc && decodedDesc.length > 0 ? decodedDesc.slice(0, 4000) : undefined;
           const orgName =
             typeof ld.hiringOrganization === "string"
               ? ld.hiringOrganization
               : ld.hiringOrganization?.name;
-          okCount++;
-          return {
+          const candidate = {
             id,
             ats: "talentlyft",
             tenant_slug: opts.tenant.slug,
@@ -203,6 +220,13 @@ export async function scrapeTalentlyftTenant(
             last_seen_at: opts.observedAt,
             url,
           };
+          const validated = JobSchema.safeParse(candidate);
+          if (!validated.success) {
+            failCount++;
+            return null;
+          }
+          okCount++;
+          return validated.data;
         } catch {
           failCount++;
           return null;

@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
@@ -79,14 +79,15 @@ export async function scrapeBreezyTenant(opts: ScrapeBreezyOptions): Promise<Scr
       const country = locationCountry(pos.location);
       const city = locationCity(pos.location);
       const locText = locationText(pos.location);
-      jobs.push({
+      const trimmedDesc = pos.description?.trim();
+      const candidate = {
         id,
         ats: "breezy",
         tenant_slug: opts.tenant.slug,
         source_id: sourceId,
         title: pos.name,
         company,
-        ...(pos.description ? { description_excerpt: pos.description.slice(0, 4000) } : {}),
+        ...(trimmedDesc ? { description_excerpt: trimmedDesc.slice(0, 4000) } : {}),
         level: null,
         level_rank: null,
         workplace_type: pos.is_remote ? "remote" : null,
@@ -100,7 +101,9 @@ export async function scrapeBreezyTenant(opts: ScrapeBreezyOptions): Promise<Scr
         first_seen_at: opts.observedAt,
         last_seen_at: opts.observedAt,
         url: posUrl,
-      });
+      };
+      const validated = JobSchema.safeParse(candidate);
+      if (validated.success) jobs.push(validated.data);
     }
     return {
       jobs: dedupeById(jobs),

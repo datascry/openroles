@@ -2,6 +2,7 @@
 import { mkdir, readdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
+  ATS_IDS,
   type ATSId,
   ATSIdSchema,
   type Manifest,
@@ -49,7 +50,7 @@ build-db:
   --notes <text>          Free-form note recorded in the crawls table
 
 harvest:
-  --ats <id>              ATS to harvest (greenhouse | lever | ashby | bamboohr | workday | icims)
+  --ats <id>              ATS to harvest (any of: ${ATS_IDS.join(" | ")})
   --snapshots <list>      Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 40 from collinfo.json (~4-year window)
   --output-dir <dir>      Where to write tenants/{ats}.json (default: ./data)
   --skip-probe            Emit slugs without liveness probing
@@ -206,12 +207,26 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
   const outputDir = args.outputDir ?? "./data";
   await mkdir(outputDir, { recursive: true });
 
+  // Tolerate per-file failures: one corrupt scrape output should not abort
+  // the entire build. Audit-driven (post-Phase-10 review C2). Combined with
+  // the per-job JobSchema.safeParse in each scraper, a hostile tenant can
+  // not crash the daily refresh.
   const entries = (await readdir(args.input)).sort();
   const outputs: ScrapeOutput[] = [];
   for (const name of entries) {
     if (!name.endsWith(".json")) continue;
     const path = join(args.input, name);
-    outputs.push(ScrapeOutputSchema.parse(await readJsonOrThrow(path, "build-db")));
+    const raw = await readJsonOrThrow(path, "build-db");
+    const parsed = ScrapeOutputSchema.safeParse(raw);
+    if (!parsed.success) {
+      console.error(
+        `build-db: skipping ${name}: ${parsed.error.issues
+          .map((i) => `${i.path.join(".")} ${i.message}`)
+          .join("; ")}`,
+      );
+      continue;
+    }
+    outputs.push(parsed.data);
   }
 
   let tenants: Tenant[] = [];
@@ -265,9 +280,7 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   }
   const atsParse = ATSIdSchema.safeParse(args.ats);
   if (!atsParse.success) {
-    console.error(
-      `harvest: --ats must be one of greenhouse|lever|ashby|bamboohr|workday|icims, got ${args.ats}`,
-    );
+    console.error(`harvest: --ats must be one of ${ATS_IDS.join("|")}, got ${args.ats}`);
     return 2;
   }
   const ats: ATSId = atsParse.data;

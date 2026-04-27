@@ -110,6 +110,10 @@ describe("runReportCommand", () => {
       ...SAMPLE_MANIFEST,
       total_rows: 100,
       short_sha: "0000000",
+      // The cross-field check (audit M1) requires db_filename to embed the
+      // declared short_sha; the prev manifest has a different sha than the
+      // current SAMPLE_MANIFEST, so override db_filename to match.
+      db_filename: "jobs.0000000.sqlite",
       ats_counts: {
         greenhouse: 50,
         lever: 25,

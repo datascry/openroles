@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
@@ -74,7 +74,7 @@ function postingToJob(
   const id = jobId({ ats: "smartrecruiters", tenant_slug: tenantSlug, source_id: sourceId, url });
   const postedAt = isoOrUndefined(p.releasedDate);
   const country = p.location?.country?.toUpperCase();
-  return {
+  const candidate = {
     id,
     ats: "smartrecruiters",
     tenant_slug: tenantSlug,
@@ -94,6 +94,8 @@ function postingToJob(
     last_seen_at: observedAt,
     url,
   };
+  const validated = JobSchema.safeParse(candidate);
+  return validated.success ? validated.data : null;
 }
 
 export async function scrapeSmartRecruitersTenant(

@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import { XMLParser } from "fast-xml-parser";
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
@@ -115,8 +115,9 @@ export async function scrapeTeamtailorTenant(
       });
       const loc = firstLocation(item["tt:locations"]);
       const postedAt = rfc2822ToIso(item.pubDate);
-      const desc = item.description ? decodeXmlText(item.description).slice(0, 4000) : undefined;
-      jobs.push({
+      const decodedDesc = item.description ? decodeXmlText(item.description).trim() : undefined;
+      const desc = decodedDesc && decodedDesc.length > 0 ? decodedDesc.slice(0, 4000) : undefined;
+      const candidate = {
         id,
         ats: "teamtailor",
         tenant_slug: opts.tenant.slug,
@@ -135,7 +136,9 @@ export async function scrapeTeamtailorTenant(
         first_seen_at: opts.observedAt,
         last_seen_at: opts.observedAt,
         url: item.link,
-      });
+      };
+      const validated = JobSchema.safeParse(candidate);
+      if (validated.success) jobs.push(validated.data);
     }
     return {
       jobs: dedupeById(jobs),

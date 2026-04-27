@@ -1,4 +1,4 @@
-import { type Job, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
+import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
@@ -54,12 +54,6 @@ function nonNegativeIntOrUndefined(value: number | null | undefined): number | u
   return Math.trunc(value);
 }
 
-function isoOrUndefined(value: string | null | undefined): string | undefined {
-  if (!value) return undefined;
-  const d = new Date(value);
-  return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
-}
-
 export interface ScrapePinpointHqOptions {
   readonly tenant: TenantInput;
   readonly client: HttpClient;
@@ -101,15 +95,18 @@ export async function scrapePinpointHqTenant(
         typeof j.compensation_currency === "string" && /^[A-Z]{3}$/.test(j.compensation_currency)
           ? j.compensation_currency
           : undefined;
-      const updatedAt = isoOrUndefined(j.deadline_at);
-      jobs.push({
+      const trimmedDesc = j.description?.trim();
+      // `deadline_at` is the application close date (often in the future),
+      // not an updated_at marker — don't map it onto Job.updated_at because
+      // the schema requires updated_at <= last_seen_at.
+      const candidate = {
         id,
         ats: "pinpointhq",
         tenant_slug: opts.tenant.slug,
         source_id: sourceId,
         title: j.title,
         company,
-        ...(j.description ? { description_excerpt: j.description.slice(0, 4000) } : {}),
+        ...(trimmedDesc ? { description_excerpt: trimmedDesc.slice(0, 4000) } : {}),
         level: null,
         level_rank: null,
         workplace_type: workplaceFromText(j.workplace_type),
@@ -119,11 +116,12 @@ export async function scrapePinpointHqTenant(
         ...(compMin !== undefined ? { compensation_min: compMin } : {}),
         ...(compMax !== undefined ? { compensation_max: compMax } : {}),
         ...(compCur ? { compensation_currency: compCur } : {}),
-        ...(updatedAt ? { updated_at: updatedAt } : {}),
         first_seen_at: opts.observedAt,
         last_seen_at: opts.observedAt,
         url: jobUrl,
-      });
+      };
+      const validated = JobSchema.safeParse(candidate);
+      if (validated.success) jobs.push(validated.data);
     }
     return {
       jobs: dedupeById(jobs),

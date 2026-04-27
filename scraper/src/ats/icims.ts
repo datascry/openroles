@@ -215,13 +215,28 @@ export async function scrapeIcimsTenant(opts: ScrapeIcimsOptions): Promise<Scrap
   let sitemapStatus = 0;
   try {
     assertSafeSlug(opts.tenant.slug);
-    const sitemapUrl = `https://${opts.tenant.slug}.icims.com/sitemap.xml`;
+    const expectedHost = `${opts.tenant.slug}.icims.com`;
+    const sitemapUrl = `https://${expectedHost}/sitemap.xml`;
     const sitemapRes = await opts.client.request(sitemapUrl);
     sitemapStatus = sitemapRes.status;
     const xml = await sitemapRes.text();
+    // SSRF guard: a hostile or compromised sitemap can list arbitrary URLs.
+    // Restrict per-job fetches to the expected tenant host so an attacker
+    // cannot pivot the scraper into internal addresses.
     const jobUrls = parseIcimsSitemap(xml)
       .map((e) => e.loc)
-      .filter((u) => /\/jobs\//i.test(u))
+      .filter((u) => {
+        try {
+          const parsed = new URL(u);
+          return (
+            parsed.host === expectedHost &&
+            parsed.protocol === "https:" &&
+            /\/jobs\//i.test(parsed.pathname)
+          );
+        } catch {
+          return false;
+        }
+      })
       .slice(0, opts.maxJobPages ?? DEFAULT_MAX_JOB_PAGES);
     const limit = pLimit(opts.perTenantConcurrency ?? DEFAULT_PER_TENANT_CONCURRENCY);
     let pageFailures = 0;
