@@ -41,7 +41,7 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("workable", "stripe")).toContain(
       "apply.workable.com/api/v3/accounts/stripe/jobs",
     );
-    expect(probeUrlFor("teamtailor", "stripe")).toContain("stripe.teamtailor.com/jobs.json");
+    expect(probeUrlFor("teamtailor", "stripe")).toContain("stripe.teamtailor.com/jobs.rss");
     expect(probeUrlFor("smartrecruiters", "stripe")).toContain(
       "api.smartrecruiters.com/v1/companies/stripe/postings",
     );

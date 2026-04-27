@@ -50,7 +50,7 @@ build-db:
 
 harvest:
   --ats <id>              ATS to harvest (greenhouse | lever | ashby | bamboohr | workday | icims)
-  --snapshots <list>      Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 8 from collinfo.json
+  --snapshots <list>      Comma-separated CC-MAIN snapshot ids (YYYY-NN). Default: latest 40 from collinfo.json (~4-year window)
   --output-dir <dir>      Where to write tenants/{ats}.json (default: ./data)
   --skip-probe            Emit slugs without liveness probing
   --user-agent <ua>       Override the full User-Agent string
@@ -303,13 +303,14 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
     }
     snapshots = requested;
   } else {
-    // Widened from 4 to 8 snapshots so harvests survive per-ATS robots
-    // changes: when an ATS starts blocking CCBot (e.g. Cloudflare's recent
-    // managed-content rules), recent snapshots return zero records but
-    // older snapshots still hold a valid tenant list. Eight × ~6 weeks of
-    // CC-MAIN cadence covers roughly a year, which is the longest empirical
-    // gap we have evidence for.
-    snapshots = await resolveLatestSnapshots(client, 8);
+    // Forty snapshots × CC-MAIN's ~5-week cadence ≈ 4 years of coverage —
+    // far enough back that ATSes whose recent traffic is blocked by CCBot
+    // (Lever via Cloudflare's managed-content rules, others) still surface
+    // their pre-block tenant set, and that companies whose careers page
+    // was crawled rarely still get harvested. Pass `--snapshots` to widen
+    // further (CC publishes ~120 CC-MAIN snapshots back to 2008) or to
+    // narrow for a fast iteration cycle.
+    snapshots = await resolveLatestSnapshots(client, 40);
     if (snapshots.length === 0) {
       console.error("harvest: failed to resolve latest CC-MAIN snapshots; pass --snapshots");
       return 2;

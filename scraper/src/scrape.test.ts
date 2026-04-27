@@ -542,9 +542,116 @@ describe("runScrape", () => {
     expect(failed.tenant_results[0]?.status).not.toBe("success");
   });
 
+  it("dispatches teamtailor against the public /jobs.rss feed", async () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:tt="https://teamtailor.com/locations">
+  <channel>
+    <title>Example Inc</title>
+    <description>Current Job Openings</description>
+    <link>https://example.teamtailor.com/jobs</link>
+    <item>
+      <title>Account Manager, Mid-Market</title>
+      <description>&lt;p&gt;Drive growth and renewals.&lt;/p&gt;</description>
+      <pubDate>Fri, 27 Feb 2026 19:59:48 +0100</pubDate>
+      <link>https://example.teamtailor.com/jobs/7308188-account-manager</link>
+      <remoteStatus>hybrid</remoteStatus>
+      <guid>679cc864-7629-4b8f-a5d4-6f9ebeccfaad</guid>
+      <tt:locations>
+        <tt:location>
+          <tt:name>New York</tt:name>
+          <tt:city>New York</tt:city>
+          <tt:country>United States</tt:country>
+        </tt:location>
+      </tt:locations>
+      <tt:department>Revenue</tt:department>
+    </item>
+  </channel>
+</rss>`;
+    server.use(http.get("https://example.teamtailor.com/jobs.rss", () => HttpResponse.xml(xml)));
+    const out = await runScrape({
+      input: {
+        ats: "teamtailor",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.title).toBe("Account Manager, Mid-Market");
+    expect(out.jobs[0]?.company).toBe("Example Inc");
+    expect(out.jobs[0]?.workplace_type).toBe("hybrid");
+    expect(out.jobs[0]?.location_text).toBe("New York");
+    expect(out.jobs[0]?.department).toBe("Revenue");
+    expect(out.jobs[0]?.posted_at).toBe("2026-02-27T18:59:48.000Z");
+    expect(out.jobs[0]?.url).toBe("https://example.teamtailor.com/jobs/7308188-account-manager");
+  });
+
+  it("teamtailor maps remote/onsite/unknown remoteStatus and surfaces 5xx", async () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:tt="https://teamtailor.com/locations">
+  <channel>
+    <title>MultiCo</title>
+    <item>
+      <title>Remote Eng</title>
+      <link>https://multico.teamtailor.com/jobs/1</link>
+      <guid>r-1</guid>
+      <remoteStatus>remote</remoteStatus>
+    </item>
+    <item>
+      <title>Onsite Lead</title>
+      <link>https://multico.teamtailor.com/jobs/2</link>
+      <guid>o-1</guid>
+      <remoteStatus>on-site</remoteStatus>
+    </item>
+    <item>
+      <title>Unspecified</title>
+      <link>https://multico.teamtailor.com/jobs/3</link>
+      <guid>u-1</guid>
+    </item>
+    <item>
+      <title>Missing GUID</title>
+      <link>https://multico.teamtailor.com/jobs/4</link>
+    </item>
+  </channel>
+</rss>`;
+    server.use(
+      http.get("https://multico.teamtailor.com/jobs.rss", () => HttpResponse.xml(xml)),
+      http.get("https://broken.teamtailor.com/jobs.rss", () =>
+        HttpResponse.text("oops", { status: 503 }),
+      ),
+    );
+    const ok = await runScrape({
+      input: {
+        ats: "teamtailor",
+        tenants: [{ slug: "multico" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    // 3 valid items (the missing-guid one is skipped).
+    expect(ok.jobs).toHaveLength(3);
+    expect(ok.jobs[0]?.workplace_type).toBe("remote");
+    expect(ok.jobs[1]?.workplace_type).toBe("onsite");
+    expect(ok.jobs[2]?.workplace_type).toBeNull();
+    const failed = await runScrape({
+      input: {
+        ats: "teamtailor",
+        tenants: [{ slug: "broken" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(failed.tenant_results[0]?.status).not.toBe("success");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
-      "teamtailor",
       "csod",
       "taleo",
       "ultipro",

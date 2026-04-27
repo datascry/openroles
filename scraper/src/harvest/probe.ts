@@ -16,7 +16,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   breezy: (slug) => `https://${slug}.breezy.hr/json`,
   personio: (slug) => `https://${slug}.jobs.personio.com/xml`,
   workable: (slug) => `https://apply.workable.com/api/v3/accounts/${slug}/jobs?limit=1`,
-  teamtailor: (slug) => `https://${slug}.teamtailor.com/jobs.json`,
+  // /jobs.json returns 406 (content-type negotiation, no auth) even with
+  // an explicit Accept header; /jobs.rss is the public read-only feed that
+  // works without auth.
+  teamtailor: (slug) => `https://${slug}.teamtailor.com/jobs.rss`,
   smartrecruiters: (slug) =>
     `https://api.smartrecruiters.com/v1/companies/${slug}/postings?limit=1`,
   csod: (slug) => `https://${slug}.csod.com/`,
