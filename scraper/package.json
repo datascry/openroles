@@ -6,14 +6,14 @@
   "description": "ATS scrapers, harvester, and SQLite database builder",
   "license": "MIT",
   "bin": {
-    "openroles-scrape": "./src/cli.ts"
+    "openroles-scrape": "./bin/openroles-scrape.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "scrape": "bun run src/cli.ts scrape",
-    "harvest": "bun run src/cli.ts harvest",
-    "build-db": "bun run src/cli.ts build-db",
-    "report": "bun run src/cli.ts report"
+    "scrape": "bun run bin/openroles-scrape.ts scrape",
+    "harvest": "bun run bin/openroles-scrape.ts harvest",
+    "build-db": "bun run bin/openroles-scrape.ts build-db",
+    "report": "bun run bin/openroles-scrape.ts report"
   },
   "dependencies": {
     "@openroles/shared": "workspace:*",
