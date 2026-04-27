@@ -1,0 +1,18 @@
+{
+  "name": "@openroles/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared types and zod schemas",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "4.3.6"
+  }
+}
