@@ -89,6 +89,7 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
   let recordCount = 0;
   let pagesFetched = 0;
   let fetchErrors = 0;
+  let consecutiveErrors = 0;
   const allSlugs = new Set<string>();
 
   outer: for (const snapshot of opts.snapshots) {
@@ -96,11 +97,22 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
     const reported = await fetchNumPages(opts.client, numPagesUrl);
     const numPages = Math.min(Math.max(1, reported), pageCap);
     for (let page = 0; page < numPages; page++) {
-      if (pagesFetched > 0 && sleepMs > 0) await sleep(sleepMs);
+      if (pagesFetched > 0 && sleepMs > 0) {
+        // Adaptive backoff: every consecutive error doubles the inter-page
+        // wait, capped at 30 s. Lets the harvester ride out a transient
+        // CC rate-limit window without aborting the sweep.
+        const adaptive = Math.min(sleepMs * 2 ** consecutiveErrors, 30_000);
+        await sleep(adaptive);
+      }
       const url = buildCdxUrl(snapshot, pattern.cdxQuery, page);
       const out = await fetchCdxPage(opts.client, url);
       pagesFetched += 1;
-      if (out.errored) fetchErrors += 1;
+      if (out.errored) {
+        fetchErrors += 1;
+        consecutiveErrors += 1;
+      } else {
+        consecutiveErrors = 0;
+      }
       recordCount += out.records.length;
       const { slugs } = extractSlugs(out.records, pattern);
       for (const s of slugs) {
