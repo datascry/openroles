@@ -57,4 +57,18 @@ describe("TenantSchema", () => {
       }),
     ).toThrow();
   });
+
+  it("rejects non-http(s) URL schemes (javascript:, data:, file:)", () => {
+    for (const u of ["javascript:alert(1)", "data:text/html,<x>", "file:///etc/passwd"]) {
+      expect(() =>
+        TenantSchema.parse({
+          ats: "greenhouse",
+          slug: "stripe",
+          status: "live",
+          last_probed_at: "2026-04-26T00:00:00Z",
+          homepage_url: u,
+        }),
+      ).toThrow();
+    }
+  });
 });
