@@ -26,5 +26,10 @@ Do not hand-edit; edit commit messages instead.
 - Level and recruiter classifiers as pure functions over title/department text, with property tests asserting determinism and closed-set output.
 - SQLite build pipeline (`bun:sqlite`): per-spec schema (jobs/tenants/crawls), seven covering indexes, and an FTS5 virtual table over title/company/description with porter+unicode61 tokenization; `page_size = 1024` matches the `sql.js-httpvfs` request chunk size, and `VACUUM` plus FTS `optimize` run as the final build step.
 - CLI `build-db` subcommand reads a directory of scrape outputs, validates them through the zod schema boundary, applies classifiers, writes `jobs.{sha}.sqlite`, and emits `manifest.json` alongside.
+- Filter UI state machinery: URL ↔ FilterState round-trip with property tests, parameterized SQL builder over the FTS5 + jobs schema, and localStorage helpers for saved / applied / ignored lists.
+- RSS feed generator with XML/CDATA escaping, item-cap of 100, 90-day freshness window, and stable sort order; static Astro endpoints for `/feed.xml`, `/feed/{ats}.xml`, and `/feed/level/{level}.xml`.
+- Static per-tenant pages at `/tenant/{ats}/{slug}` rendered from the SQLite database at build time.
+- Index page with the `FilterTable` Svelte island hydrated `client:idle`, mobile-first CSS layered on Open Props tokens, and a manifest-aware empty state when the database has not been built yet.
+- Site build runs under Bun (`bun --bun astro build`) so endpoints and pages can use `bun:sqlite` directly at static-route generation time.
 
 [Unreleased]: https://github.com/datascry/openroles/compare/HEAD...HEAD

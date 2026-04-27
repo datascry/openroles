@@ -114,16 +114,30 @@
             "noExplicitAny": "off",
             "noConsole": "off",
             "useAwait": "off"
+          },
+          "complexity": {
+            "useLiteralKeys": "off"
           }
         }
       }
     },
     {
-      "includes": ["**/*.astro"],
+      "includes": ["**/*.astro", "**/*.svelte"],
       "linter": {
         "rules": {
           "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedFunctionParameters": "off",
+            "noUnusedImports": "off",
             "useExhaustiveDependencies": "off"
+          },
+          "suspicious": {
+            "noExplicitAny": "off",
+            "noImplicitAnyLet": "off",
+            "useAwait": "off"
+          },
+          "style": {
+            "useImportType": "off"
           }
         }
       }
