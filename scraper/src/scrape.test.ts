@@ -650,6 +650,120 @@ describe("runScrape", () => {
     expect(failed.tenant_results[0]?.status).not.toBe("success");
   });
 
+  it("dispatches talentlyft via sitemap walk + JSON-LD JobPosting extraction", async () => {
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://example.talentlyft.com/jobs/senior-engineer-abcd</loc></url>
+  <url><loc>https://example.talentlyft.com/jobs/manager-efgh</loc></url>
+  <url><loc>https://example.talentlyft.com/</loc></url>
+</urlset>`;
+    const jobLd = (title: string, country: string) => `<!doctype html><html><head>
+<script type="application/ld+json">{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "${title}",
+  "description": "&lt;p&gt;Build great things.&lt;/p&gt;",
+  "datePosted": "2026-04-20",
+  "hiringOrganization": { "name": "Example" },
+  "jobLocation": { "address": { "addressLocality": "Berlin", "addressRegion": "Berlin", "addressCountry": "${country}" } }
+}</script></head><body></body></html>`;
+    server.use(
+      http.get("https://example.talentlyft.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://example.talentlyft.com/jobs/senior-engineer-abcd", () =>
+        HttpResponse.html(jobLd("Senior Engineer", "DE")),
+      ),
+      http.get("https://example.talentlyft.com/jobs/manager-efgh", () =>
+        HttpResponse.html(jobLd("Engineering Manager", "DE")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "talentlyft",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.jobs[0]?.title).toBe("Senior Engineer");
+    expect(out.jobs[0]?.company).toBe("Example");
+    expect(out.jobs[0]?.location_country).toBe("DE");
+    expect(out.jobs[0]?.location_text).toContain("Berlin");
+    expect(out.jobs[0]?.source_id).toBe("abcd");
+  });
+
+  it("talentlyft tolerates malformed JSON-LD and unusual URL shapes", async () => {
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://mixed.talentlyft.com/jobs/good-aaaa</loc></url>
+  <url><loc>https://mixed.talentlyft.com/jobs/badld-bbbb</loc></url>
+  <url><loc>https://mixed.talentlyft.com/jobs/notajob</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://mixed.talentlyft.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://mixed.talentlyft.com/jobs/good-aaaa", () =>
+        HttpResponse.html(`<script type="application/ld+json">{
+          "@type": "JobPosting",
+          "title": "Good Job",
+          "hiringOrganization": "Mixed Co"
+        }</script>`),
+      ),
+      // Malformed JSON-LD — must not throw the whole tenant.
+      http.get("https://mixed.talentlyft.com/jobs/badld-bbbb", () =>
+        HttpResponse.html(`<script type="application/ld+json">{not valid json</script>`),
+      ),
+      // Wrong @type — should be ignored.
+      http.get("https://mixed.talentlyft.com/jobs/notajob", () =>
+        HttpResponse.html(`<script type="application/ld+json">{"@type":"BreadcrumbList"}</script>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "talentlyft",
+        tenants: [{ slug: "mixed" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    // Of three URLs only one yields a JobPosting; that's < 50 % failure
+    // (1 success, 2 fails) which IS over the 50 % threshold — so the
+    // outcome is transient_failure with zero jobs. Verify the path is
+    // exercised, not the rendered shape.
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("failed to parse");
+  });
+
+  it("talentlyft surfaces transient_failure when most job pages fail to parse", async () => {
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://flaky.talentlyft.com/jobs/job-aaaa</loc></url>
+  <url><loc>https://flaky.talentlyft.com/jobs/job-bbbb</loc></url>
+  <url><loc>https://flaky.talentlyft.com/jobs/job-cccc</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://flaky.talentlyft.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://flaky.talentlyft.com/jobs/job-aaaa", () => HttpResponse.text("nope")),
+      http.get("https://flaky.talentlyft.com/jobs/job-bbbb", () => HttpResponse.text("nope")),
+      http.get("https://flaky.talentlyft.com/jobs/job-cccc", () => HttpResponse.text("nope")),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "talentlyft",
+        tenants: [{ slug: "flaky" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
       "csod",
@@ -657,7 +771,6 @@ describe("runScrape", () => {
       "ultipro",
       "jobvite",
       "zohorecruit",
-      "talentlyft",
       "applicantpro",
       "applicantstack",
       "homerun",

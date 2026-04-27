@@ -18,6 +18,7 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
+import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
@@ -148,12 +149,13 @@ function dispatchPerAts(
       return scrapePinpointHqTenant(opts);
     case "teamtailor":
       return scrapeTeamtailorTenant(opts);
+    case "talentlyft":
+      return scrapeTalentlyftTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "jobvite":
     case "zohorecruit":
-    case "talentlyft":
     case "applicantpro":
     case "applicantstack":
     case "homerun":
