@@ -18,6 +18,7 @@ coveragePathIgnorePatterns = [
   "**/*.d.ts",
   "**/*.test.ts",
   "**/tests/**",
+  "**/bin/**",
   "**/migrations/*.sql",
   "node_modules/**",
   "dist/**",

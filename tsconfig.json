@@ -30,6 +30,12 @@
       "@openroles/shared/*": ["./shared/src/*"]
     }
   },
-  "include": ["shared/src/**/*", "scraper/src/**/*", "site/src/**/*", "site/astro.config.mjs"],
+  "include": [
+    "shared/src/**/*",
+    "scraper/src/**/*",
+    "scraper/bin/**/*",
+    "site/src/**/*",
+    "site/astro.config.mjs"
+  ],
   "exclude": ["node_modules", "dist", ".astro", "coverage", "**/*.test.ts", "**/tests/**"]
 }
