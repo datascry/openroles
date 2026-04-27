@@ -15,7 +15,9 @@ import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
+import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
@@ -139,15 +141,17 @@ function dispatchPerAts(
       return scrapePersonioTenant(opts);
     case "workable":
       return scrapeWorkableTenant(opts);
-    case "teamtailor":
     case "smartrecruiters":
+      return scrapeSmartRecruitersTenant(opts);
+    case "pinpointhq":
+      return scrapePinpointHqTenant(opts);
+    case "teamtailor":
     case "csod":
     case "taleo":
     case "ultipro":
     case "jobvite":
     case "zohorecruit":
     case "talentlyft":
-    case "pinpointhq":
     case "applicantpro":
     case "applicantstack":
     case "homerun":

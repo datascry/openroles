@@ -384,8 +384,180 @@ describe("runScrape", () => {
     expect(failed.tenant_results[0]?.status).not.toBe("success");
   });
 
-  it("flags teamtailor / smartrecruiters as transient_failure (scrapers not yet implemented)", async () => {
-    for (const ats of ["teamtailor", "smartrecruiters"] as const) {
+  it("dispatches smartrecruiters against the public /v1/companies/{tenant}/postings API", async () => {
+    // smartrecruiters' tenant lookup is case-insensitive; lowercase slugs
+    // round-trip cleanly through the harvester (which lowercases) and the
+    // public API alike.
+    server.use(
+      http.get("https://api.smartrecruiters.com/v1/companies/example/postings", ({ request }) => {
+        const url = new URL(request.url);
+        const offset = url.searchParams.get("offset");
+        if (offset === "0") {
+          return HttpResponse.json({
+            offset: 0,
+            limit: 100,
+            totalFound: 1,
+            content: [
+              {
+                id: "744000123",
+                name: "Senior Engineer",
+                refNumber: "R1234",
+                releasedDate: "2026-04-25T10:00:00Z",
+                location: {
+                  city: "Berlin",
+                  country: "de",
+                  fullLocation: "Berlin, Germany",
+                  remote: false,
+                  hybrid: true,
+                },
+                department: { label: "Engineering" },
+              },
+            ],
+          });
+        }
+        return HttpResponse.json({ offset: 100, limit: 100, totalFound: 1, content: [] });
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "smartrecruiters",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.title).toBe("Senior Engineer");
+    expect(out.jobs[0]?.workplace_type).toBe("hybrid");
+    expect(out.jobs[0]?.location_country).toBe("DE");
+    expect(out.jobs[0]?.url).toContain("/example/744000123");
+  });
+
+  it("dispatches pinpointhq against the public /jobs.json endpoint", async () => {
+    server.use(
+      http.get("https://example.pinpointhq.com/jobs.json", () =>
+        HttpResponse.json({
+          data: [
+            {
+              id: 472692,
+              title: "Site Reliability Engineer",
+              description: "Run our cloud platform.",
+              workplace_type: "remote",
+              workplace_type_text: "Fully remote",
+              employment_type: "full_time",
+              location: { id: 55750, name: "Spain" },
+              department: { id: 60229, name: "Engineering" },
+              compensation_minimum: 90000,
+              compensation_maximum: 120000,
+              compensation_currency: "EUR",
+              url: "https://example.pinpointhq.com/en/jobs/472692",
+              path: "/en/jobs/472692",
+            },
+          ],
+        }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "pinpointhq",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.workplace_type).toBe("remote");
+    expect(out.jobs[0]?.location_text).toBe("Spain");
+    expect(out.jobs[0]?.department).toBe("Engineering");
+    expect(out.jobs[0]?.compensation_min).toBe(90000);
+    expect(out.jobs[0]?.compensation_currency).toBe("EUR");
+  });
+
+  it("pinpointhq covers hybrid/onsite mapping, path fallback URL, and 5xx", async () => {
+    server.use(
+      http.get("https://multico.pinpointhq.com/jobs.json", () =>
+        HttpResponse.json({
+          data: [
+            {
+              id: 1,
+              title: "Hybrid PM",
+              workplace_type: "hybrid",
+              path: "/en/jobs/1",
+              deadline_at: "2026-06-01T00:00:00Z",
+            },
+            {
+              id: 2,
+              title: "Onsite Lead",
+              workplace_type: "onsite",
+              compensation_minimum: -5,
+              compensation_currency: "not-a-code",
+            },
+            {
+              requisition_id: "REQ3",
+              title: "Has requisition_id only",
+              workplace_type: "office",
+            },
+            { id: 4 }, // skipped — no title
+          ],
+        }),
+      ),
+      http.get("https://broken.pinpointhq.com/jobs.json", () =>
+        HttpResponse.text("oops", { status: 503 }),
+      ),
+    );
+    const ok = await runScrape({
+      input: {
+        ats: "pinpointhq",
+        tenants: [{ slug: "multico" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(ok.jobs).toHaveLength(3);
+    expect(ok.jobs[0]?.workplace_type).toBe("hybrid");
+    expect(ok.jobs[0]?.url).toBe("https://multico.pinpointhq.com/en/jobs/1");
+    expect(ok.jobs[0]?.updated_at).toBeDefined();
+    expect(ok.jobs[1]?.workplace_type).toBe("onsite");
+    // negative compensation rejected; bad currency code rejected.
+    expect(ok.jobs[1]?.compensation_min).toBeUndefined();
+    expect(ok.jobs[1]?.compensation_currency).toBeUndefined();
+    expect(ok.jobs[2]?.workplace_type).toBe("onsite"); // "office" maps to onsite
+    expect(ok.jobs[2]?.url).toContain("/jobs/REQ3");
+    const failed = await runScrape({
+      input: {
+        ats: "pinpointhq",
+        tenants: [{ slug: "broken" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(failed.tenant_results[0]?.status).not.toBe("success");
+  });
+
+  it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
+    const stubbed = [
+      "teamtailor",
+      "csod",
+      "taleo",
+      "ultipro",
+      "jobvite",
+      "zohorecruit",
+      "talentlyft",
+      "applicantpro",
+      "applicantstack",
+      "homerun",
+      "factorial",
+      "eightfold",
+    ] as const;
+    for (const ats of stubbed) {
       const out = await runScrape({
         input: {
           ats,
