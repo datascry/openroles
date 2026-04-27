@@ -22,7 +22,9 @@ export const ManifestSchema = z
     schema_version: SemVer,
     built_at: IsoUtc,
     short_sha: ShortSha,
-    db_filename: z.string().min(1),
+    db_filename: z
+      .string()
+      .regex(/^jobs\.[0-9a-f]{7,40}\.sqlite(?:\.gz)?$/, "must be jobs.{short_sha}.sqlite(.gz)"),
     total_rows: z.int().nonnegative(),
     ats_counts: ATSCountsSchema,
     tenants_total: z.int().nonnegative(),

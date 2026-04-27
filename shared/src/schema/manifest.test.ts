@@ -23,6 +23,55 @@ describe("ManifestSchema", () => {
     expect(m.total_rows).toBe(100);
   });
 
+  it("rejects db_filename outside the canonical jobs.{sha}.sqlite[.gz] shape", () => {
+    const bad = ["x", "jobs.abc.sqlite", "jobs.abc1234.csv", "jobs.abc1234.sqlite|inject"];
+    for (const filename of bad) {
+      expect(() =>
+        ManifestSchema.parse({
+          schema_version: "1.0.0",
+          built_at: "2026-04-26T00:00:00Z",
+          short_sha: "abc1234",
+          db_filename: filename,
+          total_rows: 0,
+          ats_counts: {
+            greenhouse: 0,
+            lever: 0,
+            ashby: 0,
+            bamboohr: 0,
+            workday: 0,
+            icims: 0,
+          },
+          tenants_total: 0,
+          tenants_live: 0,
+        }),
+      ).toThrow();
+    }
+  });
+
+  it("accepts both jobs.{sha}.sqlite and jobs.{sha}.sqlite.gz", () => {
+    for (const filename of ["jobs.abc1234.sqlite", "jobs.abc1234.sqlite.gz"]) {
+      expect(() =>
+        ManifestSchema.parse({
+          schema_version: "1.0.0",
+          built_at: "2026-04-26T00:00:00Z",
+          short_sha: "abc1234",
+          db_filename: filename,
+          total_rows: 0,
+          ats_counts: {
+            greenhouse: 0,
+            lever: 0,
+            ashby: 0,
+            bamboohr: 0,
+            workday: 0,
+            icims: 0,
+          },
+          tenants_total: 0,
+          tenants_live: 0,
+        }),
+      ).not.toThrow();
+    }
+  });
+
   it("rejects ats_counts missing a required ATS key", () => {
     expect(() =>
       ManifestSchema.parse({
