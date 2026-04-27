@@ -23,11 +23,13 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "ignoreDeprecations": "6.0",
+    "types": ["bun"],
     "baseUrl": ".",
     "paths": {
       "@openroles/shared": ["./shared/src/index.ts"],
       "@openroles/shared/*": ["./shared/src/*"]
     }
   },
-  "files": []
+  "include": ["shared/src/**/*", "scraper/src/**/*", "site/src/**/*", "site/astro.config.mjs"],
+  "exclude": ["node_modules", "dist", ".astro", "coverage", "**/*.test.ts", "**/tests/**"]
 }
