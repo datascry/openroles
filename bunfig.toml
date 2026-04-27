@@ -1,0 +1,28 @@
+# Bun configuration — https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Pin to exact versions when running `bun add` — every dep in package.json
+# must be an exact version, not a range. Lockfile is the source of truth.
+exact = true
+peer = true
+frozenLockfile = false
+
+[install.cache]
+disable = false
+
+[test]
+coverage = true
+coverageThreshold = 0.95
+coverageReporter = ["text", "lcov"]
+coveragePathIgnorePatterns = [
+  "**/*.d.ts",
+  "**/*.test.ts",
+  "**/tests/**",
+  "**/migrations/*.sql",
+  "node_modules/**",
+  "dist/**",
+  ".astro/**",
+  "coverage/**"
+]
+coverageDir = "coverage"
+bail = 0

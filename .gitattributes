@@ -1,0 +1,15 @@
+* text=auto eol=lf
+
+# Binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.sqlite binary
+*.parquet binary
+
+# Generated; suppress diffs
+bun.lock -diff

@@ -1,0 +1,55 @@
+# Build output
+dist/
+.astro/
+.cache/
+.output/
+build/
+
+# Dependencies
+node_modules/
+
+# Test artifacts
+coverage/
+.nyc_output/
+*.lcov
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Generated data (built fresh in CI; never committed)
+data/*.sqlite
+data/*.sqlite.gz
+data/*.parquet
+data/manifest.json
+data/run-report.json
+data/tenants/
+
+# Keep checked-in seed dataset
+!data/seed/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.zed/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+*.tsbuildinfo
+.turbo/
+.parcel-cache/
