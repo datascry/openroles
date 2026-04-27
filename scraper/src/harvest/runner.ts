@@ -20,6 +20,11 @@ export interface HarvestRunOptions {
   readonly maxSlugsTotal?: number;
   readonly maxPagesPerSnapshot?: number;
   readonly skipProbe?: boolean;
+  // Pause between CDX page fetches to stay under index.commoncrawl.org's
+  // rate-limit threshold (empirically ~10 req/s before sustained 5xx).
+  // Set 0 to disable; default 250 ms keeps a multi-ATS sweep stable.
+  readonly interPageSleepMs?: number;
+  readonly sleep?: (ms: number) => Promise<void>;
 }
 
 export interface HarvestResult {
@@ -34,6 +39,9 @@ export interface HarvestResult {
 
 const DEFAULT_MAX_SLUGS_TOTAL = 100_000;
 const DEFAULT_MAX_PAGES_PER_SNAPSHOT = 50;
+const DEFAULT_INTER_PAGE_SLEEP_MS = 250;
+
+const defaultSleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
 interface FetchOutcome {
   readonly records: CdxRecord[];
@@ -42,7 +50,11 @@ interface FetchOutcome {
 
 async function fetchCdxPage(client: HttpClient, url: string): Promise<FetchOutcome> {
   try {
-    const res = await client.request(url, { method: "GET" });
+    // Common Crawl's index.commoncrawl.org/robots.txt blocks all paths under
+    // `/CC-MAIN-*-index` even though those are the documented public CDX API
+    // (per https://commoncrawl.org/the-data/get-started/). Skip the robots
+    // check for this specific host.
+    const res = await client.request(url, { method: "GET", skipRobots: true });
     const text = await res.text();
     return { records: parseCdxJsonLines(text), errored: false };
   } catch (err) {
@@ -55,7 +67,11 @@ async function fetchCdxPage(client: HttpClient, url: string): Promise<FetchOutco
 
 async function fetchNumPages(client: HttpClient, url: string): Promise<number> {
   try {
-    const res = await client.request(url, { method: "GET" });
+    // Common Crawl's index.commoncrawl.org/robots.txt blocks all paths under
+    // `/CC-MAIN-*-index` even though those are the documented public CDX API
+    // (per https://commoncrawl.org/the-data/get-started/). Skip the robots
+    // check for this specific host.
+    const res = await client.request(url, { method: "GET", skipRobots: true });
     const text = await res.text();
     return parseNumPages(text);
   } catch {
@@ -67,6 +83,8 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
   const pattern = harvestPatternFor(opts.ats);
   const slugCap = opts.maxSlugsTotal ?? DEFAULT_MAX_SLUGS_TOTAL;
   const pageCap = opts.maxPagesPerSnapshot ?? DEFAULT_MAX_PAGES_PER_SNAPSHOT;
+  const sleepMs = opts.interPageSleepMs ?? DEFAULT_INTER_PAGE_SLEEP_MS;
+  const sleep = opts.sleep ?? defaultSleep;
 
   let recordCount = 0;
   let pagesFetched = 0;
@@ -78,6 +96,7 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
     const reported = await fetchNumPages(opts.client, numPagesUrl);
     const numPages = Math.min(Math.max(1, reported), pageCap);
     for (let page = 0; page < numPages; page++) {
+      if (pagesFetched > 0 && sleepMs > 0) await sleep(sleepMs);
       const url = buildCdxUrl(snapshot, pattern.cdxQuery, page);
       const out = await fetchCdxPage(opts.client, url);
       pagesFetched += 1;

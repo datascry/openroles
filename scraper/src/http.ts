@@ -47,6 +47,10 @@ export interface HttpRequestInit {
   readonly headers?: Record<string, string>;
   readonly body?: string;
   readonly signal?: AbortSignal;
+  // Skip the robots.txt check for documented-public-API hosts whose
+  // robots.txt is written for general crawlers but does not represent
+  // their wishes for API access. Caller must justify each use.
+  readonly skipRobots?: boolean;
 }
 
 function isAbortError(err: unknown): boolean {
@@ -103,9 +107,11 @@ export class HttpClient {
       throw new HttpError("permanent", `unsupported protocol: ${target.protocol}`);
     }
 
-    const allowed = await this.robots.isAllowed(url, this.userAgent);
-    if (!allowed) {
-      throw new HttpError("permanent", `robots.txt disallows ${url}`);
+    if (!init.skipRobots) {
+      const allowed = await this.robots.isAllowed(url, this.userAgent);
+      if (!allowed) {
+        throw new HttpError("permanent", `robots.txt disallows ${url}`);
+      }
     }
 
     let lastTransient: HttpError | null = null;
