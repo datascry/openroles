@@ -10,11 +10,22 @@ const RECRUITER_TITLE_PATTERNS: ReadonlyArray<RegExp> = [
   /\bhead\s+of\s+talent\b/i,
 ];
 
+// Match titles whose head noun is engineering (i.e. the role IS an engineer/dev/etc),
+// not titles that merely contain "engineering" as a department modifier.
+// "Software Engineer" / "Senior Engineer" → engineering role.
+// "Engineering Coordinator" / "Engineering Talent Partner" → not (head noun ≠ engineer).
 const ENGINEERING_TITLE_PATTERNS: ReadonlyArray<RegExp> = [
-  /\bengineer(?:ing)?\b/i,
-  /\bdeveloper\b/i,
+  /\bengineer\b\s*$/i,
+  /\bengineer\b\s*[,/]/i,
+  /\bdeveloper\b\s*$/i,
+  /\bdeveloper\b\s*[,/]/i,
   /\bsre\b/i,
+  /\barchitect\b\s*$/i,
   /\bdata\s+scientist\b/i,
+  /\bsoftware\s+engineer/i,
+  /\bsoftware\s+developer/i,
+  /\bsystems?\s+engineer/i,
+  /\b(?:backend|frontend|fullstack|full-stack|platform|infrastructure|security|ml|ai|qa|test|devops|mobile|ios|android|web)\s+(?:engineer|developer)/i,
 ];
 
 const TALENT_DEPARTMENT_PATTERNS: ReadonlyArray<RegExp> = [

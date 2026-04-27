@@ -20,6 +20,15 @@ describe("classifyRecruiter", () => {
     expect(classifyRecruiter({ title: "People Partner", department: "People" })).toBe(true);
   });
 
+  it("flags 'Engineering Coordinator' in a Talent dept (engineering modifier, not head)", () => {
+    expect(classifyRecruiter({ title: "Engineering Coordinator", department: "Talent" })).toBe(
+      true,
+    );
+    expect(
+      classifyRecruiter({ title: "Engineering Recruiting Coordinator", department: "People" }),
+    ).toBe(true);
+  });
+
   it("does not flag engineering titles even in adjacent departments", () => {
     expect(classifyRecruiter({ title: "Software Engineer", department: "Engineering" })).toBe(
       false,
