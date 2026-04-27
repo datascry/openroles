@@ -76,14 +76,13 @@ jobs:
   e2e:
     name: E2E + a11y
     runs-on: ubuntu-24.04
-    if: false  # enabled in Phase 4
     steps:
       - uses: actions/checkout@v5
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
       - run: bun install --frozen-lockfile
-      - run: bunx playwright install --with-deps chromium firefox webkit
+      - run: bunx playwright install --with-deps chromium
       - run: bun run build
       - run: bun run e2e
       - name: Upload Playwright report
@@ -97,7 +96,6 @@ jobs:
   size-limit:
     name: Bundle size
     runs-on: ubuntu-24.04
-    if: false  # enabled in Phase 4
     steps:
       - uses: actions/checkout@v5
       - uses: oven-sh/setup-bun@v2

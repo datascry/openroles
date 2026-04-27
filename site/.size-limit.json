@@ -1,0 +1,26 @@
+[
+  {
+    "name": "FilterTable island (gzip)",
+    "path": "dist/_astro/FilterTable.*.js",
+    "limit": "25 KB",
+    "gzip": true
+  },
+  {
+    "name": "Svelte runtime (gzip)",
+    "path": "dist/_astro/render.*.js",
+    "limit": "20 KB",
+    "gzip": true
+  },
+  {
+    "name": "All client JS (gzip)",
+    "path": "dist/_astro/*.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "Global CSS (gzip)",
+    "path": "dist/styles/*.css",
+    "limit": "15 KB",
+    "gzip": true
+  }
+]

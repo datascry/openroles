@@ -1,10 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import {
+  buildCdxNumPagesUrl,
   buildCdxUrl,
   type CdxRecord,
   extractSlugs,
   harvestPlanFor,
   parseCdxJsonLines,
+  parseNumPages,
 } from "./cdx.ts";
 import { harvestPatternFor } from "./patterns.ts";
 
@@ -99,5 +101,45 @@ describe("harvestPlanFor", () => {
     const { urls } = harvestPlanFor("greenhouse", ["2026-13", "2025-50", "2025-39", "2025-26"]);
     expect(urls).toHaveLength(4);
     expect(urls[0]).toContain("CC-MAIN-2026-13-index");
+  });
+});
+
+describe("buildCdxNumPagesUrl", () => {
+  it("targets the same index endpoint with showNumPages=true", () => {
+    const url = buildCdxNumPagesUrl("2026-13", "*.greenhouse.io/*");
+    expect(url).toContain("CC-MAIN-2026-13-index");
+    expect(url).toContain("showNumPages=true");
+    expect(url).toContain(`url=${encodeURIComponent("*.greenhouse.io/*")}`);
+  });
+});
+
+describe("parseNumPages", () => {
+  it("reads the bare integer form CDX returns", () => {
+    expect(parseNumPages("12")).toBe(12);
+    expect(parseNumPages("0")).toBe(0);
+    expect(parseNumPages("  7\n")).toBe(7);
+  });
+
+  it("reads the {pages: N} JSON form CDX sometimes returns", () => {
+    expect(parseNumPages('{"pages": 4}')).toBe(4);
+    expect(parseNumPages('{"pages": 0, "blocks": 1}')).toBe(0);
+  });
+
+  it("returns 0 when JSON parses but lacks a numeric pages field", () => {
+    expect(parseNumPages('{"pages": "many"}')).toBe(0);
+    expect(parseNumPages('{"blocks": 4}')).toBe(0);
+    expect(parseNumPages('{"pages": -1}')).toBe(0);
+  });
+
+  it("returns 0 on malformed input rather than throwing", () => {
+    expect(parseNumPages("not a number")).toBe(0);
+    expect(parseNumPages("{not json")).toBe(0);
+    expect(parseNumPages("[1,2,3]")).toBe(0);
+    expect(parseNumPages("null")).toBe(0);
+    expect(parseNumPages("")).toBe(0);
+  });
+
+  it("rejects negative integers (CDX never paginates backwards)", () => {
+    expect(parseNumPages("-3")).toBe(0);
   });
 });
