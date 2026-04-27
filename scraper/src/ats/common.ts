@@ -1,4 +1,4 @@
-import type { Job, TenantResult } from "@openroles/shared";
+import { classifyRecruiter, type Job, type TenantResult } from "@openroles/shared";
 import { HttpError } from "../http.ts";
 
 const SAFE_SLUG = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
@@ -56,15 +56,8 @@ export function errorToResult(slug: string, err: unknown): TenantResult {
   };
 }
 
-const RECRUITER_TITLE_PATTERNS: ReadonlyArray<RegExp> = [
-  /\brecruiter\b/i,
-  /\btalent\s+(acquisition|partner|sourcing)\b/i,
-  /\bsourcer\b/i,
-  /\bhead\s+of\s+talent\b/i,
-];
-
 export function isRecruiterTitle(title: string): boolean {
-  return RECRUITER_TITLE_PATTERNS.some((re) => re.test(title));
+  return classifyRecruiter({ title });
 }
 
 export function epochToIso(epochMs: number | undefined): string | undefined {
