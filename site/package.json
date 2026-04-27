@@ -1,0 +1,32 @@
+{
+  "name": "@openroles/site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static site for openroles — Astro 6 with one Svelte filter island",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "e2e": "playwright test",
+    "lighthouse": "lhci autorun",
+    "size-limit": "size-limit"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "8.0.5",
+    "@openroles/shared": "workspace:*",
+    "astro": "6.1.9",
+    "open-props": "1.7.23",
+    "sql.js": "1.14.1",
+    "sql.js-httpvfs": "0.8.12",
+    "svelte": "5.55.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.11.2",
+    "@playwright/test": "1.59.1",
+    "@testing-library/svelte": "5.3.1",
+    "@types/bun": "1.3.13"
+  }
+}

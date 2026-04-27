@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "preserve",
+    "lib": ["ES2024", "DOM", "DOM.Iterable", "WebWorker"],
+    "types": ["bun", "astro/client"]
+  },
+  "include": ["src/**/*", "astro.config.mjs", "../shared/src/**/*"],
+  "exclude": ["**/*.test.ts", "tests/**", "dist/**", ".astro/**"]
+}
