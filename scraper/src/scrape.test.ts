@@ -1479,8 +1479,166 @@ ${body}
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches eightfold via /careers/sitemap.xml + JSON-LD JobPosting on customer-branded host", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://careers.examplecorp.com/careers?domain=examplecorp.com</loc></url>
+  <url><loc>https://careers.examplecorp.com/careers/job/171839116188-p-4998-sr-scientist?domain=examplecorp.com</loc></url>
+  <url><loc>https://careers.examplecorp.com/careers/job/171838825895-p-4991-engineer?domain=examplecorp.com</loc></url>
+</urlset>`;
+    const detail = (title: string, locality: string) => `<!doctype html><html><head>
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "JobPosting",
+  "title": "${title}",
+  "description": "Build it.",
+  "datePosted": "2026-02-23T19:01:07",
+  "employmentType": "FULL_TIME",
+  "hiringOrganization": { "name": "Example Corp" },
+  "jobLocation": { "address": { "addressLocality": "${locality}", "addressRegion": "CA,US", "addressCountry": { "name": "US" } } }
+}</script></head></html>`;
+    server.use(
+      http.get("https://example.eightfold.ai/careers/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://careers.examplecorp.com/careers/job/171839116188-p-4998-sr-scientist", () =>
+        HttpResponse.html(detail("Sr Scientist", "Pleasanton")),
+      ),
+      http.get("https://careers.examplecorp.com/careers/job/171838825895-p-4991-engineer", () =>
+        HttpResponse.html(detail("Engineer", "San Francisco")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "eightfold",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    const sci = out.jobs.find((j) => j.source_id === "171839116188");
+    expect(sci?.title).toBe("Sr Scientist");
+    expect(sci?.company).toBe("Example Corp");
+    expect(sci?.location_text).toContain("Pleasanton");
+    expect(sci?.posted_at).toBe("2026-02-23T19:01:07.000Z");
+  });
+
+  it("eightfold rejects sitemap entries that don't match the careers host + path shape", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://careers.good.com/careers/job/123456789012-p-x-real?domain=good.com</loc></url>
+  <url><loc>https://evil.example.com/careers/job/escapehatch-p-y-pwn?domain=evil.com</loc></url>
+  <url><loc>https://careers.good.com/careers</loc></url>
+  <url><loc>http://careers.good.com/careers/job/999888777666-p-z-insecure</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://good.eightfold.ai/careers/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://careers.good.com/careers/job/123456789012-p-x-real", () =>
+        HttpResponse.html(`<script type="application/ld+json">{
+          "@type": "JobPosting", "title": "Real Job", "hiringOrganization": "Good Co"
+        }</script>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "eightfold",
+        tenants: [{ slug: "good" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.source_id).toBe("123456789012");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("eightfold tolerates malformed JSON-LD, non-JobPosting types, and detail-fetch errors", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://careers.mixed.com/careers/job/100000000001-p-1-real</loc></url>
+  <url><loc>https://careers.mixed.com/careers/job/100000000002-p-2-bad-ld</loc></url>
+  <url><loc>https://careers.mixed.com/careers/job/100000000003-p-3-wrong-type</loc></url>
+  <url><loc>https://careers.mixed.com/careers/job/100000000004-p-4-network-fail</loc></url>
+  <url><loc>not a valid url</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://mixed.eightfold.ai/careers/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://careers.mixed.com/careers/job/100000000001-p-1-real", () =>
+        HttpResponse.html(`<script type="application/ld+json">{
+          "@type": "JobPosting", "title": "Real Job", "hiringOrganization": "Mixed Co"
+        }</script>`),
+      ),
+      http.get("https://careers.mixed.com/careers/job/100000000002-p-2-bad-ld", () =>
+        HttpResponse.html(`<script type="application/ld+json">{not valid</script>`),
+      ),
+      http.get("https://careers.mixed.com/careers/job/100000000003-p-3-wrong-type", () =>
+        HttpResponse.html(`<script type="application/ld+json">{"@type":"BreadcrumbList"}</script>`),
+      ),
+      http.get("https://careers.mixed.com/careers/job/100000000004-p-4-network-fail", () =>
+        HttpResponse.error(),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "eightfold",
+        tenants: [{ slug: "mixed" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    // 4 valid sitemap rows fetched, 1 success + 3 fails — 75% > 50% threshold.
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+  });
+
+  it("eightfold surfaces dead when the sitemap fetch errors", async () => {
+    server.use(
+      http.get("https://gone.eightfold.ai/careers/sitemap.xml", () =>
+        HttpResponse.text("nope", { status: 404 }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "eightfold",
+        tenants: [{ slug: "gone" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
+  it("eightfold returns success/0 when the sitemap has no detail entries", async () => {
+    server.use(
+      http.get("https://empty.eightfold.ai/careers/sitemap.xml", () =>
+        HttpResponse.xml(`<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://careers.empty.com/careers</loc></url>
+</urlset>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "eightfold",
+        tenants: [{ slug: "empty" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
-    const stubbed = ["csod", "taleo", "ultipro", "zohorecruit", "eightfold"] as const;
+    const stubbed = ["csod", "taleo", "ultipro", "zohorecruit"] as const;
     for (const ats of stubbed) {
       const out = await runScrape({
         input: {

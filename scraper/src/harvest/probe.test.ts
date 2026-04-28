@@ -55,7 +55,9 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("applicantstack", "stripe")).toBe("https://stripe.applicantstack.com/");
     expect(probeUrlFor("homerun", "stripe")).toBe("https://feed.homerun.co/stripe");
     expect(probeUrlFor("factorial", "stripe")).toBe("https://stripe.factorialhr.com/sitemap.xml");
-    expect(probeUrlFor("eightfold", "stripe")).toBe("https://stripe.eightfold.ai/careers");
+    expect(probeUrlFor("eightfold", "stripe")).toBe(
+      "https://stripe.eightfold.ai/careers/sitemap.xml",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

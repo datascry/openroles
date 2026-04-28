@@ -45,7 +45,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // published careers page. The sitemap is the actual public job feed —
   // tenants without one return 404 here.
   factorial: (slug) => `https://${slug}.factorialhr.com/sitemap.xml`,
-  eightfold: (slug) => `https://${slug}.eightfold.ai/careers`,
+  // Eightfold's `/careers` page returns the same HTML shell for every slug
+  // (the tenant-specific data loads via API behind PCSX auth). The careers
+  // sitemap is the actual public signal — tenants with no published jobs
+  // return 404 here.
+  eightfold: (slug) => `https://${slug}.eightfold.ai/careers/sitemap.xml`,
   // ultipro: deliberately omitted — `recruiting.ultipro.com/{CODE}/JobBoard/`
   // requires a per-tenant GUID we cannot derive from the slug alone, so the
   // probe would always return a misleading 404. Treated like workday: the

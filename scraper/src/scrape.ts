@@ -13,6 +13,7 @@ import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
@@ -166,11 +167,12 @@ function dispatchPerAts(
       return scrapeApplicantProTenant(opts);
     case "applicantstack":
       return scrapeApplicantStackTenant(opts);
+    case "eightfold":
+      return scrapeEightfoldTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "zohorecruit":
-    case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher
       // surfaces the gap as transient_failure rather than a thrown error.
