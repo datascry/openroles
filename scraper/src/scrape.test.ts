@@ -771,12 +771,127 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("transient_failure");
   });
 
+  it("dispatches jobvite via listing scrape + JSON-LD JobPosting extraction", async () => {
+    const listing = `<!doctype html><html><body>
+<table class="jv-job-list">
+  <tr>
+    <td class="jv-job-list-name"><a href="/example/job/abcdef12">Senior Engineer</a></td>
+    <td class="jv-job-list-location">Berlin</td>
+  </tr>
+  <tr>
+    <td class="jv-job-list-name"><a href="/example/job/ghijkl34">Engineering Manager</a></td>
+    <td class="jv-job-list-location">Berlin</td>
+  </tr>
+</table></body></html>`;
+    const jobLd = (title: string) => `<!doctype html><html><head>
+<script type="application/ld+json">{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "${title}",
+  "description": "&lt;p&gt;Build it.&lt;/p&gt;",
+  "datePosted": "2026-04-22",
+  "industry": "Engineering",
+  "hiringOrganization": "Example",
+  "jobLocation": { "address": { "addressLocality": "Berlin", "addressRegion": "Berlin", "addressCountry": "DE" } }
+}</script></head></html>`;
+    server.use(
+      http.get("https://jobs.jobvite.com/example", () => HttpResponse.html(listing)),
+      http.get("https://jobs.jobvite.com/example/job/abcdef12", () =>
+        HttpResponse.html(jobLd("Senior Engineer")),
+      ),
+      http.get("https://jobs.jobvite.com/example/job/ghijkl34", () =>
+        HttpResponse.html(jobLd("Engineering Manager")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.jobs[0]?.title).toBe("Senior Engineer");
+    expect(out.jobs[0]?.company).toBe("Example");
+    expect(out.jobs[0]?.location_country).toBe("DE");
+    expect(out.jobs[0]?.location_text).toContain("Berlin");
+    expect(out.jobs[0]?.department).toBe("Engineering");
+    expect(out.jobs[0]?.source_id).toBe("abcdef12");
+  });
+
+  it("jobvite ignores listing rows that don't match the {slug}/job/{shortcode} shape", async () => {
+    const listing = `<!doctype html><html><body>
+<table class="jv-job-list">
+  <tr>
+    <td class="jv-job-list-name"><a href="/example/job/aaaa1111">Real Job</a></td>
+  </tr>
+  <tr>
+    <td class="jv-job-list-name"><a href="https://evil.example.com/example/job/escapehatch">SSRF Attempt</a></td>
+  </tr>
+  <tr>
+    <td class="jv-job-list-name"><a href="/other-tenant/job/bbbb2222">Wrong Tenant</a></td>
+  </tr>
+</table></body></html>`;
+    server.use(
+      http.get("https://jobs.jobvite.com/example", () => HttpResponse.html(listing)),
+      http.get("https://jobs.jobvite.com/example/job/aaaa1111", () =>
+        HttpResponse.html(`<script type="application/ld+json">{
+          "@type": "JobPosting",
+          "title": "Real Job",
+          "hiringOrganization": "Example"
+        }</script>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.title).toBe("Real Job");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("jobvite surfaces transient_failure when most detail pages fail to parse", async () => {
+    const listing = `<!doctype html><html><body>
+<table class="jv-job-list">
+  <tr><td class="jv-job-list-name"><a href="/flaky/job/aaaa1111">A</a></td></tr>
+  <tr><td class="jv-job-list-name"><a href="/flaky/job/bbbb2222">B</a></td></tr>
+  <tr><td class="jv-job-list-name"><a href="/flaky/job/cccc3333">C</a></td></tr>
+</table></body></html>`;
+    server.use(
+      http.get("https://jobs.jobvite.com/flaky", () => HttpResponse.html(listing)),
+      http.get("https://jobs.jobvite.com/flaky/job/aaaa1111", () => HttpResponse.text("nope")),
+      http.get("https://jobs.jobvite.com/flaky/job/bbbb2222", () => HttpResponse.text("nope")),
+      http.get("https://jobs.jobvite.com/flaky/job/cccc3333", () => HttpResponse.text("nope")),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "flaky" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
       "csod",
       "taleo",
       "ultipro",
-      "jobvite",
       "zohorecruit",
       "applicantpro",
       "applicantstack",

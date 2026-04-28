@@ -13,6 +13,7 @@ import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
@@ -151,10 +152,11 @@ function dispatchPerAts(
       return scrapeTeamtailorTenant(opts);
     case "talentlyft":
       return scrapeTalentlyftTenant(opts);
+    case "jobvite":
+      return scrapeJobviteTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
-    case "jobvite":
     case "zohorecruit":
     case "applicantpro":
     case "applicantstack":
