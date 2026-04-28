@@ -1284,13 +1284,129 @@ ${body}
     expect(out.tenant_results[0]?.status).toBe("transient_failure");
   });
 
+  it("dispatches applicantpro via /core/jobs JSON endpoint discovered from listing", async () => {
+    const listing = `<!doctype html><html><script>
+      mountingData.courierCurrentRouteData = {"domain_id":"17874","career_site_name":"Example"};
+    </script></html>`;
+    const apiResp = {
+      success: true,
+      data: {
+        jobs: [
+          {
+            id: 100001,
+            title: "Senior Engineer",
+            city: "Austin",
+            stateName: "Texas",
+            iso3: "USA",
+            abbreviation: "TX",
+            jobLocation: "Austin, TX, USA",
+            workplaceType: "Remote",
+            employmentType: "Full Time",
+            minSalary: "120000",
+            maxSalary: "180000",
+            jobUrl: "https://example.applicantpro.com/jobs/100001",
+          },
+          {
+            id: 100002,
+            title: "Barista",
+            city: "Austin",
+            stateName: "Texas",
+            iso3: "USA",
+            abbreviation: "TX",
+            jobLocation: "Austin, TX, USA",
+            workplaceType: "Onsite",
+            employmentType: "Part Time",
+            minSalary: "21.5",
+            maxSalary: "",
+            jobUrl: "https://example.applicantpro.com/jobs/100002",
+          },
+          // Missing required fields — should be skipped.
+          { id: 100003 },
+        ],
+      },
+    };
+    server.use(
+      http.get("https://example.applicantpro.com/jobs/", () => HttpResponse.html(listing)),
+      http.get("https://example.applicantpro.com/core/jobs/17874", ({ request }) => {
+        const url = new URL(request.url);
+        // Defensive: confirm the empty-getParams encoding survives.
+        if (url.searchParams.get("getParams") !== "{}") {
+          return HttpResponse.json({ success: false }, { status: 400 });
+        }
+        return HttpResponse.json(apiResp);
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantpro",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    const senior = out.jobs.find((j) => j.source_id === "100001");
+    expect(senior?.title).toBe("Senior Engineer");
+    expect(senior?.location_country).toBe("US");
+    expect(senior?.location_region).toBe("Texas");
+    expect(senior?.workplace_type).toBe("remote");
+    expect(senior?.compensation_min).toBe(120000);
+    expect(senior?.compensation_max).toBe(180000);
+    const barista = out.jobs.find((j) => j.source_id === "100002");
+    // Hourly "21.5" rounds to 22 since JobSchema requires integer comp.
+    expect(barista?.compensation_min).toBe(22);
+    expect(barista?.compensation_max).toBeUndefined();
+    expect(barista?.workplace_type).toBe("onsite");
+  });
+
+  it("applicantpro returns success/0 jobs when the listing has no domain_id", async () => {
+    server.use(
+      http.get("https://nojobs.applicantpro.com/jobs/", () =>
+        HttpResponse.html("<!doctype html><body>No careers</body>"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantpro",
+        tenants: [{ slug: "nojobs" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBe(0);
+  });
+
+  it("applicantpro surfaces dead when the listing fetch errors", async () => {
+    server.use(
+      http.get("https://gone.applicantpro.com/jobs/", () =>
+        HttpResponse.text("nope", { status: 404 }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantpro",
+        tenants: [{ slug: "gone" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
       "csod",
       "taleo",
       "ultipro",
       "zohorecruit",
-      "applicantpro",
       "applicantstack",
       "eightfold",
     ] as const;

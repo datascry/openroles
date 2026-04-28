@@ -8,6 +8,7 @@ import {
   type TenantResult,
 } from "@openroles/shared";
 import pLimit from "p-limit";
+import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
@@ -160,11 +161,12 @@ function dispatchPerAts(
       return scrapeHomerunTenant(opts);
     case "factorial":
       return scrapeFactorialTenant(opts);
+    case "applicantpro":
+      return scrapeApplicantProTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "zohorecruit":
-    case "applicantpro":
     case "applicantstack":
     case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
