@@ -10,26 +10,29 @@ import {
   vendorDateToIsoZ,
 } from "./common.ts";
 
-const GreenhouseLocation = z.object({ name: z.string().optional() }).optional();
+const GreenhouseLocation = z.object({ name: z.string().nullish() }).nullish();
 const GreenhouseDepartment = z.object({ name: z.string() });
-const GreenhouseOffice = z.object({ name: z.string().optional() }).optional();
+const GreenhouseOffice = z.object({ name: z.string().nullish() }).nullish();
 
+// Greenhouse can return `null` for any optional string (e.g. `requisition_id`
+// is null on tenants that don't track requisitions). `.nullish()` accepts
+// both null and missing.
 const GreenhouseJob = z
   .object({
     id: z.union([z.number(), z.string()]),
     title: z.string(),
     absolute_url: z.url(),
-    updated_at: z.string().optional(),
-    requisition_id: z.string().optional(),
+    updated_at: z.string().nullish(),
+    requisition_id: z.string().nullish(),
     location: GreenhouseLocation,
-    departments: z.array(GreenhouseDepartment).optional(),
-    offices: z.array(GreenhouseOffice).optional(),
-    content: z.string().optional(),
+    departments: z.array(GreenhouseDepartment).nullish(),
+    offices: z.array(GreenhouseOffice).nullish(),
+    content: z.string().nullish(),
   })
   .passthrough();
 
 const GreenhouseResponse = z.object({
-  jobs: z.array(GreenhouseJob),
+  jobs: z.array(z.unknown()),
 });
 
 export interface GreenhouseParseInput {
@@ -45,13 +48,24 @@ function pickWorkplaceHint(office: string | undefined, location: string | undefi
     .join(" ");
 }
 
+function nonEmpty(value: string | null | undefined): string | undefined {
+  return typeof value === "string" && value.length > 0 ? value : undefined;
+}
+
 export function parseGreenhouseJobs(input: GreenhouseParseInput): Job[] {
-  const parsed = GreenhouseResponse.parse(input.response);
+  const envelope = GreenhouseResponse.safeParse(input.response);
+  if (!envelope.success) return [];
   const jobs: Job[] = [];
-  for (const raw of parsed.jobs) {
-    const office = raw.offices?.[0]?.name;
-    const location = raw.location?.name;
-    const department = raw.departments?.[0]?.name;
+  for (const item of envelope.data.jobs) {
+    // Per-job parse so one malformed posting cannot dead-letter the whole
+    // tenant — common when greenhouse adds a new optional field.
+    const parsed = GreenhouseJob.safeParse(item);
+    if (!parsed.success) continue;
+    const raw = parsed.data;
+    const office = nonEmpty(raw.offices?.[0]?.name);
+    const location = nonEmpty(raw.location?.name);
+    const department = nonEmpty(raw.departments?.[0]?.name);
+    const description = nonEmpty(raw.content);
     // Greenhouse returns updated_at with a numeric timezone offset
     // (`2026-03-11T17:29:19-04:00`); JobSchema requires Z-suffixed UTC.
     const updatedAt = vendorDateToIsoZ(raw.updated_at);
@@ -62,7 +76,7 @@ export function parseGreenhouseJobs(input: GreenhouseParseInput): Job[] {
       source_id: String(raw.id),
       title: raw.title,
       url: raw.absolute_url,
-      ...(raw.content !== undefined ? { description_html: raw.content } : {}),
+      ...(description !== undefined ? { description_html: description } : {}),
       ...(location !== undefined ? { location_text: location } : {}),
       workplace_hint: pickWorkplaceHint(office, location),
       ...(department !== undefined ? { department } : {}),
