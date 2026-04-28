@@ -11,7 +11,14 @@ import {
 } from "@openroles/shared";
 
 function defaultDataDir(): string {
-  return process.env["OPENROLES_DATA_DIR"] ?? "./data";
+  const env = process.env["OPENROLES_DATA_DIR"];
+  if (env !== undefined) return env;
+  // CI builds set OPENROLES_DATA_DIR to the workspace `data/` (where build-db
+  // writes). The dev server runs from `site/` and serves `public/data/` over
+  // HTTP, so fall back to that path so the SSR manifest header sees the same
+  // bytes the browser receives.
+  if (existsSync("./public/data/manifest.json")) return "./public/data";
+  return "./data";
 }
 
 export interface SiteDb {
