@@ -116,11 +116,19 @@ describe("scrapeAshbyTenant", () => {
     expect(out.result.status).toBe("success");
   });
 
-  it("blocks on robots.txt", async () => {
-    const robots = new RobotsTxtCache({
-      fetchFn: mock(async () => new Response("User-agent: *\nDisallow: /\n", { status: 200 })),
-      clock: () => 0,
-    });
+  it("bypasses robots.txt — api.ashbyhq.com responds 401 to /robots.txt and the /posting-api endpoint is the documented public read-only feed", async () => {
+    // The robots fetch should NEVER be called — the scraper passes
+    // skipRobots: true. If it is called, we'd see this mock's deny-all
+    // response and the request would fail.
+    const robotsFetch = mock(
+      async () => new Response("User-agent: *\nDisallow: /\n", { status: 200 }),
+    );
+    const robots = new RobotsTxtCache({ fetchFn: robotsFetch, clock: () => 0 });
+    server.use(
+      http.get("https://api.ashbyhq.com/posting-api/job-board/0g", () =>
+        HttpResponse.json({ jobs: [] }),
+      ),
+    );
     const client = new HttpClient({
       userAgent: "openroles/0.0.0",
       robots,
@@ -129,10 +137,11 @@ describe("scrapeAshbyTenant", () => {
       retry: { maxAttempts: 1, baseMs: 1, maxMs: 1 },
     });
     const out = await scrapeAshbyTenant({
-      tenant: { slug: "blocked" },
+      tenant: { slug: "0g" },
       client,
       observedAt: OBSERVED_AT,
     });
-    expect(out.result.status).toBe("dead");
+    expect(out.result.status).toBe("success");
+    expect(robotsFetch).not.toHaveBeenCalled();
   });
 });

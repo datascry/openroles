@@ -28,7 +28,7 @@ const SCRAPE_CONCURRENCY = Number.parseInt(process.env["SCRAPE_CONCURRENCY"] ?? 
 const CONTACT_URL = process.env["CONTACT_URL"] ?? "https://github.com/datascry/openroles";
 const UA = process.env["UA"] ?? `openroles/${SCHEMA_VERSION} (+${CONTACT_URL})`;
 // Skip ATSes whose tenant list is not in a probe-confirmed-live state.
-const SKIP_ATSES = new Set<ATSId>(["workday", "ultipro", "workable"]);
+const SKIP_ATSES = new Set<ATSId>(["workday", "ultipro"]);
 
 interface SummaryRow {
   ats: ATSId;

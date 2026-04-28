@@ -113,7 +113,11 @@ export async function scrapeAshbyTenant(opts: ScrapeTenantOptions): Promise<Scra
   try {
     assertSafeSlug(opts.tenant.slug);
     const url = `https://api.ashbyhq.com/posting-api/job-board/${opts.tenant.slug}?includeCompensation=true`;
-    const res = await opts.client.request(url);
+    // api.ashbyhq.com responds 401 to /robots.txt regardless of user-agent,
+    // which the robots cache treats as deny-all. The /posting-api path is
+    // ashby's documented public read-only job-board feed; treat it as an
+    // API call rather than a crawl. Same reasoning as smartrecruiters.
+    const res = await opts.client.request(url, { skipRobots: true });
     const body = await res.json();
     const jobs = parseAshbyJobs({
       tenant: opts.tenant,
