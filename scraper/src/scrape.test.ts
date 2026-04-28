@@ -1046,6 +1046,82 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.jobs_count).toBe(0);
   });
 
+  it("dispatches homerun via feed.homerun.co Atom feed", async () => {
+    const atom = `<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Example Co</title>
+  <updated>2026-04-24T07:42:51+00:00</updated>
+  <entry>
+    <author><name>Example Co</name></author>
+    <title type="text">Senior Engineer</title>
+    <link rel="alternate" type="text/html" href="https://example.homerun.co/senior-engineer"/>
+    <id>job_AAAA1111</id>
+    <summary type="html"><![CDATA[Build great things.]]></summary>
+    <description type="html"><![CDATA[<p>Build great things.</p>]]></description>
+    <author><name>Example Co</name></author>
+    <department><name>Engineering</name></department>
+    <location><name>Remote</name></location>
+    <type><name>Full-time</name></type>
+    <updated>2026-04-13 08:46:19</updated>
+  </entry>
+  <entry>
+    <author><name>Example Co</name></author>
+    <title type="text">Marketing Lead</title>
+    <link rel="alternate" type="text/html" href="https://example.homerun.co/marketing-lead"/>
+    <id>job_BBBB2222</id>
+    <description type="html"><![CDATA[<p>Run campaigns.</p>]]></description>
+    <department><name>Marketing</name></department>
+    <location><name>Hybrid</name></location>
+    <updated>2026-04-20T10:15:00+00:00</updated>
+  </entry>
+  <!-- skipped: missing id -->
+  <entry>
+    <title type="text">Headless</title>
+    <link rel="alternate" type="text/html" href="https://example.homerun.co/headless"/>
+  </entry>
+</feed>`;
+    server.use(http.get("https://feed.homerun.co/example", () => HttpResponse.xml(atom)));
+    const out = await runScrape({
+      input: {
+        ats: "homerun",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    const senior = out.jobs.find((j) => j.source_id === "job_AAAA1111");
+    expect(senior?.title).toBe("Senior Engineer");
+    expect(senior?.company).toBe("Example Co");
+    expect(senior?.location_text).toBe("Remote");
+    expect(senior?.workplace_type).toBe("remote");
+    expect(senior?.department).toBe("Engineering");
+    const marketing = out.jobs.find((j) => j.source_id === "job_BBBB2222");
+    expect(marketing?.workplace_type).toBe("hybrid");
+    expect(marketing?.updated_at).toBe("2026-04-20T10:15:00.000Z");
+  });
+
+  it("homerun returns dead when the feed is missing (no slug match)", async () => {
+    server.use(
+      http.get("https://feed.homerun.co/missing", () =>
+        HttpResponse.text("not found", { status: 404 }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "homerun",
+        tenants: [{ slug: "missing" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
       "csod",
@@ -1054,7 +1130,6 @@ describe("runScrape", () => {
       "zohorecruit",
       "applicantpro",
       "applicantstack",
-      "homerun",
       "factorial",
       "eightfold",
     ] as const;

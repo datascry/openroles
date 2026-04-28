@@ -12,6 +12,7 @@ import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
+import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
@@ -154,13 +155,14 @@ function dispatchPerAts(
       return scrapeTalentlyftTenant(opts);
     case "jobvite":
       return scrapeJobviteTenant(opts);
+    case "homerun":
+      return scrapeHomerunTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "zohorecruit":
     case "applicantpro":
     case "applicantstack":
-    case "homerun":
     case "factorial":
     case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)

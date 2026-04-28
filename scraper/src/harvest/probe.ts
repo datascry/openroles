@@ -36,7 +36,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   pinpointhq: (slug) => `https://${slug}.pinpointhq.com/`,
   applicantpro: (slug) => `https://${slug}.applicantpro.com/jobs/`,
   applicantstack: (slug) => `https://${slug}.applicantstack.com/`,
-  homerun: (slug) => `https://${slug}.homerun.co/`,
+  // The tenant landing page (`{slug}.homerun.co`) returns 200 on the empty
+  // careers stub too. The Atom feed at `feed.homerun.co/{slug}` is the
+  // signal we actually care about — a tenant without a published feed
+  // returns 404 here.
+  homerun: (slug) => `https://feed.homerun.co/${slug}`,
   factorial: (slug) => `https://${slug}.factorialhr.com/`,
   eightfold: (slug) => `https://${slug}.eightfold.ai/careers`,
   // ultipro: deliberately omitted — `recruiting.ultipro.com/{CODE}/JobBoard/`
