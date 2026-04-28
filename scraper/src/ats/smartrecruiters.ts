@@ -109,7 +109,11 @@ export async function scrapeSmartRecruitersTenant(
     for (let page = 0; page < MAX_PAGES; page++) {
       const offset = page * PAGE_SIZE;
       const url = `https://api.smartrecruiters.com/v1/companies/${opts.tenant.slug}/postings?limit=${PAGE_SIZE}&offset=${offset}`;
-      const res = await opts.client.request(url);
+      // api.smartrecruiters.com/robots.txt is `Disallow: /` for everything
+      // except LinkedInBot, even though /v1/companies/.../postings is the
+      // documented public read-only API. Same justification as the probe's
+      // skipRobots flag — treat this as an API call rather than a crawl.
+      const res = await opts.client.request(url, { skipRobots: true });
       httpStatus = res.status;
       const body = (await res.json()) as SmartRecruitersResponse;
       const items = body.content ?? [];
