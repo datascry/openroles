@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "noEmit": true,
-    "types": []
+    "types": ["bun"]
   },
   "include": ["src/**/*"],
   "exclude": ["**/*.test.ts", "tests/**", "dist/**"]

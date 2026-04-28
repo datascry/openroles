@@ -233,6 +233,87 @@ describe("runScrape", () => {
     expect(out.jobs[0]?.workplace_type).toBeNull();
   });
 
+  it("dispatches breezy against the modern flat-array /json shape with nested location", async () => {
+    server.use(
+      http.get("https://flat.breezy.hr/json", () =>
+        HttpResponse.json([
+          {
+            id: "id-aaa",
+            name: "Customer Success Manager",
+            url: "https://flat.breezy.hr/p/id-aaa",
+            published_date: "2026-03-16T13:54:46.345Z",
+            location: {
+              country: { name: "Canada", id: "CA" },
+              state: { id: "ON", name: "Ontario" },
+              city: "Toronto",
+              is_remote: true,
+              name: "Toronto, ON",
+            },
+            department: { name: "Success" },
+            company: { name: "Flat Co" },
+          },
+          {
+            id: "id-bbb",
+            name: "Speculative Application",
+            location: { country: { id: "us" }, state: null, city: null },
+            department: "Other",
+            published_date: "not-a-date",
+          },
+          {
+            id: "id-ccc",
+            name: "Stringly",
+            location: "Remote, EU",
+            is_remote: true,
+          },
+          // Skipped: missing source id
+          {
+            name: "Headless",
+          },
+        ]),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "breezy",
+        tenants: [{ slug: "flat" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    const a = out.jobs.find((j) => j.source_id === "id-aaa");
+    expect(a?.company).toBe("Flat Co");
+    expect(a?.location_country).toBe("CA");
+    expect(a?.location_text).toBe("Toronto, ON");
+    expect(a?.workplace_type).toBe("remote");
+    expect(a?.department).toBe("Success");
+    const b = out.jobs.find((j) => j.source_id === "id-bbb");
+    expect(b?.location_country).toBe("US");
+    expect(b?.department).toBe("Other");
+    const c = out.jobs.find((j) => j.source_id === "id-ccc");
+    expect(c?.location_text).toBe("Remote, EU");
+    expect(c?.workplace_type).toBe("remote");
+  });
+
+  it("breezy returns dead when the host fails", async () => {
+    server.use(
+      http.get("https://broken.breezy.hr/json", () => HttpResponse.text("nope", { status: 404 })),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "breezy",
+        tenants: [{ slug: "broken" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("dispatches personio against the public /xml feed", async () => {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <workzag-jobs>
@@ -885,6 +966,84 @@ describe("runScrape", () => {
     });
     expect(out.jobs).toHaveLength(0);
     expect(out.tenant_results[0]?.status).toBe("transient_failure");
+  });
+
+  it("jobvite tolerates malformed JSON-LD and non-JobPosting types on detail pages", async () => {
+    const listing = `<!doctype html><html><body>
+<table class="jv-job-list">
+  <tr><td class="jv-job-list-name"><a href="/mixed/job/aaaa1111">Real Job</a></td></tr>
+  <tr><td class="jv-job-list-name"><a href="/mixed/job/bbbb2222">Bad LD</a></td></tr>
+  <tr><td class="jv-job-list-name"><a href="/mixed/job/cccc3333">Wrong Type</a></td></tr>
+</table></body></html>`;
+    server.use(
+      http.get("https://jobs.jobvite.com/mixed", () => HttpResponse.html(listing)),
+      http.get("https://jobs.jobvite.com/mixed/job/aaaa1111", () =>
+        HttpResponse.html(`<script type="application/ld+json">{
+          "@type": "JobPosting",
+          "title": "Real Job",
+          "hiringOrganization": { "name": "Mixed Co" }
+        }</script>`),
+      ),
+      // Malformed JSON-LD: must skip without poisoning the rest.
+      http.get("https://jobs.jobvite.com/mixed/job/bbbb2222", () =>
+        HttpResponse.html(`<script type="application/ld+json">{not valid json</script>`),
+      ),
+      // Wrong @type: must be ignored.
+      http.get("https://jobs.jobvite.com/mixed/job/cccc3333", () =>
+        HttpResponse.html(`<script type="application/ld+json">{"@type":"BreadcrumbList"}</script>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "mixed" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    // 1 success, 2 fails — over the 50% threshold so the tenant degrades to transient_failure.
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("failed to parse");
+  });
+
+  it("jobvite surfaces dead when the listing fetch errors out", async () => {
+    server.use(
+      http.get("https://jobs.jobvite.com/down", () => HttpResponse.text("nope", { status: 404 })),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "down" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
+  it("jobvite returns success: 0 jobs when the listing has no matching rows", async () => {
+    server.use(
+      http.get("https://jobs.jobvite.com/empty", () =>
+        HttpResponse.html("<!doctype html><html><body>No jobs available.</body></html>"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "empty" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBe(0);
   });
 
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
