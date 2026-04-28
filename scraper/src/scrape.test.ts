@@ -1401,15 +1401,86 @@ ${body}
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches applicantstack via /x/openings server-rendered table", async () => {
+    const html = `<!doctype html><html><body>
+<table id="data-table" class="displaytable">
+<thead><tr><th>Title</th><th>Location</th><th>Department</th><th>Job Type</th></tr></thead>
+<tbody>
+<tr class="oddrow"><td><a href="https://example.applicantstack.com/x/detail/abc123">District Sales Manager</a></td><td>Remote</td><td>Sales</td><td>Exempt (salaried)</td></tr>
+<tr class="evenrow"><td><a href="https://example.applicantstack.com/x/detail/def456">Material Handler</a></td><td>Glasgow, KY</td><td>Operations</td><td>Non-exempt (hourly)</td></tr>
+<tr class="oddrow"><td><a href="https://example.applicantstack.com/x/detail/ghi789">Hybrid Engineer</a></td><td>Hybrid</td><td>Engineering</td><td>Salaried</td></tr>
+<!-- SSRF guard target — different host should be rejected by the parser -->
+<tr><td><a href="https://evil.applicantstack.com/x/detail/badxxx">Pwn</a></td><td>Remote</td><td>x</td><td>x</td></tr>
+</tbody>
+</table>
+</body></html>`;
+    server.use(
+      http.get("https://example.applicantstack.com/x/openings", () => HttpResponse.html(html)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantstack",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    const sales = out.jobs.find((j) => j.source_id === "abc123");
+    expect(sales?.title).toBe("District Sales Manager");
+    expect(sales?.location_text).toBe("Remote");
+    expect(sales?.workplace_type).toBe("remote");
+    expect(sales?.department).toBe("Sales");
+    const onsite = out.jobs.find((j) => j.source_id === "def456");
+    expect(onsite?.workplace_type).toBe("onsite");
+    expect(onsite?.location_text).toBe("Glasgow, KY");
+    const hybrid = out.jobs.find((j) => j.source_id === "ghi789");
+    expect(hybrid?.workplace_type).toBe("hybrid");
+  });
+
+  it("applicantstack returns success/0 when openings table is empty", async () => {
+    server.use(
+      http.get("https://empty.applicantstack.com/x/openings", () =>
+        HttpResponse.html("<!doctype html><body>No openings.</body>"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantstack",
+        tenants: [{ slug: "empty" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("applicantstack surfaces dead when the openings page errors", async () => {
+    server.use(
+      http.get("https://gone.applicantstack.com/x/openings", () =>
+        HttpResponse.text("nope", { status: 404 }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantstack",
+        tenants: [{ slug: "gone" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
-    const stubbed = [
-      "csod",
-      "taleo",
-      "ultipro",
-      "zohorecruit",
-      "applicantstack",
-      "eightfold",
-    ] as const;
+    const stubbed = ["csod", "taleo", "ultipro", "zohorecruit", "eightfold"] as const;
     for (const ats of stubbed) {
       const out = await runScrape({
         input: {

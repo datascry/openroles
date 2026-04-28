@@ -9,6 +9,7 @@ import {
 } from "@openroles/shared";
 import pLimit from "p-limit";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
+import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
@@ -163,11 +164,12 @@ function dispatchPerAts(
       return scrapeFactorialTenant(opts);
     case "applicantpro":
       return scrapeApplicantProTenant(opts);
+    case "applicantstack":
+      return scrapeApplicantStackTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "zohorecruit":
-    case "applicantstack":
     case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher
