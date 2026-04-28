@@ -54,7 +54,7 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("applicantpro", "stripe")).toBe("https://stripe.applicantpro.com/jobs/");
     expect(probeUrlFor("applicantstack", "stripe")).toBe("https://stripe.applicantstack.com/");
     expect(probeUrlFor("homerun", "stripe")).toBe("https://feed.homerun.co/stripe");
-    expect(probeUrlFor("factorial", "stripe")).toBe("https://stripe.factorialhr.com/");
+    expect(probeUrlFor("factorial", "stripe")).toBe("https://stripe.factorialhr.com/sitemap.xml");
     expect(probeUrlFor("eightfold", "stripe")).toBe("https://stripe.eightfold.ai/careers");
   });
 

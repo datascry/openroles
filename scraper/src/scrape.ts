@@ -11,6 +11,7 @@ import pLimit from "p-limit";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
@@ -157,13 +158,14 @@ function dispatchPerAts(
       return scrapeJobviteTenant(opts);
     case "homerun":
       return scrapeHomerunTenant(opts);
+    case "factorial":
+      return scrapeFactorialTenant(opts);
     case "csod":
     case "taleo":
     case "ultipro":
     case "zohorecruit":
     case "applicantpro":
     case "applicantstack":
-    case "factorial":
     case "eightfold":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher

@@ -1122,6 +1122,168 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches factorial via sitemap walk + og:title meta extraction", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://example.factorialhr.com</loc></url>
+  <url><loc>https://example.factorialhr.com/job_posting/senior-engineer-294697</loc></url>
+  <url><loc>https://example.factorialhr.com/job_posting/marketing-lead-308122</loc></url>
+</urlset>`;
+    const detail = (title: string, body: string) => `<!doctype html><html><head>
+<meta content='${title}
+' name='title' property='og:title'>
+<meta content='Apply today to ${title} job offer
+' name='description' property='og:description'>
+</head><body>
+<h1>${title}</h1>
+${body}
+<a href='/apply/${title.toLowerCase().replace(/ /g, "-")}'>Apply now</a>
+</body></html>`;
+    server.use(
+      http.get("https://example.factorialhr.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://example.factorialhr.com/job_posting/senior-engineer-294697", () =>
+        HttpResponse.html(detail("Senior Engineer", "<p>Build the platform.</p>")),
+      ),
+      http.get("https://example.factorialhr.com/job_posting/marketing-lead-308122", () =>
+        HttpResponse.html(detail("Marketing Lead", "<p>Run campaigns.</p>")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "factorial",
+        tenants: [{ slug: "example", display_name: "Example Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    const senior = out.jobs.find((j) => j.source_id === "294697");
+    expect(senior?.title).toBe("Senior Engineer");
+    expect(senior?.company).toBe("Example Co");
+    expect(senior?.description_excerpt).toContain("Build the platform");
+    const lead = out.jobs.find((j) => j.source_id === "308122");
+    expect(lead?.title).toBe("Marketing Lead");
+  });
+
+  it("factorial rejects sitemap URLs that point at the wrong host", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://good.factorialhr.com/job_posting/real-job-111</loc></url>
+  <url><loc>https://evil.example.com/job_posting/escapehatch-222</loc></url>
+  <url><loc>https://other.factorialhr.com/job_posting/wrong-tenant-333</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://good.factorialhr.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://good.factorialhr.com/job_posting/real-job-111", () =>
+        HttpResponse.html(`<meta content='Real Job
+' property='og:title'><h1>Real Job</h1><a href="/apply/real-job-111">Apply</a>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "factorial",
+        tenants: [{ slug: "good" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.source_id).toBe("111");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("factorial returns success with zero jobs when sitemap has no job_posting entries", async () => {
+    server.use(
+      http.get("https://empty.factorialhr.com/sitemap.xml", () =>
+        HttpResponse.xml(`<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://empty.factorialhr.com</loc></url>
+</urlset>`),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "factorial",
+        tenants: [{ slug: "empty" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("factorial filter rejects malformed sitemap URLs and network errors poison only the affected job", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://mixed.factorialhr.com/job_posting/good-101</loc></url>
+  <url><loc>https://mixed.factorialhr.com/job_posting/bad-202</loc></url>
+  <url><loc>not a url at all</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://mixed.factorialhr.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://mixed.factorialhr.com/job_posting/good-101", () =>
+        HttpResponse.html(
+          `<meta content='Good Job
+' property='og:title'><h1>Good Job</h1><p>Body</p><a href='/apply/good-101'>Apply</a>`,
+        ),
+      ),
+      // Network-style failure on the second job — exercises the per-task catch.
+      http.get("https://mixed.factorialhr.com/job_posting/bad-202", () => HttpResponse.error()),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "factorial",
+        tenants: [{ slug: "mixed" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    // Of the 3 sitemap rows, one is malformed (filtered out before fetch)
+    // and one fails network-style. With 1 success + 1 fail the failure
+    // rate is exactly 50% — at the threshold but not above, so the tenant
+    // stays at success with 1 job. The test still exercises the URL-parse
+    // catch and the per-task fetch catch for coverage purposes.
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.source_id).toBe("101");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("factorial degrades to transient_failure when most detail pages have no og:title", async () => {
+    const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url><loc>https://flaky.factorialhr.com/job_posting/a-1</loc></url>
+  <url><loc>https://flaky.factorialhr.com/job_posting/b-2</loc></url>
+  <url><loc>https://flaky.factorialhr.com/job_posting/c-3</loc></url>
+</urlset>`;
+    server.use(
+      http.get("https://flaky.factorialhr.com/sitemap.xml", () => HttpResponse.xml(sitemap)),
+      http.get("https://flaky.factorialhr.com/job_posting/a-1", () => HttpResponse.text("nope")),
+      http.get("https://flaky.factorialhr.com/job_posting/b-2", () => HttpResponse.text("nope")),
+      http.get("https://flaky.factorialhr.com/job_posting/c-3", () => HttpResponse.text("nope")),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "factorial",
+        tenants: [{ slug: "flaky" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(0);
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
     const stubbed = [
       "csod",
@@ -1130,7 +1292,6 @@ describe("runScrape", () => {
       "zohorecruit",
       "applicantpro",
       "applicantstack",
-      "factorial",
       "eightfold",
     ] as const;
     for (const ats of stubbed) {

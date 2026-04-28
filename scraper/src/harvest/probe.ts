@@ -41,7 +41,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // signal we actually care about — a tenant without a published feed
   // returns 404 here.
   homerun: (slug) => `https://feed.homerun.co/${slug}`,
-  factorial: (slug) => `https://${slug}.factorialhr.com/`,
+  // Factorial's tenant landing page returns 200 even for tenants with no
+  // published careers page. The sitemap is the actual public job feed —
+  // tenants without one return 404 here.
+  factorial: (slug) => `https://${slug}.factorialhr.com/sitemap.xml`,
   eightfold: (slug) => `https://${slug}.eightfold.ai/careers`,
   // ultipro: deliberately omitted — `recruiting.ultipro.com/{CODE}/JobBoard/`
   // requires a per-tenant GUID we cannot derive from the slug alone, so the
