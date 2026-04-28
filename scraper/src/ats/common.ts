@@ -65,3 +65,14 @@ export function epochToIso(epochMs: number | undefined): string | undefined {
   if (!Number.isFinite(epochMs)) return undefined;
   return new Date(epochMs).toISOString();
 }
+
+// Normalize a vendor-supplied date string to the canonical Z-suffixed UTC ISO
+// shape JobSchema enforces. Greenhouse and others return `2026-03-11T17:29:19-04:00`
+// (with timezone offset) — `Date.toISOString()` converts to UTC + Z. Returns
+// undefined for missing or unparseable input.
+export function vendorDateToIsoZ(value: string | null | undefined): string | undefined {
+  if (typeof value !== "string" || value.length === 0) return undefined;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return undefined;
+  return d.toISOString();
+}

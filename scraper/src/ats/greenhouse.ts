@@ -2,7 +2,13 @@ import { type Job, JobSchema, type TenantInput, type TenantResult } from "@openr
 import { z } from "zod";
 import { buildJob } from "../build-job.ts";
 import type { HttpClient } from "../http.ts";
-import { assertSafeSlug, dedupeById, errorToResult, isRecruiterTitle } from "./common.ts";
+import {
+  assertSafeSlug,
+  dedupeById,
+  errorToResult,
+  isRecruiterTitle,
+  vendorDateToIsoZ,
+} from "./common.ts";
 
 const GreenhouseLocation = z.object({ name: z.string().optional() }).optional();
 const GreenhouseDepartment = z.object({ name: z.string() });
@@ -46,6 +52,9 @@ export function parseGreenhouseJobs(input: GreenhouseParseInput): Job[] {
     const office = raw.offices?.[0]?.name;
     const location = raw.location?.name;
     const department = raw.departments?.[0]?.name;
+    // Greenhouse returns updated_at with a numeric timezone offset
+    // (`2026-03-11T17:29:19-04:00`); JobSchema requires Z-suffixed UTC.
+    const updatedAt = vendorDateToIsoZ(raw.updated_at);
     const candidate = buildJob({
       ats: "greenhouse",
       tenant_slug: input.tenant.slug,
@@ -57,7 +66,7 @@ export function parseGreenhouseJobs(input: GreenhouseParseInput): Job[] {
       ...(location !== undefined ? { location_text: location } : {}),
       workplace_hint: pickWorkplaceHint(office, location),
       ...(department !== undefined ? { department } : {}),
-      ...(raw.updated_at !== undefined ? { updated_at: raw.updated_at } : {}),
+      ...(updatedAt !== undefined ? { updated_at: updatedAt } : {}),
       is_recruiter_post: isRecruiterTitle(raw.title),
       first_seen_at: input.observedAt,
       last_seen_at: input.observedAt,

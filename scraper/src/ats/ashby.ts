@@ -2,28 +2,37 @@ import { type Job, JobSchema, type TenantInput, type TenantResult } from "@openr
 import { z } from "zod";
 import { buildJob } from "../build-job.ts";
 import type { HttpClient } from "../http.ts";
-import { assertSafeSlug, dedupeById, errorToResult, isRecruiterTitle } from "./common.ts";
+import {
+  assertSafeSlug,
+  dedupeById,
+  errorToResult,
+  isRecruiterTitle,
+  vendorDateToIsoZ,
+} from "./common.ts";
 
+// Ashby sends nulls (rather than absent fields) for isRemote, updatedAt, etc.
+// Optional fields use `.nullish()` so the parse succeeds; consumer code
+// treats null as undefined.
 const AshbyJob = z
   .object({
     id: z.string(),
     title: z.string(),
-    departmentName: z.string().optional(),
-    team: z.string().optional(),
-    location: z.string().optional(),
-    employmentType: z.string().optional(),
-    isRemote: z.boolean().optional(),
-    publishedAt: z.string().optional(),
-    updatedAt: z.string().optional(),
+    departmentName: z.string().nullish(),
+    team: z.string().nullish(),
+    location: z.string().nullish(),
+    employmentType: z.string().nullish(),
+    isRemote: z.boolean().nullish(),
+    publishedAt: z.string().nullish(),
+    updatedAt: z.string().nullish(),
     jobUrl: z.url(),
-    applyUrl: z.url().optional(),
-    descriptionHtml: z.string().optional(),
-    descriptionPlain: z.string().optional(),
+    applyUrl: z.url().nullish(),
+    descriptionHtml: z.string().nullish(),
+    descriptionPlain: z.string().nullish(),
   })
   .passthrough();
 
 const AshbyResponse = z.object({
-  jobs: z.array(AshbyJob),
+  jobs: z.array(z.unknown()),
 });
 
 export interface AshbyParseInput {
@@ -33,18 +42,35 @@ export interface AshbyParseInput {
   readonly observedAt: string;
 }
 
+function nonEmpty(value: string | null | undefined): string | undefined {
+  return typeof value === "string" && value.length > 0 ? value : undefined;
+}
+
 function ashbyWorkplaceHint(raw: z.infer<typeof AshbyJob>): string {
   const parts: string[] = [];
   if (raw.isRemote === true) parts.push("remote");
-  if (raw.location) parts.push(raw.location);
+  const location = nonEmpty(raw.location);
+  if (location) parts.push(location);
   return parts.join(" ");
 }
 
 export function parseAshbyJobs(input: AshbyParseInput): Job[] {
-  const parsed = AshbyResponse.parse(input.response);
+  const envelope = AshbyResponse.safeParse(input.response);
+  if (!envelope.success) return [];
   const jobs: Job[] = [];
-  for (const raw of parsed.jobs) {
-    const department = raw.departmentName ?? raw.team;
+  for (const item of envelope.data.jobs) {
+    // Per-job parse so one malformed posting does not poison the rest.
+    const parsed = AshbyJob.safeParse(item);
+    if (!parsed.success) continue;
+    const raw = parsed.data;
+    const department = nonEmpty(raw.departmentName) ?? nonEmpty(raw.team);
+    const description = nonEmpty(raw.descriptionPlain);
+    const descriptionHtml = nonEmpty(raw.descriptionHtml);
+    const location = nonEmpty(raw.location);
+    // Ashby publishedAt comes back as `2025-11-17T14:04:36.867+00:00`;
+    // JobSchema requires Z-suffixed UTC.
+    const postedAt = vendorDateToIsoZ(raw.publishedAt);
+    const updatedAt = vendorDateToIsoZ(raw.updatedAt);
     const candidate = buildJob({
       ats: "ashby",
       tenant_slug: input.tenant.slug,
@@ -52,16 +78,16 @@ export function parseAshbyJobs(input: AshbyParseInput): Job[] {
       source_id: raw.id,
       title: raw.title,
       url: raw.jobUrl,
-      ...(raw.descriptionPlain !== undefined
-        ? { description_text: raw.descriptionPlain }
-        : raw.descriptionHtml !== undefined
-          ? { description_html: raw.descriptionHtml }
+      ...(description !== undefined
+        ? { description_text: description }
+        : descriptionHtml !== undefined
+          ? { description_html: descriptionHtml }
           : {}),
-      ...(raw.location !== undefined ? { location_text: raw.location } : {}),
+      ...(location !== undefined ? { location_text: location } : {}),
       workplace_hint: ashbyWorkplaceHint(raw),
       ...(department !== undefined ? { department } : {}),
-      ...(raw.publishedAt !== undefined ? { posted_at: raw.publishedAt } : {}),
-      ...(raw.updatedAt !== undefined ? { updated_at: raw.updatedAt } : {}),
+      ...(postedAt !== undefined ? { posted_at: postedAt } : {}),
+      ...(updatedAt !== undefined ? { updated_at: updatedAt } : {}),
       is_recruiter_post: isRecruiterTitle(raw.title),
       first_seen_at: input.observedAt,
       last_seen_at: input.observedAt,
