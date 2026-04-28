@@ -2,6 +2,14 @@ import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from 
 import type { HttpClient } from "../http.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
+interface WorkableLocation {
+  country?: string;
+  countryCode?: string;
+  city?: string;
+  region?: string;
+  hidden?: boolean;
+}
+
 interface WorkableJob {
   id?: string | number;
   shortcode?: string;
@@ -12,22 +20,34 @@ interface WorkableJob {
   shortlink?: string;
   state?: string;
   department?: string;
+  // v3 (deprecated) shape
   location?: { country_code?: string; city?: string; region?: string; location_str?: string };
+  // v1 widget shape
+  locations?: ReadonlyArray<WorkableLocation>;
+  city?: string;
+  country?: string;
+  country_code?: string;
   remote?: boolean;
+  telecommuting?: boolean;
   workplace?: string;
   employment_type?: string;
+  type?: string;
   description?: string;
   published_on?: string;
   created_at?: string;
 }
 
 interface WorkableResponse {
+  // Modern v1 widget endpoint returns the account wrapper plus jobs.
+  name?: string;
+  description?: string;
+  // Older shapes left for forward-compat in case the endpoint changes again.
   results?: ReadonlyArray<WorkableJob>;
   jobs?: ReadonlyArray<WorkableJob>;
 }
 
 function workplaceFromJob(j: WorkableJob): Job["workplace_type"] {
-  if (j.remote === true) return "remote";
+  if (j.remote === true || j.telecommuting === true) return "remote";
   const wp = j.workplace?.toLowerCase();
   if (wp === "remote") return "remote";
   if (wp === "hybrid") return "hybrid";
@@ -57,11 +77,14 @@ export async function scrapeWorkableTenant(
 ): Promise<ScrapeWorkableOutcome> {
   try {
     assertSafeSlug(opts.tenant.slug);
-    const url = `https://apply.workable.com/api/v3/accounts/${opts.tenant.slug}/jobs`;
+    // v1 widget endpoint — see scraper/src/harvest/probe.ts for the
+    // background. v3 (`/api/v3/accounts/{slug}/jobs`) returns 404 for every
+    // tenant, including known-live ones; v1 returns the canonical job set.
+    const url = `https://apply.workable.com/api/v1/widget/accounts/${opts.tenant.slug}`;
     const res = await opts.client.request(url);
     const body = (await res.json()) as WorkableResponse;
-    const items = body.results ?? body.jobs ?? [];
-    const company = opts.tenant.display_name ?? opts.tenant.slug;
+    const items = body.jobs ?? body.results ?? [];
+    const company = body.name ?? opts.tenant.display_name ?? opts.tenant.slug;
     const jobs: Job[] = [];
     for (const j of items) {
       const sourceId = j.shortcode ?? (j.id !== undefined ? String(j.id) : undefined);
@@ -80,6 +103,20 @@ export async function scrapeWorkableTenant(
       });
       const postedAt = isoOrUndefined(j.published_on ?? j.created_at);
       const trimmedDesc = j.description?.trim();
+      // v1 widget puts locations in `locations[0]`; v3 used a single
+      // `location` object. Read from whichever is present, falling back
+      // to the top-level `city` / `country_code` if neither nests.
+      const firstLoc = j.locations?.[0];
+      const locCity = firstLoc?.city ?? j.location?.city ?? j.city;
+      const locRegion = firstLoc?.region ?? j.location?.region;
+      const locCountryCode = (
+        firstLoc?.countryCode ??
+        j.location?.country_code ??
+        j.country_code
+      )?.toUpperCase();
+      const locText =
+        j.location?.location_str ??
+        [locCity, locRegion, firstLoc?.country].filter(Boolean).join(", ");
       const candidate = {
         id,
         ats: "workable",
@@ -92,11 +129,11 @@ export async function scrapeWorkableTenant(
         level_rank: null,
         workplace_type: workplaceFromJob(j),
         is_recruiter_post: false,
-        ...(j.location?.location_str ? { location_text: j.location.location_str } : {}),
-        ...(j.location?.country_code
-          ? { location_country: j.location.country_code.toUpperCase() }
+        ...(locText.length > 0 ? { location_text: locText } : {}),
+        ...(locCountryCode && /^[A-Z]{2}$/.test(locCountryCode)
+          ? { location_country: locCountryCode }
           : {}),
-        ...(j.location?.city ? { location_region: j.location.city } : {}),
+        ...(locCity ? { location_region: locCity } : {}),
         ...(j.department ? { department: j.department } : {}),
         ...(postedAt ? { posted_at: postedAt } : {}),
         first_seen_at: opts.observedAt,

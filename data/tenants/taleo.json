@@ -2,2533 +2,2533 @@
   {
     "ats": "taleo",
     "slug": "aa009",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa010",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa020",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa037",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa067",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa080",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa083",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa115",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa115s01",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa121",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa128",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa142",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa147",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa163",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa165",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa193",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa210",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa224",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa225",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa241",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa243",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa251",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa255",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa269",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa270",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa279s01",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa293",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa304",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa308",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa328",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aa340",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aarcorp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aceeurogrp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "acenda",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "acthealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adeccogroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adelaidecity",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adhbrac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adibegypt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "adventist",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "afrasiabank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "agnicoeagle",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aicpa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aircanada",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "aku",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "albertahs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "alnylam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "altayer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ansell",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "arabbank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ardent",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "arupjobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "asr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "asrcenergy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "atkcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "atriushealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "att",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "autozone",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "avient",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "awac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "awrostamani",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "axp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "azadea",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "baesystems",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "baptistfirst",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "baptisthlth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bayshore",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "beallsinc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bglgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bombardier",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bracbank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "britam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bswhealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bupa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "burnsmcdonn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "bwcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cadentgas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "caegypt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "campofriofg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "capecodhc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "capgemini",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "capps",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "careersportal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cbd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cbe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cccconnect",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ccsd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ccservices",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cfopitt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chicago",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chicagotransit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "childrensmn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chj",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cho",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "chu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cibeg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ciklum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cinfin",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cityofnorthlasvegas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ciusssemtl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cmc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cmiinc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cmscmck",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cnhs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cnrl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cognizant",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cognizanthc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "colum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cookcountyil",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cpsk12il",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "creighton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "crowley",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "croydon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "csgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cshs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cuhk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "cwt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "daimler",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dallascounty",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dasstateoh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dbs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dddsystems",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dhlexpress",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "drhorton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dttit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "dubaiholding",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "durham",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "eani",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "easyjet",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "edc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "edmonton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "eduhk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "efsa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "eiffage",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ekkanoo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "elcompanies",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "elseif",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "elsewedyelectric",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "encompasshealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "energytransfer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "epco",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "equitable",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "equitybank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "erlanger",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "eslseet",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "etisalatmisr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "eulen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "euromaster",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "evergy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fa007",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fa009",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fao",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "flydubai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fortive",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "frbog",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fre",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "fticonsult",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ga",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gb-corporation",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gecareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "genco",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "genpact",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ghabbour",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "glensfallshosp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gmh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "golder",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "govskpsc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "govvg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gpstrategies",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "groupeseb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gse",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gsu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "gulfbank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ha",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "harristeeter",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hbritanico",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hccs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hcmc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hdr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "healthfirst",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "healthnswgov",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "healthscope",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "healthsouth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hecl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "henryschein",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hgvc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hhccareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hhsc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hilton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hkmu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "homegroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hondana",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hsbc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "humber",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hyatt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "hyundaicapital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "iaea",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "iamgold",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ibxhome",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ieee",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "imdaad",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "incresearch",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "inggroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "inl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "intel",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "iworkfornsw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "jacobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "jazz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "jea",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "jnjc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "jobsnsw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "justenergy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kate",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kearney",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kenvue",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kindred",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "kpmgza",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ku",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "landmarkgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lbl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lbrands",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lcm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ldd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lde",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ldn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lifepoint",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "lockton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "macecareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mainline",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "manpower",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "manpowergroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "marcuscorp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "marykay",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "massanf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mch",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mclarenhlth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mcps",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mdanderson",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "medamerica",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "medline",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "medmutual",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "memorialcare",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "memphistn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "metricsportal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mhs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mlcinsurance",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mlgw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "molgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "moneygramjob",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "moosetoys",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mossadams",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ms",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "msb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mtr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "mtstatejobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "munichre",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nabors",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nashville",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nationalexp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nato",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nbe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "neimanmarcus",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nexcom",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nintendo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nmdc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nmdp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nokia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "northstone",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "novasep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "nsfintl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ocbc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "orangecameroun",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "otago",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ou",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ouhk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "partners",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "paulweiss",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "pepper",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "percepta",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "petrofac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "phe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "phf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "phg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "phh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "php",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "piedmont",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "pmg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "pmu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "polyone",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "praxair",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "progressive",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "prosegur",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "pruitthealthcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "qe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "qrcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "racq",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "radware",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "raymondjames",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "rbauction",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "richtek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "rossstores",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "s01cfopitt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "s01medamerica",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "s01schneiderele",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "s01scpmg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "s01virtusapolaris",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "saicjobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "saudia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "schneider",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "schneiderele",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "schroders",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "scpmg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "scripps",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "segalco",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "sennheiser",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "shp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "smu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "smucareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "socgen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "spe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "specialtycr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stanford",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stantec",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "starbucks",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "status",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stckw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgalbertahs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgaxp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgcapgemini",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgcwt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgdbs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgga",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stghilton",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgmacecareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stgsocgen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "stonybrooku",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "supervalu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "sye",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "syf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "syneoshealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tailoredbrands",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tampaairport",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "targaresources",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-adhbrac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-aluperf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-arupjobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-cognizant",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-daimler",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-ekgcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-moxa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-schneiderele",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tas-tgh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tatweer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tatweerpetroleum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tbc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tbe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tcnj",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "teletech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "temple",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tenet",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tetratech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "texashealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "textron",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tfl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tgh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "three",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ti",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "towson",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tre",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "trinity",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "trr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ttcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ttec",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "tuhs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uab",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ual-pro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ugl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uhg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uhhospitals",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uiowa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "umb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "unfi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "unifirst",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "unra",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "upmcjobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ura",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "ut",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uthct",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uthscsa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "utsw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "uzleuven",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "valero",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "velaw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "virtusa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "visitscotland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "vontier",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "vsco",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "vulcanmat",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "vwgoa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "wadigroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "watercorp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "wescoair",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "westpac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "weyerhaeuser",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "whitecase",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "who",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "wipo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "wlgore",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "woodforest",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "woodward",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "worleyparsons",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "wvu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "xl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "xoriant",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   },
   {
     "ats": "taleo",
     "slug": "zionsbancorp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:26:27.507Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:51:12.564Z"
   }
 ]

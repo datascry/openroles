@@ -2,1561 +2,1561 @@
   {
     "ats": "talentlyft",
     "slug": "4create-software",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "abysalto",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "accounts",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-ag",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-bl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-cro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-mne",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-sa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-slo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "addiko-bank-srb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "adria-dental-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "adria-scan",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "adriatic-bank",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "agencija-agado-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "agilno",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "agrana-studen-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "agrivi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "aig",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "alfa-therm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "algebra-karijere",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "alleyesonscreens",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "aminess-hotels-resorts",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "apsolon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "aroma-global-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "auro-domus",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "b2match",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "baltic-assist",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "belisar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "belje",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "bimal-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "biovega",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "blog",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "bluesun-hotels-posao-u-turizmu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "boreas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "bornfight",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "cadcam-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "careers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "careers-lazure-hotel",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "careers-regentportomontenegro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "cartona",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ch-aviation",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "cigen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "circuitmess-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "coadria",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "combis",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "conet",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "connecta",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "convergent-media-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "cordia-uk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "cqv-systems-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "crnogorska-komercijalna-banka-ad-podgorica",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "croz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "decathlon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "decathlon-estonia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "decathlon-lietuva",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "decathlongr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "degordian",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-bosnia-and-herzegovina",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-macedonia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-montenegro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-serbia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-slovenia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dekra-zapo-hr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "deltron",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "developers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dobrovita-doo5",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "dukat-dd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "elektroda-zagreb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "elgorithm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "elixirrdigital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "emploi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "engineered-heating-and-air",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "enna-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "eon-digital-dialog",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "eos-matrix",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "eosmatrix-bih",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ep-holding-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ericsson-nikola-tesla",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "espace-for-software-development",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "eurobeton-dd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "europa-92-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "europro-360",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "eushipments-croatia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "factory",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "farmgirl-flowers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "favorit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "fazi0",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "fidelta",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "fina-gs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "flyer-one-ventures",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "forch-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "foreo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "forvis-mazars",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "franck",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "frontastic-gmbh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "futurehr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "generali-osiguranje",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "get",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "geta-digital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "gosadi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "gp-krk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "graficki-zavod-hrvatske-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "helb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "help",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "hotels-group-montenegro-stars",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "hpb",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "hrbp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "hrvatski-telekom2",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "icdo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "inetec",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "infomediji",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ingemark",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "integra-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "inteligencija",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "intera-tehnoloski-park",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "interaktivna-zabava-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "internacionalni-medicinski-centar-priora",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "intersnack",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "iolap",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "iskon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "itec",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "itester",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "jadranka-dd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "jamjoom-pharma",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "jamnicaplus",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "jenz-app",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "jgl-karijera",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "judiai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kaiko",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kamgrad",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "karijere-jadran-hotels-and-camps",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kazinikwetu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kdn-bulgaria",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "keenious",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "king-ict",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "klimaoprema",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "klimatizacijahr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "koios",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kompare",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "koncern-bambi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kpmg-bulgaria",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kpmg-romania",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "kudi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "laqo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lelo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "link-hrm-bv3",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lioneight",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ljubljanske-mlekarne-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lpp-croatia-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lpp-fashion",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lppbh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "lustica-development",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "m-plus",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "magical-teams",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "marty",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "maslina-resort",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "mazars-cinotti",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "mazars-romania",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "media-one",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "medika",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "milieu-consulting-srl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "minus5",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "mplusgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "msan",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "museumofillusions",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "myshell",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "neogov-croatia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "nexttech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "njuskalo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "nomba",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "novi-poduzetnik-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "nsoft-careers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "optimapharm-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "oradian",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "orbico",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "otasync-ou",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pan-pek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pbz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pclhealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "peg-africa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "people-focus-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-bih",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-croatia-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-greece",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-italy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-portugal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-serbia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pepco-spain",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "personalbro-u-herrmann",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "phoenix-farmacija",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "pirata-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "podzidomgrupa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "poliklinikaidentalia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "polleosport",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "portomontenegro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "praca-decathlon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "prima-karijere",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "raditi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "ralulogistics",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "retail-group-botswana",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "riverwalkertalentcareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "roca-alliances-sa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "roko-labs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "rook",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "roto-dinamic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "rs-eos-solutions",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "rt-rk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "rubyplay",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "sabex9",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "schjdt2",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "sco-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "secret-level",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "sedam-it",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "sellcord",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "sextant",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "smartflex",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "softpay",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "solutioncondo5",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "solvership",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "speck",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "speech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "srce",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "stanic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "status",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "storm-grupa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "studen-global",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "studenac",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "styria",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "swen-hospitality",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tacta-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "talentor-latvia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tarken",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "techhub",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "techmagic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "techpathau",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "teletrader",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "the-chedi-hotel-residences",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "thebristol",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "theorigo-ltd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tim-ferguson-plumbing-air-electric",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tis-grupa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tisak",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tokic-grupa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "tourradar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "txodds1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "uhp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "unconditional",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "unicreditbanksrbija",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "uniqa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "uniqa-osiguranje-dd-sarajevo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "victusgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "violeta-doo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "vira-games",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "webelinx",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "widget",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "zagorska-razvojna-agencija",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "zagrebackabanka",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "zendev",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   },
   {
     "ats": "talentlyft",
     "slug": "zvijezda",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:33.386Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T17:54:52.154Z"
   }
 ]

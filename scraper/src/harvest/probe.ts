@@ -15,7 +15,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   recruitee: (slug) => `https://${slug}.recruitee.com/api/offers/`,
   breezy: (slug) => `https://${slug}.breezy.hr/json`,
   personio: (slug) => `https://${slug}.jobs.personio.com/xml`,
-  workable: (slug) => `https://apply.workable.com/api/v3/accounts/${slug}/jobs?limit=1`,
+  // Workable's v3 endpoint (`/api/v3/accounts/{slug}/jobs`) returns 404 for
+  // every tenant, including known-live ones. The v1 widget API at
+  // `/api/v1/widget/accounts/{slug}` is the actual public read-only path
+  // and returns `{ name, description, jobs: [...] }`.
+  workable: (slug) => `https://apply.workable.com/api/v1/widget/accounts/${slug}`,
   // /jobs.json returns 406 (content-type negotiation, no auth) even with
   // an explicit Accept header; /jobs.rss is the public read-only feed that
   // works without auth.
@@ -73,7 +77,11 @@ export async function probeOne(
     return { ats, slug, status: "transient_failure", last_probed_at: observedAt };
   }
   try {
-    await client.request(probeUrlFor(ats, slug), { method: "GET" });
+    // Some ATS API hosts publish robots.txt with `Disallow: /` even though
+    // their public read-only API is documented and intended for programmatic
+    // use (smartrecruiters whitelists LinkedInBot, others are silent).
+    // Treat the probe URL as an API call rather than a crawl.
+    await client.request(probeUrlFor(ats, slug), { method: "GET", skipRobots: true });
     return { ats, slug, status: "live", last_probed_at: observedAt };
   } catch (err) {
     if (err instanceof HttpError) {

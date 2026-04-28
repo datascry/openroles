@@ -39,7 +39,7 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("breezy", "stripe")).toContain("stripe.breezy.hr/json");
     expect(probeUrlFor("personio", "stripe")).toContain("stripe.jobs.personio.com/xml");
     expect(probeUrlFor("workable", "stripe")).toContain(
-      "apply.workable.com/api/v3/accounts/stripe/jobs",
+      "apply.workable.com/api/v1/widget/accounts/stripe",
     );
     expect(probeUrlFor("teamtailor", "stripe")).toContain("stripe.teamtailor.com/jobs.rss");
     expect(probeUrlFor("smartrecruiters", "stripe")).toContain(

@@ -266,18 +266,21 @@ describe("runScrape", () => {
     expect(out.jobs[0]?.location_text).toBe("Munich");
   });
 
-  it("dispatches workable against the apply.workable.com v3 API", async () => {
+  it("dispatches workable against the apply.workable.com v1 widget API", async () => {
     server.use(
-      http.get("https://apply.workable.com/api/v3/accounts/example/jobs", () =>
+      http.get("https://apply.workable.com/api/v1/widget/accounts/example", () =>
         HttpResponse.json({
-          results: [
+          name: "Example Inc",
+          jobs: [
             {
               shortcode: "ABCD1234",
               title: "Principal Engineer",
-              location: { country_code: "GB", city: "London", location_str: "London, UK" },
+              locations: [
+                { country: "United Kingdom", countryCode: "GB", city: "London", region: "England" },
+              ],
               department: "Engineering",
               workplace: "hybrid",
-              published_on: "2026-04-19T10:00:00Z",
+              published_on: "2026-04-19",
               description: "Lead architecture.",
             },
           ],
@@ -344,19 +347,20 @@ describe("runScrape", () => {
 
   it("workable maps onsite workplace and surfaces 5xx as transient_failure", async () => {
     server.use(
-      http.get("https://apply.workable.com/api/v3/accounts/onsiteco/jobs", () =>
+      http.get("https://apply.workable.com/api/v1/widget/accounts/onsiteco", () =>
         HttpResponse.json({
-          results: [
+          name: "Onsite Co",
+          jobs: [
             {
               shortcode: "X1",
               title: "Onsite Engineer",
               workplace: "On-site",
-              published_on: "2026-04-19T10:00:00Z",
+              published_on: "2026-04-19",
             },
           ],
         }),
       ),
-      http.get("https://apply.workable.com/api/v3/accounts/down/jobs", () =>
+      http.get("https://apply.workable.com/api/v1/widget/accounts/down", () =>
         HttpResponse.text("oops", { status: 503 }),
       ),
     );

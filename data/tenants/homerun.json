@@ -2,4009 +2,4009 @@
   {
     "ats": "homerun",
     "slug": "013-poppodium",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "10uur",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "2manydots",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "2solar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "404",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "414",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "51north",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "aanmelder",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "academievandestad",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "acato",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ace",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "activematter",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "activestudios",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "adamtoren",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "adchieve-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "afix",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "agencyleroy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ahsf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "aiqos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "aknostic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "alisqi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "altera-vastgoed-nv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "alva-technologies",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "amare",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "amsterdamboats",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "anna-nina",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "appear",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "appical",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "applicaagency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "appsignal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "appwritecareer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ara",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "argonandconetherlands",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "arkitech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "aroma-club",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "artis",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "asif-ventures1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "assist-digital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "atni",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "aurai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "autheos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "avance-impact",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "avy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "b-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "baas-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bakkenbaeck",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bambelo1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bannerwise",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "barkas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "barkas-aps",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "basecamp-research",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bash",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bbeng",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "beaninsider",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "beeldr",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "beerwulf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "beerze-bulten",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "being-there",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "belsimpel",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bencomgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bielkeyang",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bigspark",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "billy-grace",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bitonic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bkb",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "blendle",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "blue-sky-roofing",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "boerschappen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "boldking",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "boloo1",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bom-holding-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bonana",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "boneloaf-limited",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bopinc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bow",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "brain-research-center",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "brammibals-donuts-gmbh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "brandclick-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bravoure",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "breeze",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bridebookcouk",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "brink",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "brisker-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bsn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "btrust",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "buffer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "buffer1",
     "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "buildinamsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "bunch-creative-boutique-agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "byborre",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "camalot",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "camping",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "capital-c-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "capitalise",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "caro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "celest",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "certegroep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "chefstbl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "chillhop-music",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "chucklefish",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "chun-cafe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "cityhub",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "civilla",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "clave",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "clearbio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "cleverfranke",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "cleverland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "clicknl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "codam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "codator",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "combo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "conferencecompass",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "constant-it",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "converz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "coreline",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "cosmos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "craftworks",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "creativefabrica",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "crobox",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "crocodile-agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "cryptohopper",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dag-en-nacht-media",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dash0",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "datatribes",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dathuis",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "daymakers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "de-buurtboer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "de-tulp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "de-voorhoede",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "de-willem",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "decorrespondent",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "deftpower",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dekode",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "delft-metal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dentsucreative",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "designfiles",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "designstripe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "developers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dialogue-advisory-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "digital-growth-agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dignio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ditt-officemakers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dixon-dejaeger",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "doloncareers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "doloris",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "domeynmilieuadviesgroep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dons-opvang",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dopper",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dorstenlesser",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dotcontrol",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "douglas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "douglas-cosmetics-belgium",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "douwe-egberts-cafe-groningen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dpw",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "driebit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "drifti-as1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dsdl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "duijvestijn-tomaten",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dutch-concepts",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dutchband",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "dyme",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ebn",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ecochain",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "econocomnederland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "edorado",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "effectgroep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "effective-giving",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "elementalstrategy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "elia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ematters",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "enviu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "epnl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "epp-ggz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ervaringwijzer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "esperantoxl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "euro-mit-staal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "eusebius",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "everyman-health",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fabriq",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fabrique",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fairphone",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fashion-for-good",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fatboy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "feebris-ltd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "figo-mobility",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "finstitute",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fiona-festival",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "firm24",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "firmhouse",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "flatland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fleur-de-lies-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "flinksoftware",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "flitsmeister",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "florensis",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fluent-forever",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "flytedesk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fogepack",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fonds-voor-cultuurparticipatie",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "forpeople",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "foundrs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "frankenergie",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "franshalsmuseum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "frascati",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fremantle",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "friendlycaptcha",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "futurefresh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "fxagency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "g2k",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gaiyo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gammabenelux",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gbi-van-dijk-bouw-en-techniek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gearbox-innovations",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gendx",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ghost",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "girav-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gitbutler",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gogla",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "gradium",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "grasplabs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "great-yellow",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "greenpeace",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "greenwheels",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "grey-men",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "groeienbijyonego",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "guatson",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "h2l-robotics",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hallostroom",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hammerfest",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hans-boodt-mannequins",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "happyhorizon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "harlemnext",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "havas-media",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hedsor-house",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hellozeeland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "help",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "live",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "het-pr-bureau",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "het-scheepvaartmuseum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hetepeper",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "highstreet-mobile-retail",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hikeone",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hku",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "holland-festival",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "home",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hoppinger",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hortilux",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hotel-casa-amsterdam1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hoteliers",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "houseoftickets",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hoxton-mini-press",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "huntr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hybridheroes",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "hyma",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ibood",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "il-biosystems-benelux-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ilfu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ilgm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "indiebi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "influentials",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "inmotio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "innovationquarter",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "inspearit-nl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "international-justice-mission",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "interpulse",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "invalshoek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "inverid",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "involve",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "iolla",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ita",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "its-nice-that",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "its-nice-that-graduates-2018",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "itsnicethat",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ja-rebranding-agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jan-zandbergen-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "job-post-templates",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jobs-valsplat",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jobsatvalyuu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jobscoosto",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jobster",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "johnnywonder",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jongehonden",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "jongeklimaatbeweging",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kaliber",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "katanox",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "keerdiabetes2om",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kennisland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kinder-donations-jobs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kinderopvang-zien",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "knijn-damsma",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "knwu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kollektfm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kollider",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kometen-brood",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "komori",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kontist",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "koolcollective",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "koos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kossmanndejong",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "koster-fashion",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kpr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kro-ncrv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "kunstmuseum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "labd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lagro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lalaland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lamalama",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "landgoed-heerlijkheid-marienwaerdt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lbl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "learnbeat",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "leerdamcrisalglass",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lera",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "let-it-grow-entrepreneurs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "letsgetdigital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "limpidex",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "linc-naar-zorg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lingumi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "loods-51",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "loop-biotech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lotech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lowlander",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "loxsolution",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lune",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lyceo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "lyon-lyon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "maandag",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "madaga",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "madebrave",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "magic-story",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mandogroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mapiq",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "marble-content-marketing",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "marvia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "massarius",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "matrixian-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "measuremen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mecanoo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "media-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "meditation-moments",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "meermuziekindeklas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mein-grundeinkommen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "melkweg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mercurius-college",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "methylium",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "meute-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "microtechniek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mikuta",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "milieudefensie",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mizuno-emea",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mkcmoto",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mmr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "momentum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "momkai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "moneybird",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "moneymonk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "monterosa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "moose",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "mosameat",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "motel-mozaique",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "motto",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "multisig-capital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "munro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "museum-de-lakenhal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "museum-voorlinden",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "myc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "naif-care-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "natra",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "naturehouse",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nearfield-instruments",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nederlands-filmfestival",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "negometrix",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "netvlies",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "neue-design-studio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "new-amsterdam-film-company",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "newonce",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "newsifier",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "next-sense",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nextnature",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "niek-roos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nieuwestroom",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nissewijs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "njr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nlmtd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "no-waste-army",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nocnsf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nodots-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nonspace",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nordkapp",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "nxt-museum",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oaklins",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oger",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oktober",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "olifantmedia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "omx",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "onzekapel",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ooada",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oonabaas",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oonabaasagency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oonabaasbenl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "open-now",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "openred",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "opswerks",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "optimonk-international-zrt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "orange-wings",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "orangetrail",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oscar-circulair",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "outsmart-recruitment",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "oyster-heaven",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "paper-snake",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pasreform",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pathan",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pay-for-people",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pcbo-amersfoort",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "personally",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "physee",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "picky",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pieter-pot",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pinch",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pixelpillow",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "planblue",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "plango",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "planners",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "plantsomenorthamerica",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "playadoptme",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "plein",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pliant-offshore",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "plieger",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pnpmedia",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "podaris",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "polaroid-sciences",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pop-vriend-seeds",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "post-op",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "premium-inc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pricewise",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "printdeal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "propeller",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "protos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "proud-nerds-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "prowise",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "public-cinema",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pxr",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "pzem",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "qarry",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "quaderno",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "quantoz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "quin",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "qwic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "r2-group-holding-as",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "radicalhealth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rakoo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ray-care",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "realfagshjelpen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rebel-recruit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "redkiwi",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "replenysh",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rivo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rivoir-capital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rnw-media",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rob-peetoom-management-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rodeo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rom-utrecht-region",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rominwest",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rook-capital",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rsc-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "rtl-nederland-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "saintjean",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "salmari",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "saoirse-domestic-violence-service",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sapph",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "saul",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "savills",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "saysocial",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "scenic-biotech",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "scooperz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "seabird-technologies",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "seao2",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "seepje",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sense-company",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sentinels",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "september",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sharepeople",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sherlocked",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "shg-groep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "siafoundation",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sibipro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sidekickmoney",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sijthoff-media1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "silo35",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sincerius",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sinkit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sirjoe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sition",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sizzer-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "skape-bio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "skc-ccc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "skill-nation",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "skyscrapers-eu",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sla",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "slimmer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sloepdelen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "smithy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "smooth",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "snappcar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "socialreblz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "softcery",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "solliciteren-sportief-besteed-groep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sollit",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "solvedex",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "solvimon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "somention",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sonum-international",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "space10",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sparqle",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "spindle",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "spl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "spokeai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "spoony",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sportcity",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sportvibes",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "spotrai",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sqills",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stager",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stalling31",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stedelijk-museum-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stekz",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ster",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "steward1",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-founded-in-the-north",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-kinderpostzegels-nederland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-motel-mozaique",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-n8bm-adam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-nederlands-debat-instituut",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichting-paradiso-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stichtingmove",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "strategiq",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stubbe-logistiek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "studio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "studio-henk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "studio24",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "stwt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "sukhibhava",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "summix",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "superscanner",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "swis",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "systek",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tag-beheer-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "take-take-take",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "takeawaycom",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "takkenkamp-groep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tbwaneboko",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tcc-the-computer-company",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tellcharlie",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tentoo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "terra-economics-analytics-lab",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "terragon-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "that-work-s",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-anthony",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-dataface",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-hague-academy-for-local-governance",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-tech-tribe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-terrace",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-valley",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "the-wax-bar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "theater-bellevue",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "theavocadoshow",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thecorrespondent",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thecosmos",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "theek5",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thefactore",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thefamily",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thephonelab",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "therapy-for-black-girls",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thesio-debilt",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thingsilikethingsilove",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thirty-five",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "thoughtly",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ticketswap",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tinify",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tinker-imagineers-bv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tinyhood",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tinypilot",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tiqets",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "to70",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tomorrowmen",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tool",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "top-notch-noahs-ark",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "totalmayhemgames",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "township",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "track-record",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "transitiepartners",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "treebytree",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "treehouse",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tribe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "trifork",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "trippernl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "trompenburg",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "try",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "twinswans",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "tworby",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "twotwentyseven",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "umgnv",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "uncover-legal",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "universalmusic",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "unseenstudio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "unstudio",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "updates",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "upflow",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "uplisting",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "upperbloom",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "uvnl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vaan-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vacature-via",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vadobag-europe",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "van-der-ende-group",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vanberlo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vandejong",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vandejong-creative-agency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "varo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vartion",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "verandertgewoon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vermeer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "verveagency",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vi-health",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "virgin-benelux",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "visoid",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vitaal-zorggroep",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vng-international",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "voja",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "volkshotel",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "volta-energy",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "voys",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "voyssa",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vpro",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "vvd",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "waag",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "waaltje",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "watermelon",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wauw-digital-marketing",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "we-are-first",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wearebrain",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wearevelo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "webs",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wenneker-amsterdam",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werken-bij",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijamstelius",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijanker",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijbosveld",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijcandidgroup",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijcode",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "werkenbijwijzer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wetransfer",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wirelab",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "withthegrid",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "womeninc",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "woonpartners-midden-holland",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "world-press-photo",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wpk",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wunderland-kalkar",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wuunder",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "wuunder-paazl",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "yescf",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "youngmavericks",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "yourdomain",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "yourmajestyco",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "zengularity",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   },
   {
     "ats": "homerun",
     "slug": "ztorm",
-    "status": "transient_failure",
-    "last_probed_at": "2026-04-27T21:35:03.899Z"
+    "status": "dead",
+    "last_probed_at": "2026-04-28T18:04:19.775Z"
   }
 ]
