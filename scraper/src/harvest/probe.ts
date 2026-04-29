@@ -1,9 +1,11 @@
 import type { ATSId, Tenant, TenantStatus } from "@openroles/shared";
 import pLimit from "p-limit";
+import { assertWorkdayHost, assertWorkdaySite } from "../ats/common.ts";
 import { type HttpClient, HttpError } from "../http.ts";
 
 export type ProbeUrlBuilder = (slug: string) => string;
 
+// Probe URL builders that use only the slug — covers most ATSes.
 const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   greenhouse: (slug) => `https://boards-api.greenhouse.io/v1/boards/${slug}/jobs?content=false`,
   lever: (slug) => `https://api.lever.co/v0/postings/${slug}?mode=json&limit=1`,
@@ -50,11 +52,41 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // sitemap is the actual public signal — tenants with no published jobs
   // return 404 here.
   eightfold: (slug) => `https://${slug}.eightfold.ai/careers/sitemap.xml`,
-  // ultipro: deliberately omitted — `recruiting.ultipro.com/{CODE}/JobBoard/`
-  // requires a per-tenant GUID we cannot derive from the slug alone, so the
-  // probe would always return a misleading 404. Treated like workday: the
-  // dispatcher emits transient_failure and the caller may supply the
-  // tenant.metadata.{board_id} once a scraper lands.
+  // workday + ultipro need composite metadata (host/site, board_id) — see
+  // probeUrlForWithMetadata below.
+};
+
+// Probe URL builders that need both slug and metadata (workday, ultipro).
+// These return undefined when the metadata bag is missing the required keys.
+type ProbeUrlMetaBuilder = (slug: string, metadata: Record<string, string>) => string | undefined;
+
+const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
+  workday: (slug, metadata) => {
+    const host = metadata["host"];
+    const site = metadata["site"];
+    if (typeof host !== "string" || host.length === 0) return undefined;
+    if (typeof site !== "string" || site.length === 0) return undefined;
+    // Defensive — these strings flow into URLs, validate the shape we
+    // observed in CDX before sending the network request.
+    try {
+      assertWorkdayHost(host);
+      assertWorkdaySite(site);
+    } catch {
+      return undefined;
+    }
+    // The `/wday/cxs/{tenant}/{site}/jobs` endpoint is workday's documented
+    // public read-only feed. POST with an empty `{}` body returns the page
+    // 1 / 20-row default; for a probe we just need a 2xx response.
+    return `https://${host}/wday/cxs/${slug}/${site}/jobs`;
+  },
+  ultipro: (slug, metadata) => {
+    const boardId = metadata["board_id"];
+    if (typeof boardId !== "string" || boardId.length === 0) return undefined;
+    if (!/^[0-9a-f-]{32,40}$/i.test(boardId)) return undefined;
+    // Tenant codes are uppercased on the public URL — we lowercase on
+    // harvest to round-trip through SLUG_PATTERN, then uppercase here.
+    return `https://recruiting.ultipro.com/${slug.toUpperCase()}/JobBoard/${boardId}/JobBoardView/LoadSearchResults`;
+  },
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {
@@ -63,10 +95,28 @@ export function probeUrlFor(ats: ATSId, slug: string): string {
   return build(slug);
 }
 
+// Composite-metadata variant: returns undefined for ATSes that don't need
+// metadata, the URL string when the metadata is sufficient to compose a
+// probe URL, and undefined when the metadata bag is missing keys (caller
+// should treat that as transient_failure).
+export function probeUrlForWithMetadata(
+  ats: ATSId,
+  slug: string,
+  metadata: Record<string, string> | undefined,
+): string | undefined {
+  const build = PROBE_URL_META[ats];
+  if (!build) return undefined;
+  return build(slug, metadata ?? {});
+}
+
 export interface ProbeOptions {
   readonly client: HttpClient;
   readonly observedAt: string;
   readonly concurrency?: number;
+  // Optional metadata hint per slug — used by workday / ultipro whose probe
+  // URL needs more than the slug to compose. Slugs without metadata in the
+  // map fall back to transient_failure for those ATSes.
+  readonly metadataBySlug?: ReadonlyMap<string, Record<string, string>>;
 }
 
 const DEFAULT_PROBE_CONCURRENCY = 6;
@@ -77,15 +127,35 @@ export async function probeOne(
   slug: string,
   client: HttpClient,
   observedAt: string,
+  metadata?: Record<string, string>,
 ): Promise<Tenant> {
   if (!SLUG_RE.test(slug)) {
     return { ats, slug, status: "dead", last_probed_at: observedAt };
   }
-  // workday and ultipro both compose URLs from a (tenant_code + per-board
-  // GUID) pair we cannot derive from the slug alone; mark transient until
-  // the metadata is supplied.
-  if (ats === "workday" || ats === "ultipro") {
-    return { ats, slug, status: "transient_failure", last_probed_at: observedAt };
+  // For ATSes whose probe URL needs composite metadata: if the harvester
+  // captured it, build the URL and probe. If not, stay at transient_failure
+  // — a future harvest pass that surfaces the missing metadata pivots us
+  // out of that state without losing the slug.
+  if (PROBE_URL_META[ats]) {
+    const url = probeUrlForWithMetadata(ats, slug, metadata);
+    if (!url) {
+      const result: Tenant = {
+        ats,
+        slug,
+        status: "transient_failure",
+        last_probed_at: observedAt,
+      };
+      return metadata ? { ...result, metadata } : result;
+    }
+    try {
+      await client.request(url, { method: "GET", skipRobots: true });
+      return { ats, slug, status: "live", last_probed_at: observedAt, metadata: metadata ?? {} };
+    } catch (err) {
+      const status: TenantStatus =
+        err instanceof HttpError && err.kind === "transient" ? "transient_failure" : "dead";
+      const result: Tenant = { ats, slug, status, last_probed_at: observedAt };
+      return metadata ? { ...result, metadata } : result;
+    }
   }
   try {
     // Some ATS API hosts publish robots.txt with `Disallow: /` even though
@@ -110,6 +180,10 @@ export function probeMany(
 ): Promise<Tenant[]> {
   const limit = pLimit(opts.concurrency ?? DEFAULT_PROBE_CONCURRENCY);
   return Promise.all(
-    slugs.map((slug) => limit(() => probeOne(ats, slug, opts.client, opts.observedAt))),
+    slugs.map((slug) =>
+      limit(() =>
+        probeOne(ats, slug, opts.client, opts.observedAt, opts.metadataBySlug?.get(slug)),
+      ),
+    ),
   );
 }

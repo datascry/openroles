@@ -112,11 +112,90 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
-  it("returns transient_failure for workday (probe deferred)", async () => {
+  it("returns transient_failure for workday without metadata", async () => {
     const fetchFn = mock(async () => new Response("ok", { status: 200 }));
     const t = await probeOne("workday", "stripe", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("transient_failure");
     expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("probes workday live when metadata.host + metadata.site are supplied", async () => {
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/wday/cxs/example/External/jobs")) {
+        return new Response("{}", { status: 200 });
+      }
+      return new Response("nope", { status: 404 });
+    });
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+    expect(t.status).toBe("live");
+    expect(t.metadata).toEqual({
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+  });
+
+  it("returns transient_failure for workday when metadata.host fails the safe-host check", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    // Host doesn't match `*.wd\d+(?:-suffix)?\.myworkdayjobs\.com` — assertWorkdayHost rejects.
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "evil.example.com",
+      site: "External",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("returns transient_failure for ultipro without metadata", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("ultipro", "abc1002awcn", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("probes ultipro live with metadata.board_id and uppercases the slug in the URL", async () => {
+    let probedUrl = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      probedUrl = typeof input === "string" ? input : input.url;
+      return new Response("{}", { status: 200 });
+    });
+    const guid = "12345678-1234-1234-1234-123456789012";
+    const t = await probeOne("ultipro", "abc1002awcn", clientWith(fetchFn), OBSERVED_AT, {
+      board_id: guid,
+    });
+    expect(t.status).toBe("live");
+    expect(probedUrl).toContain("ABC1002AWCN");
+    expect(probedUrl).toContain(`JobBoard/${guid}`);
+  });
+
+  it("rejects malformed ultipro board_id at probe-build time", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("ultipro", "abc1002awcn", clientWith(fetchFn), OBSERVED_AT, {
+      board_id: "not-a-guid",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("classifies workday metadata-probed 5xx as transient_failure", async () => {
+    const fetchFn = mock(async () => new Response("oops", { status: 503 }));
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+    expect(t.status).toBe("transient_failure");
+  });
+
+  it("classifies workday metadata-probed 404 as dead", async () => {
+    const fetchFn = mock(async () => new Response("nope", { status: 404 }));
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+    expect(t.status).toBe("dead");
   });
 });
 

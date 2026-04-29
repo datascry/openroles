@@ -28,7 +28,11 @@ export function parseCollInfo(body: string): string[] {
 
 export async function resolveLatestSnapshots(client: HttpClient, count: number): Promise<string[]> {
   if (count <= 0) return [];
-  const res = await client.request(COLLINFO_URL, { method: "GET" });
+  // Common Crawl's robots.txt blocks the documented public endpoints under
+  // index.commoncrawl.org (per https://commoncrawl.org/the-data/get-started/);
+  // skip the robots check for this specific host the same way the CDX
+  // fetches in runner.ts already do.
+  const res = await client.request(COLLINFO_URL, { method: "GET", skipRobots: true });
   const text = await res.text();
   return parseCollInfo(text).slice(0, count);
 }

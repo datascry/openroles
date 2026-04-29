@@ -59,6 +59,64 @@ describe("runHarvest", () => {
     expect(result.cdx_fetch_errors).toBe(0);
   });
 
+  it("propagates harvested metadata onto workday tenants and probes them with the composite URL", async () => {
+    const cdx = [
+      '{"url":"https://example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs","status":"200","timestamp":"20260101000000"}',
+      "",
+    ].join("\n");
+    let probedHost = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+        return new Response("1", { status: 200 });
+      }
+      if (url.includes("commoncrawl.org")) {
+        return new Response(cdx, { status: 200 });
+      }
+      // Probe URL — capture and 200.
+      probedHost = url;
+      return new Response("{}", { status: 200 });
+    });
+    const result = await runHarvest({
+      ats: "workday",
+      snapshots: ["2026-13"],
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+    });
+    expect(result.unique_slugs).toBe(1);
+    expect(result.tenants[0]?.slug).toBe("example");
+    expect(result.tenants[0]?.status).toBe("live");
+    expect(result.tenants[0]?.metadata).toEqual({
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+    expect(probedHost).toContain("example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs");
+  });
+
+  it("keeps workday tenants at transient_failure when CDX yields the host but no site code", async () => {
+    const cdx = [
+      '{"url":"https://example.wd5.myworkdayjobs.com/Careers","status":"200","timestamp":"20260101000000"}',
+      "",
+    ].join("\n");
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+        return new Response("1", { status: 200 });
+      }
+      return new Response(cdx, { status: 200 });
+    });
+    const result = await runHarvest({
+      ats: "workday",
+      snapshots: ["2026-13"],
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+    });
+    expect(result.tenants[0]?.status).toBe("transient_failure");
+    // host alone is preserved on the tenant — useful for follow-up reharvest
+    // even though it isn't enough to probe.
+    expect(result.tenants[0]?.metadata).toEqual({ host: "example.wd5.myworkdayjobs.com" });
+  });
+
   it("returns slugs as transient_failure when skipProbe is set", async () => {
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;

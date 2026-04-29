@@ -100,7 +100,12 @@ jobs:
                 tenants: [
                   .[]
                   | select(.status == "live")
-                  | { slug: .slug }
+                  | (
+                      if (.metadata // null) == null
+                      then { slug: .slug }
+                      else { slug: .slug, metadata: .metadata }
+                      end
+                    )
                 ]
               }
             ' "$tenants_file" > "data/scrape-inputs/${ats}.json"

@@ -86,6 +86,83 @@ describe("extractSlugs", () => {
     const b = extractSlugs(records, pattern).slugs;
     expect(a).toEqual(b);
   });
+
+  it("captures workday composite metadata (host + site) from the API URL", () => {
+    const r: CdxRecord[] = [
+      // Bare host page first — only host captured (no site available).
+      {
+        url: "https://example.wd5.myworkdayjobs.com/Careers",
+        status: "200",
+        timestamp: "",
+      },
+      // API path same tenant — both host and site present. First-seen-wins
+      // pins the metadata at "host only" because the bare-host record set
+      // a non-empty bag first.
+      {
+        url: "https://example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs",
+        status: "200",
+        timestamp: "",
+      },
+    ];
+    const { slugs, metadata } = extractSlugs(r, harvestPatternFor("workday"));
+    expect(slugs).toEqual(["example"]);
+    expect(metadata.get("example")).toEqual({ host: "example.wd5.myworkdayjobs.com" });
+  });
+
+  it("captures workday site code when the API URL is seen first", () => {
+    const r: CdxRecord[] = [
+      {
+        url: "https://acme.wd103.myworkdayjobs.com/wday/cxs/acme/Engineering/jobs?limit=20",
+        status: "200",
+        timestamp: "",
+      },
+    ];
+    const { slugs, metadata } = extractSlugs(r, harvestPatternFor("workday"));
+    expect(slugs).toEqual(["acme"]);
+    expect(metadata.get("acme")).toEqual({
+      host: "acme.wd103.myworkdayjobs.com",
+      site: "Engineering",
+    });
+  });
+
+  it("captures ultipro board_id from the JobBoard path", () => {
+    const r: CdxRecord[] = [
+      // Bare landing — slug only, no metadata.
+      { url: "https://recruiting.ultipro.com/abc1002awcn", status: "200", timestamp: "" },
+      // Job board path — guid captured.
+      {
+        url: "https://recruiting.ultipro.com/abc1002awcn/JobBoard/12345678-1234-1234-1234-123456789012/Search",
+        status: "200",
+        timestamp: "",
+      },
+      // Different tenant with no guid.
+      { url: "https://recruiting.ultipro.com/xyz9999/Login", status: "200", timestamp: "" },
+    ];
+    const { slugs, metadata } = extractSlugs(r, harvestPatternFor("ultipro"));
+    expect(slugs).toEqual(["abc1002awcn", "xyz9999"]);
+    // First-*non-empty*-metadata wins: the bare landing extracts no
+    // metadata so the JobBoard record (later) gets to set it. xyz9999
+    // never has a JobBoard URL, so its metadata stays empty.
+    expect(metadata.get("abc1002awcn")).toEqual({
+      board_id: "12345678-1234-1234-1234-123456789012",
+    });
+    expect(metadata.has("xyz9999")).toBe(false);
+  });
+
+  it("captures ultipro board_id when the JobBoard URL is seen first", () => {
+    const r: CdxRecord[] = [
+      {
+        url: "https://recruiting.ultipro.com/aal1000aipsa/JobBoard/abcdef12-3456-7890-abcd-ef1234567890/Search",
+        status: "200",
+        timestamp: "",
+      },
+    ];
+    const { slugs, metadata } = extractSlugs(r, harvestPatternFor("ultipro"));
+    expect(slugs).toEqual(["aal1000aipsa"]);
+    expect(metadata.get("aal1000aipsa")).toEqual({
+      board_id: "abcdef12-3456-7890-abcd-ef1234567890",
+    });
+  });
 });
 
 describe("buildCdxUrl", () => {

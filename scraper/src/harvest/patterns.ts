@@ -5,6 +5,15 @@ export interface AtsHarvestPattern {
   readonly cdxQuery: string;
   readonly regex: RegExp;
   readonly denyList: ReadonlySet<string>;
+  // Some ATSes need more than a slug to compose a working job-board URL.
+  // Workday's API URL is `{host}/wday/cxs/{tenant}/{site}/jobs` — the host
+  // and site can't be inferred from the slug. Ultipro's is
+  // `recruiting.ultipro.com/{tenant}/JobBoard/{guid}/Search`. When the
+  // pattern's regex captures these extra groups, this hook converts a
+  // RegExpExecArray into the metadata bag stored on the tenant record.
+  // Returning undefined skips metadata for that match (the slug still
+  // counts).
+  readonly extractMetadata?: (match: RegExpExecArray) => Record<string, string> | undefined;
 }
 
 // Path-based ATSes (slug appears as a URL path segment): deny terms that look
@@ -72,10 +81,25 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
   },
   {
     ats: "workday",
+    // Capture the tenant slug (group 1, per extractSlugs convention),
+    // the host suffix (group 2 — combine with slug to recover the full
+    // host), and the per-tenant career site code (group 3) when the URL
+    // happens to be the API pivot path. Two URL surfaces both occur in CC:
+    // bare host pages (`{tenant}.wd5.myworkdayjobs.com/Careers`) and the
+    // API path (`{tenant}.wd5.myworkdayjobs.com/wday/cxs/{tenant}/{site}/...`).
+    // Bare host pages leave group 3 empty.
     cdxQuery: "*.myworkdayjobs.com/*",
     regex:
-      /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.wd\d+(?:-[a-z0-9-]+)?\.myworkdayjobs\.com/gi,
+      /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(\.wd\d+(?:-[a-z0-9-]+)?\.myworkdayjobs\.com)(?:\/wday\/cxs\/[a-z0-9-]+\/([A-Za-z0-9_-]{1,64}))?/gi,
     denyList: SUBDOMAIN_DENY,
+    extractMetadata: (match) => {
+      const slug = match[1];
+      const suffix = match[2];
+      const site = match[3];
+      if (!slug || !suffix) return undefined;
+      const host = `${slug}${suffix}`;
+      return site && site.length > 0 ? { host, site } : { host };
+    },
   },
   {
     ats: "icims",
@@ -153,13 +177,26 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
   },
   {
     ats: "ultipro",
-    // Path-based: recruiting.ultipro.com/{TENANT_CODE}/JobBoard/{guid}/...
-    // The slug is the first path segment, an uppercase alphanumeric code
-    // (5-32 chars). Lowercased on extraction so it round-trips through the
-    // shared SLUG_PATTERN, then uppercased again at probe/scrape URL time.
+    // Path-based: `recruiting.ultipro.com/{TENANT_CODE}/JobBoard/{guid}/...`.
+    // The slug (group 1) is the first path segment — an uppercase
+    // alphanumeric code (5-32 chars), lowercased on extraction so it
+    // round-trips through the shared SLUG_PATTERN, then uppercased again
+    // at probe/scrape URL time. The optional GUID (group 2) is the
+    // per-board identifier UKG assigns to each career site; without it
+    // the JobBoard URL 404s, so we capture and store it as
+    // `metadata.board_id`. Bare landing pages
+    // (`recruiting.ultipro.com/{TENANT}` with nothing else) leave group 2
+    // empty; the slug still counts but the tenant stays at
+    // transient_failure until a CDX entry surfaces the GUID.
     cdxQuery: "recruiting.ultipro.com/*",
-    regex: /recruiting\.ultipro\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    regex:
+      /recruiting\.ultipro\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:\/JobBoard\/([0-9a-f-]{32,40}))?(?:[/?#]|$)/gi,
     denyList: PATH_DENY,
+    extractMetadata: (match) => {
+      const guid = match[2];
+      if (typeof guid !== "string" || guid.length === 0) return undefined;
+      return { board_id: guid };
+    },
   },
   {
     ats: "jobvite",

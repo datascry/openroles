@@ -91,6 +91,11 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
   let fetchErrors = 0;
   let consecutiveErrors = 0;
   const allSlugs = new Set<string>();
+  // First-seen metadata across all snapshot pages — extractSlugs already
+  // applies the same first-seen-wins rule per page, and we mirror it here
+  // so a later page can't override an earlier page's metadata
+  // non-deterministically.
+  const allMetadata = new Map<string, Record<string, string>>();
 
   outer: for (const snapshot of opts.snapshots) {
     const numPagesUrl = buildCdxNumPagesUrl(snapshot, pattern.cdxQuery);
@@ -114,27 +119,44 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
         consecutiveErrors = 0;
       }
       recordCount += out.records.length;
-      const { slugs } = extractSlugs(out.records, pattern);
+      const { slugs, metadata } = extractSlugs(out.records, pattern);
       for (const s of slugs) {
         if (allSlugs.size >= slugCap) break outer;
         allSlugs.add(s);
+      }
+      for (const [slug, meta] of metadata) {
+        if (!allMetadata.has(slug)) allMetadata.set(slug, meta);
       }
     }
   }
 
   const ordered = Array.from(allSlugs).sort();
-  const tenants: Tenant[] = opts.skipProbe
-    ? ordered.map((slug) => ({
-        ats: opts.ats,
-        slug,
-        status: "transient_failure" as const,
-        last_probed_at: opts.observedAt,
-      }))
+  const baseTenants: Tenant[] = opts.skipProbe
+    ? ordered.map((slug) => {
+        const meta = allMetadata.get(slug);
+        const t: Tenant = {
+          ats: opts.ats,
+          slug,
+          status: "transient_failure" as const,
+          last_probed_at: opts.observedAt,
+        };
+        return meta ? { ...t, metadata: meta } : t;
+      })
     : await probeMany(opts.ats, ordered, {
         client: opts.client,
         observedAt: opts.observedAt,
+        metadataBySlug: allMetadata,
         ...(opts.probeConcurrency !== undefined ? { concurrency: opts.probeConcurrency } : {}),
       });
+  // probeMany already merges metadata for composite-URL ATSes (workday /
+  // ultipro). For everyone else the harvested metadata bag is still useful
+  // (e.g. the workday host), so attach it onto the probed tenant whenever
+  // we have a value for that slug and the probe didn't already.
+  const tenants: Tenant[] = baseTenants.map((t) => {
+    if (t.metadata) return t;
+    const meta = allMetadata.get(t.slug);
+    return meta ? { ...t, metadata: meta } : t;
+  });
 
   return {
     ats: opts.ats,

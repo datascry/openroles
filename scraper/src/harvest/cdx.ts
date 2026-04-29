@@ -36,6 +36,13 @@ export function parseCdxJsonLines(body: string): CdxRecord[] {
 export interface SlugExtraction {
   readonly ats: ATSId;
   readonly slugs: ReadonlyArray<string>;
+  // First-seen metadata per slug, populated only when the pattern's
+  // `extractMetadata` hook returns something for that match. A slug whose
+  // first appearance has no metadata stays unmetadata'd even if a later
+  // appearance would; subsequent appearances never *override* metadata
+  // either, to keep the harvest output deterministic when CDX rows arrive
+  // in different orders across runs.
+  readonly metadata: ReadonlyMap<string, Record<string, string>>;
 }
 
 export function extractSlugs(
@@ -46,6 +53,7 @@ export function extractSlugs(
   // shared `lastIndex` of the pattern's regex.
   const re = new RegExp(pattern.regex.source, pattern.regex.flags);
   const seen = new Set<string>();
+  const metadata = new Map<string, Record<string, string>>();
   for (const r of records) {
     re.lastIndex = 0;
     let m: RegExpExecArray | null = re.exec(r.url);
@@ -53,11 +61,15 @@ export function extractSlugs(
       const slug = (m[1] ?? m[2] ?? "").toLowerCase();
       if (slug.length > 0 && !pattern.denyList.has(slug)) {
         seen.add(slug);
+        if (pattern.extractMetadata && !metadata.has(slug)) {
+          const meta = pattern.extractMetadata(m);
+          if (meta) metadata.set(slug, meta);
+        }
       }
       m = re.exec(r.url);
     }
   }
-  return { ats: pattern.ats, slugs: Array.from(seen).sort() };
+  return { ats: pattern.ats, slugs: Array.from(seen).sort(), metadata };
 }
 
 export function buildCdxUrl(snapshot: string, query: string, page: number = 0): string {
