@@ -47,27 +47,50 @@ function parseSitemap(xml: string): string[] {
 // before the closing quote), but it cannot include `>` — using `[^>]*?`
 // instead of `[\s\S]*?` keeps the lazy match bounded to a single tag so it
 // can't span past one meta tag's `>` into the next tag's content.
-const OG_TITLE_RE = /<meta\s+content=(['"])([^>]*?)\1\s+(?:[^>]*?\s+)?property=(['"])og:title\3/i;
-const OG_DESC_RE =
-  /<meta\s+content=(['"])([^>]*?)\1\s+(?:[^>]*?\s+)?property=(['"])og:description\3/i;
-const TITLE_TAG_RE = /<title>([^<]+)<\/title>/i;
+//
+// Factorial sometimes emits attributes in `property=...content=...` order
+// instead of the dominant `content=...property=...`; we accept either.
+const OG_TITLE_RES = [
+  /<meta\s+content=(['"])([^>]*?)\1\s+(?:[^>]*?\s+)?property=(['"])og:title\3/i,
+  /<meta\s+(?:[^>]*?\s+)?property=(['"])og:title\1\s+(?:[^>]*?\s+)?content=(['"])([^>]*?)\2/i,
+];
+const OG_DESC_RES = [
+  /<meta\s+content=(['"])([^>]*?)\1\s+(?:[^>]*?\s+)?property=(['"])og:description\3/i,
+  /<meta\s+(?:[^>]*?\s+)?property=(['"])og:description\1\s+(?:[^>]*?\s+)?content=(['"])([^>]*?)\2/i,
+];
+
+function pickAttrGroup(re: RegExp, html: string): string | undefined {
+  const m = re.exec(html);
+  if (!m) return undefined;
+  // Whichever ordering matched, the value is the only capture group whose
+  // text isn't a quote character — pick the longest non-quote group.
+  for (const g of [m[2], m[3]]) {
+    if (typeof g === "string" && g.length > 1) return g;
+  }
+  return undefined;
+}
 
 function extractOgTitle(html: string): string | undefined {
-  const m = OG_TITLE_RE.exec(html);
-  const raw = m?.[2]?.trim();
-  if (raw && raw.length > 0) return raw;
-  // Title-tag fallback for tenants that don't render og:title properly.
-  const t = TITLE_TAG_RE.exec(html);
-  return t?.[1]?.trim();
+  for (const re of OG_TITLE_RES) {
+    const raw = pickAttrGroup(re, html)?.trim();
+    if (raw && raw.length > 0) return raw;
+  }
+  // No `<title>` fallback: that tag commonly carries " | Acme Corp"
+  // suffixes or page-level boilerplate ("Apply here") that pollutes the
+  // job title field. Prefer to skip the row and let the >50% threshold
+  // trip transient_failure if the entire batch is og:title-less.
+  return undefined;
 }
 
 function extractOgDescription(html: string): string | undefined {
-  const m = OG_DESC_RE.exec(html);
-  const raw = m?.[2]?.trim();
-  // Factorial's og:description is a boilerplate "Apply today to X job
-  // offer and join the Y team" — useful only when no body content
-  // is available. Keep it as a last-resort fallback.
-  return raw && raw.length > 0 ? raw : undefined;
+  for (const re of OG_DESC_RES) {
+    const raw = pickAttrGroup(re, html)?.trim();
+    // Factorial's og:description is a boilerplate "Apply today to X job
+    // offer and join the Y team" — useful only when no body content is
+    // available. Keep it as a last-resort fallback.
+    if (raw && raw.length > 0) return raw;
+  }
+  return undefined;
 }
 
 // Lift a paragraph-and-list block out of the post body. Factorial wraps the

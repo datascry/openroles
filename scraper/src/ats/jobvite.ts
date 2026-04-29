@@ -157,12 +157,21 @@ export async function scrapeJobviteTenant(
     const listingHtml = await listingRes.text();
     const hrefs = parseListingHrefs(listingHtml, opts.tenant.slug).slice(0, MAX_JOBS_PER_TENANT);
     if (hrefs.length === 0) {
+      // The listing page returned 2xx but our row regex matched zero hrefs.
+      // If the HTML contains `/job/` substrings we likely missed a vendor
+      // change in the row layout — surface transient_failure so the next
+      // harvest retries instead of committing a misleading success-with-zero.
+      // Otherwise it's a genuine empty board (real outcome): success/0.
+      const hasJobMarkers = /\/job\//.test(listingHtml);
       return {
         jobs: [],
         result: {
           slug: opts.tenant.slug,
-          status: "success",
+          status: hasJobMarkers ? "transient_failure" : "success",
           http_status: listingStatus,
+          ...(hasJobMarkers
+            ? { error: "listing fetched but no /job/ rows matched the expected layout" }
+            : {}),
           jobs_count: 0,
         },
       };

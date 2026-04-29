@@ -1008,6 +1008,29 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("failed to parse");
   });
 
+  it("jobvite surfaces transient_failure when /job/ markers exist but parseListingHrefs returns nothing", async () => {
+    // The listing page carries `/job/` markers so the careers page is
+    // alive and there are jobs there — but our row regex doesn't match
+    // them (vendor changed the row layout). Surface transient_failure.
+    const listing = `<!doctype html><html><body>
+<p>Visit /drift/job/aaaa1111 for details — but the row layout is unrecognised.</p>
+<div data-job-id="bbbb2222">/job/bbbb2222</div>
+</body></html>`;
+    server.use(http.get("https://jobs.jobvite.com/drift", () => HttpResponse.html(listing)));
+    const out = await runScrape({
+      input: {
+        ats: "jobvite",
+        tenants: [{ slug: "drift" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("expected layout");
+  });
+
   it("jobvite surfaces dead when the listing fetch errors out", async () => {
     server.use(
       http.get("https://jobs.jobvite.com/down", () => HttpResponse.text("nope", { status: 404 })),
@@ -1101,6 +1124,62 @@ describe("runScrape", () => {
     const marketing = out.jobs.find((j) => j.source_id === "job_BBBB2222");
     expect(marketing?.workplace_type).toBe("hybrid");
     expect(marketing?.updated_at).toBe("2026-04-20T10:15:00.000Z");
+  });
+
+  it("homerun degrades to transient_failure when entries fail to parse (vendor schema drift)", async () => {
+    const atom = `<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Drift Co</title>
+  <entry><title type="text">Has no link or id</title></entry>
+  <entry><id>job_AAAA1111</id><title type="text">No link</title></entry>
+  <entry>
+    <link rel="alternate" type="text/html" href="https://drift.homerun.co/only-link"/>
+    <title type="text">No id</title>
+  </entry>
+</feed>`;
+    server.use(http.get("https://feed.homerun.co/drift", () => HttpResponse.xml(atom)));
+    const out = await runScrape({
+      input: {
+        ats: "homerun",
+        tenants: [{ slug: "drift" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("failed to parse");
+  });
+
+  it("homerun handles numeric <id> coercion from fast-xml-parser", async () => {
+    const atom = `<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Num Co</title>
+  <entry>
+    <title type="text">Numeric Id</title>
+    <link rel="alternate" type="text/html" href="https://num.homerun.co/numeric"/>
+    <id>987654321</id>
+    <type><name>Remote</name></type>
+  </entry>
+</feed>`;
+    server.use(http.get("https://feed.homerun.co/num", () => HttpResponse.xml(atom)));
+    const out = await runScrape({
+      input: {
+        ats: "homerun",
+        tenants: [{ slug: "num" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.source_id).toBe("987654321");
+    // <type><name>Remote</name></type> should set workplace_type even when
+    // location is empty, exercising the type-fallback branch in
+    // workplaceFromHomerun.
+    expect(out.jobs[0]?.workplace_type).toBe("remote");
   });
 
   it("homerun returns dead when the feed is missing (no slug match)", async () => {
@@ -1458,6 +1537,31 @@ ${body}
     });
     expect(out.jobs).toHaveLength(0);
     expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("applicantstack surfaces transient_failure when /x/detail/ markers exist but rows don't match the expected layout", async () => {
+    // HTML carries detail-URL substrings (so this is plausibly a real
+    // careers page) but the row regex matches none of them — likely a
+    // vendor layout change.
+    const html = `<!doctype html><html><body>
+<div>Visit https://drift.applicantstack.com/x/detail/abc123 for details</div>
+<div>Or https://drift.applicantstack.com/x/detail/def456</div>
+</body></html>`;
+    server.use(
+      http.get("https://drift.applicantstack.com/x/openings", () => HttpResponse.html(html)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantstack",
+        tenants: [{ slug: "drift" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("expected layout");
   });
 
   it("applicantstack surfaces dead when the openings page errors", async () => {

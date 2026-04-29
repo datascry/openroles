@@ -21,7 +21,9 @@ interface HomerunLink {
 interface HomerunEntry {
   title?: string | { "#text"?: string };
   link?: HomerunLink | HomerunLink[];
-  id?: string;
+  // fast-xml-parser will coerce `<id>123</id>` to a JS number; we accept
+  // either and stringify before use.
+  id?: string | number;
   summary?: string | { "#text"?: string };
   description?: string | { "#text"?: string };
   content?: string | { "#text"?: string };
@@ -61,15 +63,25 @@ function entryAlternateLink(link: HomerunEntry["link"]): string | undefined {
   return alt?.["@_href"];
 }
 
-function workplaceFromType(value: string | undefined): Job["workplace_type"] {
-  switch (value?.toLowerCase()) {
-    case "remote":
-      return "remote";
-    case "hybrid":
-      return "hybrid";
-    default:
-      return null;
+// Homerun entries carry `<location><name>...</name></location>` for the venue
+// and `<type><name>...</name></type>` for employment classification. Tenants
+// who run remote/hybrid roles encode that in either field — the location
+// might say "Remote" or the type might. Pull workplace_type from whichever
+// matches; default to null (which downstream renders as "unspecified").
+function workplaceFromHomerun(
+  locationName: string | undefined,
+  typeName: string | undefined,
+): Job["workplace_type"] {
+  for (const value of [locationName, typeName]) {
+    switch (value?.toLowerCase()) {
+      case "remote":
+      case "fully remote":
+        return "remote";
+      case "hybrid":
+        return "hybrid";
+    }
   }
+  return null;
 }
 
 function decodeXmlEntities(s: string): string {
@@ -116,18 +128,25 @@ export async function scrapeHomerunTenant(
     const raw = feed?.entry;
     const entries: HomerunEntry[] = Array.isArray(raw) ? raw : raw ? [raw] : [];
     const jobs: Job[] = [];
+    let parseFailed = 0;
     for (const item of entries) {
-      const sourceId = item.id;
+      // fast-xml-parser may coerce `<id>123</id>` to a number; stringify
+      // before any use so the source_id stays a non-empty string.
+      const sourceId = typeof item.id === "number" ? String(item.id) : item.id?.trim();
       const title = unwrapText(item.title);
       const link = entryAlternateLink(item.link);
-      if (!sourceId || !title || !link) continue;
+      if (!sourceId || sourceId.length === 0 || !title || !link) {
+        parseFailed += 1;
+        continue;
+      }
       const id = jobId({
         ats: "homerun",
         tenant_slug: opts.tenant.slug,
         source_id: sourceId,
         url: link,
       });
-      const description = unwrapText(item.description) ?? unwrapText(item.content);
+      const description =
+        unwrapText(item.description) ?? unwrapText(item.content) ?? unwrapText(item.summary);
       const decoded = description ? decodeXmlEntities(description).trim() : undefined;
       const desc = decoded && decoded.length > 0 ? decoded.slice(0, 4000) : undefined;
       const updatedAt = isoOrUndefined(item.updated);
@@ -142,7 +161,7 @@ export async function scrapeHomerunTenant(
         ...(desc ? { description_excerpt: desc } : {}),
         level: null,
         level_rank: null,
-        workplace_type: workplaceFromType(item.location?.name),
+        workplace_type: workplaceFromHomerun(item.location?.name, item.type?.name),
         is_recruiter_post: false,
         ...(item.location?.name ? { location_text: item.location.name } : {}),
         ...(item.department?.name ? { department: item.department.name } : {}),
@@ -152,7 +171,27 @@ export async function scrapeHomerunTenant(
         url: link,
       };
       const validated = JobSchema.safeParse(candidate);
-      if (validated.success) jobs.push(validated.data);
+      if (validated.success) {
+        jobs.push(validated.data);
+      } else {
+        parseFailed += 1;
+      }
+    }
+    // Mirror talentlyft / jobvite / factorial / eightfold: when the feed had
+    // entries but more than half of them couldn't be parsed (vendor schema
+    // drift, missing required fields), surface transient_failure so the next
+    // harvest retries instead of committing a misleading success-with-zero.
+    if (entries.length > 0 && parseFailed > entries.length * 0.5) {
+      return {
+        jobs: [],
+        result: {
+          slug: opts.tenant.slug,
+          status: "transient_failure",
+          http_status: res.status,
+          error: `${parseFailed} of ${entries.length} feed entries failed to parse`,
+          jobs_count: 0,
+        },
+      };
     }
     return {
       jobs: dedupeById(jobs),

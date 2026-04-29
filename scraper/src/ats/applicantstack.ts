@@ -120,6 +120,21 @@ export async function scrapeApplicantStackTenant(
       const validated = JobSchema.safeParse(enriched);
       if (validated.success) jobs.push(validated.data);
     }
+    // If the listing HTML carries `/x/detail/` substrings but our row regex
+    // matched zero rows, that's a vendor layout change rather than a real
+    // empty board — surface transient_failure so the next harvest retries.
+    if (rows.length === 0 && /\/x\/detail\//.test(html)) {
+      return {
+        jobs: [],
+        result: {
+          slug: opts.tenant.slug,
+          status: "transient_failure",
+          http_status: res.status,
+          error: "listing fetched but no /x/detail/ rows matched the expected layout",
+          jobs_count: 0,
+        },
+      };
+    }
     return {
       jobs: dedupeById(jobs),
       result: {
