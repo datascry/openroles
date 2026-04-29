@@ -49,6 +49,10 @@ export function buildJob(input: BuildJobInput): Job {
     level_rank: levelRank(null),
     workplace_type: workplaceType,
     is_recruiter_post: input.is_recruiter_post ?? false,
+    // Freshly built rows are always is_stale=false — the carry-forward
+    // path in build-db is the only thing that flips this. See
+    // specs/role-lifecycle.md.
+    is_stale: false,
     first_seen_at: input.first_seen_at,
     last_seen_at: input.last_seen_at,
     url: input.url,

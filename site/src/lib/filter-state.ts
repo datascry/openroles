@@ -9,6 +9,13 @@ import {
 
 export type SinceWindow = "24h" | "7d" | "30d" | "all";
 
+/**
+ * Phase 13: single-select sub-view that narrows results to one of the
+ * user's localStorage-backed lists. See specs/filter-ui.md v1.2.0.
+ */
+export type ShowOnly = "saved" | "applied" | "ignored";
+const SHOW_ONLY_VALUES: ReadonlyArray<ShowOnly> = ["saved", "applied", "ignored"];
+
 export type SortOption =
   | "posted_at:desc"
   | "posted_at:asc"
@@ -44,9 +51,21 @@ export interface FilterState {
   readonly region: string | undefined;
   readonly since: SinceWindow;
   readonly hideRecruiter: boolean;
+  /**
+   * Phase 12: when true, the query excludes rows whose `is_stale = 1`
+   * (carried-forward roles whose tenant didn't scrape today). See
+   * specs/role-lifecycle.md.
+   */
+  readonly hideStale: boolean;
   readonly minComp: number | undefined;
   readonly sort: SortOption;
   readonly page: number;
+  /**
+   * Single-select sub-view: when set, the result list narrows to the
+   * matching localStorage slot. The id list is resolved at query time
+   * (not encoded in the URL).
+   */
+  readonly showOnly: ShowOnly | undefined;
 }
 
 export const DEFAULT_FILTER_STATE: FilterState = {
@@ -58,9 +77,11 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   region: undefined,
   since: "all",
   hideRecruiter: false,
+  hideStale: false,
   minComp: undefined,
   sort: "posted_at:desc",
   page: 1,
+  showOnly: undefined,
 };
 
 const NON_NULL_LEVELS = LEVELS.filter((l): l is NonNullable<Level> => l !== null);
@@ -77,6 +98,8 @@ export function encodeFilterState(state: FilterState): string {
   if (state.region) params.set("region", state.region);
   if (state.since !== "all") params.set("since", state.since);
   if (state.hideRecruiter) params.set("recruiter", "0");
+  if (state.hideStale) params.set("hide_stale", "1");
+  if (state.showOnly !== undefined) params.set("show", state.showOnly);
   if (state.minComp !== undefined) params.set("min_comp", String(state.minComp));
   if (state.sort !== "posted_at:desc") params.set("sort", state.sort);
   if (state.page > 1) params.set("page", String(state.page));
@@ -110,6 +133,11 @@ function sanitizeQuery(raw: string): string {
 function parseSince(raw: string | null): SinceWindow {
   if (raw === null) return "all";
   return (SINCE_VALUES as ReadonlyArray<string>).includes(raw) ? (raw as SinceWindow) : "all";
+}
+
+function parseShowOnly(raw: string | null): ShowOnly | undefined {
+  if (raw === null) return undefined;
+  return (SHOW_ONLY_VALUES as ReadonlyArray<string>).includes(raw) ? (raw as ShowOnly) : undefined;
 }
 
 function parseSort(raw: string | null): SortOption {
@@ -156,6 +184,8 @@ export function decodeFilterState(query: string): FilterState {
     region: parseRegion(params.get("region")),
     since: parseSince(params.get("since")),
     hideRecruiter: params.get("recruiter") === "0",
+    hideStale: params.get("hide_stale") === "1",
+    showOnly: parseShowOnly(params.get("show")),
     minComp: parseMinComp(params.get("min_comp")),
     sort: parseSort(params.get("sort")),
     page: parsePage(params.get("page")),

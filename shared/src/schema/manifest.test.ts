@@ -149,4 +149,56 @@ describe("ManifestSchema", () => {
       }),
     ).toThrow();
   });
+
+  it("defaults Phase 12 fields when missing (forward-compat for pre-1.3.0 manifests)", () => {
+    const m = ManifestSchema.parse({
+      schema_version: "1.2.0",
+      built_at: "2026-04-26T00:00:00Z",
+      short_sha: "a3f2b1c",
+      db_filename: "jobs.a3f2b1c.sqlite",
+      total_rows: 0,
+      ats_counts: {},
+      tenants_total: 0,
+      tenants_live: 0,
+    });
+    expect(m.fresh_count).toBe(0);
+    expect(m.stale_count).toBe(0);
+    expect(m.stale_ttl_days).toBe(3);
+  });
+
+  it("rejects fresh_count + stale_count != total_rows when both are populated", () => {
+    expect(() =>
+      ManifestSchema.parse({
+        schema_version: "1.3.0",
+        built_at: "2026-04-26T00:00:00Z",
+        short_sha: "a3f2b1c",
+        db_filename: "jobs.a3f2b1c.sqlite",
+        total_rows: 100,
+        ats_counts: { greenhouse: 100 },
+        tenants_total: 1,
+        tenants_live: 1,
+        fresh_count: 60,
+        stale_count: 30,
+        stale_ttl_days: 3,
+      }),
+    ).toThrow();
+  });
+
+  it("accepts fresh_count + stale_count == total_rows", () => {
+    expect(() =>
+      ManifestSchema.parse({
+        schema_version: "1.3.0",
+        built_at: "2026-04-26T00:00:00Z",
+        short_sha: "a3f2b1c",
+        db_filename: "jobs.a3f2b1c.sqlite",
+        total_rows: 100,
+        ats_counts: { greenhouse: 100 },
+        tenants_total: 1,
+        tenants_live: 1,
+        fresh_count: 80,
+        stale_count: 20,
+        stale_ttl_days: 3,
+      }),
+    ).not.toThrow();
+  });
 });

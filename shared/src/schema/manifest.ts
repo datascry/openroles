@@ -30,6 +30,12 @@ export const ManifestSchema = z
     ats_counts: ATSCountsSchema,
     tenants_total: z.int().nonnegative(),
     tenants_live: z.int().nonnegative(),
+    // Phase 12: role lifecycle. fresh_count + stale_count == total_rows
+    // (cross-checked in superRefine below). Defaults preserve readability
+    // of pre-1.3.0 manifests built before carry-forward existed.
+    fresh_count: z.int().nonnegative().default(0),
+    stale_count: z.int().nonnegative().default(0),
+    stale_ttl_days: z.int().min(1).max(14).default(3),
   })
   .superRefine((m, ctx) => {
     if (m.tenants_live > m.tenants_total) {
@@ -46,6 +52,18 @@ export const ManifestSchema = z
         path: ["ats_counts"],
         message: `sum (${sum}) must equal total_rows (${m.total_rows})`,
       });
+    }
+    // Phase 12 invariant: fresh + stale == total. Manifests written by
+    // pre-1.3.0 builds default to fresh_count=0 / stale_count=0 so we
+    // skip the equality check when both counts are zero.
+    if (m.fresh_count + m.stale_count !== 0) {
+      if (m.fresh_count + m.stale_count !== m.total_rows) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["fresh_count"],
+          message: `fresh_count (${m.fresh_count}) + stale_count (${m.stale_count}) must equal total_rows (${m.total_rows})`,
+        });
+      }
     }
     // Defense in depth: db_filename must embed short_sha. Both fields pass
     // their per-field regex independently, so a tampered manifest could ship

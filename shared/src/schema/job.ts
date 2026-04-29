@@ -70,6 +70,13 @@ export const JobSchema = z
     updated_at: IsoUtc.optional(),
     first_seen_at: IsoUtc,
     last_seen_at: IsoUtc,
+    /**
+     * True when the row was carried forward from a previous build because
+     * today's scrape did not include it (typically a tenant-level transient
+     * failure). The default is `false` for any freshly-scraped row. See
+     * specs/role-lifecycle.md.
+     */
+    is_stale: z.boolean().default(false),
     url: HttpUrl,
   })
   .superRefine((job, ctx) => {

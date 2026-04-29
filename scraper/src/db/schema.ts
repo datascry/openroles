@@ -22,6 +22,7 @@ CREATE TABLE jobs (
   updated_at            TEXT,
   first_seen_at         TEXT NOT NULL,
   last_seen_at          TEXT NOT NULL,
+  is_stale              INTEGER NOT NULL DEFAULT 0,
   url                   TEXT NOT NULL UNIQUE
 );
 
@@ -74,6 +75,7 @@ CREATE INDEX idx_jobs_workplace_type        ON jobs(workplace_type);
 CREATE INDEX idx_jobs_tenant                ON jobs(ats, tenant_slug);
 CREATE INDEX idx_jobs_first_seen_at         ON jobs(first_seen_at DESC);
 CREATE INDEX idx_jobs_country_region        ON jobs(location_country, location_region);
+CREATE INDEX idx_jobs_is_stale              ON jobs(is_stale);
 `;
 
 export const PAGE_SIZE_PRAGMA = "PRAGMA page_size = 1024;";

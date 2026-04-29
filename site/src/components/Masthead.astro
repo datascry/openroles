@@ -66,8 +66,43 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
           aria-label="Toggle light or dark theme"
           aria-live="polite"
         >
-          <span class="theme-toggle__sun" aria-hidden="true">☼</span>
-          <span class="theme-toggle__moon" aria-hidden="true">☾</span>
+          <!-- Inline SVG sun + moon. Unicode glyphs (U+263C / U+263E) don't
+               render reliably in Helvetica Neue / Inter Tight on macOS, so
+               we ship the icons as paths. currentColor inherits ink so the
+               toggle obeys the active theme automatically. -->
+          <svg
+            class="theme-toggle__sun"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg
+            class="theme-toggle__moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
         </button>
       </li>
     </ul>
@@ -190,9 +225,12 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
     color: var(--color-paper);
   }
   /* Show the moon when light theme is active (clicking switches to dark);
-     show the sun when dark theme is active (clicking switches to light). */
-  :global([data-theme="dark"]) .theme-toggle__moon { display: none; }
-  :global(:not([data-theme="dark"])) .theme-toggle__sun { display: none; }
+     show the sun when dark theme is active (clicking switches to light).
+     The selector must target the <html> element specifically — a bare
+     `:not([data-theme="dark"])` matches every ancestor that lacks the
+     attribute, so the rule fires unconditionally. */
+  :global(html[data-theme="dark"]) .theme-toggle__moon { display: none; }
+  :global(html:not([data-theme="dark"])) .theme-toggle__sun { display: none; }
 
   .visually-hidden {
     position: absolute;

@@ -1,6 +1,6 @@
 # Spec: Filter UI
 
-**Version**: 1.1.0
+**Version**: 1.2.0
 
 The filter UI is the primary interactive surface. It runs as a Svelte island hydrated with `client:idle` over a static Astro page. State lives in two places: the URL query string (shareable, deep-linkable) and `localStorage` (saved/applied/ignored).
 
@@ -44,7 +44,68 @@ The runtime contract below is the design target. What ships today, plus what is 
 - A single text input drives FTS5 over `jobs.title`, `jobs.company`, and `jobs.description_excerpt`.
 - Input is debounced at **250 ms** before a query fires.
 - Empty search returns the unfiltered view (subject to other filters).
-- FTS5 syntax is **not** exposed directly — the input is wrapped in `"…"` and quote-escaped before being passed as a phrase. Operators (`AND`, `OR`, `NEAR`) are reserved for a later "advanced search" surface.
+- The input accepts a small **field-scoped syntax** (Phase 13) for power users; plain text falls through to the prior all-column phrase match.
+
+#### Advanced syntax (v1.2.0)
+
+The search box parses `field:value` tokens before passing the result to the SQL builder. Four user-facing fields, three of them backed by FTS5 phrase match and one by case-insensitive substring match on a regular column:
+
+| User-facing field | Backing column | Match style |
+|---|---|---|
+| `title` | `jobs.title` | FTS5 phrase |
+| `company` | `jobs.company` | FTS5 phrase |
+| `description` | `jobs.description_excerpt` | FTS5 phrase |
+| `location` | `jobs.location_text` | `LIKE '%value%' COLLATE NOCASE` |
+
+Token shapes:
+
+- **Bare term** — `engineer`. Treated as a phrase across the three FTS5 columns.
+- **Field-scoped term** — `title:engineer`, `location:remote`. Restricts the match to the named field's backing column with the field's match style.
+- **Quoted phrase** — `"senior engineer"`. Matches the literal phrase in any FTS5 column.
+- **Field-scoped phrase** — `title:"senior engineer"`, `location:"san francisco"`. Restricts the literal phrase to the named field.
+
+Multiple tokens are **AND-joined**. `title:senior company:stripe location:remote` matches roles where the title contains *senior* AND the company contains *stripe* AND the location text contains *remote*. There is no `OR` syntax; that's deferred to a future spec.
+
+A token whose field name is not in the recognized set (e.g. `xyz:engineer`) falls back to a bare-term match — the token is treated as a literal phrase with the colon embedded. This protects against new-syntax discovery surprises.
+
+Why `location` uses LIKE instead of FTS5: `location_text` is free-form ATS data ("San Francisco, CA · Remote", "Worldwide", "EU only") that doesn't benefit from porter stemming. Substring match gives users predictable behavior — `location:remote` matches anywhere the substring appears, including hybrid postings ("Hybrid · Remote-friendly"). Adding `location_text` to the FTS5 virtual table is reserved for a future spec if we want relevance ranking on location.
+
+### Saved / applied / ignored sub-views (v1.2.0)
+
+`localStorage["openroles:v1:saved"]` / `:applied` / `:ignored` already store `Job.id[]` ([site/src/lib/storage.ts](../site/src/lib/storage.ts)). The filter UI exposes a **single-select toggle** that narrows the result set to one of those lists:
+
+- **None** (default): all roles, subject to other filters and the `Hide ignored` post-filter.
+- **Saved**: only rows whose `id` is in the Saved set.
+- **Applied**: only rows whose `id` is in the Applied set.
+- **Ignored**: only rows whose `id` is in the Ignored set. Implicitly disables `Hide ignored` while active.
+
+URL parameter: `show=saved | applied | ignored`. Omitted = none.
+
+SQL synthesis: a single `id IN (?, ?, ...)` clause AND-joined into the WHERE. The id list is gathered at query time from the relevant `localStorage` slot and passed to `buildFilterQuery` via the second-arg `idAllowlist`. An empty allowlist (e.g. user toggled `+ Saved` with no saved roles yet) emits `id = ''` so the query returns zero rows — preferable to silently showing the unfiltered set.
+
+The filter chip in the bar reads `+ SAVED · {n}` / `+ APPLIED · {n}` / `+ IGNORED · {n}` where `{n}` is the live count from `localStorage`. Toggling one off, or toggling another, clears the previous selection (single-select). When a sub-view is active, the result-status line prefixes with `SAVED ·` / `APPLIED ·` / `IGNORED ·`.
+
+Why mutual exclusion: the three lists are disjoint by intent — a role typically isn't simultaneously saved-and-applied-and-ignored. A multi-select would create odd intersections (saved AND applied = applied with a star) that are better expressed as separate views than one combined query. If we ever need the intersection (e.g. "saved AND not yet applied") we'll spec it as a derived view rather than as additive multi-select.
+
+SQL synthesis (search modifiers):
+
+```
+WHERE rowid IN (SELECT rowid FROM jobs_fts WHERE jobs_fts MATCH ?)   -- FTS5 tokens
+  AND location_text LIKE ? COLLATE NOCASE                            -- per location token
+  AND ...                                                            -- existing facets
+```
+
+`LIKE` parameter is `%value%` with the four LIKE meta-characters (`%`, `_`, `[`, `\`) escaped to a literal class — values like `50%` or `r&d` cannot turn into wildcards.
+
+Round-trip and safety invariants:
+
+- The user input is never passed verbatim to FTS5 or SQL. Every emitted FTS5 phrase is double-quoted with internal `"` doubled to `""`. FTS5 operators (`AND`, `OR`, `NEAR`, `^`, `*`) inside a value are inert because they sit inside a phrase. LIKE values are escaped + parameterized.
+- The parser bounds the token list at 16 to short-circuit pathological inputs.
+- An empty value (`title:`) drops the token. A token whose value is only whitespace drops too.
+- Unicode in values survives quoting / LIKE-escaping unchanged.
+- The parser is **idempotent on the bare-term path**: parse-and-reemit of free text produces the same FTS5 phrase the v1.1.0 codepath produced. Existing user behavior is preserved.
+
+Implementation: [site/src/lib/search-parser.ts](../site/src/lib/search-parser.ts) — pure functions `parseSearchInput(raw): Token[]`, `buildFtsExpression(tokens): string | null`, and `extractLocationLikes(tokens): string[]`. Property tests cover the safety invariants in [site/src/lib/search-parser.test.ts](../site/src/lib/search-parser.test.ts).
 
 ### Faceted filters
 
@@ -58,6 +119,7 @@ Multi-select where applicable, single-select where the data is one-of:
 | Country | single-select with autocomplete | `jobs.location_country` |
 | Region | single-select, gated on country | `jobs.location_region` |
 | Posted within | single-select (24h, 7d, 30d, all) | `jobs.posted_at` |
+| Show only | single-select (saved, applied, ignored, none) | `localStorage` lookup → `jobs.id IN (...)` |
 | Hide recruiter posts | boolean | `jobs.is_recruiter_post` |
 | Compensation min | numeric input | `jobs.compensation_min` |
 

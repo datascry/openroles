@@ -1,8 +1,11 @@
 import type { Database } from "bun:sqlite";
 import { afterEach, describe, expect, it } from "bun:test";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { ATS_IDS, type Job, jobId, type ScrapeOutput, type Tenant } from "@openroles/shared";
 import fc from "fast-check";
-import { buildDb, classifyJob } from "./build-db.ts";
+import { buildDb, classifyJob, daysSinceUtc, planCarryForward } from "./build-db.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
 
@@ -337,5 +340,286 @@ describe("buildDb", () => {
     db.exec("DELETE FROM jobs");
     const ftsCount = (db.query("SELECT COUNT(*) AS c FROM jobs_fts").get() as { c: number }).c;
     expect(ftsCount).toBe(0);
+  });
+});
+
+// ---------- Phase 12 — role lifecycle ----------
+
+describe("daysSinceUtc", () => {
+  it("returns 0 when timestamps are equal", () => {
+    expect(daysSinceUtc("2026-04-26T00:00:00Z", "2026-04-26T00:00:00Z")).toBe(0);
+  });
+  it("returns 0 when 'then' is in the future", () => {
+    expect(daysSinceUtc("2026-04-25T00:00:00Z", "2026-04-26T00:00:00Z")).toBe(0);
+  });
+  it("counts whole UTC-day boundaries, not literal 24-hour spans", () => {
+    // 23:59 → next day 00:01 crosses a UTC-day boundary even though the
+    // literal span is < 1 hour.
+    expect(daysSinceUtc("2026-04-26T00:01:00Z", "2026-04-25T23:59:00Z")).toBe(1);
+  });
+  it("returns 0 for sub-day spans within the same UTC day", () => {
+    expect(daysSinceUtc("2026-04-26T23:59:59Z", "2026-04-26T00:00:00Z")).toBe(0);
+  });
+  it("returns floor((nowDay - thenDay)) for multi-day spans", () => {
+    expect(daysSinceUtc("2026-04-30T00:00:00Z", "2026-04-26T00:00:00Z")).toBe(4);
+  });
+  it("returns 0 on invalid input rather than NaN propagating", () => {
+    expect(daysSinceUtc("not-a-date", "2026-04-26T00:00:00Z")).toBe(0);
+    expect(daysSinceUtc("2026-04-26T00:00:00Z", "not-a-date")).toBe(0);
+  });
+});
+
+describe("planCarryForward", () => {
+  function row(id: string, lastSeenAt: string, url = `https://example.com/${id}`) {
+    return {
+      id,
+      ats: "greenhouse",
+      tenant_slug: "stripe",
+      source_id: id,
+      title: "Senior Engineer",
+      company: "Stripe",
+      description_excerpt: null,
+      level: null,
+      level_rank: null,
+      workplace_type: null,
+      is_recruiter_post: 0,
+      location_text: null,
+      location_country: null,
+      location_region: null,
+      compensation_min: null,
+      compensation_max: null,
+      compensation_currency: null,
+      department: null,
+      posted_at: null,
+      updated_at: null,
+      first_seen_at: lastSeenAt,
+      last_seen_at: lastSeenAt,
+      url,
+    };
+  }
+
+  it("rejects ttlDays < 1", () => {
+    expect(() => planCarryForward([], new Set(), new Set(), OBSERVED_AT, 0)).toThrow();
+  });
+
+  it("returns empty when there are no previous rows", () => {
+    const result = planCarryForward([], new Set(["abc"]), new Set(), OBSERVED_AT, 3);
+    expect(result.carried).toEqual([]);
+    expect(result.dropped).toBe(0);
+  });
+
+  it("does not carry forward rows whose id is in today's fresh set", () => {
+    const prev = [row("a", "2026-04-25T00:00:00Z")];
+    const result = planCarryForward(prev, new Set(["a"]), new Set(), OBSERVED_AT, 3);
+    expect(result.carried).toEqual([]);
+    expect(result.dropped).toBe(0); // not dropped — today's fresh row replaces it
+  });
+
+  it("does not carry forward rows whose URL collides with a fresh row's URL", () => {
+    const prev = [row("a", "2026-04-25T00:00:00Z", "https://example.com/x")];
+    const result = planCarryForward(
+      prev,
+      new Set(["b"]),
+      new Set(["https://example.com/x"]),
+      OBSERVED_AT,
+      3,
+    );
+    expect(result.carried).toEqual([]);
+  });
+
+  it("carries forward rows under the TTL", () => {
+    const prev = [row("a", "2026-04-25T00:00:00Z")]; // 1 day stale
+    const result = planCarryForward(prev, new Set(), new Set(), OBSERVED_AT, 3);
+    expect(result.carried.map((r) => r.id)).toEqual(["a"]);
+    expect(result.dropped).toBe(0);
+  });
+
+  it("drops rows at or above the TTL", () => {
+    const prev = [row("a", "2026-04-23T00:00:00Z")]; // 3 days stale
+    const result = planCarryForward(prev, new Set(), new Set(), OBSERVED_AT, 3);
+    expect(result.carried).toEqual([]);
+    expect(result.dropped).toBe(1);
+  });
+
+  describe("invariants (fast-check)", () => {
+    const NOW = new Date("2026-04-30T00:00:00Z").getTime();
+    const arbRow = fc
+      .integer({ min: 0, max: 30 })
+      .map((daysAgo) =>
+        row("id" + daysAgo, new Date(NOW - daysAgo * 86_400_000).toISOString(), "u" + daysAgo),
+      );
+
+    it("every emitted row is below the TTL threshold; every dropped row is at or above it", () => {
+      fc.assert(
+        fc.property(
+          fc.array(arbRow, { maxLength: 12 }),
+          fc.integer({ min: 1, max: 14 }),
+          (rows, ttl) => {
+            const result = planCarryForward(
+              rows,
+              new Set(),
+              new Set(),
+              "2026-04-30T00:00:00Z",
+              ttl,
+            );
+            for (const r of result.carried) {
+              expect(daysSinceUtc("2026-04-30T00:00:00Z", r.last_seen_at)).toBeLessThan(ttl);
+            }
+            const carriedIds = new Set(result.carried.map((r) => r.id));
+            const droppedExpected = rows.filter(
+              (r) =>
+                !carriedIds.has(r.id) &&
+                daysSinceUtc("2026-04-30T00:00:00Z", r.last_seen_at) >= ttl,
+            ).length;
+            expect(result.dropped).toBe(droppedExpected);
+          },
+        ),
+        { numRuns: 50 },
+      );
+    });
+  });
+});
+
+describe("buildDb carry-forward integration", () => {
+  let tmpDir: string;
+  afterEach(() => {
+    if (tmpDir) rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it("stamps is_stale=0 on fresh rows and is_stale=1 on carried rows", () => {
+    tmpDir = mkdtempSync(join(tmpdir(), "openroles-carry-"));
+    const yesterday = "2026-04-25T00:00:00Z";
+    const today = "2026-04-26T00:00:00Z";
+
+    // Day 1: build with two roles. Persist to disk so we can pass the
+    // path back as the previous DB on day 2.
+    const day1Path = join(tmpDir, "day1.sqlite");
+    const day1 = buildDb(
+      {
+        outputs: [
+          {
+            ats: "greenhouse",
+            jobs: [
+              makeJob({
+                source_id: "1",
+                url: "https://x/1",
+                first_seen_at: yesterday,
+                last_seen_at: yesterday,
+              }),
+              makeJob({
+                source_id: "2",
+                url: "https://x/2",
+                first_seen_at: yesterday,
+                last_seen_at: yesterday,
+              }),
+            ],
+            tenant_results: [],
+            metrics: emptyMetrics(),
+          },
+        ],
+        tenants: [],
+        buildShortSha: "abcdef1",
+        builtAt: yesterday,
+      },
+      day1Path,
+    );
+    day1.db.close();
+
+    // Day 2: only role 1 is in today's scrape. Role 2 should carry forward.
+    const day2Path = join(tmpDir, "day2.sqlite");
+    const day2 = buildDb(
+      {
+        outputs: [
+          {
+            ats: "greenhouse",
+            jobs: [
+              makeJob({
+                source_id: "1",
+                url: "https://x/1",
+                first_seen_at: today,
+                last_seen_at: today,
+              }),
+            ],
+            tenant_results: [],
+            metrics: emptyMetrics(),
+          },
+        ],
+        tenants: [],
+        buildShortSha: "abcdef2",
+        builtAt: today,
+        previousDbPath: day1Path,
+      },
+      day2Path,
+    );
+    dbs.push(day2.db);
+
+    const rows = day2.db
+      .query("SELECT source_id, is_stale, first_seen_at, last_seen_at FROM jobs ORDER BY source_id")
+      .all() as Array<{
+      source_id: string;
+      is_stale: number;
+      first_seen_at: string;
+      last_seen_at: string;
+    }>;
+    expect(rows).toHaveLength(2);
+    expect(rows[0]?.source_id).toBe("1");
+    expect(rows[0]?.is_stale).toBe(0);
+    // Fresh observation preserves the original first_seen_at (carry-forward
+    // semantics, even when the row was already fresh yesterday).
+    expect(rows[0]?.first_seen_at).toBe(yesterday);
+    expect(rows[0]?.last_seen_at).toBe(today);
+    expect(rows[1]?.source_id).toBe("2");
+    expect(rows[1]?.is_stale).toBe(1);
+    expect(rows[1]?.last_seen_at).toBe(yesterday);
+
+    expect(day2.manifest.fresh_count).toBe(1);
+    expect(day2.manifest.stale_count).toBe(1);
+    expect(day2.manifest.total_rows).toBe(2);
+    expect(day2.manifest.stale_ttl_days).toBe(3);
+  });
+
+  it("drops rows once last_seen_at is older than the TTL", () => {
+    tmpDir = mkdtempSync(join(tmpdir(), "openroles-ttl-"));
+    const oldDay = "2026-04-22T00:00:00Z";
+    const today = "2026-04-26T00:00:00Z"; // 4 days later
+
+    const day1Path = join(tmpDir, "old.sqlite");
+    const day1 = buildDb(
+      {
+        outputs: [
+          {
+            ats: "greenhouse",
+            jobs: [
+              makeJob({
+                source_id: "1",
+                url: "https://x/1",
+                first_seen_at: oldDay,
+                last_seen_at: oldDay,
+              }),
+            ],
+            tenant_results: [],
+            metrics: emptyMetrics(),
+          },
+        ],
+        tenants: [],
+        buildShortSha: "abcdef1",
+        builtAt: oldDay,
+      },
+      day1Path,
+    );
+    day1.db.close();
+
+    const day2 = buildDb({
+      outputs: [],
+      tenants: [],
+      buildShortSha: "abcdef2",
+      builtAt: today,
+      previousDbPath: day1Path,
+      staleTtlDays: 3,
+    });
+    dbs.push(day2.db);
+
+    expect(day2.manifest.total_rows).toBe(0);
+    expect(day2.manifest.stale_count).toBe(0);
   });
 });

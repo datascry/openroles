@@ -224,8 +224,31 @@ async function main(): Promise<void> {
     },
     dbPath,
   );
+  // Mark one fixture row as is_stale=1 so e2e can assert on the STALE
+  // badge. buildDb itself only flips is_stale via the carry-forward path
+  // (specs/role-lifecycle.md); for fixture purposes we patch directly so
+  // the e2e doesn't need a two-day build pipeline.
+  db.exec(
+    `UPDATE jobs SET is_stale = 1, last_seen_at = '2026-04-23T00:00:00Z' WHERE source_id = 'linear-x'`,
+  );
+  // Recount fresh / stale so the manifest stays consistent with the row state.
+  const freshCount = (
+    db.query("SELECT COUNT(*) AS c FROM jobs WHERE is_stale = 0").get() as {
+      c: number;
+    }
+  ).c;
+  const staleCount = (
+    db.query("SELECT COUNT(*) AS c FROM jobs WHERE is_stale = 1").get() as {
+      c: number;
+    }
+  ).c;
+  const patchedManifest = {
+    ...manifest,
+    fresh_count: freshCount,
+    stale_count: staleCount,
+  };
   db.close();
-  writeFileSync(join(DATA_DIR, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
+  writeFileSync(join(DATA_DIR, "manifest.json"), `${JSON.stringify(patchedManifest, null, 2)}\n`);
   console.log(`build-fixture-db: ${jobs.length} jobs → ${dbPath}`);
 }
 

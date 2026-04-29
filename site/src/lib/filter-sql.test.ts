@@ -53,7 +53,7 @@ function fresh(jobs: Job[]): Database {
   db.exec(SCHEMA_DDL);
   db.exec(INDEX_DDL);
   const insert = db.prepare(
-    "INSERT INTO jobs (id, ats, tenant_slug, source_id, title, company, level, level_rank, workplace_type, is_recruiter_post, location_country, location_region, compensation_min, posted_at, first_seen_at, last_seen_at, url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO jobs (id, ats, tenant_slug, source_id, title, company, level, level_rank, workplace_type, is_recruiter_post, location_text, location_country, location_region, compensation_min, posted_at, first_seen_at, last_seen_at, url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
   );
   for (const j of jobs) {
     insert.run(
@@ -67,6 +67,7 @@ function fresh(jobs: Job[]): Database {
       j.level_rank,
       j.workplace_type,
       j.is_recruiter_post ? 1 : 0,
+      j.location_text ?? null,
       j.location_country ?? null,
       j.location_region ?? null,
       j.compensation_min ?? null,
@@ -149,6 +150,84 @@ describe("buildFilterQuery", () => {
     const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: '"quoted"' });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("filters by location:value via case-insensitive LIKE on location_text", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "1",
+        url: "https://example.com/1",
+        title: "Engineer",
+        company: "Stripe",
+        location_text: "San Francisco, CA · Remote",
+      }),
+      makeJob({
+        source_id: "2",
+        url: "https://example.com/2",
+        title: "Engineer",
+        company: "Vercel",
+        location_text: "Worldwide",
+      }),
+    ]);
+    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: "location:remote" });
+    const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
+    expect(rows.map((r) => r.company)).toEqual(["Stripe"]);
+  });
+
+  it("AND-joins FTS-token + location-token from a single search input", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "1",
+        url: "https://example.com/1",
+        title: "Senior Engineer",
+        company: "Stripe",
+        location_text: "Remote · US",
+      }),
+      makeJob({
+        source_id: "2",
+        url: "https://example.com/2",
+        title: "Senior Engineer",
+        company: "Acme",
+        location_text: "London, UK",
+      }),
+      makeJob({
+        source_id: "3",
+        url: "https://example.com/3",
+        title: "Designer",
+        company: "Acme",
+        location_text: "Remote · UK",
+      }),
+    ]);
+    const plan = buildFilterQuery({
+      ...DEFAULT_FILTER_STATE,
+      q: "title:engineer location:remote",
+    });
+    const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
+    expect(rows.map((r) => r.company).sort()).toEqual(["Stripe"]);
+  });
+
+  it("escapes LIKE wildcards in location values so user input cannot match-all", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "1",
+        url: "https://example.com/1",
+        title: "Engineer",
+        company: "A",
+        location_text: "Bonus 50% remote",
+      }),
+      makeJob({
+        source_id: "2",
+        url: "https://example.com/2",
+        title: "Engineer",
+        company: "B",
+        location_text: "London",
+      }),
+    ]);
+    // Without LIKE escape, `%` would be a wildcard and match everything.
+    // With escape, only the literal "50%" substring matches.
+    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: "location:50%" });
+    const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
+    expect(rows.map((r) => r.company)).toEqual(["A"]);
   });
 
   it("filters by workplace_type multi-select", () => {

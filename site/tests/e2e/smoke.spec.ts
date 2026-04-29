@@ -5,17 +5,16 @@ import { SITE_BASE } from "../../playwright.config.ts";
 const INDEX = `${SITE_BASE}/`;
 const FEED = `${SITE_BASE}/feed.xml`;
 
-// On mobile-chrome the filter panel is a drawer hidden behind the FAB. The
-// drawer auto-closes on initial load when the URL ships with active filters
-// (so users see the result list first); auto-opens otherwise. Tests that
-// interact with chip checkboxes should call this first to guarantee the
-// panel is accessible regardless of initial state.
-async function ensureFiltersVisible(page: Page): Promise<void> {
-  const fab = page.locator(".filter-fab");
-  if (!(await fab.isVisible())) return; // desktop — filters are in the sticky sidebar
-  if ((await fab.getAttribute("aria-expanded")) === "true") return; // already open
-  await fab.click();
-  await expect(page.locator(".filters.is-open")).toBeVisible();
+/**
+ * In Phase 11 the per-category filter UI moved to inline popovers anchored
+ * under "+ ATS" / "+ Level" / etc. add-buttons. To click an ATS checkbox
+ * the popover must be open; this helper opens it idempotently.
+ */
+async function openAtsPopover(page: Page): Promise<void> {
+  const trigger = page.getByRole("button", { name: /^\+ ATS$/ });
+  if ((await trigger.getAttribute("aria-expanded")) === "true") return;
+  await trigger.click();
+  await expect(page.locator('[role="dialog"][aria-label="Filter by ATS"]')).toBeVisible();
 }
 
 test.describe("index page smoke", () => {
@@ -25,7 +24,9 @@ test.describe("index page smoke", () => {
     // h2 lede heading is what the brutalist theme renders inside <main>; the
     // page-level <h1>-equivalent is the masthead brand mark.
     await expect(page.locator("header.masthead .brand")).toBeVisible();
-    await expect(page.locator(".manifest")).toBeVisible();
+    // Phase 11 dropped the in-page .manifest line; the role count lives in
+    // the SEO title and the masthead strap. Assert one of those.
+    await expect(page.locator("header.masthead .strap")).toContainText(/LIVE/);
   });
 
   test("has no critical or serious axe violations", async ({ page }) => {
@@ -41,16 +42,10 @@ test.describe("index page smoke", () => {
 
   test("filter table island hydrates and event handlers update the URL", async ({ page }) => {
     await page.goto(INDEX);
-    await ensureFiltersVisible(page);
-    // SSR renders the chip <input> elements; only after hydration does clicking
-    // a chip fire toggleAts → syncUrl(state) → history.replaceState. Asserting
-    // on the URL change proves the island actually hydrated, not just that the
-    // SSR template rendered.
-    //
-    // The island is `client:idle`, so hydration happens after the page idles.
-    // We poll the click until the URL reflects the toggle: if Playwright clicks
-    // before the onchange handler is wired, the click is a no-op and we retry.
+    // Phase 11: ATS chips live inside the "+ ATS" popover; open it before
+    // the click can resolve. Polling guards against pre-hydration clicks.
     await expect(async () => {
+      await openAtsPopover(page);
       await page.getByRole("checkbox", { name: "greenhouse" }).click();
       await expect(page).toHaveURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 500 });
     }).toPass({ timeout: 5_000 });
@@ -72,17 +67,22 @@ test.describe("index page smoke", () => {
     await page.goto(INDEX);
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
-    // Wait until rows render; lever/ashby are present in the unfiltered set.
-    await expect(results.locator(".ats", { hasText: "lever" }).first()).toBeVisible({
+    // Phase 11 dropped the per-row ATS label; assert on the company name
+    // instead (Stripe / Linear / Vercel are the headline fixture jobs).
+    await expect(
+      results.locator(".company-name").filter({ hasText: "Linear" }).first(),
+    ).toBeVisible({
       timeout: 15_000,
     });
-    await ensureFiltersVisible(page);
+    await openAtsPopover(page);
     await page.getByRole("checkbox", { name: "greenhouse" }).click();
-    // Assert the property — only greenhouse rows remain — rather than the
-    // fixture cardinality, so the test survives fixture growth. (Audit m5.)
-    await expect(results.locator(".ats", { hasText: "lever" })).toHaveCount(0, { timeout: 5_000 });
-    await expect(results.locator(".ats", { hasText: "ashby" })).toHaveCount(0);
-    await expect(results.locator(".ats", { hasText: "greenhouse" }).first()).toBeVisible();
+    // Greenhouse-only filter: Linear (lever) and any Ashby companies drop.
+    await expect(results.locator(".company-name").filter({ hasText: "Linear" })).toHaveCount(0, {
+      timeout: 5_000,
+    });
+    await expect(
+      results.locator(".company-name").filter({ hasText: "Stripe" }).first(),
+    ).toBeVisible();
   });
 
   test("pager renders when total exceeds page size and prev/next navigates pages", async ({
@@ -125,6 +125,32 @@ test.describe("index page smoke", () => {
     await expect(reloadedRow.getByRole("button", { name: /★ Saved/ })).toBeVisible({
       timeout: 15_000,
     });
+  });
+
+  test("renders STALE badge on carried-forward rows and Verified-only filter excludes them", async ({
+    page,
+  }) => {
+    await page.goto(INDEX);
+    const results = page.getByTestId("job-results");
+    await expect(results).toBeVisible({ timeout: 15_000 });
+    // Fixture flags one Linear row as is_stale=1 (see build-fixture-db.ts).
+    // The badge is muted-ink mono caps "STALE · ND". Assert it renders.
+    const staleBadge = page.locator(".stale-badge").first();
+    await expect(staleBadge).toBeVisible({ timeout: 15_000 });
+    await expect(staleBadge).toHaveText(/STALE\s+·\s+\d+D/);
+
+    // The whole row should dim. Assert opacity=0.6 on the parent .job.
+    const staleRow = page.locator("li.job.is-stale").first();
+    await expect(staleRow).toBeVisible();
+    const opacity = await staleRow.evaluate((el) => getComputedStyle(el).opacity);
+    expect(Number.parseFloat(opacity)).toBeLessThanOrEqual(0.61);
+
+    // Toggle "+ Verified only" — the stale row should disappear.
+    const verifiedToggle = page.getByRole("button", { name: /verified only/i });
+    await verifiedToggle.click();
+    await expect(page.locator("li.job.is-stale")).toHaveCount(0, { timeout: 5_000 });
+    // URL reflects the filter.
+    await expect(page).toHaveURL(/[?&]hide_stale=1(\b|&|$)/);
   });
 
   test("ignore button removes the row from the visible set", async ({ page }) => {

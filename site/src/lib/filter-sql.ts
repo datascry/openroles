@@ -1,4 +1,10 @@
 import type { FilterState } from "./filter-state.ts";
+import {
+  buildFtsExpression,
+  escapeLike,
+  extractLocationValues,
+  parseSearchInput,
+} from "./search-parser.ts";
 
 export interface QueryPlan {
   readonly sql: string;
@@ -25,20 +31,59 @@ const SINCE_TO_HOURS: Record<FilterState["since"], number | null> = {
   all: null,
 };
 
-function ftsPhrase(q: string): string {
-  return `"${q.replace(/"/g, '""')}"`;
+export interface BuildFilterOptions {
+  readonly pageSize?: number;
+  /**
+   * When provided, the query is restricted to rows whose `id` appears in
+   * this list — used to render the "Show only Saved / Applied / Ignored"
+   * sub-views per specs/filter-ui.md v1.2.0. An empty array narrows to
+   * zero rows (preferable to silently expanding to the unfiltered set).
+   */
+  readonly idAllowlist?: ReadonlyArray<string>;
 }
 
 export function buildFilterQuery(
   state: FilterState,
-  pageSize: number = DESKTOP_PAGE_SIZE,
+  optionsOrPageSize: BuildFilterOptions | number = DESKTOP_PAGE_SIZE,
 ): QueryPlan {
+  // Tolerate the legacy positional `pageSize` arg from existing call
+  // sites + tests; new callers pass the options object directly.
+  const options: BuildFilterOptions =
+    typeof optionsOrPageSize === "number" ? { pageSize: optionsOrPageSize } : optionsOrPageSize;
+  const pageSize = options.pageSize ?? DESKTOP_PAGE_SIZE;
+
   const where: string[] = [];
   const params: Array<string | number> = [];
 
+  if (options.idAllowlist !== undefined) {
+    if (options.idAllowlist.length === 0) {
+      // Empty allowlist → zero rows. `id = ''` is tautologically false
+      // because Job.id is a 64-char SHA-256 hex.
+      where.push(`id = ''`);
+    } else {
+      where.push(`id IN (${options.idAllowlist.map(() => "?").join(",")})`);
+      for (const id of options.idAllowlist) params.push(id);
+    }
+  }
+
   if (state.q.trim().length > 0) {
-    where.push(`jobs.rowid IN (SELECT rowid FROM jobs_fts WHERE jobs_fts MATCH ?)`);
-    params.push(ftsPhrase(state.q.trim()));
+    // Phase 13: parse the search input as a list of `field:value` tokens
+    // (specs/filter-ui.md v1.2.0). FTS-indexed tokens (title, company,
+    // description) compose into a single jobs_fts MATCH expression;
+    // location tokens emit per-token LIKE clauses that match
+    // location_text case-insensitively. Plain free-text falls through
+    // to the FTS path with a single bare phrase, preserving the
+    // pre-Phase-13 behavior.
+    const tokens = parseSearchInput(state.q.trim());
+    const ftsExpr = buildFtsExpression(tokens);
+    if (ftsExpr !== null) {
+      where.push(`jobs.rowid IN (SELECT rowid FROM jobs_fts WHERE jobs_fts MATCH ?)`);
+      params.push(ftsExpr);
+    }
+    for (const value of extractLocationValues(tokens)) {
+      where.push(`location_text LIKE ? ESCAPE '\\' COLLATE NOCASE`);
+      params.push(`%${escapeLike(value)}%`);
+    }
   }
   if (state.ats.length > 0) {
     where.push(`ats IN (${state.ats.map(() => "?").join(",")})`);
@@ -68,6 +113,9 @@ export function buildFilterQuery(
   if (state.hideRecruiter) {
     where.push(`is_recruiter_post = 0`);
   }
+  if (state.hideStale) {
+    where.push(`is_stale = 0`);
+  }
   if (state.minComp !== undefined) {
     where.push(`compensation_min IS NOT NULL AND compensation_min >= ?`);
     params.push(state.minComp);
@@ -79,14 +127,14 @@ export function buildFilterQuery(
   const sql =
     `SELECT id, ats, tenant_slug, title, company, location_text, location_country, ` +
     `location_region, level, level_rank, workplace_type, is_recruiter_post, ` +
-    `description_excerpt, posted_at, first_seen_at, url ` +
+    `description_excerpt, posted_at, first_seen_at, last_seen_at, is_stale, url ` +
     `FROM jobs ${whereClause} ORDER BY ${orderBy} LIMIT ? OFFSET ?`;
   params.push(pageSize, offset);
   return { sql, params };
 }
 
-export function buildFilterCountQuery(state: FilterState): QueryPlan {
-  const plan = buildFilterQuery(state);
+export function buildFilterCountQuery(state: FilterState, options?: BuildFilterOptions): QueryPlan {
+  const plan = buildFilterQuery(state, options ?? {});
   const fromIdx = plan.sql.indexOf("FROM jobs");
   const orderIdx = plan.sql.indexOf("ORDER BY");
   const whereSegment = plan.sql.slice(fromIdx, orderIdx).trim();

@@ -1,6 +1,6 @@
 # Spec: Visual Theme — Brutalist Press
 
-**Version**: 1.0.2
+**Version**: 1.0.3
 
 The visual theme is a typographic system inspired by hand-set newsprint and contemporary art-magazine mastheads. It is opinionated about hierarchy, density, and accent. It is the only sanctioned look-and-feel; any rendering surface in the site MUST resolve to the tokens defined here.
 
@@ -100,9 +100,13 @@ Spacing aliases Open Props' `--size-N` scale 1:1: `--space-1` through `--space-9
 - Mobile padding scale: `--space-3` to `--space-5` for sections; `--space-2` to `--space-3` for inline.
 - Desktop padding scale shifts up by one step.
 
-## Accent discipline
+## State discipline
 
-The accent (`--color-accent`) is reserved. It MUST appear only on:
+Two state stops in the palette: bright accent for *positive / alert* state, muted ink-3 for *negative-but-not-error* state. Each is reserved.
+
+### Accent (`--color-accent`)
+
+MUST appear only on:
 
 - The "new" indicator (postings within the freshness window — see [filter-ui.md](filter-ui.md) `since`).
 - Active filter chips and active nav items.
@@ -111,6 +115,18 @@ The accent (`--color-accent`) is reserved. It MUST appear only on:
 - The brand mark's middle dot.
 
 Decorative accent — borders, drop shadows, logo treatments, illustrations — is REJECTED.
+
+### Muted ink (`--color-ink-3`)
+
+MUST appear on negative-but-not-error states where bright accent would be too loud:
+
+- The `STALE · ND` badge on roles carried forward from a previous build (see [role-lifecycle.md](role-lifecycle.md)).
+- Archived / deprecated indicators (none ship today; reserved for future).
+- The age glyph on roles older than 30 days (currently rendered as the YYYY-MM-DD date in mono).
+
+Stale rows additionally apply `opacity: 0.6` to the whole row container so they read as secondary at a glance, without changing any per-cell color.
+
+Using `--color-ink-3` for primary content (running body copy, labels, button text) is REJECTED — it's a state stop, not a content stop. The text of muted-state badges sits at `--color-ink-3` only because the badge itself signals "this is not load-bearing right now."
 
 ## Accessibility floor
 

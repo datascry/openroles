@@ -23,6 +23,8 @@ describe("encode + decodeFilterState", () => {
       region: undefined,
       since: "7d",
       hideRecruiter: true,
+      hideStale: false,
+      showOnly: undefined,
       minComp: undefined,
       sort: "posted_at:desc",
       page: 1,
@@ -99,6 +101,30 @@ describe("encode + decodeFilterState", () => {
     expect(decodeFilterState("recruiter=0").hideRecruiter).toBe(true);
   });
 
+  it("treats hide_stale=1 as the only enabling value", () => {
+    expect(decodeFilterState("hide_stale=1").hideStale).toBe(true);
+    expect(decodeFilterState("hide_stale=true").hideStale).toBe(false);
+    expect(decodeFilterState("hide_stale=0").hideStale).toBe(false);
+    expect(decodeFilterState("").hideStale).toBe(false);
+  });
+
+  it("decodes show=saved|applied|ignored, ignores anything else", () => {
+    expect(decodeFilterState("show=saved").showOnly).toBe("saved");
+    expect(decodeFilterState("show=applied").showOnly).toBe("applied");
+    expect(decodeFilterState("show=ignored").showOnly).toBe("ignored");
+    expect(decodeFilterState("show=lol").showOnly).toBeUndefined();
+    expect(decodeFilterState("").showOnly).toBeUndefined();
+  });
+
+  it("encodes showOnly when set, omits when undefined", () => {
+    const params = new URLSearchParams(
+      encodeFilterState({ ...DEFAULT_FILTER_STATE, showOnly: "saved" }),
+    );
+    expect(params.get("show")).toBe("saved");
+    const params2 = new URLSearchParams(encodeFilterState(DEFAULT_FILTER_STATE));
+    expect(params2.get("show")).toBeNull();
+  });
+
   it("round-trips arbitrary valid filter states (property)", () => {
     const atsArb = fc.subarray([...ATS_IDS]);
     const levelArb = fc.subarray(
@@ -133,6 +159,8 @@ describe("encode + decodeFilterState", () => {
           wt: wtArb,
           since: sinceArb,
           hideRecruiter: fc.boolean(),
+          hideStale: fc.boolean(),
+          showOnly: fc.option(fc.constantFrom("saved", "applied", "ignored"), { nil: undefined }),
           page: fc.integer({ min: 1, max: 9999 }),
           sort: sortArb,
         }),
@@ -146,6 +174,8 @@ describe("encode + decodeFilterState", () => {
             region: undefined,
             since: raw.since,
             hideRecruiter: raw.hideRecruiter,
+            hideStale: raw.hideStale,
+            showOnly: raw.showOnly,
             minComp: undefined,
             sort: raw.sort,
             page: raw.page,

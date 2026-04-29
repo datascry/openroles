@@ -48,6 +48,8 @@ build-db:
   --output-dir <dir>      Where to write jobs.{sha}.sqlite + manifest.json (default: ./data)
   --short-sha <sha>       7-40 hex char build identifier (default: derived from BUILD_SHORT_SHA env or 'dev0001')
   --notes <text>          Free-form note recorded in the crawls table
+  --previous-db <path>    Optional path to the previous build's SQLite for stale carry-forward (specs/role-lifecycle.md)
+  --stale-ttl-days <n>    Days a stale row may live before it drops (default: 3, range: 1-14)
 
 harvest:
   --ats <id>              ATS to harvest (any of: ${ATS_IDS.join(" | ")})
@@ -80,6 +82,8 @@ interface ParsedArgs {
   readonly userAgent: string | undefined;
   readonly contactUrl: string | undefined;
   readonly previousManifest: string | undefined;
+  readonly previousDb: string | undefined;
+  readonly staleTtlDays: string | undefined;
   readonly tenantsHistory: string | undefined;
   readonly consecutiveDead: string | undefined;
   readonly failOn: string | undefined;
@@ -99,6 +103,8 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
   let userAgent: string | undefined;
   let contactUrl: string | undefined;
   let previousManifest: string | undefined;
+  let previousDb: string | undefined;
+  let staleTtlDays: string | undefined;
   let tenantsHistory: string | undefined;
   let consecutiveDead: string | undefined;
   let failOn: string | undefined;
@@ -124,6 +130,8 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     else if (a === "--user-agent") userAgent = argv[++i];
     else if (a === "--contact-url") contactUrl = argv[++i];
     else if (a === "--previous-manifest") previousManifest = argv[++i];
+    else if (a === "--previous-db") previousDb = argv[++i];
+    else if (a === "--stale-ttl-days") staleTtlDays = argv[++i];
     else if (a === "--tenants-history") tenantsHistory = argv[++i];
     else if (a === "--consecutive-dead") consecutiveDead = argv[++i];
     else if (a === "--fail-on") failOn = argv[++i];
@@ -141,6 +149,8 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     userAgent,
     contactUrl,
     previousManifest,
+    previousDb,
+    staleTtlDays,
     tenantsHistory,
     consecutiveDead,
     failOn,
@@ -240,6 +250,17 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
   const manifestPath = join(outputDir, "manifest.json");
   const manifestTmp = `${manifestPath}.tmp`;
   await rm(dbTmp, { force: true });
+  let staleTtlDays: number | undefined;
+  if (args.staleTtlDays !== undefined) {
+    const parsed = Number.parseInt(args.staleTtlDays, 10);
+    if (!Number.isFinite(parsed) || parsed < 1 || parsed > 14) {
+      console.error(
+        `build-db: --stale-ttl-days must be an integer in [1, 14], got ${args.staleTtlDays}`,
+      );
+      return 2;
+    }
+    staleTtlDays = parsed;
+  }
   let manifest: ReturnType<typeof buildDb>["manifest"];
   try {
     const { db, manifest: m } = buildDb(
@@ -249,6 +270,8 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
         buildShortSha: shortSha,
         builtAt,
         ...(args.notes !== undefined ? { notes: args.notes } : {}),
+        ...(args.previousDb !== undefined ? { previousDbPath: args.previousDb } : {}),
+        ...(staleTtlDays !== undefined ? { staleTtlDays } : {}),
       },
       dbTmp,
     );

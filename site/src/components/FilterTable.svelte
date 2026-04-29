@@ -84,8 +84,13 @@ type JobRow = Pick<
   | "level"
   | "workplace_type"
   | "posted_at"
+  | "last_seen_at"
   | "url"
-> & { is_recruiter_post: 0 | 1 };
+> & {
+  is_recruiter_post: 0 | 1;
+  /** SQLite stores is_stale as INTEGER 0/1 — see specs/role-lifecycle.md. */
+  is_stale: 0 | 1;
+};
 
 type DbStatus = "loading" | "ready" | "error";
 
@@ -157,7 +162,13 @@ function onMarkApplied(id: string): void {
   refreshUserLists();
 }
 
-const visibleRows = $derived(hideIgnored ? rows.filter((r) => !isIgnored(r.id)) : rows);
+// `Hide ignored` is the post-query filter that strips ignored rows from
+// view by default. When the user has explicitly opted into the ignored
+// sub-view (`showOnly === "ignored"`), short-circuit the post-filter so
+// the panel actually has rows to show. Same precedence rule as the spec.
+const visibleRows = $derived(
+  state.showOnly === "ignored" ? rows : hideIgnored ? rows.filter((r) => !isIgnored(r.id)) : rows,
+);
 
 function syncUrl(next: FilterState) {
   if (typeof window === "undefined") return;
@@ -260,6 +271,8 @@ const activeFilterCount = $derived(
     state.wt.length +
     (state.since !== "all" ? 1 : 0) +
     (state.hideRecruiter ? 1 : 0) +
+    (state.hideStale ? 1 : 0) +
+    (state.showOnly !== undefined ? 1 : 0) +
     (state.minComp !== undefined ? 1 : 0),
 );
 
@@ -280,8 +293,20 @@ onMount(async () => {
 
 async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> {
   const token = ++queryToken;
-  const plan = buildFilterQuery(currentState);
-  const countPlan = buildFilterCountQuery(currentState);
+  // Phase 13: when showOnly is set, narrow results to the matching
+  // localStorage list. Empty list intentionally yields zero rows
+  // (specs/filter-ui.md v1.2.0 §Saved / applied / ignored sub-views).
+  const idAllowlist =
+    currentState.showOnly === "saved"
+      ? savedIds
+      : currentState.showOnly === "applied"
+        ? appliedIds
+        : currentState.showOnly === "ignored"
+          ? ignoredIds
+          : undefined;
+  const opts = idAllowlist !== undefined ? { idAllowlist } : {};
+  const plan = buildFilterQuery(currentState, opts);
+  const countPlan = buildFilterCountQuery(currentState, opts);
   try {
     const [resultRows, countRows] = await Promise.all([
       db.query<JobRow>(plan.sql, plan.params),
@@ -361,6 +386,19 @@ function formatAge(
   return { label: new Date(iso).toISOString().slice(0, 10), fresh: false };
 }
 
+/**
+ * Days since the role was last scraped successfully — used to render the
+ * `STALE · ND` badge per specs/role-lifecycle.md. Floors at 1 day so a
+ * row marked stale on the same calendar day as build still reads "1d"
+ * rather than "0d".
+ */
+function staleAgeDays(lastSeenAt: string | undefined, now: number = Date.now()): number {
+  if (!lastSeenAt) return 1;
+  const t = new Date(lastSeenAt).getTime();
+  if (Number.isNaN(t)) return 1;
+  return Math.max(1, Math.floor((now - t) / 86_400_000));
+}
+
 function clickSort(col: "posted_at" | "company" | "level" | "first_seen") {
   const cur = state.sort;
   if (col === "posted_at") {
@@ -398,18 +436,32 @@ function ariaSort(
 }
 </script>
 
-<!-- Sticky search input. The primary affordance for filtering. -->
+<!-- Sticky search input. The primary affordance for filtering. The
+     `field:value` syntax is documented in specs/filter-ui.md v1.2.0;
+     the placeholder hints at it without overwhelming new users, and
+     the <details> below the input expands with a full reference. -->
 <div class="search-row">
   <label class="search-label">
     <span class="visually-hidden">Search roles</span>
     <input
       type="search"
-      placeholder="Search title, company, or description"
+      placeholder='Search roles — try title:engineer or company:stripe location:remote'
       maxlength="256"
       value={qInput}
       oninput={(e) => onQInput((e.currentTarget as HTMLInputElement).value)}
     />
   </label>
+  <details class="search-help">
+    <summary>Search syntax</summary>
+    <ul role="list">
+      <li><code>title:engineer</code> — match the title only</li>
+      <li><code>company:stripe</code> — match the company only</li>
+      <li><code>description:remote</code> — match the description excerpt</li>
+      <li><code>location:"san francisco"</code> — substring match on the location text</li>
+      <li><code>"senior engineer"</code> — match the literal phrase across all fields</li>
+      <li><code>title:senior company:stripe</code> — combine, AND-joined</li>
+    </ul>
+  </details>
 </div>
 
 <!-- Filter bar: applied filters + add-filter buttons + sort + reset.
@@ -455,6 +507,24 @@ function ariaSort(
     <button type="button" class="active-chip" onclick={() => updateState({ hideRecruiter: false })}>
       <span>NO RECRUITERS</span>
       <span class="visually-hidden">remove recruiter filter</span>
+      <span class="x" aria-hidden="true">×</span>
+    </button>
+  {/if}
+  {#if state.hideStale}
+    <button type="button" class="active-chip" onclick={() => updateState({ hideStale: false })}>
+      <span>VERIFIED ONLY</span>
+      <span class="visually-hidden">remove verified-only filter</span>
+      <span class="x" aria-hidden="true">×</span>
+    </button>
+  {/if}
+  {#if state.showOnly !== undefined}
+    <button
+      type="button"
+      class="active-chip accent"
+      onclick={() => updateState({ showOnly: undefined })}
+    >
+      <span>SHOWING {state.showOnly.toUpperCase()}</span>
+      <span class="visually-hidden">remove sub-view filter</span>
       <span class="x" aria-hidden="true">×</span>
     </button>
   {/if}
@@ -608,6 +678,36 @@ function ariaSort(
     onclick={() => updateState({ hideRecruiter: !state.hideRecruiter })}
   >{state.hideRecruiter ? "✓ No recruiters" : "+ No recruiters"}</button>
 
+  <!-- Phase 12: a quick toggle to hide carried-forward stale rows when the
+       user only wants verified-today roles. See specs/role-lifecycle.md. -->
+  <button
+    type="button"
+    class="add-button"
+    aria-pressed={state.hideStale}
+    onclick={() => updateState({ hideStale: !state.hideStale })}
+  >{state.hideStale ? "✓ Verified only" : "+ Verified only"}</button>
+
+  <!-- Phase 13: single-select sub-view toggles. Activating one clears any
+       other sub-view selection (mutually exclusive per spec). -->
+  <button
+    type="button"
+    class="add-button"
+    aria-pressed={state.showOnly === "saved"}
+    onclick={() => updateState({ showOnly: state.showOnly === "saved" ? undefined : "saved" })}
+  >{state.showOnly === "saved" ? "✓ Saved" : "+ Saved"}{savedIds.length > 0 ? ` · ${savedIds.length}` : ""}</button>
+  <button
+    type="button"
+    class="add-button"
+    aria-pressed={state.showOnly === "applied"}
+    onclick={() => updateState({ showOnly: state.showOnly === "applied" ? undefined : "applied" })}
+  >{state.showOnly === "applied" ? "✓ Applied" : "+ Applied"}{appliedIds.length > 0 ? ` · ${appliedIds.length}` : ""}</button>
+  <button
+    type="button"
+    class="add-button"
+    aria-pressed={state.showOnly === "ignored"}
+    onclick={() => updateState({ showOnly: state.showOnly === "ignored" ? undefined : "ignored" })}
+  >{state.showOnly === "ignored" ? "✓ Ignored" : "+ Ignored"}{ignoredIds.length > 0 ? ` · ${ignoredIds.length}` : ""}</button>
+
   <div class="popover-anchor sort-anchor">
     <button
       type="button"
@@ -645,6 +745,7 @@ function ariaSort(
 
 <p class="results-status" aria-live="polite" aria-busy={dbStatus === "loading"}>
   {#if dbStatus === "ready"}
+    {#if state.showOnly !== undefined}<span class="status-scope">{state.showOnly.toUpperCase()} ·</span> {/if}
     <b>{totalCount.toLocaleString()}</b> {totalCount === 1 ? "ROLE" : "ROLES"} ·
     PAGE {state.page}
   {:else if dbStatus === "loading"}
@@ -719,11 +820,18 @@ function ariaSort(
     <ul class="results" role="list" data-testid="job-results">
       {#each visibleRows as row (row.id)}
         {@const age = formatAge(row.posted_at)}
-        <li class="job" class:applied={isApplied(row.id)}>
+        {@const stale = row.is_stale === 1}
+        {@const staleDays = stale ? staleAgeDays(row.last_seen_at) : 0}
+        <li class="job" class:applied={isApplied(row.id)} class:is-stale={stale}>
           <div class="job-cell job-cell--role">
             <h3 class="company">
               <span class="company-name">{row.company}</span>
-              {#if age.fresh}
+              {#if stale}
+                <span
+                  class="stale-badge"
+                  title={`Last verified ${(row.last_seen_at ?? "").slice(0, 10)} — the source ATS hasn't responded for ${staleDays} day${staleDays === 1 ? "" : "s"}. The role may still be open.`}
+                >STALE · {staleDays}D</span>
+              {:else if age.fresh}
                 <span class="new-badge" aria-label="new">NEW</span>
               {/if}
               {#if row.is_recruiter_post}
@@ -859,6 +967,57 @@ function ariaSort(
     margin-block-end: var(--space-3);
   }
   .search-label { display: block; }
+
+  .search-help {
+    margin-block-start: var(--space-2);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-0);
+    letter-spacing: var(--track-wide);
+  }
+  .search-help summary {
+    color: var(--color-ink-2);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap);
+    padding: 0 var(--space-2);
+  }
+  .search-help summary::before {
+    content: "?";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4em;
+    height: 1.4em;
+    border: var(--rule-1) solid var(--color-ink-2);
+    border-radius: 0;
+    font-size: var(--text-1);
+  }
+  .search-help[open] summary { color: var(--color-ink); }
+  .search-help ul {
+    list-style: none;
+    padding: var(--space-2) 0 0 var(--space-3);
+    margin: 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .search-help code {
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-0);
+    background: transparent;
+    padding: 0 var(--space-1);
+    border: var(--rule-1) solid var(--color-rule-soft);
+  }
   .search-label input {
     width: 100%;
     min-height: var(--tap);
@@ -1070,6 +1229,7 @@ function ariaSort(
     text-transform: uppercase;
   }
   .results-status b { color: var(--color-accent); font-weight: 700; }
+  .results-status .status-scope { color: var(--color-accent); font-weight: 700; }
 
   .data-pending,
   .data-empty {
@@ -1145,6 +1305,28 @@ function ariaSort(
     font-size: var(--text-00);
     font-weight: 700;
     letter-spacing: var(--track-wider);
+  }
+
+  /* Stale badge — muted ink-3, mono caps, framed in a thin ink-3 border so
+     the cue reads as "this is muted state" not "this is decoration". Per
+     specs/visual-theme.md §State discipline, muted ink-3 is reserved for
+     negative-but-not-error states; specs/role-lifecycle.md §Filter
+     behavior owns this badge. */
+  .stale-badge {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-00);
+    font-weight: 700;
+    letter-spacing: var(--track-wider);
+    border: var(--rule-1) solid var(--color-ink-3);
+    padding: 0 var(--space-1);
+    cursor: help;
+  }
+  /* The whole stale row dims to 0.6 so users can scan past it without
+     having to read every badge. Tooltip + filter chip handle the deeper
+     "why is this dim?" question. */
+  .job.is-stale {
+    opacity: 0.6;
   }
 
   /* Role title is the most prominent element in each row — biggest type,

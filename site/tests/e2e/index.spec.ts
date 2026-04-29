@@ -41,7 +41,12 @@ test.describe("Brutalist Press chrome", () => {
     // Read both values from runtime CSS / DOM and compare. Hardcoding the
     // hex would re-introduce the literal that visual-theme.md §Rejection
     // cases forbids outside tokens.css and the BaseLayout meta tag itself.
-    const themeColor = await page.locator('meta[name="theme-color"]').getAttribute("content");
+    // Two theme-color metas now ship — one per prefers-color-scheme. The
+    // light variant must mirror --color-paper which is the runtime default
+    // when the OS preference is light.
+    const themeColor = await page
+      .locator('meta[name="theme-color"][media*="light"]')
+      .getAttribute("content");
     const cssPaper = await page.evaluate(() =>
       getComputedStyle(document.documentElement)
         .getPropertyValue("--color-paper")
