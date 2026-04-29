@@ -207,7 +207,7 @@ jobs:
 
       - name: Upload run report + manifest as artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-report-${{ steps.identity.outputs.short_sha }}
           path: |
