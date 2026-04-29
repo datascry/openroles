@@ -81,21 +81,26 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
   },
   {
     ats: "workday",
-    // Capture the tenant slug (group 1, per extractSlugs convention),
-    // the host suffix (group 2 — combine with slug to recover the full
-    // host), and the per-tenant career site code (group 3) when the URL
-    // happens to be the API pivot path. Two URL surfaces both occur in CC:
-    // bare host pages (`{tenant}.wd5.myworkdayjobs.com/Careers`) and the
-    // API path (`{tenant}.wd5.myworkdayjobs.com/wday/cxs/{tenant}/{site}/...`).
-    // Bare host pages leave group 3 empty.
+    // Capture (slug, host suffix, site). Three CDX URL surfaces all carry
+    // the site code in different positions; a single regex with two
+    // alternatives covers them:
+    //   1. API pivot:  `{host}/wday/cxs/{tenant}/{site}/...`     → group 3
+    //   2. User-facing: `{host}/{Site}` or `{host}/{tenant}/{Site}` → group 4
+    //   3. Bare host:  `{host}/`                                 → no site
+    //
+    // The `i` flag is dropped (vs other patterns) because the user-facing
+    // alternative needs `[A-Z]` to mean uppercase only — workday site
+    // names start with a capital letter, and we use that to distinguish
+    // them from path tokens like "job" or "external" in nested URLs.
+    // CDX SURT URLs are lowercase so the host portion still matches.
     cdxQuery: "*.myworkdayjobs.com/*",
     regex:
-      /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(\.wd\d+(?:-[a-z0-9-]+)?\.myworkdayjobs\.com)(?:\/wday\/cxs\/[a-z0-9-]+\/([A-Za-z0-9_-]{1,64}))?/gi,
+      /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(\.wd\d+(?:-[a-z0-9-]+)?\.myworkdayjobs\.com)(?:\/wday\/cxs\/[a-z0-9-]+\/([A-Za-z0-9_-]{1,64})|\/(?:[a-z0-9-]+\/)?([A-Z][A-Za-z0-9_-]{0,63})(?=\/|\?|$))?/g,
     denyList: SUBDOMAIN_DENY,
     extractMetadata: (match) => {
       const slug = match[1];
       const suffix = match[2];
-      const site = match[3];
+      const site = match[3] ?? match[4];
       if (!slug || !suffix) return undefined;
       const host = `${slug}${suffix}`;
       return site && site.length > 0 ? { host, site } : { host };

@@ -87,17 +87,15 @@ describe("extractSlugs", () => {
     expect(a).toEqual(b);
   });
 
-  it("captures workday composite metadata (host + site) from the API URL", () => {
+  it("captures workday composite metadata (host + site) from the user-facing /{Site} URL", () => {
     const r: CdxRecord[] = [
-      // Bare host page first — only host captured (no site available).
+      // User-facing path — site captured as the trailing capitalized segment.
       {
         url: "https://example.wd5.myworkdayjobs.com/Careers",
         status: "200",
         timestamp: "",
       },
-      // API path same tenant — both host and site present. First-seen-wins
-      // pins the metadata at "host only" because the bare-host record set
-      // a non-empty bag first.
+      // API path same tenant later — first-seen-wins keeps the original.
       {
         url: "https://example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs",
         status: "200",
@@ -106,6 +104,38 @@ describe("extractSlugs", () => {
     ];
     const { slugs, metadata } = extractSlugs(r, harvestPatternFor("workday"));
     expect(slugs).toEqual(["example"]);
+    expect(metadata.get("example")).toEqual({
+      host: "example.wd5.myworkdayjobs.com",
+      site: "Careers",
+    });
+  });
+
+  it("captures workday host-only when the URL is a bare host with no site segment", () => {
+    const r: CdxRecord[] = [
+      {
+        url: "https://example.wd5.myworkdayjobs.com/",
+        status: "200",
+        timestamp: "",
+      },
+    ];
+    const { slugs, metadata } = extractSlugs(r, harvestPatternFor("workday"));
+    expect(slugs).toEqual(["example"]);
+    expect(metadata.get("example")).toEqual({ host: "example.wd5.myworkdayjobs.com" });
+  });
+
+  it("ignores nested workday paths whose first segment is lowercase (job listings, not site codes)", () => {
+    const r: CdxRecord[] = [
+      // `/job/123` after a real tenant URL would have been captured as
+      // site "job" if the i-flag pollution wasn't fixed; `[A-Z]` is now
+      // strictly uppercase.
+      {
+        url: "https://example.wd5.myworkdayjobs.com/job/12345-engineer",
+        status: "200",
+        timestamp: "",
+      },
+    ];
+    const { metadata } = extractSlugs(r, harvestPatternFor("workday"));
+    // Slug captured but site not — `job` doesn't match `[A-Z][A-Za-z0-9_-]*`.
     expect(metadata.get("example")).toEqual({ host: "example.wd5.myworkdayjobs.com" });
   });
 
