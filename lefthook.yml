@@ -24,7 +24,8 @@ commit-msg:
 pre-push:
   commands:
     test:
-      run: bun test --bail
+      # Exclude site/tests/e2e — those are Playwright specs, run via `bun run e2e`.
+      run: bun test --bail --path-ignore-patterns='**/tests/e2e/**'
 
 skip:
   - merge

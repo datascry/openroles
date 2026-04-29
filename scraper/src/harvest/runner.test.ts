@@ -95,7 +95,7 @@ describe("runHarvest", () => {
 
   it("keeps workday tenants at transient_failure when CDX yields the host but no site code", async () => {
     const cdx = [
-      '{"url":"https://example.wd5.myworkdayjobs.com/Careers","status":"200","timestamp":"20260101000000"}',
+      '{"url":"https://example.wd5.myworkdayjobs.com/job/12345","status":"200","timestamp":"20260101000000"}',
       "",
     ].join("\n");
     const fetchFn = mock(async (input: Request | string) => {

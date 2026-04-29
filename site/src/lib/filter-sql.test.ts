@@ -346,6 +346,28 @@ describe("buildFilterQuery", () => {
   });
 });
 
+describe("idAllowlist", () => {
+  it("narrows results to the allowlisted ids", () => {
+    const jobs = Array.from({ length: 4 }, (_, i) =>
+      makeJob({ source_id: String(i), url: `https://example.com/${i}` }),
+    );
+    const db = fresh(jobs);
+    const ids = (
+      db.query("SELECT id FROM jobs ORDER BY first_seen_at LIMIT 2").all() as { id: string }[]
+    ).map((r) => r.id);
+    const plan = buildFilterQuery(DEFAULT_FILTER_STATE, { idAllowlist: ids });
+    const rows = db.query(plan.sql).all(...plan.params) as { id: string }[];
+    expect(rows.map((r) => r.id).sort()).toEqual([...ids].sort());
+  });
+
+  it("returns zero rows when the allowlist is empty", () => {
+    const db = fresh([makeJob()]);
+    const plan = buildFilterQuery(DEFAULT_FILTER_STATE, { idAllowlist: [] });
+    const rows = db.query(plan.sql).all(...plan.params);
+    expect(rows).toHaveLength(0);
+  });
+});
+
 describe("buildFilterCountQuery", () => {
   it("returns the total count for the same filter shape", () => {
     const db = fresh(
