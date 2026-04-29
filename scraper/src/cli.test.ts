@@ -447,6 +447,63 @@ describe("runBuildDbCommand", () => {
     ).rejects.toThrow(/broken\.json/);
   });
 
+  it("skips scrape outputs that fail schema validation and continues with the rest", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "good.json"), JSON.stringify(emptyOutput()));
+    writeFileSync(join(inputDir, "schema-bad.json"), JSON.stringify({ ats: "greenhouse" }));
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+    ]);
+    expect(code).toBe(0);
+    expect(existsSync(join(outputDir, "jobs.abc1234.sqlite"))).toBe(true);
+  });
+
+  it("rejects --stale-ttl-days outside [1, 14]", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "out.json"), JSON.stringify(emptyOutput()));
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+      "--stale-ttl-days",
+      "99",
+    ]);
+    expect(code).toBe(2);
+  });
+
+  it("accepts a valid --stale-ttl-days and forwards it to build-db", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "out.json"), JSON.stringify(emptyOutput()));
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+      "--stale-ttl-days",
+      "5",
+    ]);
+    expect(code).toBe(0);
+  });
+
   it("dispatches build-db via main() too", async () => {
     const dir = tmpDir();
     const inputDir = join(dir, "in");

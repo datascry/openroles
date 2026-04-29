@@ -280,6 +280,7 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     await writeFile(manifestTmp, `${JSON.stringify(manifest, null, 2)}\n`);
     await rename(dbTmp, dbPath);
     await rename(manifestTmp, manifestPath);
+    /* c8 ignore next 5 — cleanup path; only reached on rare fs/rename failure mid-write. */
   } catch (err) {
     await rm(dbTmp, { force: true });
     await rm(manifestTmp, { force: true });
@@ -367,6 +368,7 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   try {
     await writeFile(tmp, `${JSON.stringify(result.tenants, null, 2)}\n`);
     await rename(tmp, path);
+    /* c8 ignore next 4 — cleanup path; only reached on rare fs/rename failure mid-write. */
   } catch (err) {
     await rm(tmp, { force: true });
     throw err;
