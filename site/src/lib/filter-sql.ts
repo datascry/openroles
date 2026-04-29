@@ -11,9 +11,11 @@ const SORT_TO_ORDER_BY: Record<FilterState["sort"], string> = {
   "posted_at:desc": "posted_at DESC NULLS LAST, first_seen_at DESC",
   "posted_at:asc": "posted_at ASC NULLS LAST, first_seen_at ASC",
   "first_seen:desc": "first_seen_at DESC",
+  "first_seen:asc": "first_seen_at ASC",
   "company:asc": "company COLLATE NOCASE ASC",
   "company:desc": "company COLLATE NOCASE DESC",
   "level:asc": "level_rank ASC NULLS LAST, posted_at DESC",
+  "level:desc": "level_rank DESC NULLS LAST, posted_at DESC",
 };
 
 const SINCE_TO_HOURS: Record<FilterState["since"], number | null> = {

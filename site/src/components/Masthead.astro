@@ -1,0 +1,228 @@
+---
+/**
+ * Brutalist Press masthead. Locked by specs/visual-theme.md v1.0.2.
+ *
+ * Mobile: stacked — brand, strap, nav.
+ * Desktop (≥ 768 px): single row, three-column grid.
+ */
+
+export type NavCurrent = "browse" | "saved" | "applied" | "rss" | "about";
+
+interface Props {
+  current: NavCurrent;
+  totalRoles: number;
+  builtAtIso: string;
+  basePath: string;
+}
+
+const { current, totalRoles, builtAtIso, basePath } = Astro.props;
+
+const builtAt = new Date(builtAtIso);
+const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+const dateline = `${days[builtAt.getUTCDay()]} ${String(builtAt.getUTCDate()).padStart(
+  2,
+  "0",
+)} ${months[builtAt.getUTCMonth()]} ${builtAt.getUTCFullYear()}`;
+
+const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
+
+const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> = [
+  { key: "browse", label: "BROWSE", href: `${basePath}/` },
+  { key: "rss", label: "RSS", href: `${basePath}/feed.xml` },
+];
+---
+
+<header class="masthead">
+  <a class="brand" href={`${basePath}/`}>
+    <span aria-hidden="true">OPEN<span class="dot">·</span>ROLES</span>
+    <span class="visually-hidden">openroles</span>
+  </a>
+
+  <p class="strap">
+    <span>UPDATED <time datetime={builtAt.toISOString()}>{dateline}</time></span>
+    <span class="rule" aria-hidden="true">·</span>
+    <span><b class="accent">{totalRolesFormatted}</b> LIVE</span>
+  </p>
+
+  <nav aria-label="Primary">
+    <ul role="list">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            aria-current={item.key === current ? "page" : undefined}
+            class={item.key === current ? "is-active" : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Toggle light or dark theme"
+          aria-live="polite"
+        >
+          <span class="theme-toggle__sun" aria-hidden="true">☼</span>
+          <span class="theme-toggle__moon" aria-hidden="true">☾</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-4) var(--space-3);
+    border-bottom: var(--rule-4) solid var(--color-rule);
+    background: var(--color-paper);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-6);
+    font-weight: 900;
+    letter-spacing: var(--track-tight);
+    line-height: 0.9;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .brand:hover {
+    color: var(--color-ink);
+  }
+
+  .brand .dot {
+    color: var(--color-accent);
+  }
+
+  .strap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-2);
+    align-items: baseline;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-0);
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
+  }
+
+  .strap b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  .strap b.accent {
+    color: var(--color-accent);
+  }
+
+  .strap time {
+    font-family: var(--font-mono);
+  }
+
+  .strap .rule {
+    color: var(--color-ink-3);
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1) var(--space-2);
+    min-height: var(--tap);
+    min-width: var(--tap);
+    color: var(--color-ink-2);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    letter-spacing: var(--track-wide);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: var(--rule-2) solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--color-ink);
+  }
+
+  nav a.is-active {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap);
+    min-width: var(--tap);
+    padding: 0 var(--space-2);
+    border: var(--rule-1) solid var(--color-ink);
+    border-radius: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-3);
+    cursor: pointer;
+  }
+  .theme-toggle:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  /* Show the moon when light theme is active (clicking switches to dark);
+     show the sun when dark theme is active (clicking switches to light). */
+  :global([data-theme="dark"]) .theme-toggle__moon { display: none; }
+  :global(:not([data-theme="dark"])) .theme-toggle__sun { display: none; }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (min-width: 768px) {
+    .masthead {
+      grid-template-columns: auto 1fr auto;
+      column-gap: var(--space-6);
+      align-items: end;
+      padding: var(--space-5) var(--space-7) var(--space-3);
+      border-bottom-width: var(--rule-6);
+    }
+
+    .strap {
+      justify-content: flex-start;
+      padding-bottom: var(--space-1);
+    }
+
+    nav {
+      align-self: end;
+      padding-bottom: var(--space-1);
+    }
+  }
+</style>

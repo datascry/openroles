@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Job database is a binary blob; crawlers don't get useful results paging it.
+Disallow: /openroles/data/
+
+Sitemap: https://datascry.github.io/openroles/sitemap-index.xml

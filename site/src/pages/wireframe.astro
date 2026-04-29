@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+/**
+ * Theme-only wireframe. Renders the masthead + footer chrome and a static
+ * lede so the visual theme is verifiable end-to-end without the FilterTable
+ * island. Tracks specs/visual-theme.md; for the live filter UI see the
+ * index page.
+ */
+
+const builtAtIso = new Date().toISOString();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="openroles — theme wireframe"
+  current="browse"
+  totalRoles={0}
+  builtAtIso={builtAtIso}
+>
+  <section class="lede">
+    <p class="kicker">Wireframe · Brutalist Press</p>
+    <h2>The masthead, footer, and type stack are wired against the spec.</h2>
+    <p>
+      The static masthead, footer, type stack, and token table track the
+      visual-theme spec. The filter island, sortable table, and saved /
+      applied / hide actions live on the
+      <a href={`${base}/`}>browse</a> page; this route exists to verify the
+      theme in isolation.
+    </p>
+    <p>
+      Built at <time datetime={builtAtIso}>{builtAtIso}</time>.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .lede {
+    display: grid;
+    gap: var(--space-4);
+    max-inline-size: 65ch;
+  }
+
+  .kicker {
+    color: var(--color-ink-2);
+    font-family: var(--font-display);
+    font-size: var(--text-00);
+    font-weight: 700;
+    letter-spacing: var(--track-wider);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .lede h2 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-5);
+    font-weight: 800;
+    letter-spacing: var(--track-tight);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .lede p {
+    color: var(--color-ink-2);
+    font-family: var(--font-serif);
+    font-size: var(--text-2);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .lede a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.15em;
+  }
+
+  .lede time {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-1);
+  }
+
+  @media (min-width: 768px) {
+    .lede h2 {
+      font-size: var(--text-6);
+    }
+  }
+</style>

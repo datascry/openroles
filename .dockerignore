@@ -1,0 +1,44 @@
+# Build artefacts — re-generated inside the image
+**/node_modules
+**/dist
+**/.astro
+**/.cache
+**/.output
+**/build
+
+# Tests, coverage, reports — not needed at build time
+coverage
+**/coverage
+**/test-results
+**/playwright-report
+**/playwright/.cache
+
+# VCS + tooling state
+.git
+.claude
+.github
+.idea
+.vscode
+.zed
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.log
+*.tsbuildinfo
+
+# Local env
+.env
+.env.*
+!.env.example
+
+# Docs / metadata not consumed by the build
+*.md
+!README.md
+LICENSE*
+SECURITY.md
+CODEOWNERS
+CONTRIBUTING.md
+CHANGELOG.md

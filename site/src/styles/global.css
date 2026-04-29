@@ -1,0 +1,202 @@
+/*
+ * Global resets, base typography, button primitives, focus-visible.
+ * Pairs with tokens.css; both are imported once by BaseLayout.astro.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-2);
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--color-paper);
+}
+
+main {
+  display: block;
+}
+
+/* ---------- Headings: display sans, all caps, tight tracking ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: var(--text-6);
+  font-weight: 900;
+}
+h2 {
+  font-size: var(--text-5);
+}
+h3 {
+  font-size: var(--text-4);
+}
+h4 {
+  font-size: var(--text-3);
+}
+h5 {
+  font-size: var(--text-2);
+  letter-spacing: var(--track-wider);
+}
+h6 {
+  font-size: var(--text-1);
+  letter-spacing: var(--track-wider);
+}
+
+/* ---------- Body copy ---------- */
+p {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--color-ink-2);
+}
+
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+hr {
+  border: 0;
+  border-top: var(--rule-1) solid var(--color-rule);
+  margin: var(--space-5) 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------- Button primitive ---------- */
+button {
+  appearance: none;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  border-radius: 0;
+  padding: 0 var(--space-3);
+  min-height: var(--tap);
+  font-family: var(--font-display);
+  font-size: var(--text-1);
+  font-weight: 700;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+button.primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-color: var(--color-accent);
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Inputs ---------- */
+input,
+select,
+textarea {
+  font-family: var(--font-display);
+  font-size: var(--text-2);
+  font-weight: 600;
+  color: var(--color-ink);
+  background: transparent;
+  border: var(--rule-2) solid var(--color-ink);
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+}
+
+input::placeholder {
+  color: var(--color-ink-3);
+}
+
+/* ---------- Focus ring ---------- */
+:focus-visible {
+  outline: var(--rule-2) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Reduced motion ----------
+   The `!important` declarations are intentional — they exist to forcibly
+   neutralize any animation/transition/scroll-behavior set anywhere in the
+   cascade, including on third-party widgets and Svelte component-scoped
+   styles, the moment the user expresses a reduced-motion preference. This
+   is the canonical pattern recommended by WCAG 2.3.3 and is the only
+   reason `!important` appears in the codebase. */
+/* biome-ignore-start lint/complexity/noImportantStyles: WCAG 2.3.3 cascade-override pattern */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* biome-ignore-end lint/complexity/noImportantStyles: WCAG 2.3.3 cascade-override pattern */

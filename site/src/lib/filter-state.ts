@@ -13,17 +13,21 @@ export type SortOption =
   | "posted_at:desc"
   | "posted_at:asc"
   | "first_seen:desc"
+  | "first_seen:asc"
   | "company:asc"
   | "company:desc"
-  | "level:asc";
+  | "level:asc"
+  | "level:desc";
 
 const SORT_VALUES: ReadonlyArray<SortOption> = [
   "posted_at:desc",
   "posted_at:asc",
   "first_seen:desc",
+  "first_seen:asc",
   "company:asc",
   "company:desc",
   "level:asc",
+  "level:desc",
 ];
 
 const SINCE_VALUES: ReadonlyArray<SinceWindow> = ["24h", "7d", "30d", "all"];

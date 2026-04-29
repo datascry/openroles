@@ -1,15 +1,30 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 import { SITE_BASE } from "../../playwright.config.ts";
 
 const INDEX = `${SITE_BASE}/`;
 const FEED = `${SITE_BASE}/feed.xml`;
 
+// On mobile-chrome the filter panel is a drawer hidden behind the FAB. The
+// drawer auto-closes on initial load when the URL ships with active filters
+// (so users see the result list first); auto-opens otherwise. Tests that
+// interact with chip checkboxes should call this first to guarantee the
+// panel is accessible regardless of initial state.
+async function ensureFiltersVisible(page: Page): Promise<void> {
+  const fab = page.locator(".filter-fab");
+  if (!(await fab.isVisible())) return; // desktop — filters are in the sticky sidebar
+  if ((await fab.getAttribute("aria-expanded")) === "true") return; // already open
+  await fab.click();
+  await expect(page.locator(".filters.is-open")).toBeVisible();
+}
+
 test.describe("index page smoke", () => {
   test("renders the page chrome and a status line", async ({ page }) => {
     await page.goto(INDEX);
     await expect(page).toHaveTitle(/openroles/i);
-    await expect(page.locator("h1")).toBeVisible();
+    // h2 lede heading is what the brutalist theme renders inside <main>; the
+    // page-level <h1>-equivalent is the masthead brand mark.
+    await expect(page.locator("header.masthead .brand")).toBeVisible();
     await expect(page.locator(".manifest")).toBeVisible();
   });
 
@@ -26,6 +41,7 @@ test.describe("index page smoke", () => {
 
   test("filter table island hydrates and event handlers update the URL", async ({ page }) => {
     await page.goto(INDEX);
+    await ensureFiltersVisible(page);
     // SSR renders the chip <input> elements; only after hydration does clicking
     // a chip fire toggleAts → syncUrl(state) → history.replaceState. Asserting
     // on the URL change proves the island actually hydrated, not just that the
@@ -60,6 +76,7 @@ test.describe("index page smoke", () => {
     await expect(results.locator(".ats", { hasText: "lever" }).first()).toBeVisible({
       timeout: 15_000,
     });
+    await ensureFiltersVisible(page);
     await page.getByRole("checkbox", { name: "greenhouse" }).click();
     // Assert the property — only greenhouse rows remain — rather than the
     // fixture cardinality, so the test survives fixture growth. (Audit m5.)
@@ -76,12 +93,13 @@ test.describe("index page smoke", () => {
     await expect(results).toBeVisible({ timeout: 15_000 });
     const pager = page.getByTestId("pager");
     await expect(pager).toBeVisible({ timeout: 15_000 });
-    await expect(pager.getByText(/Page 1 of/)).toBeVisible();
+    // Numbered pager: page 1 is the current button, marked aria-current="page".
+    await expect(pager.locator(".pager-page.is-current")).toHaveText("1");
     // Prev is disabled on page 1.
     await expect(pager.getByRole("button", { name: "Previous page" })).toBeDisabled();
     // Click next; page indicator updates and URL reflects ?page=2.
     await pager.getByRole("button", { name: "Next page" }).click();
-    await expect(pager.getByText(/Page 2 of/)).toBeVisible();
+    await expect(pager.locator(".pager-page.is-current")).toHaveText("2");
     await expect(page).toHaveURL(/[?&]page=2(\b|&|$)/);
   });
 

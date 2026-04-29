@@ -109,9 +109,11 @@ describe("encode + decodeFilterState", () => {
       "posted_at:desc",
       "posted_at:asc",
       "first_seen:desc",
+      "first_seen:asc",
       "company:asc",
       "company:desc",
       "level:asc",
+      "level:desc",
     );
     const sinceArb = fc.constantFrom("24h", "7d", "30d", "all");
     fc.assert(

@@ -1,0 +1,217 @@
+---
+/**
+ * Brutalist Press base layout.
+ * Owns the html/head shell and the Masthead + footer chrome.
+ * Pages provide body content via the default slot.
+ */
+
+import "../styles/tokens.css";
+import "../styles/global.css";
+import Masthead, { type NavCurrent } from "../components/Masthead.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  current: NavCurrent;
+  totalRoles: number;
+  builtAtIso: string;
+  /** Override the default canonical path (defaults to the current pathname). */
+  canonicalPath?: string;
+}
+
+const {
+  title,
+  description = "Browse thousands of open roles across the major job platforms. Search, filter, and save what you like — no accounts, no email, no tracking.",
+  current,
+  totalRoles,
+  builtAtIso,
+  canonicalPath,
+} = Astro.props;
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "https://datascry.github.io";
+const siteRoot = `${siteOrigin}${basePath}`;
+const canonical = `${siteOrigin}${canonicalPath ?? Astro.url.pathname}`;
+
+// Display title combines the page title with the brand. Front-of-page brand
+// helps SEO and click-through; `og:title` mirrors the same shape.
+const fullTitle = title.toLowerCase().includes("openroles") ? title : `${title} · openroles`;
+
+const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <!--
+      Theme-color literals mirror --color-paper in tokens.css for both schemes.
+      The HTML spec rejects var() inside meta[name="theme-color"], so the two
+      literals MUST move whenever the tokens move; visual-theme.md flags this.
+    -->
+    <meta name="theme-color" content="#f2efe9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110d" media="(prefers-color-scheme: dark)" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="generator" content="Astro" />
+    <meta name="application-name" content="openroles" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="openroles" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="openroles — all jobs"
+      href={`${basePath}/feed.xml`}
+    />
+
+    <!-- JSON-LD: tells search engines this site is a job-listing aggregator
+         (WebSite) and surfaces the search action so SERPs can render the
+         sitelinks search box. The aggregator is not a JobPosting itself;
+         per-tenant pages can later add JobPosting structured data per role. -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "openroles",
+      url: `${siteRoot}/`,
+      description,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteRoot}/?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    })} />
+    <!--
+      Inline theme initialization. Runs before paint to avoid a light-flash
+      on dark-mode users. Reads the persisted choice from localStorage,
+      falls back to the OS preference, sets data-theme on <html>.
+    -->
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("openroles:theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = stored === "dark" || stored === "light"
+            ? stored
+            : (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch (_e) {
+          /* localStorage may be blocked; default to light */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Masthead
+      current={current}
+      totalRoles={totalRoles}
+      builtAtIso={builtAtIso}
+      basePath={basePath}
+    />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href={`${basePath}/feed.xml`}>RSS</a>
+      </p>
+    </footer>
+
+    <!--
+      Theme-toggle wiring. Cycles light ↔ dark, persists to localStorage,
+      keeps the data-theme attribute on the document element in sync.
+    -->
+    <script is:inline>
+      (() => {
+        const btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          const cur = document.documentElement.dataset.theme;
+          const next = cur === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem("openroles:theme", next);
+          } catch (_e) {
+            /* localStorage may be blocked; toggle still works for the session */
+          }
+        });
+      })();
+    </script>
+
+    <style>
+      main#main {
+        max-width: 78rem;
+        margin: 0 auto;
+        padding: var(--space-5) var(--space-4) var(--space-8);
+      }
+
+      @media (min-width: 768px) {
+        main#main {
+          padding: var(--space-6) var(--space-7) var(--space-9);
+        }
+      }
+
+      .site-footer {
+        border-top: var(--rule-4) solid var(--color-rule);
+        padding: var(--space-4);
+      }
+
+      .site-footer p {
+        max-width: 78rem;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .site-footer a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--space-3);
+        min-height: var(--tap);
+        min-width: var(--tap);
+        color: var(--color-accent);
+        font-family: var(--font-display);
+        font-size: var(--text-2);
+        font-weight: 700;
+        letter-spacing: var(--track-wide);
+        text-decoration: none;
+      }
+
+      .site-footer a:hover {
+        background: var(--color-ink);
+        color: var(--color-paper);
+      }
+
+      @media (min-width: 768px) {
+        .site-footer {
+          padding: var(--space-4) var(--space-7);
+        }
+      }
+    </style>
+  </body>
+</html>

@@ -181,9 +181,11 @@ describe("buildFilterQuery", () => {
       "posted_at:desc",
       "posted_at:asc",
       "first_seen:desc",
+      "first_seen:asc",
       "company:asc",
       "company:desc",
       "level:asc",
+      "level:desc",
     ] as const;
     for (const sort of sorts) {
       const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, sort });

@@ -1,0 +1,106 @@
+/*
+ * Brutalist Press — design tokens.
+ * The single source of truth is specs/visual-theme.md v1.0.0.
+ * Every component reference MUST resolve to a token defined here.
+ */
+
+@import "open-props/style";
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- Palette (light theme defaults) ---------- */
+  --color-paper: #f2efe9;
+  --color-ink: #0a0a0a;
+  --color-ink-2: #2a2a2a;
+  --color-ink-3: #6e6a63;
+  --color-rule: #0a0a0a;
+  --color-rule-soft: #c8c2b6;
+  --color-accent: #c8261a;
+  --color-accent-soft: #f6e3df;
+  --color-on-accent: #ffffff;
+
+  /* ---------- Type stacks (system only — no web font requests) ---------- */
+  --font-display: "Helvetica Neue", "Inter Tight", "Akzidenz-Grotesk", Helvetica, Arial, sans-serif;
+  --font-serif: "Tiempos Text", "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+
+  /* ---------- Type scale (mobile defaults) ---------- */
+  --text-00: 0.625rem; /* 10px */
+  --text-0: 0.6875rem; /* 11px */
+  --text-1: 0.75rem; /* 12px */
+  --text-2: 0.875rem; /* 14px */
+  --text-3: 1rem; /* 16px */
+  --text-4: 1.25rem; /* 20px */
+  --text-5: 1.875rem; /* 30px */
+  --text-6: 2.5rem; /* 40px */
+  --text-7: 3rem; /* 48px */
+
+  /* ---------- Tracking ---------- */
+  --track-tight: -0.02em;
+  --track-snug: -0.01em;
+  --track-normal: 0;
+  --track-wide: 0.06em;
+  --track-wider: 0.12em;
+
+  /* ---------- Spacing (alias Open Props sizes) ---------- */
+  --space-1: var(--size-1);
+  --space-2: var(--size-2);
+  --space-3: var(--size-3);
+  --space-4: var(--size-4);
+  --space-5: var(--size-5);
+  --space-6: var(--size-6);
+  --space-7: var(--size-7);
+  --space-8: var(--size-8);
+  --space-9: var(--size-9);
+
+  /* ---------- Rule weights ---------- */
+  --rule-1: 1px;
+  --rule-2: 2px;
+  --rule-4: 4px;
+  --rule-6: 6px;
+
+  /* ---------- Tap target floor ---------- */
+  --tap: 44px;
+}
+
+/*
+ * Single desktop scale bump. Reserved per visual-theme.md §Type scale —
+ * tokens used in component CSS automatically render larger past 768 px.
+ */
+@media (min-width: 768px) {
+  :root {
+    --text-1: 0.8125rem; /* 13px */
+    --text-2: 0.9375rem; /* 15px */
+    --text-3: 1.0625rem; /* 17px */
+    --text-4: 1.5rem; /* 24px */
+    --text-5: 2.25rem; /* 36px */
+    --text-6: 2.75rem; /* 44px */
+    --text-7: 4rem; /* 64px */
+  }
+}
+
+/*
+ * Dark theme palette. The accent shifts to a brighter red so the on-paper
+ * pair clears WCAG 2.1 AA against the very dark warm-brown background.
+ *
+ *  --color-ink on --color-paper   → 16.79:1 (AAA)
+ *  --color-ink-2 on --color-paper → 11.52:1 (AAA)
+ *  --color-ink-3 on --color-paper →  5.46:1 (AA)
+ *  --color-accent on --color-paper →  5.20:1 (AA — measured against #14110d)
+ *
+ * Selector binds explicitly via [data-theme="dark"] so the toggle wins over
+ * the OS preference; the inline init script in BaseLayout.astro sets the
+ * data-theme attribute before paint.
+ */
+:root[data-theme="dark"] {
+  --color-paper: #14110d;
+  --color-ink: #f5f0e6;
+  --color-ink-2: #d4cdc0;
+  --color-ink-3: #8e8a82;
+  --color-rule: #f5f0e6;
+  --color-rule-soft: #44403a;
+  --color-accent: #f04d3a;
+  --color-accent-soft: #3a1f1a;
+  --color-on-accent: #14110d;
+}
