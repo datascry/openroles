@@ -1,0 +1,135 @@
+name: Release
+
+# Triggered by pushing a SemVer tag (`v1.2.3`). The workflow regenerates the
+# CHANGELOG from Conventional Commits via `git-cliff`, extracts the section
+# for the tag being released, and creates a GitHub Release with that section
+# as the body. The currently-deployed SQLite + manifest are attached as
+# release assets so a tag can be reproduced offline.
+#
+# Manual `workflow_dispatch` is also supported for backfilling releases or
+# re-running against an existing tag without re-tagging.
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+-*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to release (e.g. v1.2.3). Required for manual runs."
+        type: string
+        required: true
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  BUN_VERSION: "1.3.13"
+
+jobs:
+  release:
+    name: Cut release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag || github.ref }}
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - run: bun install --frozen-lockfile
+
+      - name: Resolve tag
+        id: tag
+        run: |
+          if [ -n "${{ inputs.tag }}" ]; then
+            tag="${{ inputs.tag }}"
+          else
+            tag="${GITHUB_REF#refs/tags/}"
+          fi
+          # Validate shape — defends against a bad workflow_dispatch input.
+          if ! printf '%s' "$tag" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$'; then
+            echo "::error::tag '$tag' is not SemVer-shaped (expected vMAJOR.MINOR.PATCH[-prerelease])"
+            exit 1
+          fi
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate release notes from CHANGELOG
+        id: notes
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          # git-cliff's --current renders just the unreleased section by
+          # default; with --tag we ask for the section corresponding to the
+          # tag being released. We strip the H2 header so the body starts
+          # with the bullet list.
+          bunx git-cliff --tag "$TAG" --strip header --current > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "::warning::git-cliff produced no notes for ${TAG}; falling back to a one-liner"
+            printf 'Release %s. See [CHANGELOG.md](CHANGELOG.md) for full history.\n' "$TAG" > release-notes.md
+          fi
+          {
+            echo "notes_path=release-notes.md"
+          } >> "$GITHUB_OUTPUT"
+          echo "::group::release notes"
+          cat release-notes.md
+          echo "::endgroup::"
+
+      - name: Stage release assets from latest Pages deploy
+        id: assets
+        env:
+          PAGES_BASE: "https://datascry.github.io/openroles"
+        run: |
+          # Best-effort attach of the currently-deployed SQLite + manifest.
+          # Skipped silently if the live site isn't there yet — first-ever
+          # tag may precede the first daily-refresh.
+          set +e
+          mkdir -p release-assets
+          if curl -fsSL --max-time 30 "${PAGES_BASE}/data/manifest.json" -o release-assets/manifest.json; then
+            db_filename="$(jq -r '.db_filename' release-assets/manifest.json 2>/dev/null)"
+            if [ -n "$db_filename" ] && [ "$db_filename" != "null" ]; then
+              if curl -fsSL --max-time 300 "${PAGES_BASE}/data/${db_filename}" -o "release-assets/${db_filename}"; then
+                echo "available=true" >> "$GITHUB_OUTPUT"
+                echo "release-assets: ${db_filename} ($(wc -c < release-assets/${db_filename}) bytes) + manifest.json"
+              else
+                echo "::warning::could not fetch ${db_filename}; releasing without assets"
+                echo "available=false" >> "$GITHUB_OUTPUT"
+                rm -f release-assets/manifest.json
+              fi
+            else
+              echo "available=false" >> "$GITHUB_OUTPUT"
+              rm -f release-assets/manifest.json
+            fi
+          else
+            echo "::notice::no live manifest yet — releasing without assets"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.tag }}
+          ASSETS_AVAILABLE: ${{ steps.assets.outputs.available }}
+        run: |
+          # Use --notes-file so the body is exactly the changelog snippet,
+          # not interpolated through the shell. --target ensures we tag the
+          # right commit when running via workflow_dispatch on an existing tag.
+          target="$(git rev-parse "$TAG")"
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file release-notes.md \
+            --target "$target" \
+            --verify-tag
+          if [ "$ASSETS_AVAILABLE" = "true" ]; then
+            gh release upload "$TAG" release-assets/* --clobber
+          fi

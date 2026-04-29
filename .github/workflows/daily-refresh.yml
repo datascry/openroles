@@ -130,13 +130,58 @@ jobs:
         run: |
           jq -s 'add' data/tenants/*.json > data/tenants-merged.json
 
-      - name: Build SQLite database
+      # Phase 12 carry-forward: download the previous build's SQLite from
+      # the live Pages deployment so build-db can keep stale roles alive
+      # for STALE_TTL_DAYS_DEFAULT before dropping them. Non-fatal — first
+      # ever build has no previous, and a transient fetch failure should
+      # not abort the whole refresh. See specs/role-lifecycle.md.
+      - name: Download previous build's SQLite (for carry-forward)
+        id: previous-db
+        env:
+          PAGES_BASE: "https://datascry.github.io/openroles"
         run: |
+          set +e
+          mkdir -p data/previous
+          # Fetch live manifest first so we know which jobs.{sha}.sqlite to ask for.
+          if ! curl -fsSL --max-time 30 "${PAGES_BASE}/data/manifest.json" -o data/previous/manifest.json; then
+            echo "::notice::no live manifest at ${PAGES_BASE}/data/manifest.json — first-run carry-forward will be empty"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          prev_db_filename="$(jq -r '.db_filename' data/previous/manifest.json 2>/dev/null)"
+          if [ -z "$prev_db_filename" ] || [ "$prev_db_filename" = "null" ]; then
+            echo "::warning::live manifest missing db_filename; carry-forward skipped"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if ! curl -fsSL --max-time 300 "${PAGES_BASE}/data/${prev_db_filename}" -o "data/previous/${prev_db_filename}"; then
+            echo "::warning::could not fetch ${prev_db_filename}; carry-forward skipped"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "previous_db_path=data/previous/${prev_db_filename}" >> "$GITHUB_OUTPUT"
+          echo "available=true" >> "$GITHUB_OUTPUT"
+          echo "carry-forward: previous SQLite at data/previous/${prev_db_filename} ($(wc -c < data/previous/${prev_db_filename}) bytes)"
+
+      - name: Build SQLite database
+        env:
+          PREV_DB_PATH: ${{ steps.previous-db.outputs.previous_db_path }}
+          PREV_DB_AVAILABLE: ${{ steps.previous-db.outputs.available }}
+        run: |
+          # Pass --previous-db only when the previous SQLite was actually
+          # fetched. Empty / missing previous → no carry-forward (correct
+          # for first-ever build).
+          previous_arg=""
+          if [ "$PREV_DB_AVAILABLE" = "true" ] && [ -n "$PREV_DB_PATH" ]; then
+            previous_arg="--previous-db ${GITHUB_WORKSPACE}/${PREV_DB_PATH}"
+          fi
+          # shellcheck disable=SC2086
           bun run build-db \
             --input "${GITHUB_WORKSPACE}/data/scrape-outputs" \
             --tenants "${GITHUB_WORKSPACE}/data/tenants-merged.json" \
             --short-sha "$BUILD_SHORT_SHA" \
-            --output-dir "${GITHUB_WORKSPACE}/data"
+            --output-dir "${GITHUB_WORKSPACE}/data" \
+            $previous_arg
 
       - name: Run drift report (non-fatal)
         run: |

@@ -1,34 +1,55 @@
 # openroles
 
-Static, queryable job board aggregator. Scrapes major Applicant Tracking Systems, ships a SQLite database to GitHub Pages, and lets you filter live job listings client-side via real SQL — no backend, no accounts, no email.
+A static, queryable job board across **24 applicant tracking systems**. Scrapes each ATS's public API or sitemap, ships a daily-refreshed SQLite database to GitHub Pages, and lets the browser filter tens of thousands of live roles client-side over real SQL. No backend. No accounts. No email. No tracking.
 
 ## Features
 
-- **Multi-ATS coverage** — six major ATSes harvested via their public APIs and sitemaps
-- **Real SQL in your browser** — SQLite served over HTTP range requests via `sql.js-httpvfs`
-- **Mobile-first UI** — same experience on a phone and a laptop
-- **RSS subscriptions** — bookmark any filter as an RSS URL; no accounts required
-- **Static-only** — fully served from GitHub Pages, no servers, no databases
-- **Daily refresh** — nightly GitHub Action keeps the dataset live
-- **Clean-room data** — tenant lists harvested independently from Common Crawl
+- **24-ATS coverage** — Greenhouse, Lever, Ashby, BambooHR, Workday, iCIMS, Recruitee, Breezy, Personio, Workable, Teamtailor, SmartRecruiters, csod, Taleo, UltiPro, Jobvite, Zoho Recruit, Talentlyft, Pinpoint HQ, ApplicantPro, ApplicantStack, Homerun, Factorial, Eightfold.
+- **Real SQL in your browser** — content-hashed SQLite served over HTTP range requests via `sql.js-httpvfs`. FTS5 over title / company / description; standard SQL across the rest.
+- **Search modifiers** — `field:value` syntax for `title`, `company`, `description`, `location`. Quoted phrases. AND-joined multi-term. See [specs/filter-ui.md](specs/filter-ui.md).
+- **Saved / Applied / Ignored sub-views** — single-select filter chips backed by `localStorage`; nothing leaves the browser.
+- **Mobile-first UI with a brutalist visual theme** — system fonts only (no web font requests), light + dark mode with a persistent toggle, WCAG 2.1 AA contrast verified by axe-core in CI. See [specs/visual-theme.md](specs/visual-theme.md).
+- **Role lifecycle** — roles whose tenant API failed today carry forward as STALE for up to 3 days before dropping, so a single upstream outage doesn't erase a company's catalogue. See [specs/role-lifecycle.md](specs/role-lifecycle.md).
+- **RSS subscriptions** — `/feed.xml`, `/feed/{ats}.xml`, `/feed/level/{level}.xml`. Bookmark any filter as an RSS URL.
+- **Static-only** — fully served from GitHub Pages. The "backend" is a 75 MB SQLite file and an HTTP server that supports byte-range requests.
+- **Daily refresh** — `daily-refresh.yml` GitHub Action runs at 05:17 UTC, scrapes every ATS, rebuilds the SQLite, runs a drift report, and deploys to Pages.
+- **Clean-room dataset** — tenant lists harvested independently from Common Crawl by `weekly-harvest.yml`; nothing copied from another aggregator.
+- **SEO baked in** — sitemap-index.xml, JSON-LD `WebSite` with `SearchAction`, Open Graph + Twitter Card, role-count-aware page title, robots.txt.
 
 ## Quick start
 
 ```sh
 bun install
-bun run scrape          # build a local SQLite from a small tenant set
-bun run dev             # start the local dev server
-bun run test            # full test suite, 95% line / 90% branch coverage gate
+bun run dev             # local dev server on http://localhost:4321/openroles/
+bun run test            # full test suite, 95 % line / 90 % branch coverage gate
+bun run e2e             # Playwright + axe-core a11y + Lighthouse
+```
+
+To regenerate the SQLite locally from cached scrape outputs:
+
+```sh
+bun run build-db -- --input data/scrape-outputs --tenants data/tenants-merged.json \
+                    --output-dir data --short-sha 0000000
+```
+
+To preview the production build under nginx with HTTP-range support:
+
+```sh
+docker build -t openroles:local .
+docker run --rm -p 8080:80 openroles:local
+# open http://localhost:8080/openroles/
 ```
 
 ## Project layout
 
 ```
-scraper/    Bun + TypeScript scraper, build-db, harvest CLI
-site/       Astro 6 site, mobile-first, with one Svelte filter island
-shared/     Shared types and zod schemas
-docs/adr/   Architecture Decision Records
-specs/      Feature contracts
+scraper/    Bun + TypeScript scraper, build-db, harvest CLI, drift detector
+site/       Astro 6 site, Svelte 5 filter island, sql.js-httpvfs runtime
+shared/     Cross-workspace zod schemas + shared types
+specs/      Per-feature behavior contracts (data, scraper, filter UI, RSS,
+            visual theme, role lifecycle)
+docs/adr/   Locked architectural decisions
+.github/    daily-refresh / weekly-harvest / PR CI workflows + dependabot
 ```
 
 ## Documentation
@@ -38,6 +59,7 @@ specs/      Feature contracts
 - [Security](SECURITY.md) — vulnerability disclosure
 - [ADRs](docs/adr/) — locked architectural decisions
 - [Specs](specs/) — per-feature behavior contracts
+- [CHANGELOG](CHANGELOG.md) — Keep-a-Changelog format, regenerated from Conventional Commits via `bun run changelog`
 
 ## License
 
