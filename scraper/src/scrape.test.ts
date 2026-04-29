@@ -1741,8 +1741,111 @@ ${body}
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches ultipro via the JobBoard LoadSearchResults POST endpoint", async () => {
+    const guid = "12345678-1234-1234-1234-123456789012";
+    server.use(
+      http.post(
+        `https://recruiting.ultipro.com/EXAMPLE/JobBoard/${guid}/JobBoardView/LoadSearchResults`,
+        async ({ request }) => {
+          const body = (await request.json()) as Record<string, unknown>;
+          // The scraper sends the full opportunitySearch envelope, not an
+          // empty body — assert that.
+          if (!body.opportunitySearch) {
+            return HttpResponse.json({ opportunities: [] });
+          }
+          return HttpResponse.json({
+            opportunities: [
+              {
+                Id: "abc-1",
+                Title: "Cloud Database Administrator",
+                RequisitionNumber: "CLOUD001628",
+                FullTime: true,
+                JobCategoryName: "Information Technology",
+                JobLocationType: "Onsite",
+                BriefDescription: "Maintain the cloud DB.",
+                PostedDate: "2026-04-23T18:03:51.454Z",
+                Locations: [
+                  {
+                    LocalizedName: "Corporate",
+                    Address: {
+                      City: "Williamsville",
+                      PostalCode: "14221",
+                      State: { Code: "NY", Name: "New York" },
+                      Country: { Code: "USA", Name: "United States" },
+                    },
+                  },
+                ],
+              },
+              {
+                Id: "abc-2",
+                Title: "Remote Cloud Engineer",
+                RequisitionNumber: "CLOUD001700",
+                FullTime: true,
+                JobLocationType: "Remote",
+                Locations: [],
+              },
+              // Skipped: missing required fields
+              { Id: "abc-3" },
+            ],
+            totalCount: 2,
+          });
+        },
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "ultipro",
+        tenants: [{ slug: "example", metadata: { board_id: guid } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    const dba = out.jobs.find((j) => j.source_id === "CLOUD001628");
+    expect(dba?.title).toBe("Cloud Database Administrator");
+    expect(dba?.location_country).toBe("US");
+    expect(dba?.location_region).toBe("NY");
+    expect(dba?.location_text).toContain("Williamsville");
+    expect(dba?.workplace_type).toBe("onsite");
+    expect(dba?.department).toBe("Information Technology");
+    expect(dba?.url).toContain(`/EXAMPLE/JobBoard/${guid}/OpportunityDetail`);
+    const remote = out.jobs.find((j) => j.source_id === "CLOUD001700");
+    expect(remote?.workplace_type).toBe("remote");
+  });
+
+  it("flags ultipro tenant dead when metadata.board_id is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "ultipro",
+        tenants: [{ slug: "missing-meta" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("board_id");
+  });
+
+  it("flags ultipro tenant dead when metadata.board_id is malformed", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "ultipro",
+        tenants: [{ slug: "bad-meta", metadata: { board_id: "not-a-guid" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
-    const stubbed = ["csod", "taleo", "ultipro", "zohorecruit"] as const;
+    const stubbed = ["csod", "taleo", "zohorecruit"] as const;
     for (const ats of stubbed) {
       const out = await runScrape({
         input: {

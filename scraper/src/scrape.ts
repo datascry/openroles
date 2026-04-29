@@ -26,6 +26,7 @@ import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
+import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
@@ -169,9 +170,10 @@ function dispatchPerAts(
       return scrapeApplicantStackTenant(opts);
     case "eightfold":
       return scrapeEightfoldTenant(opts);
+    case "ultipro":
+      return scrapeUltiproTenant(opts);
     case "csod":
     case "taleo":
-    case "ultipro":
     case "zohorecruit":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher

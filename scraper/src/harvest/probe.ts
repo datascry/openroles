@@ -109,6 +109,23 @@ export function probeUrlForWithMetadata(
   return build(slug, metadata ?? {});
 }
 
+interface ProbeRequestShape {
+  readonly method: "GET" | "POST";
+  readonly body?: string;
+  readonly headers?: Record<string, string>;
+}
+
+// Some composite-metadata ATSes need a non-GET probe (ultipro's
+// `LoadSearchResults` endpoint is POST + JSON body; GET returns 415). The
+// shape is tied to the probe URL builder above, so colocate it.
+const PROBE_REQUEST_SHAPE: Partial<Record<ATSId, ProbeRequestShape>> = {
+  ultipro: {
+    method: "POST",
+    body: "{}",
+    headers: { "content-type": "application/json", accept: "application/json" },
+  },
+};
+
 export interface ProbeOptions {
   readonly client: HttpClient;
   readonly observedAt: string;
@@ -147,8 +164,14 @@ export async function probeOne(
       };
       return metadata ? { ...result, metadata } : result;
     }
+    const shape: ProbeRequestShape = PROBE_REQUEST_SHAPE[ats] ?? { method: "GET" };
     try {
-      await client.request(url, { method: "GET", skipRobots: true });
+      await client.request(url, {
+        method: shape.method,
+        skipRobots: true,
+        ...(shape.body !== undefined ? { body: shape.body } : {}),
+        ...(shape.headers !== undefined ? { headers: shape.headers } : {}),
+      });
       return { ats, slug, status: "live", last_probed_at: observedAt, metadata: metadata ?? {} };
     } catch (err) {
       const status: TenantStatus =

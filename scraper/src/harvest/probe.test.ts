@@ -156,17 +156,23 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
-  it("probes ultipro live with metadata.board_id and uppercases the slug in the URL", async () => {
+  it("probes ultipro live via POST with JSON body and uppercases the slug in the URL", async () => {
     let probedUrl = "";
-    const fetchFn = mock(async (input: Request | string) => {
+    let probedMethod = "";
+    let probedBody: string | null = null;
+    const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
       probedUrl = typeof input === "string" ? input : input.url;
-      return new Response("{}", { status: 200 });
+      probedMethod = init?.method ?? "GET";
+      probedBody = typeof init?.body === "string" ? init.body : null;
+      return new Response('{"opportunities":[],"totalCount":0}', { status: 200 });
     });
     const guid = "12345678-1234-1234-1234-123456789012";
     const t = await probeOne("ultipro", "abc1002awcn", clientWith(fetchFn), OBSERVED_AT, {
       board_id: guid,
     });
     expect(t.status).toBe("live");
+    expect(probedMethod).toBe("POST");
+    expect(probedBody).toBe("{}");
     expect(probedUrl).toContain("ABC1002AWCN");
     expect(probedUrl).toContain(`JobBoard/${guid}`);
   });
