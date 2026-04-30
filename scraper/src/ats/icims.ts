@@ -1,5 +1,6 @@
 import { type Job, JobSchema, type TenantInput, type TenantResult } from "@openroles/shared";
 import { XMLParser } from "fast-xml-parser";
+import { Parser } from "htmlparser2";
 import pLimit from "p-limit";
 import { z } from "zod";
 import { buildJob } from "../build-job.ts";
@@ -73,19 +74,51 @@ const JsonLdJobPosting = z
 
 export type JsonLdJob = z.infer<typeof JsonLdJobPosting>;
 
-function stripHtmlComments(html: string): string {
-  return html.replace(/<!--[\s\S]*?-->/g, "");
-}
-
+/**
+ * Extract the first JobPosting JSON-LD block from a page.
+ *
+ * Parses with htmlparser2 instead of regex. The previous regex
+ * (`<script\b[^>]*type=...>([\s\S]*?)</script>`) was flagged by CodeQL
+ * (`js/incomplete-multi-character-sanitization`): an HTML comment
+ * containing `<script` could fool the regex after the
+ * `stripHtmlComments` pre-pass, and the regex itself didn't handle
+ * malformed `<script\n type=...>` shapes. The parser tracks element
+ * state correctly and ignores comments natively.
+ */
 export function extractJsonLd(html: string): JsonLdJob | null {
-  const stripped = stripHtmlComments(html);
-  const re = /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
-  let match: RegExpExecArray | null = re.exec(stripped);
-  while (match !== null) {
-    const blob = match[1] ?? "";
+  const blobs: string[] = [];
+  let inLdJson = false;
+  let buffer = "";
+  const parser = new Parser(
+    {
+      onopentag(name, attribs) {
+        if (
+          name === "script" &&
+          (attribs["type"] === "application/ld+json" ||
+            attribs["type"] === "application/ld+json; charset=utf-8")
+        ) {
+          inLdJson = true;
+          buffer = "";
+        }
+      },
+      ontext(text) {
+        if (inLdJson) buffer += text;
+      },
+      onclosetag(name) {
+        if (name === "script" && inLdJson) {
+          blobs.push(buffer);
+          buffer = "";
+          inLdJson = false;
+        }
+      },
+    },
+    { recognizeSelfClosing: true },
+  );
+  parser.write(html);
+  parser.end();
+  for (const blob of blobs) {
     const candidate = parseJsonLdBlob(blob);
     if (candidate) return candidate;
-    match = re.exec(stripped);
   }
   return null;
 }

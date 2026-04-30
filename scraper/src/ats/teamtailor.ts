@@ -1,6 +1,7 @@
 import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import { XMLParser } from "fast-xml-parser";
 import type { HttpClient } from "../http.ts";
+import { decodeHtmlEntities } from "../normalize.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
 interface TeamtailorLocation {
@@ -70,13 +71,9 @@ function firstLocation(locs: TeamtailorLocations | undefined): TeamtailorLocatio
 
 function decodeXmlText(html: string): string {
   // Truncated HTML payload kept; downstream excerpt rendering strips tags
-  // when needed. Decode the few entities the XML parser does not unwrap.
-  return html
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
+  // when needed. Single-pass decode via shared helper avoids the
+  // double-decoding flagged by CodeQL `js/double-escaping`.
+  return decodeHtmlEntities(html);
 }
 
 export interface ScrapeTeamtailorOptions {
