@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { excerpt, normalizeWorkplace, plainText, splitLocation } from "./normalize.ts";
+import {
+  decodeHtmlEntities,
+  excerpt,
+  normalizeWorkplace,
+  plainText,
+  splitLocation,
+} from "./normalize.ts";
 
 describe("plainText", () => {
   it("strips HTML tags and decodes entities", () => {
@@ -22,6 +28,33 @@ describe("plainText", () => {
   it("removes script/style tag contents", () => {
     expect(plainText("<script>alert('x')</script>hi")).toBe("hi");
     expect(plainText("<style>body{}</style>hi")).toBe("hi");
+  });
+
+  it("removes script tags with awkward whitespace and attributes", () => {
+    // Regex-based stripping was defeated by `<script\n>` and similar
+    // shapes (CodeQL js/bad-tag-filter); the parser handles them.
+    expect(plainText("<script\n type='text/javascript'\n>alert('x')</script\n>hi")).toBe("hi");
+  });
+
+  it("strips noscript and template content", () => {
+    expect(plainText("<noscript>fallback</noscript>visible")).toBe("visible");
+    expect(plainText("<template>tpl</template>visible")).toBe("visible");
+  });
+});
+
+describe("decodeHtmlEntities", () => {
+  it("decodes named entities in a single pass", () => {
+    expect(decodeHtmlEntities("&amp; &lt; &gt; &quot; &nbsp;")).toBe('& < > "  ');
+  });
+
+  it("decodes numeric and hex entities", () => {
+    expect(decodeHtmlEntities("&#8212; &#x2014;")).toBe("— —");
+  });
+
+  it("does not double-decode escaped entity sequences", () => {
+    // Previous chained `.replace(/&amp;/g, "&").replace(/&lt;/g, "<")`
+    // would turn "&amp;lt;" into "<"; single-pass decoding keeps it as "&lt;".
+    expect(decodeHtmlEntities("&amp;lt;")).toBe("&lt;");
   });
 });
 

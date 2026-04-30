@@ -1,39 +1,49 @@
 import type { WorkplaceType } from "@openroles/shared";
+import { decodeHTML } from "entities";
+import { Parser } from "htmlparser2";
 
-const NAMED_ENTITIES: Record<string, string> = {
-  amp: "&",
-  lt: "<",
-  gt: ">",
-  quot: '"',
-  apos: "'",
-  nbsp: " ",
-  mdash: "—",
-  ndash: "–",
-  hellip: "…",
-};
-
-function decodeEntities(s: string): string {
-  return s.replace(/&(#x[0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (_match, name) => {
-    const n = String(name);
-    if (n.startsWith("#x")) {
-      const code = Number.parseInt(n.slice(2), 16);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : _match;
-    }
-    if (n.startsWith("#")) {
-      const code = Number.parseInt(n.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : _match;
-    }
-    return NAMED_ENTITIES[n.toLowerCase()] ?? _match;
-  });
+/**
+ * Decode HTML entities in a single pass.
+ *
+ * Per-ATS adapters previously chained `.replace(/&amp;/g, "&")` then
+ * `.replace(/&lt;/g, "<")` etc., which double-decodes inputs that
+ * legitimately contain `&amp;lt;` (a literal `&lt;` token meant to
+ * survive). `entities.decodeHTML` walks the string left-to-right and
+ * resolves each `&...;` exactly once, matching browser behavior.
+ */
+export function decodeHtmlEntities(s: string): string {
+  return decodeHTML(s);
 }
 
+const SKIP_ELEMENTS = new Set(["script", "style", "noscript", "template"]);
+
+/**
+ * Strip HTML and decode entities, preserving only visible text.
+ *
+ * Uses htmlparser2's streaming tokenizer rather than regex stripping —
+ * the regex `/<script\b[^>]*>[\s\S]*?<\/script>/` was technically
+ * defeatable (CodeQL `js/bad-tag-filter`, `js/incomplete-multi-character-sanitization`)
+ * by malformed shapes like `<script\n>`. The parser handles those
+ * correctly because it tracks open/close state instead of greedy matching.
+ */
 export function plainText(html: string | undefined): string {
   if (!html) return "";
-  const stripped = html
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
-    .replace(/<[^>]*>/g, " ");
-  return decodeEntities(stripped).replace(/\s+/g, " ").trim();
+  const out: string[] = [];
+  let skipDepth = 0;
+  const parser = new Parser({
+    onopentag(name) {
+      if (SKIP_ELEMENTS.has(name)) skipDepth += 1;
+    },
+    onclosetag(name) {
+      if (SKIP_ELEMENTS.has(name) && skipDepth > 0) skipDepth -= 1;
+    },
+    ontext(text) {
+      if (skipDepth === 0) out.push(text);
+    },
+  });
+  parser.write(html);
+  parser.end();
+  return decodeHTML(out.join(" ")).replace(/\s+/g, " ").trim();
 }
 
 const EXCERPT_MAX = 280;

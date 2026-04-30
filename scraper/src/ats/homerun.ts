@@ -1,6 +1,7 @@
 import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from "@openroles/shared";
 import { XMLParser } from "fast-xml-parser";
 import type { HttpClient } from "../http.ts";
+import { decodeHtmlEntities } from "../normalize.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
 // Homerun publishes a public Atom feed at `https://feed.homerun.co/{slug}` for
@@ -84,15 +85,6 @@ function workplaceFromHomerun(
   return null;
 }
 
-function decodeXmlEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
-
 function isoOrUndefined(value: string | undefined): string | undefined {
   if (!value) return undefined;
   // Homerun's <updated> ranges from RFC-3339 (`2026-04-24T07:42:51+00:00`) to
@@ -147,7 +139,7 @@ export async function scrapeHomerunTenant(
       });
       const description =
         unwrapText(item.description) ?? unwrapText(item.content) ?? unwrapText(item.summary);
-      const decoded = description ? decodeXmlEntities(description).trim() : undefined;
+      const decoded = description ? decodeHtmlEntities(description).trim() : undefined;
       const desc = decoded && decoded.length > 0 ? decoded.slice(0, 4000) : undefined;
       const updatedAt = isoOrUndefined(item.updated);
       const author = item.author?.name;

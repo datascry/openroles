@@ -2,6 +2,7 @@ import { type Job, JobSchema, jobId, type TenantInput, type TenantResult } from 
 import { XMLParser } from "fast-xml-parser";
 import pLimit from "p-limit";
 import type { HttpClient } from "../http.ts";
+import { decodeHtmlEntities } from "../normalize.ts";
 import { assertSafeSlug, dedupeById, errorToResult } from "./common.ts";
 
 const xmlParser = new XMLParser({
@@ -99,18 +100,6 @@ function locationFromJobLd(job: JobLdJobPosting): {
     };
   }
   return {};
-}
-
-function decodeHtmlEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'")
-    .replace(/&#x2F;/g, "/")
-    .replace(/&#xA0;|&nbsp;/g, " ");
 }
 
 function sourceIdFromUrl(url: string): string {
