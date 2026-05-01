@@ -1,6 +1,8 @@
 #!/usr/bin/env bun
+import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, rename, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   ATS_IDS,
   type ATSId,
@@ -29,6 +31,32 @@ import { detectDrift, maxSeverity } from "./observability/drift.ts";
 import { renderRunReport } from "./observability/run-report.ts";
 import { RobotsTxtCache } from "./robots.ts";
 import { runScrape } from "./scrape.ts";
+
+/**
+ * Resolve the workspace-root `data/` directory regardless of cwd.
+ *
+ * Bun workspace invocations (`bun run --filter @openroles/scraper harvest`)
+ * change cwd to the package directory (`scraper/`), so the previous
+ * `./data` default resolved to `scraper/data/` instead of the
+ * workspace-root `data/` shared with the site and the rest of the
+ * pipeline. This walks up from the script location until it finds the
+ * `bun.lock` that marks the workspace root, then anchors `data/` there.
+ *
+ * Falls back to `./data` (cwd-relative) if no `bun.lock` is found,
+ * which preserves test fixtures that mkdtempSync into temp dirs and
+ * pass `--output-dir` explicitly anyway.
+ */
+function defaultOutputDir(): string {
+  let dir = dirname(fileURLToPath(import.meta.url));
+  for (let i = 0; i < 8; i++) {
+    if (existsSync(join(dir, "bun.lock"))) return join(dir, "data");
+    const parent = dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  /* c8 ignore next — only reached when bun.lock is missing entirely (broken tree). */
+  return resolve("./data");
+}
 
 function usage(): void {
   console.error(`
@@ -262,7 +290,7 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
       `build-db: no --short-sha or BUILD_SHORT_SHA env set; using placeholder '${DEV_SHA}'`,
     );
   }
-  const outputDir = args.outputDir ?? "./data";
+  const outputDir = args.outputDir ?? defaultOutputDir();
   await mkdir(outputDir, { recursive: true });
 
   // Tolerate per-file failures: one corrupt scrape output should not abort
@@ -377,7 +405,7 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   //   3. --snapshots-since YYYY (historical bootstrap)
   //   4. fallback              (latest 40, legacy behavior)
   const observedAt = new Date().toISOString();
-  const outputDir = args.outputDir ?? "./data";
+  const outputDir = args.outputDir ?? defaultOutputDir();
   const stateFilePath = args.stateFile ?? join(outputDir, "harvest-state", `${ats}.json`);
   // Cache collinfo.json next to the state files so back-to-back per-ATS
   // bootstraps don't refetch from index.commoncrawl.org and trip its
@@ -607,7 +635,7 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
     return 2;
   }
 
-  const outputDir = args.outputDir ?? "./data";
+  const outputDir = args.outputDir ?? defaultOutputDir();
   const path = join(outputDir, "tenants", `${ats}.json`);
   const tenants = await loadTenants(path, ats);
   if (tenants.length === 0) {
@@ -682,7 +710,7 @@ export async function runReportCommand(argv: ReadonlyArray<string>): Promise<num
     usage();
     return 0;
   }
-  const inputDir = args.input ?? "./data";
+  const inputDir = args.input ?? defaultOutputDir();
   const manifestPath = join(inputDir, "manifest.json");
   const manifest: Manifest = ManifestSchema.parse(await readJsonOrThrow(manifestPath, "report"));
 

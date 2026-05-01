@@ -651,6 +651,12 @@ describe("runHarvestCommand", () => {
   });
 
   it("returns 2 when collinfo.json yields no usable ids", async () => {
+    // Pin --output-dir to a fresh temp directory so the test doesn't
+    // accidentally read the workspace's real `data/harvest-state/_collinfo.json`
+    // cache (which has real CC content). Before the workspace-rooted
+    // default-output-dir fix, `./data` was cwd-relative and usually
+    // empty, but now it always resolves to the real workspace dir.
+    const dir = tmpDir();
     const originalFetch = globalThis.fetch;
     globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
       const u = typeof url === "string" ? url : (url as URL).toString();
@@ -662,6 +668,8 @@ describe("runHarvestCommand", () => {
       const code = await runHarvestCommand([
         "--ats",
         "greenhouse",
+        "--output-dir",
+        dir,
         "--contact-url",
         "https://example.invalid/contact",
       ]);

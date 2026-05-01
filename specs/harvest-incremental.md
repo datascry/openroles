@@ -53,8 +53,8 @@ variable.
 
   Per the audit (recorded in this spec's history), 22 of 24 ATSes have
   rich tenant URLs in CDX and benefit from S3 directly. The two
-  outliers (lever, talentlyft) need an alternate discovery signal and
-  should keep using the existing tenant lists; S3 doesn't help them.
+  outliers — **lever** and **talentlyft** — are addressed under
+  "ATSes without a CDX-discoverable signal" below.
 
   Recommended bootstrap invocation:
 
@@ -72,6 +72,45 @@ variable.
   partial results — the snapshot is only counted as errored when every
   attempted block failed. Adaptive inter-snapshot backoff still applies
   on consecutive failures, same shape as the HTTP path.
+
+### ATSes without a CDX-discoverable signal
+
+Two of the 24 ATSes can't be bootstrapped via Common Crawl at all,
+regardless of which transport (HTTP CDX or S3-direct) we use:
+
+- **lever** (`jobs.lever.co`) — robots.txt blocks every path under
+  the canonical tenant host. CDX yields only `/robots.txt` records
+  (75 in CC-MAIN-2026-17, all the same). The apex `lever.co` carries
+  marketing pages — `/recruiting-resources/case-studies/<slug>` —
+  but those slugs are case-study URL slugs that **do not map** to the
+  tenant slug used in `jobs.lever.co/<x>`. The case-study pages
+  describe customers in prose without linking to their lever boards.
+  Manual inspection: `curl https://www.lever.co/case-studies/coupa |
+  grep jobs.lever.co` yields zero hits. No clean discovery signal
+  exists from public lever marketing.
+
+- **talentlyft** — zero presence in CC's cluster.idx for any
+  CC-MAIN collection. Common Crawl simply hasn't indexed
+  `*.talentlyft.com`. Their public `/success-stories` page exists but
+  has only navigation links, not customer slugs. Crawl coverage is
+  outside our control.
+
+Both have working tenant lists already harvested via earlier flows
+(lever: 6,602 slugs, talentlyft: 260) before tighter robots.txt /
+crawl-coverage gaps closed off new-discovery. **Treatment going
+forward:**
+
+1. Keep the existing tenant lists in `data/tenants/{lever,talentlyft}.json`.
+2. Run them through the regular `reprobe` rotation only — same TTL as
+   every other ATS — to update `status` and `last_probed_at` as
+   tenants come/go.
+3. **Do not** run `harvest --ats lever` or `harvest --ats talentlyft`
+   in the bootstrap loop. There is no upstream signal to ingest.
+4. New-tenant discovery for these two is parked. If a clean
+   alternate signal surfaces (paid backlinks corpus, vendor partner
+   feed, etc.), document it as an ADR amendment.
+
+The 22-ATS S3 bootstrap proceeds without them.
 
 ### Procedure
 
