@@ -139,7 +139,46 @@ export interface ProbeOptions {
 const DEFAULT_PROBE_CONCURRENCY = 6;
 const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 
+// Hard ceiling on how long a single probe may take before we declare it
+// `transient_failure` and let probeMany advance. HttpClient already has
+// a 30s AbortSignal.timeout, but Bun's fetch has documented edge cases
+// where TLS-handshake or DNS-resolution hangs evade the abort and leave
+// the promise unsettled — observed in production: a workable reprobe of
+// 14k tenants stalled for 80+ minutes with 0% CPU and zero open sockets.
+// One unsettled promise blocks a pLimit slot, eventually all 6 slots
+// fill, and the whole batch deadlocks. This wrapper guarantees forward
+// progress regardless of fetch internals.
+const HARD_PROBE_TIMEOUT_MS = 45_000;
+
+async function withHardTimeout<T>(work: Promise<T>, fallback: T, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const guard = new Promise<T>((resolve) => {
+    timer = setTimeout(() => resolve(fallback), ms);
+  });
+  try {
+    return await Promise.race([work, guard]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 export async function probeOne(
+  ats: ATSId,
+  slug: string,
+  client: HttpClient,
+  observedAt: string,
+  metadata?: Record<string, string>,
+): Promise<Tenant> {
+  // Hard-timeout the entire probe attempt. See HARD_PROBE_TIMEOUT_MS.
+  const fallback: Tenant = { ats, slug, status: "transient_failure", last_probed_at: observedAt };
+  return await withHardTimeout(
+    probeOneInner(ats, slug, client, observedAt, metadata),
+    metadata ? { ...fallback, metadata } : fallback,
+    HARD_PROBE_TIMEOUT_MS,
+  );
+}
+
+async function probeOneInner(
   ats: ATSId,
   slug: string,
   client: HttpClient,
