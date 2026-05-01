@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, mock } from "bun:test";
 import { HttpClient } from "../http.ts";
 import { RobotsTxtCache } from "../robots.ts";
-import { parseCollInfo, resolveLatestSnapshots } from "./snapshots.ts";
+import { parseCollInfo, resolveAllSnapshots, resolveLatestSnapshots } from "./snapshots.ts";
 
 afterEach(() => mock.restore());
 
@@ -73,5 +73,32 @@ describe("resolveLatestSnapshots", () => {
     const ids = await resolveLatestSnapshots(clientWith(fetchFn), 0);
     expect(ids).toEqual([]);
     expect(fetchFn).not.toHaveBeenCalled();
+  });
+});
+
+describe("resolveAllSnapshots", () => {
+  const FIXTURE = JSON.stringify([
+    { id: "CC-MAIN-2008-30" },
+    { id: "CC-MAIN-2014-15" },
+    { id: "CC-MAIN-2020-29" },
+    { id: "CC-MAIN-2026-13" },
+  ]);
+
+  it("returns every snapshot when no sinceYear filter is passed", async () => {
+    const fetchFn = mock(async () => new Response(FIXTURE, { status: 200 }));
+    const ids = await resolveAllSnapshots(clientWith(fetchFn));
+    expect(ids).toEqual(["2026-13", "2020-29", "2014-15", "2008-30"]);
+  });
+
+  it("filters to snapshots whose year is >= sinceYear", async () => {
+    const fetchFn = mock(async () => new Response(FIXTURE, { status: 200 }));
+    const ids = await resolveAllSnapshots(clientWith(fetchFn), 2020);
+    expect(ids).toEqual(["2026-13", "2020-29"]);
+  });
+
+  it("returns [] when sinceYear excludes everything", async () => {
+    const fetchFn = mock(async () => new Response(FIXTURE, { status: 200 }));
+    const ids = await resolveAllSnapshots(clientWith(fetchFn), 2099);
+    expect(ids).toEqual([]);
   });
 });

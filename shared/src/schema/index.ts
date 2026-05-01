@@ -4,6 +4,11 @@ export {
   ATSIdSchema,
 } from "./ats.ts";
 export {
+  HARVEST_STATE_SCHEMA_VERSION,
+  type HarvestState,
+  HarvestStateSchema,
+} from "./harvest-state.ts";
+export {
   type Job,
   JobSchema,
 } from "./job.ts";

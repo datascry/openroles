@@ -7,6 +7,7 @@ import {
   runBuildDbCommand,
   runHarvestCommand,
   runReportCommand,
+  runReprobeCommand,
   runScrapeCommand,
 } from "./cli.ts";
 
@@ -695,5 +696,449 @@ describe("runHarvestCommand", () => {
     } finally {
       globalThis.fetch = originalFetch;
     }
+  });
+
+  it("supports --snapshots-since to bootstrap from a starting year", async () => {
+    const originalFetch = globalThis.fetch;
+    const cdxUrls: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u.endsWith("/collinfo.json")) {
+        return new Response(
+          JSON.stringify([
+            { id: "CC-MAIN-2026-13" },
+            { id: "CC-MAIN-2020-15" },
+            { id: "CC-MAIN-2008-30" },
+          ]),
+          { status: 200 },
+        );
+      }
+      if (u.includes("showNumPages")) return new Response("1", { status: 200 });
+      if (u.includes("CC-MAIN")) {
+        cdxUrls.push(u);
+      }
+      return new Response("", { status: 200 });
+    };
+    try {
+      const dir = tmpDir();
+      const code = await runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--snapshots-since",
+        "2020",
+        "--output-dir",
+        dir,
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2026-13"))).toBe(true);
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2020-15"))).toBe(true);
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2008-30"))).toBe(false);
+      const statePath = join(dir, "harvest-state", "greenhouse.json");
+      expect(existsSync(statePath)).toBe(true);
+      const state = JSON.parse(readFileSync(statePath, "utf8"));
+      expect(state.snapshots_processed.sort()).toEqual(["2020-15", "2026-13"]);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("rejects --snapshots-since with a year before 2008", async () => {
+    const code = await runHarvestCommand([
+      "--ats",
+      "greenhouse",
+      "--snapshots-since",
+      "1999",
+      "--user-agent",
+      "openroles-test/0.0.0 (+https://example.invalid)",
+    ]);
+    expect(code).toBe(2);
+  });
+
+  it("rejects a state file whose ats doesn't match --ats", async () => {
+    const dir = tmpDir();
+    mkdirSync(join(dir, "harvest-state"), { recursive: true });
+    writeFileSync(
+      join(dir, "harvest-state", "greenhouse.json"),
+      JSON.stringify({
+        schema_version: "1.0.0",
+        ats: "lever",
+        snapshots_processed: [],
+        tenant_count: 0,
+        last_updated_at: "2026-04-30T00:00:00Z",
+      }),
+    );
+    await expect(
+      runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--output-dir",
+        dir,
+        "--snapshots",
+        "2026-13",
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]),
+    ).rejects.toThrow(/state file.*is for ats=lever/);
+  });
+
+  it("rejects a state file with malformed JSON", async () => {
+    const dir = tmpDir();
+    mkdirSync(join(dir, "harvest-state"), { recursive: true });
+    writeFileSync(join(dir, "harvest-state", "greenhouse.json"), "{not json");
+    await expect(
+      runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--output-dir",
+        dir,
+        "--snapshots",
+        "2026-13",
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]),
+    ).rejects.toThrow(/not valid JSON/);
+  });
+
+  it("rejects a state file that fails schema validation", async () => {
+    const dir = tmpDir();
+    mkdirSync(join(dir, "harvest-state"), { recursive: true });
+    writeFileSync(
+      join(dir, "harvest-state", "greenhouse.json"),
+      JSON.stringify({ schema_version: "9.9.9", ats: "greenhouse" }),
+    );
+    await expect(
+      runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--output-dir",
+        dir,
+        "--snapshots",
+        "2026-13",
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]),
+    ).rejects.toThrow(/failed schema validation/);
+  });
+
+  it("--incremental returns 2 when no state file exists yet", async () => {
+    const dir = tmpDir();
+    const code = await runHarvestCommand([
+      "--ats",
+      "greenhouse",
+      "--incremental",
+      "--output-dir",
+      dir,
+      "--user-agent",
+      "openroles-test/0.0.0 (+https://example.invalid)",
+    ]);
+    expect(code).toBe(2);
+  });
+
+  it("--incremental processes only snapshots not in the state file", async () => {
+    const originalFetch = globalThis.fetch;
+    const cdxUrls: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u.endsWith("/collinfo.json")) {
+        return new Response(
+          JSON.stringify([
+            { id: "CC-MAIN-2026-26" },
+            { id: "CC-MAIN-2026-13" },
+            { id: "CC-MAIN-2025-50" },
+          ]),
+          { status: 200 },
+        );
+      }
+      if (u.includes("showNumPages")) return new Response("1", { status: 200 });
+      if (u.includes("CC-MAIN")) {
+        cdxUrls.push(u);
+      }
+      return new Response("", { status: 200 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "harvest-state"), { recursive: true });
+      writeFileSync(
+        join(dir, "harvest-state", "greenhouse.json"),
+        JSON.stringify({
+          schema_version: "1.0.0",
+          ats: "greenhouse",
+          snapshots_processed: ["2025-50", "2026-13"],
+          tenant_count: 0,
+          last_updated_at: "2026-04-30T00:00:00Z",
+        }),
+      );
+      const code = await runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--incremental",
+        "--output-dir",
+        dir,
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      // Only 2026-26 (the new one) should have been processed.
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2026-26"))).toBe(true);
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2026-13"))).toBe(false);
+      expect(cdxUrls.some((u) => u.includes("CC-MAIN-2025-50"))).toBe(false);
+      const state = JSON.parse(readFileSync(join(dir, "harvest-state", "greenhouse.json"), "utf8"));
+      expect(state.snapshots_processed.sort()).toEqual(["2025-50", "2026-13", "2026-26"]);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("--incremental returns 0 with a notice when no new snapshots remain", async () => {
+    const originalFetch = globalThis.fetch;
+    let cdxAttempts = 0;
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u.endsWith("/collinfo.json")) {
+        return new Response(JSON.stringify([{ id: "CC-MAIN-2026-13" }]), { status: 200 });
+      }
+      if (u.includes("CC-MAIN")) cdxAttempts += 1;
+      return new Response("", { status: 200 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "harvest-state"), { recursive: true });
+      writeFileSync(
+        join(dir, "harvest-state", "greenhouse.json"),
+        JSON.stringify({
+          schema_version: "1.0.0",
+          ats: "greenhouse",
+          snapshots_processed: ["2026-13"],
+          tenant_count: 0,
+          last_updated_at: "2026-04-30T00:00:00Z",
+        }),
+      );
+      const code = await runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--incremental",
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      expect(cdxAttempts).toBe(0);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("merges existing tenants with newly-discovered ones (additive)", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u.includes("showNumPages")) return new Response("1", { status: 200 });
+      if (u.includes("CC-MAIN")) {
+        return new Response(
+          [
+            '{"url":"https://boards.greenhouse.io/newco","status":"200","timestamp":"20260101000000"}',
+            "",
+          ].join("\n"),
+          { status: 200 },
+        );
+      }
+      return new Response("[]", { status: 200 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "greenhouse.json"),
+        JSON.stringify([
+          {
+            ats: "greenhouse",
+            slug: "stripe",
+            status: "live",
+            last_probed_at: "2026-04-01T00:00:00Z",
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+        ]),
+      );
+      const code = await runHarvestCommand([
+        "--ats",
+        "greenhouse",
+        "--snapshots",
+        "2026-13",
+        "--output-dir",
+        dir,
+        "--skip-probe",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      const tenants = JSON.parse(
+        readFileSync(join(dir, "tenants", "greenhouse.json"), "utf8"),
+      ) as Array<{ slug: string; status: string; last_probed_at: string }>;
+      expect(tenants.map((t) => t.slug).sort()).toEqual(["newco", "stripe"]);
+      const stripe = tenants.find((t) => t.slug === "stripe");
+      expect(stripe?.status).toBe("live");
+      expect(stripe?.last_probed_at).toBe("2026-04-01T00:00:00Z");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});
+
+describe("runReprobeCommand", () => {
+  it("returns 0 on --help", async () => {
+    expect(await runReprobeCommand(["--help"])).toBe(0);
+  });
+
+  it("returns 2 when --ats is missing", async () => {
+    expect(await runReprobeCommand([])).toBe(2);
+  });
+
+  it("returns 2 when --ats is unknown", async () => {
+    expect(await runReprobeCommand(["--ats", "rippling"])).toBe(2);
+  });
+
+  it("returns 2 when neither --user-agent nor --contact-url is set", async () => {
+    expect(await runReprobeCommand(["--ats", "greenhouse"])).toBe(2);
+  });
+
+  it("returns 2 when --max-age-days is out of range", async () => {
+    expect(
+      await runReprobeCommand([
+        "--ats",
+        "greenhouse",
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--max-age-days",
+        "999",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 2 when --batch-size is out of range", async () => {
+    expect(
+      await runReprobeCommand([
+        "--ats",
+        "greenhouse",
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--batch-size",
+        "0",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 0 with a notice when no tenants file exists", async () => {
+    const dir = tmpDir();
+    const code = await runReprobeCommand([
+      "--ats",
+      "greenhouse",
+      "--output-dir",
+      dir,
+      "--contact-url",
+      "https://example.invalid/contact",
+    ]);
+    expect(code).toBe(0);
+  });
+
+  it("re-probes only stale tenants and updates their status in place", async () => {
+    const originalFetch = globalThis.fetch;
+    const probedSlugs: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u.includes("boards-api.greenhouse.io")) {
+        const m = u.match(/\/boards\/([^/]+)\/jobs/);
+        if (m?.[1]) probedSlugs.push(m[1]);
+        return new Response("[]", { status: 200 });
+      }
+      return new Response("", { status: 200 });
+    };
+    try {
+      const dir = tmpDir();
+      const old = "2026-01-01T00:00:00Z"; // stale
+      const fresh = new Date().toISOString(); // not stale
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "greenhouse.json"),
+        JSON.stringify([
+          {
+            ats: "greenhouse",
+            slug: "old-tenant",
+            status: "transient_failure",
+            last_probed_at: old,
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+          {
+            ats: "greenhouse",
+            slug: "fresh-tenant",
+            status: "live",
+            last_probed_at: fresh,
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+        ]),
+      );
+      const code = await runReprobeCommand([
+        "--ats",
+        "greenhouse",
+        "--output-dir",
+        dir,
+        "--max-age-days",
+        "7",
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      expect(probedSlugs).toEqual(["old-tenant"]);
+      const updated = JSON.parse(
+        readFileSync(join(dir, "tenants", "greenhouse.json"), "utf8"),
+      ) as Array<{ slug: string; status: string; last_probed_at: string }>;
+      const oldTenant = updated.find((t) => t.slug === "old-tenant");
+      expect(oldTenant?.status).toBe("live");
+      expect(oldTenant?.last_probed_at).not.toBe(old);
+      const freshTenant = updated.find((t) => t.slug === "fresh-tenant");
+      expect(freshTenant?.last_probed_at).toBe(fresh);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("returns 0 when nothing is older than --max-age-days", async () => {
+    const dir = tmpDir();
+    mkdirSync(join(dir, "tenants"), { recursive: true });
+    writeFileSync(
+      join(dir, "tenants", "greenhouse.json"),
+      JSON.stringify([
+        {
+          ats: "greenhouse",
+          slug: "fresh",
+          status: "live",
+          last_probed_at: new Date().toISOString(),
+          first_seen_at: "2024-01-01T00:00:00Z",
+        },
+      ]),
+    );
+    const code = await runReprobeCommand([
+      "--ats",
+      "greenhouse",
+      "--output-dir",
+      dir,
+      "--max-age-days",
+      "7",
+      "--contact-url",
+      "https://example.invalid/contact",
+    ]);
+    expect(code).toBe(0);
   });
 });

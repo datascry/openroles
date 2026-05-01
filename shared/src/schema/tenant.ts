@@ -27,6 +27,14 @@ export const TenantSchema = z.object({
   homepage_url: HttpUrl.optional(),
   status: TenantStatusSchema,
   last_probed_at: IsoUtc,
+  // ISO-UTC timestamp recording when this slug first surfaced in any
+  // harvest pass. Set once at discovery time and never overwritten —
+  // distinguishes "we've known about this tenant for years" from "we
+  // just found it today" without losing the signal across re-probes.
+  // Optional during the migration window from pre-incremental tenant
+  // files; backfilled to the current observedAt on first re-write.
+  // See docs/adr/0011-incremental-harvest-and-reprobe.md.
+  first_seen_at: IsoUtc.optional(),
   metadata: z.record(MetadataKey, MetadataValue).optional(),
 });
 

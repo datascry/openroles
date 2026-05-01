@@ -25,6 +25,13 @@ export interface HarvestRunOptions {
   // Set 0 to disable; default 250 ms keeps a multi-ATS sweep stable.
   readonly interPageSleepMs?: number;
   readonly sleep?: (ms: number) => Promise<void>;
+  // Existing tenants from prior harvests (incremental mode). When
+  // provided, the runner unions newly-discovered slugs with these,
+  // preserving each existing tenant's first_seen_at, status, and
+  // last_probed_at — i.e. discovery is additive over the corpus
+  // instead of regenerating it from scratch.
+  // See docs/adr/0011-incremental-harvest-and-reprobe.md.
+  readonly existingTenants?: ReadonlyArray<Tenant>;
 }
 
 export interface HarvestResult {
@@ -130,31 +137,74 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
     }
   }
 
-  const ordered = Array.from(allSlugs).sort();
-  const baseTenants: Tenant[] = opts.skipProbe
-    ? ordered.map((slug) => {
-        const meta = allMetadata.get(slug);
-        const t: Tenant = {
-          ats: opts.ats,
-          slug,
-          status: "transient_failure" as const,
-          last_probed_at: opts.observedAt,
-        };
-        return meta ? { ...t, metadata: meta } : t;
-      })
-    : await probeMany(opts.ats, ordered, {
-        client: opts.client,
-        observedAt: opts.observedAt,
-        metadataBySlug: allMetadata,
-        ...(opts.probeConcurrency !== undefined ? { concurrency: opts.probeConcurrency } : {}),
-      });
-  // probeMany already merges metadata for composite-URL ATSes (workday /
-  // ultipro). For everyone else the harvested metadata bag is still useful
-  // (e.g. the workday host), so attach it onto the probed tenant whenever
-  // we have a value for that slug and the probe didn't already.
-  const tenants: Tenant[] = baseTenants.map((t) => {
-    if (t.metadata) return t;
-    const meta = allMetadata.get(t.slug);
+  const existingBySlug = new Map<string, Tenant>(
+    (opts.existingTenants ?? []).map((t) => [t.slug, t]),
+  );
+
+  // Build the union of (existing slugs ∪ newly-discovered slugs). Order
+  // doesn't matter for the union, only for the final sorted output.
+  const unionSlugs = new Set<string>([...existingBySlug.keys(), ...allSlugs]);
+  const ordered = Array.from(unionSlugs).sort();
+
+  // Decide which slugs need a probe: in skipProbe mode none of them; in
+  // incremental mode only the brand-new ones (existing tenants keep their
+  // recorded status). When no existingTenants are passed, fall back to
+  // the legacy behavior of probing every slug.
+  const isIncremental = opts.existingTenants !== undefined;
+  const slugsToProbe = opts.skipProbe
+    ? []
+    : isIncremental
+      ? ordered.filter((s) => !existingBySlug.has(s))
+      : ordered;
+
+  const probed: Map<string, Tenant> = new Map();
+  if (slugsToProbe.length > 0) {
+    const probedTenants = await probeMany(opts.ats, slugsToProbe, {
+      client: opts.client,
+      observedAt: opts.observedAt,
+      metadataBySlug: allMetadata,
+      ...(opts.probeConcurrency !== undefined ? { concurrency: opts.probeConcurrency } : {}),
+    });
+    for (const t of probedTenants) probed.set(t.slug, t);
+  }
+
+  const tenants: Tenant[] = ordered.map((slug) => {
+    const existing = existingBySlug.get(slug);
+    const probedHit = probed.get(slug);
+    const meta = allMetadata.get(slug);
+
+    // Existing tenant takes precedence — its status and last_probed_at
+    // are carried forward unchanged. New metadata wins over old (so
+    // workday `host`/`site` discovered in a later snapshot can fill in
+    // a tenant we previously had at transient_failure).
+    if (existing) {
+      const merged: Tenant = { ...existing };
+      if (meta && (!existing.metadata || Object.keys(existing.metadata).length === 0)) {
+        merged.metadata = meta;
+      }
+      return merged;
+    }
+
+    // Newly-discovered slug. probedHit handles the live/transient/dead
+    // assignment and merges metadata for composite-URL ATSes
+    // (workday/ultipro). For path/subdomain ATSes, attach the raw
+    // metadata bag we captured during extractSlugs.
+    if (probedHit) {
+      const enriched: Tenant = { ...probedHit };
+      if (!enriched.metadata && meta) enriched.metadata = meta;
+      if (!enriched.first_seen_at) enriched.first_seen_at = opts.observedAt;
+      return enriched;
+    }
+
+    // skipProbe mode — record the slug as transient_failure pending a
+    // later reprobe pass. first_seen_at is set to today.
+    const t: Tenant = {
+      ats: opts.ats,
+      slug,
+      status: "transient_failure" as const,
+      last_probed_at: opts.observedAt,
+      first_seen_at: opts.observedAt,
+    };
     return meta ? { ...t, metadata: meta } : t;
   });
 

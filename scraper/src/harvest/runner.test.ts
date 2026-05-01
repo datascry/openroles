@@ -255,4 +255,122 @@ describe("runHarvest", () => {
       "newprocareers-renovo",
     ]);
   });
+
+  describe("incremental mode (existingTenants)", () => {
+    const OLD_PROBE = "2026-04-01T00:00:00Z";
+
+    it("preserves existing tenant status and last_probed_at, only probes brand-new slugs", async () => {
+      let probeCalls = 0;
+      const fetchFn = mock(async (input: Request | string) => {
+        const url = typeof input === "string" ? input : input.url;
+        if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+          return new Response("1", { status: 200 });
+        }
+        if (url.includes("commoncrawl.org")) {
+          // CDX returns the existing slug "stripe" plus a new slug "newco".
+          return new Response(
+            [
+              '{"url":"https://boards.greenhouse.io/stripe","status":"200","timestamp":"20260101000000"}',
+              '{"url":"https://boards.greenhouse.io/newco","status":"200","timestamp":"20260101000000"}',
+              "",
+            ].join("\n"),
+            { status: 200 },
+          );
+        }
+        // Non-CDX call must be the probe; assert which tenant it's for via URL.
+        probeCalls += 1;
+        return new Response("[]", { status: 200 });
+      });
+      const result = await runHarvest({
+        ats: "greenhouse",
+        snapshots: ["2026-13"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        existingTenants: [
+          {
+            ats: "greenhouse",
+            slug: "stripe",
+            status: "live",
+            last_probed_at: OLD_PROBE,
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+        ],
+      });
+      // Only the brand-new "newco" slug was probed; "stripe" kept its old probe timestamp.
+      expect(probeCalls).toBe(1);
+      const stripe = result.tenants.find((t) => t.slug === "stripe");
+      expect(stripe?.status).toBe("live");
+      expect(stripe?.last_probed_at).toBe(OLD_PROBE);
+      expect(stripe?.first_seen_at).toBe("2024-01-01T00:00:00Z");
+      const newco = result.tenants.find((t) => t.slug === "newco");
+      expect(newco?.last_probed_at).toBe(OBSERVED_AT);
+      expect(newco?.first_seen_at).toBe(OBSERVED_AT);
+    });
+
+    it("retains existing tenants that no longer appear in CDX (don't churn dead rows)", async () => {
+      const fetchFn = mock(async (input: Request | string) => {
+        const url = typeof input === "string" ? input : input.url;
+        if (url.includes("showNumPages")) return new Response("1", { status: 200 });
+        if (url.includes("commoncrawl.org")) {
+          // Empty CDX page — no slugs surface in this run.
+          return new Response("", { status: 200 });
+        }
+        return new Response("[]", { status: 200 });
+      });
+      const result = await runHarvest({
+        ats: "greenhouse",
+        snapshots: ["2026-13"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        existingTenants: [
+          {
+            ats: "greenhouse",
+            slug: "ghost",
+            status: "dead",
+            last_probed_at: OLD_PROBE,
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+        ],
+      });
+      expect(result.tenants.map((t) => t.slug)).toEqual(["ghost"]);
+      expect(result.tenants[0]?.status).toBe("dead");
+      expect(result.tenants[0]?.last_probed_at).toBe(OLD_PROBE);
+    });
+
+    it("backfills metadata onto an existing tenant that lacked it", async () => {
+      const fetchFn = mock(async (input: Request | string) => {
+        const url = typeof input === "string" ? input : input.url;
+        if (url.includes("showNumPages")) return new Response("1", { status: 200 });
+        if (url.includes("commoncrawl.org")) {
+          return new Response(
+            [
+              '{"url":"https://example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs","status":"200","timestamp":"20260101000000"}',
+              "",
+            ].join("\n"),
+            { status: 200 },
+          );
+        }
+        return new Response("[]", { status: 200 });
+      });
+      const result = await runHarvest({
+        ats: "workday",
+        snapshots: ["2026-13"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        existingTenants: [
+          {
+            ats: "workday",
+            slug: "example",
+            status: "transient_failure",
+            last_probed_at: OLD_PROBE,
+            first_seen_at: "2024-01-01T00:00:00Z",
+          },
+        ],
+      });
+      const example = result.tenants.find((t) => t.slug === "example");
+      expect(example?.status).toBe("transient_failure"); // status preserved
+      expect(example?.metadata?.["host"]).toBe("example.wd5.myworkdayjobs.com");
+      expect(example?.metadata?.["site"]).toBe("External");
+    });
+  });
 });
