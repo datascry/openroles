@@ -16,7 +16,7 @@
       "!**/data/*.sqlite",
       "!**/data/*.parquet",
       "!**/data/*.gz",
-      "!**/data/harvest-state/**",
+      "!**/data/harvest-state",
       "!**/*.lockb",
       "!**/tests/fixtures/**/*",
       "!design-wireframes"
