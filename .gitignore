@@ -40,6 +40,15 @@ data/tenants-merged.json
 # Keep checked-in seed dataset
 !data/seed/
 
+# Harvest runtime caches — large + machine-local + always re-fetchable.
+# Per-ATS state files (data/harvest-state/<ats>.json) ARE tracked: they
+# record which CC-MAIN snapshots have been processed so incremental
+# harvests skip already-done work. The cluster.idx cache is too big
+# (~100 MB × 120 collections = 14 GB) and the collinfo cache is a
+# 24h-TTL runtime artifact, not source.
+data/harvest-state/cluster-idx/
+data/harvest-state/_collinfo.json
+
 # Environment
 .env
 .env.*
