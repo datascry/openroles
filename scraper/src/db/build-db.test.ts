@@ -77,6 +77,27 @@ describe("classifyJob", () => {
     const j = classifyJob(makeJob({ title: "Talent Acquisition Partner" }));
     expect(j.is_recruiter_post).toBe(true);
   });
+
+  it("fills workplace_type from the title when the adapter left it null", () => {
+    const j = classifyJob(makeJob({ title: "Remote Software Engineer", workplace_type: null }));
+    expect(j.workplace_type).toBe("remote");
+  });
+
+  it("preserves an explicit workplace_type set by the adapter", () => {
+    const j = classifyJob(makeJob({ title: "Software Engineer", workplace_type: "hybrid" }));
+    expect(j.workplace_type).toBe("hybrid");
+  });
+
+  it("falls back to location_text when title is silent on workplace", () => {
+    const j = classifyJob(
+      makeJob({
+        title: "Software Engineer",
+        location_text: "Remote (US)",
+        workplace_type: null,
+      }),
+    );
+    expect(j.workplace_type).toBe("remote");
+  });
 });
 
 describe("buildDb", () => {

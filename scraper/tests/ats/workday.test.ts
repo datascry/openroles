@@ -46,6 +46,46 @@ describe("parseWorkdayJobs (fixture replay)", () => {
     expect(jobs[0]?.workplace_type).toBe("remote");
   });
 
+  it("joins bulletFields into a description excerpt", () => {
+    const jobs = parseWorkdayJobs({
+      tenant: { slug: "bulletco" },
+      company: "BulletCo",
+      host: HOST,
+      response: {
+        total: 1,
+        jobPostings: [
+          {
+            title: "Engineer",
+            externalPath: "/job/Engineer-1",
+            jobReqId: "REQ-B1",
+            bulletFields: ["3+ years experience", "Remote eligible", "Senior level"],
+          },
+        ],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs).toHaveLength(1);
+    const desc = jobs[0]?.description_excerpt ?? "";
+    expect(desc).toContain("3+ years experience");
+    expect(desc).toContain("Remote eligible");
+  });
+
+  it("omits description_excerpt when bulletFields is empty or missing", () => {
+    const jobs = parseWorkdayJobs({
+      tenant: { slug: "nodesc" },
+      company: "NoDesc",
+      host: HOST,
+      response: {
+        total: 1,
+        jobPostings: [
+          { title: "Role", externalPath: "/job/role-1", jobReqId: "R-1", bulletFields: [] },
+        ],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs[0]?.description_excerpt).toBeUndefined();
+  });
+
   it("parses the edge fixture: missing jobReqId, missing leading slash, dedupe by id", () => {
     const jobs = parseWorkdayJobs({
       tenant: { slug: "edge" },

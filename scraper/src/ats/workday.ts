@@ -51,6 +51,13 @@ export function parseWorkdayJobs(input: WorkdayParseInput): Job[] {
   const parsed = WorkdayResponse.parse(input.response);
   const jobs: Job[] = [];
   for (const raw of parsed.jobPostings) {
+    // Workday's /jobs listing doesn't return the full description. It
+    // returns `bulletFields`, which in practice (sampled across nvidia,
+    // blackrock, and others) is just the requisition id — not a real
+    // description, but searchable so users can find a role by its req
+    // number. Full descriptions need a per-job detail-page fetch, which
+    // is deferred until we have a rate budget for it across ~4k tenants.
+    const bullets = raw.bulletFields?.filter((b) => b.trim().length > 0).join(" • ");
     const candidate = buildJob({
       ats: "workday",
       tenant_slug: input.tenant.slug,
@@ -58,6 +65,7 @@ export function parseWorkdayJobs(input: WorkdayParseInput): Job[] {
       source_id: workdaySourceId(raw.externalPath, raw.jobReqId),
       title: raw.title,
       url: workdayJobUrl(input.host, raw.externalPath),
+      ...(bullets && bullets.length > 0 ? { description_text: bullets } : {}),
       ...(raw.locationsText !== undefined ? { location_text: raw.locationsText } : {}),
       workplace_hint: raw.locationsText ?? "",
       ...(raw.jobFamily !== undefined ? { department: raw.jobFamily } : {}),

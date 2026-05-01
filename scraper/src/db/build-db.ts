@@ -7,6 +7,7 @@ import {
   type ATSId,
   classifyLevel,
   classifyRecruiter,
+  classifyWorkplace,
   type Job,
   levelRank,
   type Manifest,
@@ -81,11 +82,23 @@ export function classifyJob(job: Job): Job {
       title: job.title,
       ...(job.department ? { department: job.department } : {}),
     });
+  // Fallback workplace classification when the adapter didn't set it.
+  // ~half of the adapters (eightfold, jobvite, personio, talentlyft, factorial,
+  // and the three stubbed ATSes) leave workplace_type null at scrape time;
+  // a title/location/description scan recovers most of them.
+  const workplace =
+    job.workplace_type ??
+    classifyWorkplace({
+      title: job.title,
+      ...(job.location_text ? { location_text: job.location_text } : {}),
+      ...(job.description_excerpt ? { description_excerpt: job.description_excerpt } : {}),
+    });
   return {
     ...job,
     level,
     level_rank: levelRank(level),
     is_recruiter_post: isRecruiter,
+    workplace_type: workplace,
   };
 }
 
