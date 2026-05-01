@@ -17,21 +17,33 @@ compute the diff against `collinfo.json` on each `--incremental` run.
 
 ## One-time bootstrap
 
-Run once locally — the CI weekly-harvest assumes the state file exists
-and a tenant list is already populated.
+**Bootstrap runs locally, not in CI.** Common Crawl's index server
+imposes a sticky per-IP rate-limit that's already bitten the
+40-snapshot weekly harvest (run 25193840474: bamboohr's 24-minute
+crawl exhausted the runner's quota and every subsequent ATS failed at
+CLI startup). A 120-snapshot pull from CI would hit the same cliff
+~3× harder; even the matrix-per-ATS layout shares GitHub's IP pool
+and the throttle is sticky enough to compound.
+
+A laptop on a residential connection routes outbound through a
+different IP, and pacing is under your control — the existing
+`interPageSleepMs=250` plus the CLI's adaptive backoff handles CC's
+throttle window without nuking the whole sweep.
+
+### Procedure
 
 ```sh
-# 1. Discover every slug visible in CC-MAIN snapshots from 2008 onward.
-#    This is slow (4–6 hours wallclock for 24 ATSes; CC-MAIN has ~120
-#    snapshots back to 2008). Run from a machine with a stable
-#    connection. --skip-probe defers liveness for the second pass below.
 ATS_LIST="greenhouse lever ashby bamboohr workday icims recruitee \
 breezy personio workable teamtailor smartrecruiters csod taleo \
 ultipro jobvite zohorecruit talentlyft pinpointhq applicantpro \
 applicantstack homerun factorial eightfold"
 
+# Stage 1 — discovery. Walks every CC-MAIN snapshot from 2008 forward.
+# Sequential per-ATS keeps a single connection-pool open and lets CC's
+# throttle window apply to one ATS at a time. Slow but resilient: 4-6
+# hours wallclock for 24 ATSes. Run from a machine that won't sleep.
 for ats in $ATS_LIST; do
-  echo "=== bootstrap $ats ==="
+  echo "=== bootstrap discover $ats ==="
   bun run harvest \
     --ats "$ats" \
     --snapshots-since 2008 \
@@ -39,11 +51,14 @@ for ats in $ATS_LIST; do
     --contact-url https://github.com/datascry/openroles
 done
 
-# 2. Probe every slug for liveness. --max-age-days=0 forces a probe
-#    regardless of recency; --batch-size=100000 raises the per-run cap
-#    so the entire just-bootstrapped corpus is covered.
+# Stage 2 — liveness probe across every just-discovered slug.
+# --max-age-days=0 forces probes regardless of last_probed_at;
+# --batch-size=100000 raises the per-run cap so the whole corpus is
+# covered. Probe traffic goes to each ATS's public API directly, not
+# through CC, so this stage is bounded by per-ATS rate limits which
+# the CLI already retries with backoff.
 for ats in $ATS_LIST; do
-  echo "=== probe $ats ==="
+  echo "=== bootstrap probe $ats ==="
   bun run reprobe \
     --ats "$ats" \
     --max-age-days 0 \
@@ -51,7 +66,7 @@ for ats in $ATS_LIST; do
     --contact-url https://github.com/datascry/openroles
 done
 
-# 3. Commit the bootstrap data.
+# Stage 3 — commit.
 git add data/tenants/ data/harvest-state/
 git commit -m "chore(harvest): bootstrap historical tenant lists from CC-MAIN since 2008"
 git push origin main
@@ -59,8 +74,20 @@ git push origin main
 
 After this commits, the weekly-harvest CI takes over. Each weekly run
 processes only the 1–2 new snapshots since last week (~30s of CDX
-work per ATS) and reprobes the ~5,000 oldest tenants per ATS (15-min
-cap per matrix leg).
+work per ATS) and reprobes the ~5,000 oldest tenants per ATS — well
+inside CC's per-IP budget.
+
+### `mode=bootstrap` workflow_dispatch (escape hatch only)
+
+The `weekly-harvest.yml` workflow does expose `mode=bootstrap` via
+manual dispatch, but it's an escape hatch for narrow cases (one ATS
+needs re-bootstrapping, or you're testing the workflow in isolation).
+Triggering it across all 24 ATSes from a fresh CI runner pool is the
+exact failure mode this spec exists to avoid.
+
+If you do use `mode=bootstrap`, set `bootstrap_since_year` to a recent
+year (e.g. 2024) to keep the per-ATS work small enough to finish
+inside CC's throttle window.
 
 ## Weekly cadence (CI)
 

@@ -7,14 +7,20 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "discover-only (just CDX), reprobe-only (skip CDX), or both (default)."
+        description: "discover-only, reprobe-only, bootstrap (full historical pull), or both (default)."
         required: false
         type: choice
         options:
           - both
           - discover-only
           - reprobe-only
+          - bootstrap
         default: both
+      bootstrap_since_year:
+        description: "Bootstrap mode: walk every CC-MAIN snapshot from this year onward (default 2008)."
+        required: false
+        type: string
+        default: "2008"
       max_age_days:
         description: "Reprobe tenants whose last_probed_at is older than this many days. Default: 7."
         required: false
@@ -49,7 +55,10 @@ jobs:
     name: Discover ${{ matrix.ats }}
     if: ${{ github.event.inputs.mode != 'reprobe-only' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # Bootstrap walks ~120 snapshots × ~10 pages each = an hour-ish per ATS;
+    # incremental discovery is ~30 seconds. Sized for the bootstrap worst
+    # case so a one-shot dispatch can run end-to-end.
+    timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
@@ -88,15 +97,30 @@ jobs:
       - run: bun install --frozen-lockfile
 
       - name: Discover ${{ matrix.ats }}
+        env:
+          MODE: ${{ github.event.inputs.mode || 'both' }}
+          SINCE_YEAR: ${{ github.event.inputs.bootstrap_since_year || '2008' }}
         run: |
           mkdir -p data/tenants data/harvest-state
+          if [ "$MODE" = "bootstrap" ]; then
+            # One-shot historical pull. --skip-probe defers liveness to the
+            # reprobe stage; --snapshots-since walks every CC-MAIN snapshot
+            # from the requested year forward. The state file gets created
+            # on first write so subsequent --incremental runs work.
+            echo "::notice::bootstrap mode for ${{ matrix.ats }} — pulling all CC-MAIN since $SINCE_YEAR"
+            bun run harvest \
+              --ats "${{ matrix.ats }}" \
+              --snapshots-since "$SINCE_YEAR" \
+              --skip-probe \
+              --user-agent "$USER_AGENT" \
+              --output-dir "${GITHUB_WORKSPACE}/data"
+            exit 0
+          fi
           # `--incremental` requires an existing state file. The CLI returns
-          # 2 if no state file is found — that's the bootstrap-needed
-          # signal, not a CI failure, so we surface it as a notice and
-          # continue. Once specs/harvest-incremental.md's bootstrap has
-          # been run locally and committed, this branch never fires again.
+          # 2 if no state file is found — surface it as a notice and exit
+          # so the workflow doesn't fail. Run with mode=bootstrap to seed.
           if [ ! -s "data/harvest-state/${{ matrix.ats }}.json" ]; then
-            echo "::notice::no state file for ${{ matrix.ats }} — run the local bootstrap from specs/harvest-incremental.md to seed it"
+            echo "::notice::no state file for ${{ matrix.ats }} — re-run with mode=bootstrap to seed (see specs/harvest-incremental.md)"
             exit 0
           fi
           bun run harvest \
@@ -126,7 +150,10 @@ jobs:
     needs: discover
     if: ${{ always() && github.event.inputs.mode != 'discover-only' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # Bootstrap reprobes the whole just-discovered corpus (tens of
+    # thousands of slugs per ATS); steady-state runs reprobe only the
+    # batch_size-bounded stale cohort. Sized for the bootstrap worst case.
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
@@ -178,12 +205,19 @@ jobs:
 
       - name: Reprobe ${{ matrix.ats }}
         env:
+          MODE: ${{ github.event.inputs.mode || 'both' }}
           MAX_AGE_DAYS: ${{ github.event.inputs.max_age_days || '7' }}
           BATCH_SIZE: ${{ github.event.inputs.batch_size || '5000' }}
         run: |
           if [ ! -s "data/tenants/${{ matrix.ats }}.json" ]; then
             echo "::notice::no tenants file for ${{ matrix.ats }}; skipping reprobe"
             exit 0
+          fi
+          # Bootstrap mode probes the whole just-discovered corpus —
+          # override age and batch caps to exercise everything.
+          if [ "$MODE" = "bootstrap" ]; then
+            MAX_AGE_DAYS=0
+            BATCH_SIZE=100000
           fi
           bun run reprobe \
             --ats "${{ matrix.ats }}" \
