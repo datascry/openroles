@@ -18,6 +18,7 @@ import {
 } from "@openroles/shared";
 import { z } from "zod";
 import { buildDb } from "./db/build-db.ts";
+import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
 import { probeOne } from "./harvest/probe.ts";
 import { runHarvest } from "./harvest/runner.ts";
@@ -66,6 +67,14 @@ harvest:
   --skip-probe            Emit slugs without liveness probing (recommended for bootstrap)
   --user-agent <ua>       Override the full User-Agent string
   --contact-url <url>     Contact URL interpolated into the default User-Agent (required if --user-agent is omitted)
+
+  Environment:
+    OPENROLES_CC_BACKEND  "http" (default) | "s3". Set to "s3" to read CDX
+                          via data.commoncrawl.org/cc-index/* range requests
+                          instead of the throttled index.commoncrawl.org HTTP
+                          API. Cluster.idx is cached at
+                          <output-dir>/harvest-state/cluster-idx/<id>.idx
+                          (~100 MB per collection). See specs/harvest-incremental.md.
 
 reprobe:
   --ats <id>              ATS whose tenants to reprobe
@@ -443,11 +452,22 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   const path = join(tenantsDir, `${ats}.json`);
   const existingTenants = await loadTenants(path, ats);
 
+  // Backend dispatch: OPENROLES_CC_BACKEND=s3 routes CDX fetches through
+  // data.commoncrawl.org/cc-index/* instead of the throttled HTTP API at
+  // index.commoncrawl.org. Cluster.idx is cached on disk per collection
+  // so a 22-ATS bootstrap doesn't re-download the same 100 MB index file
+  // 22 times. See scraper/src/harvest/cc-s3.ts.
+  const cdxBackend = process.env["OPENROLES_CC_BACKEND"] === "s3" ? "s3" : "http";
+  const clusterIdxCache =
+    cdxBackend === "s3" ? diskClusterIdxCache(join(outputDir, "harvest-state")) : undefined;
+
   const result = await runHarvest({
     ats,
     snapshots,
     client,
     observedAt,
+    cdxBackend,
+    ...(clusterIdxCache ? { clusterIdxCache } : {}),
     ...(args.skipProbe ? { skipProbe: true } : {}),
     ...(existingTenants.length > 0 ? { existingTenants } : {}),
   });

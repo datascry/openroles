@@ -373,4 +373,134 @@ describe("runHarvest", () => {
       expect(example?.metadata?.["site"]).toBe("External");
     });
   });
+
+  describe("cdxBackend=s3", () => {
+    it("routes CDX fetches through cc-s3 (cluster.idx + range block) instead of paginated HTTP", async () => {
+      const { gzipSync } = await import("node:zlib");
+      const cdx11 = [
+        'io,greenhouse,boards)/stripe 20260101000000 {"url":"https://boards.greenhouse.io/stripe","status":"200"}',
+        'io,greenhouse,boards)/anthropic 20260101000000 {"url":"https://boards.greenhouse.io/anthropic","status":"200"}',
+      ].join("\n");
+      const shardGz = gzipSync(Buffer.from(cdx11, "utf8"));
+      const cluster = `io,greenhouse,boards)/stripe 20260101000000\tcdx-00200.gz\t0\t${shardGz.length}\t1`;
+
+      // Track which CC URLs got hit — the HTTP path uses
+      // index.commoncrawl.org with ?url=...&output=json; the S3 path
+      // uses data.commoncrawl.org/cc-index/...
+      const hits: string[] = [];
+      const fetchFn = mock(async (input: Request | string) => {
+        const url = typeof input === "string" ? input : input.url;
+        hits.push(url);
+        if (url.includes("data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
+          return new Response(cluster);
+        }
+        if (url.includes("data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
+          return new Response(shardGz, { status: 206 });
+        }
+        // Probe URLs (greenhouse boards-api), succeed silently.
+        return new Response("{}", { status: 200 });
+      });
+
+      const result = await runHarvest({
+        ats: "greenhouse",
+        snapshots: ["2026-17"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        cdxBackend: "s3",
+        skipProbe: true,
+      });
+
+      expect(result.unique_slugs).toBe(2);
+      expect(result.tenants.map((t) => t.slug).sort()).toEqual(["anthropic", "stripe"]);
+      expect(result.cdx_records).toBe(2);
+      expect(result.cdx_blocks_fetched).toBe(1);
+      expect(result.cdx_pages_fetched).toBe(0); // S3 path doesn't increment pages
+      // No paginated HTTP calls — only the two S3 endpoints.
+      expect(hits.some((u) => u.includes("index.commoncrawl.org"))).toBe(false);
+      expect(hits.filter((u) => u.includes("data.commoncrawl.org")).length).toBe(2);
+    });
+
+    it("counts cluster.idx fetch failure (HttpClient-thrown HttpError) and applies adaptive backoff before next snapshot", async () => {
+      // In production, HttpClient.request THROWS HttpError on persistent
+      // 5xx — cc-s3 never sees a non-OK Response. Simulate that exact
+      // shape: the fetchFn supplied to runHarvest goes through the real
+      // HttpClient.request path, which throws on 503.
+      const sleepCalls: number[] = [];
+      const sleepFn = async (ms: number) => {
+        sleepCalls.push(ms);
+      };
+      const fetchFn = mock(async (input: Request | string) => {
+        const url = typeof input === "string" ? input : input.url;
+        if (url.includes("data.commoncrawl.org")) {
+          // First snapshot: 503 (HttpClient retries 3 times then throws).
+          // Second snapshot: same. Establishes consecutiveErrors > 0.
+          return new Response("server error", { status: 503 });
+        }
+        return new Response("{}", { status: 200 });
+      });
+
+      const result = await runHarvest({
+        ats: "greenhouse",
+        snapshots: ["2026-17", "2026-13"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        cdxBackend: "s3",
+        skipProbe: true,
+        sleep: sleepFn,
+        interPageSleepMs: 100,
+      });
+
+      expect(result.cdx_fetch_errors).toBe(2);
+      expect(result.cdx_records).toBe(0);
+      // Adaptive backoff should have fired before the second snapshot,
+      // since the first failed. Expect at least one sleep with a value
+      // ≥ baseline×2 (2^1 = 2 multiplier).
+      expect(sleepCalls.some((ms) => ms >= 200)).toBe(true);
+    });
+
+    it("salvages records when one of two blocks fails (per-block recovery)", async () => {
+      const { gzipSync } = await import("node:zlib");
+      const cdx11 = [
+        'io,greenhouse,boards)/anthropic 20260101000000 {"url":"https://boards.greenhouse.io/anthropic","status":"200"}',
+      ].join("\n");
+      const goodGz = gzipSync(Buffer.from(cdx11, "utf8"));
+      const cluster = [
+        `io,greenhouse,boards)/a 20260101000000\tcdx-00200.gz\t1000\t${goodGz.length}\t1`,
+        `io,greenhouse,boards)/b 20260101000100\tcdx-00200.gz\t9999999\t100\t2`,
+      ].join("\n");
+      const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
+        const url = typeof input === "string" ? input : input.url;
+        if (url.includes("data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
+          return new Response(cluster);
+        }
+        if (url.includes("data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
+          const range =
+            (init?.headers as Record<string, string> | undefined)?.["Range"] ??
+            (init?.headers as Record<string, string> | undefined)?.["range"];
+          if (range?.includes("bytes=1000-")) {
+            return new Response(goodGz, { status: 206 });
+          }
+          return new Response("nope", { status: 404 });
+        }
+        return new Response("{}", { status: 200 });
+      });
+
+      const result = await runHarvest({
+        ats: "greenhouse",
+        snapshots: ["2026-17"],
+        client: clientWith(fetchFn),
+        observedAt: OBSERVED_AT,
+        cdxBackend: "s3",
+        skipProbe: true,
+      });
+
+      // One block failed, one succeeded — should NOT mark snapshot errored
+      // (we got partial results), but blocks_fetched reflects only the
+      // successful one.
+      expect(result.cdx_records).toBe(1);
+      expect(result.cdx_blocks_fetched).toBe(1);
+      expect(result.cdx_fetch_errors).toBe(0);
+      expect(result.tenants.map((t) => t.slug)).toEqual(["anthropic"]);
+    });
+  });
 });

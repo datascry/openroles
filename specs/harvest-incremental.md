@@ -30,6 +30,49 @@ different IP, and pacing is under your control — the existing
 `interPageSleepMs=250` plus the CLI's adaptive backoff handles CC's
 throttle window without nuking the whole sweep.
 
+### CDX backend: HTTP vs S3-direct
+
+Two backends exist; pick via the `OPENROLES_CC_BACKEND` environment
+variable.
+
+- **`http`** (default) — paginated GET against
+  `index.commoncrawl.org/CC-MAIN-{id}-index?url=...`. Subject to the
+  per-IP throttle described above. Required for ATSes whose canonical
+  tenant URLs are robots-blocked (lever's `jobs.lever.co/*`) or where
+  Common Crawl simply hasn't indexed the host (talentlyft).
+
+- **`s3`** — anonymous range requests against
+  `data.commoncrawl.org/cc-index/collections/CC-MAIN-{id}/indexes/`,
+  reading the same CDX data via cluster.idx + per-block range fetches.
+  No per-IP throttle (CloudFront edge, S3-rate-limited per AWS account).
+  One cluster.idx download per collection (~100 MB) is cached at
+  `<output-dir>/harvest-state/cluster-idx/<id>.idx` and reused across
+  every ATS that targets the same collection — the difference between
+  minutes and many GB of repeated download for a 22-ATS × 120-collection
+  bootstrap.
+
+  Per the audit (recorded in this spec's history), 22 of 24 ATSes have
+  rich tenant URLs in CDX and benefit from S3 directly. The two
+  outliers (lever, talentlyft) need an alternate discovery signal and
+  should keep using the existing tenant lists; S3 doesn't help them.
+
+  Recommended bootstrap invocation:
+
+  ```sh
+  OPENROLES_CC_BACKEND=s3 bun run harvest \
+    --ats greenhouse \
+    --snapshots-since 2008 \
+    --skip-probe \
+    --contact-url https://your.contact.example
+  ```
+
+  The S3 backend honors a `maxBlocksPerSnapshot` cap (default 200) so a
+  too-broad SURT prefix can't fan out unboundedly. Per-block failures
+  (network blip, gunzip on a corrupted slice) are recovered from with
+  partial results — the snapshot is only counted as errored when every
+  attempted block failed. Adaptive inter-snapshot backoff still applies
+  on consecutive failures, same shape as the HTTP path.
+
 ### Procedure
 
 ```sh

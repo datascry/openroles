@@ -1,5 +1,6 @@
 import type { ATSId, Tenant } from "@openroles/shared";
 import { type HttpClient, HttpError } from "../http.ts";
+import { type CcFetcher, fetchSnapshotViaS3 } from "./cc-s3.ts";
 import {
   buildCdxNumPagesUrl,
   buildCdxUrl,
@@ -32,13 +33,36 @@ export interface HarvestRunOptions {
   // instead of regenerating it from scratch.
   // See docs/adr/0011-incremental-harvest-and-reprobe.md.
   readonly existingTenants?: ReadonlyArray<Tenant>;
+  // CDX source. Default "http" hits index.commoncrawl.org per-page; "s3"
+  // goes through data.commoncrawl.org/cc-index/... and avoids the
+  // per-IP throttle that compounds over a multi-snapshot bootstrap.
+  // The S3 path returns all records for a snapshot in one shot — no
+  // pagination, no inter-page sleep. See cc-s3.ts.
+  readonly cdxBackend?: "http" | "s3";
+  // Optional immutable-per-collection cache for cluster.idx, used only
+  // when cdxBackend="s3". Each cluster.idx is ~100 MB so caching across
+  // snapshots in the same run is the difference between minutes and
+  // gigabytes of repeated download.
+  readonly clusterIdxCache?: {
+    get(collection: string): Promise<string | undefined>;
+    set(collection: string, body: string): Promise<void>;
+  };
 }
 
 export interface HarvestResult {
   readonly ats: ATSId;
   readonly snapshots: ReadonlyArray<string>;
   readonly cdx_records: number;
+  // Pages fetched on the HTTP backend (`index.commoncrawl.org`). Stays
+  // 0 when only the S3 backend ran.
   readonly cdx_pages_fetched: number;
+  // Blocks fetched on the S3 backend. 0 when only the HTTP backend ran.
+  // Sum of attempted-and-succeeded block fetches across all snapshots.
+  readonly cdx_blocks_fetched: number;
+  // Number of S3 blocks that the cap (`maxBlocksPerSnapshot`) cut off.
+  // Non-zero means we're under-sampling and should either widen the
+  // cap or narrow the SURT prefix; surfaced in the run report.
+  readonly cdx_blocks_truncated: number;
   readonly cdx_fetch_errors: number;
   readonly unique_slugs: number;
   readonly tenants: ReadonlyArray<Tenant>;
@@ -95,8 +119,15 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
 
   let recordCount = 0;
   let pagesFetched = 0;
+  let blocksFetched = 0;
+  let blocksTruncated = 0;
   let fetchErrors = 0;
   let consecutiveErrors = 0;
+  // Tracks whether we've made at least one fetch attempt; used to gate
+  // adaptive backoff. Distinct from `pagesFetched`/`blocksFetched` because
+  // a failed attempt that yielded zero blocks still counts — we must
+  // sleep before retrying the next snapshot, not hammer the upstream.
+  let snapshotsAttempted = 0;
   const allSlugs = new Set<string>();
   // First-seen metadata across all snapshot pages — extractSlugs already
   // applies the same first-seen-wins rule per page, and we mirror it here
@@ -104,7 +135,76 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
   // non-deterministically.
   const allMetadata = new Map<string, Record<string, string>>();
 
+  const useS3 = opts.cdxBackend === "s3";
+
+  // Adapter so cc-s3 (which expects a fetch-shaped function) can use the
+  // HarvestRunOptions HttpClient — picks up the configured user-agent,
+  // retry policy, and timeouts. data.commoncrawl.org is a public CDN
+  // intended for unauthenticated access; skipRobots is appropriate here.
+  const s3FetchFn: CcFetcher = async (url, init) => {
+    return await opts.client.request(url, {
+      method: "GET",
+      skipRobots: true,
+      ...(init?.headers ? { headers: init.headers } : {}),
+    });
+  };
+
   outer: for (const snapshot of opts.snapshots) {
+    if (useS3) {
+      // Adaptive inter-snapshot backoff: same shape as the HTTP path so
+      // a sustained `data.commoncrawl.org` 5xx degrades gracefully instead
+      // of hammering CloudFront across 120 snapshots back-to-back. Gated
+      // on snapshotsAttempted (not blocksFetched) because a wholly-failed
+      // first snapshot still must back off before the second.
+      if (snapshotsAttempted > 0 && sleepMs > 0 && consecutiveErrors > 0) {
+        await sleep(Math.min(sleepMs * 2 ** consecutiveErrors, 30_000));
+      }
+      snapshotsAttempted += 1;
+      let records: CdxRecord[] = [];
+      let snapshotErrored = false;
+      try {
+        const result = await fetchSnapshotViaS3({
+          collection: snapshot,
+          cdxQuery: pattern.cdxQuery,
+          fetchFn: s3FetchFn,
+          ...(opts.clusterIdxCache ? { clusterIdxCache: opts.clusterIdxCache } : {}),
+        });
+        records = result.records;
+        blocksFetched += result.blocksSucceeded;
+        if (result.truncated) blocksTruncated += 1;
+        // Treat a snapshot as errored when EVERY attempted block failed —
+        // that's the catastrophic case (cluster.idx pointed somewhere
+        // CloudFront refused, or a network partition). Per-block partial
+        // failures (some succeed, some fail) keep the records and don't
+        // bump consecutiveErrors — that would be too aggressive.
+        if (result.blocksFailed > 0 && result.blocksSucceeded === 0) {
+          snapshotErrored = true;
+        }
+      } catch {
+        // Top-level failure (cluster.idx fetch threw, length mismatch,
+        // assertion). No records salvageable for this snapshot.
+        snapshotErrored = true;
+      }
+      if (snapshotErrored) {
+        fetchErrors += 1;
+        consecutiveErrors += 1;
+      } else {
+        consecutiveErrors = 0;
+      }
+      recordCount += records.length;
+      const { slugs, metadata } = extractSlugs(records, pattern);
+      for (const s of slugs) {
+        if (allSlugs.size >= slugCap) break outer;
+        allSlugs.add(s);
+      }
+      for (const [slug, meta] of metadata) {
+        if (!allMetadata.has(slug)) allMetadata.set(slug, meta);
+      }
+      continue;
+    }
+
+    // HTTP path (default) — per-page through index.commoncrawl.org with
+    // adaptive backoff against the per-IP throttle.
     const numPagesUrl = buildCdxNumPagesUrl(snapshot, pattern.cdxQuery);
     const reported = await fetchNumPages(opts.client, numPagesUrl);
     const numPages = Math.min(Math.max(1, reported), pageCap);
@@ -213,6 +313,8 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
     snapshots: opts.snapshots,
     cdx_records: recordCount,
     cdx_pages_fetched: pagesFetched,
+    cdx_blocks_fetched: blocksFetched,
+    cdx_blocks_truncated: blocksTruncated,
     cdx_fetch_errors: fetchErrors,
     unique_slugs: ordered.length,
     tenants,
