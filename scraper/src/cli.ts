@@ -22,7 +22,7 @@ import { z } from "zod";
 import { buildDb } from "./db/build-db.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
-import { probeOne } from "./harvest/probe.ts";
+import { probeMany } from "./harvest/probe.ts";
 import { runHarvest } from "./harvest/runner.ts";
 import { resolveAllSnapshots, resolveLatestSnapshots } from "./harvest/snapshots.ts";
 import { HttpClient } from "./http.ts";
@@ -659,13 +659,29 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
 
   const robots = new RobotsTxtCache();
   const client = new HttpClient({ userAgent, robots });
-  const updated = new Map<string, Tenant>();
-  // Sequential probing keeps the rate gentle for the host shared across
-  // all of a tenant's probes; concurrency added later if a per-host
-  // budget makes sense (different ATSes already run in different matrix
-  // legs, so overall parallelism is provided at the workflow layer).
+  // Concurrent probes via probeMany — same path the harvest pipeline
+  // already uses for new-slug discovery. probe.ts caps at 6 concurrent
+  // by default which is gentle on shared API hosts (greenhouse, jobvite)
+  // and trivially safe for per-subdomain ATSes (bamboohr, icims, etc.)
+  // where every probe hits a different host.
+  // Without this, a 15k-tenant reprobe (bamboohr / icims / workable)
+  // takes 2-3 hours sequential; with concurrency=6 it's ~25 minutes.
+  const metadataBySlug = new Map<string, Record<string, string>>();
   for (const t of stale) {
-    const result = await probeOne(ats, t.slug, client, observedAt, t.metadata);
+    if (t.metadata && Object.keys(t.metadata).length > 0) {
+      metadataBySlug.set(t.slug, t.metadata);
+    }
+  }
+  const probedTenants = await probeMany(
+    ats,
+    stale.map((t) => t.slug),
+    { client, observedAt, metadataBySlug },
+  );
+  const probedBySlug = new Map<string, Tenant>(probedTenants.map((p) => [p.slug, p]));
+  const updated = new Map<string, Tenant>();
+  for (const t of stale) {
+    const result = probedBySlug.get(t.slug);
+    if (!result) continue;
     const merged: Tenant = {
       ...t,
       status: result.status,
