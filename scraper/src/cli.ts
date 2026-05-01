@@ -370,6 +370,10 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
   const observedAt = new Date().toISOString();
   const outputDir = args.outputDir ?? "./data";
   const stateFilePath = args.stateFile ?? join(outputDir, "harvest-state", `${ats}.json`);
+  // Cache collinfo.json next to the state files so back-to-back per-ATS
+  // bootstraps don't refetch from index.commoncrawl.org and trip its
+  // per-IP rate-limit. 24h TTL inside the cache helper.
+  const collInfoCache = { cacheDir: join(outputDir, "harvest-state") };
   let existingState: HarvestState | undefined;
   if (args.incremental || (await fileExists(stateFilePath))) {
     existingState = await loadHarvestState(stateFilePath, ats);
@@ -398,7 +402,7 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
       );
       return 2;
     }
-    const all = await resolveAllSnapshots(client);
+    const all = await resolveAllSnapshots(client, undefined, collInfoCache);
     /* c8 ignore next 4 — defensive: only fires if collinfo.json returns empty, which would also break the legacy resolveLatestSnapshots path. */
     if (all.length === 0) {
       console.error("harvest: failed to resolve CC-MAIN snapshots from collinfo.json");
@@ -420,14 +424,14 @@ export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<nu
       );
       return 2;
     }
-    snapshots = await resolveAllSnapshots(client, yr);
+    snapshots = await resolveAllSnapshots(client, yr, collInfoCache);
     /* c8 ignore next 4 — defensive: only fires if collinfo.json has nothing for the requested year (extreme edge). */
     if (snapshots.length === 0) {
       console.error(`harvest: collinfo.json yielded no snapshots since ${yr}`);
       return 2;
     }
   } else {
-    snapshots = await resolveLatestSnapshots(client, 40);
+    snapshots = await resolveLatestSnapshots(client, 40, collInfoCache);
     if (snapshots.length === 0) {
       console.error("harvest: failed to resolve latest CC-MAIN snapshots; pass --snapshots");
       return 2;

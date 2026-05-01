@@ -502,6 +502,18 @@ describe("runScrape", () => {
         }
         return HttpResponse.json({ offset: 100, limit: 100, totalFound: 1, content: [] });
       }),
+      // Per-posting detail endpoint returns the jobAd sections that the
+      // adapter now reads to populate description_excerpt. Without this
+      // handler MSW logs an unhandled-request warning and the test was
+      // also racing against the detail fetch's network failure path.
+      http.get("https://api.smartrecruiters.com/v1/companies/example/postings/744000123", () =>
+        HttpResponse.json({
+          id: "744000123",
+          jobAd: {
+            sections: { jobDescription: { text: "Build great things." } },
+          },
+        }),
+      ),
     );
     const out = await runScrape({
       input: {
@@ -518,6 +530,7 @@ describe("runScrape", () => {
     expect(out.jobs[0]?.workplace_type).toBe("hybrid");
     expect(out.jobs[0]?.location_country).toBe("DE");
     expect(out.jobs[0]?.url).toContain("/example/744000123");
+    expect(out.jobs[0]?.description_excerpt).toContain("Build great things");
   });
 
   it("dispatches pinpointhq against the public /jobs.json endpoint", async () => {
