@@ -228,6 +228,16 @@ async function probeOneInner(
     return { ats, slug, status: "live", last_probed_at: observedAt };
   } catch (err) {
     if (err instanceof HttpError) {
+      // Homerun's AWS ELB now blanket-403s every direct request to
+      // `*.homerun.co` and `feed.homerun.co/*` regardless of headers
+      // (anti-bot at the load-balancer level, fingerprints the TLS or
+      // user-agent). Marking 1,780 tenants as `dead` based on that
+      // would lose them all. Until a working homerun probe surfaces,
+      // map their 403s to `transient_failure` so they survive in the
+      // corpus pending an alternate signal.
+      if (ats === "homerun" && err.status === 403) {
+        return { ats, slug, status: "transient_failure", last_probed_at: observedAt };
+      }
       const status: TenantStatus = err.kind === "transient" ? "transient_failure" : "dead";
       return { ats, slug, status, last_probed_at: observedAt };
     }

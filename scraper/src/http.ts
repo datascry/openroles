@@ -57,6 +57,32 @@ function isAbortError(err: unknown): boolean {
   return err instanceof Error && (err.name === "AbortError" || err.name === "TimeoutError");
 }
 
+/**
+ * Detect connection-level failures (DNS, TCP, TLS) that won't recover on
+ * retry: NXDOMAIN, connection refused, certificate verification failure,
+ * host unreachable. These should be classified as `permanent` HttpErrors
+ * so callers (probe.ts) can distinguish a genuinely-dead tenant from a
+ * transient network blip.
+ *
+ * Bun's `fetch` reports NXDOMAIN and TCP RST under a single string
+ * `code: 'ConnectionRefused'` — we lump them together since the
+ * permanence verdict is the same either way. Node's fetch uses
+ * `cause.code` like `'ENOTFOUND'`, `'ECONNREFUSED'`, `'CERT_*'` —
+ * cover both shapes.
+ */
+function isConnectionLevelFailure(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  const codes = ["ConnectionRefused", "ENOTFOUND", "ECONNREFUSED", "EAI_FAIL", "EHOSTUNREACH"];
+  const errCode = (err as { code?: unknown }).code;
+  if (typeof errCode === "string" && codes.includes(errCode)) return true;
+  const causeCode = (err.cause as { code?: unknown } | undefined)?.code;
+  if (typeof causeCode === "string" && codes.includes(causeCode)) return true;
+  // TLS / cert-validation failures also won't recover.
+  if (typeof errCode === "string" && errCode.startsWith("CERT_")) return true;
+  if (typeof causeCode === "string" && causeCode.startsWith("CERT_")) return true;
+  return false;
+}
+
 const HTTP_DATE_RE = /^[A-Z][a-z][a-z], \d{2} [A-Z][a-z][a-z] \d{4} \d{2}:\d{2}:\d{2} GMT$/;
 
 function parseRetryAfter(value: string | null, now: number): number | null {
@@ -156,13 +182,24 @@ export class HttpClient {
         );
       }
 
+      // Connection-level failures (DNS NXDOMAIN, ECONNREFUSED, certificate
+      // failures, host unreachable) are PERSISTENT for the time horizon
+      // we care about — a probe of a tenant whose subdomain hasn't
+      // resolved for 3 retries spaced 0.5-30s apart isn't going to
+      // resolve any time soon. Marking these as "transient" leaves dead
+      // tenants stuck at transient_failure forever instead of getting
+      // honestly classified as `dead`. Bun's fetch reports DNS NXDOMAIN
+      // and TCP RST under the same `code: 'ConnectionRefused'` string —
+      // we can't distinguish them here, but treating both as permanent
+      // is correct for our use case.
+      const code = isConnectionLevelFailure(result);
       lastTransient = new HttpError(
-        "transient",
+        code ? "permanent" : "transient",
         result instanceof Error ? result.message : "network error",
         undefined,
         result,
       );
-      if (attempt < this.retry.maxAttempts - 1) {
+      if (!code && attempt < this.retry.maxAttempts - 1) {
         await this.sleep(this.computeBackoff(attempt));
         continue;
       }
