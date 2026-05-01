@@ -55,7 +55,14 @@ interface SmartRecruitersPostingDetail extends SmartRecruitersPosting {
 
 const PAGE_SIZE = 100;
 const MAX_PAGES = 50; // 5 000 postings ceiling
-const DEFAULT_DETAIL_CONCURRENCY = 4;
+const DEFAULT_DETAIL_CONCURRENCY = 8;
+// Bound the per-tenant detail fan-out so a single mega-tenant (e.g. bosch
+// with ~4 500 postings) cannot blow the matrix job's 45-minute budget.
+// At ~735 ms / detail and concurrency = 8, 200 fetches finishes in ~18 s;
+// raising it past this would push the slow tail of large tenants over the
+// runner timeout, sacrificing the overall daily refresh for marginal
+// description coverage on the oldest postings of a few employers.
+const MAX_DETAIL_FETCH_PER_TENANT = 200;
 
 function workplaceFromLocation(loc: SmartRecruitersLocation | undefined): Job["workplace_type"] {
   if (!loc) return null;
@@ -166,10 +173,14 @@ export async function scrapeSmartRecruitersTenant(
     // gives only summary fields; jobAd.sections.{jobDescription,
     // qualifications, additionalInformation} live on the detail endpoint.
     // Concurrency-bounded so a tenant with thousands of postings doesn't
-    // saturate outbound connections.
+    // saturate outbound connections, and capped so a single mega-tenant
+    // can't blow the matrix runner's 45-minute budget. Postings beyond the
+    // cap (oldest, since smartrecruiters listings are returned in
+    // newest-first order) ship with listing-only data.
+    const detailLimit = Math.min(postings.length, MAX_DETAIL_FETCH_PER_TENANT);
     const limit = pLimit(opts.perTenantConcurrency ?? DEFAULT_DETAIL_CONCURRENCY);
     const enriched = await Promise.all(
-      postings.map((p) =>
+      postings.slice(0, detailLimit).map((p) =>
         limit(async (): Promise<SmartRecruitersPostingDetail | undefined> => {
           if (!p.id) return undefined;
           const detailUrl = `https://api.smartrecruiters.com/v1/companies/${opts.tenant.slug}/postings/${p.id}`;
@@ -190,6 +201,8 @@ export async function scrapeSmartRecruitersTenant(
     for (let i = 0; i < postings.length; i++) {
       const posting = postings[i];
       if (!posting) continue;
+      // enriched[] is shorter than postings[] when MAX_DETAIL_FETCH_PER_TENANT
+      // capped the fan-out; `enriched[i]` is `undefined` for the tail.
       const job = postingToJob(opts.tenant.slug, company, opts.observedAt, posting, enriched[i]);
       if (job) jobs.push(job);
     }

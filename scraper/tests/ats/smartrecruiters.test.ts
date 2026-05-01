@@ -125,6 +125,42 @@ describe("scrapeSmartRecruitersTenant", () => {
     expect(out.result.jobs_count).toBe(0);
   });
 
+  it("caps detail fetches per tenant; older postings get listing-only data", async () => {
+    // Build a synthetic listing with 250 postings (>MAX_DETAIL_FETCH_PER_TENANT=200).
+    const postings = Array.from({ length: 250 }, (_, i) => ({
+      id: `huge-${i}`,
+      name: `Role ${i}`,
+      releasedDate: "2026-04-01T10:00:00Z",
+      location: { fullLocation: "Remote", country: "us", remote: true },
+    }));
+    let detailCallCount = 0;
+    server.use(
+      http.get("https://api.smartrecruiters.com/v1/companies/huge/postings", ({ request }) => {
+        const offsetParam = new URL(request.url).searchParams.get("offset") ?? "0";
+        const offset = Number.parseInt(offsetParam, 10);
+        return HttpResponse.json({
+          totalFound: postings.length,
+          content: postings.slice(offset, offset + 100),
+        });
+      }),
+      http.get("https://api.smartrecruiters.com/v1/companies/huge/postings/:id", () => {
+        detailCallCount += 1;
+        return HttpResponse.json({
+          jobAd: { sections: { jobDescription: { text: "described" } } },
+        });
+      }),
+    );
+    const out = await scrapeSmartRecruitersTenant({
+      tenant: { slug: "huge", display_name: "Huge" },
+      client: clientWithRobotsAllowAll(),
+      observedAt: OBSERVED_AT,
+    });
+    expect(out.jobs).toHaveLength(250);
+    expect(detailCallCount).toBe(200);
+    const enriched = out.jobs.filter((j) => j.description_excerpt !== undefined);
+    expect(enriched).toHaveLength(200);
+  });
+
   it("returns dead status when the listing endpoint errors hard", async () => {
     server.use(
       http.get(

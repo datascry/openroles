@@ -51,12 +51,12 @@ export function parseWorkdayJobs(input: WorkdayParseInput): Job[] {
   const parsed = WorkdayResponse.parse(input.response);
   const jobs: Job[] = [];
   for (const raw of parsed.jobPostings) {
-    // Workday's /jobs listing doesn't return the full job description, but
-    // it does return `bulletFields` — a short array of highlight bullets
-    // ("3+ years of experience", "Remote eligible", etc.). Joining them
-    // into a short text gives FTS something to match on without paying the
-    // cost of a per-job detail fetch. The full description would require a
-    // separate HTTP roundtrip per posting (deferred — see specs gap notes).
+    // Workday's /jobs listing doesn't return the full description. It
+    // returns `bulletFields`, which in practice (sampled across nvidia,
+    // blackrock, and others) is just the requisition id — not a real
+    // description, but searchable so users can find a role by its req
+    // number. Full descriptions need a per-job detail-page fetch, which
+    // is deferred until we have a rate budget for it across ~4k tenants.
     const bullets = raw.bulletFields?.filter((b) => b.trim().length > 0).join(" • ");
     const candidate = buildJob({
       ats: "workday",
