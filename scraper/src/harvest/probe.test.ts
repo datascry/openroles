@@ -112,18 +112,20 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
-  it("returns transient_failure for workday without metadata", async () => {
+  it("returns transient_failure for workday without metadata.host", async () => {
+    // Without `host` we can't compose a probe URL at all; the
+    // `site` defaults to "External" but a probe URL still needs a host.
     const fetchFn = mock(async () => new Response("ok", { status: 200 }));
     const t = await probeOne("workday", "stripe", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("transient_failure");
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
-  it("probes workday live when metadata.host + metadata.site are supplied", async () => {
+  it("probes workday live via the user-facing /<site> URL", async () => {
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.endsWith("/wday/cxs/example/External/jobs")) {
-        return new Response("{}", { status: 200 });
+      if (url.endsWith("/External") && url.includes("example.wd5.myworkdayjobs.com")) {
+        return new Response("ok", { status: 200 });
       }
       return new Response("nope", { status: 404 });
     });
@@ -136,6 +138,31 @@ describe("probeOne", () => {
       host: "example.wd5.myworkdayjobs.com",
       site: "External",
     });
+  });
+
+  it("maps homerun 403 to transient_failure (anti-bot ELB), not dead", async () => {
+    // Without this carve-out, AWS ELB's blanket 403 against every
+    // *.homerun.co probe would mark all 1,780 homerun tenants `dead`
+    // and lose the corpus from queryable surface. See cb42f6b history.
+    const fetchFn = mock(async () => new Response("blocked", { status: 403 }));
+    const t = await probeOne("homerun", "veriff", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("transient_failure");
+  });
+
+  it("probes workday with default site=External when metadata.site is missing", async () => {
+    // Recovers the 4,251 of 4,295 workday tenants whose CDX rows
+    // captured `host` but not `site` — the bootstrap-merged site is
+    // unknown for those, so we fall back to the most common public
+    // workday site name.
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/External")) return new Response("ok", { status: 200 });
+      return new Response("nope", { status: 404 });
+    });
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+    });
+    expect(t.status).toBe("live");
   });
 
   it("returns transient_failure for workday when metadata.host fails the safe-host check", async () => {

@@ -90,20 +90,27 @@ describe("runHarvest", () => {
       host: "example.wd5.myworkdayjobs.com",
       site: "External",
     });
-    expect(probedHost).toContain("example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs");
+    expect(probedHost).toContain("example.wd5.myworkdayjobs.com/External");
   });
 
-  it("keeps workday tenants at transient_failure when CDX yields the host but no site code", async () => {
+  it("probes workday with default site=External when CDX yields host but no site code", async () => {
+    // Bootstrap finding: ~98% of workday tenants come out of CDX with
+    // `host` but no `site` (most CDX URLs are bare host pages, not the
+    // /wday/cxs/<site>/ API). Probe falls back to "External" — the
+    // canonical public site name across the workday ecosystem.
     const cdx = [
       '{"url":"https://example.wd5.myworkdayjobs.com/job/12345","status":"200","timestamp":"20260101000000"}',
       "",
     ].join("\n");
+    let probedHost = "";
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
       if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
         return new Response("1", { status: 200 });
       }
-      return new Response(cdx, { status: 200 });
+      if (url.includes("commoncrawl.org")) return new Response(cdx, { status: 200 });
+      probedHost = url;
+      return new Response("ok", { status: 200 });
     });
     const result = await runHarvest({
       ats: "workday",
@@ -111,10 +118,12 @@ describe("runHarvest", () => {
       client: clientWith(fetchFn),
       observedAt: OBSERVED_AT,
     });
-    expect(result.tenants[0]?.status).toBe("transient_failure");
-    // host alone is preserved on the tenant — useful for follow-up reharvest
-    // even though it isn't enough to probe.
+    expect(result.tenants[0]?.status).toBe("live");
+    // Site stayed unset on the tenant record (we didn't promote the
+    // default into stored metadata) — only host is preserved as
+    // ground-truth from CDX.
     expect(result.tenants[0]?.metadata).toEqual({ host: "example.wd5.myworkdayjobs.com" });
+    expect(probedHost).toContain("example.wd5.myworkdayjobs.com/External");
   });
 
   it("returns slugs as transient_failure when skipProbe is set", async () => {

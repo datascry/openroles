@@ -61,11 +61,16 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
 type ProbeUrlMetaBuilder = (slug: string, metadata: Record<string, string>) => string | undefined;
 
 const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
-  workday: (slug, metadata) => {
+  workday: (_slug, metadata) => {
     const host = metadata["host"];
-    const site = metadata["site"];
     if (typeof host !== "string" || host.length === 0) return undefined;
-    if (typeof site !== "string" || site.length === 0) return undefined;
+    // Default to "External" when site is missing — that's the canonical
+    // public-facing site name across the workday ecosystem (most tenants
+    // expose `External`, a few use `Careers` or other custom names).
+    // The S3 bootstrap captured `host` for ~all 4,295 tenants but only
+    // 44 had `site` from CDX (most CDX URLs are bare host pages, not
+    // `/<site>` deep links). Falling back here unlocks the other 98%.
+    const site = metadata["site"] ?? "External";
     // Defensive — these strings flow into URLs, validate the shape we
     // observed in CDX before sending the network request.
     try {
@@ -74,10 +79,13 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     } catch {
       return undefined;
     }
-    // The `/wday/cxs/{tenant}/{site}/jobs` endpoint is workday's documented
-    // public read-only feed. POST with an empty `{}` body returns the page
-    // 1 / 20-row default; for a probe we just need a 2xx response.
-    return `https://${host}/wday/cxs/${slug}/${site}/jobs`;
+    // Probe via the user-facing /<site> URL (GET, returns 200 on a
+    // tenant whose site exists). The previously-used cxs/jobs API
+    // requires POST with a specific JSON body and returns 422 on
+    // validation gaps; HttpClient classifies 422 as permanent → dead,
+    // so a working tenant looked dead. The /<site> path returns 200
+    // when the site is real (not just the slug) and 404 otherwise.
+    return `https://${host}/${site}`;
   },
   ultipro: (slug, metadata) => {
     const boardId = metadata["board_id"];
@@ -116,8 +124,9 @@ interface ProbeRequestShape {
 }
 
 // Some composite-metadata ATSes need a non-GET probe (ultipro's
-// `LoadSearchResults` endpoint is POST + JSON body; GET returns 415). The
-// shape is tied to the probe URL builder above, so colocate it.
+// `LoadSearchResults` endpoint is POST + JSON body; GET returns 415).
+// Workday uses GET against the user-facing /<site> URL — see
+// PROBE_URL_META.workday — so it doesn't need an entry here.
 const PROBE_REQUEST_SHAPE: Partial<Record<ATSId, ProbeRequestShape>> = {
   ultipro: {
     method: "POST",
