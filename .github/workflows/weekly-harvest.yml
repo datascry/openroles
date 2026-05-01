@@ -96,4 +96,20 @@ jobs:
           git config user.email "openroles-bot@users.noreply.github.com"
           git add data/tenants/
           git commit -m "chore(harvest): refresh tenant lists [skip ci]"
-          git push
+          # Harvest jobs run for 30-60 minutes; main routinely moves during
+          # that window when other workflows or PR merges land. Plain push
+          # then loses the harvest commit (run 25193840474 was rejected
+          # after spending an hour scraping). Pull --rebase + retry handles
+          # the concurrent-update case; tenant edits live entirely under
+          # data/tenants/ which nothing else writes, so rebase is conflict-free.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main
+            if git push; then
+              echo "push succeeded on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected on attempt ${attempt}; will retry"
+            sleep 5
+          done
+          echo "::error::could not push tenant updates after 3 attempts"
+          exit 1
