@@ -30,13 +30,18 @@ function mirrorDir(from: string, to: string): void {
   }
 }
 
-function buildSiteIfMissing(distDir: string): void {
-  if (existsSync(distDir)) return;
+function ensureSiteFresh(distDir: string): void {
   // playwright.config.ts's webServer runs `astro preview`, which serves dist/
-  // verbatim. If dist/ doesn't exist (fresh checkout, no prior `bun run build`),
-  // preview falls back behaviorally and the runtime can't fetch its assets.
-  // Build deterministically here so e2e is robust to invocation order.
-  // Audit-driven (Phase 8 review M2).
+  // verbatim. We rebuild deterministically when:
+  //   1. dist/ doesn't exist (fresh checkout / no prior `bun run build`), or
+  //   2. dist/role/ is missing — role pages come from getStaticPaths over
+  //      the fixture DB. CI's `bun run build` step runs BEFORE this
+  //      globalSetup populates public/data, so the first build emits zero
+  //      role pages. Detect that stale state and rebuild now that the
+  //      fixture DB is in place.
+  // Build is ~2s; cheap enough that "rebuild on any doubt" beats subtle
+  // staleness. Audit-driven (Phase 8 review M2 + ci e2e regression).
+  if (existsSync(distDir) && existsSync(join(distDir, "role"))) return;
   const res = spawnSync("bun", ["--bun", "astro", "build"], {
     cwd: SITE_ROOT,
     stdio: "inherit",
@@ -51,7 +56,7 @@ export default function globalSetup(): void {
   const distDir = join(SITE_ROOT, "dist");
   runScript("scripts/copy-sqlite-vfs.ts");
   runScript("scripts/build-fixture-db.ts");
-  buildSiteIfMissing(distDir);
+  ensureSiteFresh(distDir);
   // Mirror the freshly built/written artifacts into dist/ so astro preview
   // serves them. (`astro build` already copied public/* once at build time;
   // these mirrors handle the case where build-fixture-db wrote AFTER build.)
