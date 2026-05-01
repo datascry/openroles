@@ -26,13 +26,47 @@ env:
   BUN_VERSION: "1.3.13"
   CONTACT_URL: "https://github.com/datascry/openroles"
   USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
-  ATS_LIST: "greenhouse lever ashby bamboohr workday icims recruitee breezy personio workable teamtailor smartrecruiters csod taleo ultipro jobvite zohorecruit talentlyft pinpointhq applicantpro applicantstack homerun factorial eightfold"
 
 jobs:
+  # One matrix leg per ATS, each on its own runner with its own outbound
+  # IP. Sequential single-runner harvests previously hit Common Crawl's
+  # IP-rate-limit after the first 4 ATSes (run 25193840474: bamboohr's
+  # 24-minute crawl exhausted the quota; workday onward all failed at
+  # CLI startup with "socket closed" / "operation timed out"). Matrix
+  # gives each ATS independent CC quota and turns total runtime from
+  # sum(per_ats) ~3 hours into max(per_ats) ~30 min.
   harvest:
-    name: Harvest tenant lists from Common Crawl
+    name: Harvest ${{ matrix.ats }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        ats:
+          - greenhouse
+          - lever
+          - ashby
+          - bamboohr
+          - workday
+          - icims
+          - recruitee
+          - breezy
+          - personio
+          - workable
+          - teamtailor
+          - smartrecruiters
+          - csod
+          - taleo
+          - ultipro
+          - jobvite
+          - zohorecruit
+          - talentlyft
+          - pinpointhq
+          - applicantpro
+          - applicantstack
+          - homerun
+          - factorial
+          - eightfold
     steps:
       - uses: actions/checkout@v5
 
@@ -42,15 +76,12 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
-      - name: Harvest each ATS
+      - name: Harvest ${{ matrix.ats }}
         env:
           PROBE_INPUT: ${{ inputs.probe }}
           SNAPSHOTS_INPUT: ${{ inputs.snapshots }}
         run: |
           mkdir -p data/tenants
-          # Probe by default. The empty-string case (scheduled run, no dispatch
-          # input) is the same as PROBE_INPUT=true; only an explicit "false"
-          # disables liveness probing.
           probe_flag=""
           if [ "$PROBE_INPUT" = "false" ]; then probe_flag="--skip-probe"; fi
           # Validate snapshots input shape before splatting it into argv —
@@ -63,26 +94,45 @@ jobs:
             fi
             snap_flag="--snapshots=$SNAPSHOTS_INPUT"
           fi
-          for ats in $ATS_LIST; do
-            echo "::group::harvest ${ats}"
-            bun run harvest \
-              --ats "$ats" \
-              --user-agent "$USER_AGENT" \
-              --output-dir "${GITHUB_WORKSPACE}/data" \
-              $probe_flag $snap_flag || {
-                echo "::warning::harvest ${ats} failed; skipping"
-              }
-            echo "::endgroup::"
-          done
+          # shellcheck disable=SC2086
+          bun run harvest \
+            --ats "${{ matrix.ats }}" \
+            --user-agent "$USER_AGENT" \
+            --output-dir "${GITHUB_WORKSPACE}/data" \
+            $probe_flag $snap_flag
+
+      - name: Upload tenants for ${{ matrix.ats }}
+        if: hashFiles(format('data/tenants/{0}.json', matrix.ats)) != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: tenants-${{ matrix.ats }}
+          path: data/tenants/${{ matrix.ats }}.json
+          retention-days: 14
+
+  commit:
+    name: Aggregate + commit tenant lists
+    needs: harvest
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download every tenants-* artifact
+        uses: actions/download-artifact@v7
+        with:
+          path: data/tenants
+          pattern: tenants-*
+          merge-multiple: true
 
       - name: Show diff summary
         run: |
           echo "## Tenant list diffs" >> "$GITHUB_STEP_SUMMARY"
-          for ats in $ATS_LIST; do
-            file="data/tenants/${ats}.json"
-            if [ ! -s "$file" ]; then continue; fi
-            count="$(jq 'length' "$file")"
-            live="$(jq '[.[] | select(.status == "live")] | length' "$file")"
+          shopt -s nullglob
+          for file in data/tenants/*.json; do
+            ats="$(basename "$file" .json)"
+            count="$(jq 'length' "$file" 2>/dev/null || echo 0)"
+            live="$(jq '[.[] | select(.status == "live")] | length' "$file" 2>/dev/null || echo 0)"
             echo "- **${ats}**: ${count} tenants (${live} live)" >> "$GITHUB_STEP_SUMMARY"
           done
 
@@ -96,11 +146,10 @@ jobs:
           git config user.email "openroles-bot@users.noreply.github.com"
           git add data/tenants/
           git commit -m "chore(harvest): refresh tenant lists [skip ci]"
-          # Harvest jobs run for 30-60 minutes; main routinely moves during
-          # that window when other workflows or PR merges land. Plain push
-          # then loses the harvest commit (run 25193840474 was rejected
-          # after spending an hour scraping). Pull --rebase + retry handles
-          # the concurrent-update case; tenant edits live entirely under
+          # Harvest legs run for 5-30 minutes; main may move during that
+          # window when other workflows commit or PR merges land. Plain push
+          # then loses the harvest commit. Pull --rebase + retry handles the
+          # concurrent-update case; tenant edits live entirely under
           # data/tenants/ which nothing else writes, so rebase is conflict-free.
           for attempt in 1 2 3; do
             git pull --rebase --autostash origin main
