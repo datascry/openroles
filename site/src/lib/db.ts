@@ -46,7 +46,7 @@ export function openSiteDb(dataDir: string = defaultDataDir()): SiteDb {
 }
 
 const FEED_COLUMNS =
-  "id, ats, tenant_slug, source_id, title, company, description_excerpt, level, level_rank, workplace_type, is_recruiter_post, location_text, location_country, location_region, compensation_min, compensation_max, compensation_currency, department, posted_at, updated_at, first_seen_at, last_seen_at, url";
+  "id, ats, tenant_slug, source_id, title, company, description_excerpt, level, level_rank, workplace_type, is_recruiter_post, location_text, location_country, location_region, compensation_min, compensation_max, compensation_currency, department, posted_at, updated_at, first_seen_at, last_seen_at, is_stale, url";
 
 interface JobRow {
   id: string;
@@ -71,6 +71,7 @@ interface JobRow {
   updated_at: string | null;
   first_seen_at: string;
   last_seen_at: string;
+  is_stale: number;
   url: string;
 }
 
@@ -98,6 +99,7 @@ function rowToJob(r: JobRow): Job {
     ...(r.updated_at !== null ? { updated_at: r.updated_at } : {}),
     first_seen_at: r.first_seen_at,
     last_seen_at: r.last_seen_at,
+    is_stale: r.is_stale !== 0,
     url: r.url,
   });
 }
@@ -154,6 +156,22 @@ export function selectTenantJobs(db: Database, ats: string, slug: string, limit 
     `SELECT ${FEED_COLUMNS} FROM jobs WHERE ats = ? AND tenant_slug = ? ` +
     `ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC LIMIT ?`;
   const rows = db.query(sql).all(ats, slug, limit) as JobRow[];
+  return rows.map(rowToJob);
+}
+
+/**
+ * Stream every job in the database for use by Astro `getStaticPaths()` —
+ * one row per job becomes one /role/{short_id}/ static page. The query
+ * deliberately omits the LIMIT clause so the bootstrap-final corpus
+ * (~30-50k rows) is fully covered. The caller is responsible for
+ * deduplicating by `id.slice(0, 16)` if collision-defensive behaviour is
+ * needed (collisions in 64 bits across ~10^5 rows are vanishingly rare).
+ */
+export function selectAllJobsForStatic(db: Database): Job[] {
+  const sql =
+    `SELECT ${FEED_COLUMNS} FROM jobs ` +
+    `ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC, id ASC`;
+  const rows = db.query(sql).all() as JobRow[];
   return rows.map(rowToJob);
 }
 

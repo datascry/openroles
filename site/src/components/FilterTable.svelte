@@ -317,11 +317,6 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     totalCount = countRows[0]?.c ?? 0;
     queryError = null;
     if (import.meta.env.DEV && typeof console !== "undefined" && console.debug) {
-      console.debug("filter-table:query", {
-        rows: resultRows.length,
-        total: totalCount,
-        sql: plan.sql,
-      });
     }
   } catch (err) {
     if (token !== queryToken) return;
@@ -878,6 +873,12 @@ function ariaSort(
               >
                 {isSaved(row.id) ? "★ Saved" : "☆ Save"}
               </button>
+              <a
+                href={`${basePath}/role/${row.id.slice(0, 16)}/`}
+                class="job-action view"
+              >
+                View
+              </a>
               <a
                 href={row.url}
                 class="job-action apply"

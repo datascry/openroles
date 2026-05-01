@@ -17,7 +17,8 @@
       "!**/data/*.parquet",
       "!**/data/*.gz",
       "!**/*.lockb",
-      "!**/tests/fixtures/**/*"
+      "!**/tests/fixtures/**/*",
+      "!design-wireframes/**"
     ]
   },
   "formatter": {

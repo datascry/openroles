@@ -8,6 +8,7 @@
 import "../styles/tokens.css";
 import "../styles/global.css";
 import Masthead, { type NavCurrent } from "../components/Masthead.astro";
+import { jsonLdSafe } from "../lib/json-ld.ts";
 
 interface Props {
   title: string;
@@ -88,7 +89,7 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
          (WebSite) and surfaces the search action so SERPs can render the
          sitelinks search box. The aggregator is not a JobPosting itself;
          per-tenant pages can later add JobPosting structured data per role. -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    <script type="application/ld+json" is:inline set:html={jsonLdSafe({
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: "openroles",

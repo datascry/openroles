@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { dataDirIsPopulated, openSiteDb } from "../lib/db.ts";
+
+// GitHub Pages serves /404.html for any path that doesn't match a deployed
+// file. Astro emits this template as 404.html at the site root, so the
+// brutalist chrome and theme tokens stay consistent with the rest of the
+// site instead of falling back to GitHub's generic 404 splash.
+
+let totalRoles = 0;
+let builtAtIso = new Date().toISOString();
+if (dataDirIsPopulated()) {
+  const site = openSiteDb();
+  try {
+    totalRoles = site.manifest.total_rows;
+    builtAtIso = site.manifest.built_at;
+  } finally {
+    site.close();
+  }
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="Page not found · openroles"
+  description="The page you tried to reach isn't on openroles. Browse open roles instead."
+  current="browse"
+  totalRoles={totalRoles}
+  builtAtIso={builtAtIso}
+>
+  <section class="not-found">
+    <p class="status">404</p>
+    <h1>This page isn't here.</h1>
+    <p>
+      The URL you followed doesn't match anything in this build. A role may have
+      been filled, withdrawn, or aged out of the data refresh window — roles
+      drop off ~3 days after their source ATS stops listing them.
+    </p>
+    <ul class="links">
+      <li><a href={`${base}/`}>← Browse all open roles</a></li>
+      <li><a href={`${base}/feed.xml`}>Subscribe to the all-jobs RSS feed</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 60ch;
+    margin-block-end: var(--space-5);
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-3);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  h1 {
+    font-size: var(--font-size-3);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .links {
+    display: grid;
+    gap: var(--space-1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>
