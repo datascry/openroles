@@ -252,4 +252,45 @@ describe("probeMany", () => {
     expect(peak).toBeLessThanOrEqual(2);
     expect(tenants.every((t) => t.status === "live")).toBe(true);
   });
+
+  it("caps shared-host ATS concurrency below the requested value (workable=1)", async () => {
+    // PROBE_HOST_CONCURRENCY caps workable at 1 to avoid the CDN
+    // rate-limit / IP-ban scenario. Even when the caller asks for 6,
+    // the actual peak in-flight must stay at 1 against `apply.workable.com`.
+    let inFlight = 0;
+    let peak = 0;
+    const fetchFn = mock(async () => {
+      inFlight += 1;
+      peak = Math.max(peak, inFlight);
+      await new Promise((r) => setTimeout(r, 5));
+      inFlight -= 1;
+      return new Response("[]", { status: 200 });
+    });
+    await probeMany("workable", ["a", "b", "c", "d", "e", "f"], {
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+      concurrency: 6,
+    });
+    expect(peak).toBe(1);
+  });
+
+  it("does not cap per-subdomain ATSes (bamboohr uses caller's concurrency)", async () => {
+    // Per-subdomain ATSes hit a different host per probe, so the host
+    // cap doesn't apply. With concurrency=4 the peak should reach 4.
+    let inFlight = 0;
+    let peak = 0;
+    const fetchFn = mock(async () => {
+      inFlight += 1;
+      peak = Math.max(peak, inFlight);
+      await new Promise((r) => setTimeout(r, 10));
+      inFlight -= 1;
+      return new Response("ok", { status: 200 });
+    });
+    await probeMany("bamboohr", ["a", "b", "c", "d", "e", "f"], {
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+      concurrency: 4,
+    });
+    expect(peak).toBe(4);
+  });
 });

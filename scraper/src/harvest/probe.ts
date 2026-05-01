@@ -148,6 +148,47 @@ export interface ProbeOptions {
 const DEFAULT_PROBE_CONCURRENCY = 6;
 const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 
+// Per-ATS hard cap on probe concurrency. Shared-host ATSes (workable's
+// `apply.workable.com`, jobvite's `jobs.jobvite.com`, smartrecruiters'
+// `api.smartrecruiters.com`, ultipro's `recruiting.ultipro.com`,
+// greenhouse's `boards-api.greenhouse.io`, lever's `api.lever.co`,
+// ashby's `api.ashbyhq.com`) put every tenant probe behind one host
+// — running 6 concurrent probes is a CDN-rate-limit invitation that
+// triggered Cloudflare to IP-ban us mid-bootstrap (workable returned
+// 429 to every subsequent request for hours).
+//
+// Per-subdomain ATSes (bamboohr, breezy, icims, etc.) hit a unique
+// host per probe, so they're not capped here — each can run at the
+// caller-supplied concurrency.
+//
+// Workday is per-tenant-host but uses the same operator's CDN
+// (workday.com) for all of them, so caps similarly to shared-host
+// ATSes despite the host varying per-tenant.
+const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
+  workable: 1,
+  jobvite: 2,
+  smartrecruiters: 2,
+  ultipro: 2,
+  greenhouse: 3,
+  lever: 3,
+  ashby: 3,
+  workday: 4,
+};
+
+// Inter-probe delay (ms) injected before every probe of a shared-host
+// ATS. Smooths bursts so a freshly-warmed pLimit doesn't fire 3-4
+// simultaneous requests at the same host. Combines with the hard
+// concurrency cap above.
+const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
+  workable: 800,
+  jobvite: 200,
+  smartrecruiters: 200,
+  ultipro: 200,
+  greenhouse: 100,
+  lever: 100,
+  ashby: 100,
+};
+
 // Hard ceiling on how long a single probe may take before we declare it
 // `transient_failure` and let probeMany advance. HttpClient already has
 // a 30s AbortSignal.timeout, but Bun's fetch has documented edge cases
@@ -259,12 +300,31 @@ export function probeMany(
   slugs: ReadonlyArray<string>,
   opts: ProbeOptions,
 ): Promise<Tenant[]> {
-  const limit = pLimit(opts.concurrency ?? DEFAULT_PROBE_CONCURRENCY);
+  // Effective concurrency = min(caller's request, ATS host cap).
+  // Shared-host ATSes (workable, jobvite, etc.) cap aggressively to
+  // avoid the CDN rate-limit / IP-ban scenario observed mid-bootstrap.
+  const requestedConcurrency = opts.concurrency ?? DEFAULT_PROBE_CONCURRENCY;
+  const hostCap = PROBE_HOST_CONCURRENCY[ats] ?? Number.POSITIVE_INFINITY;
+  const effectiveConcurrency = Math.min(requestedConcurrency, hostCap);
+  const limit = pLimit(effectiveConcurrency);
+  // Optional per-ATS pre-probe delay — smooths bursts so a freshly
+  // warmed pLimit doesn't fire concurrently against the same shared
+  // host. No delay for per-subdomain ATSes (each probe is a different
+  // host, so bursts don't pile on a single endpoint).
+  const delayMs = PROBE_HOST_DELAY_MS[ats] ?? 0;
+  const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
   return Promise.all(
     slugs.map((slug) =>
-      limit(() =>
-        probeOne(ats, slug, opts.client, opts.observedAt, opts.metadataBySlug?.get(slug)),
-      ),
+      limit(async () => {
+        if (delayMs > 0) await sleep(delayMs);
+        return await probeOne(
+          ats,
+          slug,
+          opts.client,
+          opts.observedAt,
+          opts.metadataBySlug?.get(slug),
+        );
+      }),
     ),
   );
 }

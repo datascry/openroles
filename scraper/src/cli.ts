@@ -108,6 +108,8 @@ reprobe:
   --ats <id>              ATS whose tenants to reprobe
   --max-age-days <n>      Reprobe tenants whose last_probed_at is older than this many days (default: 7)
   --batch-size <n>        Cap per-run reprobe count (default: 5000, max: 100000)
+  --concurrency <n>       Override concurrent probes (1-32). Per-ATS host caps in probe.ts still apply
+                          (workable=1, jobvite/smartrecruiters/ultipro=2, etc.) to avoid CDN rate-limits
   --output-dir <dir>      Where the existing tenants/{ats}.json lives (default: ./data)
   --user-agent <ua>       Override the full User-Agent string
   --contact-url <url>     Contact URL interpolated into the default User-Agent
@@ -136,6 +138,7 @@ interface ParsedArgs {
   readonly incremental: boolean;
   readonly maxAgeDays: string | undefined;
   readonly batchSize: string | undefined;
+  readonly concurrency: string | undefined;
   readonly skipProbe: boolean;
   readonly userAgent: string | undefined;
   readonly contactUrl: string | undefined;
@@ -162,6 +165,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
   let incremental = false;
   let maxAgeDays: string | undefined;
   let batchSize: string | undefined;
+  let concurrency: string | undefined;
   let skipProbe = false;
   let userAgent: string | undefined;
   let contactUrl: string | undefined;
@@ -198,6 +202,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     else if (a === "--state-file") stateFile = argv[++i];
     else if (a === "--max-age-days") maxAgeDays = argv[++i];
     else if (a === "--batch-size") batchSize = argv[++i];
+    else if (a === "--concurrency") concurrency = argv[++i];
     else if (a === "--user-agent") userAgent = argv[++i];
     else if (a === "--contact-url") contactUrl = argv[++i];
     else if (a === "--previous-manifest") previousManifest = argv[++i];
@@ -221,6 +226,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     incremental,
     maxAgeDays,
     batchSize,
+    concurrency,
     skipProbe,
     userAgent,
     contactUrl,
@@ -672,10 +678,28 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
       metadataBySlug.set(t.slug, t.metadata);
     }
   }
+  // Concurrency: --concurrency CLI flag overrides; otherwise probeMany
+  // uses its default (6) clamped by per-ATS host caps in probe.ts.
+  // Operators can dial this down for shared-host ATSes that get
+  // CDN-blocked under default load.
+  let concurrencyOverride: number | undefined;
+  if (args.concurrency !== undefined) {
+    const n = Number.parseInt(args.concurrency, 10);
+    if (!Number.isFinite(n) || n < 1 || n > 32) {
+      console.error(`reprobe: --concurrency must be in [1, 32], got ${args.concurrency}`);
+      return 2;
+    }
+    concurrencyOverride = n;
+  }
   const probedTenants = await probeMany(
     ats,
     stale.map((t) => t.slug),
-    { client, observedAt, metadataBySlug },
+    {
+      client,
+      observedAt,
+      metadataBySlug,
+      ...(concurrencyOverride !== undefined ? { concurrency: concurrencyOverride } : {}),
+    },
   );
   const probedBySlug = new Map<string, Tenant>(probedTenants.map((p) => [p.slug, p]));
   const updated = new Map<string, Tenant>();
