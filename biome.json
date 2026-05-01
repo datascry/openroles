@@ -18,7 +18,7 @@
       "!**/data/*.gz",
       "!**/*.lockb",
       "!**/tests/fixtures/**/*",
-      "!design-wireframes/**"
+      "!design-wireframes"
     ]
   },
   "formatter": {
@@ -35,9 +35,10 @@
       "complexity": {
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
-          "options": { "maxAllowedComplexity": 15 }
+          "options": { "maxAllowedComplexity": 20 }
         },
-        "noUselessTypeConstraint": "error"
+        "noUselessTypeConstraint": "error",
+        "useLiteralKeys": "off"
       },
       "correctness": {
         "noUnusedImports": "error",
@@ -118,7 +119,36 @@
           },
           "complexity": {
             "useLiteralKeys": "off"
+          },
+          "style": {
+            "useNamingConvention": "off"
           }
+        }
+      }
+    },
+    {
+      "includes": ["**/scripts/**"],
+      "linter": {
+        "rules": {
+          "suspicious": { "noConsole": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["**/scraper/src/ats/**", "**/site/src/lib/manifest-runtime.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/shared/src/**/index.ts", "**/shared/src/index.ts"],
+      "linter": {
+        "rules": {
+          "performance": { "noBarrelFile": "off" }
         }
       }
     },
