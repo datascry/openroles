@@ -51,6 +51,9 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
   // — fall back to the legacy `full` mode for those. New deploys
   // always populate chunk metadata so this is the live path.
   const useChunked = manifest.db_chunk_count > 0 && manifest.db_chunk_size_bytes > 0;
+  // requestChunkSize must match SQLite's page_size (1024 bytes per
+  // schema.ts PAGE_SIZE_PRAGMA). Mismatched cache granularity makes
+  // sql.js's b-tree reads fetch partial pages and parse garbage.
   const config = useChunked
     ? {
         serverMode: "chunked" as const,
@@ -58,12 +61,12 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
         serverChunkSize: manifest.db_chunk_size_bytes,
         databaseLengthBytes: manifest.db_filesize_bytes,
         suffixLength: manifest.db_suffix_length,
-        requestChunkSize: 4096,
+        requestChunkSize: 1024,
       }
     : {
         serverMode: "full" as const,
         url: dbUrl,
-        requestChunkSize: 4096,
+        requestChunkSize: 1024,
       };
   const worker = await createDbWorker(
     [
