@@ -399,8 +399,20 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
 
 /**
  * Split a SQLite file into fixed-size chunks for sql.js-httpvfs's
- * `serverMode: "chunked"`. Output filenames are `<dbPath>.<NNN>` where
- * the suffix is zero-padded to `cfg.suffixLength` digits.
+ * `serverMode: "chunked"`. Output filenames are `<dbPath>.<NNN>.png`
+ * where the suffix is zero-padded to `cfg.suffixLength` digits.
+ *
+ * The `.png` extension is load-bearing: GitHub Pages / Fastly gzips
+ * `application/octet-stream`, and a Range response with
+ * `Content-Encoding: gzip` returns COMPRESSED bytes (the content-range
+ * is over the compressed stream). sql.js-httpvfs expects raw SQLite
+ * bytes and ends up reading garbage on every query. `image/png` is
+ * excluded from Fastly's compressible content-types, so chunks named
+ * `*.png` come back uncompressed and Range requests are honest.
+ *
+ * The bytes are obviously not actually a PNG; XHR with
+ * responseType="arraybuffer" doesn't validate file format, and the
+ * client never asks the browser to render the chunk as an image.
  */
 async function splitDbIntoChunks(
   dbPath: string,
@@ -414,7 +426,7 @@ async function splitDbIntoChunks(
       const offset = i * cfg.chunkSize;
       const { bytesRead } = await fh.read(buf, 0, cfg.chunkSize, offset);
       const padded = String(i).padStart(cfg.suffixLength, "0");
-      const chunkPath = `${dbPath}.${padded}`;
+      const chunkPath = `${dbPath}.${padded}.png`;
       await fs.writeFile(chunkPath, buf.subarray(0, bytesRead));
     }
   } finally {
