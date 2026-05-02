@@ -1,0 +1,140 @@
+name: Scrape
+
+# Scrape-only workflow: runs the per-ATS matrix and uploads each leg's
+# JSON output as an artifact. Does NOT build SQLite or deploy — that's
+# `build-deploy.yml`, which auto-chains via `workflow_run` after this
+# workflow completes successfully.
+#
+# This split exists for iteration speed: most code changes (site, db
+# schema, build-db logic) don't require fresh scrape data; rebuilding
+# from the last successful scrape's artifacts takes ~10 min instead of
+# the full ~60-90 min pipeline.
+
+on:
+  schedule:
+    # 05:17 UTC daily — off-the-hour to avoid GitHub Actions schedule herding.
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  BUN_VERSION: "1.3.13"
+  CONTACT_URL: "https://github.com/datascry/openroles"
+  USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
+
+jobs:
+  scrape:
+    name: Scrape ${{ matrix.ats }}
+    runs-on: ubuntu-24.04
+    # 60 min: post-bootstrap corpus pushed icims (14,810 tenants) past
+    # the previous 45-min cap. Other large per-subdomain ATSes
+    # (bamboohr 15,840; workable 14,392) finished in ~30-40 min and
+    # are at risk too. 60 keeps headroom; longer-term icims should
+    # shard by tenant prefix.
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        ats:
+          - greenhouse
+          - lever
+          - ashby
+          - bamboohr
+          - workday
+          - icims
+          - recruitee
+          - breezy
+          - personio
+          - workable
+          - teamtailor
+          - smartrecruiters
+          - csod
+          - taleo
+          - ultipro
+          - jobvite
+          - zohorecruit
+          - talentlyft
+          - pinpointhq
+          - applicantpro
+          - applicantstack
+          - homerun
+          - factorial
+          - eightfold
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - run: bun install --frozen-lockfile
+
+      - name: Build scrape input for ${{ matrix.ats }}
+        id: input
+        run: |
+          # First-run safety: if weekly-harvest hasn't populated this ATS's
+          # tenant list yet, skip the scrape with a notice instead of failing.
+          # The downstream build job tolerates a missing scrape output and
+          # builds an empty section for that ATS.
+          tenants_file="data/tenants/${{ matrix.ats }}.json"
+          if [ ! -s "$tenants_file" ]; then
+            echo "::notice::${tenants_file} missing or empty — run weekly-harvest.yml to seed it"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          live="$(jq '[.[] | select(.status == "live")] | length' "$tenants_file")"
+          if [ "$live" -eq 0 ]; then
+            echo "::notice::${{ matrix.ats }}: 0 live tenants in ${tenants_file} — skipping scrape"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mkdir -p data/scrape-inputs data/scrape-outputs
+          jq --arg ats "${{ matrix.ats }}" --arg ua "$USER_AGENT" --arg contact "$CONTACT_URL" '
+            {
+              ats: $ats,
+              userAgent: $ua,
+              contactUrl: $contact,
+              concurrency: 8,
+              retry: { maxAttempts: 3, baseMs: 500, maxMs: 30000 },
+              tenants: [
+                .[]
+                | select(.status == "live")
+                | (
+                    if (.metadata // null) == null
+                    then { slug: .slug }
+                    else { slug: .slug, metadata: .metadata }
+                    end
+                  )
+              ]
+            }
+          ' "$tenants_file" > "data/scrape-inputs/${{ matrix.ats }}.json"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "scrape ${{ matrix.ats }}: ${live} live tenants"
+
+      - name: Scrape ${{ matrix.ats }}
+        if: steps.input.outputs.skip != 'true'
+        run: |
+          # A single ATS's failure must not poison the rest of the matrix
+          # (fail-fast is already false). We log a warning and exit 0 so the
+          # job still uploads an artifact placeholder if there is one, and
+          # the build job ignores the missing output.
+          input="${GITHUB_WORKSPACE}/data/scrape-inputs/${{ matrix.ats }}.json"
+          output="${GITHUB_WORKSPACE}/data/scrape-outputs/${{ matrix.ats }}.json"
+          if ! bun run scrape --input "$input" --output "$output"; then
+            echo "::warning::scrape ${{ matrix.ats }} failed; downstream build will skip this ATS"
+            rm -f "$output"
+          fi
+
+      - name: Upload scrape output for ${{ matrix.ats }}
+        if: steps.input.outputs.skip != 'true' && hashFiles(format('data/scrape-outputs/{0}.json', matrix.ats)) != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: scrape-${{ matrix.ats }}
+          path: data/scrape-outputs/${{ matrix.ats }}.json
+          retention-days: 7

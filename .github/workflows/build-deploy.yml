@@ -1,17 +1,37 @@
-name: Daily refresh
+name: Build + deploy
+
+# Build SQLite + static site + deploy to GitHub Pages, using the LATEST
+# successful Scrape workflow's artifacts. Decoupled from Scrape so that
+# code-only iterations (site templates, build-db, schema) don't require
+# a 60-min re-scrape — just dispatch this and the last fresh scrape data
+# is reused.
+#
+# Triggers:
+#   1. workflow_run on Scrape success → auto-chain after the daily scrape
+#   2. workflow_dispatch → operator-driven rebuild (e.g. after a site code push)
+#
+# Notably NOT push: main — code reviews / experimentation shouldn't
+# auto-deploy. Operators dispatch explicitly when they want a deploy.
 
 on:
-  schedule:
-    # 05:17 UTC daily — off-the-hour to avoid GitHub Actions schedule herding.
-    - cron: "17 5 * * *"
+  workflow_run:
+    workflows: ["Scrape"]
+    types: [completed]
   workflow_dispatch:
     inputs:
+      scrape-run-id:
+        description: "Scrape workflow run ID to pull artifacts from (default: latest successful)"
+        type: string
+        required: false
       deploy:
         description: "Deploy to GitHub Pages after build (default: true)"
         type: boolean
         default: true
 
 concurrency:
+  # Serialize across triggers so a manual dispatch and the auto-chain don't
+  # race the Pages deploy. Group is workflow-wide (no `${{ github.ref }}`)
+  # because there is only one Pages site.
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
@@ -19,135 +39,23 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read   # needed to read the upstream Scrape run's artifacts
 
 env:
   BUN_VERSION: "1.3.13"
-  CONTACT_URL: "https://github.com/datascry/openroles"
-  USER_AGENT: "openroles/1.0.0 (+https://github.com/datascry/openroles)"
 
 jobs:
-  # One matrix job per ATS so scrape time is `max(per_ats)` rather than
-  # `sum(per_ats)`. Sequential execution previously hit the 60-minute
-  # runner timeout once tenant counts grew past ~15k across all ATSes.
-  scrape:
-    name: Scrape ${{ matrix.ats }}
-    runs-on: ubuntu-24.04
-    # 60 min: post-bootstrap corpus pushed icims (14,810 tenants) past
-    # the previous 45-min cap. Other large per-subdomain ATSes
-    # (bamboohr 15,840; workable 14,392) finished in ~30-40 min and
-    # are at risk too. 60 keeps headroom; longer-term icims should
-    # shard by tenant prefix.
-    timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        ats:
-          - greenhouse
-          - lever
-          - ashby
-          - bamboohr
-          - workday
-          - icims
-          - recruitee
-          - breezy
-          - personio
-          - workable
-          - teamtailor
-          - smartrecruiters
-          - csod
-          - taleo
-          - ultipro
-          - jobvite
-          - zohorecruit
-          - talentlyft
-          - pinpointhq
-          - applicantpro
-          - applicantstack
-          - homerun
-          - factorial
-          - eightfold
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: ${{ env.BUN_VERSION }}
-
-      - run: bun install --frozen-lockfile
-
-      - name: Build scrape input for ${{ matrix.ats }}
-        id: input
-        run: |
-          # First-run safety: if weekly-harvest hasn't populated this ATS's
-          # tenant list yet, skip the scrape with a notice instead of failing.
-          # The downstream build job tolerates a missing scrape output and
-          # builds an empty section for that ATS.
-          tenants_file="data/tenants/${{ matrix.ats }}.json"
-          if [ ! -s "$tenants_file" ]; then
-            echo "::notice::${tenants_file} missing or empty — run weekly-harvest.yml to seed it"
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          live="$(jq '[.[] | select(.status == "live")] | length' "$tenants_file")"
-          if [ "$live" -eq 0 ]; then
-            echo "::notice::${{ matrix.ats }}: 0 live tenants in ${tenants_file} — skipping scrape"
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          mkdir -p data/scrape-inputs data/scrape-outputs
-          jq --arg ats "${{ matrix.ats }}" --arg ua "$USER_AGENT" --arg contact "$CONTACT_URL" '
-            {
-              ats: $ats,
-              userAgent: $ua,
-              contactUrl: $contact,
-              concurrency: 8,
-              retry: { maxAttempts: 3, baseMs: 500, maxMs: 30000 },
-              tenants: [
-                .[]
-                | select(.status == "live")
-                | (
-                    if (.metadata // null) == null
-                    then { slug: .slug }
-                    else { slug: .slug, metadata: .metadata }
-                    end
-                  )
-              ]
-            }
-          ' "$tenants_file" > "data/scrape-inputs/${{ matrix.ats }}.json"
-          echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "scrape ${{ matrix.ats }}: ${live} live tenants"
-
-      - name: Scrape ${{ matrix.ats }}
-        if: steps.input.outputs.skip != 'true'
-        run: |
-          # A single ATS's failure must not poison the rest of the matrix
-          # (fail-fast is already false). We log a warning and exit 0 so the
-          # job still uploads an artifact placeholder if there is one, and
-          # the build job ignores the missing output.
-          input="${GITHUB_WORKSPACE}/data/scrape-inputs/${{ matrix.ats }}.json"
-          output="${GITHUB_WORKSPACE}/data/scrape-outputs/${{ matrix.ats }}.json"
-          if ! bun run scrape --input "$input" --output "$output"; then
-            echo "::warning::scrape ${{ matrix.ats }} failed; downstream build will skip this ATS"
-            rm -f "$output"
-          fi
-
-      - name: Upload scrape output for ${{ matrix.ats }}
-        if: steps.input.outputs.skip != 'true' && hashFiles(format('data/scrape-outputs/{0}.json', matrix.ats)) != ''
-        uses: actions/upload-artifact@v7
-        with:
-          name: scrape-${{ matrix.ats }}
-          path: data/scrape-outputs/${{ matrix.ats }}.json
-          retention-days: 7
-
   build:
     name: Build SQLite + site
-    needs: scrape
-    if: always()
     runs-on: ubuntu-24.04
-    # 60 min: covers ~30-40k tenant pages (post-job_count>0 filter
-    # in selectTenants) at ~13ms each plus build-db, drift, etc.
-    # The role-detail page is client-rendered as of v3 so per-job
-    # pages no longer factor in.
+    # Skip when the upstream Scrape run failed or was cancelled.
+    # workflow_dispatch fires even when scrape failed, so the operator
+    # can force a rebuild from the last good scrape.
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch' ||
+        github.event.workflow_run.conclusion == 'success'
+      }}
     timeout-minutes: 60
     outputs:
       short_sha: ${{ steps.identity.outputs.short_sha }}
@@ -167,12 +75,41 @@ jobs:
           echo "short_sha=${short_sha}" >> "$GITHUB_OUTPUT"
           echo "BUILD_SHORT_SHA=${short_sha}" >> "$GITHUB_ENV"
 
+      # Resolve which Scrape run to pull artifacts from:
+      #   - workflow_run trigger: github.event.workflow_run.id (the run that just finished)
+      #   - workflow_dispatch with scrape-run-id input: that exact run
+      #   - workflow_dispatch without input: latest successful Scrape run
+      - name: Resolve scrape run id
+        id: scrape-run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            run_id="${{ github.event.workflow_run.id }}"
+          elif [ -n "${{ inputs.scrape-run-id }}" ]; then
+            run_id="${{ inputs.scrape-run-id }}"
+          else
+            run_id="$(gh api 'repos/${{ github.repository }}/actions/workflows/scrape.yml/runs?status=success&per_page=1' --jq '.workflow_runs[0].id')"
+            if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+              echo "::error::no successful Scrape run found; dispatch Scrape first"
+              exit 1
+            fi
+          fi
+          echo "run_id=${run_id}" >> "$GITHUB_OUTPUT"
+          echo "using scrape run id: ${run_id}"
+
       - name: Download every scrape-* artifact
         uses: actions/download-artifact@v7
         with:
           path: data/scrape-outputs
           pattern: scrape-*
           merge-multiple: true
+          # Cross-workflow access requires both the repo coordinates and
+          # an actions:read token; default GITHUB_TOKEN has it via the
+          # job's `permissions` block above.
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.scrape-run.outputs.run_id }}
+          github-token: ${{ github.token }}
 
       - name: Summarize scrape outputs
         run: |
@@ -270,7 +207,7 @@ jobs:
           retention-days: 30
 
       - name: Upload Pages artifact
-        if: ${{ github.event_name == 'schedule' || inputs.deploy }}
+        if: ${{ github.event_name == 'workflow_run' || inputs.deploy }}
         uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
@@ -278,7 +215,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-    if: ${{ github.event_name == 'schedule' || inputs.deploy }}
+    if: ${{ github.event_name == 'workflow_run' || inputs.deploy }}
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
