@@ -241,7 +241,13 @@ export interface ScrapeTenantOutcome {
   readonly result: TenantResult;
 }
 
-const DEFAULT_PER_TENANT_CONCURRENCY = 4;
+// Per-tenant fan-out for the per-job HTML fetches kicked off after the
+// sitemap parse. Bumped from 4 -> 8 to halve icims wallclock: 14k tenants
+// × ~10-50 jobs each = ~250k HTTP requests total, dominated by per-host
+// TLS+DNS for jobs hosted on `${slug}.icims.com`. Each fetch is to the
+// same subdomain so connection reuse helps; 8 concurrent doesn't pressure
+// any single host.
+const DEFAULT_PER_TENANT_CONCURRENCY = 8;
 const DEFAULT_MAX_JOB_PAGES = 1000;
 
 export async function scrapeIcimsTenant(opts: ScrapeIcimsOptions): Promise<ScrapeTenantOutcome> {

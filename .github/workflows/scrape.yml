@@ -88,23 +88,60 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          live="$(jq '[.[] | select(.status == "live")] | length' "$tenants_file")"
+
+          # Per-ATS scrape concurrency. The default was 8 across the board,
+          # which is conservative for per-subdomain ATSes (every probe is a
+          # different host, so high concurrency just runs more independent
+          # TLS handshakes — the only per-host load is on whatever shared
+          # CDN they happen to use, typically AWS ELB). Shared-host ATSes
+          # (workable's apply.workable.com, jobvite's jobs.jobvite.com,
+          # smartrecruiters' api.smartrecruiters.com, etc.) keep the lower
+          # cap because bursting hits CDN rate-limits — workable's
+          # cloudflare ip-banned us mid-bootstrap at default concurrency.
+          case "${{ matrix.ats }}" in
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby)
+              concurrency_value=4 ;;
+            *)
+              concurrency_value=24 ;;
+          esac
+
+          # Staleness filter: only scrape tenants whose last_probed_at is
+          # within the last 30 days. The reprobe pass marks NXDOMAIN /
+          # decommissioned tenants as `dead`, but pre-bootstrap rows with
+          # status=`live` from years ago may have rotted DNS. Each one
+          # costs ~1-3 sec of TLS handshake / connect timeout if the
+          # subdomain is gone. 30 days gives a generous probe-cadence
+          # buffer (reprobe runs weekly).
+          cutoff="$(date -u -d "30 days ago" +%s 2>/dev/null || python3 -c 'import time; print(int(time.time() - 30*86400))')"
+          live="$(jq --argjson cutoff "$cutoff" '
+            [.[] | select(
+              .status == "live" and
+              ((.last_probed_at // "1970-01-01T00:00:00Z") | fromdateiso8601 // 0) > $cutoff
+            )] | length
+          ' "$tenants_file")"
           if [ "$live" -eq 0 ]; then
-            echo "::notice::${{ matrix.ats }}: 0 live tenants in ${tenants_file} — skipping scrape"
+            echo "::notice::${{ matrix.ats }}: 0 live tenants probed in last 30d — skipping scrape"
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           mkdir -p data/scrape-inputs data/scrape-outputs
-          jq --arg ats "${{ matrix.ats }}" --arg ua "$USER_AGENT" --arg contact "$CONTACT_URL" '
+          jq --arg ats "${{ matrix.ats }}" \
+             --arg ua "$USER_AGENT" \
+             --arg contact "$CONTACT_URL" \
+             --argjson concurrency "$concurrency_value" \
+             --argjson cutoff "$cutoff" '
             {
               ats: $ats,
               userAgent: $ua,
               contactUrl: $contact,
-              concurrency: 8,
+              concurrency: $concurrency,
               retry: { maxAttempts: 3, baseMs: 500, maxMs: 30000 },
               tenants: [
                 .[]
-                | select(.status == "live")
+                | select(
+                    .status == "live" and
+                    ((.last_probed_at // "1970-01-01T00:00:00Z") | fromdateiso8601 // 0) > $cutoff
+                  )
                 | (
                     if (.metadata // null) == null
                     then { slug: .slug }
@@ -115,7 +152,7 @@ jobs:
             }
           ' "$tenants_file" > "data/scrape-inputs/${{ matrix.ats }}.json"
           echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "scrape ${{ matrix.ats }}: ${live} live tenants"
+          echo "scrape ${{ matrix.ats }}: ${live} live tenants (concurrency=${concurrency_value})"
 
       - name: Scrape ${{ matrix.ats }}
         if: steps.input.outputs.skip != 'true'
