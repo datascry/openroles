@@ -1,0 +1,43 @@
+---
+import RoleDetail from "../../components/RoleDetail.svelte";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { openSiteDb } from "../../lib/db.ts";
+
+// Client-rendered role detail page. The static prerender (one HTML
+// per job) hit a wall at the post-bootstrap 119k-tenant scale —
+// 400k+ pages would have busted both the 30-min CI build cap and the
+// 1 GB GitHub Pages soft cap. This shell page hydrates RoleDetail
+// against the SQLite via sql.js-httpvfs, the same data path
+// FilterTable already uses for the index. See specs/role-detail.md.
+//
+// Trade-off: per-role URLs are no longer pre-rendered and therefore
+// not crawlable. The index (`/`) and per-tenant pages
+// (`/tenant/<ats>/<slug>/`) remain static and indexable.
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Read the manifest at build time so the BaseLayout footer reflects
+// real corpus stats (matches the other static pages).
+let totalRoles = 0;
+let builtAtIso = new Date().toISOString();
+try {
+  const site = openSiteDb();
+  totalRoles = site.manifest.total_rows;
+  builtAtIso = site.manifest.built_at;
+  site.close();
+  /* c8 ignore next 3 — manifest read is best-effort at build time. */
+} catch {
+  // empty data dir during fresh dev or CI pre-fixture; chrome still works.
+}
+---
+
+<BaseLayout
+  title="Role · openroles"
+  description="Open role detail — read-only filtered view of the posting on the company's ATS."
+  current="browse"
+  totalRoles={totalRoles}
+  builtAtIso={builtAtIso}
+  noindex
+>
+  <RoleDetail client:only="svelte" basePath={base} />
+</BaseLayout>

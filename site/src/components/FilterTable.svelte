@@ -874,7 +874,7 @@ function ariaSort(
                 {isSaved(row.id) ? "★ Saved" : "☆ Save"}
               </button>
               <a
-                href={`${basePath}/role/${row.id.slice(0, 16)}/`}
+                href={`${basePath}/role/?id=${row.id.slice(0, 16)}`}
                 class="job-action view"
               >
                 View

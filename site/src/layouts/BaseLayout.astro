@@ -18,6 +18,12 @@ interface Props {
   builtAtIso: string;
   /** Override the default canonical path (defaults to the current pathname). */
   canonicalPath?: string;
+  /**
+   * Set robots/googlebot to noindex,follow. Used on pages whose content is
+   * client-rendered (per-role detail at /role/?id=...) and therefore not
+   * useful to crawlers. Default is index,follow.
+   */
+  noindex?: boolean;
 }
 
 const {
@@ -27,6 +33,7 @@ const {
   totalRoles,
   builtAtIso,
   canonicalPath,
+  noindex = false,
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -60,8 +67,17 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    <meta name="googlebot" content="index, follow" />
+    {noindex ? (
+      <>
+        <meta name="robots" content="noindex, follow" />
+        <meta name="googlebot" content="noindex, follow" />
+      </>
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
+      </>
+    )}
     <meta name="generator" content="Astro" />
     <meta name="application-name" content="openroles" />
 

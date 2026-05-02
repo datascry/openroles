@@ -14,7 +14,6 @@ import {
 import {
   dataDirIsPopulated,
   openSiteDb,
-  selectAllJobsForStatic,
   selectFeedJobs,
   selectTenantJobs,
   selectTenants,
@@ -166,40 +165,6 @@ describe("selectTenants", () => {
     expect(stripe?.job_count).toBe(2);
     const lonely = rows.find((r) => r.slug === "lonely");
     expect(lonely?.job_count).toBe(0);
-  });
-});
-
-describe("selectAllJobsForStatic", () => {
-  it("returns every job in the database, no LIMIT", () => {
-    const jobs = Array.from({ length: 5 }, (_, i) =>
-      makeJob({ source_id: String(i), url: `https://example.com/${i}` }),
-    );
-    const db = fresh(jobs);
-    const out = selectAllJobsForStatic(db);
-    expect(out).toHaveLength(5);
-  });
-
-  it("returns rows ordered newest-first by posted_at then first_seen_at then id", () => {
-    const db = fresh([
-      makeJob({
-        source_id: "old",
-        url: "https://example.com/old",
-        first_seen_at: "2026-01-01T00:00:00Z",
-      }),
-      makeJob({
-        source_id: "new",
-        url: "https://example.com/new",
-        first_seen_at: "2026-04-26T00:00:00Z",
-      }),
-    ]);
-    const out = selectAllJobsForStatic(db);
-    expect(out[0]?.source_id).toBe("new");
-    expect(out[1]?.source_id).toBe("old");
-  });
-
-  it("returns an empty array when the jobs table is empty", () => {
-    const db = fresh([]);
-    expect(selectAllJobsForStatic(db)).toEqual([]);
   });
 });
 

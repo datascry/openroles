@@ -159,22 +159,6 @@ export function selectTenantJobs(db: Database, ats: string, slug: string, limit 
   return rows.map(rowToJob);
 }
 
-/**
- * Stream every job in the database for use by Astro `getStaticPaths()` —
- * one row per job becomes one /role/{short_id}/ static page. The query
- * deliberately omits the LIMIT clause so the bootstrap-final corpus
- * (~30-50k rows) is fully covered. The caller is responsible for
- * deduplicating by `id.slice(0, 16)` if collision-defensive behaviour is
- * needed (collisions in 64 bits across ~10^5 rows are vanishingly rare).
- */
-export function selectAllJobsForStatic(db: Database): Job[] {
-  const sql =
-    `SELECT ${FEED_COLUMNS} FROM jobs ` +
-    `ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC, id ASC`;
-  const rows = db.query(sql).all() as JobRow[];
-  return rows.map(rowToJob);
-}
-
 export function dataDirIsPopulated(dataDir: string = defaultDataDir()): boolean {
   if (!existsSync(dataDir)) return false;
   if (!existsSync(join(dataDir, "manifest.json"))) return false;
