@@ -138,14 +138,25 @@ export interface TenantPageRow {
 }
 
 export function selectTenants(db: Database): TenantPageRow[] {
+  // HAVING job_count > 0: skip tenants with no jobs in the current
+  // SQLite. The empty page would just say "this company has no
+  // open roles" — no SEO value, no user value, but each one costs
+  // ~13ms of Astro build time. Pre-bootstrap there were ~25k tenants
+  // and ~all had jobs; post-bootstrap there are 119k tenants but
+  // ~30-40k have actual jobs (the rest are historical / dead /
+  // recently-discovered-but-unscraped). Filtering here drops the
+  // tenant-page enumeration from 119k pages to ~30-40k, which is the
+  // difference between busting the 30-min build cap and finishing
+  // in <10 min.
   return db
     .query(
       `SELECT t.ats AS ats, t.slug AS slug, t.display_name AS display_name,
               t.homepage_url AS homepage_url, t.status AS status,
               COUNT(j.id) AS job_count
        FROM tenants t
-       LEFT JOIN jobs j ON j.ats = t.ats AND j.tenant_slug = t.slug
+       INNER JOIN jobs j ON j.ats = t.ats AND j.tenant_slug = t.slug
        GROUP BY t.ats, t.slug
+       HAVING job_count > 0
        ORDER BY t.ats ASC, t.slug ASC`,
     )
     .all() as TenantPageRow[];

@@ -32,7 +32,12 @@ jobs:
   scrape:
     name: Scrape ${{ matrix.ats }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    # 60 min: post-bootstrap corpus pushed icims (14,810 tenants) past
+    # the previous 45-min cap. Other large per-subdomain ATSes
+    # (bamboohr 15,840; workable 14,392) finished in ~30-40 min and
+    # are at risk too. 60 keeps headroom; longer-term icims should
+    # shard by tenant prefix.
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -139,7 +144,11 @@ jobs:
     needs: scrape
     if: always()
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # 60 min: covers ~30-40k tenant pages (post-job_count>0 filter
+    # in selectTenants) at ~13ms each plus build-db, drift, etc.
+    # The role-detail page is client-rendered as of v3 so per-job
+    # pages no longer factor in.
+    timeout-minutes: 60
     outputs:
       short_sha: ${{ steps.identity.outputs.short_sha }}
     steps:

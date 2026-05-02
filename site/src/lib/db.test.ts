@@ -141,7 +141,13 @@ describe("selectFeedJobs", () => {
 });
 
 describe("selectTenants", () => {
-  it("aggregates tenant + job_count", () => {
+  it("aggregates tenant + job_count, dropping tenants with no jobs", () => {
+    // The "lonely" tenant has zero jobs in the build's SQLite — its
+    // page would be empty (no SEO value, no user value), and at
+    // 119k+ post-bootstrap tenants the per-tenant Astro build time
+    // adds ~13ms each. selectTenants now filters out zero-job
+    // tenants via HAVING job_count > 0 so the static-site build
+    // stays under the CI cap. See specs/role-detail.md history.
     const db = fresh(
       [
         makeJob({ source_id: "1", url: "https://example.com/1", tenant_slug: "stripe" }),
@@ -160,11 +166,10 @@ describe("selectTenants", () => {
       ],
     );
     const rows = selectTenants(db);
-    expect(rows).toHaveLength(3);
+    expect(rows).toHaveLength(2);
     const stripe = rows.find((r) => r.slug === "stripe");
     expect(stripe?.job_count).toBe(2);
-    const lonely = rows.find((r) => r.slug === "lonely");
-    expect(lonely?.job_count).toBe(0);
+    expect(rows.find((r) => r.slug === "lonely")).toBeUndefined();
   });
 });
 
