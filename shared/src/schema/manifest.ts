@@ -36,6 +36,19 @@ export const ManifestSchema = z
     fresh_count: z.int().nonnegative().default(0),
     stale_count: z.int().nonnegative().default(0),
     stale_ttl_days: z.int().min(1).max(14).default(3),
+    // Phase 13: SQLite is split into fixed-size chunks at build time so
+    // sql.js-httpvfs can use serverMode: "chunked". GitHub Pages serves
+    // files via chunked HTTP transfer-encoding (no Content-Length), which
+    // sql.js-httpvfs's serverMode: "full" can't handle — it errors with
+    // "Length of the file not known". chunked mode bypasses that by
+    // baking the file size + chunk-layout into the manifest so the
+    // client knows everything up-front and only needs byte-range reads.
+    //
+    // Defaults (zero) preserve readability of pre-1.4.0 manifests.
+    db_filesize_bytes: z.int().nonnegative().default(0),
+    db_chunk_size_bytes: z.int().nonnegative().default(0),
+    db_chunk_count: z.int().nonnegative().default(0),
+    db_suffix_length: z.int().nonnegative().default(0),
   })
   .superRefine((m, ctx) => {
     if (m.tenants_live > m.tenants_total) {

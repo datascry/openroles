@@ -37,16 +37,39 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
   const base = opts.basePath.replace(/\/$/, "");
   const manifest = await fetchManifest(base, opts.fetchImpl);
   const { createDbWorker } = await import("sql.js-httpvfs");
-  const { dbUrl, workerUrl, wasmUrl } = buildRuntimeUrls(base, manifest);
+  const { dbUrl, dbUrlPrefix, workerUrl, wasmUrl } = buildRuntimeUrls(base, manifest);
+
+  // GitHub Pages serves with chunked HTTP transfer-encoding (no
+  // Content-Length), and sql.js-httpvfs's `serverMode: "full"` errors
+  // with "Length of the file not known" because the lib hardcodes
+  // fileLength=undefined for that mode. Chunked mode bakes the file
+  // size + layout into the manifest, so the client knows everything
+  // up front and only needs byte-range reads inside each chunk file.
+  // See specs/data-schema.md and ADR-0002.
+  //
+  // Manifests built before Phase 13 carry zeros for the chunk fields
+  // — fall back to the legacy `full` mode for those. New deploys
+  // always populate chunk metadata so this is the live path.
+  const useChunked = manifest.db_chunk_count > 0 && manifest.db_chunk_size_bytes > 0;
+  const config = useChunked
+    ? {
+        serverMode: "chunked" as const,
+        urlPrefix: dbUrlPrefix,
+        serverChunkSize: manifest.db_chunk_size_bytes,
+        databaseLengthBytes: manifest.db_filesize_bytes,
+        suffixLength: manifest.db_suffix_length,
+        requestChunkSize: 4096,
+      }
+    : {
+        serverMode: "full" as const,
+        url: dbUrl,
+        requestChunkSize: 4096,
+      };
   const worker = await createDbWorker(
     [
       {
         from: "inline",
-        config: {
-          serverMode: "full",
-          url: dbUrl,
-          requestChunkSize: 1024,
-        },
+        config,
       },
     ],
     workerUrl,

@@ -14,6 +14,14 @@ export interface ManifestRuntime {
   readonly total_rows: number;
   readonly tenants_total: number;
   readonly tenants_live: number;
+  // Phase 13: chunked-mode SQLite metadata. Zero on pre-1.4.0 manifests
+  // (the pre-chunked client bootstrap should fall back to single-file
+  // mode in that case, but in practice we deploy from one repo so the
+  // versions march together).
+  readonly db_filesize_bytes: number;
+  readonly db_chunk_size_bytes: number;
+  readonly db_chunk_count: number;
+  readonly db_suffix_length: number;
 }
 
 function asString(value: unknown, field: string): string {
@@ -59,6 +67,10 @@ export function parseManifest(body: unknown): ManifestRuntime {
     total_rows: asNonNegInt(m["total_rows"], "total_rows"),
     tenants_total: asNonNegInt(m["tenants_total"], "tenants_total"),
     tenants_live: asNonNegInt(m["tenants_live"], "tenants_live"),
+    db_filesize_bytes: asNonNegInt(m["db_filesize_bytes"] ?? 0, "db_filesize_bytes"),
+    db_chunk_size_bytes: asNonNegInt(m["db_chunk_size_bytes"] ?? 0, "db_chunk_size_bytes"),
+    db_chunk_count: asNonNegInt(m["db_chunk_count"] ?? 0, "db_chunk_count"),
+    db_suffix_length: asNonNegInt(m["db_suffix_length"] ?? 0, "db_suffix_length"),
   };
 }
 
@@ -80,16 +92,24 @@ export async function fetchManifest(
 
 export interface RuntimeUrls {
   readonly dbUrl: string;
+  /**
+   * URL prefix for chunked-mode reads. sql.js-httpvfs appends the
+   * zero-padded chunk index — `${dbUrlPrefix}00000`, `${dbUrlPrefix}00001`,
+   * etc. Empty when the manifest predates chunked mode (db_chunk_count=0).
+   */
+  readonly dbUrlPrefix: string;
   readonly workerUrl: string;
   readonly wasmUrl: string;
 }
 
 export function buildRuntimeUrls(basePath: string, manifest: ManifestRuntime): RuntimeUrls {
   const base = basePath.replace(/\/$/, "");
+  // Strip the .gz suffix — sql.js-httpvfs reads the uncompressed file via
+  // Range requests; the gzip artifact is for the GitHub Release attachment.
+  const dbName = manifest.db_filename.replace(/\.gz$/, "");
   return {
-    // Strip the .gz suffix — sql.js-httpvfs reads the uncompressed file via
-    // Range requests; the gzip artifact is for the GitHub Release attachment.
-    dbUrl: `${base}/data/${manifest.db_filename.replace(/\.gz$/, "")}`,
+    dbUrl: `${base}/data/${dbName}`,
+    dbUrlPrefix: `${base}/data/${dbName}.`,
     workerUrl: `${base}/sqlite-vfs/sqlite.worker.js`,
     wasmUrl: `${base}/sqlite-vfs/sql-wasm.wasm`,
   };

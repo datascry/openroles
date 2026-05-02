@@ -358,9 +358,32 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
       dbTmp,
     );
     db.close();
-    manifest = m;
-    await writeFile(manifestTmp, `${JSON.stringify(manifest, null, 2)}\n`);
     await rename(dbTmp, dbPath);
+
+    // Phase 13: split the .sqlite into 10 MB chunks so the runtime can
+    // use sql.js-httpvfs serverMode: "chunked". GitHub Pages serves
+    // files chunked-transfer (no Content-Length), and httpvfs's "full"
+    // mode then errors with "Length of the file not known" — the lib
+    // hardcodes fileLength=undefined for full mode. Chunked mode reads
+    // the file size + chunk layout from this manifest and only needs
+    // byte-range reads inside each chunk.
+    const dbFileSize = (await import("node:fs/promises").then((fs) => fs.stat(dbPath))).size;
+    const chunkSize = 10 * 1024 * 1024; // 10 MB — typical httpvfs sweet spot
+    const chunkCount = Math.ceil(dbFileSize / chunkSize);
+    const suffixLength = String(Math.max(0, chunkCount - 1)).length;
+    const sliceCfg = { chunkSize, chunkCount, suffixLength };
+    await splitDbIntoChunks(dbPath, sliceCfg);
+
+    // Augment the manifest with chunk metadata before writing.
+    const chunkedManifest = {
+      ...m,
+      db_filesize_bytes: dbFileSize,
+      db_chunk_size_bytes: chunkSize,
+      db_chunk_count: chunkCount,
+      db_suffix_length: suffixLength,
+    };
+    manifest = ManifestSchema.parse(chunkedManifest);
+    await writeFile(manifestTmp, `${JSON.stringify(manifest, null, 2)}\n`);
     await rename(manifestTmp, manifestPath);
     /* c8 ignore next 5 — cleanup path; only reached on rare fs/rename failure mid-write. */
   } catch (err) {
@@ -369,9 +392,34 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     throw err;
   }
   console.error(
-    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total})`,
+    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}, chunks=${manifest.db_chunk_count}×${manifest.db_chunk_size_bytes / 1024 / 1024}MB)`,
   );
   return 0;
+}
+
+/**
+ * Split a SQLite file into fixed-size chunks for sql.js-httpvfs's
+ * `serverMode: "chunked"`. Output filenames are `<dbPath>.<NNN>` where
+ * the suffix is zero-padded to `cfg.suffixLength` digits.
+ */
+async function splitDbIntoChunks(
+  dbPath: string,
+  cfg: { chunkSize: number; chunkCount: number; suffixLength: number },
+): Promise<void> {
+  const fs = await import("node:fs/promises");
+  const fh = await fs.open(dbPath, "r");
+  try {
+    const buf = new Uint8Array(cfg.chunkSize);
+    for (let i = 0; i < cfg.chunkCount; i++) {
+      const offset = i * cfg.chunkSize;
+      const { bytesRead } = await fh.read(buf, 0, cfg.chunkSize, offset);
+      const padded = String(i).padStart(cfg.suffixLength, "0");
+      const chunkPath = `${dbPath}.${padded}`;
+      await fs.writeFile(chunkPath, buf.subarray(0, bytesRead));
+    }
+  } finally {
+    await fh.close();
+  }
 }
 
 export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<number> {

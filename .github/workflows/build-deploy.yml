@@ -185,11 +185,18 @@ jobs:
             --output "${GITHUB_WORKSPACE}/data/run-report.md" \
             --fail-on error || echo "::warning::drift report flagged regressions; see artifact"
 
-      - name: Stage SQLite + manifest for runtime fetch
+      - name: Stage SQLite chunks + manifest for runtime fetch
         run: |
+          # build-db emits both the original .sqlite and chunked
+          # .sqlite.NNNN slices. Pages deploy needs the chunks (sql.js-httpvfs
+          # uses serverMode: chunked because GitHub Pages's chunked HTTP
+          # transfer-encoding strips Content-Length). We don't ship the
+          # full .sqlite — it would double the artifact size for no
+          # runtime benefit.
           mkdir -p site/public/data
           cp data/manifest.json site/public/data/manifest.json
-          cp "data/jobs.${BUILD_SHORT_SHA}.sqlite" site/public/data/
+          cp data/jobs.${BUILD_SHORT_SHA}.sqlite.* site/public/data/
+          ls -lh site/public/data/ | head -10
 
       - name: Build static site
         env:
