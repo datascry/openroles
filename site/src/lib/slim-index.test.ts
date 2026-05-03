@@ -134,6 +134,36 @@ describe("filterRows", () => {
     expect(r.matches[0]?.company).toBe("Stripe");
   });
 
+  it("free-text q matches substring in location_text", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), title: "Engineer", location_text: "Berlin, DE" }),
+      row({ short_id: "b".repeat(16), title: "Engineer", location_text: "London, UK" }),
+    ];
+    const r = filterRows(rows, { q: "berlin" }, 0, 10);
+    expect(r.matches).toHaveLength(1);
+    expect(r.matches[0]?.location_text).toBe("Berlin, DE");
+  });
+
+  it("free-text q matches substring in workplace_type ('remote' is the killer case)", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), title: "Engineer", workplace_type: "remote" }),
+      row({ short_id: "b".repeat(16), title: "Engineer", workplace_type: "onsite" }),
+    ];
+    const r = filterRows(rows, { q: "remote" }, 0, 10);
+    expect(r.matches).toHaveLength(1);
+    expect(r.matches[0]?.workplace_type).toBe("remote");
+  });
+
+  it("free-text q matches substring in level", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), title: "Engineer", level: "intern" }),
+      row({ short_id: "b".repeat(16), title: "Engineer", level: "senior" }),
+    ];
+    const r = filterRows(rows, { q: "intern" }, 0, 10);
+    expect(r.matches).toHaveLength(1);
+    expect(r.matches[0]?.level).toBe("intern");
+  });
+
   it("idAllowlist gates the result set to specific short_ids", () => {
     const rows = [
       row({ short_id: "a".repeat(16) }),

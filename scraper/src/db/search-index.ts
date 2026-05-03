@@ -155,8 +155,23 @@ export async function emitSearchIndex(
 ): Promise<SearchIndexBuildResult> {
   const subdir = opts.subdir ?? "search";
 
-  const stmt = db.prepare<{ title: string; company: string }, []>(
-    "SELECT title, company FROM jobs ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC",
+  // We index five text-bearing fields. Adding location_text +
+  // workplace_type + level catches keywords like "remote" / "intern"
+  // that the user expects to match jobs with the matching workplace
+  // or level — without those fields, "remote" matched only ~10k of
+  // ~93k actually-remote roles. Description is intentionally excluded
+  // (would balloon the index from ~5 MB to ~30 MB and the user has
+  // said keeping description out is fine).
+  interface SearchRow {
+    title: string;
+    company: string;
+    location_text: string | null;
+    workplace_type: string | null;
+    level: string | null;
+  }
+  const stmt = db.prepare<SearchRow, []>(
+    "SELECT title, company, location_text, workplace_type, level FROM jobs " +
+      "ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC",
   );
   const rows = stmt.all();
 
@@ -166,14 +181,18 @@ export async function emitSearchIndex(
     const r = rows[i];
     if (!r) continue;
     const tokens = new Set<string>();
-    for (const t of tokenise(r.title)) {
-      if (STOP_WORDS.has(t)) continue;
-      tokens.add(stem(t));
-    }
-    for (const t of tokenise(r.company)) {
-      if (STOP_WORDS.has(t)) continue;
-      tokens.add(stem(t));
-    }
+    const addField = (v: string | null): void => {
+      if (v === null) return;
+      for (const t of tokenise(v)) {
+        if (STOP_WORDS.has(t)) continue;
+        tokens.add(stem(t));
+      }
+    };
+    addField(r.title);
+    addField(r.company);
+    addField(r.location_text);
+    addField(r.workplace_type);
+    addField(r.level);
     for (const stemmed of tokens) {
       let list = postings.get(stemmed);
       if (!list) {
