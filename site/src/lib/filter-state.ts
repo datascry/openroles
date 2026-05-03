@@ -110,7 +110,7 @@ export function encodeFilterState(state: FilterState): string {
   if (state.hideStale) params.set("hide_stale", "1");
   if (state.showOnly !== undefined) params.set("show", state.showOnly);
   if (state.minComp !== undefined) params.set("min_comp", String(state.minComp));
-  if (state.sort !== "posted_at:desc") params.set("sort", state.sort);
+  if (state.sort !== DEFAULT_FILTER_STATE.sort) params.set("sort", state.sort);
   if (state.page > 1) params.set("page", String(state.page));
   return params.toString();
 }
@@ -150,10 +150,10 @@ function parseShowOnly(raw: string | null): ShowOnly | undefined {
 }
 
 function parseSort(raw: string | null): SortOption {
-  if (raw === null) return "posted_at:desc";
+  if (raw === null) return DEFAULT_FILTER_STATE.sort;
   return (SORT_VALUES as ReadonlyArray<string>).includes(raw)
     ? (raw as SortOption)
-    : "posted_at:desc";
+    : DEFAULT_FILTER_STATE.sort;
 }
 
 function parseMinComp(raw: string | null): number | undefined {

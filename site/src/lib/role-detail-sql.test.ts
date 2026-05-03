@@ -25,12 +25,17 @@ describe("isShortId", () => {
 });
 
 describe("buildRoleByShortIdQuery", () => {
-  it("emits a SELECT bound to the 16-char prefix via substr()", () => {
+  it("emits a SELECT bound to the 16-char prefix via an index-friendly BETWEEN", () => {
     const plan = buildRoleByShortIdQuery("abcdef0123456789");
     expect(plan.sql).toContain("FROM jobs");
-    expect(plan.sql).toContain("WHERE substr(id, 1, 16) = ?");
+    // BETWEEN keeps the predicate index-eligible — wrapping `id` in
+    // substr() forces a full table scan.
+    expect(plan.sql).toContain("WHERE id BETWEEN ? AND ?");
     expect(plan.sql).toContain("LIMIT 1");
-    expect(plan.params).toEqual(["abcdef0123456789"]);
+    expect(plan.params).toEqual([
+      `abcdef0123456789${"0".repeat(48)}`,
+      `abcdef0123456789${"f".repeat(48)}`,
+    ]);
   });
 
   it("includes every column the role page reads", () => {
@@ -71,13 +76,21 @@ describe("buildRoleByShortIdQuery", () => {
   });
 
   describe("invariants", () => {
-    it("only ever produces a single ? placeholder for the bound id", () => {
+    it("emits two placeholders bound to the [shortId+0…0, shortId+f…f] range", () => {
       fc.assert(
         fc.property(fc.stringMatching(/^[0-9a-f]{16}$/), (id: string) => {
           const plan = buildRoleByShortIdQuery(id);
-          expect(plan.sql.match(/\?/g)).toHaveLength(1);
-          expect(plan.params).toHaveLength(1);
-          expect(plan.params[0]).toBe(id);
+          expect(plan.sql.match(/\?/g)).toHaveLength(2);
+          expect(plan.params).toHaveLength(2);
+          expect(plan.params[0]).toBe(id + "0".repeat(48));
+          expect(plan.params[1]).toBe(id + "f".repeat(48));
+          // The range matches exactly the ids whose first 16 chars equal id.
+          const lo = String(plan.params[0]);
+          const hi = String(plan.params[1]);
+          expect(lo.startsWith(id)).toBe(true);
+          expect(hi.startsWith(id)).toBe(true);
+          expect(lo.length).toBe(64);
+          expect(hi.length).toBe(64);
         }),
       );
     });

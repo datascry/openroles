@@ -54,7 +54,7 @@ describe("encode + decodeFilterState", () => {
 
   it("falls back to default sort on unknown sort value", () => {
     const s = decodeFilterState("sort=lol");
-    expect(s.sort).toBe("posted_at:desc");
+    expect(s.sort).toBe(DEFAULT_FILTER_STATE.sort);
   });
 
   it("clamps min_comp below 0 to undefined and above 1e9 to 1e9", () => {
