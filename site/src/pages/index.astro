@@ -1,7 +1,13 @@
 ---
 import FilterTable from "../components/FilterTable.svelte";
+import FirstPaintRows from "../components/FirstPaintRows.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { dataDirIsPopulated, openSiteDb } from "../lib/db.ts";
+import {
+  dataDirIsPopulated,
+  type FirstPaintRow,
+  openSiteDb,
+  selectFirstPaintJobs,
+} from "../lib/db.ts";
 
 let dbBuilt = dataDirIsPopulated();
 let manifest: {
@@ -9,6 +15,7 @@ let manifest: {
   total_rows: number;
   tenants_total: number;
 } | null = null;
+let firstPaintRows: ReadonlyArray<FirstPaintRow> = [];
 
 if (dbBuilt) {
   const site = openSiteDb();
@@ -18,6 +25,11 @@ if (dbBuilt) {
       total_rows: site.manifest.total_rows,
       tenants_total: site.manifest.tenants_total,
     };
+    // Phase 14: bake the homepage's first 50 rows into the static HTML
+    // so the page paints real content before the slim-index JSON
+    // arrives. The Svelte FilterTable hydrates over this and replaces
+    // it once chunk 0 of the slim index has been parsed.
+    firstPaintRows = selectFirstPaintJobs(site.db, 50);
   } finally {
     site.close();
   }
@@ -56,6 +68,7 @@ const seoDescription =
     )}
   </section>
 
+  <FirstPaintRows rows={firstPaintRows} basePath={base} />
   <FilterTable client:idle basePath={base} />
 </BaseLayout>
 

@@ -1,0 +1,179 @@
+---
+// Pre-rendered top-50 role rows for instant first paint. Astro emits
+// these into the static HTML at build time so users see real role
+// content before any JS executes — critical for slow connections
+// where the FilterTable's slim-index JSON takes seconds to load.
+//
+// Visual consistency with the FilterTable's rendered rows is
+// important: we reuse the same `.job-cell--role / --location / --level
+// / --posted` cell classes so the layout doesn't reflow when the
+// Svelte island hydrates and replaces this aside. CSS in index.astro
+// hides this element once `ul.results > li` exists in the DOM
+// (FilterTable has rendered its own first row), via `:has()`.
+//
+// Also emits the same row data as a `<script type="application/json"
+// id="first-paint-data">` so the FilterTable can opportunistically
+// use these rows as its initial state — no extra round-trip just to
+// repopulate the same 50 roles.
+
+import type { FirstPaintRow } from "../lib/db.ts";
+
+interface Props {
+  readonly rows: ReadonlyArray<FirstPaintRow>;
+  readonly basePath: string;
+}
+
+const { rows, basePath }: Props = Astro.props;
+
+const ATS_PRETTY: Record<string, string> = {
+  greenhouse: "Greenhouse",
+  lever: "Lever",
+  ashby: "Ashby",
+  bamboohr: "BambooHR",
+  workday: "Workday",
+  icims: "iCIMS",
+  recruitee: "Recruitee",
+  breezy: "Breezy",
+  personio: "Personio",
+  workable: "Workable",
+  teamtailor: "Teamtailor",
+  smartrecruiters: "SmartRecruiters",
+  csod: "Cornerstone",
+  taleo: "Taleo",
+  ultipro: "UltiPro",
+  jobvite: "Jobvite",
+  zohorecruit: "Zoho Recruit",
+  talentlyft: "TalentLyft",
+  pinpointhq: "Pinpoint HQ",
+  applicantpro: "ApplicantPro",
+  applicantstack: "ApplicantStack",
+  homerun: "Homerun",
+  factorial: "Factorial",
+  eightfold: "Eightfold",
+};
+
+function formatAge(postedAt: string | null, firstSeenAt: string): string {
+  // Match the FilterTable's age formatter shape — keeps SSR/CSR
+  // rendering visually identical so there's no jump on hydrate.
+  const iso = postedAt ?? firstSeenAt;
+  const ts = Date.parse(iso);
+  if (!Number.isFinite(ts)) return "—";
+  const ageMs = Date.now() - ts;
+  const days = Math.floor(ageMs / 86_400_000);
+  if (days <= 0) return "TODAY";
+  if (days === 1) return "1D AGO";
+  if (days < 7) return `${days}D AGO`;
+  if (days < 30) return `${Math.floor(days / 7)}W AGO`;
+  if (days < 365) return `${Math.floor(days / 30)}MO AGO`;
+  return `${Math.floor(days / 365)}Y AGO`;
+}
+
+function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
+  const iso = postedAt ?? firstSeenAt;
+  const ts = Date.parse(iso);
+  if (!Number.isFinite(ts)) return false;
+  return Date.now() - ts < 86_400_000 * 3; // 3 days
+}
+---
+
+{
+  rows.length > 0 && (
+    <aside id="first-paint-rows" aria-hidden="false" data-row-count={rows.length}>
+      <ul class="results" role="list">
+        {rows.map((r) => {
+          const stale = r.is_stale;
+          const fresh = !stale && isFresh(r.posted_at, r.first_seen_at);
+          const age = formatAge(r.posted_at, r.first_seen_at);
+          const detailHref = `${basePath}/role/?id=${r.short_id}`;
+          return (
+            <li class={`job${stale ? " is-stale" : ""}`}>
+              <div class="job-cell job-cell--role">
+                <h3 class="company">
+                  <span class="company-name">{r.company}</span>
+                  {stale ? (
+                    <span class="stale-badge">STALE</span>
+                  ) : fresh ? (
+                    <span class="new-badge" aria-label="new">NEW</span>
+                  ) : null}
+                  {r.is_recruiter_post && (
+                    <span class="recruiter-badge" aria-label="recruiter posting">RECRUITER</span>
+                  )}
+                </h3>
+                <a href={detailHref} class="job-title" rel="noopener">
+                  {r.title}
+                </a>
+              </div>
+              <div
+                class={`job-cell job-cell--location${!r.location_text && !r.workplace_type ? " is-empty" : ""}`}
+              >
+                {r.location_text ?? ""}
+                {r.workplace_type && (
+                  <>
+                    {r.location_text && <span class="rule" aria-hidden="true">·</span>}
+                    <span class="wt">{r.workplace_type}</span>
+                  </>
+                )}
+              </div>
+              <div class={`job-cell job-cell--level${!r.level ? " is-empty" : ""}`}>
+                {r.level ?? ""}
+              </div>
+              <div class="job-cell job-cell--posted">
+                <span class={`age${fresh ? " is-new" : ""}`}>{age}</span>
+              </div>
+              <div class="job-cell job-cell--actions">
+                <span class="job-action view-link">
+                  <a href={detailHref} class="job-action view">View</a>
+                </span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="first-paint-note" aria-live="polite">
+        <small>
+          Loading filter index… interactive filters available in a moment.
+        </small>
+      </p>
+    </aside>
+  )
+}
+
+{
+  /* Same row payload embedded as JSON so the FilterTable can use it as
+   * initial state on hydrate, avoiding a re-fetch of data we already
+   * have in the DOM. id matches what site/src/components/FilterTable.svelte
+   * looks for on mount. */
+}
+{
+  rows.length > 0 && (
+    <script
+      type="application/json"
+      id="first-paint-data"
+      set:html={JSON.stringify(rows)}
+    />
+  )
+}
+
+<style>
+  /* Hide the SSR rows once FilterTable's own .results list has any
+   * children (= it's rendered its own rows). :has() is supported in
+   * all major browsers since 2023. */
+  :global(main:has(svelte-island ul.results > li.job) #first-paint-rows),
+  :global(main:has(.filter-table-shell ul.results > li.job) #first-paint-rows) {
+    display: none;
+  }
+
+  #first-paint-rows {
+    display: block;
+  }
+
+  .first-paint-note {
+    margin-top: var(--space-3);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-1);
+    letter-spacing: var(--track-wide);
+    text-align: center;
+    text-transform: uppercase;
+  }
+</style>

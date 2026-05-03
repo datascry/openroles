@@ -15,6 +15,7 @@ import {
   dataDirIsPopulated,
   openSiteDb,
   selectFeedJobs,
+  selectFirstPaintJobs,
   selectTenantJobs,
   selectTenants,
 } from "./db.ts";
@@ -185,6 +186,84 @@ describe("selectTenantJobs", () => {
       }),
     ]);
     expect(selectTenantJobs(db, "greenhouse", "stripe")).toHaveLength(1);
+  });
+});
+
+describe("selectFirstPaintJobs", () => {
+  it("returns rows sorted by posted_at DESC NULLS LAST, capped at limit", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "1",
+        url: "https://example.com/1",
+        posted_at: "2026-04-25T00:00:00Z",
+      }),
+      makeJob({
+        source_id: "2",
+        url: "https://example.com/2",
+        posted_at: "2026-04-26T00:00:00Z",
+      }),
+      makeJob({
+        source_id: "3",
+        url: "https://example.com/3",
+        posted_at: null, // sorts to end
+      }),
+      makeJob({
+        source_id: "4",
+        url: "https://example.com/4",
+        posted_at: "2026-04-24T00:00:00Z",
+      }),
+    ]);
+    const rows = selectFirstPaintJobs(db, 50);
+    expect(rows).toHaveLength(4);
+    expect(rows[0]?.posted_at).toBe("2026-04-26T00:00:00Z");
+    expect(rows[1]?.posted_at).toBe("2026-04-25T00:00:00Z");
+    expect(rows[2]?.posted_at).toBe("2026-04-24T00:00:00Z");
+    expect(rows[3]?.posted_at).toBeNull();
+  });
+
+  it("respects the limit", () => {
+    const db = fresh(
+      Array.from({ length: 10 }, (_, i) =>
+        makeJob({
+          source_id: String(i),
+          url: `https://example.com/${i}`,
+          posted_at: `2026-04-${String(10 + i).padStart(2, "0")}T00:00:00Z`,
+        }),
+      ),
+    );
+    const rows = selectFirstPaintJobs(db, 3);
+    expect(rows).toHaveLength(3);
+  });
+
+  it("emits the slim shape with short_id (first 16 hex chars of full id)", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "abc",
+        url: "https://example.com/abc",
+        posted_at: "2026-04-26T00:00:00Z",
+      }),
+    ]);
+    const rows = selectFirstPaintJobs(db, 50);
+    expect(rows[0]?.short_id).toMatch(/^[0-9a-f]{16}$/);
+    expect(rows[0]?.is_recruiter_post).toBe(false);
+    expect(rows[0]?.is_stale).toBe(false);
+    // url + description NOT exposed in the first-paint shape (saves bytes
+    // in the inline JSON; click-through hits SQLite anyway).
+    expect(rows[0]).not.toHaveProperty("url");
+    expect(rows[0]).not.toHaveProperty("description_excerpt");
+  });
+
+  it("converts SQLite 0/1 integer flags to booleans", () => {
+    const db = fresh([
+      makeJob({
+        source_id: "rec",
+        url: "https://example.com/rec",
+        posted_at: "2026-04-26T00:00:00Z",
+        is_recruiter_post: true,
+      }),
+    ]);
+    const rows = selectFirstPaintJobs(db, 50);
+    expect(rows[0]?.is_recruiter_post).toBe(true);
   });
 });
 

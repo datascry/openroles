@@ -162,6 +162,80 @@ export function selectTenants(db: Database): TenantPageRow[] {
     .all() as TenantPageRow[];
 }
 
+/**
+ * Slim row shape for pre-rendered first paint on the homepage. The
+ * Astro page bakes 50 of these into the static HTML so users see real
+ * roles before any JS runs — the FilterTable's Svelte island then
+ * hydrates over them and the slim-index loader takes over interactive
+ * filtering.
+ *
+ * Distinct from the FEED_COLUMNS shape because we drop description /
+ * url / source_id (not needed for the row card) and use camelCase
+ * field names so the rendered HTML can be reused directly without
+ * adapter code.
+ */
+export interface FirstPaintRow {
+  short_id: string;
+  ats: string;
+  tenant_slug: string;
+  title: string;
+  company: string;
+  level: string | null;
+  workplace_type: string | null;
+  is_recruiter_post: boolean;
+  is_stale: boolean;
+  location_text: string | null;
+  location_country: string | null;
+  posted_at: string | null;
+  first_seen_at: string;
+  compensation_min: number | null;
+}
+
+interface FirstPaintRowSqlite {
+  id: string;
+  ats: string;
+  tenant_slug: string;
+  title: string;
+  company: string;
+  level: string | null;
+  workplace_type: string | null;
+  is_recruiter_post: number;
+  is_stale: number;
+  location_text: string | null;
+  location_country: string | null;
+  posted_at: string | null;
+  first_seen_at: string;
+  compensation_min: number | null;
+}
+
+export function selectFirstPaintJobs(db: Database, limit = 50): FirstPaintRow[] {
+  // Default homepage sort = posted_at DESC. Uses idx_jobs_posted_at
+  // (added in Phase 14 schema bump) for index-only walk + LIMIT.
+  const sql =
+    "SELECT id, ats, tenant_slug, title, company, level, workplace_type, " +
+    "is_recruiter_post, is_stale, location_text, location_country, " +
+    "posted_at, first_seen_at, compensation_min " +
+    "FROM jobs " +
+    "ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC LIMIT ?";
+  const rows = db.query(sql).all(limit) as FirstPaintRowSqlite[];
+  return rows.map((r) => ({
+    short_id: r.id.slice(0, 16),
+    ats: r.ats,
+    tenant_slug: r.tenant_slug,
+    title: r.title,
+    company: r.company,
+    level: r.level,
+    workplace_type: r.workplace_type,
+    is_recruiter_post: r.is_recruiter_post !== 0,
+    is_stale: r.is_stale !== 0,
+    location_text: r.location_text,
+    location_country: r.location_country,
+    posted_at: r.posted_at,
+    first_seen_at: r.first_seen_at,
+    compensation_min: r.compensation_min,
+  }));
+}
+
 export function selectTenantJobs(db: Database, ats: string, slug: string, limit = 200): Job[] {
   const sql =
     `SELECT ${FEED_COLUMNS} FROM jobs WHERE ats = ? AND tenant_slug = ? ` +
