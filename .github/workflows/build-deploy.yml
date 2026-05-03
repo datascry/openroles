@@ -185,22 +185,42 @@ jobs:
             --output "${GITHUB_WORKSPACE}/data/run-report.md" \
             --fail-on error || echo "::warning::drift report flagged regressions; see artifact"
 
-      - name: Stage SQLite chunks + manifest for runtime fetch
+      - name: Stage SQLite chunks + slim index + manifest for runtime fetch
         run: |
-          # build-db emits the original .sqlite plus chunked
-          # .sqlite.NNN.png slices. Pages deploy needs the chunks
-          # (sql.js-httpvfs uses serverMode=chunked because Pages's
-          # chunked HTTP transfer-encoding strips Content-Length).
-          # The .png extension on the chunk files is load-bearing: it
-          # disables Fastly's automatic gzip wrapper, which otherwise
-          # makes Range responses return compressed bytes that
-          # sql.js-httpvfs reads as garbage. See scripts/copy-sqlite-vfs.ts.
-          # We don't ship the full .sqlite — it would double the
-          # artifact size for no runtime benefit.
-          mkdir -p site/public/data
+          # build-db emits three artifact families that the deployed
+          # site fetches at runtime:
+          #
+          #   1. data/jobs.<sha>.sqlite.NNN.png — fixed-size (10 MB)
+          #      slices of the SQLite file, used by sql.js-httpvfs's
+          #      serverMode=chunked path. The .png extension defeats
+          #      Fastly's automatic gzip on application/octet-stream
+          #      (gzipped Range responses return compressed bytes which
+          #      sql.js reads as garbage). See scripts/copy-sqlite-vfs.ts.
+          #      Only the role-detail page touches this path now.
+          #
+          #   2. data/slim/slim-NNNN-<sha>.json.gz — pre-gzipped slim
+          #      index chunks (~50k rows each, ~700 KB gzipped). The
+          #      FilterTable progressively loads these into memory
+          #      and runs all filter / sort / search interactions
+          #      client-side — sub-50 ms after the chunk lands.
+          #      Content-hashed filenames make them safe to cache
+          #      forever via a Service Worker; the manifest is the
+          #      only mutable URL.
+          #
+          #   3. data/manifest.json — atomic pointer to (1) and (2).
+          #
+          # We do not ship the full unsplit .sqlite — it would double
+          # the artifact size for no runtime benefit.
+          mkdir -p site/public/data/slim
           cp data/manifest.json site/public/data/manifest.json
           cp data/jobs.${BUILD_SHORT_SHA}.sqlite.*.png site/public/data/
-          ls -lh site/public/data/ | head -10
+          if compgen -G 'data/slim/slim-*.json.gz' > /dev/null; then
+            cp data/slim/slim-*.json.gz site/public/data/slim/
+          fi
+          echo "=== top-level data/ ==="
+          ls -lh site/public/data/ | head -8
+          echo "=== slim chunks (first 5) ==="
+          ls -lh site/public/data/slim/ | head -7
 
       - name: Build static site
         env:

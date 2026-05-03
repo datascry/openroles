@@ -5,6 +5,22 @@ const IsoUtc = z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z
 
 const SemVer = z.string().regex(/^\d+\.\d+\.\d+$/);
 const ShortSha = z.string().regex(/^[0-9a-f]{7,40}$/);
+const ChunkShortSha = z.string().regex(/^[0-9a-f]{16}$/);
+
+const SlimChunkSchema = z
+  .object({
+    file: z
+      .string()
+      .regex(/^slim\/slim-\d{4}-[0-9a-f]{16}\.json\.gz$/, "must be slim/slim-NNNN-<sha>.json.gz"),
+    sha: ChunkShortSha,
+    rows: z.int().nonnegative(),
+    bytes_gz: z.int().nonnegative(),
+    bytes_raw: z.int().nonnegative(),
+    posted_min: IsoUtc.nullable(),
+    posted_max: IsoUtc.nullable(),
+    has_null_posted: z.boolean(),
+  })
+  .strict();
 
 // ats_counts is generated programmatically so the schema picks up new ATS
 // ids automatically as ATS_IDS widens. Each key defaults to 0 so old
@@ -49,6 +65,18 @@ export const ManifestSchema = z
     db_chunk_size_bytes: z.int().nonnegative().default(0),
     db_chunk_count: z.int().nonnegative().default(0),
     db_suffix_length: z.int().nonnegative().default(0),
+    // Phase 14: client-side slim index. Replaces the SQL-over-HTTP filter
+    // path in FilterTable with an in-memory dataset of pre-gzipped JSON
+    // chunks. Each chunk is content-hashed (cacheable forever via SW)
+    // and the manifest records its posted_at range so date-window
+    // filters can skip cold chunks. SQLite remains as the source of
+    // truth and serves role-detail descriptions on click-through.
+    //
+    // Empty array on pre-1.5.0 manifests; clients fall back to the
+    // legacy SQLite filter path when slim_index_chunks is empty.
+    slim_index_schema_version: z.string().default("0.0"),
+    slim_index_total_rows: z.int().nonnegative().default(0),
+    slim_index_chunks: z.array(SlimChunkSchema).default([]),
   })
   .superRefine((m, ctx) => {
     if (m.tenants_live > m.tenants_total) {
@@ -89,6 +117,26 @@ export const ManifestSchema = z
         path: ["db_filename"],
         message: `must embed short_sha (${m.short_sha}); got ${m.db_filename}`,
       });
+    }
+    // Phase 14 invariant: per-chunk row counts must sum to slim_index_total_rows,
+    // which in turn must equal total_rows whenever the slim index is active.
+    // Defaults to 0 when the slim index isn't emitted, in which case we skip.
+    if (m.slim_index_chunks.length > 0) {
+      const chunkSum = m.slim_index_chunks.reduce((acc, c) => acc + c.rows, 0);
+      if (chunkSum !== m.slim_index_total_rows) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["slim_index_chunks"],
+          message: `chunk row sum (${chunkSum}) must equal slim_index_total_rows (${m.slim_index_total_rows})`,
+        });
+      }
+      if (m.slim_index_total_rows !== m.total_rows) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["slim_index_total_rows"],
+          message: `must equal total_rows (${m.total_rows}) when slim_index_chunks is non-empty; got ${m.slim_index_total_rows}`,
+        });
+      }
     }
   });
 

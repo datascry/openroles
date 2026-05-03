@@ -250,12 +250,16 @@ describe("buildDb", () => {
       }>
     ).map((r) => r.name);
     expect(indexes).toContain("idx_jobs_ats_posted_at");
-    expect(indexes).toContain("idx_jobs_level_ats");
-    expect(indexes).toContain("idx_jobs_level_rank");
-    expect(indexes).toContain("idx_jobs_workplace_type");
+    expect(indexes).toContain("idx_jobs_level_posted_at");
+    expect(indexes).toContain("idx_jobs_wt_posted_at");
+    expect(indexes).toContain("idx_jobs_recruiter_posted_at");
+    expect(indexes).toContain("idx_jobs_stale_posted_at");
+    expect(indexes).toContain("idx_jobs_company_nocase");
+    expect(indexes).toContain("idx_jobs_level_rank_posted_at");
     expect(indexes).toContain("idx_jobs_tenant");
-    expect(indexes).toContain("idx_jobs_first_seen_at");
     expect(indexes).toContain("idx_jobs_country_region");
+    expect(indexes).toContain("idx_jobs_first_seen_at");
+    expect(indexes).toContain("idx_jobs_posted_at");
   });
 
   it("FTS update trigger reflects new title and drops the old term", () => {

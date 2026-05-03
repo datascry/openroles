@@ -201,4 +201,150 @@ describe("ManifestSchema", () => {
       }),
     ).not.toThrow();
   });
+
+  describe("slim_index fields (Phase 14)", () => {
+    it("defaults slim_index_* fields when missing (forward-compat for pre-1.5.0 manifests)", () => {
+      const m = ManifestSchema.parse({
+        schema_version: "1.4.0",
+        built_at: "2026-04-26T00:00:00Z",
+        short_sha: "a3f2b1c",
+        db_filename: "jobs.a3f2b1c.sqlite",
+        total_rows: 0,
+        ats_counts: {},
+        tenants_total: 0,
+        tenants_live: 0,
+      });
+      expect(m.slim_index_schema_version).toBe("0.0");
+      expect(m.slim_index_total_rows).toBe(0);
+      expect(m.slim_index_chunks).toEqual([]);
+    });
+
+    it("accepts a populated slim_index with consistent counts", () => {
+      const m = ManifestSchema.parse({
+        schema_version: "1.5.0",
+        built_at: "2026-04-26T00:00:00Z",
+        short_sha: "a3f2b1c",
+        db_filename: "jobs.a3f2b1c.sqlite",
+        total_rows: 75,
+        ats_counts: { greenhouse: 75 },
+        tenants_total: 5,
+        tenants_live: 5,
+        fresh_count: 75,
+        stale_count: 0,
+        slim_index_schema_version: "1.0",
+        slim_index_total_rows: 75,
+        slim_index_chunks: [
+          {
+            file: "slim/slim-0000-abcdef0123456789.json.gz",
+            sha: "abcdef0123456789",
+            rows: 50,
+            bytes_gz: 1000,
+            bytes_raw: 5000,
+            posted_min: "2026-04-25T00:00:00Z",
+            posted_max: "2026-04-26T00:00:00Z",
+            has_null_posted: false,
+          },
+          {
+            file: "slim/slim-0001-fedcba9876543210.json.gz",
+            sha: "fedcba9876543210",
+            rows: 25,
+            bytes_gz: 500,
+            bytes_raw: 2500,
+            posted_min: null,
+            posted_max: null,
+            has_null_posted: true,
+          },
+        ],
+      });
+      expect(m.slim_index_chunks).toHaveLength(2);
+      expect(m.slim_index_total_rows).toBe(75);
+    });
+
+    it("rejects when chunk row sums diverge from slim_index_total_rows", () => {
+      expect(() =>
+        ManifestSchema.parse({
+          schema_version: "1.5.0",
+          built_at: "2026-04-26T00:00:00Z",
+          short_sha: "a3f2b1c",
+          db_filename: "jobs.a3f2b1c.sqlite",
+          total_rows: 75,
+          ats_counts: { greenhouse: 75 },
+          tenants_total: 1,
+          tenants_live: 1,
+          slim_index_schema_version: "1.0",
+          slim_index_total_rows: 75,
+          slim_index_chunks: [
+            {
+              file: "slim/slim-0000-abcdef0123456789.json.gz",
+              sha: "abcdef0123456789",
+              rows: 40, // ← does not sum to 75
+              bytes_gz: 1000,
+              bytes_raw: 5000,
+              posted_min: null,
+              posted_max: null,
+              has_null_posted: true,
+            },
+          ],
+        }),
+      ).toThrow(/chunk row sum/);
+    });
+
+    it("rejects slim_index_total_rows mismatch with total_rows when chunks exist", () => {
+      expect(() =>
+        ManifestSchema.parse({
+          schema_version: "1.5.0",
+          built_at: "2026-04-26T00:00:00Z",
+          short_sha: "a3f2b1c",
+          db_filename: "jobs.a3f2b1c.sqlite",
+          total_rows: 100,
+          ats_counts: { greenhouse: 100 },
+          tenants_total: 1,
+          tenants_live: 1,
+          slim_index_schema_version: "1.0",
+          slim_index_total_rows: 75, // ← does not match total_rows=100
+          slim_index_chunks: [
+            {
+              file: "slim/slim-0000-abcdef0123456789.json.gz",
+              sha: "abcdef0123456789",
+              rows: 75,
+              bytes_gz: 1000,
+              bytes_raw: 5000,
+              posted_min: null,
+              posted_max: null,
+              has_null_posted: true,
+            },
+          ],
+        }),
+      ).toThrow(/must equal total_rows/);
+    });
+
+    it("rejects malformed chunk filenames", () => {
+      expect(() =>
+        ManifestSchema.parse({
+          schema_version: "1.5.0",
+          built_at: "2026-04-26T00:00:00Z",
+          short_sha: "a3f2b1c",
+          db_filename: "jobs.a3f2b1c.sqlite",
+          total_rows: 1,
+          ats_counts: { greenhouse: 1 },
+          tenants_total: 1,
+          tenants_live: 1,
+          slim_index_schema_version: "1.0",
+          slim_index_total_rows: 1,
+          slim_index_chunks: [
+            {
+              file: "slim/wrong-shape.json.gz",
+              sha: "abcdef0123456789",
+              rows: 1,
+              bytes_gz: 100,
+              bytes_raw: 200,
+              posted_min: null,
+              posted_max: null,
+              has_null_posted: true,
+            },
+          ],
+        }),
+      ).toThrow();
+    });
+  });
 });

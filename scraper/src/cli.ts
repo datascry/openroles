@@ -20,6 +20,7 @@ import {
 } from "@openroles/shared";
 import { z } from "zod";
 import { buildDb } from "./db/build-db.ts";
+import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
 import { probeMany } from "./harvest/probe.ts";
@@ -357,6 +358,14 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
       },
       dbTmp,
     );
+
+    // Phase 14: emit the client-side slim index from the same DB
+    // handle, BEFORE we close it — this avoids a re-open round-trip
+    // and guarantees we read exactly the rows that just landed. Each
+    // chunk is content-hashed and pre-gzipped so the deploy serves
+    // them as static immutable assets.
+    const slim = await emitSlimIndex(db, { outputDir });
+
     db.close();
     await rename(dbTmp, dbPath);
 
@@ -381,6 +390,7 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
       db_chunk_size_bytes: chunkSize,
       db_chunk_count: chunkCount,
       db_suffix_length: suffixLength,
+      ...slim.fields,
     };
     manifest = ManifestSchema.parse(chunkedManifest);
     await writeFile(manifestTmp, `${JSON.stringify(manifest, null, 2)}\n`);
@@ -391,8 +401,11 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     await rm(manifestTmp, { force: true });
     throw err;
   }
+  const slimSummary = manifest.slim_index_chunks.length
+    ? `, slim=${manifest.slim_index_chunks.length}×~${Math.round(manifest.slim_index_chunks[0]?.bytes_gz ?? 0 / 1024)}KB`
+    : "";
   console.error(
-    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}, chunks=${manifest.db_chunk_count}×${manifest.db_chunk_size_bytes / 1024 / 1024}MB)`,
+    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}, chunks=${manifest.db_chunk_count}×${manifest.db_chunk_size_bytes / 1024 / 1024}MB${slimSummary})`,
   );
   return 0;
 }
