@@ -380,6 +380,16 @@ onMount(async () => {
     rows = seed;
     totalCount = seed.length;
   }
+  // Remove the SSR pre-paint aside as soon as the Svelte island is
+  // active and ready to render its own rows. Without this, both the
+  // SSR markup AND the FilterTable's hydrated rows render — doubles
+  // the homepage list visually. The :has() CSS selector approach we
+  // tried first turned out unreliable because the aside itself
+  // contains <ul class="results">, so the trigger matches its own
+  // content. Imperative removal is foolproof.
+  if (typeof document !== "undefined") {
+    document.getElementById("first-paint-rows")?.remove();
+  }
   try {
     manifest = await fetchManifest(basePath);
     if (manifest.slim_index_chunks.length === 0) {
