@@ -230,5 +230,33 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
         }
       }
     </style>
+
+    <!--
+      Service Worker registration. The SW caches the slim-index chunks
+      (content-hashed, immutable forever) and revalidates manifest.json
+      on every visit. Net effect: revisits cost ≈0 bytes for the
+      filter UI dataset. See site/public/sw.js for the cache strategy.
+
+      We register late (after first paint) so the SW install never
+      competes with the critical first-paint network. type="module"
+      keeps the SW scope to module workers and lets the browser parse
+      the registration script lazily.
+    -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // BASE_URL is rewritten at build time. The trailing slash is
+          // significant — `scope: "/openroles/"` confines the SW to the
+          // app, not the whole datascry.github.io origin.
+          const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+          navigator.serviceWorker
+            .register(`${base}/sw.js`, { scope: `${base}/` })
+            .catch(() => {
+              // SW registration failure is non-fatal — the site works
+              // without it, just slower on revisits.
+            });
+        });
+      }
+    </script>
   </body>
 </html>
