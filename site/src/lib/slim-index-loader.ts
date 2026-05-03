@@ -1,36 +1,23 @@
-// Browser-only progressive loader for the slim-index. Split out of
-// slim-index.ts because the fetch + Worker code can only run in a real
-// browser — bun:test can't reach it, so it's exercised by Playwright
-// e2e (see tests/e2e/slim-index.spec.ts) and excluded from per-file
-// coverage thresholds via bunfig.toml.
+// Browser-only progressive loader for the slim-index. All CPU-heavy
+// work — fetch, decompress, JSON.parse, fromWire mapping — happens
+// in a Web Worker. The main thread receives chunk results as JSON
+// STRINGS (cheap to structured-clone) and re-parses them with a
+// single fast V8 native call before merging.
 //
-// Public API:
-//   loadSlimIndex(opts) — async; resolves once chunk 0 has merged into
-//   `rows` and the remaining chunks are streaming in via Worker. The
-//   `onChunk` callback fires after each chunk lands so callers can
-//   refilter/re-render incrementally.
+// This is a complete rewrite vs the previous version where chunk 0
+// was inline on the main thread. That inline path was the single
+// 8.7-second freeze our perf probe caught — fetching + parsing +
+// fromWire-mapping a 14 MB / 50k-object chunk on the main thread
+// blocks every interaction. Now chunk 0 goes through the worker too
+// and the SSR pre-paint covers the moment between page-arrival and
+// chunk-0-merged.
+//
+// Search-index loading also funnels through this worker (different
+// message type) so the +5 MB JSON.parse for stem postings doesn't
+// freeze the tab when the user types.
 
-import type { ManifestRuntime, SlimChunkRuntime } from "./manifest-runtime.ts";
+import type { ManifestRuntime } from "./manifest-runtime.ts";
 import { __test_internals as I, type SlimRow } from "./slim-index.ts";
-
-interface ChunkRowOnWire {
-  i: string;
-  a: string;
-  t: string;
-  ti: string;
-  c: string;
-  l: string | null;
-  w: string | null;
-  r: 0 | 1;
-  s: 0 | 1;
-  loc: string | null;
-  cc: string | null;
-  p: string | null;
-  f: string;
-  cm: number | null;
-  cmax: number | null;
-  cur: string | null;
-}
 
 export interface SlimIndexLoadOptions {
   readonly basePath: string;
@@ -56,113 +43,182 @@ export interface SlimIndex {
   readonly totalExpected: number;
   /** True once every chunk has been fetched and merged. */
   readonly fullyLoaded: boolean;
+  /**
+   * Fetches the search-index JSON via the same worker (off-main-thread
+   * fetch + decompress) and returns the raw text body for the caller
+   * to parse with site/src/lib/search-tokens.ts#parseSearchIndex.
+   * Returns null if the fetch fails — callers fall back to substring
+   * search.
+   */
+  fetchSearchIndexText(): Promise<string | null>;
+}
+
+interface WorkerMessage {
+  readonly type: "chunk-done" | "search-done" | "error";
+  readonly id: number;
+  readonly rowsJson?: string;
+  readonly count?: number;
+  readonly jsonText?: string;
+  readonly error?: string;
+}
+
+interface ChunkResolver {
+  readonly resolve: (rows: SlimRow[]) => void;
+  readonly reject: (err: Error) => void;
+}
+
+interface SearchResolver {
+  readonly resolve: (text: string) => void;
+  readonly reject: (err: Error) => void;
 }
 
 /**
- * Decompress + parse a single chunk URL. Pre-gzipped on origin and
- * served as `.json.gz`; Pages skips re-gzip on the already-compressed
- * extension and the browser receives the raw gzip bytes without
- * auto-decompressing — we run DecompressionStream ourselves.
- */
-async function fetchAndDecompressChunk(url: string): Promise<SlimRow[]> {
-  const res = await fetch(url, { cache: "force-cache" });
-  if (!res.ok) {
-    throw new Error(`fetchAndDecompressChunk: ${url} returned HTTP ${res.status}`);
-  }
-  const enc = res.headers.get("content-encoding");
-  let text: string;
-  if (enc === null || enc === "identity") {
-    const blob = await res.blob();
-    const ds = new DecompressionStream("gzip");
-    const decompressed = blob.stream().pipeThrough(ds);
-    text = await new Response(decompressed).text();
-  } else {
-    text = await res.text();
-  }
-  const onWire = JSON.parse(text) as ChunkRowOnWire[];
-  return onWire.map(I.fromWire);
-}
-
-/**
- * Load the slim index progressively. Chunk 0 is fetched on the main
- * thread (first paint cares); the remaining chunks stream in via a
- * Web Worker so decompress + parse stays off-thread.
+ * Load the slim index progressively. Returns immediately once the
+ * worker has been constructed; the rows array fills in as each chunk
+ * lands. Caller observes progress via `onChunk` and can read
+ * `result.rows` / `result.fullyLoaded` at any time.
  *
- * If `manifest.slim_index_chunks` is empty, resolves immediately with
- * an empty result. Callers should then fall back to the legacy SQLite
- * path.
+ * If `manifest.slim_index_chunks` is empty, resolves immediately
+ * with an empty result. Callers should fall back to the legacy
+ * SQLite path in that case.
  */
 export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimIndex> {
   const base = opts.basePath.replace(/\/$/, "");
   const chunks = opts.manifest.slim_index_chunks;
   const totalExpected = opts.manifest.slim_index_total_rows;
 
-  // Mutable accumulator. Caller sees the same array reference grow as
-  // chunks arrive (matches the reference impl's pattern).
+  // Mutable accumulator. Caller sees the same array reference grow
+  // as chunks arrive.
   const rows: SlimRow[] = opts.seed ? [...opts.seed] : [];
 
   if (chunks.length === 0) {
-    return { rows, totalExpected, fullyLoaded: true };
+    return {
+      rows,
+      totalExpected,
+      fullyLoaded: true,
+      fetchSearchIndexText: async () => null,
+    };
   }
 
-  const result: { rows: SlimRow[]; totalExpected: number; fullyLoaded: boolean } = {
+  const workerUrl = `${base}/sqlite-vfs/slim-index-worker.js`;
+  const worker = new Worker(workerUrl, { type: "module" });
+  let nextId = 1;
+  const chunkResolvers = new Map<number, ChunkResolver>();
+  const searchResolvers = new Map<number, SearchResolver>();
+
+  worker.onmessage = (ev: MessageEvent<WorkerMessage>) => {
+    const msg = ev.data;
+    if (msg.type === "chunk-done") {
+      const r = chunkResolvers.get(msg.id);
+      if (!r) return;
+      chunkResolvers.delete(msg.id);
+      // JSON.parse on the main thread of the *string* the worker
+      // posted is a single fast V8 native call — much cheaper than
+      // structured-cloning 50k objects.
+      const parsed = JSON.parse(msg.rowsJson ?? "[]") as SlimRow[];
+      r.resolve(parsed);
+      return;
+    }
+    if (msg.type === "search-done") {
+      const r = searchResolvers.get(msg.id);
+      if (!r) return;
+      searchResolvers.delete(msg.id);
+      r.resolve(msg.jsonText ?? "");
+      return;
+    }
+    if (msg.type === "error") {
+      const reject = chunkResolvers.get(msg.id)?.reject ?? searchResolvers.get(msg.id)?.reject;
+      chunkResolvers.delete(msg.id);
+      searchResolvers.delete(msg.id);
+      if (reject) reject(new Error(msg.error ?? "slim-index worker error"));
+      return;
+    }
+  };
+  worker.onerror = (ev) => {
+    for (const r of chunkResolvers.values()) r.reject(new Error(`worker: ${ev.message}`));
+    for (const r of searchResolvers.values()) r.reject(new Error(`worker: ${ev.message}`));
+    chunkResolvers.clear();
+    searchResolvers.clear();
+  };
+
+  function requestChunk(url: string): Promise<SlimRow[]> {
+    const id = nextId++;
+    return new Promise<SlimRow[]>((resolve, reject) => {
+      chunkResolvers.set(id, { resolve, reject });
+      worker.postMessage({ type: "chunk", url, id });
+    });
+  }
+
+  function requestSearchIndex(url: string): Promise<string> {
+    const id = nextId++;
+    return new Promise<string>((resolve, reject) => {
+      searchResolvers.set(id, { resolve, reject });
+      worker.postMessage({ type: "search", url, id });
+    });
+  }
+
+  const result: {
+    rows: SlimRow[];
+    totalExpected: number;
+    fullyLoaded: boolean;
+    fetchSearchIndexText: () => Promise<string | null>;
+  } = {
     rows,
     totalExpected,
     fullyLoaded: false,
+    fetchSearchIndexText: async () => {
+      try {
+        return await requestSearchIndex(`${base}/data/search/title-tokens.json.gz`);
+      } catch {
+        return null;
+      }
+    },
   };
 
+  // Kick off chunk 0 inline (caller awaits us until it lands), then
+  // fan out the rest in parallel and resolve when every chunk has
+  // merged. Chunk 0 inline so the FilterTable's first runFilter pass
+  // has real data to operate on.
   const firstChunk = chunks[0];
   if (firstChunk === undefined) {
-    return { rows, totalExpected, fullyLoaded: true };
+    return { ...result, fullyLoaded: true };
   }
   const firstUrl = `${base}/data/${firstChunk.file}`;
-  const firstRows = await fetchAndDecompressChunk(firstUrl);
+  const firstRows = await requestChunk(firstUrl);
   I.appendUnique(rows, firstRows);
   if (opts.onChunk) opts.onChunk(firstRows, rows.length, totalExpected);
 
   if (chunks.length === 1) {
-    result.fullyLoaded = true;
-    return result;
+    return { ...result, fullyLoaded: true };
   }
 
-  await loadRestInWorker(base, chunks.slice(1), opts.onChunk, rows, totalExpected);
-  result.fullyLoaded = true;
-  return result;
-}
-
-function loadRestInWorker(
-  base: string,
-  remaining: ReadonlyArray<SlimChunkRuntime>,
-  onChunk: SlimIndexLoadOptions["onChunk"],
-  target: SlimRow[],
-  totalExpected: number,
-): Promise<void> {
-  const workerUrl = `${base}/sqlite-vfs/slim-index-worker.js`;
-  const worker = new Worker(workerUrl, { type: "module" });
-
-  let pending = remaining.length;
-  return new Promise<void>((resolve, reject) => {
-    worker.onmessage = (ev: MessageEvent<{ rows: ChunkRowOnWire[]; error?: string }>) => {
-      if (ev.data.error !== undefined) {
-        worker.terminate();
-        reject(new Error(`slim-index worker: ${ev.data.error}`));
-        return;
+  // Fan out the rest concurrently. Each chunk lands independently,
+  // updating `rows` in place and firing onChunk. We don't block here —
+  // the caller gets back to filter-rendering as soon as chunk 0 has
+  // merged. Worker handles its own queue order; results may arrive
+  // out of order which is fine since appendUnique is idempotent.
+  const rest = chunks.slice(1);
+  const allDone = Promise.all(
+    rest.map(async (chunk) => {
+      try {
+        const r = await requestChunk(`${base}/data/${chunk.file}`);
+        I.appendUnique(rows, r);
+        if (opts.onChunk) opts.onChunk(r, rows.length, totalExpected);
+      } catch (err) {
+        // Soft-fail one chunk: log to the console (worker reports
+        // failures on its own postMessage), keep going for the rest.
+        // biome-ignore lint/suspicious/noConsole: chunk-load diagnostic
+        if (typeof console !== "undefined" && console.warn) {
+          console.warn("slim-index chunk failed", chunk.file, err);
+        }
       }
-      const rows = ev.data.rows.map(I.fromWire);
-      I.appendUnique(target, rows);
-      if (onChunk) onChunk(rows, target.length, totalExpected);
-      pending -= 1;
-      if (pending === 0) {
-        worker.terminate();
-        resolve();
-      }
-    };
-    worker.onerror = (ev: ErrorEvent) => {
-      worker.terminate();
-      reject(new Error(`slim-index worker error: ${ev.message}`));
-    };
-    for (const chunk of remaining) {
-      worker.postMessage({ url: `${base}/data/${chunk.file}` });
-    }
+    }),
+  );
+  // Don't await — fire and forget. Caller can poll fullyLoaded.
+  // We do still want to flip the flag once everything settles.
+  void allDone.then(() => {
+    result.fullyLoaded = true;
   });
+
+  return result;
 }

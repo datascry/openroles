@@ -1,45 +1,88 @@
-// Phase 14 slim-index loader worker. Lives off the main thread so
-// chunk decompress + JSON.parse (typically 100–700 ms per chunk on
-// mobile CPUs) doesn't block the FilterTable's interaction loop.
+// openroles slim-index loader worker. Does all CPU-heavy chunk work
+// off the main thread so the tab stays interactive while ~30 MB of
+// gzipped JSON streams in.
 //
-// Pattern: fetch → DecompressionStream('gzip') → text → JSON.parse →
-// postMessage to the main thread. Same shape as the reference impl
-// at github.com/Feashliaa/job-board-aggregator/blob/main/js/chunk_worker.js.
+// Critical: the worker not only decompresses + JSON.parses, it also
+// runs the fromWire mapping AND packs each chunk into a JSON STRING
+// before postMessage'ing back. Returning the parsed object array
+// turned out to be the biggest blocker on the main thread —
+// structured-cloning ~50k objects with 16 fields each was a 3-second
+// task per chunk in real Chrome (measured via PerformanceObserver
+// longtask). Strings clone in O(1).
 //
-// The main-thread loader (site/src/lib/slim-index.ts) sends one
-// `{ url }` message per chunk and expects one `{ rows }` (or
-// `{ error }`) reply per chunk. Order is not guaranteed — chunks
-// arrive in network-completion order, not request order. The main
-// thread is responsible for de-duplication via short_id.
+// Protocol from main → worker:
+//   { type: "chunk",  url, id }
+//   { type: "search", url, id }
+//
+// Protocol from worker → main:
+//   { type: "chunk-done",  id, rowsJson, count }   ← rowsJson is a SlimRow[] JSON string
+//   { type: "search-done", id, jsonText }          ← raw JSON string for parseSearchIndex()
+//   { type: "error",       id, error }
+
+function fromWire(r) {
+  return {
+    short_id: r.i,
+    ats: r.a,
+    tenant_slug: r.t,
+    title: r.ti,
+    company: r.c,
+    level: r.l,
+    workplace_type: r.w,
+    is_recruiter_post: r.r === 1,
+    is_stale: r.s === 1,
+    location_text: r.loc,
+    location_country: r.cc,
+    posted_at: r.p,
+    first_seen_at: r.f,
+    compensation_min: r.cm,
+    compensation_max: r.cmax,
+    compensation_currency: r.cur,
+  };
+}
+
+async function fetchText(url) {
+  const res = await fetch(url, { cache: "force-cache" });
+  if (!res.ok) throw new Error(`${url} returned HTTP ${res.status}`);
+  const enc = res.headers.get("content-encoding");
+  if (enc === null || enc === "identity") {
+    // .json.gz served without auto-decompression — decompress here.
+    const blob = await res.blob();
+    const ds = new DecompressionStream("gzip");
+    return await new Response(blob.stream().pipeThrough(ds)).text();
+  }
+  // Server already decompressed via Content-Encoding negotiation.
+  return await res.text();
+}
 
 self.onmessage = async (ev) => {
-  const url = ev.data?.url;
+  const data = ev.data ?? {};
+  const id = data.id;
+  const url = data.url;
   if (typeof url !== "string") {
-    self.postMessage({ rows: [], error: "missing url" });
+    self.postMessage({ type: "error", id, error: "missing url" });
     return;
   }
   try {
-    const res = await fetch(url, { cache: "force-cache" });
-    if (!res.ok) {
-      self.postMessage({ rows: [], error: `${url} returned HTTP ${res.status}` });
+    if (data.type === "chunk") {
+      const text = await fetchText(url);
+      const onWire = JSON.parse(text);
+      const rows = new Array(onWire.length);
+      for (let i = 0; i < onWire.length; i++) rows[i] = fromWire(onWire[i]);
+      // Re-serialise so postMessage clones a string (O(1)) rather
+      // than 50k objects (3s structured-clone). Main re-parses with
+      // a single fast V8 native call.
+      const rowsJson = JSON.stringify(rows);
+      self.postMessage({ type: "chunk-done", id, rowsJson, count: rows.length });
       return;
     }
-    const enc = res.headers.get("content-encoding");
-    let text;
-    if (enc === null || enc === "identity") {
-      // .json.gz served without auto-decompression — decompress here.
-      const blob = await res.blob();
-      const ds = new DecompressionStream("gzip");
-      const decompressed = blob.stream().pipeThrough(ds);
-      text = await new Response(decompressed).text();
-    } else {
-      // Server already decompressed via Content-Encoding negotiation.
-      text = await res.text();
+    if (data.type === "search") {
+      const text = await fetchText(url);
+      self.postMessage({ type: "search-done", id, jsonText: text });
+      return;
     }
-    const rows = JSON.parse(text);
-    self.postMessage({ rows });
+    self.postMessage({ type: "error", id, error: `unknown message type: ${data.type}` });
   } catch (err) {
     const msg = err?.message ?? String(err);
-    self.postMessage({ rows: [], error: msg });
+    self.postMessage({ type: "error", id, error: msg });
   }
 };

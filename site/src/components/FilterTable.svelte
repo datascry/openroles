@@ -206,27 +206,18 @@ function onQInput(value: string) {
 async function ensureSearchIndex(): Promise<SearchIndex | null> {
   if (searchIndex !== null) return searchIndex;
   if (searchIndexPromise !== null) return searchIndexPromise;
-  if (manifest === null) return null;
+  if (slimIndex === null) return null;
   searchIndexPromise = (async () => {
     try {
-      const url = `${basePath.replace(/\/$/, "")}/data/search/title-tokens.json.gz`;
-      const res = await fetch(url, { cache: "force-cache" });
-      if (!res.ok) return null;
-      // Pre-gzipped on origin. The browser auto-decompresses when
-      // Content-Encoding: gzip is set; otherwise we run
-      // DecompressionStream ourselves (.json.gz served identity).
-      const enc = res.headers.get("content-encoding");
-      let text: string;
-      if (enc === null || enc === "identity") {
-        const blob = await res.blob();
-        const ds = new DecompressionStream("gzip");
-        text = await new Response(blob.stream().pipeThrough(ds)).text();
-      } else {
-        text = await res.text();
-      }
+      // Route the fetch + decompress through the slim-index worker so
+      // the ~12 MB JSON.parse doesn't block the main thread. We still
+      // pay the parseSearchIndex (Map construction) cost on main, but
+      // the heavy fetch + gzip-decode is off-thread, and on a slow
+      // CPU that's the difference between a 7-second freeze and a
+      // ~500ms one.
+      const text = await slimIndex.fetchSearchIndexText();
+      if (text === null) return null;
       searchIndex = parseSearchIndex(JSON.parse(text));
-      // Re-run the filter so the user's in-flight query upgrades from
-      // substring to stem matching as soon as the index lands.
       runFilter(state);
       return searchIndex;
     } catch {
@@ -399,16 +390,24 @@ onMount(async () => {
     }
     chunksTotal = manifest.slim_index_chunks.length;
     dbStatus = "loading-progressive";
+    // Heavily throttle the per-chunk re-render: each filter pass is
+    // an O(n) walk over the accumulated rows array, and on a slow
+    // CPU n=750k is a 100-200ms task. Without the throttle, 15
+    // chunks landing over ~3s trigger 15 back-to-back filter passes
+    // that pin the main thread. 750ms debounce gives the user a
+    // refresh roughly twice during the load and once at the end.
+    const CHUNK_REFILTER_DEBOUNCE_MS = 750;
     slimIndex = await loadSlimIndex({
       basePath,
       manifest,
       seed,
       onChunk: (_chunk, _cumulative, _total) => {
         chunksLoaded += 1;
-        // Re-run the filter against the now-larger row set. We bump
-        // queryToken so any in-flight debounced query gets superseded.
         if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
-        queryDebounceHandle = setTimeout(() => runFilter(state), QUERY_DEBOUNCE_MS);
+        queryDebounceHandle = setTimeout(
+          () => runFilter(state),
+          CHUNK_REFILTER_DEBOUNCE_MS,
+        );
       },
     });
     dbStatus = "ready";
