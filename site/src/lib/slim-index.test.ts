@@ -309,6 +309,45 @@ describe("sortRows", () => {
     expect(rows[0]?.short_id).toBe("b".repeat(16));
   });
 
+  it("level:asc orders junior → senior, nulls last", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), level: "senior" }),
+      row({ short_id: "b".repeat(16), level: "junior" }),
+      row({ short_id: "c".repeat(16), level: null }),
+      row({ short_id: "d".repeat(16), level: "staff" }),
+    ];
+    sortRows(rows, "level:asc");
+    expect(rows.map((r) => r.level)).toEqual(["junior", "senior", "staff", null]);
+  });
+
+  it("level:desc orders senior → junior, nulls still last", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), level: "senior" }),
+      row({ short_id: "b".repeat(16), level: "junior" }),
+      row({ short_id: "c".repeat(16), level: null }),
+      row({ short_id: "d".repeat(16), level: "staff" }),
+    ];
+    sortRows(rows, "level:desc");
+    expect(rows.map((r) => r.level)).toEqual(["staff", "senior", "junior", null]);
+  });
+
+  it("level sort tiebreaks by posted_at DESC", () => {
+    const rows = [
+      row({
+        short_id: "a".repeat(16),
+        level: "senior",
+        posted_at: "2026-04-20T00:00:00Z",
+      }),
+      row({
+        short_id: "b".repeat(16),
+        level: "senior",
+        posted_at: "2026-04-25T00:00:00Z",
+      }),
+    ];
+    sortRows(rows, "level:asc");
+    expect(rows[0]?.short_id).toBe("b".repeat(16));
+  });
+
   it("company:asc / company:desc are case-insensitive", () => {
     const rows = [
       row({ short_id: "a".repeat(16), company: "Stripe" }),

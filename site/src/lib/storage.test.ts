@@ -27,8 +27,13 @@ class MemoryStorage implements StorageLike {
   }
 }
 
-const HEX_A = "a".repeat(64);
-const HEX_B = "b".repeat(64);
+// Phase 14: storage migrated from 64-char full Job.id to 16-char short_id.
+// HEX_A_LONG / HEX_B_LONG simulate legacy entries that get normalised to
+// their 16-char prefix on load. HEX_A / HEX_B are the canonical form.
+const HEX_A = "a".repeat(16);
+const HEX_B = "b".repeat(16);
+const HEX_A_LONG = "a".repeat(64);
+const HEX_B_LONG = "b".repeat(64);
 const ISO = "2026-04-26T00:00:00Z";
 
 let storage: MemoryStorage;
@@ -66,6 +71,20 @@ describe("loadSaved / toggleSaved", () => {
   it("filters out non-hex entries from existing storage", () => {
     storage.setItem(STORAGE_KEYS.saved, JSON.stringify({ version: 1, ids: [HEX_A, "garbage"] }));
     expect(loadSaved(storage).ids).toEqual([HEX_A]);
+  });
+
+  it("normalises legacy 64-char ids to 16-char on load", () => {
+    storage.setItem(
+      STORAGE_KEYS.saved,
+      JSON.stringify({ version: 1, ids: [HEX_A_LONG, HEX_B_LONG] }),
+    );
+    expect(loadSaved(storage).ids).toEqual([HEX_A, HEX_B]);
+  });
+
+  it("toggleSaved with a 64-char id matches a 16-char saved entry (migration)", () => {
+    toggleSaved(storage, HEX_A);
+    expect(toggleSaved(storage, HEX_A_LONG)).toBe(false);
+    expect(loadSaved(storage).ids).toEqual([]);
   });
 });
 

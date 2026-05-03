@@ -199,7 +199,25 @@ export type SortKey =
   | "first_seen:desc"
   | "first_seen:asc"
   | "company:asc"
-  | "company:desc";
+  | "company:desc"
+  | "level:asc"
+  | "level:desc";
+
+/**
+ * Maps level strings to ranks for ORDER BY level. Mirrors the
+ * level_rank column the SQLite path uses (see scraper/src/build-job.ts
+ * level_rank computation). Null / unknown levels rank as 0 and sort
+ * to the end (NULLS LAST in both directions).
+ */
+const LEVEL_RANK: Record<string, number> = {
+  intern: 1,
+  junior: 2,
+  mid: 3,
+  senior: 4,
+  staff: 5,
+  principal: 6,
+  exec: 7,
+};
 
 function nullsLastDesc(a: string | null, b: string | null): number {
   if (a === b) return 0;
@@ -232,4 +250,22 @@ const SORT_COMPARATORS: Record<SortKey, (a: SlimRow, b: SlimRow) => number> = {
     a.first_seen_at < b.first_seen_at ? -1 : a.first_seen_at > b.first_seen_at ? 1 : 0,
   "company:asc": (a, b) => a.company.localeCompare(b.company, undefined, { sensitivity: "base" }),
   "company:desc": (a, b) => b.company.localeCompare(a.company, undefined, { sensitivity: "base" }),
+  "level:asc": (a, b) => {
+    const ra = a.level === null ? 0 : (LEVEL_RANK[a.level] ?? 0);
+    const rb = b.level === null ? 0 : (LEVEL_RANK[b.level] ?? 0);
+    // Nulls / unknowns sort to the end in both directions.
+    if (ra === 0 && rb !== 0) return 1;
+    if (rb === 0 && ra !== 0) return -1;
+    if (ra !== rb) return ra - rb;
+    // Tiebreak by posted_at DESC (matches the SQL plan).
+    return nullsLastDesc(a.posted_at, b.posted_at);
+  },
+  "level:desc": (a, b) => {
+    const ra = a.level === null ? 0 : (LEVEL_RANK[a.level] ?? 0);
+    const rb = b.level === null ? 0 : (LEVEL_RANK[b.level] ?? 0);
+    if (ra === 0 && rb !== 0) return 1;
+    if (rb === 0 && ra !== 0) return -1;
+    if (ra !== rb) return rb - ra;
+    return nullsLastDesc(a.posted_at, b.posted_at);
+  },
 };

@@ -1,12 +1,9 @@
 <script lang="ts">
 // biome-ignore lint/correctness/noUnusedImports: ATS_IDS / WORKPLACE_TYPES are used in the Svelte template (each block) below
 
-import type { Job } from "@openroles/shared";
 import { ATS_IDS, LEVELS, WORKPLACE_TYPES } from "@openroles/shared/constants";
 import { onMount } from "svelte";
 import { sanitizeChipLabel } from "../lib/chip-label.ts";
-import { type ClientDb, loadClientDb } from "../lib/client-db.ts";
-import { buildFilterCountQuery, buildFilterQuery } from "../lib/filter-sql.ts";
 import {
   DEFAULT_FILTER_STATE,
   decodeFilterState,
@@ -15,7 +12,16 @@ import {
   type SinceWindow,
   type SortOption,
 } from "../lib/filter-state.ts";
+import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
 import { pagesToShow } from "../lib/pager.ts";
+import {
+  type FilterPredicate,
+  filterRows,
+  type SlimRow,
+  type SortKey,
+  sortRows,
+} from "../lib/slim-index.ts";
+import { loadSlimIndex, type SlimIndex } from "../lib/slim-index-loader.ts";
 import {
   loadApplied,
   loadIgnored,
@@ -73,26 +79,17 @@ const PAGE_SIZE = 50;
 const Q_DEBOUNCE_MS = 250;
 const QUERY_DEBOUNCE_MS = 50;
 
-type JobRow = Pick<
-  Job,
-  | "id"
-  | "ats"
-  | "tenant_slug"
-  | "title"
-  | "company"
-  | "location_text"
-  | "level"
-  | "workplace_type"
-  | "posted_at"
-  | "last_seen_at"
-  | "url"
-> & {
-  is_recruiter_post: 0 | 1;
-  /** SQLite stores is_stale as INTEGER 0/1 — see specs/role-lifecycle.md. */
-  is_stale: 0 | 1;
-};
+// Phase 14: rows come from the slim-index in memory. The shape matches
+// what scraper/src/db/slim-index.ts emits — see SlimRow there.
+// `id` aliases short_id (16-char hex) for the localStorage save/applied
+// /ignored APIs that previously used the full 64-char id; they accept
+// the 16-char form too because the localStorage validators only check
+// hex shape, not length.
+type JobRow = SlimRow;
 
-type DbStatus = "loading" | "ready" | "error";
+type DbStatus = "loading" | "loading-progressive" | "ready" | "error";
+
+const SHORT_ID_RE = /^[0-9a-f]{16}$/;
 
 type FilterCategory = "ats" | "level" | "wt" | "since" | "min_comp" | "sort";
 
@@ -105,7 +102,8 @@ let state: FilterState = $state(
 let qInput = $state(state.q);
 let qDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 
-let clientDb: ClientDb | null = $state(null);
+let slimIndex: SlimIndex | null = $state(null);
+let manifest: ManifestRuntime | null = $state(null);
 let dbStatus: DbStatus = $state("loading");
 let dbError: string | null = $state(null);
 let queryError: string | null = $state(null);
@@ -113,6 +111,9 @@ let rows: JobRow[] = $state([]);
 let totalCount: number = $state(0);
 let queryToken: number = 0;
 let queryDebounceHandle: ReturnType<typeof setTimeout> | undefined;
+// Progressive load progress for the "loading 4 of 16 chunks" indicator.
+let chunksLoaded: number = $state(0);
+let chunksTotal: number = $state(0);
 
 let savedIds: ReadonlyArray<string> = $state([]);
 let appliedIds: ReadonlyArray<string> = $state([]);
@@ -167,7 +168,11 @@ function onMarkApplied(id: string): void {
 // sub-view (`showOnly === "ignored"`), short-circuit the post-filter so
 // the panel actually has rows to show. Same precedence rule as the spec.
 const visibleRows = $derived(
-  state.showOnly === "ignored" ? rows : hideIgnored ? rows.filter((r) => !isIgnored(r.id)) : rows,
+  state.showOnly === "ignored"
+    ? rows
+    : hideIgnored
+      ? rows.filter((r) => !isIgnored(r.short_id))
+      : rows,
 );
 
 function syncUrl(next: FilterState) {
@@ -280,90 +285,142 @@ const pagerPages = $derived(totalPages > 1 ? pagesToShow(state.page, totalPages)
 
 const sanitizedQ = $derived(sanitizeChipLabel(state.q));
 
+/**
+ * Read the SSR pre-paint rows out of the inline `<script
+ * type="application/json" id="first-paint-data">` element so we can
+ * use them as initial state — no extra fetch for content the page
+ * already shipped.
+ */
+function readSeedRows(): SlimRow[] {
+  if (typeof document === "undefined") return [];
+  const el = document.getElementById("first-paint-data");
+  if (!el) return [];
+  try {
+    const parsed = JSON.parse(el.textContent ?? "[]") as Array<Record<string, unknown>>;
+    // The SSR shape (FirstPaintRow) uses snake_case field names that
+    // already match SlimRow except for is_recruiter_post / is_stale
+    // (booleans both sides). Pass through the validated subset.
+    return parsed.map((p) => ({
+      short_id: String(p["short_id"] ?? ""),
+      ats: String(p["ats"] ?? ""),
+      tenant_slug: String(p["tenant_slug"] ?? ""),
+      title: String(p["title"] ?? ""),
+      company: String(p["company"] ?? ""),
+      level: typeof p["level"] === "string" ? p["level"] : null,
+      workplace_type: typeof p["workplace_type"] === "string" ? p["workplace_type"] : null,
+      is_recruiter_post: p["is_recruiter_post"] === true,
+      is_stale: p["is_stale"] === true,
+      location_text: typeof p["location_text"] === "string" ? p["location_text"] : null,
+      location_country: typeof p["location_country"] === "string" ? p["location_country"] : null,
+      posted_at: typeof p["posted_at"] === "string" ? p["posted_at"] : null,
+      first_seen_at: String(p["first_seen_at"] ?? ""),
+      compensation_min: typeof p["compensation_min"] === "number" ? p["compensation_min"] : null,
+      compensation_max: null,
+      compensation_currency: null,
+    }));
+  } catch {
+    return [];
+  }
+}
+
 onMount(async () => {
   refreshUserLists();
+  // Seed with the SSR pre-paint rows so the user sees something
+  // sensible even before the slim index lands.
+  const seed = readSeedRows();
+  if (seed.length > 0) {
+    rows = seed;
+    totalCount = seed.length;
+  }
   try {
-    clientDb = await loadClientDb({ basePath });
+    manifest = await fetchManifest(basePath);
+    if (manifest.slim_index_chunks.length === 0) {
+      throw new Error(
+        "FilterTable: this build did not emit a slim index; cannot run client-side filters",
+      );
+    }
+    chunksTotal = manifest.slim_index_chunks.length;
+    dbStatus = "loading-progressive";
+    slimIndex = await loadSlimIndex({
+      basePath,
+      manifest,
+      seed,
+      onChunk: (_chunk, _cumulative, _total) => {
+        chunksLoaded += 1;
+        // Re-run the filter against the now-larger row set. We bump
+        // queryToken so any in-flight debounced query gets superseded.
+        if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
+        queryDebounceHandle = setTimeout(() => runFilter(state), QUERY_DEBOUNCE_MS);
+      },
+    });
     dbStatus = "ready";
+    runFilter(state);
   } catch (err) {
     dbStatus = "error";
     dbError = err instanceof Error ? err.message : String(err);
   }
 });
 
-function hasAnyFilter(s: FilterState): boolean {
-  return (
-    s.q.trim().length > 0 ||
-    s.ats.length > 0 ||
-    s.level.length > 0 ||
-    s.wt.length > 0 ||
-    s.since !== "all" ||
-    s.hideRecruiter ||
-    s.hideStale ||
-    s.showOnly !== undefined ||
-    s.minComp !== undefined ||
-    s.country !== undefined ||
-    s.region !== undefined
-  );
+const SINCE_HOURS: Record<SinceWindow, number | null> = {
+  all: null,
+  "24h": 24,
+  "7d": 24 * 7,
+  "30d": 24 * 30,
+};
+
+function buildPredicate(s: FilterState): FilterPredicate {
+  const predicate: FilterPredicate = {};
+  if (s.q.trim().length > 0) predicate.q = s.q.trim();
+  if (s.ats.length > 0) predicate.ats = new Set(s.ats);
+  if (s.level.length > 0) predicate.level = new Set(s.level);
+  if (s.wt.length > 0) predicate.workplace_type = new Set(s.wt);
+  if (s.country !== undefined) predicate.country = s.country;
+  if (s.hideRecruiter) predicate.hideRecruiter = true;
+  if (s.hideStale) predicate.hideStale = true;
+  if (s.minComp !== undefined) predicate.minComp = s.minComp;
+  const sinceHours = SINCE_HOURS[s.since];
+  if (sinceHours !== null) predicate.sinceMs = Date.now() - sinceHours * 3_600_000;
+  // showOnly narrows to the matching localStorage list (intentionally
+  // empty → zero rows; specs/filter-ui.md v1.2.0).
+  if (s.showOnly === "saved") predicate.idAllowlist = new Set(savedIds);
+  else if (s.showOnly === "applied") predicate.idAllowlist = new Set(appliedIds);
+  else if (s.showOnly === "ignored") predicate.idAllowlist = new Set(ignoredIds);
+  return predicate;
 }
 
-async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> {
+const SORT_KEY_MAP: Record<SortOption, SortKey> = {
+  "posted_at:desc": "posted_at:desc",
+  "posted_at:asc": "posted_at:asc",
+  "first_seen:desc": "first_seen:desc",
+  "first_seen:asc": "first_seen:asc",
+  "company:asc": "company:asc",
+  "company:desc": "company:desc",
+  "level:asc": "level:asc",
+  "level:desc": "level:desc",
+};
+
+function runFilter(currentState: FilterState): void {
   const token = ++queryToken;
-  // Phase 13: when showOnly is set, narrow results to the matching
-  // localStorage list. Empty list intentionally yields zero rows
-  // (specs/filter-ui.md v1.2.0 §Saved / applied / ignored sub-views).
-  const idAllowlist =
-    currentState.showOnly === "saved"
-      ? savedIds
-      : currentState.showOnly === "applied"
-        ? appliedIds
-        : currentState.showOnly === "ignored"
-          ? ignoredIds
-          : undefined;
-  const opts = idAllowlist !== undefined ? { idAllowlist } : {};
-  const plan = buildFilterQuery(currentState, opts);
-  // Optimization: when no filters are active, the count is the manifest's
-  // total_rows — skip the COUNT(*) query entirely. SQLite's COUNT(*) walks
-  // the smallest index, which is still ~the whole index over HTTP — that
-  // alone transfers >100MB to render the homepage. With filters active
-  // the WHERE clause prunes most pages, so the count remains fast.
-  const skipCount = !hasAnyFilter(currentState);
-  const countPlan = buildFilterCountQuery(currentState, opts);
-  try {
-    if (skipCount) {
-      const resultRows = await db.query<JobRow>(plan.sql, plan.params);
-      if (token !== queryToken) return;
-      rows = resultRows;
-      totalCount = db.manifest.total_rows;
-      queryError = null;
-      return;
-    }
-    const [resultRows, countRows] = await Promise.all([
-      db.query<JobRow>(plan.sql, plan.params),
-      db.query<{ c: number }>(countPlan.sql, countPlan.params),
-    ]);
-    if (token !== queryToken) return;
-    rows = resultRows;
-    totalCount = countRows[0]?.c ?? 0;
-    queryError = null;
-  } catch (err) {
-    if (token !== queryToken) return;
-    queryError = err instanceof Error ? err.message : String(err);
-    // biome-ignore lint/suspicious/noConsole: dev-only diagnostic for query failures
-    if (import.meta.env.DEV && typeof console !== "undefined" && console.error) {
-      console.error("filter-table:query-failed", err);
-    }
-  }
+  if (slimIndex === null) return;
+  const predicate = buildPredicate(currentState);
+  // Materialise then sort only the matched rows — sorting all 750k
+  // every keystroke is wasteful. `filterRows` walks the full set
+  // once and returns matches in input order; we then sort those.
+  const all = filterRows(slimIndex.rows, predicate, 0, Number.POSITIVE_INFINITY);
+  if (token !== queryToken) return;
+  const sortKey = SORT_KEY_MAP[currentState.sort];
+  sortRows(all.matches, sortKey);
+  const offset = (currentState.page - 1) * PAGE_SIZE;
+  rows = all.matches.slice(offset, offset + PAGE_SIZE);
+  totalCount = all.total;
+  queryError = null;
 }
 
 $effect(() => {
   const snapshot = state;
-  const db = clientDb;
-  if (!db || dbStatus !== "ready") return;
+  if (slimIndex === null) return;
   if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
-  queryDebounceHandle = setTimeout(() => {
-    void runQuery(snapshot, db);
-  }, QUERY_DEBOUNCE_MS);
+  queryDebounceHandle = setTimeout(() => runFilter(snapshot), QUERY_DEBOUNCE_MS);
 });
 
 // Click-outside + Esc close the open popover.
@@ -841,19 +898,19 @@ function ariaSort(
     </div>
 
     <ul class="results" role="list" data-testid="job-results">
-      {#each visibleRows as row (row.id)}
+      {#each visibleRows as row (row.short_id)}
         {@const age = formatAge(row.posted_at)}
-        {@const stale = row.is_stale === 1}
-        {@const staleDays = stale ? staleAgeDays(row.last_seen_at) : 0}
-        <li class="job" class:applied={isApplied(row.id)} class:is-stale={stale}>
+        {@const stale = row.is_stale}
+        {@const detailHref = `${basePath}/role/?id=${row.short_id}`}
+        <li class="job" class:applied={isApplied(row.short_id)} class:is-stale={stale}>
           <div class="job-cell job-cell--role">
             <h3 class="company">
               <span class="company-name">{row.company}</span>
               {#if stale}
                 <span
                   class="stale-badge"
-                  title={`Last verified ${(row.last_seen_at ?? "").slice(0, 10)} — the source ATS hasn't responded for ${staleDays} day${staleDays === 1 ? "" : "s"}. The role may still be open.`}
-                >STALE · {staleDays}D</span>
+                  title="The source ATS hasn't responded recently — the role may still be open."
+                >STALE</span>
               {:else if age.fresh}
                 <span class="new-badge" aria-label="new">NEW</span>
               {/if}
@@ -862,11 +919,9 @@ function ariaSort(
               {/if}
             </h3>
             <a
-              href={row.url}
+              href={detailHref}
               class="job-title"
-              rel="noopener noreferrer"
-              target="_blank"
-              onclick={() => onMarkApplied(row.id)}
+              onclick={() => onMarkApplied(row.short_id)}
             >
               {row.title}
             </a>
@@ -886,7 +941,7 @@ function ariaSort(
           </div>
           <div class="job-cell job-cell--posted">
             <span class="age" class:is-new={age.fresh}>{age.label}</span>
-            {#if isApplied(row.id)}
+            {#if isApplied(row.short_id)}
               <span class="rule" aria-hidden="true">·</span>
               <span class="applied-badge">applied</span>
             {/if}
@@ -896,33 +951,31 @@ function ariaSort(
               <button
                 type="button"
                 class="job-action save"
-                aria-pressed={isSaved(row.id)}
-                onclick={() => onToggleSaved(row.id)}
+                aria-pressed={isSaved(row.short_id)}
+                onclick={() => onToggleSaved(row.short_id)}
               >
-                {isSaved(row.id) ? "★ Saved" : "☆ Save"}
+                {isSaved(row.short_id) ? "★ Saved" : "☆ Save"}
               </button>
               <a
-                href={`${basePath}/role/?id=${row.id.slice(0, 16)}`}
+                href={detailHref}
                 class="job-action view"
               >
                 View
               </a>
               <a
-                href={row.url}
+                href={detailHref}
                 class="job-action apply"
-                rel="noopener noreferrer"
-                target="_blank"
-                onclick={() => onMarkApplied(row.id)}
+                onclick={() => onMarkApplied(row.short_id)}
               >
                 Apply →
               </a>
               <button
                 type="button"
                 class="job-action ignore"
-                aria-pressed={isIgnored(row.id)}
-                onclick={() => onToggleIgnored(row.id)}
+                aria-pressed={isIgnored(row.short_id)}
+                onclick={() => onToggleIgnored(row.short_id)}
               >
-                {isIgnored(row.id) ? "Unignore" : "Ignore"}
+                {isIgnored(row.short_id) ? "Unignore" : "Ignore"}
               </button>
             </div>
           </div>
