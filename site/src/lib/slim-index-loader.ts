@@ -196,14 +196,19 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
     return { ...result, fullyLoaded: true };
   }
 
-  // Fan out the rest concurrently. Each chunk lands independently,
-  // updating `rows` in place and firing onChunk. We don't block here —
-  // the caller gets back to filter-rendering as soon as chunk 0 has
-  // merged. Worker handles its own queue order; results may arrive
-  // out of order which is fine since appendUnique is idempotent.
+  // Process the rest sequentially. The worker is single-threaded, so
+  // running 37 requestChunk calls concurrently buys us no throughput —
+  // just hundreds of MB of in-flight gzipped Blobs + parsed JSON
+  // strings piling up in worker memory. The earlier fan-out version
+  // looked correct on small datasets but fell over at full scale:
+  // the worker would queue every fetch up front, then memory pressure
+  // (or browser fetch-throttling, which holds reads at 6-per-origin)
+  // stalled chunks 1-N indefinitely so only chunk 0 ever merged.
+  // Sequential processing peaks memory at one chunk's working set
+  // (~12MB) and keeps onChunk firing predictably.
   const rest = chunks.slice(1);
-  const allDone = Promise.all(
-    rest.map(async (chunk) => {
+  const allDone = (async () => {
+    for (const chunk of rest) {
       try {
         const r = await requestChunk(`${base}/data/${chunk.file}`);
         I.appendUnique(rows, r);
@@ -222,8 +227,8 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
         // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
         (globalThis as any).__slimIndexRowsLength = rows.length;
       }
-    }),
-  );
+    }
+  })();
   // Don't await — fire and forget. Caller can poll fullyLoaded.
   // We do still want to flip the flag once everything settles.
   void allDone.then(() => {
