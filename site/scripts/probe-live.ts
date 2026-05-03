@@ -104,36 +104,51 @@ async function main(): Promise<void> {
   // life of the page. domcontentloaded + the explicit wait below is enough.
   await page.goto(TARGET, { waitUntil: "domcontentloaded", timeout: 60_000 });
 
-  // Wait until FilterTable settles into ready (totalCount rendered) or
-  // error (data-error paragraph mounted).
-  try {
-    await page.waitForFunction(
-      () => {
+  // Watchdog: every 5s dump live DOM state so we can see WHEN things
+  // resolve without blocking on a single waitForFunction.
+  let resolved = false;
+  const watchdog = setInterval(async () => {
+    try {
+      const snap = await page.evaluate(() => {
         const err = document.querySelector(".data-error");
-        if (err) return "error";
-        const status = document.querySelector(".results-status");
-        const text = status?.textContent ?? "";
-        // dbStatus="loading" renders the literal LOADING… string. Once
-        // dbStatus flips to "ready" the count + "PAGE n" text replaces it.
-        if (text.includes("LOADING")) return false;
-        if (/PAGE\s+\d+/i.test(text)) return "ready";
-        return false;
-      },
-      null,
-      { timeout: 90_000 },
-    );
-  } catch {
-    emit("[probe] timeout waiting for db-status");
+        return {
+          rows: document.querySelectorAll("li.job").length,
+          empty: !!document.querySelector(".data-empty"),
+          loading: !!document.querySelector(".data-pending"),
+          error: err?.textContent?.trim() ?? null,
+          status: document.querySelector(".results-status")?.textContent?.trim() ?? null,
+        };
+      });
+      emit(`[watchdog] ${JSON.stringify(snap)}`);
+      if (snap.rows > 0 || snap.error || (snap.empty && !snap.loading)) {
+        resolved = true;
+      }
+    } catch {
+      // page might be closing
+    }
+  }, 5_000);
+  // Wait until rows render or 180s elapse.
+  const start = Date.now();
+  while (!resolved && Date.now() - start < 180_000) {
+    await new Promise((r) => setTimeout(r, 1_000));
   }
+  clearInterval(watchdog);
 
   const status = await page.evaluate(() => {
     const err = document.querySelector(".data-error");
     const ready = document.querySelector(".results-status")?.textContent?.trim();
+    const rows = document.querySelectorAll("li.job").length;
+    const empty = !!document.querySelector(".data-empty");
+    const pending = !!document.querySelector(".data-pending");
     return {
       errorText: err?.textContent ?? null,
       readyText: ready ?? null,
+      jobRows: rows,
+      hasEmpty: empty,
+      hasPending: pending,
     };
   });
+  emit(`[dom-state] rows=${status.jobRows} empty=${status.hasEmpty} pending=${status.hasPending}`);
   emit(`[results-status] ${status.readyText ?? ""}`);
   emit(`[data-error] ${status.errorText ?? ""}`);
   emit(`[xhr count] ${xhrCount}`);

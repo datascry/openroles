@@ -79,16 +79,17 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   hideRecruiter: false,
   hideStale: false,
   minComp: undefined,
-  // The default sort must use a covering index — otherwise the
-  // homepage's first paint forces SQLite to do a full-table scan +
-  // temp-tree sort, which over sql.js-httpvfs means hundreds of MB of
-  // 1 KiB page fetches just to render 50 rows. `first_seen:desc` maps
-  // to idx_jobs_first_seen_at (~50 index page reads + 50 row reads ≈
-  // 100 KiB on the wire). `posted_at:desc` lacks a top-level index;
-  // selecting it from the dropdown still works but pays the scan
-  // cost. TODO: add an idx_jobs_posted_at index in the next schema
-  // bump and switch the default back.
-  sort: "first_seen:desc",
+  // posted_at:desc is the sort the index plan was designed around:
+  //   - idx_jobs_posted_at      → unfiltered homepage
+  //   - idx_jobs_ats_posted_at  → ATS filter
+  //   - idx_jobs_level_ats / idx_jobs_workplace_type / etc serve
+  //     their respective WHERE clauses with posted_at as the trailing
+  //     ORDER BY (handled via secondary sort or further index lookup)
+  // Switching this away forces SQLite to either (a) walk a full-table
+  // sort or (b) reverse-walk a wide index that doesn't match any
+  // filter, both of which translate to thousands of 1 KiB Range
+  // requests over sql.js-httpvfs.
+  sort: "posted_at:desc",
   page: 1,
   showOnly: undefined,
 };

@@ -68,19 +68,20 @@ END;
 `;
 
 export const INDEX_DDL = `
-CREATE INDEX idx_jobs_ats_posted_at         ON jobs(ats, posted_at DESC);
-CREATE INDEX idx_jobs_level_ats             ON jobs(level, ats);
-CREATE INDEX idx_jobs_level_rank            ON jobs(level_rank);
-CREATE INDEX idx_jobs_workplace_type        ON jobs(workplace_type);
+CREATE INDEX idx_jobs_ats_posted_at         ON jobs(ats, posted_at DESC, first_seen_at DESC);
+CREATE INDEX idx_jobs_level_posted_at       ON jobs(level, posted_at DESC, first_seen_at DESC);
+CREATE INDEX idx_jobs_wt_posted_at          ON jobs(workplace_type, posted_at DESC, first_seen_at DESC);
+CREATE INDEX idx_jobs_recruiter_posted_at   ON jobs(is_recruiter_post, posted_at DESC, first_seen_at DESC);
+CREATE INDEX idx_jobs_stale_posted_at       ON jobs(is_stale, posted_at DESC, first_seen_at DESC);
+CREATE INDEX idx_jobs_company_nocase        ON jobs(company COLLATE NOCASE);
+CREATE INDEX idx_jobs_level_rank_posted_at  ON jobs(level_rank, posted_at DESC, first_seen_at DESC);
 CREATE INDEX idx_jobs_tenant                ON jobs(ats, tenant_slug);
-CREATE INDEX idx_jobs_first_seen_at         ON jobs(first_seen_at DESC);
 CREATE INDEX idx_jobs_country_region        ON jobs(location_country, location_region);
-CREATE INDEX idx_jobs_is_stale              ON jobs(is_stale);
--- Covers the "newest by posted_at" sort the UI exposes. Without this
--- index, ORDER BY posted_at DESC, first_seen_at DESC forces SQLite to
--- read every page in the jobs table and sort them in a temp btree.
--- Over sql.js-httpvfs that translates to hundreds of MB of 1 KiB
--- page fetches to render the first 50 rows.
+CREATE INDEX idx_jobs_first_seen_at         ON jobs(first_seen_at DESC);
+-- The "all roles, newest first" homepage sort. Without this index,
+-- ORDER BY posted_at DESC forces a temp btree sort over the whole
+-- jobs table — hundreds of MB of 1 KiB Range requests to render the
+-- first 50 rows over sql.js-httpvfs.
 CREATE INDEX idx_jobs_posted_at             ON jobs(posted_at DESC, first_seen_at DESC);
 `;
 
