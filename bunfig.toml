@@ -23,7 +23,10 @@ coveragePathIgnorePatterns = [
   "node_modules/**",
   "dist/**",
   ".astro/**",
-  "coverage/**"
+  "coverage/**",
+  # Browser-only fetch + Web Worker code; bun:test cannot exercise it.
+  # Covered by Playwright e2e in tests/e2e/slim-index.spec.ts.
+  "**/slim-index-loader.ts",
 ]
 coverageDir = "coverage"
 bail = 0

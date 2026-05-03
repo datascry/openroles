@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { filterRows, type SlimRow, sortRows } from "./slim-index.ts";
+import { filterRows, __test_internals as I, type SlimRow, sortRows } from "./slim-index.ts";
 
 const ROW_BASE: SlimRow = {
   short_id: "0".repeat(16),
@@ -185,6 +185,91 @@ describe("filterRows", () => {
   });
 });
 
+describe("__test_internals", () => {
+  it("fromWire decodes the on-wire shape into SlimRow", () => {
+    const decoded = I.fromWire({
+      i: "0".repeat(16),
+      a: "greenhouse",
+      t: "stripe",
+      ti: "Engineer",
+      c: "Stripe",
+      l: "senior",
+      w: "remote",
+      r: 1,
+      s: 0,
+      loc: "Remote",
+      cc: "US",
+      p: "2026-04-25T00:00:00Z",
+      f: "2026-04-25T00:00:00Z",
+      cm: 100000,
+      cmax: 200000,
+      cur: "USD",
+    });
+    expect(decoded.short_id).toBe("0".repeat(16));
+    expect(decoded.is_recruiter_post).toBe(true);
+    expect(decoded.is_stale).toBe(false);
+    expect(decoded.compensation_min).toBe(100000);
+  });
+
+  it("appendUnique adds new rows and skips duplicates by short_id", () => {
+    const target: SlimRow[] = [
+      {
+        short_id: "a".repeat(16),
+        ats: "greenhouse",
+        tenant_slug: "x",
+        title: "T",
+        company: "C",
+        level: null,
+        workplace_type: null,
+        is_recruiter_post: false,
+        is_stale: false,
+        location_text: null,
+        location_country: null,
+        posted_at: null,
+        first_seen_at: "2026-04-25T00:00:00Z",
+        compensation_min: null,
+        compensation_max: null,
+        compensation_currency: null,
+      },
+    ];
+    const seed = target[0];
+    if (!seed) throw new Error("test fixture broken");
+    I.appendUnique(target, [
+      // Same short_id as the existing row — should be skipped.
+      { ...seed },
+      { ...seed, short_id: "b".repeat(16) },
+    ]);
+    expect(target).toHaveLength(2);
+    expect(target.map((r) => r.short_id)).toEqual(["a".repeat(16), "b".repeat(16)]);
+  });
+
+  it("appendUnique fast-paths when target is empty", () => {
+    const target: SlimRow[] = [];
+    const incoming: SlimRow[] = [
+      {
+        short_id: "a".repeat(16),
+        ats: "greenhouse",
+        tenant_slug: "x",
+        title: "T",
+        company: "C",
+        level: null,
+        workplace_type: null,
+        is_recruiter_post: false,
+        is_stale: false,
+        location_text: null,
+        location_country: null,
+        posted_at: null,
+        first_seen_at: "2026-04-25T00:00:00Z",
+        compensation_min: null,
+        compensation_max: null,
+        compensation_currency: null,
+      },
+    ];
+    I.appendUnique(target, incoming);
+    expect(target).toHaveLength(1);
+  });
+});
+
 describe("sortRows", () => {
   it("posted_at:desc — null posted_at sorts to the end", () => {
     const rows = [
@@ -212,6 +297,15 @@ describe("sortRows", () => {
       row({ short_id: "b".repeat(16), first_seen_at: "2026-04-25T00:00:00Z" }),
     ];
     sortRows(rows, "first_seen:desc");
+    expect(rows[0]?.short_id).toBe("b".repeat(16));
+  });
+
+  it("first_seen:asc orders oldest first", () => {
+    const rows = [
+      row({ short_id: "a".repeat(16), first_seen_at: "2026-04-25T00:00:00Z" }),
+      row({ short_id: "b".repeat(16), first_seen_at: "2026-04-20T00:00:00Z" }),
+    ];
+    sortRows(rows, "first_seen:asc");
     expect(rows[0]?.short_id).toBe("b".repeat(16));
   });
 
