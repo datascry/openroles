@@ -54,10 +54,25 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
   // requestChunkSize must match SQLite's page_size (1024 bytes per
   // schema.ts PAGE_SIZE_PRAGMA). Mismatched cache granularity makes
   // sql.js's b-tree reads fetch partial pages and parse garbage.
+  //
+  // serverChunkSize and urlSuffix are consumed by the lazyFile patch we
+  // apply at copy time (see scripts/copy-sqlite-vfs.ts):
+  //   - serverChunkSize → clamps each read-ahead at the current chunk
+  //     file's boundary so a single XHR never spans two chunk files.
+  //     GitHub Pages truncates cross-file ranges; without the clamp,
+  //     the unpatched lazyFile throws "doXHR failed (bug)!" when the
+  //     requested page lands past the truncation point.
+  //   - urlSuffix → appends ".png" to the chunk URL. Fastly (the CDN
+  //     in front of GitHub Pages) gzips application/octet-stream, and
+  //     a 206 with Content-Encoding: gzip + Range refers to compressed
+  //     bytes, so sql.js-httpvfs reads garbage. image/png is excluded
+  //     from Fastly's compressible list, so chunks named *.png come
+  //     back uncompressed and byte ranges are honest.
   const config = useChunked
     ? {
         serverMode: "chunked" as const,
         urlPrefix: dbUrlPrefix,
+        urlSuffix: ".png",
         serverChunkSize: manifest.db_chunk_size_bytes,
         databaseLengthBytes: manifest.db_filesize_bytes,
         suffixLength: manifest.db_suffix_length,

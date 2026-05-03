@@ -187,15 +187,19 @@ jobs:
 
       - name: Stage SQLite chunks + manifest for runtime fetch
         run: |
-          # build-db emits both the original .sqlite and chunked
-          # .sqlite.NNNN slices. Pages deploy needs the chunks (sql.js-httpvfs
-          # uses serverMode: chunked because GitHub Pages's chunked HTTP
-          # transfer-encoding strips Content-Length). We don't ship the
-          # full .sqlite — it would double the artifact size for no
-          # runtime benefit.
+          # build-db emits the original .sqlite plus chunked
+          # .sqlite.NNN.png slices. Pages deploy needs the chunks
+          # (sql.js-httpvfs uses serverMode=chunked because Pages's
+          # chunked HTTP transfer-encoding strips Content-Length).
+          # The .png extension on the chunk files is load-bearing: it
+          # disables Fastly's automatic gzip wrapper, which otherwise
+          # makes Range responses return compressed bytes that
+          # sql.js-httpvfs reads as garbage. See scripts/copy-sqlite-vfs.ts.
+          # We don't ship the full .sqlite — it would double the
+          # artifact size for no runtime benefit.
           mkdir -p site/public/data
           cp data/manifest.json site/public/data/manifest.json
-          cp data/jobs.${BUILD_SHORT_SHA}.sqlite.* site/public/data/
+          cp data/jobs.${BUILD_SHORT_SHA}.sqlite.*.png site/public/data/
           ls -lh site/public/data/ | head -10
 
       - name: Build static site
