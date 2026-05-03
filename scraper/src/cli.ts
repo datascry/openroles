@@ -20,6 +20,7 @@ import {
 } from "@openroles/shared";
 import { z } from "zod";
 import { buildDb } from "./db/build-db.ts";
+import { emitSearchIndex } from "./db/search-index.ts";
 import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
@@ -345,6 +346,8 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     staleTtlDays = parsed;
   }
   let manifest: ReturnType<typeof buildDb>["manifest"];
+  let searchIdxSize = 0;
+  let searchIdxStems = 0;
   try {
     const { db, manifest: m } = buildDb(
       {
@@ -365,6 +368,14 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     // chunk is content-hashed and pre-gzipped so the deploy serves
     // them as static immutable assets.
     const slim = await emitSlimIndex(db, { outputDir });
+
+    // Phase 14 step 5: emit the stem-aware inverted index over title +
+    // company. ~2 MB gzipped at 750k rows. The FilterTable lazy-loads
+    // it the first time the user types in the search box, so users
+    // who only browse / filter never pay this bandwidth cost.
+    const searchIdx = await emitSearchIndex(db, { outputDir });
+    searchIdxSize = searchIdx.fields.search_index_bytes_gz;
+    searchIdxStems = searchIdx.fields.search_index_unique_stems;
 
     db.close();
     await rename(dbTmp, dbPath);
@@ -402,7 +413,7 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     throw err;
   }
   const slimSummary = manifest.slim_index_chunks.length
-    ? `, slim=${manifest.slim_index_chunks.length}×~${Math.round(manifest.slim_index_chunks[0]?.bytes_gz ?? 0 / 1024)}KB`
+    ? `, slim=${manifest.slim_index_chunks.length}×~${Math.round(manifest.slim_index_chunks[0]?.bytes_gz ?? 0 / 1024)}KB, search-idx=${Math.round(searchIdxSize / 1024)}KB/${searchIdxStems} stems`
     : "";
   console.error(
     `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}, chunks=${manifest.db_chunk_count}×${manifest.db_chunk_size_bytes / 1024 / 1024}MB${slimSummary})`,

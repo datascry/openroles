@@ -14,6 +14,7 @@ import {
 } from "../lib/filter-state.ts";
 import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
 import { pagesToShow } from "../lib/pager.ts";
+import { parseSearchIndex, type SearchIndex, searchStems } from "../lib/search-tokens.ts";
 import {
   type FilterPredicate,
   filterRows,
@@ -114,6 +115,11 @@ let queryDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
+// Stem-aware search inverted index (Phase 14 step 5). Lazy-loaded the
+// first time the user types in the search box — pays the ~2 MB cost
+// only for users who actually search.
+let searchIndex: SearchIndex | null = $state(null);
+let searchIndexPromise: Promise<SearchIndex | null> | null = null;
 
 let savedIds: ReadonlyArray<string> = $state([]);
 let appliedIds: ReadonlyArray<string> = $state([]);
@@ -191,6 +197,48 @@ function onQInput(value: string) {
   qInput = value;
   if (qDebounceHandle) clearTimeout(qDebounceHandle);
   qDebounceHandle = setTimeout(() => updateState({ q: value }), Q_DEBOUNCE_MS);
+  // First time the user types something non-empty, kick off the
+  // search-index download. Idempotent — repeat calls just return the
+  // same Promise.
+  if (value.trim().length > 0) void ensureSearchIndex();
+}
+
+async function ensureSearchIndex(): Promise<SearchIndex | null> {
+  if (searchIndex !== null) return searchIndex;
+  if (searchIndexPromise !== null) return searchIndexPromise;
+  if (manifest === null) return null;
+  searchIndexPromise = (async () => {
+    try {
+      const url = `${basePath.replace(/\/$/, "")}/data/search/title-tokens.json.gz`;
+      const res = await fetch(url, { cache: "force-cache" });
+      if (!res.ok) return null;
+      // Pre-gzipped on origin. The browser auto-decompresses when
+      // Content-Encoding: gzip is set; otherwise we run
+      // DecompressionStream ourselves (.json.gz served identity).
+      const enc = res.headers.get("content-encoding");
+      let text: string;
+      if (enc === null || enc === "identity") {
+        const blob = await res.blob();
+        const ds = new DecompressionStream("gzip");
+        text = await new Response(blob.stream().pipeThrough(ds)).text();
+      } else {
+        text = await res.text();
+      }
+      searchIndex = parseSearchIndex(JSON.parse(text));
+      // Re-run the filter so the user's in-flight query upgrades from
+      // substring to stem matching as soon as the index lands.
+      runFilter(state);
+      return searchIndex;
+    } catch {
+      // Search index is a best-effort enhancement — if the fetch
+      // fails, the substring fallback in buildPredicate keeps things
+      // working.
+      return null;
+    } finally {
+      searchIndexPromise = null;
+    }
+  })();
+  return searchIndexPromise;
 }
 
 function clearQ() {
@@ -370,7 +418,24 @@ const SINCE_HOURS: Record<SinceWindow, number | null> = {
 
 function buildPredicate(s: FilterState): FilterPredicate {
   const predicate: FilterPredicate = {};
-  if (s.q.trim().length > 0) predicate.q = s.q.trim();
+  // q: prefer the stem-aware inverted index (set of row indices) when
+  // the search index has loaded; otherwise pass the substring through
+  // and let filterRows do a regex match. The index gives us
+  // engineer/engineering equivalence; substring is the fallback.
+  const trimmed = s.q.trim();
+  if (trimmed.length > 0 && searchIndex !== null && slimIndex !== null) {
+    const matchIdxs = searchStems(searchIndex, trimmed);
+    if (matchIdxs !== null) {
+      const allow = new Set<string>();
+      for (const i of matchIdxs) {
+        const row = slimIndex.rows[i];
+        if (row) allow.add(row.short_id);
+      }
+      predicate.idAllowlist = allow;
+    }
+  } else if (trimmed.length > 0) {
+    predicate.q = trimmed;
+  }
   if (s.ats.length > 0) predicate.ats = new Set(s.ats);
   if (s.level.length > 0) predicate.level = new Set(s.level);
   if (s.wt.length > 0) predicate.workplace_type = new Set(s.wt);
@@ -381,10 +446,26 @@ function buildPredicate(s: FilterState): FilterPredicate {
   const sinceHours = SINCE_HOURS[s.since];
   if (sinceHours !== null) predicate.sinceMs = Date.now() - sinceHours * 3_600_000;
   // showOnly narrows to the matching localStorage list (intentionally
-  // empty → zero rows; specs/filter-ui.md v1.2.0).
-  if (s.showOnly === "saved") predicate.idAllowlist = new Set(savedIds);
-  else if (s.showOnly === "applied") predicate.idAllowlist = new Set(appliedIds);
-  else if (s.showOnly === "ignored") predicate.idAllowlist = new Set(ignoredIds);
+  // empty → zero rows; specs/filter-ui.md v1.2.0). When both showOnly
+  // and a stem-search idAllowlist apply, we intersect them — only
+  // rows that ALSO appear in the saved/applied/ignored list pass.
+  const saveSetSource =
+    s.showOnly === "saved"
+      ? savedIds
+      : s.showOnly === "applied"
+        ? appliedIds
+        : s.showOnly === "ignored"
+          ? ignoredIds
+          : null;
+  if (saveSetSource !== null) {
+    if (predicate.idAllowlist) {
+      const intersect = new Set<string>();
+      for (const id of saveSetSource) if (predicate.idAllowlist.has(id)) intersect.add(id);
+      predicate.idAllowlist = intersect;
+    } else {
+      predicate.idAllowlist = new Set(saveSetSource);
+    }
+  }
   return predicate;
 }
 
