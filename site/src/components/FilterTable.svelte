@@ -291,6 +291,22 @@ onMount(async () => {
   }
 });
 
+function hasAnyFilter(s: FilterState): boolean {
+  return (
+    s.q.trim().length > 0 ||
+    s.ats.length > 0 ||
+    s.level.length > 0 ||
+    s.wt.length > 0 ||
+    s.since !== "all" ||
+    s.hideRecruiter ||
+    s.hideStale ||
+    s.showOnly !== undefined ||
+    s.minComp !== undefined ||
+    s.country !== undefined ||
+    s.region !== undefined
+  );
+}
+
 async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> {
   const token = ++queryToken;
   // Phase 13: when showOnly is set, narrow results to the matching
@@ -306,8 +322,22 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
           : undefined;
   const opts = idAllowlist !== undefined ? { idAllowlist } : {};
   const plan = buildFilterQuery(currentState, opts);
+  // Optimization: when no filters are active, the count is the manifest's
+  // total_rows — skip the COUNT(*) query entirely. SQLite's COUNT(*) walks
+  // the smallest index, which is still ~the whole index over HTTP — that
+  // alone transfers >100MB to render the homepage. With filters active
+  // the WHERE clause prunes most pages, so the count remains fast.
+  const skipCount = !hasAnyFilter(currentState);
   const countPlan = buildFilterCountQuery(currentState, opts);
   try {
+    if (skipCount) {
+      const resultRows = await db.query<JobRow>(plan.sql, plan.params);
+      if (token !== queryToken) return;
+      rows = resultRows;
+      totalCount = db.manifest.total_rows;
+      queryError = null;
+      return;
+    }
     const [resultRows, countRows] = await Promise.all([
       db.query<JobRow>(plan.sql, plan.params),
       db.query<{ c: number }>(countPlan.sql, countPlan.params),
@@ -316,8 +346,6 @@ async function runQuery(currentState: FilterState, db: ClientDb): Promise<void> 
     rows = resultRows;
     totalCount = countRows[0]?.c ?? 0;
     queryError = null;
-    if (import.meta.env.DEV && typeof console !== "undefined" && console.debug) {
-    }
   } catch (err) {
     if (token !== queryToken) return;
     queryError = err instanceof Error ? err.message : String(err);

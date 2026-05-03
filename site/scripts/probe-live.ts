@@ -92,6 +92,12 @@ async function main(): Promise<void> {
     emit(`[requestfailed] ${req.url()} → ${req.failure()?.errorText ?? ""}`);
   });
   page.on("response", inspectResponse);
+  page.on("request", (req) => {
+    const url = req.url();
+    if (url.includes("/data/jobs.")) {
+      emit(`[req] ${url} range=${req.headers().range ?? ""}`);
+    }
+  });
 
   emit(`navigating: ${TARGET}`);
   // Don't wait for networkidle — sql.js-httpvfs keeps issuing XHRs for the

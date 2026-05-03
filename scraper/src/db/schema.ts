@@ -76,6 +76,12 @@ CREATE INDEX idx_jobs_tenant                ON jobs(ats, tenant_slug);
 CREATE INDEX idx_jobs_first_seen_at         ON jobs(first_seen_at DESC);
 CREATE INDEX idx_jobs_country_region        ON jobs(location_country, location_region);
 CREATE INDEX idx_jobs_is_stale              ON jobs(is_stale);
+-- Covers the "newest by posted_at" sort the UI exposes. Without this
+-- index, ORDER BY posted_at DESC, first_seen_at DESC forces SQLite to
+-- read every page in the jobs table and sort them in a temp btree.
+-- Over sql.js-httpvfs that translates to hundreds of MB of 1 KiB
+-- page fetches to render the first 50 rows.
+CREATE INDEX idx_jobs_posted_at             ON jobs(posted_at DESC, first_seen_at DESC);
 `;
 
 export const PAGE_SIZE_PRAGMA = "PRAGMA page_size = 1024;";

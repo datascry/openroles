@@ -1,53 +1,31 @@
 ---
-import {
-  dataDirIsPopulated,
-  openSiteDb,
-  selectTenantJobs,
-  selectTenants,
-} from "../../../lib/db.ts";
-
 export const prerender = true;
 
+// Tenant pages are temporarily disabled while the client-side DB load
+// is being stabilised. Pre-rendering ~119k tenant pages adds ~40 min
+// to every deploy, which is unworkable iteration latency. Returning
+// an empty path set keeps the route registered (no 500s) while the
+// build emits zero pages. Restore the previous implementation
+// (selectTenants + per-tenant SSG) once the homepage filter UI is
+// reliably loading roles.
 export async function getStaticPaths() {
-  if (!dataDirIsPopulated()) return [];
-  const site = openSiteDb();
-  try {
-    const rows = selectTenants(site.db);
-    return rows.map((r) => ({
-      params: { ats: r.ats, slug: r.slug },
-      props: {
-        displayName: r.display_name,
-        homepageUrl: r.homepage_url,
-        status: r.status,
-        jobCount: r.job_count,
-      },
-    }));
-  } finally {
-    site.close();
-  }
+  return [];
 }
 
-const ats = Astro.params.ats;
-const slug = Astro.params.slug;
-if (!ats || !slug) {
-  throw new Error("tenant page: getStaticPaths must populate ats and slug params");
-}
-const { displayName, homepageUrl, status, jobCount } = Astro.props as {
-  displayName: string | null;
-  homepageUrl: string | null;
-  status: string;
-  jobCount: number;
-};
-
-const site = openSiteDb();
-let jobs;
-try {
-  jobs = selectTenantJobs(site.db, ats, slug);
-} finally {
-  site.close();
-}
-
-const company = displayName ?? slug;
+const company = "";
+const ats = "";
+const slug = "";
+const homepageUrl: string | null = null;
+const status = "";
+const jobCount = 0;
+const jobs: Array<{
+  url: string;
+  title: string;
+  level: string | null;
+  workplace_type: string | null;
+  location_text: string | null;
+  posted_at: string | null;
+}> = [];
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
