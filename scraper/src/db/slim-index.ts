@@ -32,11 +32,17 @@ import { gzipSync } from "node:zlib";
 
 const SLIM_INDEX_SCHEMA_VERSION = "1.0";
 
-// Default chunk row count. ~50k rows × ~50 bytes/row gzipped ≈ 2.5 MB
-// raw / ~700 KB gzipped per chunk. Smaller chunks make per-chunk
-// downloads faster and progressive UX smoother but multiply HTTP
-// overhead. 50k is the sweet spot for our shape.
-const DEFAULT_ROWS_PER_CHUNK = 50_000;
+// Default chunk row count. Tuned to keep per-chunk JSON.parse on the
+// main thread under the 50ms long-task threshold. Empirically: 50k
+// rows ≈ 14 MB raw / 2 MB gzipped, JSON.parse ~120-200ms (longtask).
+// 20k rows ≈ 6 MB raw / 800 KB gzipped, JSON.parse ~50ms (just at
+// the boundary; small chunks let V8 amortise GC pressure over more
+// individual events instead of one big stop-the-world).
+//
+// 20k × 38 ≈ 750k rows. Manifest grows from 15 to ~38 entries
+// (~50 bytes per entry, negligible). Service Worker cache cap of 64
+// chunks (sw.js MAX_CHUNK_ENTRIES) accommodates the new count.
+const DEFAULT_ROWS_PER_CHUNK = 20_000;
 
 interface SlimRow {
   short_id: string;
