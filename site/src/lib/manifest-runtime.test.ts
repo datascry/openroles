@@ -178,3 +178,108 @@ describe("buildRuntimeUrls", () => {
     expect(urls.workerUrl).toBe("/sqlite-vfs/sqlite.worker.js");
   });
 });
+
+describe("fetchManifest — slim_index fields (Phase 14)", () => {
+  it("defaults to empty slim_index_chunks for pre-1.5.0 manifests", async () => {
+    const m = await fetchManifest(
+      "/openroles",
+      mockFetch(() => jsonResponse(VALID_MANIFEST)),
+    );
+    expect(m.slim_index_schema_version).toBe("0.0");
+    expect(m.slim_index_total_rows).toBe(0);
+    expect(m.slim_index_chunks).toEqual([]);
+  });
+
+  it("parses populated slim_index_chunks", async () => {
+    const m = await fetchManifest(
+      "/openroles",
+      mockFetch(() =>
+        jsonResponse({
+          ...VALID_MANIFEST,
+          slim_index_schema_version: "1.0",
+          slim_index_total_rows: 4,
+          slim_index_chunks: [
+            {
+              file: "slim/slim-0000-abcdef0123456789.json.gz",
+              sha: "abcdef0123456789",
+              rows: 4,
+              bytes_gz: 1024,
+              bytes_raw: 8192,
+              posted_min: "2026-04-25T00:00:00Z",
+              posted_max: "2026-04-26T00:00:00Z",
+              has_null_posted: false,
+            },
+          ],
+        }),
+      ),
+    );
+    expect(m.slim_index_chunks).toHaveLength(1);
+    expect(m.slim_index_chunks[0]?.sha).toBe("abcdef0123456789");
+    expect(m.slim_index_chunks[0]?.posted_min).toBe("2026-04-25T00:00:00Z");
+    expect(m.slim_index_chunks[0]?.has_null_posted).toBe(false);
+  });
+
+  it("rejects malformed chunk filenames", async () => {
+    await expect(
+      fetchManifest(
+        "/openroles",
+        mockFetch(() =>
+          jsonResponse({
+            ...VALID_MANIFEST,
+            slim_index_chunks: [
+              {
+                file: "slim/wrong.json.gz",
+                sha: "abcdef0123456789",
+                rows: 1,
+                bytes_gz: 100,
+                bytes_raw: 200,
+                posted_min: null,
+                posted_max: null,
+                has_null_posted: false,
+              },
+            ],
+          }),
+        ),
+      ),
+    ).rejects.toThrow(/file does not match/);
+  });
+
+  it("rejects when slim_index_chunks is not an array", async () => {
+    await expect(
+      fetchManifest(
+        "/openroles",
+        mockFetch(() =>
+          jsonResponse({
+            ...VALID_MANIFEST,
+            slim_index_chunks: "not-an-array",
+          }),
+        ),
+      ),
+    ).rejects.toThrow(/slim_index_chunks to be an array/);
+  });
+
+  it("rejects an entry with a non-16-char sha", async () => {
+    await expect(
+      fetchManifest(
+        "/openroles",
+        mockFetch(() =>
+          jsonResponse({
+            ...VALID_MANIFEST,
+            slim_index_chunks: [
+              {
+                file: "slim/slim-0000-abcdef0123456789.json.gz",
+                sha: "short",
+                rows: 1,
+                bytes_gz: 100,
+                bytes_raw: 200,
+                posted_min: null,
+                posted_max: null,
+                has_null_posted: false,
+              },
+            ],
+          }),
+        ),
+      ),
+    ).rejects.toThrow(/sha must be 16/);
+  });
+});
