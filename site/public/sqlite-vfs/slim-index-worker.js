@@ -64,14 +64,19 @@ self.onmessage = async (ev) => {
   }
   try {
     if (data.type === "chunk") {
+      // biome-ignore lint/suspicious/noConsole: chunk-merge diagnostic
+      console.log(`[worker] starting chunk id=${id} ${url.split("/").pop()}`);
       const text = await fetchText(url);
+      // biome-ignore lint/suspicious/noConsole: chunk-merge diagnostic
+      console.log(`[worker] fetched id=${id} bytes=${text.length}`);
       const onWire = JSON.parse(text);
       const rows = new Array(onWire.length);
       for (let i = 0; i < onWire.length; i++) rows[i] = fromWire(onWire[i]);
-      // Re-serialise so postMessage clones a string (O(1)) rather
-      // than 50k objects (3s structured-clone). Main re-parses with
-      // a single fast V8 native call.
       const rowsJson = JSON.stringify(rows);
+      // biome-ignore lint/suspicious/noConsole: chunk-merge diagnostic
+      console.log(
+        `[worker] posting chunk-done id=${id} count=${rows.length} jsonBytes=${rowsJson.length}`,
+      );
       self.postMessage({ type: "chunk-done", id, rowsJson, count: rows.length });
       return;
     }
@@ -83,6 +88,7 @@ self.onmessage = async (ev) => {
     self.postMessage({ type: "error", id, error: `unknown message type: ${data.type}` });
   } catch (err) {
     const msg = err?.message ?? String(err);
+    console.error(`[worker] error id=${id}: ${msg}`);
     self.postMessage({ type: "error", id, error: msg });
   }
 };

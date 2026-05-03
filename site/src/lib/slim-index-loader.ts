@@ -110,11 +110,15 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
     const msg = ev.data;
     if (msg.type === "chunk-done") {
       const r = chunkResolvers.get(msg.id);
-      if (!r) return;
+      if (!r) {
+        console.warn(`[loader] no resolver for chunk-done id=${msg.id}`);
+        return;
+      }
       chunkResolvers.delete(msg.id);
-      // JSON.parse on the main thread of the *string* the worker
-      // posted is a single fast V8 native call — much cheaper than
-      // structured-cloning 50k objects.
+      // biome-ignore lint/suspicious/noConsole: chunk-merge diagnostic
+      console.log(
+        `[loader] chunk-done id=${msg.id} count=${msg.count} jsonBytes=${msg.rowsJson?.length ?? 0}`,
+      );
       const parsed = JSON.parse(msg.rowsJson ?? "[]") as SlimRow[];
       r.resolve(parsed);
       return;
@@ -207,10 +211,16 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       } catch (err) {
         // Soft-fail one chunk: log to the console (worker reports
         // failures on its own postMessage), keep going for the rest.
-        // biome-ignore lint/suspicious/noConsole: chunk-load diagnostic
         if (typeof console !== "undefined" && console.warn) {
           console.warn("slim-index chunk failed", chunk.file, err);
         }
+      }
+      // Diagnostic hook: expose cumulative row count to window so
+      // perf probes / Playwright tests can verify chunks actually
+      // merge into the in-memory dataset.
+      if (typeof globalThis !== "undefined") {
+        // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
+        (globalThis as any).__slimIndexRowsLength = rows.length;
       }
     }),
   );
@@ -218,6 +228,10 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
   // We do still want to flip the flag once everything settles.
   void allDone.then(() => {
     result.fullyLoaded = true;
+    if (typeof globalThis !== "undefined") {
+      // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
+      (globalThis as any).__slimIndexFullyLoaded = true;
+    }
   });
 
   return result;
