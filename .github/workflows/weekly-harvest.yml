@@ -88,7 +88,7 @@ jobs:
           - factorial
           - eightfold
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -183,7 +183,7 @@ jobs:
           - factorial
           - eightfold
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -252,7 +252,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download all per-ATS artifacts
         # reprobe-* takes precedence over discover-* (it's the later stage
