@@ -18,7 +18,7 @@
   "dependencies": {
     "@astrojs/svelte": "8.1.0",
     "@openroles/shared": "workspace:*",
-    "astro": "6.1.10",
+    "astro": "6.2.1",
     "open-props": "1.7.23",
     "sql.js": "1.14.1",
     "sql.js-httpvfs": "0.8.12",
