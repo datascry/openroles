@@ -203,7 +203,13 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: discover-${{ matrix.ats }}
-          path: .
+          # actions/upload-artifact strips the common parent (data/) when
+          # given multiple paths under it, so the artifact internally
+          # holds tenants/<ats>.json and harvest-state/<ats>.json without
+          # the data/ prefix. Download with path=data so files land at
+          # data/tenants/<ats>.json which is where the rest of the
+          # workflow + the repo expect them.
+          path: data
           merge-multiple: true
 
       - name: Reprobe ${{ matrix.ats }}
@@ -252,9 +258,12 @@ jobs:
         # reprobe-* takes precedence over discover-* (it's the later stage
         # writing the same file). merge-multiple is fine here because the
         # second download replaces the first.
+        # path=data because actions/upload-artifact strips the common
+        # parent (data/) on upload — see the per-shard pull step's
+        # comment for the full explanation.
         uses: actions/download-artifact@v7
         with:
-          path: .
+          path: data
           pattern: "{discover,reprobe}-*"
           merge-multiple: true
 
