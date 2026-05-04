@@ -32,13 +32,24 @@ export interface WorkdayParseInput {
   readonly tenant: TenantInput;
   readonly company: string;
   readonly host: string;
+  /**
+   * The workday "site" the listing was actually scraped against (e.g.
+   * "External", "Careers"). The /wday/cxs JSON returns externalPath
+   * relative to /<site>, NOT relative to the host root, so the public-
+   * facing job url has to interpolate the site segment between the host
+   * and externalPath. Confirmed empirically:
+   *   broken: https://aah.wd5.myworkdayjobs.com/job/.../R143019  → 404
+   *   works: https://aah.wd5.myworkdayjobs.com/External/job/.../R143019 → 200
+   * Without this, every workday Apply link 404s on the live site.
+   */
+  readonly site: string;
   readonly response: unknown;
   readonly observedAt: string;
 }
 
-function workdayJobUrl(host: string, externalPath: string): string {
+function workdayJobUrl(host: string, site: string, externalPath: string): string {
   const path = externalPath.startsWith("/") ? externalPath : `/${externalPath}`;
-  return `https://${host}${path}`;
+  return `https://${host}/${site}${path}`;
 }
 
 function workdaySourceId(externalPath: string, jobReqId: string | undefined): string {
@@ -64,7 +75,7 @@ export function parseWorkdayJobs(input: WorkdayParseInput): Job[] {
       company: input.company,
       source_id: workdaySourceId(raw.externalPath, raw.jobReqId),
       title: raw.title,
-      url: workdayJobUrl(input.host, raw.externalPath),
+      url: workdayJobUrl(input.host, input.site, raw.externalPath),
       ...(bullets && bullets.length > 0 ? { description_text: bullets } : {}),
       ...(raw.locationsText !== undefined ? { location_text: raw.locationsText } : {}),
       workplace_hint: raw.locationsText ?? "",
@@ -149,6 +160,12 @@ async function scrapeWithSite(opts: ScrapeWorkdayOptions, site: string): Promise
         tenant: opts.tenant,
         company: opts.tenant.display_name ?? opts.tenant.slug,
         host: opts.host,
+        // Use the site that actually returned 200 (in the alt-site
+        // fallback chain), not opts.site which is the dispatcher's
+        // default. Otherwise tenants whose public board lives at
+        // Careers / External_Career_Site get URLs that point at
+        // /External/<path> and 404.
+        site,
         response: body,
         observedAt: opts.observedAt,
       });

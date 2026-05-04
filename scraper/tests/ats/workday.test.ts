@@ -25,11 +25,16 @@ describe("parseWorkdayJobs (fixture replay)", () => {
       tenant: { slug: "example" },
       company: "Example",
       host: HOST,
+      site: "External",
       response: readFixture("workday.large.page1.json"),
       observedAt: OBSERVED_AT,
     });
     expect(jobs).toHaveLength(2);
-    expect(jobs[0]?.url).toBe(`https://${HOST}/job/Senior_Software_Engineer-100`);
+    // Public-facing URL must include the site segment between host and
+    // externalPath (the cxs JSON returns externalPath relative to
+    // /<site>, NOT host root). Without it the link 404s. See the
+    // workdayJobUrl comment for the empirical confirmation.
+    expect(jobs[0]?.url).toBe(`https://${HOST}/External/job/Senior_Software_Engineer-100`);
     const recruiter = jobs.find((j) => j.title === "Senior Recruiter");
     expect(recruiter?.is_recruiter_post).toBe(true);
   });
@@ -39,6 +44,7 @@ describe("parseWorkdayJobs (fixture replay)", () => {
       tenant: { slug: "tinyco" },
       company: "tinyco",
       host: "tinyco.wd5.myworkdayjobs.com",
+      site: "External",
       response: readFixture("workday.small.json"),
       observedAt: OBSERVED_AT,
     });
@@ -51,6 +57,7 @@ describe("parseWorkdayJobs (fixture replay)", () => {
       tenant: { slug: "bulletco" },
       company: "BulletCo",
       host: HOST,
+      site: "External",
       response: {
         total: 1,
         jobPostings: [
@@ -75,6 +82,7 @@ describe("parseWorkdayJobs (fixture replay)", () => {
       tenant: { slug: "nodesc" },
       company: "NoDesc",
       host: HOST,
+      site: "External",
       response: {
         total: 1,
         jobPostings: [
@@ -91,6 +99,7 @@ describe("parseWorkdayJobs (fixture replay)", () => {
       tenant: { slug: "edge" },
       company: "Edge",
       host: HOST,
+      site: "External",
       response: readFixture("workday.edge.json"),
       observedAt: OBSERVED_AT,
     });
@@ -98,7 +107,26 @@ describe("parseWorkdayJobs (fixture replay)", () => {
     const noReq = jobs.find((j) => j.title === "No JobReqId");
     expect(noReq?.source_id).toBe("no-req-id-job");
     const noSlash = jobs.find((j) => j.title === "Path with no leading slash");
-    expect(noSlash?.url).toBe(`https://${HOST}/job/no-leading-slash`);
+    expect(noSlash?.url).toBe(`https://${HOST}/External/job/no-leading-slash`);
+  });
+
+  it("uses the alt-site that succeeded in the URL (Careers, not the External default)", () => {
+    // Alt-site retry exists because ~70% of harvested workday tenants
+    // 404 against External and live under Careers / External_Career_Site.
+    // The cxs API returns externalPath relative to whichever site
+    // matched, so the public URL must use that same site.
+    const jobs = parseWorkdayJobs({
+      tenant: { slug: "altsite" },
+      company: "AltSite",
+      host: HOST,
+      site: "Careers",
+      response: {
+        total: 1,
+        jobPostings: [{ title: "Engineer", externalPath: "/job/Engineer-1", jobReqId: "R1" }],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs[0]?.url).toBe(`https://${HOST}/Careers/job/Engineer-1`);
   });
 });
 
@@ -111,6 +139,7 @@ describe("parseWorkdayJobs (property)", () => {
           tenant: { slug },
           company: slug,
           host: HOST,
+          site: "External",
           response: fixture,
           observedAt: OBSERVED_AT,
         });
@@ -118,6 +147,7 @@ describe("parseWorkdayJobs (property)", () => {
           tenant: { slug },
           company: slug,
           host: HOST,
+          site: "External",
           response: fixture,
           observedAt: OBSERVED_AT,
         });
