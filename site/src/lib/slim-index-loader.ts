@@ -115,10 +115,6 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
         return;
       }
       chunkResolvers.delete(msg.id);
-      // biome-ignore lint/suspicious/noConsole: chunk-merge diagnostic
-      console.log(
-        `[loader] chunk-done id=${msg.id} count=${msg.count} jsonBytes=${msg.rowsJson?.length ?? 0}`,
-      );
       const parsed = JSON.parse(msg.rowsJson ?? "[]") as SlimRow[];
       r.resolve(parsed);
       return;
