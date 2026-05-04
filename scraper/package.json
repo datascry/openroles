@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "scrape": "bun run bin/openroles-scrape.ts scrape",
     "harvest": "bun run bin/openroles-scrape.ts harvest",
+    "reprobe": "bun run bin/openroles-scrape.ts reprobe",
     "build-db": "bun run bin/openroles-scrape.ts build-db",
     "report": "bun run bin/openroles-scrape.ts report"
   },

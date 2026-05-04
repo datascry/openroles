@@ -192,10 +192,13 @@ jobs:
       - run: bun install --frozen-lockfile
 
       - name: Pull discovery artifact for ${{ matrix.ats }} (if any)
-        # The discover job ran first and uploaded any updated tenant +
-        # state files. If discover ran (mode=both) we want the just-
-        # discovered slugs included in this reprobe pass. continue-on-error
-        # because reprobe-only mode skips discover entirely.
+        # When discover ran in this same workflow (mode=both / bootstrap)
+        # we want its just-discovered slugs included in the reprobe pass.
+        # In reprobe-only mode the discover stage was skipped entirely so
+        # there's no artifact to pull — gate the step on mode rather than
+        # let the action emit a "not found" error annotation that pollutes
+        # every reprobe-only run's logs.
+        if: ${{ github.event.inputs.mode != 'reprobe-only' }}
         continue-on-error: true
         uses: actions/download-artifact@v7
         with:
