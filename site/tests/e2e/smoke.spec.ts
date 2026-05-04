@@ -134,10 +134,14 @@ test.describe("index page smoke", () => {
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
     // Fixture flags one Linear row as is_stale=1 (see build-fixture-db.ts).
-    // The badge is muted-ink mono caps "STALE · ND". Assert it renders.
+    // The badge is muted-ink mono caps "STALE". The previous "STALE · ND"
+    // form encoded days-since-last-seen, but last_seen_at is no longer
+    // shipped to the slim-index (kept in role-detail SQLite for payload
+    // budget); without it the day count would be guesswork. Assert just
+    // the marker.
     const staleBadge = page.locator(".stale-badge").first();
     await expect(staleBadge).toBeVisible({ timeout: 15_000 });
-    await expect(staleBadge).toHaveText(/STALE\s+·\s+\d+D/);
+    await expect(staleBadge).toHaveText("STALE");
 
     // The whole row should dim. Assert opacity=0.6 on the parent .job.
     const staleRow = page.locator("li.job.is-stale").first();

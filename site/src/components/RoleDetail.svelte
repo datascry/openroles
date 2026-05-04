@@ -104,9 +104,17 @@ function shortIdFromLocation(): string | null {
 
 function refreshUserState(id: string): void {
   if (typeof window === "undefined") return;
-  saved = loadSaved(window.localStorage).ids.includes(id);
-  applied = loadApplied(window.localStorage).entries.some((e) => e.id === id);
-  ignored = loadIgnored(window.localStorage).ids.includes(id);
+  // Save / applied / ignored storage is keyed by the 16-char short_id
+  // (storage.ts normalises everything to 16 chars on load — see the
+  // 64-char-to-16-char migration comment there). The role-detail page
+  // works with the full 64-char canonical Job.id, so normalise before
+  // comparing or every includes() returns false and aria-pressed
+  // never flips. Mirrors what FilterTable does for its row-level
+  // save/applied/ignored buttons.
+  const shortId = id.slice(0, 16);
+  saved = loadSaved(window.localStorage).ids.includes(shortId);
+  applied = loadApplied(window.localStorage).entries.some((e) => e.id === shortId);
+  ignored = loadIgnored(window.localStorage).ids.includes(shortId);
 }
 
 onMount(async () => {
