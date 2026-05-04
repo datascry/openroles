@@ -77,7 +77,11 @@ const SORT_SHORT: Record<SortOption, string> = {
 };
 
 const PAGE_SIZE = 50;
-const Q_DEBOUNCE_MS = 250;
+// Q_DEBOUNCE: how long the search input waits before pushing into state.
+// 100ms is short enough that the count feels live as you type yet long
+// enough that "threat" (6 chars at ~80ms/key) only triggers ONE filter
+// pass after the last keystroke instead of one per character.
+const Q_DEBOUNCE_MS = 100;
 const QUERY_DEBOUNCE_MS = 50;
 
 // Phase 14: rows come from the slim-index in memory. The shape matches
@@ -120,7 +124,18 @@ let queryError: string | null = $state(null);
 let rows: JobRow[] = $state([]);
 let totalCount: number = $state(0);
 let queryToken: number = 0;
+// Two SEPARATE debounce handles, deliberately not sharing one. The
+// chunk-merge debounce ("filter again after the rows array grows") and
+// the user-input debounce ("filter again after the user finishes
+// typing") used to share a handle, which meant a chunk landing during
+// typing would clear the user's pending runFilter and reschedule it
+// for 750ms later. The user's typed query never actually executed
+// against the live dataset until chunks fully settled — a multi-second
+// stall that produced confusing partial counts mid-load. Two handles
+// fixes that: each runFilter source manages its own timer, the latest
+// queryToken arbitrates if both fire close together.
 let queryDebounceHandle: ReturnType<typeof setTimeout> | undefined;
+let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
@@ -412,8 +427,15 @@ onMount(async () => {
       seed,
       onChunk: (_chunk, _cumulative, _total) => {
         chunksLoaded += 1;
-        if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
-        queryDebounceHandle = setTimeout(() => runFilter(state), CHUNK_REFILTER_DEBOUNCE_MS);
+        if (chunkDebounceHandle) clearTimeout(chunkDebounceHandle);
+        chunkDebounceHandle = setTimeout(() => runFilter(state), CHUNK_REFILTER_DEBOUNCE_MS);
+      },
+      onFullyLoaded: () => {
+        // Pre-fetch the stem-aware search index in the background so
+        // when the user starts typing we don't pay the ~5 MB fetch +
+        // parse cost inline. Only kicks in if the user hasn't already
+        // typed (which would have triggered the same fetch eagerly).
+        void ensureSearchIndex();
       },
     });
     dbStatus = "ready";

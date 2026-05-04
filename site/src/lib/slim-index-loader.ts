@@ -29,6 +29,13 @@ export interface SlimIndexLoadOptions {
    */
   readonly onChunk?: (chunk: SlimRow[], cumulative: number, total: number) => void;
   /**
+   * Called once, after every chunk has merged. Use it to kick off
+   * background work that depends on the full corpus — e.g. fetching
+   * the stem-aware search index so the next user query doesn't pay
+   * the download tax inline.
+   */
+  readonly onFullyLoaded?: () => void;
+  /**
    * Optional rows to seed the in-memory dataset before any chunks
    * arrive — typically the rows the SSR pre-paint embedded as JSON.
    * Lets the FilterTable skip an extra render on first paint.
@@ -233,6 +240,7 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
       (globalThis as any).__slimIndexFullyLoaded = true;
     }
+    if (opts.onFullyLoaded) opts.onFullyLoaded();
   });
 
   return result;
