@@ -1,0 +1,27 @@
+{
+  "requisitionList": [
+    {
+      "jobId": "200001",
+      "contestNo": "REQ-2001",
+      "column": ["Software Engineer I", "REQ-2001", "[\"Remote\"]"],
+      "linkedColumn": 0,
+      "locationsColumns": [2]
+    },
+    {
+      "jobId": "200002",
+      "contestNo": "REQ-2002",
+      "column": ["Software Engineer II", "REQ-2002", "Bengaluru, India"],
+      "linkedColumn": 0,
+      "locationsColumns": [2]
+    }
+  ],
+  "facetResults": null,
+  "pagingData": {
+    "currentPageNo": 1,
+    "pageSize": 2,
+    "totalCount": 3
+  },
+  "queryString": "f=null&s=3|D&a=null&multiline=true",
+  "careerSectionUnAvailable": false,
+  "supportedLanguages": []
+}

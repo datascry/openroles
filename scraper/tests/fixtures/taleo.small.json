@@ -1,0 +1,66 @@
+{
+  "requisitionList": [
+    {
+      "hotJob": false,
+      "addedToJobCart": false,
+      "draft": false,
+      "alreadyAppliedOn": false,
+      "toReApply": false,
+      "jobId": "100001",
+      "contestNo": "REQ-1001",
+      "column": [
+        "Senior Software Engineer",
+        "REQ-1001",
+        "[\"London\",\"Remote - UK\"]",
+        "Engineering",
+        "Apr 30, 2026"
+      ],
+      "linkedColumn": 0,
+      "locationsColumns": [2]
+    },
+    {
+      "hotJob": false,
+      "addedToJobCart": false,
+      "draft": false,
+      "alreadyAppliedOn": false,
+      "toReApply": false,
+      "jobId": "100002",
+      "contestNo": "REQ-1002",
+      "column": [
+        "Recruiter, Talent Acquisition",
+        "REQ-1002",
+        "Toronto, Ontario, Canada",
+        "People",
+        "Apr 28, 2026"
+      ],
+      "linkedColumn": 0,
+      "locationsColumns": [2]
+    },
+    {
+      "hotJob": false,
+      "addedToJobCart": false,
+      "draft": false,
+      "alreadyAppliedOn": false,
+      "toReApply": false,
+      "jobId": "100003",
+      "contestNo": "REQ-1003",
+      "column": [
+        "Truck Driver III",
+        "REQ-1003",
+        "Full-time",
+        "May 1, 2026"
+      ],
+      "linkedColumn": 0,
+      "locationsColumns": []
+    }
+  ],
+  "facetResults": null,
+  "pagingData": {
+    "currentPageNo": 1,
+    "pageSize": 25,
+    "totalCount": 3
+  },
+  "queryString": "f=null&s=3|D&a=null&multiline=true",
+  "careerSectionUnAvailable": false,
+  "supportedLanguages": []
+}

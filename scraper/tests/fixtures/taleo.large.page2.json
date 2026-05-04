@@ -1,0 +1,20 @@
+{
+  "requisitionList": [
+    {
+      "jobId": "200003",
+      "contestNo": "REQ-2003",
+      "column": ["Engineering Manager", "REQ-2003", "New York, NY"],
+      "linkedColumn": 0,
+      "locationsColumns": [2]
+    }
+  ],
+  "facetResults": null,
+  "pagingData": {
+    "currentPageNo": 2,
+    "pageSize": 2,
+    "totalCount": 3
+  },
+  "queryString": "f=null&s=3|D&a=null&multiline=true",
+  "careerSectionUnAvailable": false,
+  "supportedLanguages": []
+}

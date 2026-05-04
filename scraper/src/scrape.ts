@@ -26,6 +26,7 @@ import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
+import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
@@ -184,24 +185,16 @@ function dispatchPerAts(
       return scrapeEightfoldTenant(opts);
     case "ultipro":
       return scrapeUltiproTenant(opts);
-    case "zohorecruit":
-      return scrapeZohorecruitTenant(opts);
     case "csod":
       return scrapeCsodTenant(opts);
     case "taleo":
-      // Harvest patterns and probe URLs are wired (so tenant lists populate)
-      // but the scraper modules are not yet implemented; the dispatcher
-      // surfaces the gap as transient_failure rather than a thrown error.
-      // Scrapers land progressively; tenants harvested today are already
-      // available for the moment a scraper ships.
-      return Promise.resolve({
-        jobs: [],
-        result: {
-          slug: opts.tenant.slug,
-          status: "transient_failure",
-          error: `${ats} scraper not yet implemented`,
-          jobs_count: 0,
-        },
-      });
+      // Standard pool only (`{slug}.taleo.net`). The TBE pool requires a
+      // per-tenant `org=<CODE>` parameter we don't capture in harvest;
+      // when TBE-specific metadata lands, gate that variant here. The
+      // scraper discovers the careersection portalNo from the section
+      // HTML, so no metadata is required for the standard pool.
+      return scrapeTaleoTenant(opts);
+    case "zohorecruit":
+      return scrapeZohorecruitTenant(opts);
   }
 }
