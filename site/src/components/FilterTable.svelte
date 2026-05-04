@@ -525,6 +525,20 @@ function runFilter(currentState: FilterState): void {
   // every keystroke is wasteful. `filterRows` walks the full set
   // once and returns matches in input order; we then sort those.
   const all = filterRows(slimIndex.rows, predicate, 0, Number.POSITIVE_INFINITY);
+  if (typeof globalThis !== "undefined") {
+    const g = globalThis as Record<string, unknown>;
+    const list = (g["__rfLog"] as unknown[] | undefined) ?? [];
+    list.push({
+      ts: Date.now(),
+      q: currentState.q,
+      scanned: slimIndex.rows.length,
+      total: all.total,
+      token,
+      hasSearchIndex: searchIndex !== null,
+      allowSize: predicate.idAllowlist?.size ?? null,
+    });
+    g["__rfLog"] = list;
+  }
   if (token !== queryToken) return;
   const sortKey = SORT_KEY_MAP[currentState.sort];
   sortRows(all.matches, sortKey);
