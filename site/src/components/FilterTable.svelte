@@ -103,7 +103,16 @@ let state: FilterState = $state(
 let qInput = $state(state.q);
 let qDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 
-let slimIndex: SlimIndex | null = $state(null);
+// $state.raw — NOT $state — because the loader mutates slimIndex.rows
+// in place via appendUnique as chunks land. Svelte 5's $state deep-
+// proxies arrays and caches a length signal at assignment time; raw-
+// array pushes from the loader bypass the proxy so the signal never
+// updates and runFilter ends up scanning only chunk 0's 20k rows even
+// after all 38 chunks (747k rows) have merged. $state.raw tracks the
+// assignment (so the $effect that schedules the first runFilter still
+// fires when slimIndex flips null → object) but leaves inner refs
+// alone — slimIndex.rows.length always reflects the live array.
+let slimIndex: SlimIndex | null = $state.raw(null);
 let manifest: ManifestRuntime | null = $state(null);
 let dbStatus: DbStatus = $state("loading");
 let dbError: string | null = $state(null);
