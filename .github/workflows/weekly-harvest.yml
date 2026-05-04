@@ -200,7 +200,7 @@ jobs:
         # every reprobe-only run's logs.
         if: ${{ github.event.inputs.mode != 'reprobe-only' }}
         continue-on-error: true
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: discover-${{ matrix.ats }}
           # actions/upload-artifact strips the common parent (data/) when
@@ -261,7 +261,7 @@ jobs:
         # path=data because actions/upload-artifact strips the common
         # parent (data/) on upload — see the per-shard pull step's
         # comment for the full explanation.
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           path: data
           pattern: "{discover,reprobe}-*"
