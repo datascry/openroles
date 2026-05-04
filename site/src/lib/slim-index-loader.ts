@@ -11,10 +11,6 @@
 // blocks every interaction. Now chunk 0 goes through the worker too
 // and the SSR pre-paint covers the moment between page-arrival and
 // chunk-0-merged.
-//
-// Search-index loading also funnels through this worker (different
-// message type) so the +5 MB JSON.parse for stem postings doesn't
-// freeze the tab when the user types.
 
 import type { ManifestRuntime } from "./manifest-runtime.ts";
 import { __test_internals as I, type SlimRow } from "./slim-index.ts";
@@ -28,13 +24,6 @@ export interface SlimIndexLoadOptions {
    * to refilter / re-render after each chunk.
    */
   readonly onChunk?: (chunk: SlimRow[], cumulative: number, total: number) => void;
-  /**
-   * Called once, after every chunk has merged. Use it to kick off
-   * background work that depends on the full corpus — e.g. fetching
-   * the stem-aware search index so the next user query doesn't pay
-   * the download tax inline.
-   */
-  readonly onFullyLoaded?: () => void;
   /**
    * Optional rows to seed the in-memory dataset before any chunks
    * arrive — typically the rows the SSR pre-paint embedded as JSON.
@@ -50,32 +39,18 @@ export interface SlimIndex {
   readonly totalExpected: number;
   /** True once every chunk has been fetched and merged. */
   readonly fullyLoaded: boolean;
-  /**
-   * Fetches the search-index JSON via the same worker (off-main-thread
-   * fetch + decompress) and returns the raw text body for the caller
-   * to parse with site/src/lib/search-tokens.ts#parseSearchIndex.
-   * Returns null if the fetch fails — callers fall back to substring
-   * search.
-   */
-  fetchSearchIndexText(): Promise<string | null>;
 }
 
 interface WorkerMessage {
-  readonly type: "chunk-done" | "search-done" | "error";
+  readonly type: "chunk-done" | "error";
   readonly id: number;
   readonly rowsJson?: string;
   readonly count?: number;
-  readonly jsonText?: string;
   readonly error?: string;
 }
 
 interface ChunkResolver {
   readonly resolve: (rows: SlimRow[]) => void;
-  readonly reject: (err: Error) => void;
-}
-
-interface SearchResolver {
-  readonly resolve: (text: string) => void;
   readonly reject: (err: Error) => void;
 }
 
@@ -103,7 +78,6 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       rows,
       totalExpected,
       fullyLoaded: true,
-      fetchSearchIndexText: async () => null,
     };
   }
 
@@ -111,7 +85,6 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
   const worker = new Worker(workerUrl, { type: "module" });
   let nextId = 1;
   const chunkResolvers = new Map<number, ChunkResolver>();
-  const searchResolvers = new Map<number, SearchResolver>();
 
   worker.onmessage = (ev: MessageEvent<WorkerMessage>) => {
     const msg = ev.data;
@@ -126,26 +99,16 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       r.resolve(parsed);
       return;
     }
-    if (msg.type === "search-done") {
-      const r = searchResolvers.get(msg.id);
-      if (!r) return;
-      searchResolvers.delete(msg.id);
-      r.resolve(msg.jsonText ?? "");
-      return;
-    }
     if (msg.type === "error") {
-      const reject = chunkResolvers.get(msg.id)?.reject ?? searchResolvers.get(msg.id)?.reject;
+      const reject = chunkResolvers.get(msg.id)?.reject;
       chunkResolvers.delete(msg.id);
-      searchResolvers.delete(msg.id);
       if (reject) reject(new Error(msg.error ?? "slim-index worker error"));
       return;
     }
   };
   worker.onerror = (ev) => {
     for (const r of chunkResolvers.values()) r.reject(new Error(`worker: ${ev.message}`));
-    for (const r of searchResolvers.values()) r.reject(new Error(`worker: ${ev.message}`));
     chunkResolvers.clear();
-    searchResolvers.clear();
   };
 
   function requestChunk(url: string): Promise<SlimRow[]> {
@@ -156,30 +119,14 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
     });
   }
 
-  function requestSearchIndex(url: string): Promise<string> {
-    const id = nextId++;
-    return new Promise<string>((resolve, reject) => {
-      searchResolvers.set(id, { resolve, reject });
-      worker.postMessage({ type: "search", url, id });
-    });
-  }
-
   const result: {
     rows: SlimRow[];
     totalExpected: number;
     fullyLoaded: boolean;
-    fetchSearchIndexText: () => Promise<string | null>;
   } = {
     rows,
     totalExpected,
     fullyLoaded: false,
-    fetchSearchIndexText: async () => {
-      try {
-        return await requestSearchIndex(`${base}/data/search/title-tokens.json.gz`);
-      } catch {
-        return null;
-      }
-    },
   };
 
   // Kick off chunk 0 inline (caller awaits us until it lands), then
@@ -240,7 +187,6 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
       (globalThis as any).__slimIndexFullyLoaded = true;
     }
-    if (opts.onFullyLoaded) opts.onFullyLoaded();
   });
 
   return result;

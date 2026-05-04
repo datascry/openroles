@@ -11,13 +11,11 @@
 // longtask). Strings clone in O(1).
 //
 // Protocol from main → worker:
-//   { type: "chunk",  url, id }
-//   { type: "search", url, id }
+//   { type: "chunk", url, id }
 //
 // Protocol from worker → main:
-//   { type: "chunk-done",  id, rowsJson, count }   ← rowsJson is a SlimRow[] JSON string
-//   { type: "search-done", id, jsonText }          ← raw JSON string for parseSearchIndex()
-//   { type: "error",       id, error }
+//   { type: "chunk-done", id, rowsJson, count }   ← rowsJson is a SlimRow[] JSON string
+//   { type: "error",      id, error }
 
 function fromWire(r) {
   return {
@@ -70,11 +68,6 @@ self.onmessage = async (ev) => {
       for (let i = 0; i < onWire.length; i++) rows[i] = fromWire(onWire[i]);
       const rowsJson = JSON.stringify(rows);
       self.postMessage({ type: "chunk-done", id, rowsJson, count: rows.length });
-      return;
-    }
-    if (data.type === "search") {
-      const text = await fetchText(url);
-      self.postMessage({ type: "search-done", id, jsonText: text });
       return;
     }
     self.postMessage({ type: "error", id, error: `unknown message type: ${data.type}` });

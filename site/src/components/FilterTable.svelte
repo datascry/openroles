@@ -14,7 +14,6 @@ import {
 } from "../lib/filter-state.ts";
 import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
 import { pagesToShow } from "../lib/pager.ts";
-import { parseSearchIndex, type SearchIndex, searchStems } from "../lib/search-tokens.ts";
 import {
   type FilterPredicate,
   filterRows,
@@ -139,11 +138,6 @@ let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
-// Stem-aware search inverted index (Phase 14 step 5). Lazy-loaded the
-// first time the user types in the search box — pays the ~2 MB cost
-// only for users who actually search.
-let searchIndex: SearchIndex | null = $state(null);
-let searchIndexPromise: Promise<SearchIndex | null> | null = null;
 
 let savedIds: ReadonlyArray<string> = $state([]);
 let appliedIds: ReadonlyArray<string> = $state([]);
@@ -221,39 +215,6 @@ function onQInput(value: string) {
   qInput = value;
   if (qDebounceHandle) clearTimeout(qDebounceHandle);
   qDebounceHandle = setTimeout(() => updateState({ q: value }), Q_DEBOUNCE_MS);
-  // First time the user types something non-empty, kick off the
-  // search-index download. Idempotent — repeat calls just return the
-  // same Promise.
-  if (value.trim().length > 0) void ensureSearchIndex();
-}
-
-async function ensureSearchIndex(): Promise<SearchIndex | null> {
-  if (searchIndex !== null) return searchIndex;
-  if (searchIndexPromise !== null) return searchIndexPromise;
-  if (slimIndex === null) return null;
-  searchIndexPromise = (async () => {
-    try {
-      // Route the fetch + decompress through the slim-index worker so
-      // the ~12 MB JSON.parse doesn't block the main thread. We still
-      // pay the parseSearchIndex (Map construction) cost on main, but
-      // the heavy fetch + gzip-decode is off-thread, and on a slow
-      // CPU that's the difference between a 7-second freeze and a
-      // ~500ms one.
-      const text = await slimIndex.fetchSearchIndexText();
-      if (text === null) return null;
-      searchIndex = parseSearchIndex(JSON.parse(text));
-      runFilter(state);
-      return searchIndex;
-    } catch {
-      // Search index is a best-effort enhancement — if the fetch
-      // fails, the substring fallback in buildPredicate keeps things
-      // working.
-      return null;
-    } finally {
-      searchIndexPromise = null;
-    }
-  })();
-  return searchIndexPromise;
 }
 
 function clearQ() {
@@ -430,13 +391,6 @@ onMount(async () => {
         if (chunkDebounceHandle) clearTimeout(chunkDebounceHandle);
         chunkDebounceHandle = setTimeout(() => runFilter(state), CHUNK_REFILTER_DEBOUNCE_MS);
       },
-      onFullyLoaded: () => {
-        // Pre-fetch the stem-aware search index in the background so
-        // when the user starts typing we don't pay the ~5 MB fetch +
-        // parse cost inline. Only kicks in if the user hasn't already
-        // typed (which would have triggered the same fetch eagerly).
-        void ensureSearchIndex();
-      },
     });
     dbStatus = "ready";
     runFilter(state);
@@ -455,24 +409,15 @@ const SINCE_HOURS: Record<SinceWindow, number | null> = {
 
 function buildPredicate(s: FilterState): FilterPredicate {
   const predicate: FilterPredicate = {};
-  // q: prefer the stem-aware inverted index (set of row indices) when
-  // the search index has loaded; otherwise pass the substring through
-  // and let filterRows do a regex match. The index gives us
-  // engineer/engineering equivalence; substring is the fallback.
+  // q: case-insensitive substring match against title, company,
+  // location_text, workplace_type, and level. We deliberately do NOT
+  // tokenise/stem here — job titles are short canonical phrases, and
+  // substring is what users intuit. Stem search collapsed `java`/
+  // `javascript` into different stems and dropped queries with
+  // non-word chars (C++, .NET, AI/ML) entirely; the bandwidth tax for
+  // the inverted index also wasn't worth the marginal recall lift.
   const trimmed = s.q.trim();
-  if (trimmed.length > 0 && searchIndex !== null && slimIndex !== null) {
-    const matchIdxs = searchStems(searchIndex, trimmed);
-    if (matchIdxs !== null) {
-      const allow = new Set<string>();
-      for (const i of matchIdxs) {
-        const row = slimIndex.rows[i];
-        if (row) allow.add(row.short_id);
-      }
-      predicate.idAllowlist = allow;
-    }
-  } else if (trimmed.length > 0) {
-    predicate.q = trimmed;
-  }
+  if (trimmed.length > 0) predicate.q = trimmed;
   if (s.ats.length > 0) predicate.ats = new Set(s.ats);
   if (s.level.length > 0) predicate.level = new Set(s.level);
   if (s.wt.length > 0) predicate.workplace_type = new Set(s.wt);
@@ -483,9 +428,10 @@ function buildPredicate(s: FilterState): FilterPredicate {
   const sinceHours = SINCE_HOURS[s.since];
   if (sinceHours !== null) predicate.sinceMs = Date.now() - sinceHours * 3_600_000;
   // showOnly narrows to the matching localStorage list (intentionally
-  // empty → zero rows; specs/filter-ui.md v1.2.0). When both showOnly
-  // and a stem-search idAllowlist apply, we intersect them — only
-  // rows that ALSO appear in the saved/applied/ignored list pass.
+  // empty → zero rows; specs/filter-ui.md v1.2.0). The list is set as
+  // an idAllowlist of the user's saved/applied/ignored short_ids so
+  // filterRows can short-circuit non-matches before running text/enum
+  // checks.
   const saveSetSource =
     s.showOnly === "saved"
       ? savedIds
@@ -495,13 +441,7 @@ function buildPredicate(s: FilterState): FilterPredicate {
           ? ignoredIds
           : null;
   if (saveSetSource !== null) {
-    if (predicate.idAllowlist) {
-      const intersect = new Set<string>();
-      for (const id of saveSetSource) if (predicate.idAllowlist.has(id)) intersect.add(id);
-      predicate.idAllowlist = intersect;
-    } else {
-      predicate.idAllowlist = new Set(saveSetSource);
-    }
+    predicate.idAllowlist = new Set(saveSetSource);
   }
   return predicate;
 }

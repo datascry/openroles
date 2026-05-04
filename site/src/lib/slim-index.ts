@@ -170,11 +170,10 @@ function matchesScalar(r: SlimRow, pred: FilterPredicate): boolean {
 
 function matchesText(r: SlimRow, titleRegex: RegExp | null, companyRegex: RegExp | null): boolean {
   if (titleRegex === null) return true;
-  // Match the same field set the build-side stem index covers
-  // (scraper/src/db/search-index.ts): title, company, location_text,
-  // workplace_type, level. Without location/wt the substring path
-  // misses ~85k "remote" matches that live in the workplace_type
-  // column, not the title.
+  // Search across title, company, location_text, workplace_type, and
+  // level. Without location/wt the substring path misses ~85k
+  // "remote" matches that live in the workplace_type column, not the
+  // title.
   if (titleRegex.test(r.title)) return true;
   if (companyRegex?.test(r.company) ?? false) return true;
   if (r.location_text !== null && titleRegex.test(r.location_text)) return true;

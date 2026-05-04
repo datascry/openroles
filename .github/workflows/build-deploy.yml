@@ -211,21 +211,16 @@ jobs:
           #
           # We do not ship the full unsplit .sqlite — it would double
           # the artifact size for no runtime benefit.
-          mkdir -p site/public/data/slim site/public/data/search
+          mkdir -p site/public/data/slim
           cp data/manifest.json site/public/data/manifest.json
           cp data/jobs.${BUILD_SHORT_SHA}.sqlite.*.png site/public/data/
           if compgen -G 'data/slim/slim-*.json.gz' > /dev/null; then
             cp data/slim/slim-*.json.gz site/public/data/slim/
           fi
-          if [ -f data/search/title-tokens.json.gz ]; then
-            cp data/search/title-tokens.json.gz site/public/data/search/title-tokens.json.gz
-          fi
           echo "=== top-level data/ ==="
           ls -lh site/public/data/ | head -8
           echo "=== slim chunks (first 5) ==="
           ls -lh site/public/data/slim/ | head -7
-          echo "=== search index ==="
-          ls -lh site/public/data/search/ 2>/dev/null || echo "(no search index)"
 
       - name: Build static site
         env:
