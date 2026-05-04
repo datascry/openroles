@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "zod": "4.3.6"
+    "zod": "4.4.2"
   },
   "devDependencies": {
     "fast-check": "4.7.0"
