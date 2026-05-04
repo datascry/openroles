@@ -13,6 +13,7 @@ import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
@@ -186,6 +187,7 @@ function dispatchPerAts(
     case "zohorecruit":
       return scrapeZohorecruitTenant(opts);
     case "csod":
+      return scrapeCsodTenant(opts);
     case "taleo":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher

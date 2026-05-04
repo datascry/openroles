@@ -2274,8 +2274,241 @@ ${body}
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches csod end-to-end against the modern careersite API", async () => {
+    // Real CSOD bootstrap: the legacy `/ats/careersite/search.aspx?c=...`
+    // URL 302s to `/ux/ats/careersite/{csid}/home?c={slug}`. The scraper
+    // reads response.url to extract the careersite id. MSW preserves the
+    // request URL as response.url by default; to emulate the redirect we
+    // serve the home HTML directly at the /ux URL and have the bootstrap
+    // call land there via a real 302.
+    server.use(
+      http.get(
+        "https://example.csod.com/ats/careersite/search.aspx",
+        () =>
+          new HttpResponse(null, {
+            status: 302,
+            headers: {
+              location: "https://example.csod.com/ux/ats/careersite/7/home?c=example",
+            },
+          }),
+      ),
+      http.get("https://example.csod.com/ux/ats/careersite/7/home", () =>
+        HttpResponse.html(readFixtureText("csod.home.small.html")),
+      ),
+      http.post(
+        "https://example.csod.com/services/x/career-site/v1/search",
+        async ({ request }) => {
+          const auth = request.headers.get("authorization") ?? "";
+          if (!auth.startsWith("Bearer ")) {
+            return HttpResponse.json({ status: 1, data: null }, { status: 401 });
+          }
+          const body = (await request.json()) as Record<string, unknown>;
+          if (body.careerSiteId !== 7 || body.cultureId !== 1) {
+            return HttpResponse.json({ status: 1, data: null }, { status: 400 });
+          }
+          return HttpResponse.json(readFixture("csod.search.small.json"));
+        },
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "csod",
+        tenants: [{ slug: "example", display_name: "Example Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.jobs.length).toBeGreaterThanOrEqual(3);
+    const senior = out.jobs.find((j) => j.source_id === "21038");
+    expect(senior?.title).toBe("Senior Software Engineer");
+    expect(senior?.company).toBe("Example Corp");
+    expect(senior?.url).toContain("/ux/ats/careersite/7/requisition/21038");
+    expect(senior?.location_country).toBe("BE");
+    expect(senior?.location_text).toContain("Brussels");
+    expect(senior?.department).toBe("Engineering");
+    expect(senior?.posted_at).toBe("2026-04-15T00:00:00.000Z");
+  });
+
+  it("returns success with zero jobs when the csod search reports an empty result", async () => {
+    server.use(
+      http.get(
+        "https://emptyco.csod.com/ats/careersite/search.aspx",
+        () =>
+          new HttpResponse(null, {
+            status: 302,
+            headers: {
+              location: "https://emptyco.csod.com/ux/ats/careersite/3/home?c=emptyco",
+            },
+          }),
+      ),
+      http.get("https://emptyco.csod.com/ux/ats/careersite/3/home", () =>
+        HttpResponse.html(readFixtureText("csod.home.small.html")),
+      ),
+      http.post("https://emptyco.csod.com/services/x/career-site/v1/search", () =>
+        HttpResponse.json(readFixture("csod.search.empty.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "csod",
+        tenants: [{ slug: "emptyco" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBe(0);
+    expect(out.jobs).toHaveLength(0);
+  });
+
+  it("flags csod tenant dead when the bootstrap lands on an SSO login wall", async () => {
+    // SSO-gated tenants 302 to samldefault.aspx / login/render.aspx —
+    // the final URL has no /ux/ats/careersite/{id}/home, so context
+    // parsing returns null and we surface as `dead` (permanent).
+    server.use(
+      http.get(
+        "https://gated.csod.com/ats/careersite/search.aspx",
+        () =>
+          new HttpResponse(null, {
+            status: 302,
+            headers: {
+              location: "https://gated.csod.com/login/render.aspx?id=defaultclp",
+            },
+          }),
+      ),
+      http.get("https://gated.csod.com/login/render.aspx", () =>
+        HttpResponse.html("<html><body>sign in</body></html>"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "csod",
+        tenants: [{ slug: "gated" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("bootstrap unparseable");
+    expect(out.jobs).toHaveLength(0);
+  });
+
+  it("flags csod tenant transient_failure when the search response shape drifts", async () => {
+    server.use(
+      http.get(
+        "https://drifted.csod.com/ats/careersite/search.aspx",
+        () =>
+          new HttpResponse(null, {
+            status: 302,
+            headers: {
+              location: "https://drifted.csod.com/ux/ats/careersite/9/home?c=drifted",
+            },
+          }),
+      ),
+      http.get("https://drifted.csod.com/ux/ats/careersite/9/home", () =>
+        HttpResponse.html(readFixtureText("csod.home.small.html")),
+      ),
+      http.post("https://drifted.csod.com/services/x/career-site/v1/search", () =>
+        HttpResponse.json({ status: 0, data: { totalCount: 1 } }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "csod",
+        tenants: [{ slug: "drifted" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.jobs).toHaveLength(0);
+  });
+
+  it("paginates csod across multiple pages when results exceed pageSize", async () => {
+    server.use(
+      http.get(
+        "https://multipage.csod.com/ats/careersite/search.aspx",
+        () =>
+          new HttpResponse(null, {
+            status: 302,
+            headers: {
+              location: "https://multipage.csod.com/ux/ats/careersite/2/home?c=multipage",
+            },
+          }),
+      ),
+      http.get("https://multipage.csod.com/ux/ats/careersite/2/home", () =>
+        HttpResponse.html(readFixtureText("csod.home.small.html")),
+      ),
+      http.post(
+        "https://multipage.csod.com/services/x/career-site/v1/search",
+        async ({ request }) => {
+          const body = (await request.json()) as { pageNumber?: number; pageSize?: number };
+          const pageNumber = body.pageNumber ?? 1;
+          const pageSize = body.pageSize ?? 50;
+          const allReqs = Array.from({ length: 7 }, (_, i) => ({
+            requisitionId: 1000 + i,
+            displayJobTitle: `Job ${1000 + i}`,
+            locations: [{ country: "US" }],
+          }));
+          const start = (pageNumber - 1) * pageSize;
+          const slice = allReqs.slice(start, start + pageSize);
+          return HttpResponse.json({
+            status: 0,
+            data: {
+              totalCount: allReqs.length,
+              requisitions: slice,
+              filters: [],
+              customFieldFilters: [],
+            },
+          });
+        },
+      ),
+    );
+    // Drive pageSize down via the direct scraper helper so we exercise
+    // the multi-page branch.
+    const { scrapeCsodTenant } = await import("./ats/csod.ts");
+    const out = await scrapeCsodTenant({
+      tenant: { slug: "multipage" },
+      client: clientWithRobotsAllowAll(),
+      observedAt: "2026-05-04T00:00:00Z",
+      pageSize: 3,
+    });
+    expect(out.result.status).toBe("success");
+    expect(out.jobs).toHaveLength(7);
+    const ids = out.jobs.map((j) => j.source_id).sort();
+    expect(ids).toEqual(["1000", "1001", "1002", "1003", "1004", "1005", "1006"]);
+  });
+
+  it("rejects unsafe csod slugs before any HTTP call", async () => {
+    // The tenant input schema admits `[a-z0-9-]+` but assertSafeSlug
+    // adds boundary anchors — a leading hyphen passes the input schema
+    // and fails the in-scraper guard, so the scraper should classify
+    // this as `dead` without dispatching any HTTP call.
+    const out = await runScrape({
+      input: {
+        ats: "csod",
+        tenants: [{ slug: "-leading-hyphen" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("tenant slug rejected");
+  });
+
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
-    const stubbed = ["csod", "taleo"] as const;
+    const stubbed = ["taleo"] as const;
     for (const ats of stubbed) {
       const out = await runScrape({
         input: {

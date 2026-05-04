@@ -1,0 +1,50 @@
+{
+  "status": 0,
+  "timestamp": "2026-05-04T01:46:00.0000000Z",
+  "data": {
+    "totalCount": 3,
+    "requisitions": [
+      {
+        "requisitionId": 21038,
+        "postingEffectiveDate": "2026-04-15T00:00:00",
+        "postingExpirationDate": "2026-06-15T00:00:00",
+        "displayJobTitle": "Senior Software Engineer",
+        "ouTitle": "Engineering",
+        "ouFullPath": "Example Corp / Engineering / Platform",
+        "locations": [
+          {
+            "city": "Brussels",
+            "state": null,
+            "country": "BE"
+          }
+        ]
+      },
+      {
+        "requisitionId": 20919,
+        "postingEffectiveDate": "2026-04-12T00:00:00",
+        "displayJobTitle": "Talent Acquisition Partner",
+        "locations": [
+          {
+            "city": "London",
+            "state": "England",
+            "country": "GB"
+          }
+        ]
+      },
+      {
+        "requisitionId": 20897,
+        "postingEffectiveDate": "2026-04-10T00:00:00",
+        "displayJobTitle": "Remote Customer Success Manager",
+        "locations": [
+          {
+            "city": "Remote",
+            "state": null,
+            "country": "US"
+          }
+        ]
+      }
+    ],
+    "filters": [],
+    "customFieldFilters": []
+  }
+}
