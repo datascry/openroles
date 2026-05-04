@@ -99,7 +99,7 @@ jobs:
           echo "using scrape run id: ${run_id}"
 
       - name: Download every scrape-* artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           path: data/scrape-outputs
           pattern: scrape-*
