@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, mock } from "bun:test";
 import { HttpClient } from "../http.ts";
 import { RobotsTxtCache } from "../robots.ts";
 import { runHarvest } from "./runner.ts";
+import { urlHostIs, urlHostMatches } from "./test-helpers.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
 
@@ -34,10 +35,10 @@ describe("runHarvest", () => {
   it("dedupes slugs across snapshots and probes each unique tenant", async () => {
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+      if (urlHostMatches(url, "commoncrawl.org") && url.includes("showNumPages")) {
         return new Response("1", { status: 200 });
       }
-      if (url.includes("commoncrawl.org")) {
+      if (urlHostMatches(url, "commoncrawl.org")) {
         return new Response(FAKE_CDX, { status: 200 });
       }
       return new Response("[]", { status: 200 });
@@ -67,10 +68,10 @@ describe("runHarvest", () => {
     let probedHost = "";
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+      if (urlHostMatches(url, "commoncrawl.org") && url.includes("showNumPages")) {
         return new Response("1", { status: 200 });
       }
-      if (url.includes("commoncrawl.org")) {
+      if (urlHostMatches(url, "commoncrawl.org")) {
         return new Response(cdx, { status: 200 });
       }
       // Probe URL — capture and 200.
@@ -105,10 +106,10 @@ describe("runHarvest", () => {
     let probedHost = "";
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+      if (urlHostMatches(url, "commoncrawl.org") && url.includes("showNumPages")) {
         return new Response("1", { status: 200 });
       }
-      if (url.includes("commoncrawl.org")) return new Response(cdx, { status: 200 });
+      if (urlHostMatches(url, "commoncrawl.org")) return new Response(cdx, { status: 200 });
       probedHost = url;
       return new Response("ok", { status: 200 });
     });
@@ -272,10 +273,10 @@ describe("runHarvest", () => {
       let probeCalls = 0;
       const fetchFn = mock(async (input: Request | string) => {
         const url = typeof input === "string" ? input : input.url;
-        if (url.includes("commoncrawl.org") && url.includes("showNumPages")) {
+        if (urlHostMatches(url, "commoncrawl.org") && url.includes("showNumPages")) {
           return new Response("1", { status: 200 });
         }
-        if (url.includes("commoncrawl.org")) {
+        if (urlHostMatches(url, "commoncrawl.org")) {
           // CDX returns the existing slug "stripe" plus a new slug "newco".
           return new Response(
             [
@@ -320,7 +321,7 @@ describe("runHarvest", () => {
       const fetchFn = mock(async (input: Request | string) => {
         const url = typeof input === "string" ? input : input.url;
         if (url.includes("showNumPages")) return new Response("1", { status: 200 });
-        if (url.includes("commoncrawl.org")) {
+        if (urlHostMatches(url, "commoncrawl.org")) {
           // Empty CDX page — no slugs surface in this run.
           return new Response("", { status: 200 });
         }
@@ -350,7 +351,7 @@ describe("runHarvest", () => {
       const fetchFn = mock(async (input: Request | string) => {
         const url = typeof input === "string" ? input : input.url;
         if (url.includes("showNumPages")) return new Response("1", { status: 200 });
-        if (url.includes("commoncrawl.org")) {
+        if (urlHostMatches(url, "commoncrawl.org")) {
           return new Response(
             [
               '{"url":"https://example.wd5.myworkdayjobs.com/wday/cxs/example/External/jobs","status":"200","timestamp":"20260101000000"}',
@@ -400,10 +401,10 @@ describe("runHarvest", () => {
       const fetchFn = mock(async (input: Request | string) => {
         const url = typeof input === "string" ? input : input.url;
         hits.push(url);
-        if (url.includes("data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
+        if (urlHostIs(url, "data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
           return new Response(cluster);
         }
-        if (url.includes("data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
+        if (urlHostIs(url, "data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
           return new Response(shardGz, { status: 206 });
         }
         // Probe URLs (greenhouse boards-api), succeed silently.
@@ -425,8 +426,8 @@ describe("runHarvest", () => {
       expect(result.cdx_blocks_fetched).toBe(1);
       expect(result.cdx_pages_fetched).toBe(0); // S3 path doesn't increment pages
       // No paginated HTTP calls — only the two S3 endpoints.
-      expect(hits.some((u) => u.includes("index.commoncrawl.org"))).toBe(false);
-      expect(hits.filter((u) => u.includes("data.commoncrawl.org")).length).toBe(2);
+      expect(hits.some((u) => urlHostIs(u, "index.commoncrawl.org"))).toBe(false);
+      expect(hits.filter((u) => urlHostIs(u, "data.commoncrawl.org")).length).toBe(2);
     });
 
     it("counts cluster.idx fetch failure (HttpClient-thrown HttpError) and applies adaptive backoff before next snapshot", async () => {
@@ -440,7 +441,7 @@ describe("runHarvest", () => {
       };
       const fetchFn = mock(async (input: Request | string) => {
         const url = typeof input === "string" ? input : input.url;
-        if (url.includes("data.commoncrawl.org")) {
+        if (urlHostIs(url, "data.commoncrawl.org")) {
           // First snapshot: 503 (HttpClient retries 3 times then throws).
           // Second snapshot: same. Establishes consecutiveErrors > 0.
           return new Response("server error", { status: 503 });
@@ -479,10 +480,10 @@ describe("runHarvest", () => {
       ].join("\n");
       const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
         const url = typeof input === "string" ? input : input.url;
-        if (url.includes("data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
+        if (urlHostIs(url, "data.commoncrawl.org") && url.endsWith("/cluster.idx")) {
           return new Response(cluster);
         }
-        if (url.includes("data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
+        if (urlHostIs(url, "data.commoncrawl.org") && url.endsWith("/cdx-00200.gz")) {
           const range =
             (init?.headers as Record<string, string> | undefined)?.["Range"] ??
             (init?.headers as Record<string, string> | undefined)?.["range"];

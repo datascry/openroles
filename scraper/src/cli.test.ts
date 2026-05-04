@@ -10,6 +10,7 @@ import {
   runReprobeCommand,
   runScrapeCommand,
 } from "./cli.ts";
+import { urlHostIs, urlHostMatches } from "./harvest/test-helpers.ts";
 
 function tmpDir(): string {
   return mkdtempSync(join(tmpdir(), "openroles-cli-"));
@@ -575,7 +576,7 @@ describe("runHarvestCommand", () => {
     globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
       const u = typeof url === "string" ? url : (url as URL).toString();
       if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
-      if (u.includes("commoncrawl.org")) {
+      if (urlHostMatches(u, "commoncrawl.org")) {
         cdxCalls.push(u);
         if (u.includes("showNumPages")) return new Response("1", { status: 200 });
         return new Response(
@@ -1066,7 +1067,7 @@ describe("runReprobeCommand", () => {
     globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
       const u = typeof url === "string" ? url : (url as URL).toString();
       if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
-      if (u.includes("boards-api.greenhouse.io")) {
+      if (urlHostIs(u, "boards-api.greenhouse.io")) {
         const m = u.match(/\/boards\/([^/]+)\/jobs/);
         if (m?.[1]) probedSlugs.push(m[1]);
         return new Response("[]", { status: 200 });

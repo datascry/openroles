@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, mock } from "bun:test";
 import { HttpClient } from "../http.ts";
 import { RobotsTxtCache } from "../robots.ts";
 import { probeMany, probeOne, probeUrlFor } from "./probe.ts";
+import { urlHostIs } from "./test-helpers.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
 
@@ -124,7 +125,7 @@ describe("probeOne", () => {
   it("probes workday live via the user-facing /<site> URL", async () => {
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.endsWith("/External") && url.includes("example.wd5.myworkdayjobs.com")) {
+      if (url.endsWith("/External") && urlHostIs(url, "example.wd5.myworkdayjobs.com")) {
         return new Response("ok", { status: 200 });
       }
       return new Response("nope", { status: 404 });
