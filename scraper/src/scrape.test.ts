@@ -162,6 +162,175 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
   });
 
+  it("workday falls back to Careers when External 404s", async () => {
+    // ~3,000 of 4,300 harvested workday tenants 404 against `External`
+    // because their public board lives under a different name (most
+    // commonly `Careers`, then `External_Career_Site` and `External_Site`
+    // in the long tail). The scraper iterates the candidate list on
+    // page-0 404 and stops on the first site that returns a real
+    // jobPostings response.
+    const host = "example.wd5.myworkdayjobs.com";
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, () =>
+        HttpResponse.text("Not Found", { status: 404 }),
+      ),
+      http.post(`https://${host}/wday/cxs/example/Careers/jobs`, () =>
+        HttpResponse.json(readFixture("workday.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
+  });
+
+  it("workday falls back to External_Career_Site when External and Careers both 404", async () => {
+    // The full fallback chain: External → Careers → External_Career_Site
+    // → External_Site. This covers tenants whose CDX harvest didn't
+    // capture the site and whose public board uses one of the
+    // underscored long-tail variants.
+    const host = "example.wd5.myworkdayjobs.com";
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, () =>
+        HttpResponse.text("Not Found", { status: 404 }),
+      ),
+      http.post(`https://${host}/wday/cxs/example/Careers/jobs`, () =>
+        HttpResponse.text("Not Found", { status: 404 }),
+      ),
+      http.post(`https://${host}/wday/cxs/example/External_Career_Site/jobs`, () =>
+        HttpResponse.json(readFixture("workday.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
+  });
+
+  it("workday returns dead when every site candidate 404s", async () => {
+    // True dead tenant: no public board on any of the four common site
+    // names. The scraper exhausts the fallback list and surfaces the
+    // last 404 as the dead reason.
+    const host = "example.wd5.myworkdayjobs.com";
+    const handler = () => HttpResponse.text("Not Found", { status: 404 });
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, handler),
+      http.post(`https://${host}/wday/cxs/example/Careers/jobs`, handler),
+      http.post(`https://${host}/wday/cxs/example/External_Career_Site/jobs`, handler),
+      http.post(`https://${host}/wday/cxs/example/External_Site/jobs`, handler),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.http_status).toBe(404);
+  });
+
+  it("workday does NOT retry alternate sites on a 401/403/422 (only 404)", async () => {
+    // Auth-gated and validation-error responses indicate the tenant
+    // exists but isn't publicly scrapeable — switching to a different
+    // site name won't change that. Exit immediately without burning
+    // additional requests.
+    const host = "example.wd5.myworkdayjobs.com";
+    let externalCalls = 0;
+    let careersCalls = 0;
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, () => {
+        externalCalls += 1;
+        return HttpResponse.text("Forbidden", { status: 403 });
+      }),
+      http.post(`https://${host}/wday/cxs/example/Careers/jobs`, () => {
+        careersCalls += 1;
+        return HttpResponse.json(readFixture("workday.small.json"));
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(externalCalls).toBeGreaterThan(0);
+    expect(careersCalls).toBe(0);
+  });
+
+  it("workday does NOT swap sites mid-pagination on a later 404", async () => {
+    // If page 0 succeeds (so the site is committed) and a later page
+    // 404s, that's a real failure (vendor outage, cursor invalidated)
+    // and we propagate it instead of silently re-scraping from another
+    // site, which would yield duplicate jobs.
+    const host = "example.wd5.myworkdayjobs.com";
+    let externalPage0 = 0;
+    let externalPage1 = 0;
+    let careersCalls = 0;
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, async ({ request }) => {
+        const body = (await request.json()) as { offset: number };
+        if (body.offset === 0) {
+          externalPage0 += 1;
+          // Page 0 returns a "full" page with limit hit so pagination continues.
+          return HttpResponse.json({
+            total: 100,
+            jobPostings: Array.from({ length: 20 }, (_, i) => ({
+              title: `Job ${i}`,
+              externalPath: `/job/${i}`,
+              jobReqId: `R${i}`,
+            })),
+          });
+        }
+        externalPage1 += 1;
+        return HttpResponse.text("Not Found", { status: 404 });
+      }),
+      http.post(`https://${host}/wday/cxs/example/Careers/jobs`, () => {
+        careersCalls += 1;
+        return HttpResponse.json(readFixture("workday.small.json"));
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(externalPage0).toBeGreaterThan(0);
+    expect(externalPage1).toBeGreaterThan(0);
+    // Critically — Careers must NOT be retried after External committed.
+    expect(careersCalls).toBe(0);
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("dispatches icims using the full subdomain label as the slug", async () => {
     // iCIMS slug is the entire subdomain label (most production tenants use
     // the `careers-` prefix, but many use other branded prefixes); the URL

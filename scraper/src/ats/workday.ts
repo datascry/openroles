@@ -1,7 +1,7 @@
 import { type Job, JobSchema, type TenantInput, type TenantResult } from "@openroles/shared";
 import { z } from "zod";
 import { buildJob } from "../build-job.ts";
-import type { HttpClient } from "../http.ts";
+import { type HttpClient, HttpError } from "../http.ts";
 import {
   assertSafeSlug,
   assertWorkdayHost,
@@ -97,19 +97,37 @@ export interface ScrapeTenantOutcome {
 const DEFAULT_PAGE_SIZE = 20;
 const DEFAULT_MAX_PAGES = 200;
 
-export async function scrapeWorkdayTenant(
-  opts: ScrapeWorkdayOptions,
-): Promise<ScrapeTenantOutcome> {
+// Common workday public-board "site" names. Most tenants use `External`,
+// but a long tail use `Careers`, `External_Career_Site`, or
+// `External_Site`. Without a fallback, ~70% of harvested workday tenants
+// 404 against External even when their public board exists under a
+// different name. Order matters: External is by far the most common
+// (try first), Careers is the next most common, the underscored
+// variants are the long tail.
+const SITE_FALLBACKS: ReadonlyArray<string> = [
+  "External",
+  "Careers",
+  "External_Career_Site",
+  "External_Site",
+];
+
+interface SiteAttempt {
+  readonly status: "ok" | "not-found" | "error";
+  readonly jobs?: ReadonlyArray<Job>;
+  readonly httpStatus?: number;
+  readonly error?: unknown;
+}
+
+async function scrapeWithSite(opts: ScrapeWorkdayOptions, site: string): Promise<SiteAttempt> {
   const limit = opts.pageSize ?? DEFAULT_PAGE_SIZE;
   const maxPages = opts.maxPages ?? DEFAULT_MAX_PAGES;
   const collected: Job[] = [];
   let total = Number.POSITIVE_INFINITY;
   let lastStatus = 0;
+  let firstPageDone = false;
   try {
-    assertSafeSlug(opts.tenant.slug);
-    assertWorkdayHost(opts.host);
-    assertWorkdaySite(opts.site);
-    const url = `https://${opts.host}/wday/cxs/${opts.tenant.slug}/${opts.site}/jobs`;
+    assertWorkdaySite(site);
+    const url = `https://${opts.host}/wday/cxs/${opts.tenant.slug}/${site}/jobs`;
     for (let page = 0; page < maxPages; page++) {
       const offset = page * limit;
       if (offset >= total) break;
@@ -135,19 +153,71 @@ export async function scrapeWorkdayTenant(
         observedAt: opts.observedAt,
       });
       for (const j of pageJobs) collected.push(j);
+      firstPageDone = true;
       if (parsed.jobPostings.length < limit) break;
     }
-    const jobs = dedupeById(collected);
-    return {
-      jobs,
-      result: {
-        slug: opts.tenant.slug,
-        status: "success",
-        http_status: lastStatus,
-        jobs_count: jobs.length,
-      },
-    };
+    return { status: "ok", jobs: dedupeById(collected), httpStatus: lastStatus };
+  } catch (err) {
+    // 404 only counts as "not-found" if it came on page 0 — once we've
+    // committed to a site by reading at least one valid page, a later
+    // 404 is a real failure (vendor outage, cursor invalidated, etc.)
+    // and we shouldn't silently swap to a different site mid-pagination.
+    if (!firstPageDone && err instanceof HttpError && err.status === 404) {
+      return { status: "not-found", error: err };
+    }
+    return { status: "error", error: err };
+  }
+}
+
+export async function scrapeWorkdayTenant(
+  opts: ScrapeWorkdayOptions,
+): Promise<ScrapeTenantOutcome> {
+  try {
+    assertSafeSlug(opts.tenant.slug);
+    assertWorkdayHost(opts.host);
   } catch (err) {
     return { jobs: [], result: errorToResult(opts.tenant.slug, err) };
   }
+
+  // Build the candidate list: dispatcher-supplied site first (whatever
+  // harvest captured, or the External default), then the rest of the
+  // common fallbacks. Dedup so we don't retry the same site twice when
+  // opts.site is already in SITE_FALLBACKS.
+  const seen = new Set<string>();
+  const candidates: string[] = [];
+  for (const s of [opts.site, ...SITE_FALLBACKS]) {
+    if (!seen.has(s)) {
+      candidates.push(s);
+      seen.add(s);
+    }
+  }
+
+  let lastNotFound: unknown = null;
+  for (const site of candidates) {
+    const attempt = await scrapeWithSite(opts, site);
+    if (attempt.status === "ok") {
+      const jobs = attempt.jobs ?? [];
+      return {
+        jobs,
+        result: {
+          slug: opts.tenant.slug,
+          status: "success",
+          http_status: attempt.httpStatus ?? 200,
+          jobs_count: jobs.length,
+        },
+      };
+    }
+    if (attempt.status === "not-found") {
+      lastNotFound = attempt.error;
+      continue;
+    }
+    // Non-404 error (auth, validation, server, transient) — don't keep
+    // retrying alternate sites. The tenant either exists with this site
+    // and is gated, or has a deeper problem that switching sites won't
+    // resolve.
+    return { jobs: [], result: errorToResult(opts.tenant.slug, attempt.error) };
+  }
+
+  // Every candidate site 404'd — surface the last 404 as the dead reason.
+  return { jobs: [], result: errorToResult(opts.tenant.slug, lastNotFound) };
 }
