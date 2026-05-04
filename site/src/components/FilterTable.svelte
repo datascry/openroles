@@ -911,12 +911,21 @@ function ariaSort(
   {#if rows.length === 0}
     <p class="data-empty">No roles match the current filters.</p>
   {:else}
+    <!--
+      The header row uses CSS grid + buttons to drive sort. The previous
+      version put aria-sort directly on the buttons, which axe (correctly)
+      rejected: aria-sort is only valid on role=columnheader/rowheader/
+      gridcell, never on a plain button. Encoding the same information
+      via a dynamic aria-label keeps the announcement for screen readers
+      ("Sort by company, currently ascending") without the schema
+      violation. Visible arrow stays the same.
+    -->
     <div class="results-head" role="row">
       <button
         type="button"
         class="col-head col-role"
         onclick={() => clickSort("company")}
-        aria-sort={ariaSort("company")}
+        aria-label={`Sort by company${ariaSort("company") === "none" ? "" : `, currently ${ariaSort("company")}`}`}
       >
         ROLE
         {#if ariaSort("company") === "ascending"}
@@ -930,7 +939,7 @@ function ariaSort(
         type="button"
         class="col-head col-level"
         onclick={() => clickSort("level")}
-        aria-sort={ariaSort("level")}
+        aria-label={`Sort by level${ariaSort("level") === "none" ? "" : `, currently ${ariaSort("level")}`}`}
       >
         LEVEL
         {#if ariaSort("level") === "ascending"}
@@ -943,7 +952,7 @@ function ariaSort(
         type="button"
         class="col-head col-posted"
         onclick={() => clickSort("posted_at")}
-        aria-sort={ariaSort("posted_at")}
+        aria-label={`Sort by posted date${ariaSort("posted_at") === "none" ? "" : `, currently ${ariaSort("posted_at")}`}`}
       >
         POSTED
         {#if ariaSort("posted_at") === "ascending"}

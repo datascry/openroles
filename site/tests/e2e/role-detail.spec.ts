@@ -58,7 +58,11 @@ test.describe("role detail page (client-rendered)", () => {
       "openroles:v1:saved",
     );
     const parsed = JSON.parse(persisted ?? "{}") as { version: number; ids: string[] };
-    expect(parsed.ids).toContain(fullId);
+    // Storage normalises every id to its 16-char short_id form on write
+    // (storage.ts — see the 64-to-16 migration). The test used to compare
+    // against the full 64-char canonical id, which never matched after
+    // the migration. Slice to match the on-disk representation.
+    expect(parsed.ids).toContain(fullId.slice(0, 16));
   });
 
   test("shows an explanatory message when the short id resolves to no row", async ({ page }) => {
