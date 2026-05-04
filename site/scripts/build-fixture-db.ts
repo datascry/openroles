@@ -12,9 +12,10 @@ import { fileURLToPath } from "node:url";
 
 import type { Job, Tenant } from "@openroles/shared";
 import { jobId, levelRank } from "@openroles/shared";
-// Build-time-only import. The script runs from bun (not the browser bundle),
-// so reaching across the workspace is fine.
+// Build-time-only imports. The script runs from bun (not the browser
+// bundle), so reaching across the workspace is fine.
 import { buildDb } from "../../scraper/src/db/build-db.ts";
+import { emitSlimIndex } from "../../scraper/src/db/slim-index.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = dirname(HERE);
@@ -242,14 +243,25 @@ async function main(): Promise<void> {
       c: number;
     }
   ).c;
+  // Emit the Phase-14 slim-index chunks against the fixture DB. The
+  // FilterTable throws "this build did not emit a slim index" when
+  // manifest.slim_index_chunks is empty, which leaves the e2e page
+  // showing an error state and `data-testid="job-results"` never
+  // renders. Emitting on the fixture mirrors what the production
+  // build-db pipeline does so the e2e exercises the same code path
+  // users hit.
+  const slim = await emitSlimIndex(db, { outputDir: DATA_DIR });
   const patchedManifest = {
     ...manifest,
+    ...slim.fields,
     fresh_count: freshCount,
     stale_count: staleCount,
   };
   db.close();
   writeFileSync(join(DATA_DIR, "manifest.json"), `${JSON.stringify(patchedManifest, null, 2)}\n`);
-  console.log(`build-fixture-db: ${jobs.length} jobs → ${dbPath}`);
+  console.log(
+    `build-fixture-db: ${jobs.length} jobs → ${dbPath} (slim chunks: ${slim.chunkPaths.length})`,
+  );
 }
 
 await main();
