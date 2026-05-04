@@ -213,6 +213,158 @@ describe("filterRows", () => {
     const r = filterRows(rows, { q: "SENIOR" }, 0, 10);
     expect(r.matches).toHaveLength(1);
   });
+
+  // The end-user-facing query syntax block. These cases describe what
+  // someone in the search box actually types and what they expect back —
+  // intentionally written from the job-hunter perspective rather than
+  // implementation-first, so a regression here = a UX regression.
+  describe("job-hunter query syntax", () => {
+    it("`engineer berlin` finds engineering jobs in berlin (bare-AND across fields)", () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          title: "Software Engineer",
+          location_text: "Berlin, DE",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          title: "Software Engineer",
+          location_text: "London, UK",
+        }),
+        row({
+          short_id: "c".repeat(16),
+          title: "Marketing Lead",
+          location_text: "Berlin, DE",
+        }),
+      ];
+      const r = filterRows(rows, { q: "engineer berlin" }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.short_id).toBe("a".repeat(16));
+    });
+
+    it("`react remote` works the same way (skill + workplace)", () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          title: "React Developer",
+          workplace_type: "remote",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          title: "React Developer",
+          workplace_type: "onsite",
+        }),
+        row({
+          short_id: "c".repeat(16),
+          title: "Backend Developer",
+          workplace_type: "remote",
+        }),
+      ];
+      const r = filterRows(rows, { q: "react remote" }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.short_id).toBe("a".repeat(16));
+    });
+
+    it("`title:engineer` scopes to the title only — `Engineer` company isn't enough", () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          title: "Software Engineer",
+          company: "Acme Co",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          title: "Designer",
+          company: "Engineering Hub Inc",
+        }),
+      ];
+      const r = filterRows(rows, { q: "title:engineer" }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.short_id).toBe("a".repeat(16));
+    });
+
+    it("`company:stripe` finds stripe jobs only — title mention isn't enough", () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          title: "Engineer",
+          company: "Stripe",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          title: "Stripe Integration Engineer",
+          company: "Acme Co",
+        }),
+      ];
+      const r = filterRows(rows, { q: "company:stripe" }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.company).toBe("Stripe");
+    });
+
+    it('`location:"san francisco"` matches the literal phrase, not the AND of words', () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          location_text: "San Francisco, CA, US",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          location_text: "Francisco, San Marino", // both words but wrong order
+        }),
+      ];
+      const r = filterRows(rows, { q: 'location:"san francisco"' }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.location_text).toBe("San Francisco, CA, US");
+    });
+
+    it('`"senior engineer"` is a quoted phrase across all fields', () => {
+      const rows = [
+        row({ short_id: "a".repeat(16), title: "Senior Engineer" }),
+        row({ short_id: "b".repeat(16), title: "Engineer (Senior)" }), // both words but not adjacent
+      ];
+      const r = filterRows(rows, { q: '"senior engineer"' }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.title).toBe("Senior Engineer");
+    });
+
+    it("scoped + unscoped tokens combine with AND: `title:senior remote`", () => {
+      const rows = [
+        row({
+          short_id: "a".repeat(16),
+          title: "Senior Engineer",
+          workplace_type: "remote",
+        }),
+        row({
+          short_id: "b".repeat(16),
+          title: "Senior Engineer",
+          workplace_type: "onsite",
+        }),
+        row({
+          short_id: "c".repeat(16),
+          title: "Junior Engineer",
+          workplace_type: "remote",
+        }),
+      ];
+      const r = filterRows(rows, { q: "title:senior remote" }, 0, 10);
+      expect(r.matches).toHaveLength(1);
+      expect(r.matches[0]?.short_id).toBe("a".repeat(16));
+    });
+
+    it("`description:remote` matches nothing (description excerpts aren't in slim-index)", () => {
+      // Description-scoped tokens silently match nothing rather than
+      // falling through. The UI doesn't advertise description: as a
+      // supported scope; this case only fires if a power user types
+      // it manually. Documenting as a test so the no-op behaviour is
+      // intentional and locked in.
+      const rows = [
+        row({ short_id: "a".repeat(16), title: "Remote Engineer" }),
+        row({ short_id: "b".repeat(16), workplace_type: "remote" }),
+      ];
+      const r = filterRows(rows, { q: "description:remote" }, 0, 10);
+      expect(r.matches).toHaveLength(0);
+      expect(r.total).toBe(0);
+    });
+  });
 });
 
 describe("__test_internals", () => {

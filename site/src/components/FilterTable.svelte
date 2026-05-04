@@ -583,7 +583,7 @@ function ariaSort(
     <span class="visually-hidden">Search roles</span>
     <input
       type="search"
-      placeholder='Search roles — try title:engineer or company:stripe location:remote'
+      placeholder="Search roles — try `engineer berlin` or `react remote`"
       maxlength="256"
       value={qInput}
       oninput={(e) => onQInput((e.currentTarget as HTMLInputElement).value)}
@@ -592,12 +592,12 @@ function ariaSort(
   <details class="search-help">
     <summary>Search syntax</summary>
     <ul role="list">
-      <li><code>title:engineer</code> — match the title only</li>
-      <li><code>company:stripe</code> — match the company only</li>
-      <li><code>description:remote</code> — match the description excerpt</li>
-      <li><code>location:"san francisco"</code> — substring match on the location text</li>
-      <li><code>"senior engineer"</code> — match the literal phrase across all fields</li>
-      <li><code>title:senior company:stripe</code> — combine, AND-joined</li>
+      <li><code>engineer berlin</code> — every word must match somewhere (title, company, location, level, or workplace type)</li>
+      <li><code>"senior engineer"</code> — quote to match a literal phrase</li>
+      <li><code>title:engineer</code> — restrict a word to the title field</li>
+      <li><code>company:stripe</code> — restrict to the company field</li>
+      <li><code>location:"san francisco"</code> — restrict (and quote) the location field</li>
+      <li><code>title:senior company:stripe remote</code> — combine; everything is AND-joined</li>
     </ul>
   </details>
 </div>

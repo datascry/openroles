@@ -9,6 +9,8 @@
 //   { i, a, t, ti, c, l, w, r, s, loc, cc, p, f, cm, cmax, cur }
 // kept short so JSON.parse over millions of keys stays cheap.
 
+import { type Token as ParsedToken, parseSearchInput } from "./search-parser.ts";
+
 /** A row's representation in memory, as emitted by the slim-index. */
 export interface SlimRow {
   /** First 16 hex chars of the canonical Job.id; uniquely identifies the row for SQLite click-through. */
@@ -115,6 +117,18 @@ export interface FilterPredicate {
 
 const ESCAPE_RE = /[.*+?^${}()|[\]\\]/g;
 
+/**
+ * Compiled search token: the parsed field scope from search-parser plus
+ * the user value pre-compiled into a case-insensitive regex. Bare tokens
+ * (field=undefined) match across all searchable slim-index fields;
+ * field-scoped tokens are restricted. We compile once per filterRows
+ * call instead of per row.
+ */
+interface CompiledSearchToken {
+  readonly field: ParsedToken["field"];
+  readonly regex: RegExp;
+}
+
 /** Run the predicate over `rows` and return up to `limit` matching rows in input order. */
 export function filterRows(
   rows: ReadonlyArray<SlimRow>,
@@ -122,12 +136,20 @@ export function filterRows(
   offset: number,
   limit: number,
 ): { matches: SlimRow[]; total: number } {
-  const titleRegex = pred.q ? new RegExp(escapeRegExp(pred.q), "i") : null;
-  const companyRegex = titleRegex; // same query also tested against company
+  // Parse the raw query into tokens once. The parser handles quoted
+  // phrases, field scoping (title: / company: / location: /
+  // description:), and bare-word AND. A single bare word collapses to
+  // one token that matches the legacy substring path exactly, so
+  // existing callers passing q="engineer" keep their behavior.
+  const tokens = pred.q ? parseSearchInput(pred.q) : [];
+  const compiled: CompiledSearchToken[] = tokens.map((t) => ({
+    field: t.field,
+    regex: new RegExp(escapeRegExp(t.value), "i"),
+  }));
   const matches: SlimRow[] = [];
   let total = 0;
   for (const r of rows) {
-    if (!matchesPredicate(r, pred, titleRegex, companyRegex)) continue;
+    if (!matchesPredicate(r, pred, compiled)) continue;
     total += 1;
     if (total > offset && matches.length < limit) matches.push(r);
     // Don't break early — total count is needed for paginator.
@@ -168,27 +190,50 @@ function matchesScalar(r: SlimRow, pred: FilterPredicate): boolean {
   return true;
 }
 
-function matchesText(r: SlimRow, titleRegex: RegExp | null, companyRegex: RegExp | null): boolean {
-  if (titleRegex === null) return true;
-  // Search across title, company, location_text, workplace_type, and
-  // level. Without location/wt the substring path misses ~85k
-  // "remote" matches that live in the workplace_type column, not the
-  // title.
-  if (titleRegex.test(r.title)) return true;
-  if (companyRegex?.test(r.company) ?? false) return true;
-  if (r.location_text !== null && titleRegex.test(r.location_text)) return true;
-  if (r.workplace_type !== null && titleRegex.test(r.workplace_type)) return true;
-  if (r.level !== null && titleRegex.test(r.level)) return true;
+function matchesText(r: SlimRow, tokens: ReadonlyArray<CompiledSearchToken>): boolean {
+  // Empty tokens = no q filter, pass everything.
+  if (tokens.length === 0) return true;
+  // All tokens AND-joined.
+  for (const t of tokens) {
+    if (!matchesToken(r, t)) return false;
+  }
+  return true;
+}
+
+function matchesToken(r: SlimRow, t: CompiledSearchToken): boolean {
+  if (t.field === "title") return t.regex.test(r.title);
+  if (t.field === "company") return t.regex.test(r.company);
+  if (t.field === "location") {
+    return r.location_text !== null && t.regex.test(r.location_text);
+  }
+  if (t.field === "description") {
+    // Description excerpts intentionally aren't shipped to the slim-
+    // index — they stay in the role-detail SQLite path so the per-
+    // visit JSON payload stays under the mobile-bandwidth budget. A
+    // description-scoped token therefore matches nothing rather than
+    // silently falling through to the title (which would mislead the
+    // user about what's being searched). The UI doesn't advertise
+    // description: as a supported scope; this branch only fires if
+    // someone types it manually.
+    return false;
+  }
+  // Bare token (field === undefined): match across every searchable
+  // field the slim-index ships. Order roughly by hit-frequency so a
+  // typical match short-circuits early.
+  if (t.regex.test(r.title)) return true;
+  if (t.regex.test(r.company)) return true;
+  if (r.location_text !== null && t.regex.test(r.location_text)) return true;
+  if (r.workplace_type !== null && t.regex.test(r.workplace_type)) return true;
+  if (r.level !== null && t.regex.test(r.level)) return true;
   return false;
 }
 
 function matchesPredicate(
   r: SlimRow,
   pred: FilterPredicate,
-  titleRegex: RegExp | null,
-  companyRegex: RegExp | null,
+  tokens: ReadonlyArray<CompiledSearchToken>,
 ): boolean {
-  return matchesEnum(r, pred) && matchesScalar(r, pred) && matchesText(r, titleRegex, companyRegex);
+  return matchesEnum(r, pred) && matchesScalar(r, pred) && matchesText(r, tokens);
 }
 
 /**
