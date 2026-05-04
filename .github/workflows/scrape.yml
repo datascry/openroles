@@ -30,7 +30,12 @@ env:
 
 jobs:
   scrape:
-    name: Scrape ${{ matrix.ats }}${{ matrix.shard != null && format(' (shard {0}/{1})', matrix.shard, matrix.total_shards) || '' }}
+    # Use matrix.total_shards as the "is sharded?" sentinel rather than
+    # matrix.shard. GitHub Actions expressions evaluate `0 && X` as 0,
+    # so for the shard-0 leg `matrix.shard && format(...)` would silently
+    # drop the suffix and the two icims jobs would share the same name.
+    # total_shards is non-null only on sharded matrix entries.
+    name: Scrape ${{ matrix.ats }}${{ matrix.total_shards && format(' (shard {0}/{1})', matrix.shard, matrix.total_shards) || '' }}
     runs-on: ubuntu-24.04
     # 60 min: enough for every ATS now that icims is split into two
     # ~7,400-tenant shards running in parallel (each finishes in ~30
