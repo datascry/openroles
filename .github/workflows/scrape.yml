@@ -30,17 +30,15 @@ env:
 
 jobs:
   scrape:
-    name: Scrape ${{ matrix.ats }}
+    name: Scrape ${{ matrix.ats }}${{ matrix.shard != null && format(' (shard {0}/{1})', matrix.shard, matrix.total_shards) || '' }}
     runs-on: ubuntu-24.04
-    # 90 min: 60 min was insufficient for icims (14,810 tenants → hit
-    # the cap exactly at 1h0m16s on run 25296691677, cancelling that
-    # shard and tagging the whole workflow `cancelled` which blocks
-    # the auto-chain to Build+deploy). bamboohr (15,840) and workable
-    # (14,392) finish closer to 30-40 min so the headroom doesn't hurt
-    # them. Longer-term icims should shard by tenant prefix and run
-    # two parallel jobs — that lets each finish under 30 min and frees
-    # up the runner faster.
-    timeout-minutes: 90
+    # 60 min: enough for every ATS now that icims is split into two
+    # ~7,400-tenant shards running in parallel (each finishes in ~30
+    # min). bamboohr (15,840 tenants) and workable (14,392) still fit
+    # under 60 because their probe times are lower than icims's HTML
+    # sitemap-walk. Bumping back from the 90-min stopgap that ran
+    # before the shard split.
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -50,7 +48,6 @@ jobs:
           - ashby
           - bamboohr
           - workday
-          - icims
           - recruitee
           - breezy
           - personio
@@ -69,6 +66,20 @@ jobs:
           - homerun
           - factorial
           - eightfold
+        # icims has 14,810 tenants and hits the per-shard timeout on a
+        # single runner. Splitting the tenant list into two
+        # deterministic halves (sum-of-codepoints mod 2) lets each
+        # half finish in ~30 min on parallel runners. The downstream
+        # Build + deploy step downloads every `scrape-*` artifact and
+        # merges them, so two icims artifacts (`scrape-icims-0` and
+        # `scrape-icims-1`) coexist with the rest.
+        include:
+          - ats: icims
+            shard: 0
+            total_shards: 2
+          - ats: icims
+            shard: 1
+            total_shards: 2
     steps:
       - uses: actions/checkout@v5
 
@@ -80,7 +91,22 @@ jobs:
 
       - name: Build scrape input for ${{ matrix.ats }}
         id: input
+        env:
+          # Sharded matrix entries (currently only icims) carry shard +
+          # total_shards. Non-sharded entries leave both unset; the
+          # script uses 0 / 1 defaults so partition becomes a no-op.
+          SHARD: ${{ matrix.shard }}
+          TOTAL_SHARDS: ${{ matrix.total_shards }}
         run: |
+          # SHARD_ID disambiguates artifacts and output filenames when an
+          # ATS is split across multiple matrix entries.
+          if [ -n "$SHARD" ]; then
+            shard_id="${{ matrix.ats }}-${SHARD}"
+          else
+            shard_id="${{ matrix.ats }}"
+          fi
+          echo "shard_id=${shard_id}" >> "$GITHUB_OUTPUT"
+
           # First-run safety: if weekly-harvest hasn't populated this ATS's
           # tenant list yet, skip the scrape with a notice instead of failing.
           # The downstream build job tolerates a missing scrape output and
@@ -121,14 +147,25 @@ jobs:
           # seconds (".833Z" suffix in our data) so the previous numeric
           # comparison failed every job.
           cutoff_iso="$(date -u -d "30 days ago" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || python3 -c 'from datetime import datetime,timedelta,timezone; print((datetime.now(timezone.utc)-timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ"))')"
-          live="$(jq --arg cutoff "$cutoff_iso" '
+          # Shard partition: when total_shards>1, only keep tenants whose
+          # slug hashes (sum of unicode codepoints) into the assigned
+          # bucket. Deterministic, doesn't require external tools, and
+          # gives a near-50/50 split for any reasonably-distributed slug
+          # corpus. Non-sharded entries default total_shards=1, shard=0,
+          # which keeps every tenant.
+          shard_n="${SHARD:-0}"
+          total_n="${TOTAL_SHARDS:-1}"
+          live="$(jq --arg cutoff "$cutoff_iso" \
+                    --argjson shard "$shard_n" \
+                    --argjson total "$total_n" '
             [.[] | select(
               .status == "live" and
-              ((.last_probed_at // "1970-01-01T00:00:00Z") > $cutoff)
+              ((.last_probed_at // "1970-01-01T00:00:00Z") > $cutoff) and
+              ((.slug | explode | add) % $total == $shard)
             )] | length
           ' "$tenants_file")"
           if [ "$live" -eq 0 ]; then
-            echo "::notice::${{ matrix.ats }}: 0 live tenants probed since ${cutoff_iso} — skipping scrape"
+            echo "::notice::${shard_id}: 0 live tenants probed since ${cutoff_iso} — skipping scrape"
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -137,7 +174,9 @@ jobs:
              --arg ua "$USER_AGENT" \
              --arg contact "$CONTACT_URL" \
              --argjson concurrency "$concurrency_value" \
-             --arg cutoff "$cutoff_iso" '
+             --arg cutoff "$cutoff_iso" \
+             --argjson shard "$shard_n" \
+             --argjson total "$total_n" '
             {
               ats: $ats,
               userAgent: $ua,
@@ -148,7 +187,8 @@ jobs:
                 .[]
                 | select(
                     .status == "live" and
-                    ((.last_probed_at // "1970-01-01T00:00:00Z") > $cutoff)
+                    ((.last_probed_at // "1970-01-01T00:00:00Z") > $cutoff) and
+                    ((.slug | explode | add) % $total == $shard)
                   )
                 | (
                     if (.metadata // null) == null
@@ -158,28 +198,30 @@ jobs:
                   )
               ]
             }
-          ' "$tenants_file" > "data/scrape-inputs/${{ matrix.ats }}.json"
+          ' "$tenants_file" > "data/scrape-inputs/${shard_id}.json"
           echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "scrape ${{ matrix.ats }}: ${live} live tenants (concurrency=${concurrency_value})"
+          echo "scrape ${shard_id}: ${live} live tenants (concurrency=${concurrency_value}, shard=${shard_n}/${total_n})"
 
       - name: Scrape ${{ matrix.ats }}
         if: steps.input.outputs.skip != 'true'
+        env:
+          SHARD_ID: ${{ steps.input.outputs.shard_id }}
         run: |
           # A single ATS's failure must not poison the rest of the matrix
           # (fail-fast is already false). We log a warning and exit 0 so the
           # job still uploads an artifact placeholder if there is one, and
           # the build job ignores the missing output.
-          input="${GITHUB_WORKSPACE}/data/scrape-inputs/${{ matrix.ats }}.json"
-          output="${GITHUB_WORKSPACE}/data/scrape-outputs/${{ matrix.ats }}.json"
+          input="${GITHUB_WORKSPACE}/data/scrape-inputs/${SHARD_ID}.json"
+          output="${GITHUB_WORKSPACE}/data/scrape-outputs/${SHARD_ID}.json"
           if ! bun run scrape --input "$input" --output "$output"; then
-            echo "::warning::scrape ${{ matrix.ats }} failed; downstream build will skip this ATS"
+            echo "::warning::scrape ${SHARD_ID} failed; downstream build will skip this shard"
             rm -f "$output"
           fi
 
       - name: Upload scrape output for ${{ matrix.ats }}
-        if: steps.input.outputs.skip != 'true' && hashFiles(format('data/scrape-outputs/{0}.json', matrix.ats)) != ''
+        if: steps.input.outputs.skip != 'true' && hashFiles(format('data/scrape-outputs/{0}.json', steps.input.outputs.shard_id)) != ''
         uses: actions/upload-artifact@v7
         with:
-          name: scrape-${{ matrix.ats }}
-          path: data/scrape-outputs/${{ matrix.ats }}.json
+          name: scrape-${{ steps.input.outputs.shard_id }}
+          path: data/scrape-outputs/${{ steps.input.outputs.shard_id }}.json
           retention-days: 7
