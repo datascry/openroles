@@ -120,11 +120,13 @@ describe("runScrape", () => {
     expect(out.jobs).toHaveLength(1);
   });
 
-  it("flags workday tenant dead when metadata is missing", async () => {
+  it("flags workday tenant dead when metadata.host is missing", async () => {
+    // host is non-recoverable — without it we don't know which subdomain
+    // to talk to. site has a sensible default so its absence is fine.
     const out = await runScrape({
       input: {
         ats: "workday",
-        tenants: [{ slug: "missing-meta" }],
+        tenants: [{ slug: "missing-host" }],
         userAgent: "openroles/0.0.0",
         contactUrl: "https://example.com",
       },
@@ -132,7 +134,32 @@ describe("runScrape", () => {
       httpClient: clientWithRobotsAllowAll(),
     });
     expect(out.tenant_results[0]?.status).toBe("dead");
-    expect(out.tenant_results[0]?.error).toContain("metadata");
+    expect(out.tenant_results[0]?.error).toContain("metadata.host");
+  });
+
+  it("dispatches workday with only metadata.host, defaulting site to External", async () => {
+    // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
+    // only 44 had `site` from CDX. The dispatcher must fall back to
+    // `External` (the canonical public site name) so the other 98% are
+    // actually scraped, matching the same default in harvest/probe.ts.
+    const host = "example.wd5.myworkdayjobs.com";
+    server.use(
+      http.post(`https://${host}/wday/cxs/example/External/jobs`, () =>
+        HttpResponse.json(readFixture("workday.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "example", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
   });
 
   it("dispatches icims using the full subdomain label as the slug", async () => {

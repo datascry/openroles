@@ -126,14 +126,24 @@ function dispatchPerAts(
       return scrapeBambooTenant(opts);
     case "workday": {
       const host = opts.tenant.metadata?.["host"];
-      const site = opts.tenant.metadata?.["site"];
-      if (host === undefined || site === undefined) {
+      // Default site to "External" when missing — that's the canonical
+      // public-facing site name across the workday ecosystem (most
+      // tenants expose `External`, a few use `Careers` or custom
+      // names). The S3 bootstrap captured `host` for ~all 4,295
+      // tenants but only ~44 had `site` from CDX (most CDX URLs are
+      // bare host pages, not `/<site>` deep links). Without this
+      // fallback the dispatcher silently rejects 98.9% of tenants
+      // before the scraper even runs. Mirrors the same default in
+      // harvest/probe.ts:PROBE_URL_META.workday so probe and scrape
+      // agree on which URL to hit.
+      const site = opts.tenant.metadata?.["site"] ?? "External";
+      if (host === undefined) {
         return Promise.resolve({
           jobs: [],
           result: {
             slug: opts.tenant.slug,
             status: "dead",
-            error: "workday tenant missing metadata.host or metadata.site",
+            error: "workday tenant missing metadata.host",
             jobs_count: 0,
           },
         });
