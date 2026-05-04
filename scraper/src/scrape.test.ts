@@ -1241,6 +1241,396 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches zohorecruit via Careers/rss feed and parses Category/Location prefixes", async () => {
+    server.use(
+      http.get("https://example.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.xml(readFixtureText("zohorecruit.small.xml")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.jobs).toHaveLength(1);
+    const job = out.jobs[0];
+    expect(job?.source_id).toBe("671845000006588001");
+    expect(job?.title).toBe("Ramp Agent (Cayman Brac)");
+    // Channel title is "Cayman Airways Ltd. - Careers" — the " - Careers"
+    // suffix is stripped so the company reads cleanly.
+    expect(job?.company).toBe("Cayman Airways Ltd.");
+    expect(job?.location_text).toBe("Cayman Brac . Cayman Islands");
+    expect(job?.department).toBe("Airline - Aviation");
+    expect(job?.workplace_type).toBe(null);
+    // PDT pubDate normalizes to UTC ISO with the Z suffix the schema requires.
+    expect(job?.posted_at).toBe("2026-04-22T19:00:00.000Z");
+    expect(job?.url).toBe(
+      "https://caymanairways.zohorecruit.com/jobs/Careers/671845000006588001/Ramp-Agent-Cayman-Brac?source=RSS",
+    );
+    expect(job?.description_excerpt).toContain("Ramp Agent");
+  });
+
+  it("zohorecruit returns success-with-zero when joblist has been removed", async () => {
+    // Zoho returns HTTP 200 with this 49-byte body for tenants whose careers
+    // page is set to private or whose admin has emptied the listings. The
+    // tenant subdomain is alive — treat as success rather than dead.
+    server.use(
+      http.get("https://emptyzoho.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.text("Oops! It seems that the joblist has been removed."),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "emptyzoho" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBe(0);
+    expect(out.jobs).toHaveLength(0);
+  });
+
+  it("zohorecruit classifies non-existent subdomains as dead", async () => {
+    // Real shape: HTTP 200 with a Zoho-branded HTML "does not exist" page.
+    const errorPage =
+      "<!DOCTYPE html><html><head><title>Page does not exist</title></head><body>" +
+      '<div class="cl-error-content"><h2>deadtenant.zohorecruit.com <span>does not exist.</span></h2>' +
+      "</div></body></html>";
+    server.use(
+      http.get("https://deadtenant.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.html(errorPage),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "deadtenant" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("does not exist");
+  });
+
+  it("zohorecruit also recognizes the smaller 'could not be found' error variant", async () => {
+    const errorPage =
+      "<!DOCTYPE html><html><head><title>Page does not exist</title></head><body>" +
+      '<div class="cw-error-wrap cl-error-block"><div class="cl-error-content">' +
+      "<p>The page you're trying to access could not be found.</p>" +
+      "</div></div></body></html>";
+    server.use(
+      http.get("https://gone.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.html(errorPage)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "gone" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
+  it("zohorecruit degrades to transient_failure when items fail to parse (vendor schema drift)", async () => {
+    const drift = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<title>Drift Co - Careers</title>
+<item><title><![CDATA[No guid no link]]></title></item>
+<item><guid isPermaLink='false'>987654321001</guid><title><![CDATA[No link]]></title></item>
+<item><link>https://drift.zohorecruit.com/jobs/Careers/123/X</link><title><![CDATA[No guid]]></title></item>
+</channel></rss>`;
+    server.use(
+      http.get("https://drift.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(drift)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "drift" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("failed to parse");
+  });
+
+  it("zohorecruit reports transient_failure when body is neither RSS nor a known status text", async () => {
+    server.use(
+      http.get("https://noisy.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.text("upstream proxy returned an unexpected payload"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "noisy" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("not RSS XML");
+  });
+
+  it("zohorecruit reports transient_failure when XML lacks a <channel> element", async () => {
+    server.use(
+      http.get("https://nochannel.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.xml("<?xml version='1.0' encoding='utf-8'?><rss version='2.0'></rss>"),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "nochannel" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("transient_failure");
+    expect(out.tenant_results[0]?.error).toContain("missing <channel>");
+  });
+
+  it("zohorecruit succeeds-with-zero when channel has no <item> elements", async () => {
+    // codebleu in the wild: live tenant, French locale, channel rendered but
+    // no jobs published yet. Should report success rather than fail.
+    const empty = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<title>Code Bleu - Careers</title><language>fr-FR</language>
+<link>https://codebleu.zohorecruit.com/jobs/Careers/rss</link>
+</channel></rss>`;
+    server.use(
+      http.get("https://codebleu.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(empty)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "codebleu" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBe(0);
+  });
+
+  it("zohorecruit detects remote/hybrid workplace_type from the Location prefix", async () => {
+    const xml = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<title>Workplace Co - Careers</title>
+<item>
+<title><![CDATA[Backend Engineer]]></title>
+<link>https://workplaceco.zohorecruit.com/jobs/Careers/100/Backend?source=RSS</link>
+<description><![CDATA[Category: Engineering <br><br>Location: Remote, United States <br><br><p>Build APIs.</p>]]></description>
+<guid isPermaLink='false'>100</guid>
+<pubDate>Mon, 21 Apr 2026 12:00:00 PDT</pubDate>
+</item>
+<item>
+<title><![CDATA[Designer]]></title>
+<link>https://workplaceco.zohorecruit.com/jobs/Careers/200/Designer?source=RSS</link>
+<description><![CDATA[Category: Design <br><br>Location: Hybrid - Berlin <br><br><p>Design product.</p>]]></description>
+<guid isPermaLink='false'>200</guid>
+<pubDate>Tue, 22 Apr 2026 12:00:00 PDT</pubDate>
+</item>
+<item>
+<title><![CDATA[Recruiter]]></title>
+<link>https://workplaceco.zohorecruit.com/jobs/Careers/300/Recruiter?source=RSS</link>
+<description><![CDATA[Category: People <br><br>Location:    <br><br><p>Hire great people.</p>]]></description>
+<guid>300</guid>
+<pubDate>Wed, 23 Apr 2026 12:00:00 PDT</pubDate>
+</item>
+</channel></rss>`;
+    server.use(
+      http.get("https://workplaceco.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(xml)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "workplaceco" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    const backend = out.jobs.find((j) => j.source_id === "100");
+    expect(backend?.workplace_type).toBe("remote");
+    expect(backend?.location_text).toBe("Remote, United States");
+    const designer = out.jobs.find((j) => j.source_id === "200");
+    expect(designer?.workplace_type).toBe("hybrid");
+    // Numeric guid (no isPermaLink wrapper) coerces to string source_id.
+    const recruiter = out.jobs.find((j) => j.source_id === "300");
+    expect(recruiter?.location_text).toBeUndefined();
+    expect(recruiter?.workplace_type).toBe(null);
+    // Title-based recruiter classification mirrors greenhouse / lever.
+    expect(recruiter?.is_recruiter_post).toBe(true);
+    expect(backend?.is_recruiter_post).toBe(false);
+  });
+
+  it("zohorecruit drops future-dated posted_at instead of rejecting the entry", async () => {
+    // The schema rejects posted_at > last_seen_at. A pubDate ahead of the
+    // observed-at clock (rare edge case from clock skew or a tenant in a
+    // future timezone) should be dropped rather than failing the whole job.
+    const xml = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<title>Future Co - Careers</title>
+<item>
+<title><![CDATA[Time Traveller]]></title>
+<link>https://future.zohorecruit.com/jobs/Careers/777/Time?source=RSS</link>
+<description><![CDATA[Category: General <br><br>Location: Anywhere <br><br><p>Yes.</p>]]></description>
+<guid isPermaLink='false'>777</guid>
+<pubDate>Fri, 25 Dec 2099 12:00:00 PDT</pubDate>
+</item>
+</channel></rss>`;
+    server.use(
+      http.get("https://future.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(xml)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "future" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.posted_at).toBeUndefined();
+  });
+
+  it("zohorecruit drops unparseable pubDate values without failing the entry", async () => {
+    // Some tenants emit pubDates that even Bun's lenient Date parser rejects
+    // (extreme locale strings, malformed shapes from upstream caches). The
+    // entry should still ship — only the posted_at field is dropped.
+    const xml = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<title>Garbled Co - Careers</title>
+<item>
+<title><![CDATA[Consultant SAP]]></title>
+<link>https://garbled.zohorecruit.com/jobs/Careers/96802/Consultant?source=RSS</link>
+<description><![CDATA[Category: SAP <br><br>Location: Paris France <br><br><p>SAP consulting.</p>]]></description>
+<guid isPermaLink='false'>96802</guid>
+<pubDate>not a date at all</pubDate>
+</item>
+</channel></rss>`;
+    server.use(
+      http.get("https://garbled.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(xml)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "garbled" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.posted_at).toBeUndefined();
+    expect(out.jobs[0]?.title).toBe("Consultant SAP");
+  });
+
+  it("zohorecruit falls back to display_name then slug when channel title is absent", async () => {
+    const xml = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<item>
+<title><![CDATA[Engineer]]></title>
+<link>https://noname.zohorecruit.com/jobs/Careers/1/Engineer?source=RSS</link>
+<description><![CDATA[Category: Eng <br><br>Location: NYC <br><br>Build.]]></description>
+<guid isPermaLink='false'>1</guid>
+<pubDate>Mon, 21 Apr 2026 12:00:00 PDT</pubDate>
+</item>
+</channel></rss>`;
+    server.use(
+      http.get("https://noname.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(xml)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "noname", display_name: "No Name Co" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.company).toBe("No Name Co");
+  });
+
+  it("zohorecruit falls back to slug when both channel title and display_name are absent", async () => {
+    const xml = `<?xml version='1.0' encoding='utf-8'?>
+<rss version='2.0'><channel>
+<item>
+<title><![CDATA[Engineer]]></title>
+<link>https://bareslug.zohorecruit.com/jobs/Careers/1/Engineer?source=RSS</link>
+<description><![CDATA[Category: Eng <br><br>Location: NYC <br><br>Build.]]></description>
+<guid isPermaLink='false'>1</guid>
+<pubDate>Mon, 21 Apr 2026 12:00:00 PDT</pubDate>
+</item>
+</channel></rss>`;
+    server.use(
+      http.get("https://bareslug.zohorecruit.com/jobs/Careers/rss", () => HttpResponse.xml(xml)),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "bareslug" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.jobs[0]?.company).toBe("bareslug");
+  });
+
+  it("zohorecruit returns dead when the request itself yields HTTP 404", async () => {
+    server.use(
+      http.get("https://hard404.zohorecruit.com/jobs/Careers/rss", () =>
+        HttpResponse.text("not found", { status: 404 }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "zohorecruit",
+        tenants: [{ slug: "hard404" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+  });
+
   it("dispatches factorial via sitemap walk + og:title meta extraction", async () => {
     const sitemap = `<?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
@@ -1885,7 +2275,7 @@ ${body}
   });
 
   it("flags the remaining stubbed ATSes as transient_failure (scrapers not yet implemented)", async () => {
-    const stubbed = ["csod", "taleo", "zohorecruit"] as const;
+    const stubbed = ["csod", "taleo"] as const;
     for (const ats of stubbed) {
       const out = await runScrape({
         input: {

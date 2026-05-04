@@ -29,6 +29,7 @@ import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
+import { scrapeZohorecruitTenant } from "./ats/zohorecruit.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
 import { RobotsTxtCache } from "./robots.ts";
 
@@ -182,9 +183,10 @@ function dispatchPerAts(
       return scrapeEightfoldTenant(opts);
     case "ultipro":
       return scrapeUltiproTenant(opts);
+    case "zohorecruit":
+      return scrapeZohorecruitTenant(opts);
     case "csod":
     case "taleo":
-    case "zohorecruit":
       // Harvest patterns and probe URLs are wired (so tenant lists populate)
       // but the scraper modules are not yet implemented; the dispatcher
       // surfaces the gap as transient_failure rather than a thrown error.
