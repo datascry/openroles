@@ -32,12 +32,15 @@ jobs:
   scrape:
     name: Scrape ${{ matrix.ats }}
     runs-on: ubuntu-24.04
-    # 60 min: post-bootstrap corpus pushed icims (14,810 tenants) past
-    # the previous 45-min cap. Other large per-subdomain ATSes
-    # (bamboohr 15,840; workable 14,392) finished in ~30-40 min and
-    # are at risk too. 60 keeps headroom; longer-term icims should
-    # shard by tenant prefix.
-    timeout-minutes: 60
+    # 90 min: 60 min was insufficient for icims (14,810 tenants → hit
+    # the cap exactly at 1h0m16s on run 25296691677, cancelling that
+    # shard and tagging the whole workflow `cancelled` which blocks
+    # the auto-chain to Build+deploy). bamboohr (15,840) and workable
+    # (14,392) finish closer to 30-40 min so the headroom doesn't hurt
+    # them. Longer-term icims should shard by tenant prefix and run
+    # two parallel jobs — that lets each finish under 30 min and frees
+    # up the runner faster.
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
