@@ -26,7 +26,18 @@ function mirrorDir(from: string, to: string): void {
   if (!existsSync(from)) return;
   mkdirSync(to, { recursive: true });
   for (const entry of readdirSync(from, { withFileTypes: true })) {
-    if (entry.isFile()) copyFileSync(join(from, entry.name), join(to, entry.name));
+    const src = join(from, entry.name);
+    const dst = join(to, entry.name);
+    if (entry.isFile()) {
+      copyFileSync(src, dst);
+    } else if (entry.isDirectory()) {
+      // Recurse — the slim-index emitter writes content-hashed chunks
+      // under data/slim/ and `astro preview` serves dist/ verbatim,
+      // so without descending we'd ship the manifest pointing at
+      // chunks that aren't on disk and FilterTable would 404 every
+      // chunk fetch.
+      mirrorDir(src, dst);
+    }
   }
 }
 
