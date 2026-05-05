@@ -83,6 +83,17 @@ CREATE INDEX idx_jobs_first_seen_at         ON jobs(first_seen_at DESC);
 -- jobs table — hundreds of MB of 1 KiB Range requests to render the
 -- first 50 rows over sql.js-httpvfs.
 CREATE INDEX idx_jobs_posted_at             ON jobs(posted_at DESC, first_seen_at DESC);
+-- Expression index on the 16-char short_id used by the role-detail page
+-- (specs/role-detail.md). Without it, role-detail's lookup walked a
+-- BETWEEN range over the PRIMARY KEY (50% of the 64-char hex space),
+-- which over sql.js-httpvfs translated to dozens of 1 KiB Range requests
+-- and a 70-second cold load on production. With this index, the lookup
+-- is a single index entry per role — ~3 page reads, sub-second cold.
+-- NOT unique: 16 hex chars is 64 bits, so the birthday-collision
+-- probability is ~3×10⁻¹⁰ at 10⁵ rows but non-zero. The role-detail
+-- query already enforces LIMIT 1; storing both rows is safer than
+-- rejecting an insert when a real collision lands.
+CREATE INDEX idx_jobs_short_id              ON jobs(substr(id, 1, 16));
 `;
 
 export const PAGE_SIZE_PRAGMA = "PRAGMA page_size = 1024;";

@@ -28,31 +28,25 @@ const ROLE_COLUMNS =
 
 /**
  * Build the SELECT plan that resolves a 16-char short id to the full
- * role row. Uses a `BETWEEN` range over the PRIMARY KEY so SQLite can
- * walk the id b-tree directly (~log₂ n page reads). The previous
- * `WHERE substr(id, 1, 16) = ?` form wrapped the indexed column in a
- * function, which forces a full-table scan — over sql.js-httpvfs that
- * meant fetching the entire jobs table just to render one role page.
+ * role row. Uses the expression index `idx_jobs_short_id` defined in
+ * scraper/src/db/schema.ts: `CREATE UNIQUE INDEX … ON jobs(substr(id,
+ * 1, 16))`. The WHERE clause has to match the indexed expression
+ * verbatim — `WHERE substr(id, 1, 16) = ?` — for the SQLite planner to
+ * pick the index. With it, lookup is ~3 page reads. Without it, the
+ * fallback BETWEEN range over the PRIMARY KEY scans up to 50% of the
+ * key space and triggered a 70-second cold load over sql.js-httpvfs on
+ * production.
  *
- * The hex range is `<shortId>00…0` (48 zero hex digits) inclusive
- * through `<shortId>ff…f` (48 f hex digits) inclusive, since `id` is a
- * 64-char SHA-256 hex string. Strings sort lexicographically over the
- * default BINARY collation, so the range is exactly the set of ids
- * whose first 16 chars match `shortId`. LIMIT 1 keeps us honest if
- * the 64-bit collision corner case ever fires.
+ * LIMIT 1 keeps us honest if the 64-bit collision corner case fires
+ * (probability ~3×10⁻¹⁰ at 10⁵ rows).
  */
-const HEX_PAD_LOW = "0".repeat(48);
-const HEX_PAD_HIGH = "f".repeat(48);
-
 export function buildRoleByShortIdQuery(shortId: string): QueryPlan {
   if (!isShortId(shortId)) {
     throw new Error(`buildRoleByShortIdQuery: not a 16-char hex id: ${shortId}`);
   }
-  const lo = shortId + HEX_PAD_LOW;
-  const hi = shortId + HEX_PAD_HIGH;
   return {
-    sql: `SELECT ${ROLE_COLUMNS} FROM jobs WHERE id BETWEEN ? AND ? LIMIT 1`,
-    params: [lo, hi],
+    sql: `SELECT ${ROLE_COLUMNS} FROM jobs WHERE substr(id, 1, 16) = ? LIMIT 1`,
+    params: [shortId],
   };
 }
 
