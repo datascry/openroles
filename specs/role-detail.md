@@ -1,6 +1,6 @@
 # Spec: Role detail page
 
-**Version**: 3.0.0
+**Version**: 3.1.0
 
 A client-rendered detail view for a single role, addressable by query string
 URL `/role/?id=<short_id>`. The page is a static HTML shell that hydrates a
@@ -67,11 +67,40 @@ statically rendered and indexable. Those are the SEO entry points.
 
 - `site/src/pages/role/index.astro` — static shell that mounts the Svelte
   island
-- `site/src/components/RoleDetail.svelte` — client-fetch + render
+- `site/src/components/RoleDetail.svelte` — client-fetch + render (v3.1.0
+  editorial layout per `specs/uplift-v2-handoff.md` §3)
 - `site/src/lib/role-detail-sql.ts` — `buildRoleByShortIdQuery`,
   `isShortId`, `shortIdFromJobId` (shared with FilterTable for the
   view-link generation)
+- `site/src/lib/role-detail-format.ts` — `bylineParts(role)` and
+  `pullquote(role)` formatters
+- `site/src/lib/role-related-sql.ts` — `buildRelatedRolesQuery` /
+  `buildRelatedRolesCountQuery` for the "More from {company}" card
 - `site/src/lib/client-db.ts` — sql.js-httpvfs runtime (already exists)
+
+## Layout (v3.1.0 — editorial broadsheet)
+
+Per `specs/uplift-v2-handoff.md` §3. Replaces the previous unstyled column
+with a feature-article layout: kicker (company in accent mono), display
+headline (role title in 48–64 px display sans), serif strap (italic first
+sentence), byline rule (level · workplace · department · comp · ats), then
+a two-column body with narrative + dropcap on the left and an apply card +
+fact card + "More from {company}" on the right rail.
+
+States covered: deterministic skeleton during load (no shimmer per
+editorial tone), themed error block inside the same frame, stale banner,
+recruiter line, sticky bottom apply bar on mobile when the in-flow card
+scrolls out, pullquote that omits when there is no comp data and appends
+`+ EQUITY` when the description excerpt mentions equity (substring,
+case-insensitive), fact rows that render `not stated` (italic serif) for
+missing fields rather than dropping them.
+
+A local-state disclosure paragraph below the body explains that
+saved/applied/ignored states live in the browser only — this addresses the
+prior critique's hidden-state finding.
+
+Print stylesheet hides the rail-top, apply card, "more from" card, and
+disclosure; the fact card renders inline above the body.
 
 ## Tests
 

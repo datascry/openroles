@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Search-bar alternatives · openroles uplift</title>
+<style>
+  /* Brutalist Press tokens — mirrored from site/src/styles/tokens.css */
+  :root {
+    --color-paper: #f2efe9;
+    --color-ink: #0a0a0a;
+    --color-ink-2: #2a2a2a;
+    --color-ink-3: #6e6a63;
+    --color-rule: #0a0a0a;
+    --color-rule-soft: #c8c2b6;
+    --color-accent: #c8261a;
+    --color-accent-soft: #f6e3df;
+    --color-on-accent: #fff;
+
+    --font-display: "Helvetica Neue", "Inter Tight", "Akzidenz-Grotesk", Helvetica, Arial, sans-serif;
+    --font-serif: "Tiempos Text", "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+
+    --text-00: 0.625rem;
+    --text-0: 0.6875rem;
+    --text-1: 0.75rem;
+    --text-2: 0.875rem;
+    --text-3: 1rem;
+    --text-4: 1.25rem;
+    --text-5: 1.875rem;
+    --text-6: 2.5rem;
+
+    --track-tight: -0.02em;
+    --track-wide: 0.06em;
+    --track-wider: 0.12em;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.25rem;
+    --space-5: 1.5rem;
+    --space-6: 1.75rem;
+    --space-7: 2rem;
+    --space-8: 3rem;
+    --space-9: 4rem;
+
+    --rule-1: 1px;
+    --rule-2: 2px;
+    --rule-4: 4px;
+    --rule-6: 6px;
+    --tap: 44px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-serif); font-size: var(--text-2); line-height: 1.55; }
+
+  /* page chrome */
+  .doc { max-width: 1080px; margin: 0 auto; padding: var(--space-6) var(--space-4) var(--space-9); }
+  .doc-head { border-bottom: var(--rule-6) solid var(--color-rule); padding-bottom: var(--space-3); margin-bottom: var(--space-6); }
+  .doc-head h1 { font-family: var(--font-display); font-weight: 900; font-size: var(--text-6); letter-spacing: var(--track-tight); line-height: 0.95; text-transform: uppercase; margin: 0 0 var(--space-2); }
+  .doc-head .crumb { font-family: var(--font-mono); font-size: var(--text-0); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-2); }
+  .doc-head .crumb b { color: var(--color-accent); }
+
+  .alt { border-top: var(--rule-4) solid var(--color-rule); padding-top: var(--space-4); margin-top: var(--space-7); }
+  .alt-head { display: grid; grid-template-columns: 1fr; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .alt-tag { font-family: var(--font-mono); font-size: var(--text-0); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-accent); }
+  .alt-title { font-family: var(--font-display); font-weight: 800; font-size: var(--text-5); line-height: 1; letter-spacing: var(--track-tight); text-transform: uppercase; margin: 0; }
+  .alt-pitch { font-family: var(--font-serif); font-size: var(--text-3); color: var(--color-ink-2); margin: 0; max-width: 60ch; }
+  .alt-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-family: var(--font-mono); font-size: var(--text-0); text-transform: uppercase; letter-spacing: var(--track-wider); color: var(--color-ink-3); margin-top: var(--space-2); }
+  .alt-meta b { color: var(--color-ink); font-weight: 700; }
+
+  .frame { background: var(--color-paper); border: var(--rule-2) solid var(--color-ink); padding: var(--space-4); margin-block: var(--space-3); position: relative; }
+  .frame::before { content: attr(data-label); position: absolute; top: -0.65rem; left: var(--space-3); background: var(--color-paper); padding: 0 var(--space-2); font-family: var(--font-mono); font-size: var(--text-00); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-3); }
+
+  .notes { display: grid; gap: var(--space-1); margin-top: var(--space-3); padding-top: var(--space-3); border-top: var(--rule-1) dashed var(--color-rule-soft); }
+  .notes p { margin: 0; font-family: var(--font-mono); font-size: var(--text-1); color: var(--color-ink-2); }
+  .notes p::before { content: "▸ "; color: var(--color-accent); font-weight: 700; }
+
+  /* ======== SHARED FORM BITS ======== */
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .label-mono { font-family: var(--font-mono); font-size: var(--text-00); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-2); }
+  .input-base { font-family: var(--font-display); font-size: var(--text-3); font-weight: 600; color: var(--color-ink); background: transparent; border: var(--rule-2) solid var(--color-ink); border-radius: 0; padding: var(--space-2) var(--space-3); min-height: var(--tap); width: 100%; }
+  .input-base::placeholder { color: var(--color-ink-3); }
+  .btn-ghost, .btn-solid { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1); min-height: var(--tap); padding: 0 var(--space-3); border: var(--rule-1) solid var(--color-ink); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-display); font-size: var(--text-1); font-weight: 700; letter-spacing: var(--track-wide); text-transform: uppercase; cursor: pointer; }
+  .btn-solid { background: var(--color-ink); color: var(--color-paper); }
+  .btn-accent { background: var(--color-accent); color: var(--color-on-accent); border-color: var(--color-accent); }
+  .kbd { font-family: var(--font-mono); font-size: var(--text-0); padding: 0 var(--space-1); border: var(--rule-1) solid var(--color-rule-soft); background: var(--color-paper); color: var(--color-ink-2); }
+
+  /* ======== ALT 1: COMMAND BAR with token suggestions ======== */
+  .a1-cmd { position: relative; }
+  .a1-cmd .field { display: flex; align-items: center; border: var(--rule-2) solid var(--color-ink); min-height: 56px; }
+  .a1-cmd .prefix { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-right: var(--rule-2) solid var(--color-ink); font-family: var(--font-mono); font-size: var(--text-4); color: var(--color-accent); font-weight: 700; }
+  .a1-cmd .tokens { display: flex; flex-wrap: wrap; gap: var(--space-1); padding-inline: var(--space-2); flex: 1 1 auto; align-items: center; min-height: 100%; }
+  .a1-cmd .token { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-2); background: var(--color-ink); color: var(--color-paper); font-family: var(--font-mono); font-size: var(--text-1); letter-spacing: var(--track-wide); text-transform: uppercase; }
+  .a1-cmd .token .key { color: var(--color-accent); }
+  .a1-cmd .token .x { padding-inline-start: var(--space-1); color: var(--color-ink-3); }
+  .a1-cmd .raw { font-family: var(--font-display); font-weight: 600; font-size: var(--text-3); border: 0; outline: 0; background: transparent; flex: 1 1 8rem; min-width: 8rem; padding: 0; min-height: 36px; color: var(--color-ink); }
+  .a1-cmd .raw::placeholder { color: var(--color-ink-3); }
+  .a1-cmd .helper { display: inline-flex; align-items: center; padding: 0 var(--space-3); border-left: var(--rule-2) solid var(--color-ink); height: 56px; font-family: var(--font-mono); font-size: var(--text-0); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-2); }
+  .a1-cmd .helper .kbd { margin-inline-start: var(--space-1); }
+
+  .a1-suggest { position: absolute; left: 0; right: 0; top: calc(100% - 0px); background: var(--color-paper); border: var(--rule-2) solid var(--color-ink); border-top: 0; box-shadow: var(--space-1) var(--space-1) 0 0 var(--color-ink); padding: var(--space-2) 0; }
+  .a1-suggest .group-label { padding: var(--space-1) var(--space-3); font-family: var(--font-mono); font-size: var(--text-00); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-3); }
+  .a1-suggest .row-item { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); cursor: pointer; }
+  .a1-suggest .row-item:hover, .a1-suggest .row-item.is-active { background: var(--color-ink); color: var(--color-paper); }
+  .a1-suggest .row-item .left { font-family: var(--font-display); font-size: var(--text-2); font-weight: 700; }
+  .a1-suggest .row-item .left .key { color: var(--color-accent); }
+  .a1-suggest .row-item.is-active .left .key { color: var(--color-paper); }
+  .a1-suggest .row-item .right { font-family: var(--font-mono); font-size: var(--text-0); letter-spacing: var(--track-wide); text-transform: uppercase; color: var(--color-ink-3); }
+  .a1-suggest .row-item.is-active .right { color: var(--color-paper); }
+
+  /* ======== ALT 2: DUAL-MODE TABBED ======== */
+  .a2-tabs { display: flex; gap: 0; border-bottom: var(--rule-2) solid var(--color-ink); }
+  .a2-tab { padding: var(--space-3) var(--space-4); font-family: var(--font-display); font-size: var(--text-1); font-weight: 700; letter-spacing: var(--track-wide); text-transform: uppercase; cursor: pointer; border: 0; background: transparent; color: var(--color-ink-3); border-bottom: var(--rule-4) solid transparent; margin-bottom: -2px; }
+  .a2-tab.is-active { color: var(--color-ink); border-bottom-color: var(--color-accent); }
+  .a2-mode { padding-block: var(--space-3); }
+  .a2-grid { display: grid; gap: var(--space-3); grid-template-columns: 2fr 1.4fr 1.6fr auto; align-items: end; }
+  @media (max-width: 720px) { .a2-grid { grid-template-columns: 1fr; } }
+  .a2-field label { display: grid; gap: var(--space-1); }
+  .a2-recent { margin-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+  .a2-recent .label { font-family: var(--font-mono); font-size: var(--text-00); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-3); margin-inline-end: var(--space-2); }
+  .a2-recent .pill { display: inline-flex; gap: var(--space-1); padding: var(--space-1) var(--space-3); border: var(--rule-1) solid var(--color-rule-soft); font-family: var(--font-mono); font-size: var(--text-1); color: var(--color-ink-2); cursor: pointer; }
+  .a2-recent .pill:hover { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+  .a2-recent .pill .key { color: var(--color-accent); }
+
+  /* ======== ALT 3: PERSISTENT SEARCH + QUICK SHORTCUTS ======== */
+  .a3-bar { display: grid; gap: var(--space-2); }
+  .a3-input-wrap { display: flex; align-items: stretch; border: var(--rule-2) solid var(--color-ink); }
+  .a3-input-wrap input { flex: 1 1 auto; border: 0; outline: 0; padding: 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-3); font-weight: 600; background: transparent; color: var(--color-ink); min-height: var(--tap); }
+  .a3-input-wrap input::placeholder { color: var(--color-ink-3); }
+  .a3-input-wrap .icon { width: var(--tap); display: inline-flex; align-items: center; justify-content: center; border-right: var(--rule-2) solid var(--color-ink); font-family: var(--font-mono); font-size: var(--text-4); color: var(--color-accent); font-weight: 700; }
+  .a3-input-wrap .clear { padding: 0 var(--space-3); background: transparent; border: 0; border-left: var(--rule-1) solid var(--color-rule-soft); cursor: pointer; font-family: var(--font-mono); font-size: var(--text-2); color: var(--color-ink-3); }
+  .a3-quick { display: flex; flex-wrap: wrap; gap: var(--space-1); align-items: center; }
+  .a3-quick .label { font-family: var(--font-mono); font-size: var(--text-00); letter-spacing: var(--track-wider); text-transform: uppercase; color: var(--color-ink-3); margin-inline-end: var(--space-2); }
+  .a3-quick .field-btn { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-2); border: var(--rule-1) solid var(--color-rule-soft); background: var(--color-paper); font-family: var(--font-mono); font-size: var(--text-1); color: var(--color-ink-2); cursor: pointer; min-height: 32px; }
+  .a3-quick .field-btn:hover { border-color: var(--color-ink); color: var(--color-ink); }
+  .a3-quick .field-btn .key { color: var(--color-accent); font-weight: 700; }
+  .a3-tip { font-family: var(--font-mono); font-size: var(--text-0); color: var(--color-ink-3); }
+  .a3-tip .kbd { margin-inline: var(--space-1); }
+</style>
+</head>
+<body>
+<div class="doc">
+  <header class="doc-head">
+    <p class="crumb">openroles · uplift wireframes · <b>SEARCH BAR</b> — 3 alternatives</p>
+    <h1>Search bar</h1>
+    <p class="alt-pitch">The current bar is a single text input that teaches a 5-prefix DSL through placeholder copy. It works for power users; it's invisible to everyone else. Each alternative below makes the structured search legible without losing keyboard speed.</p>
+  </header>
+
+  <!-- ALT 1 -->
+  <section class="alt">
+    <header class="alt-head">
+      <span class="alt-tag">Alt 1 — Command bar with token suggestions</span>
+      <h2 class="alt-title">Type → suggest → tokenise</h2>
+      <p class="alt-pitch">A single input that auto-suggests the right prefix as the user types. Accepting a suggestion (Enter / Tab) converts the term into a solid black token chip inside the field. Empty the input → see "recent searches".</p>
+      <div class="alt-meta"><span><b>Best for:</b> power users + first-timers, single hand on keyboard</span><span><b>Cost:</b> needs autocomplete index in JS</span></div>
+    </header>
+
+    <div class="frame" data-label="Default state">
+      <div class="a1-cmd">
+        <div class="field">
+          <span class="prefix" aria-hidden="true">/</span>
+          <div class="tokens">
+            <input class="raw" type="search" placeholder="Search by title, company, location, or paste a URL…" />
+          </div>
+          <span class="helper"><span class="kbd">/</span>&nbsp;to focus</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame" data-label="User typed “san f” — suggestions appear, arrow-key navigable">
+      <div class="a1-cmd">
+        <div class="field">
+          <span class="prefix" aria-hidden="true">/</span>
+          <div class="tokens">
+            <input class="raw" type="search" value="san f" />
+          </div>
+          <span class="helper"><span class="kbd">↵</span>&nbsp;accept&nbsp;<span class="kbd">esc</span>&nbsp;close</span>
+        </div>
+        <div class="a1-suggest">
+          <p class="group-label">Locations</p>
+          <div class="row-item is-active">
+            <span class="left"><span class="key">location:</span>"san francisco"</span>
+            <span class="right">8 roles</span>
+          </div>
+          <div class="row-item">
+            <span class="left"><span class="key">location:</span>"san francisco bay area"</span>
+            <span class="right">14 roles</span>
+          </div>
+          <p class="group-label">Companies</p>
+          <div class="row-item">
+            <span class="left"><span class="key">company:</span>sanity</span>
+            <span class="right">3 roles</span>
+          </div>
+          <p class="group-label">Free text</p>
+          <div class="row-item">
+            <span class="left">"san f" — match across all fields</span>
+            <span class="right">~22 roles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame" data-label="After accepting two suggestions — tokens render inline, free text continues">
+      <div class="a1-cmd">
+        <div class="field">
+          <span class="prefix" aria-hidden="true">/</span>
+          <div class="tokens">
+            <span class="token"><span class="key">location:</span>san francisco<span class="x">×</span></span>
+            <span class="token"><span class="key">level:</span>senior<span class="x">×</span></span>
+            <input class="raw" type="search" placeholder="Add another filter…" />
+          </div>
+          <span class="helper"><b style="color:var(--color-accent)">14</b>&nbsp;roles</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <p>Tokens are real DOM elements with delete affordance — backspace also removes the trailing token (Slack/Notion convention).</p>
+      <p>Replaces the current "details/summary" syntax help — the help is now demonstrated by the suggestions themselves.</p>
+      <p>Live count in the right helper slot answers "is this filter going to help me?" before the user submits.</p>
+    </div>
+  </section>
+
+  <!-- ALT 2 -->
+  <section class="alt">
+    <header class="alt-head">
+      <span class="alt-tag">Alt 2 — Dual-mode tabbed search</span>
+      <h2 class="alt-title">Free text · or · structured fields</h2>
+      <p class="alt-pitch">Two tabs sit above the search surface: <b>FREE TEXT</b> (today's behaviour, exposed plainly) and <b>STRUCTURED</b> (named inputs for title, company, location). Recent searches appear below either mode and round-trip both directions.</p>
+      <div class="alt-meta"><span><b>Best for:</b> users who don't trust DSLs</span><span><b>Cost:</b> two layouts to maintain, mode-switching cost</span></div>
+    </header>
+
+    <div class="frame" data-label="Free-text mode (default)">
+      <div class="a2-tabs" role="tablist">
+        <button class="a2-tab is-active" role="tab">Free text</button>
+        <button class="a2-tab" role="tab">Structured</button>
+      </div>
+      <div class="a2-mode">
+        <input class="input-base" type="search" placeholder='Search roles — try "senior engineer" or paste a posting URL' />
+      </div>
+      <div class="a2-recent">
+        <span class="label">Recent</span>
+        <span class="pill"><span class="key">title:</span>engineer</span>
+        <span class="pill">"staff product designer"</span>
+        <span class="pill"><span class="key">company:</span>stripe</span>
+      </div>
+    </div>
+
+    <div class="frame" data-label="Structured mode — explicit fields, no DSL knowledge required">
+      <div class="a2-tabs" role="tablist">
+        <button class="a2-tab" role="tab">Free text</button>
+        <button class="a2-tab is-active" role="tab">Structured</button>
+      </div>
+      <div class="a2-mode">
+        <div class="a2-grid">
+          <div class="a2-field"><label><span class="label-mono">Title</span><input class="input-base" placeholder="e.g. senior engineer"></label></div>
+          <div class="a2-field"><label><span class="label-mono">Company</span><input class="input-base" placeholder="e.g. stripe"></label></div>
+          <div class="a2-field"><label><span class="label-mono">Location</span><input class="input-base" placeholder="e.g. remote, lisbon"></label></div>
+          <button class="btn-accent" type="button">Search</button>
+        </div>
+      </div>
+      <div class="a2-recent">
+        <span class="label">Saved searches</span>
+        <span class="pill">Senior IC · remote · last 7d</span>
+        <span class="pill">EU staff eng · ≥ 130k</span>
+        <span class="pill">+ Save current</span>
+      </div>
+    </div>
+
+    <div class="notes">
+      <p>Both modes write to the same <code>FilterState</code> — switching tabs preserves the query (a structured "company: stripe" shows up as <code>company:stripe</code> in free-text mode and vice versa).</p>
+      <p>Adds first-class "saved searches" surface — the closest the no-account product can get to "job alerts".</p>
+      <p>Heaviest of the three. Probably overkill unless analytics show the DSL is failing for non-power users.</p>
+    </div>
+  </section>
+
+  <!-- ALT 3 -->
+  <section class="alt">
+    <header class="alt-head">
+      <span class="alt-tag">Alt 3 — Persistent search + quick-prefix shortcuts</span>
+      <h2 class="alt-title">One bar, four pre-typed prefixes</h2>
+      <p class="alt-pitch">Keep the existing single search input but add a row of <em>pre-typed</em> prefix shortcuts directly underneath. Tapping one inserts <code>title:</code> (or company/location/skill) at the cursor and focuses the input. The DSL becomes discoverable without changing the data path.</p>
+      <div class="alt-meta"><span><b>Best for:</b> minimum-disruption uplift, ships fastest</span><span><b>Cost:</b> still requires DSL literacy after first tap</span></div>
+    </header>
+
+    <div class="frame" data-label="Empty state — shortcuts visible, instructional">
+      <div class="a3-bar">
+        <div class="a3-input-wrap">
+          <span class="icon" aria-hidden="true">⌕</span>
+          <input type="search" placeholder="Search 56 open roles…">
+        </div>
+        <div class="a3-quick">
+          <span class="label">Filter by</span>
+          <button class="field-btn" type="button"><span class="key">title:</span>_</button>
+          <button class="field-btn" type="button"><span class="key">company:</span>_</button>
+          <button class="field-btn" type="button"><span class="key">location:</span>_</button>
+          <button class="field-btn" type="button"><span class="key">description:</span>_</button>
+          <button class="field-btn" type="button">"exact phrase"</button>
+        </div>
+        <p class="a3-tip">Press <span class="kbd">/</span> from anywhere to jump to search · combine prefixes with spaces</p>
+      </div>
+    </div>
+
+    <div class="frame" data-label="After tapping the company shortcut — caret lands inside the prefix">
+      <div class="a3-bar">
+        <div class="a3-input-wrap">
+          <span class="icon" aria-hidden="true">⌕</span>
+          <input type="search" value="company:|" style="caret-color: var(--color-accent);">
+          <button class="clear" aria-label="Clear">×</button>
+        </div>
+        <div class="a3-quick">
+          <span class="label">Filter by</span>
+          <button class="field-btn" type="button"><span class="key">title:</span>_</button>
+          <button class="field-btn" type="button" style="background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink);"><span class="key" style="color: var(--color-accent);">company:</span>_</button>
+          <button class="field-btn" type="button"><span class="key">location:</span>_</button>
+          <button class="field-btn" type="button"><span class="key">description:</span>_</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <p>Smallest API change to the existing FilterTable. Shortcuts insert text and dispatch the same input event the keyboard would.</p>
+      <p>Replaces the somewhat-hidden <code>&lt;details&gt;</code> "Search syntax" disclosure with always-on instructional buttons.</p>
+      <p>Add a global <code>/</code> hotkey while you're in there — convention from GitHub, YouTube, Slack.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

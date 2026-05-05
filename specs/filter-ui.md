@@ -1,6 +1,6 @@
 # Spec: Filter UI
 
-**Version**: 1.2.0
+**Version**: 1.3.1
 
 The filter UI is the primary interactive surface. It runs as a Svelte island hydrated with `client:idle` over a static Astro page. State lives in two places: the URL query string (shareable, deep-linkable) and `localStorage` (saved/applied/ignored).
 
@@ -39,12 +39,48 @@ The runtime contract below is the design target. What ships today, plus what is 
 
 ## Visible behavior
 
-### Search
+### Search (v1.3.1 — dual-mode tabbed search)
 
-- A single text input drives FTS5 over `jobs.title`, `jobs.company`, and `jobs.description_excerpt`.
-- Input is debounced at **250 ms** before a query fires.
-- Empty search returns the unfiltered view (subject to other filters).
-- The input accepts a small **field-scoped syntax** (Phase 13) for power users; plain text falls through to the prior all-column phrase match.
+The search surface is a tabbed component ([SearchBar.svelte](../site/src/components/SearchBar.svelte)) with two modes that round-trip through the same `FilterState.q` string.
+
+**Free text tab** (default) — single input that accepts the existing DSL (`title:`, `company:`, `description:`, `location:`, plus quoted phrases). Debounced at 250 ms before `onChange(q)` fires. Behaviour is unchanged from v1.2.0.
+
+**Structured tab** — three labelled inputs (Title, Company, Location) plus an explicit Search button. On submit, `composeQuery({ title, company, location, freeText })` produces the canonical DSL string and `onChange` fires immediately (no debounce).
+
+The two tabs share `FilterState.q`. Switching tabs is lossless: free → structured calls `parseQuery(q)` to populate the form; structured → free calls `composeQuery` and writes the resulting string back to `q`. A hidden footer surfaces remaining free-text content (`+ free text: "…"`) so the user can see anything not bound to a structured field.
+
+DSL helpers live in [site/src/lib/search-dsl.ts](../site/src/lib/search-dsl.ts) — `parseQuery(q)` and `composeQuery(s)`. A fast-check property test asserts the round-trip invariant: `parseQuery(composeQuery(s)) === s` for any `StructuredQuery` value (after trimming).
+
+The `q` value is bounded by `Q_TOTAL_MAX = 256` (carried from v1.2.0) and `Q_FIELD_MAX = 64` per structured field. `composeQuery` throws if the composed length exceeds the cap.
+
+#### Saved searches
+
+A row of pills below the mode panel persists `q` snapshots to `localStorage` under `openroles:v1:saved-searches` ([site/src/lib/storage.ts](../site/src/lib/storage.ts)).
+
+Storage shape:
+
+```typescript
+interface SavedSearch {
+  id: string;        // sortable ISO-derived prefix + 4-char random tail
+  label: string;     // 1–32 chars, trimmed
+  q: string;         // 1–256 chars, trimmed
+  createdAt: string; // ISO 8601
+}
+interface SavedSearches {
+  version: 1;
+  entries: SavedSearch[];   // newest first, capped at 12
+}
+```
+
+`saveSearch(label, q)` de-dupes by exact `q` (newer label wins; older entry removed) and LRU-evicts the oldest entry when the cap would be exceeded. `removeSavedSearch(id)` removes by id. Empty / over-cap labels and empty `q` are rejected (`null` return).
+
+The `+ Save current` trigger is `aria-disabled` whenever `q` is empty. Clicking it inline-replaces the trigger with a label input that accepts on `Enter` and cancels on `Escape` or blur.
+
+When `savedSearches.length === 0` AND `q` is empty, the entire `.recent-row` is hidden (no orphan `RECENT` label).
+
+### Filter (faceted) inputs (Phase 8 baseline)
+
+The legacy Phase 8 description is preserved below for the per-filter contract; only the search surface changed in v1.3.1.
 
 #### Advanced syntax (v1.2.0)
 
@@ -190,20 +226,36 @@ interface IgnoredJobs {
 
 Migration on schema bump: read the old version, transform, write the new version, retain a backup under `openroles:vN-prev:*` for one release cycle.
 
-## Mobile presentation (≤ 768px)
+## Layout (v1.3.0 — sidebar + sheet)
 
-- Job list renders as `<ul role="list">` of cards (one card per job).
-- Filter controls live in a bottom-sheet drawer (`FilterDrawer.svelte`) toggled by a fixed-position button.
-- Search input is at the top of the viewport, persistent on scroll.
-- Pagination is "Load more" infinite-scroll trigger, not a numbered pager (smaller tap targets work poorly for pagination).
-- All tap targets ≥ 44×44 px.
+The filter UI breaks at `--bp-sidebar: 800px` (defined in [tokens.css](../site/src/styles/tokens.css)). The 800 px breakpoint diverges from the 768 px type-scale ramp because the sidebar + results pair needs ~800 px to breathe; see [specs/uplift-v2-handoff.md](uplift-v2-handoff.md) §2.6 for rationale.
 
-## Desktop presentation (≥ 768px)
+### Desktop presentation (≥ 800px)
 
-- Job list renders as a `<table>` with sortable column headers.
-- Filter controls live in an inline left sidebar.
-- Search input is a header element; sticky on scroll.
-- Pagination is a numbered pager.
+- Persistent sidebar at `width: 280px` (320 px at ≥ 1280 px), bordered with `var(--rule-2) solid var(--color-ink)`, sticky to the page top.
+- Each filter group renders as a `<section>` with an `<h3>` title (display sans, uppercase, `var(--rule-2)` bottom rule) and an active count in `--color-accent` mono when ≥ 1.
+- Results render to the right in a single column, sortable column headers retained (`<table>`-style grid at ≥ 960 px).
+- Reset-all sits in the sidebar footer; confirmation prompt only appears when `activeFilterCount ≥ 3`.
+
+### Mobile presentation (< 800px)
+
+- Filters live behind a single `FILTERS · n` button in a bar above the results, alongside the sort dropdown and live role count.
+- Tapping `FILTERS` opens a bottom sheet: `<div role="dialog" aria-modal="true" aria-label="Filters">` slides up from the viewport bottom with the same group structure as the sidebar, plus a sticky footer with `Reset` and `Show N roles` buttons.
+- Group headers are also collapse toggles on mobile only — per-group expansion persists in `localStorage` under `openroles:filter-group:{id}` ([site/src/lib/group-storage.ts](../site/src/lib/group-storage.ts)).
+- The sheet DOM is mounted continuously (not gated on `open`) so opening / closing costs only a CSS transition — `transform: translateY(100%) → 0` over 180 ms `cubic-bezier(.25,0,.4,1)` on open, 120 ms `ease-in` on close. Re-mount of the seven group children + ~50 chips on every open would feel slow.
+- Focus moves to the close button on open; `Esc` closes; `Tab` is trapped inside the sheet.
+- All tap targets ≥ 44 × 44 px.
+
+### Components
+
+- [FilterTable.svelte](../site/src/components/FilterTable.svelte) is the orchestrator: viewport-aware (`window.matchMedia(--bp-sidebar)`), owns `FilterState`, runs queries, renders results.
+- [FilterSidebar.svelte](../site/src/components/filter/FilterSidebar.svelte) — desktop sidebar shell.
+- [FilterSheet.svelte](../site/src/components/filter/FilterSheet.svelte) — mobile bottom-sheet shell.
+- [FilterGroups.svelte](../site/src/components/filter/FilterGroups.svelte) — shared group sequence used by both shells.
+- Per-group children: `AtsGroup`, `LevelGroup`, `WorkplaceGroup`, `PostedGroup`, `MinCompGroup`, `StatusToggles`, `PersonalToggles` (one file each in `site/src/components/filter/`). Each receives a `Pick<FilterState, ...>` slice plus an `onPatch(patch: Partial<FilterState>) => void` callback; no group owns network state.
+- [ChipList.svelte](../site/src/components/filter/ChipList.svelte) — shared multi-select chip rendering with optional inline group-search (renders when `options.length > 8`) and progressive disclosure (`Show all N` at `> 6`).
+- [GroupCard.svelte](../site/src/components/filter/GroupCard.svelte) — shared title + active-count + collapse-toggle chrome.
+- Active-count derivation: pure helpers in [site/src/lib/filter-active-count.ts](../site/src/lib/filter-active-count.ts) — `activeCountFor(group, state)` and `totalActiveCount(state)`. Property tests assert that the total equals the sum of per-group counts for any state, that the count is non-negative, and that a default state yields zero.
 
 ## Accessibility
 
