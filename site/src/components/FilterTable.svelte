@@ -146,6 +146,13 @@ let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
+// Reactivity hook: optionCounts and any other $derived that reads
+// slimIndex.rows by reference needs a value-based dependency to fire
+// when rows grows in place. (slimIndex is $state.raw because the loader
+// mutates rows via appendUnique — Svelte deep-proxy would break that.)
+// We bump this counter every time a chunk merges in; $derived blocks
+// that read it re-run on every chunk.
+let chunkMergeTick: number = $state(0);
 
 let savedIds: ReadonlyArray<string> = $state([]);
 let appliedIds: ReadonlyArray<string> = $state([]);
@@ -414,24 +421,45 @@ onMount(async () => {
     }
     chunksTotal = manifest.slim_index_chunks.length;
     dbStatus = "loading-progressive";
-    // Heavily throttle the per-chunk re-render: each filter pass is
-    // an O(n) walk over the accumulated rows array, and on a slow
-    // CPU n=750k is a 100-200ms task. Without the throttle, 15
-    // chunks landing over ~3s trigger 15 back-to-back filter passes
-    // that pin the main thread. 750ms debounce gives the user a
-    // refresh roughly twice during the load and once at the end.
-    const CHUNK_REFILTER_DEBOUNCE_MS = 750;
+    // Throttle the per-chunk re-render rather than debounce. Each filter
+    // pass is an O(n) walk over the accumulated rows array — on a slow
+    // CPU n=750k is a 100-200ms task — but a pure debounce loses every
+    // intermediate refresh: the worker streams chunks faster than the
+    // debounce interval, so the timeout was constantly cleared and
+    // runFilter never fired until fullyLoaded (~20s of stale "20,000
+    // ROLES" + chunk-0 chip counts). Throttle to at-most-once per
+    // CHUNK_REFILTER_THROTTLE_MS and always trail with one final fire.
+    //
+    // Each chunk merge also bumps chunkMergeTick so the optionCounts
+    // $derived (which reads slimIndex.rows by reference) re-runs.
+    // Without that bump it never re-evaluates after the initial assign
+    // because Svelte's deep-proxy is bypassed for $state.raw.
+    const CHUNK_REFILTER_THROTTLE_MS = 1500;
+    let lastRefilterAt = 0;
     slimIndex = await loadSlimIndex({
       basePath,
       manifest,
       seed,
       onChunk: (_chunk, _cumulative, _total) => {
         chunksLoaded += 1;
+        chunkMergeTick += 1;
+        const now = Date.now();
+        const elapsed = now - lastRefilterAt;
         if (chunkDebounceHandle) clearTimeout(chunkDebounceHandle);
-        chunkDebounceHandle = setTimeout(() => runFilter(state), CHUNK_REFILTER_DEBOUNCE_MS);
+        if (elapsed >= CHUNK_REFILTER_THROTTLE_MS) {
+          lastRefilterAt = now;
+          runFilter(state);
+        } else {
+          chunkDebounceHandle = setTimeout(() => {
+            lastRefilterAt = Date.now();
+            runFilter(state);
+          }, CHUNK_REFILTER_THROTTLE_MS - elapsed);
+        }
       },
     });
     dbStatus = "ready";
+    // Final settled-state refresh once every chunk has merged.
+    chunkMergeTick += 1;
     runFilter(state);
   } catch (err) {
     dbStatus = "error";
@@ -521,10 +549,14 @@ $effect(() => {
   queryDebounceHandle = setTimeout(() => runFilter(snapshot), QUERY_DEBOUNCE_MS);
 });
 
-// Per-chip option counts derived from the slim index. Computed only when
-// the index has landed; otherwise the chips render without counts (the
-// component falls back to "no count" mode, which still allows toggling).
+// Per-chip option counts derived from the slim index. Re-runs every
+// time a chunk merges (chunkMergeTick increments) so chip counts grow
+// alongside the corpus during progressive load — without that read,
+// $derived would lock onto the chunk-0 counts forever because slimIndex
+// is $state.raw and inner-array mutation is invisible to the runtime.
 const optionCounts = $derived.by(() => {
+  // biome-ignore lint/suspicious/noUnusedFunctionParameters: dependency-tracking read
+  void chunkMergeTick;
   if (slimIndex === null) return undefined;
   return computeSlimOptionCounts(slimIndex.rows, state, buildPredicate);
 });
@@ -1535,12 +1567,29 @@ function ariaSort(
     font-size: var(--text-0);
     letter-spacing: var(--track-wide);
     text-transform: uppercase;
+    /* Wrap when the applied badge appears so it falls onto its own
+       line below the age stamp instead of bleeding into the actions
+       cell at the right edge of the grid track. min-width: 0 lets the
+       grid track shrink as designed at 0.7fr; align-items: start keeps
+       the age pinned to the row top when the badge wraps. */
     display: flex;
-    gap: var(--space-2);
-    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    align-items: start;
+    min-width: 0;
   }
   .job-cell--posted .age.is-new::before { content: "● "; color: var(--color-accent); }
-  .job-cell--posted .applied-badge { color: var(--color-accent); font-weight: 700; }
+  .job-cell--posted .applied-badge {
+    color: var(--color-accent);
+    font-weight: 700;
+    /* Force the badge onto its own line so the rule "·" never appears
+       at the start of a wrap. The :where() trick avoids specificity
+       creep — the surrounding rule is hidden by display: none on the
+       same line as a wrapped badge. */
+    flex-basis: 100%;
+  }
+  .job-cell--posted .applied-badge + .rule,
+  .job-cell--posted .rule:has(+ .applied-badge) { display: none; }
 
   /* On mobile cells stack; collapse empty ones so we don't show stray
      placeholders between data lines. On desktop the grid keeps the
@@ -1550,41 +1599,75 @@ function ariaSort(
     .job-cell.is-empty { display: block; visibility: hidden; }
   }
 
+  /* ---------- Row actions ----------
+     Apply is the primary action — solid accent, slightly taller, the
+     visual anchor of the row. Save / Ignore are secondary controls
+     with a quieter outline style; their "active" state colors the
+     text + border (accent for saved, muted ink for ignored) without
+     filling with ink which would compete with the Apply button. */
   .job-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
+    gap: var(--space-1);
+    align-items: stretch;
   }
   .job-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: var(--tap);
-    padding: 0 var(--space-3);
-    border: var(--rule-1) solid var(--color-ink);
+    padding: 0 var(--space-2);
+    border: var(--rule-1) solid var(--color-rule);
     border-radius: 0;
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: transparent;
+    color: var(--color-ink-2);
     font-family: var(--font-display);
-    font-size: var(--text-1);
+    font-size: var(--text-0);
     font-weight: 700;
     letter-spacing: var(--track-wide);
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
+    transition:
+      color 120ms ease-out,
+      border-color 120ms ease-out,
+      background-color 120ms ease-out;
   }
   .job-action:hover:not(:disabled) {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    color: var(--color-ink);
+    border-color: var(--color-ink);
   }
-  .job-action[aria-pressed="true"] {
-    background: var(--color-ink);
-    color: var(--color-paper);
+  .job-action.save[aria-pressed="true"] {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: transparent;
   }
+  .job-action.save[aria-pressed="true"]:hover {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+  }
+  .job-action.ignore[aria-pressed="true"] {
+    color: var(--color-ink-3);
+    border-color: var(--color-ink-3);
+    background: transparent;
+  }
+  .job-action.ignore[aria-pressed="true"]:hover {
+    color: var(--color-paper);
+    background: var(--color-ink-3);
+    border-color: var(--color-ink-3);
+  }
+  /* Apply is the row's primary CTA — solid accent fill, slightly heavier
+     than the secondary save/ignore controls to draw the eye. The arrow
+     glyph keeps the "external action" reading even on color-blind reads. */
   .job-action.apply {
     background: var(--color-accent);
     color: var(--color-on-accent);
     border-color: var(--color-accent);
+    padding: 0 var(--space-3);
+    font-size: var(--text-1);
+    /* Keep the Apply CTA wide enough that it always sits on a single
+       line in the action cluster regardless of the surrounding labels. */
+    min-width: 5.5rem;
   }
   .job-action.apply:hover {
     background: var(--color-ink);
