@@ -57,6 +57,27 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <!--
+      Inline theme initialization MUST run before any CSS load so the document
+      root has data-theme set before the browser starts laying out the cascade.
+      Otherwise the page paints once with the default light theme, then re-
+      paints when the script (originally placed at end of head) runs — a
+      visible flash for OS-dark / persisted-dark users.
+    -->
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("openroles:theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = stored === "dark" || stored === "light"
+            ? stored
+            : (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch (_e) {
+          /* localStorage may be blocked; default to light */
+        }
+      })();
+    </script>
+    <!--
       Theme-color literals mirror --color-paper in tokens.css for both schemes.
       The HTML spec rejects var() inside meta[name="theme-color"], so the two
       literals MUST move whenever the tokens move; visual-theme.md flags this.
@@ -120,25 +141,7 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
         "query-input": "required name=search_term_string",
       },
     })} />
-    <!--
-      Inline theme initialization. Runs before paint to avoid a light-flash
-      on dark-mode users. Reads the persisted choice from localStorage,
-      falls back to the OS preference, sets data-theme on <html>.
-    -->
-    <script is:inline>
-      (() => {
-        try {
-          const stored = localStorage.getItem("openroles:theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const theme = stored === "dark" || stored === "light"
-            ? stored
-            : (prefersDark ? "dark" : "light");
-          document.documentElement.dataset.theme = theme;
-        } catch (_e) {
-          /* localStorage may be blocked; default to light */
-        }
-      })();
-    </script>
+    <!-- (Theme init script moved above the CSS load to prevent first-paint flash.) -->
   </head>
   <body>
     <Masthead

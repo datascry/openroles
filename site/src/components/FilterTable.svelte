@@ -1,9 +1,8 @@
 <script lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: ATS_IDS / WORKPLACE_TYPES are used in the Svelte template (each block) below
-
 import { ATS_IDS, LEVELS, WORKPLACE_TYPES } from "@openroles/shared/constants";
 import { onMount } from "svelte";
 import { sanitizeChipLabel } from "../lib/chip-label.ts";
+import { computeSlimOptionCounts } from "../lib/filter-option-counts.ts";
 import {
   DEFAULT_FILTER_STATE,
   decodeFilterState,
@@ -26,10 +25,17 @@ import {
   loadApplied,
   loadIgnored,
   loadSaved,
+  loadSavedSearches,
   markApplied,
+  removeSavedSearch,
+  type SavedSearchMode,
+  saveSavedSearch,
   toggleIgnored,
   toggleSaved,
 } from "../lib/storage.ts";
+import FilterSheet from "./filter/FilterSheet.svelte";
+import FilterSidebar from "./filter/FilterSidebar.svelte";
+import SearchBar from "./SearchBar.svelte";
 
 interface Props {
   basePath?: string;
@@ -44,6 +50,7 @@ const SINCE_OPTIONS: ReadonlyArray<{ value: SinceWindow; label: string }> = [
   { value: "24h", label: "Last 24h" },
   { value: "7d", label: "Last 7 days" },
   { value: "30d", label: "Last 30 days" },
+  { value: "90d", label: "Last 90 days" },
 ];
 
 const SINCE_LABEL: Record<SinceWindow, string> = {
@@ -51,6 +58,7 @@ const SINCE_LABEL: Record<SinceWindow, string> = {
   "24h": "LAST 24H",
   "7d": "LAST 7 DAYS",
   "30d": "LAST 30 DAYS",
+  "90d": "LAST 90 DAYS",
 };
 
 const SORT_OPTIONS: ReadonlyArray<{ value: SortOption; label: string }> = [
@@ -149,6 +157,30 @@ let hideIgnored = $state(true);
 let openCategory: FilterCategory | null = $state(null);
 
 let filterBarEl: HTMLElement | null = $state(null);
+
+// Mobile sheet open / saved-searches state for the SearchBar.
+// (specs/uplift-v2-handoff.md §1 + §2.7.b)
+let sheetOpen = $state(false);
+let savedSearches: ReadonlyArray<{
+  id: string;
+  label: string;
+  q: string;
+  mode: SavedSearchMode;
+}> = $state([]);
+// Bumped each time the user applies a saved search so the SearchBar's
+// mode-restore $effect refires even if the same q is applied twice.
+let savedSearchApplyToken = $state(0);
+let savedSearchApplyMode: SavedSearchMode | undefined = $state(undefined);
+
+function refreshSavedSearches(): void {
+  if (typeof window === "undefined") return;
+  savedSearches = loadSavedSearches(window.localStorage).entries.map((e) => ({
+    id: e.id,
+    label: e.label,
+    q: e.q,
+    mode: e.mode,
+  }));
+}
 
 function refreshUserLists(): void {
   if (typeof window === "undefined") return;
@@ -293,12 +325,16 @@ const totalPages = $derived(Math.max(1, Math.ceil(totalCount / PAGE_SIZE)));
 const hasPrev = $derived(state.page > 1);
 const hasNext = $derived(state.page < totalPages);
 
+// Compare `since` against the runtime default rather than "all" — the
+// default narrow window ships everywhere now (specs/uplift-v2-handoff.md
+// §2.4) so counting it as "active" would surface a stale "1 active"
+// indicator on every fresh visit.
 const activeFilterCount = $derived(
   (state.q ? 1 : 0) +
     state.ats.length +
     state.level.length +
     state.wt.length +
-    (state.since !== "all" ? 1 : 0) +
+    (state.since !== DEFAULT_FILTER_STATE.since ? 1 : 0) +
     (state.hideRecruiter ? 1 : 0) +
     (state.hideStale ? 1 : 0) +
     (state.showOnly !== undefined ? 1 : 0) +
@@ -349,6 +385,7 @@ function readSeedRows(): SlimRow[] {
 
 onMount(async () => {
   refreshUserLists();
+  refreshSavedSearches();
   // Seed with the SSR pre-paint rows so the user sees something
   // sensible even before the slim index lands.
   const seed = readSeedRows();
@@ -405,6 +442,7 @@ const SINCE_HOURS: Record<SinceWindow, number | null> = {
   "24h": 24,
   "7d": 24 * 7,
   "30d": 24 * 30,
+  "90d": 24 * 90,
 };
 
 function buildPredicate(s: FilterState): FilterPredicate {
@@ -480,6 +518,47 @@ $effect(() => {
   if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
   queryDebounceHandle = setTimeout(() => runFilter(snapshot), QUERY_DEBOUNCE_MS);
 });
+
+// Per-chip option counts derived from the slim index. Computed only when
+// the index has landed; otherwise the chips render without counts (the
+// component falls back to "no count" mode, which still allows toggling).
+const optionCounts = $derived.by(() => {
+  if (slimIndex === null) return undefined;
+  return computeSlimOptionCounts(slimIndex.rows, state, buildPredicate);
+});
+
+// SearchBar / FilterSidebar / FilterSheet wiring. The new components
+// emit `Partial<FilterState>` patches that map directly to updateState.
+function onPatch(patch: Partial<FilterState>) {
+  updateState(patch);
+}
+
+function onSearchChange(next: string) {
+  updateState({ q: next });
+}
+
+function onSaveSearch(label: string, q: string, mode: SavedSearchMode) {
+  if (typeof window === "undefined") return;
+  saveSavedSearch(window.localStorage, label, q, mode);
+  refreshSavedSearches();
+}
+
+function onApplySavedSearch(id: string) {
+  const entry = savedSearches.find((s) => s.id === id);
+  if (!entry) return;
+  savedSearchApplyMode = entry.mode;
+  savedSearchApplyToken += 1;
+  updateState({ q: entry.q });
+}
+
+// Used by the saved-searches list (delete affordance lives on the search
+// bar's Recent row in a future revision; the storage helper is here so
+// it survives a typecheck even if the UI is not yet wired up).
+function onRemoveSavedSearch(id: string) {
+  if (typeof window === "undefined") return;
+  removeSavedSearch(window.localStorage, id);
+  refreshSavedSearches();
+}
 
 // Click-outside + Esc close the open popover.
 $effect(() => {
@@ -574,33 +653,21 @@ function ariaSort(
 }
 </script>
 
-<!-- Sticky search input. The primary affordance for filtering. The
-     `field:value` syntax is documented in specs/filter-ui.md v1.2.0;
-     the placeholder hints at it without overwhelming new users, and
-     the <details> below the input expands with a full reference. -->
-<div class="search-row">
-  <label class="search-label">
-    <span class="visually-hidden">Search roles</span>
-    <input
-      type="search"
-      placeholder="Search roles — try `engineer berlin` or `react remote`"
-      maxlength="256"
-      value={qInput}
-      oninput={(e) => onQInput((e.currentTarget as HTMLInputElement).value)}
-    />
-  </label>
-  <details class="search-help">
-    <summary>Search syntax</summary>
-    <ul role="list">
-      <li><code>engineer berlin</code> — every word must match somewhere (title, company, location, level, or workplace type)</li>
-      <li><code>"senior engineer"</code> — quote to match a literal phrase</li>
-      <li><code>title:engineer</code> — restrict a word to the title field</li>
-      <li><code>company:stripe</code> — restrict to the company field</li>
-      <li><code>location:"san francisco"</code> — restrict (and quote) the location field</li>
-      <li><code>title:senior company:stripe remote</code> — combine; everything is AND-joined</li>
-    </ul>
-  </details>
-</div>
+<!-- Dual-mode search bar (specs/uplift-v2-handoff.md §1). Free-text /
+     structured tabs round-trip through FilterState.q via composeQuery /
+     parseQuery; the structured form gives a discoverable surface for
+     the title:/company:/location: scoping the legacy single input
+     hinted at via placeholder. -->
+<SearchBar
+  q={state.q}
+  totalRoles={totalCount}
+  onChange={onSearchChange}
+  savedSearches={savedSearches}
+  onSaveSearch={onSaveSearch}
+  onApplySavedSearch={onApplySavedSearch}
+  applyToken={savedSearchApplyToken}
+  applyMode={savedSearchApplyMode}
+/>
 
 <!-- Filter bar: applied filters + add-filter buttons + sort + reset.
      The strip wraps; on desktop it stays on a single row when possible. -->
@@ -674,177 +741,17 @@ function ariaSort(
     </button>
   {/if}
 
-  <!-- Add-filter buttons. Each opens an inline popover anchored below. -->
-  <div class="popover-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "ats"}
-      onclick={() => togglePopover("ats")}
-    >+ ATS</button>
-    {#if openCategory === "ats"}
-      <div class="popover" role="dialog" aria-label="Filter by ATS">
-        <div class="chip-grid">
-          {#each ATS_IDS as id (id)}
-            <label class="chip">
-              <input
-                type="checkbox"
-                checked={state.ats.includes(id)}
-                onchange={() => toggleAts(id)}
-              />
-              <span>{id}</span>
-            </label>
-          {/each}
-        </div>
-      </div>
-    {/if}
-  </div>
-
-  <div class="popover-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "level"}
-      onclick={() => togglePopover("level")}
-    >+ Level</button>
-    {#if openCategory === "level"}
-      <div class="popover" role="dialog" aria-label="Filter by level">
-        <div class="chip-grid">
-          {#each NON_NULL_LEVELS as id (id)}
-            <label class="chip">
-              <input
-                type="checkbox"
-                checked={state.level.includes(id)}
-                onchange={() => toggleLevel(id)}
-              />
-              <span>{id}</span>
-            </label>
-          {/each}
-        </div>
-      </div>
-    {/if}
-  </div>
-
-  <div class="popover-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "wt"}
-      onclick={() => togglePopover("wt")}
-    >+ Workplace</button>
-    {#if openCategory === "wt"}
-      <div class="popover" role="dialog" aria-label="Filter by workplace">
-        <div class="chip-grid">
-          {#each WORKPLACE_TYPES as id (id)}
-            <label class="chip">
-              <input
-                type="checkbox"
-                checked={state.wt.includes(id)}
-                onchange={() => toggleWt(id)}
-              />
-              <span>{id}</span>
-            </label>
-          {/each}
-        </div>
-      </div>
-    {/if}
-  </div>
-
-  <div class="popover-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "since"}
-      onclick={() => togglePopover("since")}
-    >+ Posted</button>
-    {#if openCategory === "since"}
-      <div class="popover popover--narrow" role="dialog" aria-label="Posted within">
-        <ul role="list" class="radio-list">
-          {#each SINCE_OPTIONS as opt (opt.value)}
-            <li>
-              <label class="radio">
-                <input
-                  type="radio"
-                  name="since"
-                  value={opt.value}
-                  checked={state.since === opt.value}
-                  onchange={() => { setSince(opt.value); closePopover(); }}
-                />
-                <span>{opt.label}</span>
-              </label>
-            </li>
-          {/each}
-        </ul>
-      </div>
-    {/if}
-  </div>
-
-  <div class="popover-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "min_comp"}
-      onclick={() => togglePopover("min_comp")}
-    >+ Min comp</button>
-    {#if openCategory === "min_comp"}
-      <div class="popover popover--narrow" role="dialog" aria-label="Minimum compensation">
-        <label class="number-label">
-          <span>Minimum (USD)</span>
-          <input
-            type="number"
-            min="0"
-            step="1000"
-            inputmode="numeric"
-            placeholder="—"
-            value={state.minComp ?? ""}
-            onchange={(e) => setMinComp((e.currentTarget as HTMLInputElement).value)}
-          />
-        </label>
-      </div>
-    {/if}
-  </div>
-
+  <!-- Single mobile entry point into the FilterSheet. The desktop sidebar
+       (rendered below in `.layout-grid`) supersedes the per-category
+       add-filter popovers; this button only renders <800px. -->
   <button
     type="button"
-    class="add-button"
-    aria-pressed={state.hideRecruiter}
-    onclick={() => updateState({ hideRecruiter: !state.hideRecruiter })}
-  >{state.hideRecruiter ? "✓ No recruiters" : "+ No recruiters"}</button>
-
-  <!-- Phase 12: a quick toggle to hide carried-forward stale rows when the
-       user only wants verified-today roles. See specs/role-lifecycle.md. -->
-  <button
-    type="button"
-    class="add-button"
-    aria-pressed={state.hideStale}
-    onclick={() => updateState({ hideStale: !state.hideStale })}
-  >{state.hideStale ? "✓ Verified only" : "+ Verified only"}</button>
-
-  <!-- Phase 13: single-select sub-view toggles. Activating one clears any
-       other sub-view selection (mutually exclusive per spec). -->
-  <button
-    type="button"
-    class="add-button"
-    aria-pressed={state.showOnly === "saved"}
-    onclick={() => updateState({ showOnly: state.showOnly === "saved" ? undefined : "saved" })}
-  >{state.showOnly === "saved" ? "✓ Saved" : "+ Saved"}{savedIds.length > 0 ? ` · ${savedIds.length}` : ""}</button>
-  <button
-    type="button"
-    class="add-button"
-    aria-pressed={state.showOnly === "applied"}
-    onclick={() => updateState({ showOnly: state.showOnly === "applied" ? undefined : "applied" })}
-  >{state.showOnly === "applied" ? "✓ Applied" : "+ Applied"}{appliedIds.length > 0 ? ` · ${appliedIds.length}` : ""}</button>
-  <button
-    type="button"
-    class="add-button"
-    aria-pressed={state.showOnly === "ignored"}
-    onclick={() => updateState({ showOnly: state.showOnly === "ignored" ? undefined : "ignored" })}
-  >{state.showOnly === "ignored" ? "✓ Ignored" : "+ Ignored"}{ignoredIds.length > 0 ? ` · ${ignoredIds.length}` : ""}</button>
+    class="filters-button"
+    aria-haspopup="dialog"
+    aria-expanded={sheetOpen}
+    aria-controls="filter-sheet"
+    onclick={() => { sheetOpen = true; }}
+  >Filters{activeFilterCount > 0 ? ` · ${activeFilterCount}` : ""}</button>
 
   <div class="popover-anchor sort-anchor">
     <button
@@ -880,6 +787,24 @@ function ariaSort(
     <button type="button" class="reset" onclick={resetAll}>Reset all</button>
   {/if}
 </div>
+
+<!-- Two-column layout: persistent sidebar ≥ var(--bp-sidebar) (800px),
+     collapses to a sheet on narrower viewports (specs/uplift-v2-handoff.md
+     §2). The sidebar mirrors the sheet's groups so opening / closing the
+     sheet is purely a mobile affordance. -->
+<div class="layout-grid">
+  <aside class="sidebar-col">
+    <FilterSidebar
+      filters={state}
+      onPatch={onPatch}
+      resultCount={totalCount}
+      savedCount={savedIds.length}
+      appliedCount={appliedIds.length}
+      ignoredCount={ignoredIds.length}
+      optionCounts={optionCounts}
+    />
+  </aside>
+  <div class="main-col">
 
 <p class="results-status" aria-live="polite" aria-busy={dbStatus === "loading"}>
   {#if dbStatus === "ready"}
@@ -1095,6 +1020,24 @@ function ariaSort(
   {/if}
 {/if}
 
+  </div><!-- /.main-col -->
+</div><!-- /.layout-grid -->
+
+<!-- FilterSheet stays mounted; opening is a CSS transition rather than a
+     Svelte mount of seven groups + ~50 chips. Hidden visually + via inert
+     while closed. -->
+<FilterSheet
+  filters={state}
+  onPatch={onPatch}
+  resultCount={totalCount}
+  savedCount={savedIds.length}
+  appliedCount={appliedIds.length}
+  ignoredCount={ignoredIds.length}
+  optionCounts={optionCounts}
+  open={sheetOpen}
+  onClose={() => { sheetOpen = false; }}
+/>
+
 <style>
   /* Brutalist Press — see specs/visual-theme.md.
      Tokens come from site/src/styles/tokens.css. */
@@ -1181,6 +1124,55 @@ function ariaSort(
   }
   .search-label input::placeholder {
     color: var(--color-ink-3);
+  }
+
+  /* ---------- Two-column layout (specs/uplift-v2-handoff.md §2) ---------- */
+  /* The persistent sidebar replaces the per-category add-filter popovers
+     above --bp-sidebar (800px). Below that, .sidebar-col is hidden and the
+     filter affordance moves to the .filters-button + FilterSheet. */
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-block-end: var(--space-5);
+  }
+  .sidebar-col { display: none; }
+  .main-col { min-width: 0; }
+
+  .filters-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 var(--space-3);
+    border: var(--rule-2) solid var(--color-ink);
+    border-radius: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .filters-button:hover { background: var(--color-ink); color: var(--color-paper); }
+
+  /* The breakpoint media block lives AFTER the base .filters-button rule
+     so its `display: none` wins on cascade source-order grounds (Svelte
+     scope-hashes both rules with equal specificity, so order decides). */
+  @media (min-width: 800px) {
+    .layout-grid {
+      grid-template-columns: minmax(240px, 280px) 1fr;
+    }
+    .sidebar-col {
+      display: block;
+      position: sticky;
+      top: var(--space-3);
+      align-self: start;
+      max-height: calc(100vh - var(--space-5));
+      overflow-y: auto;
+    }
+    .filters-button { display: none; }
   }
 
   /* ---------- Filter bar (applied chips + add-filter buttons) ---------- */

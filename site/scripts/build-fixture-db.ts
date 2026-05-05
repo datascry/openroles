@@ -47,6 +47,14 @@ function makeJob(args: {
     source_id: args.source_id,
     url: args.url,
   });
+  // Give the first Stripe payments role a comp band + equity mention so
+  // the role-detail pullquote and dropcap have something to render. This
+  // is the canonical headline role used by every e2e test, so the data
+  // shape is stable across runs.
+  const isPaymentsHero =
+    args.tenant_slug === "stripe" &&
+    args.source_id === "stripe-1" &&
+    args.title.includes("Payments");
   return {
     id,
     ats: args.ats,
@@ -54,18 +62,20 @@ function makeJob(args: {
     source_id: args.source_id,
     title: args.title,
     company: args.company,
-    description_excerpt: `Excerpt for ${args.title} at ${args.company}.`,
+    description_excerpt: isPaymentsHero
+      ? "Build the integrity of money movement at internet scale. We offer a competitive salary plus generous equity for our senior engineers.\n\nYou'll own the resilience of the payments stack across multiple regions, debugging hard distributed-systems problems and shipping infrastructure that thousands of companies rely on every second."
+      : `Excerpt for ${args.title} at ${args.company}.`,
     level: args.level,
     level_rank: levelRank(args.level),
     workplace_type: args.workplace_type,
     is_recruiter_post: false,
     location_text: "Remote",
-    location_country: null,
+    location_country: isPaymentsHero ? "US" : null,
     location_region: null,
-    compensation_min: null,
-    compensation_max: null,
-    compensation_currency: null,
-    department: null,
+    compensation_min: isPaymentsHero ? 220_000 : null,
+    compensation_max: isPaymentsHero ? 290_000 : null,
+    compensation_currency: isPaymentsHero ? "USD" : null,
+    department: isPaymentsHero ? "engineering" : null,
     posted_at: args.posted_at,
     updated_at: args.posted_at,
     first_seen_at: args.posted_at,
