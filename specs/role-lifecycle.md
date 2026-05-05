@@ -2,7 +2,7 @@
 
 **Version**: 1.0.0
 
-How an open role enters, persists in, and leaves the openroles database. This is a behavior contract for the build pipeline (`bun run scrape` → `bun run build-db`) and the rendering surface (FilterTable + RSS). Any change to the lifecycle model — TTL window, stale-state semantics, schema fields — MUST land as a new version of this spec.
+How an open role enters, persists in, and leaves the openroles database. This is a behavior contract for the build pipeline (`bun run scrape` → `bun run build-db`) and the rendering surface (FilterTable). Any change to the lifecycle model — TTL window, stale-state semantics, schema fields — MUST land as a new version of this spec.
 
 ## Goals
 
@@ -116,10 +116,6 @@ Stale roles are returned by default when no filter is set. Three new visible aff
 URL parameter: `hide_stale` (omitted = include stale; `1` = exclude). Round-trip-tested in [site/src/lib/filter-state.test.ts](../site/src/lib/filter-state.test.ts).
 
 SQL: when `hide_stale` is set, the WHERE clause adds `is_stale = 0`.
-
-## RSS
-
-Stale roles are **excluded** from RSS feeds. RSS is a push surface — subscribers get notified when something is in the feed — so emitting a stale role would alert subscribers to a role that the ATS has not confirmed today. The 90-day freshness window in [site/src/lib/rss.ts](../site/src/lib/rss.ts) gains a `WHERE is_stale = 0` clause.
 
 ## User-side state (saved / applied / ignored)
 

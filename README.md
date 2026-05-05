@@ -10,8 +10,7 @@ A static, queryable job board across **24 applicant tracking systems**. Scrapes 
 - **Saved / Applied / Ignored sub-views** — single-select filter chips backed by `localStorage`; nothing leaves the browser.
 - **Mobile-first UI with a brutalist visual theme** — system fonts only (no web font requests), light + dark mode with a persistent toggle, WCAG 2.1 AA contrast verified by axe-core in CI. See [specs/visual-theme.md](specs/visual-theme.md).
 - **Role lifecycle** — roles whose tenant API failed today carry forward as STALE for up to 3 days before dropping, so a single upstream outage doesn't erase a company's catalogue. See [specs/role-lifecycle.md](specs/role-lifecycle.md).
-- **RSS subscriptions** — `/feed.xml`, `/feed/{ats}.xml`, `/feed/level/{level}.xml`. Bookmark any filter as an RSS URL.
-- **Static-only** — fully served from GitHub Pages. The "backend" is a 75 MB SQLite file and an HTTP server that supports byte-range requests.
+- **Static-only** — fully served from GitHub Pages. The runtime data layer is a chunked slim-index (~45 MB gzipped JSON across 38 chunks) loaded progressively in a Web Worker; no SQL engine in the browser. See [ADR-0012](docs/adr/0012-static-only-deployment.md).
 - **Daily refresh** — `daily-refresh.yml` GitHub Action runs at 05:17 UTC, scrapes every ATS, rebuilds the SQLite, runs a drift report, and deploys to Pages.
 - **Clean-room dataset** — tenant lists harvested independently from Common Crawl by `weekly-harvest.yml`; nothing copied from another aggregator.
 - **SEO baked in** — sitemap-index.xml, JSON-LD `WebSite` with `SearchAction`, Open Graph + Twitter Card, role-count-aware page title, robots.txt.
@@ -44,9 +43,9 @@ docker run --rm -p 8080:80 openroles:local
 
 ```
 scraper/    Bun + TypeScript scraper, build-db, harvest CLI, drift detector
-site/       Astro 6 site, Svelte 5 filter island, sql.js-httpvfs runtime
+site/       Astro 6 site, Svelte 5 filter island, slim-index runtime
 shared/     Cross-workspace zod schemas + shared types
-specs/      Per-feature behavior contracts (data, scraper, filter UI, RSS,
+specs/      Per-feature behavior contracts (data, scraper, filter UI,
             visual theme, role lifecycle)
 docs/adr/   Locked architectural decisions
 .github/    daily-refresh / weekly-harvest / PR CI workflows + dependabot

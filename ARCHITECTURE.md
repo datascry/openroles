@@ -31,7 +31,7 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
        ┌────────────────────────────────────────────────────────────────┐
        │                        site/  (Astro)                          │
        │                                                                 │
-       │   Static HTML + per-tenant pages + RSS feeds (build-time)      │
+       │   Static HTML shell (build-time)                               │
        │   FilterTable.svelte (client-side, hydrated island)            │
        └────────────────────────────────────────────────────────────────┘
                                      │
@@ -39,15 +39,15 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
        ┌────────────────────────────────────────────────────────────────┐
        │                       GitHub Pages                              │
        │                                                                 │
-       │   index.html, /[ats]/[slug]/, /feed/*.xml, /data/*.sqlite.gz   │
+       │   index.html, /data/manifest.json, /data/slim/*.json.gz         │
        └────────────────────────────────────────────────────────────────┘
                                      │
-                                     ▼  HTTP range requests
+                                     ▼  fetch + Web Worker decompress
                                 ┌─────────┐
                                 │ Browser │
                                 │         │
-                                │ sql.js- │
-                                │ httpvfs │
+                                │ slim-   │
+                                │ index   │
                                 └─────────┘
 ```
 
@@ -57,18 +57,18 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
 
 2. **Nightly scrape** — `cli.ts scrape` reads the tenant lists, fans out HTTP requests with per-ATS concurrency caps, parses the response shape per ATS, classifies level + recruiter status, and emits a normalized `Job[]`.
 
-3. **Build DB** — `db/build-db.ts` writes the rows into `jobs.{sha}.sqlite` with an FTS5 virtual table on title and covering indexes for the planned WHERE/ORDER BY shapes. Final step: `pragma page_size=1024; VACUUM; INSERT INTO fts(fts) VALUES('optimize');`.
+3. **Build DB** — `db/build-db.ts` writes the rows into an in-process `jobs.{sha}.sqlite` (build-time scaffolding only — the SQLite itself is no longer deployed) and emits the slim-index: 38 pre-gzipped JSON chunks of ~20k rows each, sorted by `posted_at DESC NULLS LAST`, content-hashed for cache safety. See [ADR-0012](docs/adr/0012-static-only-deployment.md).
 
-4. **Site build** — Astro's `getStaticPaths` reads the freshly-built SQLite at build time, pre-renders per-tenant pages and per-ATS / per-level / per-role RSS feeds, and produces a static bundle.
+4. **Site build** — Astro reads the build-time SQLite for the SSR seed rows (top-50 newest) and emits the static shell. The slim-index chunks + `manifest.json` are copied into `dist/data/`.
 
 5. **Deploy** — `actions/upload-pages-artifact` + `actions/deploy-pages` ship the bundle. No commits to `main` for build artifacts.
 
-6. **Runtime** — the browser loads `jobs.{sha}.sqlite.gz` over HTTP range requests via `sql.js-httpvfs`. The filter UI debounces queries against the live SQLite. URL state and `localStorage` persist filter and saved/applied/ignored selections.
+6. **Runtime** — the browser fetches `manifest.json`, then a Web Worker streams the 38 slim-index chunks, `gunzip`s each, and merges them into an in-memory `SlimRow[]`. Filter / sort / search become array operations — sub-50ms after the index has loaded. URL state and `localStorage` persist filter and saved/applied/ignored selections.
 
 ## Workspace layout
 
-- `scraper/` — Bun + TypeScript. CLI entrypoint, six ATS parsers, classifiers, harvester, DB builder, observability.
-- `site/` — Astro 6. Mobile-first layout, one Svelte filter island, build-time RSS endpoints, pre-rendered tenant pages.
+- `scraper/` — Bun + TypeScript. CLI entrypoint, ATS parsers, classifiers, harvester, DB builder, slim-index emitter, observability.
+- `site/` — Astro 6. Mobile-first layout, one Svelte filter island, slim-index runtime.
 - `shared/` — types and zod schemas referenced by both `scraper/` and `site/`. Single source of truth for the on-disk schema.
 
 ## Key architectural commitments
@@ -83,7 +83,11 @@ These decisions are locked. To change one, write a new ADR that supersedes the e
 - [ADR-0006](docs/adr/0006-mit-and-cc-by-sa.md) — Dual licensing posture
 - [ADR-0007](docs/adr/0007-astro-and-svelte.md) — Astro + Svelte islands
 - [ADR-0008](docs/adr/0008-tdd-95-coverage.md) — TDD with per-file 95% coverage gate
-- [ADR-0009](docs/adr/0009-rss-as-subscription.md) — RSS as the canonical subscription model
+- [ADR-0009](docs/adr/0009-rss-as-subscription.md) — RSS as the canonical subscription model (superseded by ADR-0013)
+- [ADR-0010](docs/adr/0010-phase-plan.md) — Phase plan with audit gates
+- [ADR-0011](docs/adr/0011-incremental-harvest-and-reprobe.md) — Incremental harvest and re-probe
+- [ADR-0012](docs/adr/0012-static-only-deployment.md) — Static-only deployment, no per-role pages, no client SQLite
+- [ADR-0013](docs/adr/0013-no-subscription-model.md) — Drop the RSS feeds; no subscription model
 
 ## Quality gates
 

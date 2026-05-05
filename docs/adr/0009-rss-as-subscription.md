@@ -2,7 +2,16 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-0013](0013-no-subscription-model.md)
+
+The site shipped pre-rendered RSS feeds at `/feed.xml`,
+`/feed/{ats}.xml`, and `/feed/level/{level}.xml` from Phase 6 onward.
+In practice the feeds were rarely subscribed to and the open-standard
+RSS argument did not survive contact with how users actually
+discovered roles on the site (homepage filter → click apply).
+ADR-0013 retires the feeds entirely; the original rationale below is
+preserved for future reference if a server-backed deployment ever
+revives subscriptions.
 
 ## Context
 

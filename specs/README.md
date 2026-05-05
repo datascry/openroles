@@ -15,7 +15,6 @@ A new feature lands in three steps:
 | [data-schema.md](data-schema.md) | The on-disk schema: `Job`, `Tenant`, `Manifest`, the SQLite tables, the FTS5 layout, the indexes |
 | [scraper-contract.md](scraper-contract.md) | Per-ATS scraper guarantees: input, output, retry policy, rate-limit etiquette, robots.txt handling |
 | [filter-ui.md](filter-ui.md) | Filter UI behavior: query language, URL state encoding, localStorage contract, mobile + desktop presentations |
-| [rss-feeds.md](rss-feeds.md) | RSS feed format: per-feed shape, item structure, build-time vs on-demand rendering |
 | [classifier-contract.md](classifier-contract.md) | Level + recruiter classifier contracts (added in Phase 3) |
 
 ## Spec hygiene

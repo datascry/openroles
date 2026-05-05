@@ -2,9 +2,10 @@ import { defineConfig, devices } from "@playwright/test";
 
 const PREVIEW_PORT = 4321;
 const HOST_URL = `http://127.0.0.1:${PREVIEW_PORT}`;
-// Astro serves under base="/openroles"; baseURL only sets the host so test paths
-// can stay literal (`/openroles/feed.xml`). URL resolution drops the base path
-// when paths are root-relative, which is why we don't include it here.
+// Astro serves under base="/openroles"; baseURL only sets the host so test
+// paths can stay literal (e.g. `/openroles/role/?id=...`). URL resolution
+// drops the base path when paths are root-relative, which is why we don't
+// include it here.
 export const SITE_BASE = "/openroles";
 // Chrome DevTools Protocol port for the lighthouse project. Lighthouse
 // connects over CDP to the browser Playwright launches; the port must match

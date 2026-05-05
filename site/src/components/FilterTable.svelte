@@ -555,7 +555,10 @@ $effect(() => {
 // $derived would lock onto the chunk-0 counts forever because slimIndex
 // is $state.raw and inner-array mutation is invisible to the runtime.
 const optionCounts = $derived.by(() => {
-  // biome-ignore lint/suspicious/noUnusedFunctionParameters: dependency-tracking read
+  // Read chunkMergeTick so $derived.by tracks it as a dependency. Required
+  // because slimIndex is $state.raw — its inner-array mutations don't
+  // notify the runtime, so we tick a counter on every chunk merge to
+  // force this derived to refire and re-count option facets.
   void chunkMergeTick;
   if (slimIndex === null) return undefined;
   return computeSlimOptionCounts(slimIndex.rows, state, buildPredicate);

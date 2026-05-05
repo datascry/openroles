@@ -115,13 +115,6 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
 
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="openroles — all jobs"
-      href={`${basePath}/feed.xml`}
-    />
-
     <!-- JSON-LD: tells search engines this site is a job-listing aggregator
          (WebSite) and surfaces the search action so SERPs can render the
          sitelinks search box. The aggregator is not a JobPosting itself;
@@ -156,9 +149,8 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     </main>
 
     <footer class="site-footer">
-      <p>
-        <a href={`${basePath}/feed.xml`}>RSS</a>
-      </p>
+      <!-- Intentionally blank for now. Subscribe / about links will land
+           here when their target pages exist. -->
     </footer>
 
     <!--

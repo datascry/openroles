@@ -3,7 +3,6 @@ import { expect, type Locator, type Page, test } from "@playwright/test";
 import { SITE_BASE } from "../../playwright.config.ts";
 
 const INDEX = `${SITE_BASE}/`;
-const FEED = `${SITE_BASE}/feed.xml`;
 
 /**
  * The uplift v2 filter chrome (specs/uplift-v2-handoff.md §2) renders the
@@ -212,23 +211,11 @@ test.describe("index page smoke", () => {
   });
 });
 
-test.describe("RSS feed", () => {
-  test("/feed.xml is reachable and serves either the RSS feed or the unbuilt placeholder", async ({
-    request,
-  }) => {
-    const res = await request.get(FEED);
-    expect(res.status()).toBeLessThan(500);
-    expect(res.headers()["content-type"] ?? "").toMatch(/xml/i);
-    const body = await res.text();
-    // Astro pre-renders feed.xml at build time. Whatever body the route handler
-    // returned for the unbuilt case is frozen into a static file (and served
-    // with content-type: text/xml because of the extension). The body content
-    // is the discriminator — either the RSS doc or the plaintext placeholder.
-    const isRss = body.includes("<rss") && body.includes("<?xml");
-    const isPlaceholder = body.includes("data not built");
-    expect(
-      isRss || isPlaceholder,
-      `feed.xml body unrecognized; first 120 chars: ${body.slice(0, 120)}`,
-    ).toBe(true);
+test.describe("RSS feed (removed)", () => {
+  test("/feed.xml is no longer deployed", async ({ request }) => {
+    const res = await request.get(`${SITE_BASE}/feed.xml`);
+    // RSS was removed: GitHub Pages returns 404 for the path; readers
+    // that still subscribed to the feed see a 404 and stop polling.
+    expect(res.status()).toBe(404);
   });
 });

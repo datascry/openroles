@@ -11,13 +11,7 @@ import {
   SCHEMA_DDL,
   VACUUM_STMT,
 } from "../../../scraper/src/db/schema.ts";
-import {
-  dataDirIsPopulated,
-  openSiteDb,
-  selectFeedJobs,
-  selectFirstPaintJobs,
-  selectTenants,
-} from "./db.ts";
+import { dataDirIsPopulated, openSiteDb, selectFirstPaintJobs, selectTenants } from "./db.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
 
@@ -95,50 +89,6 @@ function fresh(
   dbs.push(db);
   return db;
 }
-
-describe("selectFeedJobs", () => {
-  it("returns jobs sorted by posted_at DESC", () => {
-    const db = fresh([
-      makeJob({
-        source_id: "1",
-        url: "https://example.com/1",
-        posted_at: "2026-04-22T00:00:00Z",
-      }),
-      makeJob({
-        source_id: "2",
-        url: "https://example.com/2",
-        posted_at: "2026-04-25T00:00:00Z",
-      }),
-    ]);
-    const jobs = selectFeedJobs(db, {});
-    expect(jobs.map((j) => j.source_id)).toEqual(["2", "1"]);
-  });
-
-  it("filters by ats and by level", () => {
-    const db = fresh([
-      makeJob({ source_id: "1", url: "https://example.com/1", ats: "greenhouse" }),
-      makeJob({ source_id: "2", url: "https://example.com/2", ats: "lever" }),
-      makeJob({
-        source_id: "3",
-        url: "https://example.com/3",
-        ats: "greenhouse",
-        level: "senior",
-        level_rank: 4,
-      }),
-    ]);
-    expect(selectFeedJobs(db, { ats: "lever" })).toHaveLength(1);
-    expect(selectFeedJobs(db, { level: "senior" })).toHaveLength(1);
-  });
-
-  it("respects the limit", () => {
-    const db = fresh(
-      Array.from({ length: 10 }, (_, i) =>
-        makeJob({ source_id: String(i), url: `https://example.com/${i}` }),
-      ),
-    );
-    expect(selectFeedJobs(db, {}, 3)).toHaveLength(3);
-  });
-});
 
 describe("selectTenants", () => {
   it("aggregates tenant + job_count, dropping tenants with no jobs", () => {
@@ -323,5 +273,35 @@ describe("openSiteDb / dataDirIsPopulated", () => {
   it("throws when the data dir has no manifest", () => {
     const dir = mkdtempSync(join(tmpdir(), "openroles-db-"));
     expect(() => openSiteDb(dir)).toThrow();
+  });
+
+  it("uses OPENROLES_DATA_DIR when set (defaultDataDir env branch)", () => {
+    const dir = mkdtempSync(join(tmpdir(), "openroles-default-dir-"));
+    const prev = process.env["OPENROLES_DATA_DIR"];
+    process.env["OPENROLES_DATA_DIR"] = dir;
+    try {
+      // No manifest in the dir, so openSiteDb throws — but the env-var
+      // branch of defaultDataDir() runs en route to the throw, which is
+      // what this test exercises.
+      expect(() => openSiteDb()).toThrow(/manifest\.json not found/);
+    } finally {
+      if (prev === undefined) delete process.env["OPENROLES_DATA_DIR"];
+      else process.env["OPENROLES_DATA_DIR"] = prev;
+    }
+  });
+
+  it("falls through to ./data when no env and no public/data manifest (defaultDataDir final return)", () => {
+    const prev = process.env["OPENROLES_DATA_DIR"];
+    delete process.env["OPENROLES_DATA_DIR"];
+    try {
+      // Both branches resolve to a relative path that almost certainly
+      // doesn't have a manifest in the test runner's CWD; we only care
+      // that defaultDataDir() returned a string and openSiteDb attempted
+      // to read it. Both possible final values ("./public/data" or
+      // "./data") fail the manifest.json existsSync check identically.
+      expect(() => openSiteDb()).toThrow(/manifest\.json not found/);
+    } finally {
+      if (prev !== undefined) process.env["OPENROLES_DATA_DIR"] = prev;
+    }
   });
 });

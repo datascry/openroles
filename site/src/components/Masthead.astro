@@ -6,7 +6,7 @@
  * Desktop (≥ 768 px): single row, three-column grid.
  */
 
-export type NavCurrent = "browse" | "saved" | "applied" | "rss" | "about";
+export type NavCurrent = "browse" | "saved" | "applied" | "about";
 
 interface Props {
   current: NavCurrent;
@@ -29,7 +29,6 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
 
 const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> = [
   { key: "browse", label: "BROWSE", href: `${basePath}/` },
-  { key: "rss", label: "RSS", href: `${basePath}/feed.xml` },
 ];
 ---
 

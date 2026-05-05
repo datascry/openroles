@@ -19,8 +19,11 @@ The format used here is [Madr 4.0](https://adr.github.io/madr/).
 | 0006 | [MIT + CC BY-SA dual licensing](0006-mit-and-cc-by-sa.md) | Accepted |
 | 0007 | [Astro + Svelte islands](0007-astro-and-svelte.md) | Accepted |
 | 0008 | [TDD with 95% coverage](0008-tdd-95-coverage.md)   | Accepted |
-| 0009 | [RSS as canonical subscription](0009-rss-as-subscription.md) | Accepted |
+| 0009 | [RSS as canonical subscription](0009-rss-as-subscription.md) | Superseded by ADR-0013 |
 | 0010 | [Phase plan with audit gates](0010-phase-plan.md)  | Accepted |
+| 0011 | [Incremental harvest + reprobe](0011-incremental-harvest-and-reprobe.md) | Accepted |
+| 0012 | [Static-only deployment, no per-role pages](0012-static-only-deployment.md) | Accepted |
+| 0013 | [Drop the RSS feeds; no subscription model](0013-no-subscription-model.md) | Accepted |
 
 ## Adding a new ADR
 

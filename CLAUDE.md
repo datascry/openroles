@@ -4,9 +4,14 @@ Project-local context for Claude Code sessions working on this repository. Read 
 
 ## What this project is
 
-`openroles` is a static, queryable job board aggregator. It scrapes major Applicant Tracking Systems via their public APIs, builds a SQLite database, ships that database to GitHub Pages, and serves a mobile-first frontend that queries the data client-side via `sql.js-httpvfs` over HTTP range requests. No backend, no accounts, no email.
+`openroles` is a static, queryable job board aggregator. It scrapes major
+Applicant Tracking Systems via their public APIs, builds a chunked
+slim-index of every live role, ships those JSON.gz chunks to GitHub
+Pages, and serves a mobile-first frontend that filters the dataset
+in-memory. No backend, no accounts, no email, no per-role detail page,
+no subscription surface (see ADR-0012 + ADR-0013).
 
-Daily refresh via GitHub Action. RSS feeds are the canonical subscription model.
+Daily refresh via GitHub Action.
 
 ## Stack
 

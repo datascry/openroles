@@ -471,7 +471,7 @@ describe("planCarryForward", () => {
     const arbRow = fc
       .integer({ min: 0, max: 30 })
       .map((daysAgo) =>
-        row("id" + daysAgo, new Date(NOW - daysAgo * 86_400_000).toISOString(), "u" + daysAgo),
+        row(`id${daysAgo}`, new Date(NOW - daysAgo * 86_400_000).toISOString(), `u${daysAgo}`),
       );
 
     it("every emitted row is below the TTL threshold; every dropped row is at or above it", () => {
