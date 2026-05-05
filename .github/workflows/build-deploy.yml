@@ -185,21 +185,12 @@ jobs:
             --output "${GITHUB_WORKSPACE}/data/run-report.md" \
             --fail-on error || echo "::warning::drift report flagged regressions; see artifact"
 
-      - name: Stage SQLite chunks + slim index + manifest for runtime fetch
+      - name: Stage slim index + manifest for runtime fetch
         run: |
-          # build-db emits three artifact families that the deployed
-          # site fetches at runtime:
+          # ADR-0012 simplified the deploy to two artifact families:
           #
-          #   1. data/jobs.<sha>.sqlite.NNN.png — fixed-size (10 MB)
-          #      slices of the SQLite file, used by sql.js-httpvfs's
-          #      serverMode=chunked path. The .png extension defeats
-          #      Fastly's automatic gzip on application/octet-stream
-          #      (gzipped Range responses return compressed bytes which
-          #      sql.js reads as garbage). See scripts/copy-sqlite-vfs.ts.
-          #      Only the role-detail page touches this path now.
-          #
-          #   2. data/slim/slim-NNNN-<sha>.json.gz — pre-gzipped slim
-          #      index chunks (~50k rows each, ~700 KB gzipped). The
+          #   1. data/slim/slim-NNNN-<sha>.json.gz — pre-gzipped slim
+          #      index chunks (~20k rows each, ~700 KB gzipped). The
           #      FilterTable progressively loads these into memory
           #      and runs all filter / sort / search interactions
           #      client-side — sub-50 ms after the chunk lands.
@@ -207,13 +198,15 @@ jobs:
           #      forever via a Service Worker; the manifest is the
           #      only mutable URL.
           #
-          #   3. data/manifest.json — atomic pointer to (1) and (2).
+          #   2. data/manifest.json — atomic pointer to (1).
           #
-          # We do not ship the full unsplit .sqlite — it would double
-          # the artifact size for no runtime benefit.
+          # The SQLite is built in-process to drive the slim-index
+          # emission and the build-time RSS feed generation; it is NOT
+          # deployed (the per-role detail page that read it has been
+          # removed — see ADR-0012 / docs/server-deployment-reference.md
+          # for resurrection).
           mkdir -p site/public/data/slim
           cp data/manifest.json site/public/data/manifest.json
-          cp data/jobs.${BUILD_SHORT_SHA}.sqlite.*.png site/public/data/
           if compgen -G 'data/slim/slim-*.json.gz' > /dev/null; then
             cp data/slim/slim-*.json.gz site/public/data/slim/
           fi

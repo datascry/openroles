@@ -188,7 +188,11 @@ export interface FirstPaintRow {
   location_country: string | null;
   posted_at: string | null;
   first_seen_at: string;
+  /** Last time the source ATS confirmed this posting was live. */
+  last_seen_at: string;
   compensation_min: number | null;
+  /** Direct apply URL on the source ATS — the row's primary action target. */
+  url: string;
 }
 
 interface FirstPaintRowSqlite {
@@ -205,16 +209,19 @@ interface FirstPaintRowSqlite {
   location_country: string | null;
   posted_at: string | null;
   first_seen_at: string;
+  last_seen_at: string;
   compensation_min: number | null;
+  url: string;
 }
 
 export function selectFirstPaintJobs(db: Database, limit = 50): FirstPaintRow[] {
   // Default homepage sort = posted_at DESC. Uses idx_jobs_posted_at
-  // (added in Phase 14 schema bump) for index-only walk + LIMIT.
+  // for index-only walk + LIMIT. ADR-0012 requires `url` and
+  // `last_seen_at` here too (slim-index parity for SSR seed rows).
   const sql =
     "SELECT id, ats, tenant_slug, title, company, level, workplace_type, " +
     "is_recruiter_post, is_stale, location_text, location_country, " +
-    "posted_at, first_seen_at, compensation_min " +
+    "posted_at, first_seen_at, last_seen_at, compensation_min, url " +
     "FROM jobs " +
     "ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC LIMIT ?";
   const rows = db.query(sql).all(limit) as FirstPaintRowSqlite[];
@@ -232,16 +239,10 @@ export function selectFirstPaintJobs(db: Database, limit = 50): FirstPaintRow[] 
     location_country: r.location_country,
     posted_at: r.posted_at,
     first_seen_at: r.first_seen_at,
+    last_seen_at: r.last_seen_at,
     compensation_min: r.compensation_min,
+    url: r.url,
   }));
-}
-
-export function selectTenantJobs(db: Database, ats: string, slug: string, limit = 200): Job[] {
-  const sql =
-    `SELECT ${FEED_COLUMNS} FROM jobs WHERE ats = ? AND tenant_slug = ? ` +
-    `ORDER BY posted_at DESC NULLS LAST, first_seen_at DESC LIMIT ?`;
-  const rows = db.query(sql).all(ats, slug, limit) as JobRow[];
-  return rows.map(rowToJob);
 }
 
 export function dataDirIsPopulated(dataDir: string = defaultDataDir()): boolean {

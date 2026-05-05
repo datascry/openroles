@@ -13,7 +13,7 @@ import { type Token as ParsedToken, parseSearchInput } from "./search-parser.ts"
 
 /** A row's representation in memory, as emitted by the slim-index. */
 export interface SlimRow {
-  /** First 16 hex chars of the canonical Job.id; uniquely identifies the row for SQLite click-through. */
+  /** First 16 hex chars of the canonical Job.id; the row's stable identifier. */
   readonly short_id: string;
   readonly ats: string;
   readonly tenant_slug: string;
@@ -27,9 +27,13 @@ export interface SlimRow {
   readonly location_country: string | null;
   readonly posted_at: string | null;
   readonly first_seen_at: string;
+  /** Last time the source ATS confirmed this posting was live. Drives the stale-row freshness label. */
+  readonly last_seen_at: string;
   readonly compensation_min: number | null;
   readonly compensation_max: number | null;
   readonly compensation_currency: string | null;
+  /** Direct apply URL on the source ATS. The row's primary action target. */
+  readonly url: string;
 }
 
 /** On-wire chunk row (compact keys to keep JSON.parse fast). */
@@ -47,9 +51,11 @@ export interface ChunkRowOnWire {
   cc: string | null;
   p: string | null;
   f: string;
+  ls: string;
   cm: number | null;
   cmax: number | null;
   cur: string | null;
+  u: string;
 }
 
 function fromWire(r: ChunkRowOnWire): SlimRow {
@@ -67,9 +73,11 @@ function fromWire(r: ChunkRowOnWire): SlimRow {
     location_country: r.cc,
     posted_at: r.p,
     first_seen_at: r.f,
+    last_seen_at: r.ls,
     compensation_min: r.cm,
     compensation_max: r.cmax,
     compensation_currency: r.cur,
+    url: r.u,
   };
 }
 

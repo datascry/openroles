@@ -16,7 +16,6 @@ import {
   openSiteDb,
   selectFeedJobs,
   selectFirstPaintJobs,
-  selectTenantJobs,
   selectTenants,
 } from "./db.ts";
 
@@ -174,21 +173,6 @@ describe("selectTenants", () => {
   });
 });
 
-describe("selectTenantJobs", () => {
-  it("returns jobs for a single (ats, slug)", () => {
-    const db = fresh([
-      makeJob({ source_id: "1", url: "https://example.com/1", tenant_slug: "stripe" }),
-      makeJob({
-        source_id: "2",
-        url: "https://example.com/2",
-        ats: "lever",
-        tenant_slug: "stripe",
-      }),
-    ]);
-    expect(selectTenantJobs(db, "greenhouse", "stripe")).toHaveLength(1);
-  });
-});
-
 describe("selectFirstPaintJobs", () => {
   it("returns rows sorted by posted_at DESC NULLS LAST, capped at limit", () => {
     const db = fresh([
@@ -235,7 +219,7 @@ describe("selectFirstPaintJobs", () => {
     expect(rows).toHaveLength(3);
   });
 
-  it("emits the slim shape with short_id (first 16 hex chars of full id)", () => {
+  it("emits the slim shape with short_id (first 16 hex chars of full id) + url", () => {
     const db = fresh([
       makeJob({
         source_id: "abc",
@@ -247,9 +231,10 @@ describe("selectFirstPaintJobs", () => {
     expect(rows[0]?.short_id).toMatch(/^[0-9a-f]{16}$/);
     expect(rows[0]?.is_recruiter_post).toBe(false);
     expect(rows[0]?.is_stale).toBe(false);
-    // url + description NOT exposed in the first-paint shape (saves bytes
-    // in the inline JSON; click-through hits SQLite anyway).
-    expect(rows[0]).not.toHaveProperty("url");
+    // ADR-0012: url is now exposed in the first-paint shape (the row's
+    // primary action target). description_excerpt was dropped from the
+    // schema entirely.
+    expect(rows[0]?.url).toBe("https://example.com/abc");
     expect(rows[0]).not.toHaveProperty("description_excerpt");
   });
 

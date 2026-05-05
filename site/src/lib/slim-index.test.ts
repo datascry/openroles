@@ -15,9 +15,11 @@ const ROW_BASE: SlimRow = {
   location_country: "US",
   posted_at: "2026-04-25T00:00:00Z",
   first_seen_at: "2026-04-25T00:00:00Z",
+  last_seen_at: "2026-04-25T00:00:00Z",
   compensation_min: 150000,
   compensation_max: 200000,
   compensation_currency: "USD",
+  url: "https://boards.greenhouse.io/stripe/jobs/1",
 };
 
 function row(over: Partial<SlimRow>): SlimRow {
@@ -383,14 +385,18 @@ describe("__test_internals", () => {
       cc: "US",
       p: "2026-04-25T00:00:00Z",
       f: "2026-04-25T00:00:00Z",
+      ls: "2026-04-25T00:00:00Z",
       cm: 100000,
       cmax: 200000,
       cur: "USD",
+      u: "https://boards.greenhouse.io/stripe/jobs/1",
     });
     expect(decoded.short_id).toBe("0".repeat(16));
     expect(decoded.is_recruiter_post).toBe(true);
     expect(decoded.is_stale).toBe(false);
     expect(decoded.compensation_min).toBe(100000);
+    expect(decoded.url).toBe("https://boards.greenhouse.io/stripe/jobs/1");
+    expect(decoded.last_seen_at).toBe("2026-04-25T00:00:00Z");
   });
 
   it("appendUnique adds new rows and skips duplicates by short_id", () => {
@@ -409,9 +415,11 @@ describe("__test_internals", () => {
         location_country: null,
         posted_at: null,
         first_seen_at: "2026-04-25T00:00:00Z",
+        last_seen_at: "2026-04-25T00:00:00Z",
         compensation_min: null,
         compensation_max: null,
         compensation_currency: null,
+        url: "https://example.com/x",
       },
     ];
     const seed = target[0];
@@ -442,9 +450,11 @@ describe("__test_internals", () => {
         location_country: null,
         posted_at: null,
         first_seen_at: "2026-04-25T00:00:00Z",
+        last_seen_at: "2026-04-25T00:00:00Z",
         compensation_min: null,
         compensation_max: null,
         compensation_currency: null,
+        url: "https://example.com/x",
       },
     ];
     I.appendUnique(target, incoming);

@@ -359,40 +359,20 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
       dbTmp,
     );
 
-    // Phase 14: emit the client-side slim index from the same DB
+    // ADR-0012: emit the client-side slim index from the same DB
     // handle, BEFORE we close it — this avoids a re-open round-trip
-    // and guarantees we read exactly the rows that just landed. Each
-    // chunk is content-hashed and pre-gzipped so the deploy serves
-    // them as static immutable assets.
+    // and guarantees we read exactly the rows that just landed. The
+    // slim-index is the SOLE runtime data path; the SQLite itself is
+    // not deployed, only used in-process here to drive the JSON
+    // emission and the build-time RSS feed generation.
     const slim = await emitSlimIndex(db, { outputDir });
 
     db.close();
     await rename(dbTmp, dbPath);
 
-    // Phase 13: split the .sqlite into 10 MB chunks so the runtime can
-    // use sql.js-httpvfs serverMode: "chunked". GitHub Pages serves
-    // files chunked-transfer (no Content-Length), and httpvfs's "full"
-    // mode then errors with "Length of the file not known" — the lib
-    // hardcodes fileLength=undefined for full mode. Chunked mode reads
-    // the file size + chunk layout from this manifest and only needs
-    // byte-range reads inside each chunk.
-    const dbFileSize = (await import("node:fs/promises").then((fs) => fs.stat(dbPath))).size;
-    const chunkSize = 10 * 1024 * 1024; // 10 MB — typical httpvfs sweet spot
-    const chunkCount = Math.ceil(dbFileSize / chunkSize);
-    const suffixLength = String(Math.max(0, chunkCount - 1)).length;
-    const sliceCfg = { chunkSize, chunkCount, suffixLength };
-    await splitDbIntoChunks(dbPath, sliceCfg);
-
-    // Augment the manifest with chunk metadata before writing.
-    const chunkedManifest = {
-      ...m,
-      db_filesize_bytes: dbFileSize,
-      db_chunk_size_bytes: chunkSize,
-      db_chunk_count: chunkCount,
-      db_suffix_length: suffixLength,
-      ...slim.fields,
-    };
-    manifest = ManifestSchema.parse(chunkedManifest);
+    // Augment the manifest with the slim-index chunk metadata.
+    const enriched = { ...m, ...slim.fields };
+    manifest = ManifestSchema.parse(enriched);
     await writeFile(manifestTmp, `${JSON.stringify(manifest, null, 2)}\n`);
     await rename(manifestTmp, manifestPath);
     /* c8 ignore next 5 — cleanup path; only reached on rare fs/rename failure mid-write. */
@@ -402,49 +382,12 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
     throw err;
   }
   const slimSummary = manifest.slim_index_chunks.length
-    ? `, slim=${manifest.slim_index_chunks.length}×~${Math.round(manifest.slim_index_chunks[0]?.bytes_gz ?? 0 / 1024)}KB`
+    ? `, slim=${manifest.slim_index_chunks.length}×~${Math.round((manifest.slim_index_chunks[0]?.bytes_gz ?? 0) / 1024)}KB`
     : "";
   console.error(
-    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}, chunks=${manifest.db_chunk_count}×${manifest.db_chunk_size_bytes / 1024 / 1024}MB${slimSummary})`,
+    `build-db: ${manifest.total_rows} jobs → ${dbPath} (sha=${shortSha}, tenants=${manifest.tenants_total}${slimSummary})`,
   );
   return 0;
-}
-
-/**
- * Split a SQLite file into fixed-size chunks for sql.js-httpvfs's
- * `serverMode: "chunked"`. Output filenames are `<dbPath>.<NNN>.png`
- * where the suffix is zero-padded to `cfg.suffixLength` digits.
- *
- * The `.png` extension is load-bearing: GitHub Pages / Fastly gzips
- * `application/octet-stream`, and a Range response with
- * `Content-Encoding: gzip` returns COMPRESSED bytes (the content-range
- * is over the compressed stream). sql.js-httpvfs expects raw SQLite
- * bytes and ends up reading garbage on every query. `image/png` is
- * excluded from Fastly's compressible content-types, so chunks named
- * `*.png` come back uncompressed and Range requests are honest.
- *
- * The bytes are obviously not actually a PNG; XHR with
- * responseType="arraybuffer" doesn't validate file format, and the
- * client never asks the browser to render the chunk as an image.
- */
-async function splitDbIntoChunks(
-  dbPath: string,
-  cfg: { chunkSize: number; chunkCount: number; suffixLength: number },
-): Promise<void> {
-  const fs = await import("node:fs/promises");
-  const fh = await fs.open(dbPath, "r");
-  try {
-    const buf = new Uint8Array(cfg.chunkSize);
-    for (let i = 0; i < cfg.chunkCount; i++) {
-      const offset = i * cfg.chunkSize;
-      const { bytesRead } = await fh.read(buf, 0, cfg.chunkSize, offset);
-      const padded = String(i).padStart(cfg.suffixLength, "0");
-      const chunkPath = `${dbPath}.${padded}.png`;
-      await fs.writeFile(chunkPath, buf.subarray(0, bytesRead));
-    }
-  } finally {
-    await fh.close();
-  }
 }
 
 export async function runHarvestCommand(argv: ReadonlyArray<string>): Promise<number> {

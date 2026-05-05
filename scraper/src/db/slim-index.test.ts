@@ -304,6 +304,9 @@ describe("emitSlimIndex", () => {
       expect(r0["cm"]).toBe(200000);
       expect(r0["cmax"]).toBe(250000);
       expect(r0["cur"]).toBe("USD");
+      // ADR-0012: url + last_seen_at land in the slim payload.
+      expect(r0["u"]).toMatch(/^https?:\/\//);
+      expect(typeof r0["ls"]).toBe("string");
     } finally {
       db.close();
       rmSync(outputDir, { recursive: true, force: true });

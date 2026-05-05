@@ -52,28 +52,16 @@ export const ManifestSchema = z
     fresh_count: z.int().nonnegative().default(0),
     stale_count: z.int().nonnegative().default(0),
     stale_ttl_days: z.int().min(1).max(14).default(3),
-    // Phase 13: SQLite is split into fixed-size chunks at build time so
-    // sql.js-httpvfs can use serverMode: "chunked". GitHub Pages serves
-    // files via chunked HTTP transfer-encoding (no Content-Length), which
-    // sql.js-httpvfs's serverMode: "full" can't handle — it errors with
-    // "Length of the file not known". chunked mode bypasses that by
-    // baking the file size + chunk-layout into the manifest so the
-    // client knows everything up-front and only needs byte-range reads.
+    // ADR-0012: chunked-SQLite shipping was removed. The build-time
+    // SQLite stays (build-db emits it for the slim-index extractor +
+    // RSS feed generation) but is not deployed. db_filesize_bytes /
+    // db_chunk_* / db_suffix_length used to describe the deployed
+    // chunked-SQLite layout; they are no longer emitted.
     //
-    // Defaults (zero) preserve readability of pre-1.4.0 manifests.
-    db_filesize_bytes: z.int().nonnegative().default(0),
-    db_chunk_size_bytes: z.int().nonnegative().default(0),
-    db_chunk_count: z.int().nonnegative().default(0),
-    db_suffix_length: z.int().nonnegative().default(0),
-    // Phase 14: client-side slim index. Replaces the SQL-over-HTTP filter
-    // path in FilterTable with an in-memory dataset of pre-gzipped JSON
-    // chunks. Each chunk is content-hashed (cacheable forever via SW)
-    // and the manifest records its posted_at range so date-window
-    // filters can skip cold chunks. SQLite remains as the source of
-    // truth and serves role-detail descriptions on click-through.
-    //
-    // Empty array on pre-1.5.0 manifests; clients fall back to the
-    // legacy SQLite filter path when slim_index_chunks is empty.
+    // Client-side slim index — the sole runtime data path. Each
+    // chunk is content-hashed (cacheable forever via SW) and the
+    // manifest records its posted_at range so date-window filters
+    // can skip cold chunks.
     slim_index_schema_version: z.string().default("0.0"),
     slim_index_total_rows: z.int().nonnegative().default(0),
     slim_index_chunks: z.array(SlimChunkSchema).default([]),

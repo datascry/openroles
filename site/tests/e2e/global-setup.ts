@@ -1,6 +1,6 @@
-// Playwright globalSetup: provision the fixture SQLite + manifest and the
-// sql.js-httpvfs runtime assets. Writes into both public/ (for `astro dev`
-// and future builds) and dist/ (for `astro preview` against the existing
+// Playwright globalSetup: provision the fixture SQLite + manifest +
+// slim-index chunks. Writes into both public/ (for `astro dev` and
+// future builds) and dist/ (for `astro preview` against the existing
 // built site, which is the path the PR workflow exercises).
 
 import { spawnSync } from "node:child_process";
@@ -43,16 +43,14 @@ function mirrorDir(from: string, to: string): void {
 
 function ensureSiteFresh(distDir: string): void {
   // playwright.config.ts's webServer runs `astro preview`, which serves dist/
-  // verbatim. We rebuild deterministically when:
-  //   1. dist/ doesn't exist (fresh checkout / no prior `bun run build`), or
-  //   2. dist/role/ is missing — role pages come from getStaticPaths over
-  //      the fixture DB. CI's `bun run build` step runs BEFORE this
-  //      globalSetup populates public/data, so the first build emits zero
-  //      role pages. Detect that stale state and rebuild now that the
-  //      fixture DB is in place.
+  // verbatim. Rebuild when:
+  //   1. dist/ does not exist (fresh checkout / no prior `bun run build`), or
+  //   2. dist/data/ is missing — slim-index chunks land there at build time
+  //      from the fixture DB; if globalSetup ran AFTER the first build the
+  //      chunks will be in public/data but not dist/data.
   // Build is ~2s; cheap enough that "rebuild on any doubt" beats subtle
-  // staleness. Audit-driven (Phase 8 review M2 + ci e2e regression).
-  if (existsSync(distDir) && existsSync(join(distDir, "role"))) return;
+  // staleness.
+  if (existsSync(distDir) && existsSync(join(distDir, "data"))) return;
   const res = spawnSync("bun", ["--bun", "astro", "build"], {
     cwd: SITE_ROOT,
     stdio: "inherit",
@@ -65,12 +63,10 @@ function ensureSiteFresh(distDir: string): void {
 
 export default function globalSetup(): void {
   const distDir = join(SITE_ROOT, "dist");
-  runScript("scripts/copy-sqlite-vfs.ts");
   runScript("scripts/build-fixture-db.ts");
   ensureSiteFresh(distDir);
-  // Mirror the freshly built/written artifacts into dist/ so astro preview
+  // Mirror the freshly written artifacts into dist/ so astro preview
   // serves them. (`astro build` already copied public/* once at build time;
   // these mirrors handle the case where build-fixture-db wrote AFTER build.)
-  mirrorDir(join(SITE_ROOT, "public", "sqlite-vfs"), join(distDir, "sqlite-vfs"));
   mirrorDir(join(SITE_ROOT, "public", "data"), join(distDir, "data"));
 }

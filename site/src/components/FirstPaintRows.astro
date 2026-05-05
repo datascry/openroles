@@ -23,7 +23,11 @@ interface Props {
   readonly basePath: string;
 }
 
-const { rows, basePath }: Props = Astro.props;
+// basePath used to be needed for the per-role detail href; ADR-0012
+// removed that page. Keep the prop for API parity (callers still pass
+// it) but don't reference it inside the template.
+// biome-ignore lint/correctness/noUnusedVariables: kept for caller-API parity
+const { rows, basePath: _basePath }: Props = Astro.props;
 
 const ATS_PRETTY: Record<string, string> = {
   greenhouse: "Greenhouse",
@@ -84,7 +88,8 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
           const stale = r.is_stale;
           const fresh = !stale && isFresh(r.posted_at, r.first_seen_at);
           const age = formatAge(r.posted_at, r.first_seen_at);
-          const detailHref = `${basePath}/role/?id=${r.short_id}`;
+          // ADR-0012: row title links directly to the source ATS apply
+          // page. There is no intermediate role-detail page.
           return (
             <li class={`job${stale ? " is-stale" : ""}`}>
               <div class="job-cell job-cell--role">
@@ -99,7 +104,12 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
                     <span class="recruiter-badge" aria-label="recruiter posting">RECRUITER</span>
                   )}
                 </h3>
-                <a href={detailHref} class="job-title" rel="noopener">
+                <a
+                  href={r.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="job-title"
+                >
                   {r.title}
                 </a>
               </div>
@@ -122,7 +132,14 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
               </div>
               <div class="job-cell job-cell--actions">
                 <span class="job-action view-link">
-                  <a href={detailHref} class="job-action view">View</a>
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="job-action apply"
+                  >
+                    Apply →
+                  </a>
                 </span>
               </div>
             </li>

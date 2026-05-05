@@ -10,7 +10,6 @@
  * by `bun run e2e` even though `bun test` doesn't instrument the templates.
  */
 
-import { jobId } from "@openroles/shared";
 import { expect, test } from "@playwright/test";
 import { SITE_BASE } from "../../playwright.config.ts";
 
@@ -223,88 +222,35 @@ test.describe("PR B — mobile sheet", () => {
   });
 });
 
-const STRIPE_PAYMENTS_JOB = {
-  ats: "greenhouse" as const,
-  tenant_slug: "stripe",
-  source_id: "stripe-1",
-  url: "https://boards.greenhouse.io/stripe/jobs/1",
-};
-const stripeShortId = jobId(STRIPE_PAYMENTS_JOB).slice(0, 16);
-const ROLE_URL = `${SITE_BASE}/role/?id=${stripeShortId}`;
+// ADR-0012 removed the per-role detail page entirely. PR D's editorial
+// broadsheet layout (kicker/headline/strap/byline/dropcap/pullquote/
+// fact card/sticky-apply) is preserved on git tag and branch
+// archive/v1-full-stack and described for resurrection in
+// docs/server-deployment-reference.md.
+//
+// The apply CTA — which used to live on the role-detail page — is now
+// the row-level Apply → link on the homepage. That's covered by the
+// PR B sidebar / sheet specs above and by the homepage smoke specs
+// in tests/e2e/smoke.spec.ts.
 
-test.describe("PR D — editorial role detail", () => {
-  test("renders the editorial frame: kicker, headline, strap, byline, body, fact card", async ({
-    page,
-  }) => {
-    await page.goto(ROLE_URL);
-    await expect(page.locator(".kicker")).toContainText(/stripe/i);
-    await expect(page.locator(".headline")).toBeVisible();
-    await expect(page.locator(".byline")).toBeVisible();
-    await expect(page.locator(".byline")).toHaveAttribute("aria-label", /role facts/i);
-    await expect(page.locator(".fact-card .fact-h")).toContainText(/the facts/i);
-    // Apply CTA in the desktop right rail.
-    const apply = page.getByRole("link", { name: /apply for .* on Greenhouse/i });
-    await expect(apply.first()).toHaveAttribute("target", "_blank");
+test.describe("ADR-0012 — row-level apply replaces role-detail navigation", () => {
+  test("each row's Apply → link points at the source ATS in a new tab", async ({ page }) => {
+    await page.goto(INDEX);
+    const firstApply = page
+      .getByRole("link", { name: /Apply.*Greenhouse|Apply.*Lever|Apply.*Ashby/i })
+      .first();
+    await expect(firstApply).toBeVisible({ timeout: 15_000 });
+    await expect(firstApply).toHaveAttribute("target", "_blank");
+    await expect(firstApply).toHaveAttribute("rel", /noopener/);
+    const href = await firstApply.getAttribute("href");
+    expect(href).toMatch(/^https?:\/\//);
+    expect(href).not.toContain(`${SITE_BASE}/role/`);
   });
 
-  test("byline is a real list with per-fact <li> items (a11y per spec §3.9)", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    const items = page.locator(".byline > .byline-item");
-    await expect(items.first()).toBeVisible();
-    expect(await items.count()).toBeGreaterThanOrEqual(1);
-  });
-
-  test("local-state disclosure paragraph renders below the body", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    await expect(page.locator(".local-state-disclosure")).toContainText(
-      /stored in this browser only/i,
-    );
-  });
-
-  test("rail-top freshness tag uses one of the spec'd tones", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    const tag = page.locator(".fresh-tag");
-    await expect(tag).toBeVisible();
-    const cls = await tag.getAttribute("class");
-    expect(cls).toMatch(/fresh-tag--(fresh|active|muted)/);
-  });
-
-  test("Save button toggles aria-pressed and writes localStorage", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    // Either inflow (mobile) or rail (desktop) card is visible; pick whichever
-    // the current viewport rendered.
-    const save = page.locator(".apply-card:visible .action").first();
-    await expect(save).toBeVisible();
-    await expect(save).toHaveAttribute("aria-pressed", "false");
-    await save.click();
-    await expect(save).toHaveAttribute("aria-pressed", "true");
-    const persisted = await page.evaluate(() =>
-      globalThis.localStorage.getItem("openroles:v1:saved"),
-    );
-    expect(persisted).toContain("ids");
-  });
-
-  test("not-found id renders the themed error inside the editorial frame", async ({ page }) => {
-    await page.goto(`${SITE_BASE}/role/?id=0000000000000000`);
-    await expect(page.locator(".role-error .headline")).toContainText(/role not found/i);
-    await expect(page.getByRole("link", { name: /back to all roles/i })).toBeVisible();
-  });
-});
-
-test.describe("PR D — editorial role detail (mobile)", () => {
-  test.use({ viewport: { width: 375, height: 812 } });
-
-  test("in-flow apply card renders inside the body on mobile", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    const inflow = page.locator(".apply-card--inflow");
-    await expect(inflow).toBeVisible();
-    await expect(inflow).toHaveAttribute("aria-hidden", "false");
-  });
-
-  test("sticky-apply DOM is mounted (CSS controls visibility)", async ({ page }) => {
-    await page.goto(ROLE_URL);
-    // Always mounted; visibility is class-driven so the slide animation
-    // can play. Without scroll the bar stays translateY(100%).
-    await expect(page.locator(".sticky-apply")).toHaveCount(1);
+  test("there is no /role/ page in the deploy", async ({ request }) => {
+    // ADR-0012: Astro emits no /role/ output. A fresh navigation
+    // resolves to the themed 404 (or returns 404 with Pages's default).
+    const res = await request.get(`${SITE_BASE}/role/`);
+    expect(res.status()).toBeGreaterThanOrEqual(400);
   });
 });

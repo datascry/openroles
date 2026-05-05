@@ -374,9 +374,11 @@ function readSeedRows(): SlimRow[] {
       location_country: typeof p["location_country"] === "string" ? p["location_country"] : null,
       posted_at: typeof p["posted_at"] === "string" ? p["posted_at"] : null,
       first_seen_at: String(p["first_seen_at"] ?? ""),
+      last_seen_at: String(p["last_seen_at"] ?? p["first_seen_at"] ?? ""),
       compensation_min: typeof p["compensation_min"] === "number" ? p["compensation_min"] : null,
       compensation_max: null,
       compensation_currency: null,
+      url: typeof p["url"] === "string" ? p["url"] : "",
     }));
   } catch {
     return [];
@@ -893,7 +895,6 @@ function ariaSort(
       {#each visibleRows as row (row.short_id)}
         {@const age = formatAge(row.posted_at)}
         {@const stale = row.is_stale}
-        {@const detailHref = `${basePath}/role/?id=${row.short_id}`}
         <li class="job" class:applied={isApplied(row.short_id)} class:is-stale={stale}>
           <div class="job-cell job-cell--role">
             <h3 class="company">
@@ -910,8 +911,12 @@ function ariaSort(
                 <span class="recruiter-badge" aria-label="recruiter posting">RECRUITER</span>
               {/if}
             </h3>
+            <!-- ADR-0012: row title links directly to the source ATS apply
+                 page in a new tab. There is no per-role detail page. -->
             <a
-              href={detailHref}
+              href={row.url}
+              target="_blank"
+              rel="noopener noreferrer"
               class="job-title"
               onclick={() => onMarkApplied(row.short_id)}
             >
@@ -949,14 +954,11 @@ function ariaSort(
                 {isSaved(row.short_id) ? "★ Saved" : "☆ Save"}
               </button>
               <a
-                href={detailHref}
-                class="job-action view"
-              >
-                View
-              </a>
-              <a
-                href={detailHref}
+                href={row.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 class="job-action apply"
+                aria-label={`Apply for ${row.title} at ${row.company} on ${row.ats} (opens in a new tab)`}
                 onclick={() => onMarkApplied(row.short_id)}
               >
                 Apply →

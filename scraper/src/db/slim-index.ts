@@ -1,8 +1,8 @@
 // Emits the client-side slim index — a sequence of pre-gzipped JSON
 // chunks, ordered newest-first, that the FilterTable loads in memory
-// instead of running SQL queries against the SQLite over HTTP. The
-// SQLite path stays for role-detail descriptions and as the source of
-// truth.
+// instead of running queries against a remote DB at runtime. The
+// slim-index is the SOLE runtime data path (ADR-0012) — every field
+// the client can render must be present in the chunks.
 //
 // Pattern matches what's been validated at scale by static-Pages job
 // boards (see e.g. github.com/Feashliaa/job-board-aggregator at 1.7M
@@ -17,10 +17,15 @@
 //     skip loading older chunks entirely.
 //   - Content-hash each chunk filename so they're cacheable forever in
 //     a Service Worker; only `manifest.json` is mutable.
-//   - Drop description_excerpt and url from the slim payload — those
-//     stay in SQLite and are fetched on click-through (one indexed
-//     lookup, ~500 ms, fine for a single role detail). Saves ~30-40%
-//     of chunk size.
+//   - Include `url` and `last_seen_at` in every row — `url` is the
+//     direct apply destination (the row's primary action) and
+//     `last_seen_at` powers the stale-row freshness label. Pre-ADR-
+//     0012 these lived only in the SQLite that backed the role-detail
+//     page; with the role-detail page removed they're hoisted into
+//     the slim payload. URLs share long ATS-host prefixes
+//     ("https://boards.greenhouse.io/", "https://jobs.lever.co/", …)
+//     so gzip dedups them aggressively — empirical chunk-size impact
+//     is +5-10% gz.
 //
 // See specs/data-schema.md (forthcoming) for the chunk JSON schema.
 
@@ -58,9 +63,11 @@ interface SlimRow {
   location_country: string | null;
   posted_at: string | null;
   first_seen_at: string;
+  last_seen_at: string;
   compensation_min: number | null;
   compensation_max: number | null;
   compensation_currency: string | null;
+  url: string;
 }
 
 /**
@@ -89,9 +96,11 @@ type ChunkRowOnWire = {
   cc: string | null; // location_country
   p: string | null; // posted_at (ISO)
   f: string; // first_seen_at (ISO)
+  ls: string; // last_seen_at (ISO) — drives the stale-row freshness label
   cm: number | null; // compensation_min
   cmax: number | null; // compensation_max
   cur: string | null; // compensation_currency
+  u: string; // url — direct apply link to the source ATS posting
 };
 
 interface ChunkManifestEntry {
@@ -229,10 +238,10 @@ export async function emitSlimIndex(db: Database, opts: EmitSlimIndexOptions): P
 }
 
 function readSlimRows(db: Database): SlimRow[] {
-  // We pull the slim columns only — description_excerpt and url stay
-  // in the SQLite for click-through fetches. compensation_max and
-  // compensation_currency are included so the UI can render full
-  // ranges; they cost essentially nothing once gzip dedups them.
+  // ADR-0012: slim-index is the sole runtime data path. Every field
+  // the FilterTable / row template renders must be present here. `url`
+  // is the row's primary apply action, `last_seen_at` drives the stale
+  // freshness label.
   const stmt = db.prepare<
     {
       id: string;
@@ -248,17 +257,19 @@ function readSlimRows(db: Database): SlimRow[] {
       location_country: string | null;
       posted_at: string | null;
       first_seen_at: string;
+      last_seen_at: string;
       compensation_min: number | null;
       compensation_max: number | null;
       compensation_currency: string | null;
+      url: string;
     },
     []
   >(`
     SELECT
       id, ats, tenant_slug, title, company,
       level, workplace_type, is_recruiter_post, is_stale,
-      location_text, location_country, posted_at, first_seen_at,
-      compensation_min, compensation_max, compensation_currency
+      location_text, location_country, posted_at, first_seen_at, last_seen_at,
+      compensation_min, compensation_max, compensation_currency, url
     FROM jobs
   `);
   const out: SlimRow[] = [];
@@ -277,9 +288,11 @@ function readSlimRows(db: Database): SlimRow[] {
       location_country: r.location_country,
       posted_at: r.posted_at,
       first_seen_at: r.first_seen_at,
+      last_seen_at: r.last_seen_at,
       compensation_min: r.compensation_min,
       compensation_max: r.compensation_max,
       compensation_currency: r.compensation_currency,
+      url: r.url,
     });
   }
   return out;
@@ -300,9 +313,11 @@ function toOnWire(r: SlimRow): ChunkRowOnWire {
     cc: r.location_country,
     p: r.posted_at,
     f: r.first_seen_at,
+    ls: r.last_seen_at,
     cm: r.compensation_min,
     cmax: r.compensation_max,
     cur: r.compensation_currency,
+    u: r.url,
   };
 }
 
