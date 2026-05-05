@@ -222,7 +222,7 @@ describe("buildDb", () => {
     expect(row.notes).toBe("smoke build");
   });
 
-  it("uses page_size = 1024 (matching sql.js-httpvfs requestChunkSize)", () => {
+  it("uses page_size = 4096 (matching sql.js-httpvfs requestChunkSize)", () => {
     const { db } = buildDb({
       outputs: [],
       tenants: [],
@@ -231,7 +231,7 @@ describe("buildDb", () => {
     });
     dbs.push(db);
     const row = db.query("PRAGMA page_size").get() as { page_size: number };
-    expect(row.page_size).toBe(1024);
+    expect(row.page_size).toBe(4096);
   });
 
   it("creates the indexes the spec lists", () => {

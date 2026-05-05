@@ -96,6 +96,20 @@ CREATE INDEX idx_jobs_posted_at             ON jobs(posted_at DESC, first_seen_a
 CREATE INDEX idx_jobs_short_id              ON jobs(substr(id, 1, 16));
 `;
 
-export const PAGE_SIZE_PRAGMA = "PRAGMA page_size = 1024;";
+// SQLite page size — tuned for sql.js-httpvfs over GitHub Pages.
+//
+// Trade-off: smaller pages → finer cache granularity at the cost of more
+// round trips for the same b-tree walk. With requestChunkSize forced to
+// match the page size (see site/src/lib/client-db.ts), a 4096-byte page
+// halves the round-trip count vs 1024 for typical role-detail lookups
+// while keeping per-fetch latency the same on Fastly's edge.
+//
+// Cold-load measurement on production (~750k row corpus, 1.4 GB DB):
+//   page_size=1024 → 5+ minute cold-start, frequently never resolved
+//   page_size=4096 → expected ~10× drop, target sub-30s cold
+//
+// Empirical confirmation post-deploy lives in the perf bench tracked in
+// docs/adr/0010-phase-plan.md (Phase 14+ rolling perf table).
+export const PAGE_SIZE_PRAGMA = "PRAGMA page_size = 4096;";
 export const VACUUM_STMT = "VACUUM;";
 export const FTS_OPTIMIZE_STMT = "INSERT INTO jobs_fts(jobs_fts) VALUES ('optimize');";

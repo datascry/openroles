@@ -51,9 +51,13 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
   // — fall back to the legacy `full` mode for those. New deploys
   // always populate chunk metadata so this is the live path.
   const useChunked = manifest.db_chunk_count > 0 && manifest.db_chunk_size_bytes > 0;
-  // requestChunkSize must match SQLite's page_size (1024 bytes per
+  // requestChunkSize must match SQLite's page_size (4096 bytes per
   // schema.ts PAGE_SIZE_PRAGMA). Mismatched cache granularity makes
-  // sql.js's b-tree reads fetch partial pages and parse garbage.
+  // sql.js's b-tree reads fetch partial pages and parse garbage. The
+  // page size was bumped from 1024 → 4096 to cut role-detail cold-start
+  // latency: each b-tree page touch is now 4× the data per round trip,
+  // and Fastly's edge round trip dominates cost over wire transfer at
+  // these sizes.
   //
   // serverChunkSize and urlSuffix are consumed by the lazyFile patch we
   // apply at copy time (see scripts/copy-sqlite-vfs.ts):
@@ -76,12 +80,12 @@ export async function loadClientDb(opts: LoadClientDbOptions): Promise<ClientDb>
         serverChunkSize: manifest.db_chunk_size_bytes,
         databaseLengthBytes: manifest.db_filesize_bytes,
         suffixLength: manifest.db_suffix_length,
-        requestChunkSize: 1024,
+        requestChunkSize: 4096,
       }
     : {
         serverMode: "full" as const,
         url: dbUrl,
-        requestChunkSize: 1024,
+        requestChunkSize: 4096,
       };
   const worker = await createDbWorker(
     [
