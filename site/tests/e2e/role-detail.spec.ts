@@ -26,9 +26,23 @@ test.describe("role detail page (client-rendered)", () => {
     await expect(page.locator("h1")).toContainText("Senior Software Engineer, Payments", {
       timeout: 15_000,
     });
-    await expect(page.locator(".company")).toContainText("Stripe");
-    await expect(page.locator(".role-body p")).toContainText(/Excerpt for/i);
-    const apply = page.getByRole("link", { name: /Apply on Greenhouse/i });
+    // The editorial broadsheet layout (uplift v2 §3) renders the company
+    // as a kicker label above the headline (was `.company` in v3.0).
+    await expect(page.locator(".kicker")).toContainText("Stripe");
+    // Description paragraphs render as `.body-para` (the editorial layout
+    // wraps each paragraph in its own block). The Stripe Payments fixture
+    // ships an editorial-friendly description that mentions the comp /
+    // equity hero — the pullquote derives from it (uplift v2 §3.6).
+    await expect(page.locator(".body-para").first()).toContainText(/money movement|salary|equity/i);
+    // Editorial layout's apply CTA uses an aria-label that names the role
+    // ("Apply for {title} at {company} on Greenhouse"), not the visible
+    // text "Apply on Greenhouse →". Match on the accessible name pattern
+    // and pick the first visible variant (in-flow / rail / sticky bar
+    // surface different copies depending on viewport).
+    const apply = page
+      .getByRole("link", { name: /Apply.*Greenhouse/i })
+      .filter({ visible: true })
+      .first();
     await expect(apply).toHaveAttribute("href", STRIPE_PAYMENTS_JOB.url);
     await expect(apply).toHaveAttribute("target", "_blank");
     await expect(apply).toHaveAttribute("rel", /noopener/);
@@ -48,7 +62,16 @@ test.describe("role detail page (client-rendered)", () => {
   test("Save button toggles localStorage state", async ({ page }) => {
     await page.goto(STRIPE_URL);
     const fullId = jobId(STRIPE_PAYMENTS_JOB);
-    const save = page.locator(".role-actions button").first();
+    // Editorial layout (uplift v2 §3) renders the action buttons inside
+    // an apply card whose layout depends on viewport: `.apply-card--inflow`
+    // shows on narrow viewports, `.apply-card--rail` shows in the right
+    // rail at ≥ 800 px. Match either visible variant by querying `.action`
+    // (the shared button class) and filtering to the visible Save.
+    const save = page
+      .locator(".apply-card .apply-actions button")
+      .filter({ hasText: /save/i })
+      .filter({ visible: true })
+      .first();
     await expect(save).toBeVisible({ timeout: 15_000 });
     await expect(save).toHaveAttribute("aria-pressed", "false");
     await save.click();

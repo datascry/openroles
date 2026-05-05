@@ -1,20 +1,52 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, type Page, test } from "@playwright/test";
+import { expect, type Locator, type Page, test } from "@playwright/test";
 import { SITE_BASE } from "../../playwright.config.ts";
 
 const INDEX = `${SITE_BASE}/`;
 const FEED = `${SITE_BASE}/feed.xml`;
 
 /**
- * In Phase 11 the per-category filter UI moved to inline popovers anchored
- * under "+ ATS" / "+ Level" / etc. add-buttons. To click an ATS checkbox
- * the popover must be open; this helper opens it idempotently.
+ * The uplift v2 filter chrome (specs/uplift-v2-handoff.md §2) renders the
+ * filter groups in a persistent sidebar at viewports ≥ 800 px and behind a
+ * "Filters" sheet button below that breakpoint. Both surfaces render the
+ * same chip components in the DOM at the same time — `display: none` hides
+ * the sidebar on narrow viewports, but Playwright's `.first()` selector
+ * doesn't consider visibility, so we always have to scope chip queries to
+ * the surface that's actually visible. This helper opens the sheet on
+ * mobile and returns a Locator scoped to the active surface.
  */
-async function openAtsPopover(page: Page): Promise<void> {
-  const trigger = page.getByRole("button", { name: /^\+ ATS$/ });
-  if ((await trigger.getAttribute("aria-expanded")) === "true") return;
-  await trigger.click();
-  await expect(page.locator('[role="dialog"][aria-label="Filter by ATS"]')).toBeVisible();
+async function openFilterUi(page: Page): Promise<Locator> {
+  const sheetBtn = page.getByRole("button", { name: /^Filters(\s|·|$)/ });
+  if (await sheetBtn.isVisible().catch(() => false)) {
+    await sheetBtn.click();
+    const dialog = page.getByRole("dialog", { name: /^Filters$/i });
+    await expect(dialog).toBeVisible();
+    // The sheet uses a 180ms slide-up CSS transform; chip clicks during the
+    // transition can land off-target because Playwright's actionability
+    // check sees the moving element. Wait for the transition to settle.
+    await page.waitForFunction(
+      () => {
+        const el = document.querySelector(".sheet");
+        if (!el) return false;
+        const t = getComputedStyle(el).transform;
+        return t === "matrix(1, 0, 0, 1, 0, 0)" || t === "none";
+      },
+      undefined,
+      { timeout: 2_000 },
+    );
+    // ATS group inside the sheet should be reachable.
+    await expect(dialog.getByRole("button", { name: /^greenhouse(\b|,)/i })).toBeVisible({
+      timeout: 5_000,
+    });
+    return dialog;
+  }
+  // Desktop sidebar — labelled <aside aria-label="Filters">. Use the
+  // <complementary role + accessible name to scope.
+  const sidebar = page.getByRole("complementary", { name: /^Filters$/i });
+  await expect(sidebar.getByRole("button", { name: /^greenhouse(\b|,)/i })).toBeVisible({
+    timeout: 5_000,
+  });
+  return sidebar;
 }
 
 test.describe("index page smoke", () => {
@@ -42,11 +74,12 @@ test.describe("index page smoke", () => {
 
   test("filter table island hydrates and event handlers update the URL", async ({ page }) => {
     await page.goto(INDEX);
-    // Phase 11: ATS chips live inside the "+ ATS" popover; open it before
-    // the click can resolve. Polling guards against pre-hydration clicks.
+    // Open the relevant filter surface (sidebar on desktop, sheet on mobile)
+    // and toggle the greenhouse chip. The chip is implemented as an
+    // aria-pressed button rather than a checkbox so query by role=button.
     await expect(async () => {
-      await openAtsPopover(page);
-      await page.getByRole("checkbox", { name: "greenhouse" }).click();
+      const surface = await openFilterUi(page);
+      await surface.getByRole("button", { name: /^greenhouse(\b|,)/i }).click();
       await expect(page).toHaveURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 500 });
     }).toPass({ timeout: 5_000 });
   });
@@ -74,8 +107,8 @@ test.describe("index page smoke", () => {
     ).toBeVisible({
       timeout: 15_000,
     });
-    await openAtsPopover(page);
-    await page.getByRole("checkbox", { name: "greenhouse" }).click();
+    const surface = await openFilterUi(page);
+    await surface.getByRole("button", { name: /^greenhouse(\b|,)/i }).click();
     // Greenhouse-only filter: Linear (lever) and any Ashby companies drop.
     await expect(results.locator(".company-name").filter({ hasText: "Linear" })).toHaveCount(0, {
       timeout: 5_000,
@@ -88,7 +121,10 @@ test.describe("index page smoke", () => {
   test("pager renders when total exceeds page size and prev/next navigates pages", async ({
     page,
   }) => {
-    await page.goto(INDEX);
+    // The default since="30d" window narrows the fixture to ≤ PAGE_SIZE (50)
+    // rows so no pager renders; visit with since=all so the full 56-row
+    // fixture is in scope and pagination is forced. (uplift v2 §2.4)
+    await page.goto(`${INDEX}?since=all`);
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
     const pager = page.getByTestId("pager");
@@ -149,9 +185,10 @@ test.describe("index page smoke", () => {
     const opacity = await staleRow.evaluate((el) => getComputedStyle(el).opacity);
     expect(Number.parseFloat(opacity)).toBeLessThanOrEqual(0.61);
 
-    // Toggle "+ Verified only" — the stale row should disappear.
-    const verifiedToggle = page.getByRole("button", { name: /verified only/i });
-    await verifiedToggle.click();
+    // Toggle "Verified only" — the stale row should disappear. The switch
+    // lives in the Status group inside the sidebar / sheet (uplift v2 §2.6).
+    const surface = await openFilterUi(page);
+    await surface.getByRole("switch", { name: /verified only/i }).click();
     await expect(page.locator("li.job.is-stale")).toHaveCount(0, { timeout: 5_000 });
     // URL reflects the filter.
     await expect(page).toHaveURL(/[?&]hide_stale=1(\b|&|$)/);
