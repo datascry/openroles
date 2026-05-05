@@ -17,6 +17,9 @@
 //   { type: "chunk-done", id, rowsJson, count }   ← rowsJson is a SlimRow[] JSON string
 //   { type: "error",      id, error }
 
+// MUST match site/src/lib/slim-index.ts fromWire — the SlimRow shape
+// is consumed by FilterTable as if produced by the canonical mapper.
+// ADR-0012 added `url` (`u`) and `last_seen_at` (`ls`).
 function fromWire(r) {
   return {
     short_id: r.i,
@@ -32,9 +35,11 @@ function fromWire(r) {
     location_country: r.cc,
     posted_at: r.p,
     first_seen_at: r.f,
+    last_seen_at: r.ls,
     compensation_min: r.cm,
     compensation_max: r.cmax,
     compensation_currency: r.cur,
+    url: r.u,
   };
 }
 
