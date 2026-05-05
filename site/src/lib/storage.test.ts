@@ -3,9 +3,14 @@ import {
   loadApplied,
   loadIgnored,
   loadSaved,
+  loadSavedSearches,
   markApplied,
+  removeSavedSearch,
+  SAVED_SEARCH_LABEL_MAX,
+  SAVED_SEARCH_LIMIT,
   STORAGE_KEYS,
   type StorageLike,
+  saveSavedSearch,
   toggleIgnored,
   toggleSaved,
   unmarkApplied,
@@ -148,5 +153,113 @@ describe("loadIgnored / toggleIgnored", () => {
 
   it("rejects non-hex ids", () => {
     expect(toggleIgnored(storage, "x")).toBe(false);
+  });
+});
+
+describe("saved searches (specs/uplift-v2-handoff.md §1.3)", () => {
+  it("returns empty list when nothing is stored", () => {
+    expect(loadSavedSearches(storage)).toEqual({ version: 1, entries: [] });
+  });
+
+  it("saveSavedSearch persists a free-mode entry", () => {
+    const e = saveSavedSearch(storage, "All eng remote", "engineer remote", "free");
+    expect(e).not.toBeNull();
+    if (!e) return;
+    const list = loadSavedSearches(storage).entries;
+    expect(list).toHaveLength(1);
+    expect(list[0]?.label).toBe("All eng remote");
+    expect(list[0]?.q).toBe("engineer remote");
+    expect(list[0]?.mode).toBe("free");
+  });
+
+  it("trims labels and rejects empty / too-long labels", () => {
+    expect(saveSavedSearch(storage, "   ", "q", "free")).toBeNull();
+    expect(
+      saveSavedSearch(storage, "a".repeat(SAVED_SEARCH_LABEL_MAX + 1), "q", "free"),
+    ).toBeNull();
+    const ok = saveSavedSearch(storage, "  trimmed  ", "q", "free");
+    expect(ok?.label).toBe("trimmed");
+  });
+
+  it("rejects non-string q and unknown mode", () => {
+    expect(saveSavedSearch(storage, "x", 42 as unknown as string, "free")).toBeNull();
+    expect(
+      saveSavedSearch(
+        storage,
+        "x",
+        "q",
+        "magic" as unknown as Parameters<typeof saveSavedSearch>[3],
+      ),
+    ).toBeNull();
+    expect(saveSavedSearch(storage, "x", "", "free")).toBeNull();
+  });
+
+  it("dedupes by (q, mode), replacing the older entry", () => {
+    const a = saveSavedSearch(storage, "first", "engineer", "free");
+    const b = saveSavedSearch(storage, "second", "engineer", "free");
+    expect(a).not.toBeNull();
+    expect(b).not.toBeNull();
+    const list = loadSavedSearches(storage).entries;
+    expect(list).toHaveLength(1);
+    expect(list[0]?.label).toBe("second");
+  });
+
+  it("treats different mode as a separate entry even with same q", () => {
+    saveSavedSearch(storage, "free q", "engineer", "free");
+    saveSavedSearch(storage, "structured q", "engineer", "structured");
+    const list = loadSavedSearches(storage).entries;
+    expect(list).toHaveLength(2);
+    const labels = list.map((e) => e.label).sort();
+    expect(labels).toEqual(["free q", "structured q"]);
+  });
+
+  it("evicts oldest when exceeding the cap", () => {
+    for (let i = 0; i < SAVED_SEARCH_LIMIT + 5; i++) {
+      saveSavedSearch(storage, `label ${i}`, `q-${i}`, "free");
+    }
+    const list = loadSavedSearches(storage).entries;
+    expect(list).toHaveLength(SAVED_SEARCH_LIMIT);
+    // Newest first ordering — the last labels we wrote should survive.
+    expect(list[0]?.label).toBe(`label ${SAVED_SEARCH_LIMIT + 4}`);
+  });
+
+  it("removeSavedSearch removes by id and reports the change", () => {
+    const e = saveSavedSearch(storage, "x", "q", "free");
+    expect(e).not.toBeNull();
+    if (!e) return;
+    expect(removeSavedSearch(storage, e.id)).toBe(true);
+    expect(loadSavedSearches(storage).entries).toEqual([]);
+    // Idempotent: second remove is a no-op.
+    expect(removeSavedSearch(storage, e.id)).toBe(false);
+  });
+
+  it("rejects malformed ids in removeSavedSearch", () => {
+    expect(removeSavedSearch(storage, "TOO-SHORT")).toBe(false);
+    expect(removeSavedSearch(storage, "")).toBe(false);
+  });
+
+  it("ignores corrupt entries on load (preserves the rest)", () => {
+    const good = {
+      id: "abcdef0123456789",
+      label: "ok",
+      q: "engineer",
+      mode: "free",
+      created_at: ISO,
+    };
+    const bad = { id: "x", label: "no", q: "x", mode: "free", created_at: ISO };
+    storage.setItem(
+      STORAGE_KEYS.savedSearches,
+      JSON.stringify({ version: 1, entries: [good, bad] }),
+    );
+    const list = loadSavedSearches(storage).entries;
+    expect(list).toHaveLength(1);
+    expect(list[0]?.label).toBe("ok");
+  });
+
+  it("returns empty for malformed top-level shape", () => {
+    storage.setItem(STORAGE_KEYS.savedSearches, JSON.stringify({ version: 2 }));
+    expect(loadSavedSearches(storage).entries).toEqual([]);
+    storage.setItem(STORAGE_KEYS.savedSearches, JSON.stringify({ version: 1, entries: "x" }));
+    expect(loadSavedSearches(storage).entries).toEqual([]);
   });
 });
