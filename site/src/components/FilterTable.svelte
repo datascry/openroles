@@ -1162,7 +1162,13 @@ function ariaSort(
      scope-hashes both rules with equal specificity, so order decides). */
   @media (min-width: 800px) {
     .layout-grid {
-      grid-template-columns: minmax(240px, 280px) 1fr;
+      /* Sidebar needs ~ 320 px to fit "GREENHOUSE 38" + "LEVER 1" + "ASHBY 1"
+         on one row without horizontal overflow. min-width: 0 on the column
+         lets the inner aside obey the column max instead of being expanded
+         by chip-list min-content. overflow-x:hidden is a belt-and-braces
+         clip in case a single chip ever grows wider than the column.
+         (specs/uplift-v2-handoff.md §2 / first-deploy regression fix.) */
+      grid-template-columns: minmax(280px, 340px) 1fr;
     }
     .sidebar-col {
       display: block;
@@ -1171,6 +1177,8 @@ function ariaSort(
       align-self: start;
       max-height: calc(100vh - var(--space-5));
       overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 0;
     }
     .filters-button { display: none; }
   }

@@ -108,10 +108,24 @@ onMount(async () => {
     loading = false;
     return;
   }
+  // The SQLite click-through over sql.js-httpvfs is normally a handful of
+  // 1 KiB range reads against the chunked DB on GitHub Pages, but when the
+  // CDN cache is cold (or the user's connection is slow) it can stretch
+  // into the tens of seconds. Bound the wait at 45 s and surface a
+  // recognisable error so the page never sits on the skeleton forever.
+  const TIMEOUT_MS = 45_000;
+  const timeoutHandle = setTimeout(() => {
+    if (role || loadError) return;
+    loadError =
+      "Loading this role is taking longer than expected. The job database " +
+      "may still be priming on the CDN — refresh in a moment.";
+    loading = false;
+  }, TIMEOUT_MS);
   try {
     const db = await loadClientDb({ basePath });
     const plan = buildRoleByShortIdQuery(shortId);
     const rows = await db.query<Role>(plan.sql, plan.params);
+    clearTimeout(timeoutHandle);
     if (rows.length === 0) {
       loadError = "This role isn't in the current database. It may have expired or been removed.";
     } else {
@@ -138,8 +152,10 @@ onMount(async () => {
       }
     }
   } catch (err) {
+    clearTimeout(timeoutHandle);
     loadError = `Couldn't load the role: ${err instanceof Error ? err.message : String(err)}`;
   }
+  clearTimeout(timeoutHandle);
   loading = false;
 });
 
@@ -238,6 +254,9 @@ function factValue(r: Role, key: (typeof FACT_LABELS)[number]["key"]): string | 
     aria-busy="true"
     aria-label="Loading role"
   >
+    <p class="sk-status" aria-live="polite">
+      Loading role from the database…
+    </p>
     <div class="sk-line sk-kicker"></div>
     <div class="sk-line sk-headline"></div>
     <div class="sk-line sk-headline"></div>
@@ -469,6 +488,14 @@ function factValue(r: Role, key: (typeof FACT_LABELS)[number]["key"]): string | 
     gap: var(--space-3);
     max-inline-size: 78rem;
     margin-block-end: var(--space-7);
+  }
+  .sk-status {
+    margin: 0 0 var(--space-3);
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-1);
+    letter-spacing: var(--track-wider);
+    text-transform: uppercase;
   }
   .sk-line {
     background: var(--color-rule-soft);

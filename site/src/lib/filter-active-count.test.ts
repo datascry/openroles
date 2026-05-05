@@ -53,11 +53,11 @@ describe("filter-active-count", () => {
     });
 
     it("counts posted as 1 when since differs from the runtime default", () => {
-      // The default is "30d" — anything else is a user narrow/widen.
-      expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "30d" })).toBe(0);
-      expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "all" })).toBe(1);
+      // The default is "all" — any narrowed window counts as active.
+      expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "all" })).toBe(0);
       expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "24h" })).toBe(1);
       expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "7d" })).toBe(1);
+      expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "30d" })).toBe(1);
       expect(activeCountFor("posted", { ...DEFAULT_FILTER_STATE, since: "90d" })).toBe(1);
     });
 
@@ -110,9 +110,8 @@ describe("filter-active-count", () => {
     });
 
     it("totals match the per-group sum on default state and on arbitrary states", () => {
-      // The default state has `since: "30d"` which is the runtime default —
-      // counting it as active would surface a stale "1 active" indicator on
-      // every fresh visit, so it does not contribute to the total.
+      // The default state has `since: "all"` (matches masthead total) and
+      // every other group is empty, so the total active count is 0.
       expect(totalActiveCount(DEFAULT_FILTER_STATE)).toBe(0);
       fc.assert(
         fc.property(filterStateArbitrary, (state) => {

@@ -121,10 +121,9 @@ test.describe("index page smoke", () => {
   test("pager renders when total exceeds page size and prev/next navigates pages", async ({
     page,
   }) => {
-    // The default since="30d" window narrows the fixture to ≤ PAGE_SIZE (50)
-    // rows so no pager renders; visit with since=all so the full 56-row
-    // fixture is in scope and pagination is forced. (uplift v2 §2.4)
-    await page.goto(`${INDEX}?since=all`);
+    // Default since="all" already includes every fixture row, so no extra
+    // URL param needed for the 56-row corpus to drive pagination.
+    await page.goto(INDEX);
     const results = page.getByTestId("job-results");
     await expect(results).toBeVisible({ timeout: 15_000 });
     const pager = page.getByTestId("pager");

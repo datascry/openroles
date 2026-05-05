@@ -87,6 +87,10 @@ function cancelReset() {
     padding: var(--space-3);
     border: var(--rule-2) solid var(--color-ink);
     background: var(--color-paper);
+    /* Without min-width:0 the grid container expands to its largest child's
+       min-content, which lets a wide chip-row push the sidebar past the
+       parent column's max-width. Force the grid to obey the parent. */
+    min-width: 0;
   }
   .sidebar-head {
     display: flex;

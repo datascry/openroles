@@ -157,9 +157,8 @@ test.describe("PR B — sidebar (desktop) + chip counts", () => {
   });
 
   test("Reset all is disabled when no filters are active", async ({ page }) => {
-    // The runtime default is `since: "30d"` and is treated as "no narrowing"
-    // by `activeCountFor("posted", ...)` (filter-active-count.ts). Visiting
-    // INDEX with no query params lands on the default-active-count=0 state.
+    // The runtime default is `since: "all"` (matches the masthead total)
+    // and every other group is empty on a fresh visit; activeCount=0.
     await page.goto(INDEX);
     await expect(page.locator("aside.sidebar .reset-all")).toBeDisabled();
   });
