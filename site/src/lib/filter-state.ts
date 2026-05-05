@@ -7,7 +7,7 @@ import {
   type WorkplaceType,
 } from "@openroles/shared/constants";
 
-export type SinceWindow = "24h" | "7d" | "30d" | "all";
+export type SinceWindow = "24h" | "7d" | "30d" | "90d" | "all";
 
 /**
  * Phase 13: single-select sub-view that narrows results to one of the
@@ -37,7 +37,7 @@ const SORT_VALUES: ReadonlyArray<SortOption> = [
   "level:desc",
 ];
 
-const SINCE_VALUES: ReadonlyArray<SinceWindow> = ["24h", "7d", "30d", "all"];
+const SINCE_VALUES: ReadonlyArray<SinceWindow> = ["24h", "7d", "30d", "90d", "all"];
 
 const Q_MAX_LEN = 256;
 const MIN_COMP_CAP = 1_000_000_000;
@@ -75,7 +75,16 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   wt: [],
   country: undefined,
   region: undefined,
-  since: "all",
+  /**
+   * Default to the 30-day window. Without it, the index renders 700k+ rows
+   * including SmartRecruiters / iCIMS postings with `posted_at: null` and
+   * scraped-from-archive jobs from 2009. The ATS APIs are public-listing
+   * endpoints with no recency guarantee — the UI MUST default-hide ancient
+   * rows or users see "active" jobs that aren't accepting applications.
+   * Power users can flip the Posted group back to "Any time" or follow a
+   * `?since=all` URL.
+   */
+  since: "30d",
   hideRecruiter: false,
   hideStale: false,
   minComp: undefined,
@@ -106,7 +115,10 @@ export function encodeFilterState(state: FilterState): string {
   if (state.wt.length > 0) params.set("wt", state.wt.join(","));
   if (state.country) params.set("country", state.country);
   if (state.region) params.set("region", state.region);
-  if (state.since !== "all") params.set("since", state.since);
+  // Default is "30d" — omit when it matches; emit "all" explicitly when the
+  // user opted into the wider window. Older URLs with `since=24h|7d|30d|all`
+  // continue to round-trip cleanly via the parser fallback.
+  if (state.since !== "30d") params.set("since", state.since);
   if (state.hideRecruiter) params.set("recruiter", "0");
   if (state.hideStale) params.set("hide_stale", "1");
   if (state.showOnly !== undefined) params.set("show", state.showOnly);
@@ -141,8 +153,11 @@ function sanitizeQuery(raw: string): string {
 }
 
 function parseSince(raw: string | null): SinceWindow {
-  if (raw === null) return "all";
-  return (SINCE_VALUES as ReadonlyArray<string>).includes(raw) ? (raw as SinceWindow) : "all";
+  // No `since` param → use the new default (30d). Unknown values fall back
+  // to the same default rather than the wide-open "all" so a malformed URL
+  // doesn't expose users to the 700k-row archive of ancient postings.
+  if (raw === null) return "30d";
+  return (SINCE_VALUES as ReadonlyArray<string>).includes(raw) ? (raw as SinceWindow) : "30d";
 }
 
 function parseShowOnly(raw: string | null): ShowOnly | undefined {

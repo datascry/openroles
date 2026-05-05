@@ -9,9 +9,17 @@ import {
   VACUUM_STMT,
 } from "../../../scraper/src/db/schema.ts";
 import { buildFilterCountQuery, buildFilterQuery } from "./filter-sql.ts";
-import { DEFAULT_FILTER_STATE } from "./filter-state.ts";
+import { DEFAULT_FILTER_STATE, type FilterState } from "./filter-state.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
+
+// The runtime default is `since: "30d"` (specs/uplift-v2-handoff.md §2.4 —
+// the index ships SmartRecruiters / iCIMS rows with `posted_at: null` and
+// scraped-from-archive jobs from 2009; a 30-day default keeps the homepage
+// honest). The fixtures here have no `posted_at`, so a 30-day default would
+// silently return zero rows for every test. UNFILTERED_STATE is the
+// not-narrowed-by-recency baseline tests want.
+const UNFILTERED_STATE: FilterState = { ...DEFAULT_FILTER_STATE, since: "all" };
 
 function makeJob(overrides: Partial<Job> = {}): Job {
   const base = {
@@ -89,7 +97,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "1", url: "https://example.com/1" }),
       makeJob({ source_id: "2", url: "https://example.com/2" }),
     ]);
-    const plan = buildFilterQuery(DEFAULT_FILTER_STATE);
+    const plan = buildFilterQuery(UNFILTERED_STATE);
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(2);
   });
@@ -100,7 +108,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "2", url: "https://example.com/2", ats: "lever" }),
       makeJob({ source_id: "3", url: "https://example.com/3", ats: "ashby" }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, ats: ["greenhouse", "lever"] });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, ats: ["greenhouse", "lever"] });
     const rows = db.query(plan.sql).all(...plan.params) as Array<{ ats: string }>;
     expect(rows.map((r) => r.ats).sort()).toEqual(["greenhouse", "lever"]);
   });
@@ -130,7 +138,7 @@ describe("buildFilterQuery", () => {
       }),
     ]);
     const plan = buildFilterQuery({
-      ...DEFAULT_FILTER_STATE,
+      ...UNFILTERED_STATE,
       level: ["senior", "staff"],
       sort: "level:asc",
     });
@@ -147,7 +155,7 @@ describe("buildFilterQuery", () => {
       }),
       makeJob({ source_id: "2", url: "https://example.com/2", title: "unrelated" }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: '"quoted"' });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, q: '"quoted"' });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows.length).toBeGreaterThanOrEqual(1);
   });
@@ -169,7 +177,7 @@ describe("buildFilterQuery", () => {
         location_text: "Worldwide",
       }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: "location:remote" });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, q: "location:remote" });
     const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
     expect(rows.map((r) => r.company)).toEqual(["Stripe"]);
   });
@@ -199,7 +207,7 @@ describe("buildFilterQuery", () => {
       }),
     ]);
     const plan = buildFilterQuery({
-      ...DEFAULT_FILTER_STATE,
+      ...UNFILTERED_STATE,
       q: "title:engineer location:remote",
     });
     const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
@@ -225,7 +233,7 @@ describe("buildFilterQuery", () => {
     ]);
     // Without LIKE escape, `%` would be a wildcard and match everything.
     // With escape, only the literal "50%" substring matches.
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, q: "location:50%" });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, q: "location:50%" });
     const rows = db.query(plan.sql).all(...plan.params) as Array<{ company: string }>;
     expect(rows.map((r) => r.company)).toEqual(["A"]);
   });
@@ -236,7 +244,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "2", url: "https://example.com/2", workplace_type: "hybrid" }),
       makeJob({ source_id: "3", url: "https://example.com/3", workplace_type: "onsite" }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, wt: ["remote", "hybrid"] });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, wt: ["remote", "hybrid"] });
     const rows = db.query(plan.sql).all(...plan.params) as Array<{ workplace_type: string }>;
     expect(rows.map((r) => r.workplace_type).sort()).toEqual(["hybrid", "remote"]);
   });
@@ -267,7 +275,7 @@ describe("buildFilterQuery", () => {
       "level:desc",
     ] as const;
     for (const sort of sorts) {
-      const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, sort });
+      const plan = buildFilterQuery({ ...UNFILTERED_STATE, sort });
       expect(() => db.query(plan.sql).all(...plan.params)).not.toThrow();
     }
   });
@@ -277,7 +285,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "1", url: "https://example.com/1", is_recruiter_post: false }),
       makeJob({ source_id: "2", url: "https://example.com/2", is_recruiter_post: true }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, hideRecruiter: true });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, hideRecruiter: true });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(1);
   });
@@ -288,7 +296,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "2", url: "https://example.com/2", compensation_min: 25000 }),
       makeJob({ source_id: "3", url: "https://example.com/3" }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, minComp: 10000 });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, minComp: 10000 });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(1);
   });
@@ -314,7 +322,7 @@ describe("buildFilterQuery", () => {
         location_region: "London",
       }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, country: "US", region: "CA" });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, country: "US", region: "CA" });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(1);
   });
@@ -326,7 +334,7 @@ describe("buildFilterQuery", () => {
       makeJob({ source_id: "1", url: "https://example.com/1", posted_at: recent }),
       makeJob({ source_id: "2", url: "https://example.com/2", posted_at: old }),
     ]);
-    const plan = buildFilterQuery({ ...DEFAULT_FILTER_STATE, since: "24h" });
+    const plan = buildFilterQuery({ ...UNFILTERED_STATE, since: "24h" });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(1);
   });
@@ -337,8 +345,8 @@ describe("buildFilterQuery", () => {
         makeJob({ source_id: String(i), url: `https://example.com/${i}` }),
       ),
     );
-    const planP1 = buildFilterQuery({ ...DEFAULT_FILTER_STATE, page: 1 }, 3);
-    const planP2 = buildFilterQuery({ ...DEFAULT_FILTER_STATE, page: 2 }, 3);
+    const planP1 = buildFilterQuery({ ...UNFILTERED_STATE, page: 1 }, 3);
+    const planP2 = buildFilterQuery({ ...UNFILTERED_STATE, page: 2 }, 3);
     const p1 = db.query(planP1.sql).all(...planP1.params);
     const p2 = db.query(planP2.sql).all(...planP2.params);
     expect(p1).toHaveLength(3);
@@ -355,14 +363,14 @@ describe("idAllowlist", () => {
     const ids = (
       db.query("SELECT id FROM jobs ORDER BY first_seen_at LIMIT 2").all() as { id: string }[]
     ).map((r) => r.id);
-    const plan = buildFilterQuery(DEFAULT_FILTER_STATE, { idAllowlist: ids });
+    const plan = buildFilterQuery(UNFILTERED_STATE, { idAllowlist: ids });
     const rows = db.query(plan.sql).all(...plan.params) as { id: string }[];
     expect(rows.map((r) => r.id).sort()).toEqual([...ids].sort());
   });
 
   it("returns zero rows when the allowlist is empty", () => {
     const db = fresh([makeJob()]);
-    const plan = buildFilterQuery(DEFAULT_FILTER_STATE, { idAllowlist: [] });
+    const plan = buildFilterQuery(UNFILTERED_STATE, { idAllowlist: [] });
     const rows = db.query(plan.sql).all(...plan.params);
     expect(rows).toHaveLength(0);
   });
@@ -383,7 +391,7 @@ describe("buildFilterCountQuery", () => {
         ),
       ),
     );
-    const plan = buildFilterCountQuery({ ...DEFAULT_FILTER_STATE, ats: ["greenhouse"] });
+    const plan = buildFilterCountQuery({ ...UNFILTERED_STATE, ats: ["greenhouse"] });
     const row = db.query(plan.sql).get(...plan.params) as { c: number };
     expect(row.c).toBe(5);
   });
@@ -393,7 +401,7 @@ describe("SQL injection safety", () => {
   it("treats user input as bind parameters, never string-concatenated", () => {
     const db = fresh([makeJob()]);
     const plan = buildFilterQuery({
-      ...DEFAULT_FILTER_STATE,
+      ...UNFILTERED_STATE,
       q: "'; DROP TABLE jobs; --",
     });
     db.query(plan.sql).all(...plan.params);

@@ -62,6 +62,12 @@
 
   /* ---------- Tap target floor ---------- */
   --tap: 44px;
+
+  /* ---------- Layout breakpoints ----------
+   * --bp-sidebar diverges from the type-scale 768 px ramp because the
+   * sidebar+results layout needs ~800 px to breathe. See specs/uplift-v2-handoff.md §2.6.
+   */
+  --bp-sidebar: 800px;
 }
 
 /*

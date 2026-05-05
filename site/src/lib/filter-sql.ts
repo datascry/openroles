@@ -28,6 +28,7 @@ const SINCE_TO_HOURS: Record<FilterState["since"], number | null> = {
   "24h": 24,
   "7d": 24 * 7,
   "30d": 24 * 30,
+  "90d": 24 * 90,
   all: null,
 };
 
