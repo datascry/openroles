@@ -942,6 +942,11 @@ function ariaSort(
               {#if row.is_recruiter_post}
                 <span class="recruiter-badge" aria-label="recruiter posting">RECRUITER</span>
               {/if}
+              {#if isApplied(row.short_id)}
+                <span class="applied-badge" aria-label="you have marked this as applied"
+                  >APPLIED</span
+                >
+              {/if}
             </h3>
             <!-- ADR-0012: row title links directly to the source ATS apply
                  page in a new tab. There is no per-role detail page. -->
@@ -970,10 +975,6 @@ function ariaSort(
           </div>
           <div class="job-cell job-cell--posted">
             <span class="age" class:is-new={age.fresh}>{age.label}</span>
-            {#if isApplied(row.short_id)}
-              <span class="rule" aria-hidden="true">·</span>
-              <span class="applied-badge">applied</span>
-            {/if}
           </div>
           <div class="job-cell job-cell--actions">
             <div class="job-actions">
@@ -1489,6 +1490,20 @@ function ariaSort(
     font-weight: 700;
     letter-spacing: var(--track-wider);
   }
+  /* Applied badge — same chip-style frame as NEW / STALE / RECRUITER,
+     coloured with the on-accent palette so it reads as a personal
+     state marker (not a system state like NEW or STALE). Sits inline
+     in the company headline alongside the other badges. */
+  .applied-badge {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-00);
+    font-weight: 700;
+    letter-spacing: var(--track-wider);
+    border: var(--rule-1) solid var(--color-accent);
+    padding: 0 var(--space-1);
+  }
 
   /* Stale badge — muted ink-3, mono caps, framed in a thin ink-3 border so
      the cue reads as "this is muted state" not "this is decoration". Per
@@ -1567,29 +1582,12 @@ function ariaSort(
     font-size: var(--text-0);
     letter-spacing: var(--track-wide);
     text-transform: uppercase;
-    /* Wrap when the applied badge appears so it falls onto its own
-       line below the age stamp instead of bleeding into the actions
-       cell at the right edge of the grid track. min-width: 0 lets the
-       grid track shrink as designed at 0.7fr; align-items: start keeps
-       the age pinned to the row top when the badge wraps. */
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-2);
-    align-items: start;
+    gap: var(--space-2);
+    align-items: baseline;
     min-width: 0;
   }
   .job-cell--posted .age.is-new::before { content: "● "; color: var(--color-accent); }
-  .job-cell--posted .applied-badge {
-    color: var(--color-accent);
-    font-weight: 700;
-    /* Force the badge onto its own line so the rule "·" never appears
-       at the start of a wrap. The :where() trick avoids specificity
-       creep — the surrounding rule is hidden by display: none on the
-       same line as a wrapped badge. */
-    flex-basis: 100%;
-  }
-  .job-cell--posted .applied-badge + .rule,
-  .job-cell--posted .rule:has(+ .applied-badge) { display: none; }
 
   /* On mobile cells stack; collapse empty ones so we don't show stray
      placeholders between data lines. On desktop the grid keeps the
