@@ -2,13 +2,19 @@
 import { onMount } from "svelte";
 import type { FilterState } from "../../lib/filter-state.ts";
 import { loadGroupExpansion, saveGroupExpansion } from "../../lib/group-storage.ts";
-import AtsGroup from "./AtsGroup.svelte";
 import LevelGroup from "./LevelGroup.svelte";
 import MinCompGroup from "./MinCompGroup.svelte";
 import PersonalToggles from "./PersonalToggles.svelte";
 import PostedGroup from "./PostedGroup.svelte";
 import StatusToggles from "./StatusToggles.svelte";
 import WorkplaceGroup from "./WorkplaceGroup.svelte";
+
+// AtsGroup is intentionally NOT imported. ATS-platform identity is a
+// developer-facing detail; users don't filter roles by which hiring
+// platform hosts them, and over half of the 24 platforms ship with
+// near-zero rows in any given build. The `filters.ats` field stays in
+// FilterState for URL-back-compat (an old shared link with `?ats=…`
+// still parses) but the UI no longer surfaces it.
 
 /**
  * Renders every filter group in vertical sequence. Used by both the desktop
@@ -40,18 +46,19 @@ let {
   collapsible = false,
 }: Props = $props();
 
-const GROUP_IDS = ["ats", "level", "wt", "posted", "minComp", "status", "personal"] as const;
+const GROUP_IDS = ["wt", "posted", "level", "minComp", "status", "personal"] as const;
 type GroupId = (typeof GROUP_IDS)[number];
 
-// Default policy: only the two heaviest facets (ATS + Level) start open.
-// The rest collapse so the sidebar fits in a typical viewport without an
-// internal scrollbar. Per-user expansion preferences are restored from
-// localStorage onMount; first-visit users see this default.
+// Default policy reflects user-stated priorities (workplace + posted are
+// the two filters first-time visitors reach for). ATS is dropped from
+// the sidebar entirely — see file-top comment. Per-user expansion
+// preferences are restored from localStorage onMount; first-visit users
+// see this default. Personal auto-expands below if the user has any
+// saved/applied/ignored roles (return-visitor signal).
 let expansion = $state<Record<GroupId, boolean>>({
-  ats: true,
-  level: true,
-  wt: false,
-  posted: false,
+  wt: true,
+  posted: true,
+  level: false,
   minComp: false,
   status: false,
   personal: false,
@@ -67,6 +74,14 @@ onMount(() => {
     const stored = loadGroupExpansion(window.localStorage, id);
     if (stored !== undefined) next[id] = stored;
   }
+  // Personal auto-expand: if the user has any saved/applied/ignored roles
+  // AND they haven't explicitly collapsed the section before, surface it
+  // open so the entry points to those collections are one click away.
+  // First-time visitors with empty collections see it collapsed.
+  const hasPersonalContent = savedCount + appliedCount + ignoredCount > 0;
+  if (hasPersonalContent && loadGroupExpansion(window.localStorage, "personal") === undefined) {
+    next.personal = true;
+  }
   expansion = next;
 });
 
@@ -79,22 +94,10 @@ function setExpansion(id: GroupId, value: boolean) {
 </script>
 
 <div class="groups">
-  <AtsGroup
-    filters={filters}
-    onPatch={onPatch}
-    counts={optionCounts?.ats}
-    collapsible={collapsible}
-    expanded={expansion.ats}
-    onExpandToggle={(v) => setExpansion("ats", v)}
-  />
-  <LevelGroup
-    filters={filters}
-    onPatch={onPatch}
-    counts={optionCounts?.level}
-    collapsible={collapsible}
-    expanded={expansion.level}
-    onExpandToggle={(v) => setExpansion("level", v)}
-  />
+  <!-- Workplace + Posted are the two facets first-time visitors reach
+       for, so they sit at the top and start open. Level follows because
+       it's the next most-used; collapsed by default to keep the sidebar
+       short. ATS is removed from the sidebar entirely. -->
   <WorkplaceGroup
     filters={filters}
     onPatch={onPatch}
@@ -109,6 +112,14 @@ function setExpansion(id: GroupId, value: boolean) {
     collapsible={collapsible}
     expanded={expansion.posted}
     onExpandToggle={(v) => setExpansion("posted", v)}
+  />
+  <LevelGroup
+    filters={filters}
+    onPatch={onPatch}
+    counts={optionCounts?.level}
+    collapsible={collapsible}
+    expanded={expansion.level}
+    onExpandToggle={(v) => setExpansion("level", v)}
   />
   <MinCompGroup
     filters={filters}

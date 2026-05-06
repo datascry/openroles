@@ -24,6 +24,12 @@ interface Props {
    * useful to crawlers. Default is index,follow.
    */
   noindex?: boolean;
+  /**
+   * Optional 7-char git short-sha for the build. When set, surfaces in
+   * the masthead strap as a link to the upstream commit so users can
+   * see exact provenance. Omitted on theme-wireframe / non-data pages.
+   */
+  shortSha?: string;
 }
 
 const {
@@ -34,6 +40,7 @@ const {
   builtAtIso,
   canonicalPath,
   noindex = false,
+  shortSha,
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -142,6 +149,7 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
       totalRoles={totalRoles}
       builtAtIso={builtAtIso}
       basePath={basePath}
+      shortSha={shortSha}
     />
 
     <main id="main">

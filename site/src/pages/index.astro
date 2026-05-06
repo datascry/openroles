@@ -14,6 +14,7 @@ let manifest: {
   built_at: string;
   total_rows: number;
   tenants_total: number;
+  short_sha: string;
 } | null = null;
 let firstPaintRows: ReadonlyArray<FirstPaintRow> = [];
 
@@ -24,6 +25,7 @@ if (dbBuilt) {
       built_at: site.manifest.built_at,
       total_rows: site.manifest.total_rows,
       tenants_total: site.manifest.tenants_total,
+      short_sha: site.manifest.short_sha,
     };
     // Phase 14: bake the homepage's first 50 rows into the static HTML
     // so the page paints real content before the slim-index JSON
@@ -54,12 +56,14 @@ const seoDescription =
   current="browse"
   totalRoles={totalRoles}
   builtAtIso={builtAtIso}
+  shortSha={manifest?.short_sha}
 >
   <section class="lede">
     <h1>Find your next role.</h1>
     <p>
-      Search across the major hiring platforms in one place. Filter by what
-      matters. Save what looks good. Apply on your terms.
+      No tracking. No ads. No accounts. Every open role on the major hiring
+      platforms, refreshed every night. Your filters and saved roles stay on
+      your computer &mdash; nothing about you ever leaves it.
     </p>
     {!manifest && (
       <p class="manifest-pending">

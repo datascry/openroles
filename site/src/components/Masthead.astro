@@ -13,9 +13,14 @@ interface Props {
   totalRoles: number;
   builtAtIso: string;
   basePath: string;
+  /** Optional 7-char git short SHA. When set, surfaces in the strap line
+   *  as a link to the upstream commit on GitHub. */
+  shortSha?: string;
 }
 
-const { current, totalRoles, builtAtIso, basePath } = Astro.props;
+const { current, totalRoles, builtAtIso, basePath, shortSha } = Astro.props;
+const REPO_BASE_URL = "https://github.com/datascry/openroles";
+const commitUrl = shortSha ? `${REPO_BASE_URL}/commit/${shortSha}` : null;
 
 const builtAt = new Date(builtAtIso);
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -42,6 +47,18 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
     <span>UPDATED <time datetime={builtAt.toISOString()}>{dateline}</time></span>
     <span class="rule" aria-hidden="true">·</span>
     <span><b class="accent">{totalRolesFormatted}</b> LIVE</span>
+    {commitUrl && (
+      <>
+        <span class="rule" aria-hidden="true">·</span>
+        <a
+          class="build-sha"
+          href={commitUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View this build's commit on GitHub"
+        >#{shortSha}</a>
+      </>
+    )}
   </p>
 
   <nav aria-label="Primary">
@@ -167,6 +184,22 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
 
   .strap .rule {
     color: var(--color-ink-3);
+  }
+
+  /* Build SHA — link out to the upstream commit. Same monospace
+     family as the rest of the strap; ink-3 by default; underline on
+     hover so it reads as actionable without competing with the
+     accent-colored live-roles count. */
+  .build-sha {
+    color: var(--color-ink-3);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    letter-spacing: var(--track-wider);
+  }
+  .build-sha:hover {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   nav ul {
