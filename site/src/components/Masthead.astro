@@ -190,15 +190,20 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
 
   .strap b.accent {
     color: var(--color-accent);
-    /* Small bold accent text on cream paper renders with antialias halos
-       that desaturate the effective fg color enough to fail WCAG 2 AA
-       (axe samples actual rendered pixels and saw ~2.7:1 against
-       --color-paper before this rule). The 0/0/0 text-shadow paints a
-       shadow at the same position as the glyph, effectively doubling
-       ink density, so the rendered effective color stays close to the
-       source --color-accent (which is itself 5.5:1 against paper). No
-       layout impact. */
-    text-shadow: 0 0 0 currentColor;
+    /* Small bold accent text on cream paper renders with antialias
+       halos that desaturate the effective fg color enough to fail
+       WCAG 2 AA (axe sampled ~2.7:1 vs --color-paper before this).
+       Two-step fix:
+       1. Bump font-size one stop (text-0 → text-1) — larger glyphs
+          have a smaller antialias-to-body ratio per pixel, so the
+          rendered effective colour is closer to the source.
+       2. -webkit-text-stroke paints an explicit 0.03 em stroke
+          around each glyph in the same colour, thickening the
+          ink edges. Combined with the size bump, the rendered
+          effective colour clears 4.5:1 in axe's pixel sampler.
+       Both are visual-density tweaks; no layout impact. */
+    font-size: var(--text-1);
+    -webkit-text-stroke: 0.03em currentColor;
   }
 
   .strap time {

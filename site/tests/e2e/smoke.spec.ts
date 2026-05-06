@@ -158,10 +158,11 @@ test.describe("index page smoke", () => {
       .locator("li.job")
       .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
       .first();
-    // The Save button is glyph-only (☆/★). Accessible name comes from
-    // aria-label, not the visible text — "Save this role" when unpressed,
-    // "Remove from saved" when pressed (see FilterTable.svelte).
-    const saveBtn = stripeRow.getByRole("button", { name: /Save this role/i });
+    // The Save button is glyph-only (☆/★). aria-label flips between
+    // "Save this role" and "Remove from saved" on click, so a name-
+    // regex locator is invalidated by its own click. Use the stable
+    // .job-action.save class instead — that survives state changes.
+    const saveBtn = stripeRow.locator(".job-action.save");
     await expect(saveBtn).toHaveAttribute("aria-pressed", "false");
     await saveBtn.click();
     await expect(saveBtn).toHaveAttribute("aria-pressed", "true");
@@ -172,7 +173,7 @@ test.describe("index page smoke", () => {
       .locator("li.job")
       .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
       .first();
-    await expect(reloadedRow.getByRole("button", { name: /Remove from saved/i })).toBeVisible({
+    await expect(reloadedRow.locator(".job-action.save")).toHaveAttribute("aria-pressed", "true", {
       timeout: 15_000,
     });
   });
@@ -193,11 +194,23 @@ test.describe("index page smoke", () => {
     await expect(staleBadge).toBeVisible({ timeout: 15_000 });
     await expect(staleBadge).toHaveText("STALE");
 
-    // The whole row should dim. Assert opacity=0.6 on the parent .job.
+    // Stale row reads as muted via per-child colour overrides rather
+    // than parent opacity. The previous test asserted opacity ≤ 0.61
+    // but axe (correctly) flagged that as a contrast failure since
+    // opacity desaturates every descendant text colour. The current
+    // visual rule: the row carries the .is-stale class, the title
+    // drops from --color-ink to --color-ink-2, and the company name
+    // drops from --color-accent to --color-ink-3. Assert the row's
+    // class is present and the company-name is no longer accent red.
     const staleRow = page.locator("li.job.is-stale").first();
     await expect(staleRow).toBeVisible();
-    const opacity = await staleRow.evaluate((el) => getComputedStyle(el).opacity);
-    expect(Number.parseFloat(opacity)).toBeLessThanOrEqual(0.61);
+    const companyColor = await staleRow
+      .locator(".company-name")
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+    // --color-ink-3 in light mode is rgb(110, 106, 99); --color-accent
+    // is rgb(200, 38, 26). Assert it's the muted ink-3, not accent.
+    expect(companyColor).toMatch(/rgb\(110, 106, 99\)/);
 
     // Toggle "Verified only" — the stale row should disappear. The switch
     // lives in the Status group inside the sidebar / sheet (uplift v2 §2.6).

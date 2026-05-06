@@ -895,7 +895,15 @@ function ariaSort(
       ("Sort by company, currently ascending") without the schema
       violation. Visible arrow stays the same.
     -->
-    <div class="results-head" role="row">
+    <!-- role="row" was removed: axe (correctly) flagged it as
+         aria-required-parent / aria-required-children violations because
+         the surrounding markup is a div-grid, not a real table or
+         role=grid. The header still presents as a labelled set of
+         clickable column headers via aria-label on each button; that's
+         enough semantic information for assistive tech without
+         introducing aria-row plumbing the rest of the structure can't
+         support. -->
+    <div class="results-head">
       <button
         type="button"
         class="col-head col-role"
@@ -1573,11 +1581,25 @@ function ariaSort(
     padding: 0 var(--space-1);
     cursor: help;
   }
-  /* The whole stale row dims to 0.6 so users can scan past it without
-     having to read every badge. Tooltip + filter chip handle the deeper
-     "why is this dim?" question. */
-  .job.is-stale {
-    opacity: 0.6;
+  /* Stale rows read as muted via per-child colour overrides rather
+     than parent opacity. opacity: 0.6 used to do this work but axe
+     correctly samples rendered pixels for contrast: the parent
+     opacity desaturated every descendant text colour by ~40 %, which
+     pulled the company-name (--color-accent) and stale-badge
+     (--color-ink-3) below WCAG AA's 4.5:1 floor. Setting the colours
+     explicitly to muted variants keeps the "this row is older" cue
+     without dropping rendered contrast. The STALE badge + filter chip
+     own the deeper "why is this dim?" question. */
+  .job.is-stale .job-title {
+    color: var(--color-ink-2);
+  }
+  .job.is-stale .company-name {
+    color: var(--color-ink-3);
+  }
+  .job.is-stale .job-cell--location,
+  .job.is-stale .job-cell--level,
+  .job.is-stale .job-cell--posted {
+    color: var(--color-ink-3);
   }
 
   /* Role title is the most prominent element in each row — biggest type,

@@ -121,6 +121,15 @@ test.describe("PR B — sidebar (desktop) + chip counts", () => {
 
   test("ATS chips show per-option counts and disable zero-match rows", async ({ page }) => {
     await page.goto(INDEX);
+    // ATS group defaults to collapsed (ADR-0014); expand it before the
+    // chip lookups, otherwise the chip body is hidden and the locator
+    // never resolves.
+    const sidebar = page.locator("aside.sidebar");
+    const atsHeader = sidebar.getByRole("button", { name: /^ATS(\b|·|,)/i });
+    await expect(atsHeader).toBeVisible({ timeout: 5_000 });
+    if ((await atsHeader.getAttribute("aria-expanded")) === "false") {
+      await atsHeader.click();
+    }
     // Wait for option counts to populate (the per-dimension queries fire
     // alongside the main results query).
     await page.waitForFunction(
