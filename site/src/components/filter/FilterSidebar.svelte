@@ -50,6 +50,12 @@ function cancelReset() {
     {/if}
   </header>
 
+  <!-- collapsible={true}: each group is an accordion. Without this, the
+       full sidebar runs ~1260 px tall and exceeds an 877 px viewport-bound
+       window, forcing an internal scrollbar inside the page's own scroll.
+       Collapsing the long-tail groups (Workplace / Posted / Min comp /
+       Status / Personal) by default keeps the sidebar in the viewport
+       without a second scroll context. -->
   <FilterGroups
     filters={filters}
     onPatch={onPatch}
@@ -57,6 +63,7 @@ function cancelReset() {
     appliedCount={appliedCount}
     ignoredCount={ignoredCount}
     optionCounts={optionCounts}
+    collapsible={true}
   />
 
   <footer class="sidebar-foot">

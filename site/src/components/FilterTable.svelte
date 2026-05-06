@@ -1213,8 +1213,14 @@ function ariaSort(
       position: sticky;
       top: var(--space-3);
       align-self: start;
-      max-height: calc(100vh - var(--space-5));
-      overflow-y: auto;
+      /* No max-height / overflow-y here on purpose: an internal scrollbar
+         on top of the page scroll reads as a second scroll context, which
+         is jarring. The accordion-collapsed sidebar (FilterGroups defaults
+         to ATS + Level open, the rest collapsed) keeps its natural height
+         under typical viewports. On the rare case where a user expands
+         everything and the sidebar exceeds viewport height, the bottom
+         simply scrolls into view as the user scrolls the page — sticky
+         positioning still anchors the top. */
       overflow-x: hidden;
       min-width: 0;
     }
@@ -1606,24 +1612,23 @@ function ariaSort(
      with a quieter outline style; their "active" state colors the
      text + border (accent for saved, muted ink for ignored) without
      filling with ink which would compete with the Apply button. */
+  /* Three-weight action cluster (M3 in /wireframe/buttons): Apply is the
+     loud filled-accent CTA; Save is a quieter ghost-outline button; Ignore
+     drops to a borderless text link. The clear hierarchy stops three
+     similar-looking buttons from competing for the eye. */
   .job-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-1);
-    align-items: stretch;
+    gap: var(--space-2);
+    align-items: center;
   }
   .job-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: var(--tap);
-    padding: 0 var(--space-2);
-    border: var(--rule-1) solid var(--color-rule);
     border-radius: 0;
-    background: transparent;
-    color: var(--color-ink-2);
     font-family: var(--font-display);
-    font-size: var(--text-0);
     font-weight: 700;
     letter-spacing: var(--track-wide);
     text-transform: uppercase;
@@ -1634,46 +1639,65 @@ function ariaSort(
       border-color 120ms ease-out,
       background-color 120ms ease-out;
   }
-  .job-action:hover:not(:disabled) {
-    color: var(--color-ink);
-    border-color: var(--color-ink);
-  }
-  .job-action.save[aria-pressed="true"] {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    background: transparent;
-  }
-  .job-action.save[aria-pressed="true"]:hover {
-    color: var(--color-on-accent);
-    background: var(--color-accent);
-  }
-  .job-action.ignore[aria-pressed="true"] {
-    color: var(--color-ink-3);
-    border-color: var(--color-ink-3);
-    background: transparent;
-  }
-  .job-action.ignore[aria-pressed="true"]:hover {
-    color: var(--color-paper);
-    background: var(--color-ink-3);
-    border-color: var(--color-ink-3);
-  }
-  /* Apply is the row's primary CTA — solid accent fill, slightly heavier
-     than the secondary save/ignore controls to draw the eye. The arrow
-     glyph keeps the "external action" reading even on color-blind reads. */
+  /* Apply — primary CTA. Filled accent, arrow glyph, min-width so it
+     stays on a single line regardless of the surrounding labels. */
   .job-action.apply {
+    padding: 0 var(--space-3);
     background: var(--color-accent);
     color: var(--color-on-accent);
-    border-color: var(--color-accent);
-    padding: 0 var(--space-3);
+    border: var(--rule-1) solid var(--color-accent);
     font-size: var(--text-1);
-    /* Keep the Apply CTA wide enough that it always sits on a single
-       line in the action cluster regardless of the surrounding labels. */
     min-width: 5.5rem;
   }
   .job-action.apply:hover {
     background: var(--color-ink);
     border-color: var(--color-ink);
     color: var(--color-paper);
+  }
+  /* Save — ghost outline. Smaller type than Apply, only the saved
+     state colors the ink+border accent. */
+  .job-action.save {
+    padding: 0 var(--space-2);
+    background: transparent;
+    color: var(--color-ink-2);
+    border: var(--rule-1) solid var(--color-rule);
+    font-size: var(--text-0);
+  }
+  .job-action.save:hover:not(:disabled) {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+  .job-action.save[aria-pressed="true"] {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .job-action.save[aria-pressed="true"]:hover {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+  }
+  /* Ignore — borderless text link, lightest weight in the cluster.
+     The ignored state stays text-only; styling shifts to a strikethrough
+     on hover so it reads as "you've dismissed this" without becoming
+     visually heavy. */
+  .job-action.ignore {
+    padding: 0 var(--space-2);
+    background: transparent;
+    color: var(--color-ink-3);
+    border: 0;
+    font-size: var(--text-0);
+  }
+  .job-action.ignore:hover:not(:disabled) {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .job-action.ignore[aria-pressed="true"] {
+    color: var(--color-ink);
+    text-decoration: line-through;
+    text-decoration-thickness: 0.1em;
+  }
+  .job-action.ignore[aria-pressed="true"]:hover {
+    color: var(--color-accent);
   }
 
   /* ---------- Pager ----------
@@ -1794,7 +1818,10 @@ function ariaSort(
     .job-cell { font-family: var(--font-serif); font-size: var(--text-2); }
     .job-cell--role { display: grid; gap: var(--space-1); }
     .job-cell--actions { justify-self: end; }
+    /* Mobile: keep actions on one line and tighten the gap; each action
+       variant (apply / save / ignore) keeps its own padding + font-size
+       so the M3 visual hierarchy survives the breakpoint. */
     .job-actions { flex-wrap: nowrap; gap: var(--space-1); }
-    .job-action { padding: 0 var(--space-2); font-size: var(--text-0); }
+    .job-action.apply { padding: 0 var(--space-2); }
   }
 </style>

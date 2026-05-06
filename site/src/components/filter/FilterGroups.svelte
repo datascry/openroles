@@ -43,14 +43,18 @@ let {
 const GROUP_IDS = ["ats", "level", "wt", "posted", "minComp", "status", "personal"] as const;
 type GroupId = (typeof GROUP_IDS)[number];
 
+// Default policy: only the two heaviest facets (ATS + Level) start open.
+// The rest collapse so the sidebar fits in a typical viewport without an
+// internal scrollbar. Per-user expansion preferences are restored from
+// localStorage onMount; first-visit users see this default.
 let expansion = $state<Record<GroupId, boolean>>({
   ats: true,
   level: true,
-  wt: true,
-  posted: true,
-  minComp: true,
-  status: true,
-  personal: true,
+  wt: false,
+  posted: false,
+  minComp: false,
+  status: false,
+  personal: false,
 });
 
 // Hydrate persisted expansion state once on mount. A reactive $effect would

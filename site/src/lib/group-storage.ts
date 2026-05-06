@@ -3,12 +3,12 @@ import type { StorageLike } from "./storage.ts";
 const NS = "openroles:filter-group";
 
 /**
- * Per-group expansion state for the mobile filter sheet. Keyed by group id
- * (e.g. `ats`, `level`). The sidebar on desktop never collapses, so this
- * persistence is mobile-only (specs/uplift-v2-handoff.md §2.5).
+ * Per-group expansion state for the filter sidebar (desktop) and sheet
+ * (mobile). Keyed by group id (e.g. `ats`, `level`).
  *
  * Stored as `"1"` / `"0"` strings; missing key returns `undefined` so the
- * caller can apply the default expansion policy (open by default).
+ * caller can apply the default expansion policy (ATS + Level open, the
+ * rest collapsed) on first visit.
  */
 export function loadGroupExpansion(storage: StorageLike, groupId: string): boolean | undefined {
   const raw = storage.getItem(`${NS}:${groupId}`);

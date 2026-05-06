@@ -1,0 +1,670 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+/**
+ * Mockup ground for replacement role-row action buttons. Each variant
+ * shows the same sample row markup wrapped in a `data-variant` so its
+ * styles are scoped. No JS — these are visual-only previews to pick
+ * a direction before wiring it back into FilterTable.svelte.
+ *
+ * The base row chrome (kicker line, title link, location/level/posted
+ * cells) is identical to the live FilterTable row so the mockups
+ * inherit the real type stack and palette.
+ */
+
+const builtAtIso = new Date().toISOString();
+
+const VARIANTS = [
+  {
+    id: "m1",
+    name: "M1 — Glyph row",
+    tagline: "★ ✓ ⊘",
+    summary:
+      "Save and Ignore become unlabeled glyphs; Apply is the only word + arrow. Cuts visual noise to a single CTA but the meaning of ★ / ⊘ relies on convention + tooltip.",
+  },
+  {
+    id: "m2",
+    name: "M2 — One CTA, meta links",
+    tagline: "Apply on Greenhouse → · save · hide",
+    summary:
+      "Apply becomes a wider, accent-filled CTA naming the destination ATS. Save / Hide drop down to subtle tracked-out text links below — they read as meta, not commands.",
+  },
+  {
+    id: "m3",
+    name: "M3 — Three weights",
+    tagline: "[ Apply → ]   ☆ Save   ignore",
+    summary:
+      "Same three actions, three visual weights: filled accent CTA, ghost outline button, plain text link. Hierarchy is unambiguous; preserves all current copy + tap targets.",
+  },
+  {
+    id: "m4",
+    name: "M4 — Editorial byline",
+    tagline: "SAVE · APPLY → · NOT INTERESTED",
+    summary:
+      "All three become tracked-out uppercase text in a single dotted byline — no button chrome at all. Most editorial fit; smallest visual footprint; relies on color + arrow to mark Apply as the action.",
+  },
+  {
+    id: "m5",
+    name: "M5 — Stacked corner star",
+    tagline: "★ floats · [Apply on Greenhouse →] · ⋯",
+    summary:
+      "Save becomes a star icon docked in the row's top-right corner. Apply is the only inline button. Hide moves into a kebab menu (rendered open here for preview). Most aggressive simplification.",
+  },
+];
+---
+
+<BaseLayout
+  title="openroles — row-action button mockups"
+  current="browse"
+  totalRoles={0}
+  builtAtIso={builtAtIso}
+>
+  <section class="lede">
+    <p class="kicker">Wireframe · Row Actions</p>
+    <h2>Mockup ground for the role-row action buttons.</h2>
+    <p>
+      Five candidate replacements for the current Save / Apply / Ignore
+      cluster. Each frame uses the live row markup so spacing, type, and
+      palette match the production layout. Pick one (or mix), and the
+      chosen direction will replace <code>.job-actions</code> in
+      <code>FilterTable.svelte</code>.
+    </p>
+  </section>
+
+  <ol class="variants">
+    {VARIANTS.map((v) => (
+      <li class="variant" id={v.id}>
+        <header class="variant-head">
+          <h3>{v.name}</h3>
+          <p class="variant-tagline">{v.tagline}</p>
+          <p class="variant-summary">{v.summary}</p>
+        </header>
+
+        {/* Default-state row */}
+        <div class="row-frame" data-variant={v.id}>
+          <article class="job">
+            <div class="job-cell job-cell--role">
+              <h4 class="company">
+                <span class="company-name">Stripe</span>
+                <span class="new-badge" aria-label="new">NEW</span>
+              </h4>
+              <a class="job-title" href="#" onclick="event.preventDefault()">
+                Senior Software Engineer, Payments Infrastructure
+              </a>
+            </div>
+            <div class="job-cell job-cell--location">
+              San Francisco, CA <span class="rule" aria-hidden="true">·</span>
+              <span class="wt">Hybrid</span>
+            </div>
+            <div class="job-cell job-cell--level">Senior</div>
+            <div class="job-cell job-cell--posted">
+              <time datetime="2026-05-04">2d</time>
+            </div>
+            <div class="job-cell job-cell--actions">
+              {/* Variant-specific markup */}
+              {v.id === "m1" && (
+                <div class="m1-actions">
+                  <button type="button" class="m1-glyph save" title="Save">★</button>
+                  <a href="#" class="m1-cta" onclick="event.preventDefault()">
+                    Apply <span aria-hidden="true">→</span>
+                  </a>
+                  <button type="button" class="m1-glyph ignore" title="Hide">×</button>
+                </div>
+              )}
+
+              {v.id === "m2" && (
+                <div class="m2-actions">
+                  <a href="#" class="m2-cta" onclick="event.preventDefault()">
+                    Apply on Greenhouse <span aria-hidden="true">→</span>
+                  </a>
+                  <div class="m2-meta">
+                    <button type="button" class="m2-link">save</button>
+                    <span aria-hidden="true">·</span>
+                    <button type="button" class="m2-link">hide</button>
+                  </div>
+                </div>
+              )}
+
+              {v.id === "m3" && (
+                <div class="m3-actions">
+                  <a href="#" class="m3-cta" onclick="event.preventDefault()">
+                    Apply <span aria-hidden="true">→</span>
+                  </a>
+                  <button type="button" class="m3-ghost">
+                    <span aria-hidden="true">☆</span> Save
+                  </button>
+                  <button type="button" class="m3-text">ignore</button>
+                </div>
+              )}
+
+              {v.id === "m4" && (
+                <div class="m4-actions">
+                  <button type="button" class="m4-link save">Save</button>
+                  <span class="m4-sep" aria-hidden="true">·</span>
+                  <a href="#" class="m4-link apply" onclick="event.preventDefault()">
+                    Apply <span aria-hidden="true">→</span>
+                  </a>
+                  <span class="m4-sep" aria-hidden="true">·</span>
+                  <button type="button" class="m4-link hide">Not interested</button>
+                </div>
+              )}
+
+              {v.id === "m5" && (
+                <div class="m5-actions">
+                  <button type="button" class="m5-star" title="Save" aria-label="Save">★</button>
+                  <a href="#" class="m5-cta" onclick="event.preventDefault()">
+                    Apply on Greenhouse <span aria-hidden="true">→</span>
+                  </a>
+                  <details class="m5-more" open>
+                    <summary aria-label="more actions">⋯</summary>
+                    <div class="m5-menu">
+                      <button type="button">Hide this role</button>
+                      <button type="button">Mark as applied</button>
+                      <button type="button">Copy link</button>
+                    </div>
+                  </details>
+                </div>
+              )}
+            </div>
+          </article>
+
+          {/* Applied-state row, to show how the variant behaves once acted on */}
+          <article class="job applied">
+            <div class="job-cell job-cell--role">
+              <h4 class="company">
+                <span class="company-name">Anthropic</span>
+                <span class="applied-badge" aria-label="you have marked this as applied">APPLIED</span>
+              </h4>
+              <a class="job-title" href="#" onclick="event.preventDefault()">
+                Member of Technical Staff, Inference
+              </a>
+            </div>
+            <div class="job-cell job-cell--location">
+              Remote <span class="rule" aria-hidden="true">·</span>
+              <span class="wt">Remote</span>
+            </div>
+            <div class="job-cell job-cell--level">Staff</div>
+            <div class="job-cell job-cell--posted">
+              <time datetime="2026-04-30">5d</time>
+            </div>
+            <div class="job-cell job-cell--actions">
+              {v.id === "m1" && (
+                <div class="m1-actions">
+                  <button type="button" class="m1-glyph save is-on" title="Saved">★</button>
+                  <a href="#" class="m1-cta is-applied" onclick="event.preventDefault()">
+                    Re-open <span aria-hidden="true">→</span>
+                  </a>
+                  <button type="button" class="m1-glyph ignore" title="Hide">×</button>
+                </div>
+              )}
+              {v.id === "m2" && (
+                <div class="m2-actions">
+                  <a href="#" class="m2-cta is-applied" onclick="event.preventDefault()">
+                    Re-open on Greenhouse <span aria-hidden="true">→</span>
+                  </a>
+                  <div class="m2-meta">
+                    <button type="button" class="m2-link is-on">★ saved</button>
+                    <span aria-hidden="true">·</span>
+                    <button type="button" class="m2-link">hide</button>
+                  </div>
+                </div>
+              )}
+              {v.id === "m3" && (
+                <div class="m3-actions">
+                  <a href="#" class="m3-cta is-applied" onclick="event.preventDefault()">
+                    Re-open <span aria-hidden="true">→</span>
+                  </a>
+                  <button type="button" class="m3-ghost is-on">
+                    <span aria-hidden="true">★</span> Saved
+                  </button>
+                  <button type="button" class="m3-text">ignore</button>
+                </div>
+              )}
+              {v.id === "m4" && (
+                <div class="m4-actions">
+                  <button type="button" class="m4-link save is-on">★ Saved</button>
+                  <span class="m4-sep" aria-hidden="true">·</span>
+                  <a href="#" class="m4-link apply is-applied" onclick="event.preventDefault()">
+                    Re-open <span aria-hidden="true">→</span>
+                  </a>
+                  <span class="m4-sep" aria-hidden="true">·</span>
+                  <button type="button" class="m4-link hide">Not interested</button>
+                </div>
+              )}
+              {v.id === "m5" && (
+                <div class="m5-actions">
+                  <button type="button" class="m5-star is-on" title="Saved" aria-label="Saved">★</button>
+                  <a href="#" class="m5-cta is-applied" onclick="event.preventDefault()">
+                    Re-open on Greenhouse <span aria-hidden="true">→</span>
+                  </a>
+                  <details class="m5-more">
+                    <summary aria-label="more actions">⋯</summary>
+                    <div class="m5-menu">
+                      <button type="button">Unmark applied</button>
+                      <button type="button">Hide this role</button>
+                      <button type="button">Copy link</button>
+                    </div>
+                  </details>
+                </div>
+              )}
+            </div>
+          </article>
+        </div>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<style>
+  .lede {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+  }
+  .kicker {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    color: var(--color-ink-3);
+    font-size: var(--text-0);
+  }
+  .lede h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-5);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .lede p {
+    color: var(--color-ink-2);
+    max-width: 60ch;
+  }
+  code {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    background: var(--color-rule-soft);
+    padding: 0 var(--space-1);
+  }
+
+  .variants {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-7);
+    padding-block-end: var(--space-9);
+  }
+  .variant {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .variant-head h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-4);
+    margin: 0 0 var(--space-1);
+  }
+  .variant-tagline {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    color: var(--color-accent);
+    font-size: var(--text-1);
+    margin: 0 0 var(--space-2);
+  }
+  .variant-summary {
+    color: var(--color-ink-2);
+    margin: 0;
+    max-width: 70ch;
+  }
+
+  /* ---------- Shared row chrome (mirrors FilterTable .job) ---------- */
+  .row-frame {
+    border-block-start: var(--rule-2) solid var(--color-rule);
+    border-block-end: var(--rule-2) solid var(--color-rule);
+  }
+  .row-frame .job {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, auto);
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-block-end: var(--rule-1) solid var(--color-rule-soft);
+  }
+  .row-frame .job:last-child {
+    border-block-end: 0;
+  }
+  .company {
+    margin: 0 0 var(--space-1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    color: var(--color-ink-3);
+    font-weight: 700;
+  }
+  .company-name { color: var(--color-ink); }
+  .new-badge,
+  .applied-badge {
+    font-size: var(--text-00);
+    padding: 0 var(--space-1);
+    border: var(--rule-1) solid currentColor;
+  }
+  .new-badge { color: var(--color-accent); }
+  .applied-badge { color: var(--color-ink-3); }
+  .job-title {
+    color: var(--color-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--text-2);
+    line-height: 1.25;
+  }
+  .job-title:hover { text-decoration: underline; }
+  .job-cell--location,
+  .job-cell--level,
+  .job-cell--posted {
+    color: var(--color-ink-2);
+    font-size: var(--text-1);
+  }
+  .rule { color: var(--color-ink-3); margin-inline: var(--space-1); }
+  .wt {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    font-size: var(--text-0);
+    color: var(--color-ink-3);
+  }
+  time { font-variant-numeric: tabular-nums; }
+  .job.applied { opacity: 0.85; }
+  .job.applied .job-title { color: var(--color-ink-2); }
+
+  /* ---------- M1: Glyph row ---------- */
+  .m1-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .m1-glyph {
+    width: var(--tap);
+    height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: var(--color-ink-3);
+    font-size: var(--text-3);
+    cursor: pointer;
+    transition: color 120ms ease;
+  }
+  .m1-glyph:hover { color: var(--color-ink); }
+  .m1-glyph.is-on { color: var(--color-accent); }
+  .m1-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tap);
+    padding: 0 var(--space-3);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    text-decoration: none;
+    border: var(--rule-1) solid var(--color-accent);
+  }
+  .m1-cta:hover { background: var(--color-ink); border-color: var(--color-ink); }
+  .m1-cta.is-applied {
+    background: transparent;
+    color: var(--color-ink-3);
+    border-color: var(--color-ink-3);
+  }
+
+  /* ---------- M2: One CTA, meta links ---------- */
+  .m2-actions {
+    display: grid;
+    justify-items: end;
+    gap: var(--space-1);
+  }
+  .m2-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tap);
+    padding: 0 var(--space-4);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    text-decoration: none;
+    border: var(--rule-1) solid var(--color-accent);
+  }
+  .m2-cta:hover { background: var(--color-ink); border-color: var(--color-ink); }
+  .m2-cta.is-applied {
+    background: transparent;
+    color: var(--color-ink-2);
+    border-color: var(--color-ink-3);
+  }
+  .m2-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-0);
+    color: var(--color-ink-3);
+  }
+  .m2-link {
+    background: transparent;
+    border: 0;
+    padding: var(--space-1);
+    color: var(--color-ink-3);
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    cursor: pointer;
+  }
+  .m2-link:hover { color: var(--color-ink); text-decoration: underline; }
+  .m2-link.is-on { color: var(--color-accent); }
+
+  /* ---------- M3: Three weights ---------- */
+  .m3-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .m3-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tap);
+    padding: 0 var(--space-3);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    text-decoration: none;
+    border: var(--rule-1) solid var(--color-accent);
+    min-width: 5.5rem;
+    justify-content: center;
+  }
+  .m3-cta:hover { background: var(--color-ink); border-color: var(--color-ink); }
+  .m3-cta.is-applied {
+    background: transparent;
+    color: var(--color-ink-3);
+    border-color: var(--color-ink-3);
+  }
+  .m3-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tap);
+    padding: 0 var(--space-2);
+    background: transparent;
+    color: var(--color-ink-2);
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    border: var(--rule-1) solid var(--color-rule);
+    cursor: pointer;
+  }
+  .m3-ghost:hover { color: var(--color-ink); border-color: var(--color-ink); }
+  .m3-ghost.is-on { color: var(--color-accent); border-color: var(--color-accent); }
+  .m3-text {
+    background: transparent;
+    border: 0;
+    padding: 0 var(--space-2);
+    height: var(--tap);
+    color: var(--color-ink-3);
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    cursor: pointer;
+  }
+  .m3-text:hover { color: var(--color-ink); text-decoration: underline; }
+
+  /* ---------- M4: Editorial byline ---------- */
+  .m4-actions {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    color: var(--color-ink-3);
+  }
+  .m4-link {
+    background: transparent;
+    border: 0;
+    padding: var(--space-1) var(--space-1);
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wider);
+    color: var(--color-ink-2);
+    text-decoration: none;
+    cursor: pointer;
+    min-height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+  }
+  .m4-link:hover { color: var(--color-ink); text-decoration: underline; }
+  .m4-link.apply { color: var(--color-accent); }
+  .m4-link.apply:hover { color: var(--color-ink); }
+  .m4-link.is-on { color: var(--color-accent); }
+  .m4-link.is-applied { color: var(--color-ink-3); }
+  .m4-sep { font-size: var(--text-0); color: var(--color-ink-3); }
+
+  /* ---------- M5: Stacked corner star + kebab ---------- */
+  .m5-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    position: relative;
+  }
+  .m5-star {
+    width: var(--tap);
+    height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: var(--color-ink-3);
+    font-size: var(--text-3);
+    cursor: pointer;
+  }
+  .m5-star:hover { color: var(--color-ink); }
+  .m5-star.is-on { color: var(--color-accent); }
+  .m5-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: var(--tap);
+    padding: 0 var(--space-4);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-1);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    text-decoration: none;
+    border: var(--rule-1) solid var(--color-accent);
+  }
+  .m5-cta:hover { background: var(--color-ink); border-color: var(--color-ink); }
+  .m5-cta.is-applied {
+    background: transparent;
+    color: var(--color-ink-3);
+    border-color: var(--color-ink-3);
+  }
+  .m5-more {
+    position: relative;
+  }
+  .m5-more > summary {
+    list-style: none;
+    width: var(--tap);
+    height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ink-3);
+    font-size: var(--text-3);
+    cursor: pointer;
+  }
+  .m5-more > summary::-webkit-details-marker { display: none; }
+  .m5-more > summary:hover { color: var(--color-ink); }
+  .m5-menu {
+    position: absolute;
+    top: calc(var(--tap) + var(--space-1));
+    right: 0;
+    z-index: 10;
+    display: grid;
+    background: var(--color-paper);
+    border: var(--rule-1) solid var(--color-rule);
+    box-shadow: 0 2px 0 var(--color-rule);
+    min-width: 14rem;
+  }
+  .m5-menu button {
+    background: transparent;
+    border: 0;
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: var(--text-0);
+    text-transform: uppercase;
+    letter-spacing: var(--track-wide);
+    color: var(--color-ink-2);
+    cursor: pointer;
+    border-block-end: var(--rule-1) solid var(--color-rule-soft);
+  }
+  .m5-menu button:last-child { border-block-end: 0; }
+  .m5-menu button:hover { background: var(--color-ink); color: var(--color-paper); }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 640px) {
+    .row-frame .job {
+      grid-template-columns: 1fr auto;
+      grid-auto-rows: auto;
+      gap: var(--space-2);
+    }
+    .job-cell--role { grid-column: 1 / -1; }
+    .job-cell--location,
+    .job-cell--level,
+    .job-cell--posted { grid-column: 1; }
+    .job-cell--actions { grid-column: 1 / -1; justify-self: stretch; }
+    .m2-actions { justify-items: stretch; }
+    .m2-cta { justify-content: center; }
+    .m3-actions,
+    .m1-actions,
+    .m5-actions { flex-wrap: wrap; }
+    .m4-actions { flex-wrap: wrap; }
+  }
+</style>
