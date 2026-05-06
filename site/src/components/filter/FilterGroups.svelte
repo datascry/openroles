@@ -2,6 +2,7 @@
 import { onMount } from "svelte";
 import type { FilterState } from "../../lib/filter-state.ts";
 import { loadGroupExpansion, saveGroupExpansion } from "../../lib/group-storage.ts";
+import AtsGroup from "./AtsGroup.svelte";
 import LevelGroup from "./LevelGroup.svelte";
 import MinCompGroup from "./MinCompGroup.svelte";
 import PersonalToggles from "./PersonalToggles.svelte";
@@ -9,12 +10,11 @@ import PostedGroup from "./PostedGroup.svelte";
 import StatusToggles from "./StatusToggles.svelte";
 import WorkplaceGroup from "./WorkplaceGroup.svelte";
 
-// AtsGroup is intentionally NOT imported. ATS-platform identity is a
-// developer-facing detail; users don't filter roles by which hiring
-// platform hosts them, and over half of the 24 platforms ship with
-// near-zero rows in any given build. The `filters.ats` field stays in
-// FilterState for URL-back-compat (an old shared link with `?ats=…`
-// still parses) but the UI no longer surfaces it.
+// ATS sits at the bottom of the sidebar and starts collapsed by default.
+// Most job seekers don't filter by which hiring platform hosts a role,
+// so it's de-emphasized — but power users (e.g. people avoiding a
+// specific ATS for accessibility / process reasons) can still reach it
+// in one click without leaving the sidebar.
 
 /**
  * Renders every filter group in vertical sequence. Used by both the desktop
@@ -46,14 +46,14 @@ let {
   collapsible = false,
 }: Props = $props();
 
-const GROUP_IDS = ["wt", "posted", "level", "minComp", "status", "personal"] as const;
+const GROUP_IDS = ["wt", "posted", "level", "minComp", "status", "personal", "ats"] as const;
 type GroupId = (typeof GROUP_IDS)[number];
 
 // Default policy reflects user-stated priorities (workplace + posted are
-// the two filters first-time visitors reach for). ATS is dropped from
-// the sidebar entirely — see file-top comment. Per-user expansion
+// the two filters first-time visitors reach for). ATS sits last and
+// starts collapsed — see file-top comment. Per-user expansion
 // preferences are restored from localStorage onMount; first-visit users
-// see this default. Personal auto-expands below if the user has any
+// see these defaults. Personal auto-expands below if the user has any
 // saved/applied/ignored roles (return-visitor signal).
 let expansion = $state<Record<GroupId, boolean>>({
   wt: true,
@@ -62,6 +62,7 @@ let expansion = $state<Record<GroupId, boolean>>({
   minComp: false,
   status: false,
   personal: false,
+  ats: false,
 });
 
 // Hydrate persisted expansion state once on mount. A reactive $effect would
@@ -144,6 +145,17 @@ function setExpansion(id: GroupId, value: boolean) {
     collapsible={collapsible}
     expanded={expansion.personal}
     onExpandToggle={(v) => setExpansion("personal", v)}
+  />
+  <!-- ATS is the bottom-most section and starts collapsed. Surfaces
+       the long list of hiring platforms for users who specifically
+       want to include / exclude one without dominating the sidebar. -->
+  <AtsGroup
+    filters={filters}
+    onPatch={onPatch}
+    counts={optionCounts?.ats}
+    collapsible={collapsible}
+    expanded={expansion.ats}
+    onExpandToggle={(v) => setExpansion("ats", v)}
   />
 </div>
 

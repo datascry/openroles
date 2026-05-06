@@ -991,7 +991,13 @@ function ariaSort(
                 aria-pressed={isSaved(row.short_id)}
                 onclick={() => onToggleSaved(row.short_id)}
               >
-                {isSaved(row.short_id) ? "★ Saved" : "☆ Save"}
+                <!-- ☆ default / ★ saved. aria-hidden because aria-pressed
+                     already exposes the toggle state to assistive tech;
+                     the glyph is purely visual reinforcement. -->
+                <span class="job-action-glyph" aria-hidden="true"
+                  >{isSaved(row.short_id) ? "★" : "☆"}</span
+                >
+                {isSaved(row.short_id) ? "Saved" : "Save"}
               </button>
               <a
                 href={row.url}
@@ -1009,6 +1015,13 @@ function ariaSort(
                 aria-pressed={isIgnored(row.short_id)}
                 onclick={() => onToggleIgnored(row.short_id)}
               >
+                <!-- × = dismiss (default); ↺ = restore (when already
+                     ignored, clicking brings the row back). The glyph
+                     advertises what the next click will do, mirroring
+                     the Save button's ☆/★ toggle. -->
+                <span class="job-action-glyph" aria-hidden="true"
+                  >{isIgnored(row.short_id) ? "↺" : "×"}</span
+                >
                 {isIgnored(row.short_id) ? "Unignore" : "Ignore"}
               </button>
             </div>
@@ -1702,6 +1715,15 @@ function ariaSort(
   }
   .job-action.ignore[aria-pressed="true"]:hover {
     color: var(--color-accent);
+  }
+  /* Glyph sits flush against the label with a thin space. Slightly
+     larger than the label so it reads as iconography, not a typo. */
+  .job-action-glyph {
+    margin-inline-end: 0.35em;
+    font-size: 1.05em;
+    line-height: 1;
+    display: inline-block;
+    transform: translateY(0.05em);
   }
 
   /* ---------- Pager ----------
