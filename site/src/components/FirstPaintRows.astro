@@ -83,6 +83,22 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
 {
   rows.length > 0 && (
     <aside id="first-paint-rows" aria-hidden="false" data-row-count={rows.length}>
+      {/* Search-bar + filter-bar placeholder. Reserves the vertical
+          space the SearchBar + filter-chip strip will occupy after
+          hydration so the role list doesn't lurch upward when the
+          FilterTable mounts. ~146 px is the actual measured height
+          on desktop (search 60 + chips 56 + margins). */}
+      <div class="first-paint-chrome" aria-hidden="true">
+        <div class="first-paint-search" />
+        <div class="first-paint-filter-bar" />
+      </div>
+      {/* Two-column wrapper mirroring FilterTable's .layout-grid so
+          the SSR rows occupy the same horizontal slot the hydrated
+          rows will. The empty .first-paint-sidebar-slot reserves the
+          ~320 px sidebar column at ≥800 px viewports. */}
+      <div class="first-paint-layout">
+        <div class="first-paint-sidebar-slot" aria-hidden="true" />
+        <div class="first-paint-main">
       <ul class="results" role="list">
         {rows.map((r) => {
           const stale = r.is_stale;
@@ -151,6 +167,8 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
           Loading filter index… interactive filters available in a moment.
         </small>
       </p>
+        </div>
+      </div>
     </aside>
   )
 }
@@ -182,6 +200,48 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
 
   #first-paint-rows {
     display: block;
+  }
+
+  /* Reserve the vertical space SearchBar + FilterBar will fill after
+     hydration, so the role list doesn't lurch up when the island
+     mounts. Heights are calibrated to the measured rendered chrome
+     (search input ≈ 60 px, filter strip ≈ 56 px, plus margins). */
+  .first-paint-chrome {
+    margin-block-end: var(--space-2);
+  }
+  .first-paint-search {
+    height: 76px;
+    margin-block-end: var(--space-3);
+  }
+  .first-paint-filter-bar {
+    height: 56px;
+    margin-block-end: var(--space-2);
+    border-bottom: var(--rule-1) solid var(--color-rule);
+  }
+
+  /* Single-column layout below the sidebar breakpoint — the placeholder
+     collapses, rows take the full width as they would post-hydration. */
+  .first-paint-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .first-paint-sidebar-slot { display: none; }
+  .first-paint-main { min-width: 0; }
+
+  /* At desktop widths, mirror the hydrated FilterTable's grid exactly:
+     320-340 px sidebar + 1fr main column. The placeholder is invisible
+     but reserves the same horizontal slot, so the role rows render at
+     their post-hydration width and don't shift left when the sidebar
+     mounts. */
+  @media (min-width: 800px) {
+    .first-paint-layout {
+      grid-template-columns: minmax(280px, 340px) 1fr;
+    }
+    .first-paint-sidebar-slot {
+      display: block;
+      min-height: 1px;
+    }
   }
 
   .first-paint-note {

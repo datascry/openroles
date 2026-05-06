@@ -62,31 +62,9 @@ const SINCE_LABEL: Record<SinceWindow, string> = {
   "90d": "LAST 90 DAYS",
 };
 
-// Sort options trimmed to the two end-users actually want — "what's new"
-// and "find a specific company alphabetically". The other six (oldest-
-// first, first-seen, company Z→A, level ↑/↓) are either developer-
-// facing concepts or are already covered by filters (Level chips do
-// what level-sort would). Keeping the popover short also keeps the
-// dataset's worst-case sort cost bounded — at 750k rows every sort is
-// a 2–10 s synchronous walk; halving the option list halves the
-// chance a curious click triggers an avoidable wait. SortOption stays
-// wider for URL-back-compat so a saved-search link with ?sort=level:asc
-// still parses; it just falls back to the default in the UI.
-const SORT_OPTIONS: ReadonlyArray<{ value: SortOption; label: string }> = [
-  { value: "posted_at:desc", label: "Newest first" },
-  { value: "company:asc", label: "Company A→Z" },
-];
-
-const SORT_SHORT: Record<SortOption, string> = {
-  "posted_at:desc": "NEWEST FIRST",
-  "posted_at:asc": "NEWEST FIRST",
-  "first_seen:desc": "NEWEST FIRST",
-  "first_seen:asc": "NEWEST FIRST",
-  "company:asc": "COMPANY A→Z",
-  "company:desc": "COMPANY A→Z",
-  "level:asc": "NEWEST FIRST",
-  "level:desc": "NEWEST FIRST",
-};
+// Sort UI removed entirely. Default order is `posted_at:desc` (newest
+// first). SortOption stays for URL-back-compat (parses ?sort= for old
+// links) and SORT_KEY_MAP below maps it to the runFilter sort step.
 
 const PAGE_SIZE = 50;
 // Q_DEBOUNCE: how long the search input waits before pushing into state.
@@ -108,7 +86,7 @@ type DbStatus = "loading" | "loading-progressive" | "ready" | "error";
 
 const SHORT_ID_RE = /^[0-9a-f]{16}$/;
 
-type FilterCategory = "ats" | "level" | "wt" | "since" | "min_comp" | "sort";
+type FilterCategory = "ats" | "level" | "wt" | "since" | "min_comp";
 
 let state: FilterState = $state(
   typeof window === "undefined"
@@ -814,35 +792,14 @@ function ariaSort(
     onclick={() => { sheetOpen = true; }}
   >Filters{activeFilterCount > 0 ? ` · ${activeFilterCount}` : ""}</button>
 
-  <div class="popover-anchor sort-anchor">
-    <button
-      type="button"
-      class="add-button"
-      aria-haspopup="true"
-      aria-expanded={openCategory === "sort"}
-      onclick={() => togglePopover("sort")}
-    >Sort: {SORT_SHORT[state.sort]}</button>
-    {#if openCategory === "sort"}
-      <div class="popover popover--narrow popover--right" role="dialog" aria-label="Sort">
-        <ul role="list" class="radio-list">
-          {#each SORT_OPTIONS as opt (opt.value)}
-            <li>
-              <label class="radio">
-                <input
-                  type="radio"
-                  name="sort"
-                  value={opt.value}
-                  checked={state.sort === opt.value}
-                  onchange={() => { setSort(opt.value); closePopover(); }}
-                />
-                <span>{opt.label}</span>
-              </label>
-            </li>
-          {/each}
-        </ul>
-      </div>
-    {/if}
-  </div>
+  <!-- Sort UI removed. The default order is `posted_at:desc` (newest
+       first), which is what 95% of job seekers want; the other options
+       were either developer concepts (first_seen) or duplicated by the
+       Level filter chips. URL-back-compat preserved: a saved-search
+       link with `?sort=…` still parses but the param is honored only
+       for posted_at variants — anything else falls back to the
+       default. SortKey + SORT_KEY_MAP + sortRows kept for the runFilter
+       internal sort step. -->
 
   {#if activeFilterCount > 0}
     <button type="button" class="reset" onclick={resetAll}>Reset all</button>
@@ -1366,7 +1323,6 @@ function ariaSort(
     position: relative;
     display: inline-flex;
   }
-  .sort-anchor { margin-inline-start: auto; }
 
   .popover {
     position: absolute;
@@ -1833,6 +1789,22 @@ function ariaSort(
       column-gap: var(--space-3);
       align-items: start;
       padding-block: var(--space-3);
+    }
+    /* Defensive cell clipping. Every grid cell must obey its column max
+       — without this, a long single-token field like a 30-char level
+       value or a no-spaces title could expand its cell and visually
+       overlap the next column. min-width:0 lets the grid shrink the
+       cell below content min-content width; overflow:hidden + ellipsis
+       keep any escaped string inside its own column. */
+    .job > .job-cell {
+      min-width: 0;
+      overflow: hidden;
+    }
+    .job-cell--location,
+    .job-cell--level,
+    .job-cell--posted {
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .results-head {
       display: grid;
