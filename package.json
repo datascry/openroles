@@ -44,5 +44,11 @@
   },
   "trustedDependencies": [
     "lefthook"
-  ]
+  ],
+  "dependencies": {
+    "socks": "2.8.8"
+  },
+  "overrides": {
+    "ip-address": "^10.2.0"
+  }
 }
