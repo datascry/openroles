@@ -166,6 +166,29 @@ describe("withRetry", () => {
     expect(events).toEqual([1]);
   });
 
+  it("uses the default setTimeout-backed sleep when none is injected", async () => {
+    // No sleep injected: the production setTimeout-wrapper sleep fires
+    // through the real event loop. backoffMs=[1] is positive so the
+    // sleep guard `if (delay > 0)` actually invokes the wrapper, but
+    // 1 ms keeps the test under ~50 ms wall time.
+    let calls = 0;
+    const start = Date.now();
+    try {
+      await withRetry(
+        async () => {
+          calls += 1;
+          throw new Error("x");
+        },
+        { attempts: 2, backoffMs: [1] },
+      );
+    } catch {
+      // expected
+    }
+    expect(calls).toBe(2);
+    // Sanity: with 1 ms backoff the run resolves in well under a second.
+    expect(Date.now() - start).toBeLessThan(1000);
+  });
+
   it("falls back to a 0ms delay when backoffMs is empty", async () => {
     const slept: number[] = [];
     let calls = 0;

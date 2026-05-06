@@ -34,14 +34,12 @@ export interface RetryOptions {
 }
 
 const DEFAULT_BACKOFF = [200, 800, 2000];
-/* c8 ignore next 1 — production setTimeout wrapper; tests inject a fake. */
-const DEFAULT_SLEEP = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions = {}): Promise<T> {
   const attempts = opts.attempts ?? 3;
   const backoffMs = opts.backoffMs ?? DEFAULT_BACKOFF;
-  const shouldRetry = opts.shouldRetry ?? (() => true);
-  const sleep = opts.sleep ?? DEFAULT_SLEEP;
+  const shouldRetry = opts.shouldRetry ?? alwaysRetry;
+  const sleep = opts.sleep ?? defaultSleep;
 
   let lastErr: unknown;
   for (let i = 0; i < attempts; i++) {
@@ -57,4 +55,16 @@ export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions = {}
     }
   }
   throw lastErr;
+}
+
+// Standalone helpers (declared out of line so each one shows up as a
+// distinct named function in the coverage report — anonymous arrow
+// fallbacks declared inline would otherwise hide behind the parent
+// withRetry function and never count as covered until exercised).
+function alwaysRetry(): boolean {
+  return true;
+}
+
+function defaultSleep(ms: number): Promise<void> {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
 }
