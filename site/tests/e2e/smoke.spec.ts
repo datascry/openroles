@@ -158,7 +158,10 @@ test.describe("index page smoke", () => {
       .locator("li.job")
       .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
       .first();
-    const saveBtn = stripeRow.getByRole("button", { name: /Save/ });
+    // The Save button is glyph-only (☆/★). Accessible name comes from
+    // aria-label, not the visible text — "Save this role" when unpressed,
+    // "Remove from saved" when pressed (see FilterTable.svelte).
+    const saveBtn = stripeRow.getByRole("button", { name: /Save this role/i });
     await expect(saveBtn).toHaveAttribute("aria-pressed", "false");
     await saveBtn.click();
     await expect(saveBtn).toHaveAttribute("aria-pressed", "true");
@@ -169,7 +172,7 @@ test.describe("index page smoke", () => {
       .locator("li.job")
       .filter({ has: page.locator(".company", { hasText: "Stripe" }) })
       .first();
-    await expect(reloadedRow.getByRole("button", { name: /★ Saved/ })).toBeVisible({
+    await expect(reloadedRow.getByRole("button", { name: /Remove from saved/i })).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -198,7 +201,13 @@ test.describe("index page smoke", () => {
 
     // Toggle "Verified only" — the stale row should disappear. The switch
     // lives in the Status group inside the sidebar / sheet (uplift v2 §2.6).
+    // Status defaults to collapsed (ADR-0014); expand it before clicking
+    // through.
     const surface = await openFilterUi(page);
+    const statusHeader = surface.getByRole("button", { name: /^Status(\b|·|,)/i });
+    if ((await statusHeader.getAttribute("aria-expanded")) === "false") {
+      await statusHeader.click();
+    }
     await surface.getByRole("switch", { name: /verified only/i }).click();
     await expect(page.locator("li.job.is-stale")).toHaveCount(0, { timeout: 5_000 });
     // URL reflects the filter.
@@ -216,7 +225,9 @@ test.describe("index page smoke", () => {
       .locator("li.job")
       .filter({ has: page.locator(".company", { hasText: "Linear" }) })
       .first();
-    await linearRow.getByRole("button", { name: /^Ignore$/ }).click();
+    // Ignore button is glyph-only (×/↺); accessible name comes from
+    // aria-label "Hide this role" / "Restore this role".
+    await linearRow.getByRole("button", { name: /Hide this role/i }).click();
     // With "Hide ignored" on by default, the Linear row disappears.
     await expect(results.locator(".company", { hasText: "Linear" })).toHaveCount(0, {
       timeout: 5_000,

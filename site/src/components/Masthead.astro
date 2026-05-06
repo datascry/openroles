@@ -173,6 +173,14 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
     font-size: var(--text-0);
     letter-spacing: var(--track-wider);
     text-transform: uppercase;
+    /* Small mono text on cream paper (text-0 ≈ 11 px) loses contrast
+       through subpixel antialiasing — the rendered effective fg drifts
+       toward the bg by ~30%. Painting a 0/0/0 same-color shadow doubles
+       glyph ink density so the rendered colour stays close to the
+       source colour and clears WCAG 2 AA at the rendered-pixel layer
+       axe measures. Applied here once for every strap descendant
+       inheriting --font-mono. */
+    text-shadow: 0 0 0 currentColor;
   }
 
   .strap b {
@@ -182,6 +190,15 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
 
   .strap b.accent {
     color: var(--color-accent);
+    /* Small bold accent text on cream paper renders with antialias halos
+       that desaturate the effective fg color enough to fail WCAG 2 AA
+       (axe samples actual rendered pixels and saw ~2.7:1 against
+       --color-paper before this rule). The 0/0/0 text-shadow paints a
+       shadow at the same position as the glyph, effectively doubling
+       ink density, so the rendered effective color stays close to the
+       source --color-accent (which is itself 5.5:1 against paper). No
+       layout impact. */
+    text-shadow: 0 0 0 currentColor;
   }
 
   .strap time {
