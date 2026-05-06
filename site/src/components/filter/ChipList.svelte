@@ -156,7 +156,12 @@ const hiddenCount = $derived(
     cursor: pointer;
     transition: background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out;
   }
-  .chip:hover:not(:disabled) {
+  /* :not(.is-active) is load-bearing: without it, hovering an active
+     chip overrides .chip.is-active's text color. The active chip's
+     background is --color-ink (cream in dark mode, near-black in
+     light mode); the hover rule's color: var(--color-ink) would then
+     paint cream-on-cream / black-on-black — text would vanish. */
+  .chip:hover:not(:disabled):not(.is-active) {
     border-color: var(--color-ink);
     color: var(--color-ink);
   }
@@ -164,6 +169,13 @@ const hiddenCount = $derived(
     background: var(--color-ink);
     border-color: var(--color-ink);
     color: var(--color-paper);
+  }
+  .chip.is-active:hover:not(:disabled) {
+    /* Active-chip hover: keep readable contrast (paper-on-ink) and
+       hint affordance via the accent border. */
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-accent);
   }
   .chip.is-active .chip-x {
     color: var(--color-accent);

@@ -74,10 +74,18 @@ function pick(id: SinceWindow) {
     cursor: pointer;
     transition: background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out;
   }
-  .chip:hover { border-color: var(--color-ink); color: var(--color-ink); }
+  /* :not(.is-active) prevents the hover rule from clobbering active-chip
+     contrast — without it, hovering an active chip would paint the
+     ink-colored text on the ink-colored bg (invisible). */
+  .chip:hover:not(.is-active) { border-color: var(--color-ink); color: var(--color-ink); }
   .chip.is-active {
     background: var(--color-ink);
     border-color: var(--color-ink);
     color: var(--color-paper);
+  }
+  .chip.is-active:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-accent);
   }
 </style>
