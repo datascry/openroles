@@ -191,8 +191,16 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
   /* Build SHA — link out to the upstream commit. Same monospace
      family as the rest of the strap; ink-3 by default; underline on
      hover so it reads as actionable without competing with the
-     accent-colored live-roles count. */
+     accent-colored live-roles count.
+
+     min-height/padding meet WCAG 2.5.5 tap-target sizing (24x24+) so
+     keyboard / touch users aren't squeezed into a 16 px line-height
+     hit zone. Inline-flex centers the text inside the bumped box. */
   .build-sha {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 4px;
     color: var(--color-ink-3);
     text-decoration: none;
     font-family: var(--font-mono);
