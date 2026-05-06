@@ -300,6 +300,20 @@ function gotoPage(page: number) {
   if (page < 1) return;
   state = { ...state, page };
   syncUrl(state);
+  // Scroll the role list back to the top of viewport. Without this, the
+  // browser's scroll-anchoring keeps the clicked pager button in view —
+  // on mobile that lands the user in the middle of page N+1's content
+  // instead of its first row, which reads as "next page is broken".
+  // requestAnimationFrame waits for the new rows to render so the
+  // results-status banner is the right scroll target.
+  if (typeof requestAnimationFrame !== "undefined") {
+    requestAnimationFrame(() => {
+      const target = document.querySelector(".results-status");
+      if (target && "scrollIntoView" in target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
 }
 
 function resetAll() {

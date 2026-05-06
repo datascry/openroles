@@ -32,9 +32,11 @@ const dateline = `${days[builtAt.getUTCDay()]} ${String(builtAt.getUTCDate()).pa
 
 const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
 
-const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> = [
-  { key: "browse", label: "BROWSE", href: `${basePath}/` },
-];
+// Nav is currently empty: with no per-role detail pages, no /saved or
+// /about routes, and the brand wordmark already linking home, a BROWSE
+// link to the same place was redundant. Kept the array shape so adding
+// a real second route later is a one-line patch.
+const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> = [];
 ---
 
 <header class="masthead">
