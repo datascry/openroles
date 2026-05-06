@@ -67,11 +67,16 @@ const SINCE_LABEL: Record<SinceWindow, string> = {
 // links) and SORT_KEY_MAP below maps it to the runFilter sort step.
 
 const PAGE_SIZE = 50;
-// Q_DEBOUNCE: how long the search input waits before pushing into state.
-// 100ms is short enough that the count feels live as you type yet long
-// enough that "threat" (6 chars at ~80ms/key) only triggers ONE filter
-// pass after the last keystroke instead of one per character.
-const Q_DEBOUNCE_MS = 100;
+// Q_DEBOUNCE: how long the search input waits before pushing into
+// state. At 100 ms each keystroke fired a fresh filter pass over the
+// 750k-row slim-index — on a mobile CPU a single pass costs 200-500 ms,
+// so consecutive keystrokes piled up unfinished work and read as
+// "search is laggy". 250 ms aligns with typical typing rhythm (most
+// users pause >250 ms between intentional words) so a typed word
+// triggers exactly one filter pass at the end, not one per character.
+// QUERY_DEBOUNCE keeps a tiny coalesce window for chained state writes
+// (page + filter changing in the same tick).
+const Q_DEBOUNCE_MS = 250;
 const QUERY_DEBOUNCE_MS = 50;
 
 // Phase 14: rows come from the slim-index in memory. The shape matches
