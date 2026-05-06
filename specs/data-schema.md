@@ -1,6 +1,6 @@
 # Spec: Data schema
 
-**Version**: 1.0.0 (frozen on first deploy; bump major on backward-incompatible changes)
+**Version**: 1.3.0 (matches `SCHEMA_VERSION` in [`shared/src/constants.ts`](../shared/src/constants.ts); bump major on backward-incompatible changes)
 
 The on-disk schema is the single source of truth shared by the scraper, the build-db step, and the site. zod schemas in `shared/src/schema/` validate at every boundary.
 
@@ -9,10 +9,15 @@ The on-disk schema is the single source of truth shared by the scraper, the buil
 ### `ATSId`
 
 ```typescript
-type ATSId = "greenhouse" | "lever" | "ashby" | "bamboohr" | "workday" | "icims";
+type ATSId =
+  | "greenhouse" | "lever" | "ashby" | "bamboohr" | "workday" | "icims"
+  | "recruitee" | "breezy" | "personio" | "workable" | "teamtailor"
+  | "smartrecruiters" | "csod" | "taleo" | "ultipro" | "jobvite"
+  | "zohorecruit" | "talentlyft" | "pinpointhq" | "applicantpro"
+  | "applicantstack" | "homerun" | "factorial" | "eightfold";
 ```
 
-The set is closed for now. Adding a new ATS bumps the schema minor version.
+Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding an ATS bumps the schema minor version.
 
 ### `Level`
 
@@ -202,10 +207,24 @@ CREATE INDEX idx_jobs_country_region        ON jobs(location_country, location_r
 ### Final build steps
 
 ```sql
-PRAGMA page_size = 1024;       -- match sql.js-httpvfs requestChunkSize
+PRAGMA page_size = 1024;       -- legacy from the sql.js-httpvfs era
+                               -- (ADR-0002, superseded by ADR-0012);
+                               -- preserved for the parquet side artifact
+                               -- and small-file VACUUM efficiency
 VACUUM;
-INSERT INTO jobs_fts(jobs_fts) VALUES ('optimize');  -- compact FTS5 segments
+INSERT INTO jobs_fts(jobs_fts) VALUES ('optimize');  -- compact FTS5
+                                                     -- segments; FTS5 is
+                                                     -- still used at
+                                                     -- build-time for
+                                                     -- drift queries,
+                                                     -- not at runtime
 ```
+
+> The build-time SQLite is not deployed (ADR-0012). The runtime data
+> path is the slim-index — 38 chunked `.json.gz` files derived from
+> the same row set, emitted by `db/slim-index.ts`. The schema below is
+> still authoritative for the build-time DB and the parquet side
+> artifact.
 
 `page_size = 1024` must run **before** any data is written to the file; `VACUUM` enforces it after the schema is created.
 

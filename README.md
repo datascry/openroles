@@ -1,42 +1,108 @@
 # openroles
 
-A static, queryable job board across **24 applicant tracking systems**. Scrapes each ATS's public API or sitemap, ships a daily-refreshed SQLite database to GitHub Pages, and lets the browser filter tens of thousands of live roles client-side over real SQL. No backend. No accounts. No email. No tracking.
+A static, privacy-respecting job-board aggregator across 24 applicant
+tracking systems. No tracking. No ads. No accounts. The whole site is
+HTML and JSON served from GitHub Pages; filters and saved-role state
+live in your browser, never on a server.
 
-## Features
+> [!NOTE]
+> Live at **https://datascry.github.io/openroles/**.
+> Refreshed every night.
 
-- **24-ATS coverage** — Greenhouse, Lever, Ashby, BambooHR, Workday, iCIMS, Recruitee, Breezy, Personio, Workable, Teamtailor, SmartRecruiters, csod, Taleo, UltiPro, Jobvite, Zoho Recruit, Talentlyft, Pinpoint HQ, ApplicantPro, ApplicantStack, Homerun, Factorial, Eightfold.
-- **Real SQL in your browser** — content-hashed SQLite served over HTTP range requests via `sql.js-httpvfs`. FTS5 over title / company / description; standard SQL across the rest.
-- **Search modifiers** — `field:value` syntax for `title`, `company`, `description`, `location`. Quoted phrases. AND-joined multi-term. See [specs/filter-ui.md](specs/filter-ui.md).
-- **Saved / Applied / Ignored sub-views** — single-select filter chips backed by `localStorage`; nothing leaves the browser.
-- **Mobile-first UI with a brutalist visual theme** — system fonts only (no web font requests), light + dark mode with a persistent toggle, WCAG 2.1 AA contrast verified by axe-core in CI. See [specs/visual-theme.md](specs/visual-theme.md).
-- **Role lifecycle** — roles whose tenant API failed today carry forward as STALE for up to 3 days before dropping, so a single upstream outage doesn't erase a company's catalogue. See [specs/role-lifecycle.md](specs/role-lifecycle.md).
-- **Static-only** — fully served from GitHub Pages. The runtime data layer is a chunked slim-index (~45 MB gzipped JSON across 38 chunks) loaded progressively in a Web Worker; no SQL engine in the browser. See [ADR-0012](docs/adr/0012-static-only-deployment.md).
-- **Daily refresh** — `daily-refresh.yml` GitHub Action runs at 05:17 UTC, scrapes every ATS, rebuilds the SQLite, runs a drift report, and deploys to Pages.
-- **Clean-room dataset** — tenant lists harvested independently from Common Crawl by `weekly-harvest.yml`; nothing copied from another aggregator.
-- **SEO baked in** — sitemap-index.xml, JSON-LD `WebSite` with `SearchAction`, Open Graph + Twitter Card, role-count-aware page title, robots.txt.
+## What it is
+
+`openroles` scrapes the public APIs of 24 hiring platforms, normalises
+the postings into a shared schema, and emits a static dataset that
+loads into a single Svelte island in the browser. There is no backend,
+no database server, no analytics, no third-party scripts. Filtering,
+sorting, search, and saved-role state all run client-side over a
+chunked JSON index that's gzip-cached by the browser after first load.
+
+It is, deliberately, a website that does very little — and exposes its
+provenance, its build pipeline, and its dataset under permissive
+licences so anyone can audit it.
+
+## What it isn't
+
+- A submit-once-and-pray applicant funnel. Every "Apply" link goes
+  directly to the source ATS in a new tab — openroles never sees the
+  click target.
+- A logged-in product. There are no accounts, no email forms, no
+  cookies, no `localStorage` outside the per-browser saved/applied/
+  ignored selections you make yourself.
+- A subscription surface. RSS, email digests, and per-tag feeds were
+  all explicitly retired (see [ADR-0013](docs/adr/0013-no-subscription-model.md)).
+- A single-page app. The masthead, hero, and first 50 role rows are
+  pre-rendered HTML so first paint never depends on JavaScript.
+
+## How it works
+
+```
+Common Crawl  ──►  weekly-harvest.yml  ──►  data/tenants/{ats}.json
+                                                    │
+                                                    ▼
+ATS public APIs ──►  scrape.yml (nightly)  ──►  data/scrape-outputs/*
+                                                    │
+                                                    ▼
+                              build-deploy.yml  ──►  jobs.{sha}.sqlite (build-time)
+                                                    │
+                                                    ▼
+                              slim-index emitter  ──►  data/slim/*.json.gz
+                                                    │
+                                                    ▼
+                              Astro static build  ──►  GitHub Pages
+                                                    │
+                                                    ▼
+                                                 Browser
+                                            (Web Worker decodes
+                                             slim-index chunks,
+                                             FilterTable runs
+                                             everything in memory)
+```
+
+The build-time SQLite is scaffolding only — it isn't deployed. What
+ships to the browser is 38 content-hashed JSON.gz chunks plus a
+`manifest.json`. Filters, sort, search, and pagination are all in-memory
+operations on the merged row array; nothing roundtrips to the network
+once the chunks have loaded.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
+[ADR-0012](docs/adr/0012-static-only-deployment.md) for the rationale
+behind ditching the in-browser SQL engine the previous design used.
+
+## Coverage
+
+Twenty-four ATSes, weighted by tenant volume in the public Common
+Crawl index:
+
+```
+Greenhouse · Lever · Ashby · BambooHR · Workday · iCIMS · Recruitee
+Breezy · Personio · Workable · Teamtailor · SmartRecruiters · CSOD
+Taleo · UltiPro · Jobvite · Zoho Recruit · Talentlyft · Pinpoint HQ
+ApplicantPro · ApplicantStack · Homerun · Factorial · Eightfold
+```
+
+Tenant slugs are discovered from public Common Crawl snapshots, not
+copied from another aggregator. Liveness is probed weekly; hard-dead
+slugs are dropped, transient failures are retained for retry. See
+[ADR-0003](docs/adr/0003-clean-room-harvest.md).
 
 ## Quick start
 
 ```sh
 bun install
-bun run dev             # local dev server on http://localhost:4321/openroles/
-bun run test            # full test suite, 95 % line / 90 % branch coverage gate
-bun run e2e             # Playwright + axe-core a11y + Lighthouse
+bun run dev      # http://localhost:4321/openroles/
+bun run test     # full suite, 95% line / 95% function / 90% branch
+bun run e2e      # Playwright + axe-core a11y + Lighthouse
+bun run build    # static site to site/dist/
 ```
 
-To regenerate the SQLite locally from cached scrape outputs:
+To build the SQLite + slim-index from cached scrape outputs:
 
 ```sh
-bun run build-db -- --input data/scrape-outputs --tenants data/tenants-merged.json \
+bun run build-db -- --input data/scrape-outputs \
+                    --tenants data/tenants-merged.json \
                     --output-dir data --short-sha 0000000
-```
-
-To preview the production build under nginx with HTTP-range support:
-
-```sh
-docker build -t openroles:local .
-docker run --rm -p 8080:80 openroles:local
-# open http://localhost:8080/openroles/
 ```
 
 ## Project layout
@@ -45,24 +111,27 @@ docker run --rm -p 8080:80 openroles:local
 scraper/    Bun + TypeScript scraper, build-db, harvest CLI, drift detector
 site/       Astro 6 site, Svelte 5 filter island, slim-index runtime
 shared/     Cross-workspace zod schemas + shared types
-specs/      Per-feature behavior contracts (data, scraper, filter UI,
-            visual theme, role lifecycle)
+specs/      Per-feature behavior contracts
 docs/adr/   Locked architectural decisions
-.github/    daily-refresh / weekly-harvest / PR CI workflows + dependabot
+.github/    scrape · weekly-harvest · build-deploy · pr CI workflows
 ```
 
 ## Documentation
 
-- [Architecture](ARCHITECTURE.md) — high-level system shape
-- [Contributing](CONTRIBUTING.md) — TDD discipline, conventional commits, pre-commit hooks
-- [Security](SECURITY.md) — vulnerability disclosure
-- [ADRs](docs/adr/) — locked architectural decisions
-- [Specs](specs/) — per-feature behavior contracts
-- [CHANGELOG](CHANGELOG.md) — Keep-a-Changelog format, regenerated from Conventional Commits via `bun run changelog`
+| Doc | What it's for |
+|---|---|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | High-level system shape, data flow, key commitments |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | TDD discipline, conventional commits, pre-commit hooks |
+| [SECURITY.md](SECURITY.md) | Vulnerability disclosure |
+| [docs/adr/](docs/adr/) | Locked architectural decisions (Madr 4.0) |
+| [specs/](specs/) | Per-feature behavior contracts |
+| [CHANGELOG.md](CHANGELOG.md) | Release log, regenerated from Conventional Commits |
 
-## License
+## Licence
 
-- Code: [MIT](LICENSE)
-- Data: [CC BY-SA 4.0](LICENSE-DATA)
+Two licences, picked deliberately ([ADR-0006](docs/adr/0006-mit-and-cc-by-sa.md)):
+
+- **Code** — [MIT](LICENSE). Fork it, ship it, sell it; the only ask is to keep the copyright line.
+- **Listings dataset** — [CC BY-SA 4.0](LICENSE-DATA). Reuse is fine; attribution + share-alike is required so derivative aggregators stay open.
 
 Copyright © 2026 datascry.

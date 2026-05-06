@@ -12,7 +12,7 @@ The format used here is [Madr 4.0](https://adr.github.io/madr/).
 | #    | Title                                              | Status   |
 |------|----------------------------------------------------|----------|
 | 0001 | [Bun runtime](0001-bun-runtime.md)                 | Accepted |
-| 0002 | [SQLite via sql.js-httpvfs](0002-sqlite-httpvfs.md) | Accepted |
+| 0002 | [SQLite via sql.js-httpvfs](0002-sqlite-httpvfs.md) | Superseded by ADR-0012 |
 | 0003 | [Clean-room Common Crawl harvest](0003-clean-room-harvest.md) | Accepted |
 | 0004 | [Mobile-first frontend](0004-mobile-first-frontend.md) | Accepted |
 | 0005 | [Static-only deployment](0005-static-only.md)      | Accepted |
@@ -24,6 +24,7 @@ The format used here is [Madr 4.0](https://adr.github.io/madr/).
 | 0011 | [Incremental harvest + reprobe](0011-incremental-harvest-and-reprobe.md) | Accepted |
 | 0012 | [Static-only deployment, no per-role pages](0012-static-only-deployment.md) | Accepted |
 | 0013 | [Drop the RSS feeds; no subscription model](0013-no-subscription-model.md) | Accepted |
+| 0014 | [Filter UI information architecture](0014-filter-information-architecture.md) | Accepted |
 
 ## Adding a new ADR
 

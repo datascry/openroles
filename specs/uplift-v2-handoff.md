@@ -1,8 +1,31 @@
 # Spec: Uplift v2 — Developer handoff
 
 **Version**: 0.1.0 (draft)
-**Status**: Design approved, awaiting implementation phase
+**Status: Historical — landed; partially superseded**
 **Companion**: `design-wireframes/v2-uplift/` (interactive HTML reference)
+
+> [!NOTE]
+> This handoff doc describes a past redesign milestone. Two of its
+> three surfaces shipped and are still in production:
+>
+> - **Dual-mode tabbed search** — shipped (`SearchBar.svelte`).
+> - **Persistent sidebar filter + mobile sheet fallback** — shipped
+>   (`FilterSidebar.svelte` / `FilterSheet.svelte`). Default
+>   expansion policy has since been changed: only Workplace + Posted
+>   open by default; ATS sits at the bottom collapsed.
+>
+> The third surface — the **editorial broadsheet role-detail page** —
+> was removed in [ADR-0012](../docs/adr/0012-static-only-deployment.md).
+> Row clicks now link directly to the source ATS in a new tab; no
+> intermediate page exists.
+>
+> Treat the rest of this doc as a historical reference for token
+> usage and component structure, not as an implementation contract.
+> The colour / typography / spacing tokens it references still match
+> [`specs/visual-theme.md`](visual-theme.md), which is the canonical
+> source for design tokens.
+
+---
 
 This spec is the developer handoff for three approved uplift surfaces: **dual-mode tabbed search**, **persistent sidebar filter (with mobile sheet fallback)**, and the **editorial broadsheet role-detail page**. It is the implementation contract — anything ambiguous here will be guessed by the implementer, so be explicit.
 

@@ -32,6 +32,18 @@ The implementation is sequenced into seven phases. **Each phase ends with a mand
 | 12 | Role lifecycle: previous-DB carry-forward in `build-db`, `is_stale` column + 3-day TTL drop window, `first_seen_at` honestly preserved, `fresh_count`/`stale_count`/`stale_ttl_days` on the manifest, `STALE · ND` muted-state badge + dim row + `+ Verified only` filter chip on the front-end. Spec: `specs/role-lifecycle.md` v1.0.0. | 0.5 day |
 | 13 | Search modifiers + saved-job sub-views: `field:value` parser (title / company / description / location) with quoted phrases and AND-joined multi-term, fast-check property tests for FTS5 + LIKE injection safety; `+ Saved` / `+ Applied` / `+ Ignored` mutually-exclusive toggles backed by an `idAllowlist` SQL parameter. Spec: `specs/filter-ui.md` v1.2.0. | 0.5 day |
 
+> [!NOTE]
+> **Phases beyond 13 are no longer tracked here.** The phase-plan
+> framework served the bootstrap-through-first-deploy arc of the
+> project. Decisions made after Phase 13 land as ADRs (see
+> [ADR-0011](0011-incremental-harvest-and-reprobe.md),
+> [ADR-0012](0012-static-only-deployment.md),
+> [ADR-0013](0013-no-subscription-model.md),
+> [ADR-0014](0014-filter-information-architecture.md)) rather than
+> additional rows in the table above. The audit-gate cadence below
+> remains the project's standard: new feature work runs through the
+> same red→green→refactor→adversarial-review rhythm.
+
 **Mutation testing in Phase 7 is deferred** — the established mutation-testing harnesses (StrykerJS) do not yet have first-class Bun support and run only against Node, requiring a parallel test harness. The unit-test suite already has property tests for every classifier and parser, schema-validation round-trips for every on-disk shape, and adversarial-audit gates per phase, which substantively cover the same defect-detection surface. We will revisit when StrykerJS adds Bun coverage natively or when a Bun-native mutator ships.
 
 Within each phase, the rhythm is: write a failing test → implement → cover → integrate → audit gate → merge.

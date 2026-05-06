@@ -20,7 +20,7 @@ Daily refresh via GitHub Action.
 - **Workspace**: bun workspaces — packages: `scraper/`, `site/`, `shared/`
 - **Frontend**: Astro 6 + one Svelte 5 island (`FilterTable.svelte`), mobile-first
 - **CSS**: Open Props design tokens + custom mobile-first CSS
-- **Data**: SQLite via `bun:sqlite` (build-time) → `sql.js-httpvfs` (runtime). Parquet side artifact via DuckDB CLI.
+- **Data**: SQLite via `bun:sqlite` (build-time scaffolding) → 38 chunked `.json.gz` slim-index files served from GitHub Pages, decoded in a Web Worker, merged into an in-memory `SlimRow[]`. The build-time SQLite is *not* deployed — see [ADR-0012](docs/adr/0012-static-only-deployment.md). Parquet side artifact via DuckDB CLI.
 - **Lint + format**: Biome 2.x (single tool)
 - **Tests**: `bun test` (vitest-compatible API), `fast-check` for properties, MSW for HTTP mocking, Playwright for e2e + a11y
 - **Pre-commit**: lefthook (Go binary)
@@ -41,7 +41,7 @@ Daily refresh via GitHub Action.
 - **Property tests** (fast-check) for any function with invariants — parsers, classifiers, schema validators.
 - **Fixture-replay** for ATS scrapers: record real responses once via MSW, replay deterministically. Re-record quarterly.
 - **Untestable code** is documented with `/* c8 ignore next */` and a one-line reason. PR review rejects unjustified ignores.
-- **`.svelte` components** are exercised via Playwright e2e (`bun run e2e`), not `bun test` — Bun's resolver bypasses plugin `onResolve` hooks for the package's ESM `default` export condition, so `@testing-library/svelte` can't be wired into `bun test` without forking the loader. The 95/95/90 floor still applies to the `.ts` lib files components import; pure logic that would otherwise live inside a `.svelte` `<script>` block (date formatters, query builders, derived state) MUST be extracted to a tested `.ts` helper. See `site/src/lib/role-detail-helpers.ts` and `site/src/lib/filter-active-count.ts` as examples.
+- **`.svelte` components** are exercised via Playwright e2e (`bun run e2e`), not `bun test` — Bun's resolver bypasses plugin `onResolve` hooks for the package's ESM `default` export condition, so `@testing-library/svelte` can't be wired into `bun test` without forking the loader. The 95/95/90 floor still applies to the `.ts` lib files components import; pure logic that would otherwise live inside a `.svelte` `<script>` block (date formatters, query builders, derived state) MUST be extracted to a tested `.ts` helper. See `site/src/lib/filter-active-count.ts`, `site/src/lib/filter-option-counts.ts`, and `site/src/lib/group-storage.ts` as examples.
 
 ### Phase audit gate
 

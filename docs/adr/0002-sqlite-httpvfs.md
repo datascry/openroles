@@ -2,7 +2,15 @@
 
 ## Status
 
-Accepted
+Superseded by [ADR-0012](0012-static-only-deployment.md).
+
+> **Update.** The runtime SQLite path described below was retired by
+> ADR-0012. The build-time SQLite emitter is still in use as scaffolding
+> inside `build-db.ts` (it's the cheapest way to run drift queries during
+> the build), but the deployed dataset is now a chunked slim-index of
+> gzipped JSON files merged in a Web Worker, not an `sql.js-httpvfs`
+> request stream. The rationale below is preserved for historical
+> context.
 
 ## Context
 

@@ -1,41 +1,45 @@
 # Spec: Filter UI
 
-**Version**: 1.3.1
+**Version**: 2.0.0
 
-The filter UI is the primary interactive surface. It runs as a Svelte island hydrated with `client:idle` over a static Astro page. State lives in two places: the URL query string (shareable, deep-linkable) and `localStorage` (saved/applied/ignored).
+The filter UI is the primary interactive surface. It runs as a Svelte island hydrated with `client:idle` over a static Astro page. State lives in two places: the URL query string (shareable, deep-linkable) and `localStorage` (saved/applied/ignored, plus per-group expansion preferences).
 
-## Implementation status (as of Phase 8)
+## Implementation status
 
-The runtime contract below is the design target. What ships today, plus what is deferred:
+What ships today:
 
-**Shipped:**
-- Search input with 250 ms debounce
+- Dual-mode tabbed search (free-text DSL + structured fields), 250 ms debounce
+- Sidebar filter groups: Workplace, Posted, Level, Min comp, Status, Personal, ATS — all collapsible accordions; Workplace + Posted open by default, the rest collapsed
+- Mobile filter sheet (slide-up drawer) replicates the sidebar's group structure
 - ATS / Level / Workplace multi-select chips
-- Sort dropdown (all 6 options)
-- Hide-recruiter toggle
+- Posted recency window, min-compensation floor, hide-recruiter, hide-stale toggles
+- Saved-searches strip with localStorage persistence
+- Save / Apply / Ignore per-row buttons backed by localStorage; "Show only" filter chips for each
 - URL ↔ FilterState round-trip via `history.replaceState`
-- sql.js-httpvfs runtime — Worker boots on `client:idle`, fetches `data/manifest.json`, queries SQLite over HTTP `Range` requests
-- Loading / empty / per-query-error / terminal-load-error states
+- Slim-index runtime: a Web Worker fetches and decodes 38 chunked `.json.gz` files, merges them into an in-memory `SlimRow[]`, and the FilterTable runs filter / sort / search / pagination as array operations
+- Pagination controls with `requestAnimationFrame`-deferred scroll-to-top on page change
+- Loading / empty / busy ("LOADING ROLES…" pulse-dot) / terminal-load-error states
 - `aria-live="polite"` results-status; `role="alert"` on terminal errors
+- Manifest fetch + chunk-0 fetch wrapped in a 3-attempt 200 / 800 / 2000 ms backoff so a single mobile-network blip doesn't surface the harsh "COULD NOT LOAD" error
 
-**Deferred (no UI surface, but state model exists):**
-- Pagination controls — `state.page` round-trips through the URL but no pager renders. LIMIT 50 caps unreachable pages.
-- Country / region / since-window / min-comp inputs
-- Save / Apply / Ignore lists (localStorage helpers exist in `lib/storage.ts`; no UI)
-- Mobile bottom-sheet drawer for filters (chips render inline on all viewports today)
-- Desktop `<table>` with sortable column headers (cards on all viewports today)
+What is *not* implemented (intentionally):
+
+- **Sort UI**: removed. Default sort is `posted_at:desc` (newest first); the dropdown's other six options were either developer concepts (first_seen) or duplicated by filter chips (level). The `sort` URL parameter still parses for back-compat with old shared links — values fall back to default if unhandled.
+- **Country / region** inputs: present in `FilterState` but no UI surface.
 
 ## Runtime contract
 
-1. Astro pre-renders the page with the filter shell + a manifest-pending placeholder.
-2. The Svelte island hydrates on `client:idle`, calls `loadClientDb({ basePath })` which:
-   - Fetches `${basePath}/data/manifest.json` with `cache: "no-cache"`.
-   - Validates the response shape via `parseManifest` (per-field type + regex checks; cross-checks `db_filename` against `short_sha`).
-   - Dynamic-imports `sql.js-httpvfs` (kept out of the main bundle).
-   - Calls `createDbWorker` against `${basePath}/sqlite-vfs/sqlite.worker.js` and `sql-wasm.wasm`, with `requestChunkSize: 1024` matching the build-time `pragma page_size = 1024` from ADR-0002.
-3. A Svelte 5 `$effect` re-runs the query whenever `clientDb` is non-null, `dbStatus === "ready"`, and any read-tracked field of `state` changes. Each run issues two parallel queries (rows + count) via `buildFilterQuery` / `buildFilterCountQuery`.
-4. A monotonic `queryToken` discards stale results — fast successive state changes don't clobber the freshest query.
-5. Per-query failures populate `queryError` (rendered inline above results) without latching the panel; the worker stays live for the next attempt. Terminal Worker-bootstrap or manifest-fetch failures set `dbStatus = "error"` and render a `role="alert"` panel — that state is intentionally non-recoverable without a page reload.
+1. Astro pre-renders the page with:
+   - The masthead, hero, and filter chrome placeholders.
+   - The first 50 role rows as static HTML (`FirstPaintRows.astro`) inside an `aside#first-paint-rows` wrapped in a `.first-paint-layout` grid that mirrors the hydrated `.layout-grid` so SSR rows render at the same horizontal position they will after hydration — no horizontal layout shift on the hydration boundary.
+   - The same 50 rows as JSON in `<script type="application/json" id="first-paint-data">` so the Svelte island can seed its in-memory dataset without a re-fetch.
+2. The Svelte island hydrates on `client:idle`, then:
+   - Reads the seed rows from `#first-paint-data` and removes the SSR aside.
+   - Calls `withRetry(() => fetchManifest(basePath))` — 3 attempts with 200 / 800 / 2000 ms backoff.
+   - Calls `loadSlimIndex({ basePath, manifest, seed, onChunk })` which constructs a Web Worker (`slim-index-worker.js`) and requests chunk 0 over `withRetry`. The worker fetches each chunk, gunzips it, parses it, and posts the rows back as a JSON string.
+   - Subsequent chunks stream sequentially (the worker is single-threaded; concurrent fetches just queue up megabytes of in-flight blobs without throughput gain). Each chunk merges into the in-memory `SlimRow[]` and triggers a throttled `runFilter` pass (1500 ms throttle, trailing edge).
+3. `runFilter` is async: it sets `isQueryRunning = true`, yields to the event loop (so the "LOADING ROLES…" indicator paints) and then synchronously walks `slimIndex.rows`, sorts the matches, slices the page, and clears `isQueryRunning`. A monotonic `queryToken` discards stale results when fast successive state changes interleave with a slow filter pass.
+4. Per-query failures populate `queryError` (rendered inline above results) without latching the panel. Terminal manifest / chunk-0 failures *after retry exhaustion* set `dbStatus = "error"` and render a `role="alert"` panel — that state is intentionally non-recoverable without a page reload.
 
 ## Visible behavior
 
@@ -82,29 +86,36 @@ When `savedSearches.length === 0` AND `q` is empty, the entire `.recent-row` is 
 
 The legacy Phase 8 description is preserved below for the per-filter contract; only the search surface changed in v1.3.1.
 
-#### Advanced syntax (v1.2.0)
+#### Advanced syntax (search DSL)
 
-The search box parses `field:value` tokens before passing the result to the SQL builder. Four user-facing fields, three of them backed by FTS5 phrase match and one by case-insensitive substring match on a regular column:
+The search box parses `field:value` tokens before passing the result to
+the in-memory predicate evaluator. The user-facing contract — what
+shapes are accepted, what AND-semantics apply, what unrecognized fields
+do — is unchanged from v1.2.0. Only the implementation moved (FTS5 SQL
+→ regex `.test()` against `SlimRow` fields) when ADR-0012 retired the
+runtime SQLite.
 
-| User-facing field | Backing column | Match style |
+Four user-facing fields:
+
+| User-facing field | Backing field on `SlimRow` | Match style |
 |---|---|---|
-| `title` | `jobs.title` | FTS5 phrase |
-| `company` | `jobs.company` | FTS5 phrase |
-| `description` | `jobs.description_excerpt` | FTS5 phrase |
-| `location` | `jobs.location_text` | `LIKE '%value%' COLLATE NOCASE` |
+| `title` | `title` | case-insensitive regex of the escaped value |
+| `company` | `company` | case-insensitive regex of the escaped value |
+| `description` | (no description field on `SlimRow`) | accepted for back-compat; matches nothing |
+| `location` | `location_text` | case-insensitive substring (regex of escaped value) |
 
 Token shapes:
 
-- **Bare term** — `engineer`. Treated as a phrase across the three FTS5 columns.
-- **Field-scoped term** — `title:engineer`, `location:remote`. Restricts the match to the named field's backing column with the field's match style.
-- **Quoted phrase** — `"senior engineer"`. Matches the literal phrase in any FTS5 column.
+- **Bare term** — `engineer`. Tested against `title`, `company`, and `location_text` simultaneously; row matches if any field hits.
+- **Field-scoped term** — `title:engineer`, `location:remote`. Restricts the test to the named field.
+- **Quoted phrase** — `"senior engineer"`. Whole phrase becomes a single regex; word boundaries are not implied.
 - **Field-scoped phrase** — `title:"senior engineer"`, `location:"san francisco"`. Restricts the literal phrase to the named field.
 
 Multiple tokens are **AND-joined**. `title:senior company:stripe location:remote` matches roles where the title contains *senior* AND the company contains *stripe* AND the location text contains *remote*. There is no `OR` syntax; that's deferred to a future spec.
 
 A token whose field name is not in the recognized set (e.g. `xyz:engineer`) falls back to a bare-term match — the token is treated as a literal phrase with the colon embedded. This protects against new-syntax discovery surprises.
 
-Why `location` uses LIKE instead of FTS5: `location_text` is free-form ATS data ("San Francisco, CA · Remote", "Worldwide", "EU only") that doesn't benefit from porter stemming. Substring match gives users predictable behavior — `location:remote` matches anywhere the substring appears, including hybrid postings ("Hybrid · Remote-friendly"). Adding `location_text` to the FTS5 virtual table is reserved for a future spec if we want relevance ranking on location.
+`description:` was a real field when search ran against the SQLite FTS5 virtual table; the slim-index intentionally drops the description column to keep the bundle small (see ADR-0012). The token is still parsed (so old shared-search URLs don't error) but matches nothing and short-circuits the row out — equivalent to a NOT-match for that token. A future revision may resurrect it by widening `SlimRow` if the size budget allows.
 
 ### Saved / applied / ignored sub-views (v1.2.0)
 
@@ -123,23 +134,34 @@ The filter chip in the bar reads `+ SAVED · {n}` / `+ APPLIED · {n}` / `+ IGNO
 
 Why mutual exclusion: the three lists are disjoint by intent — a role typically isn't simultaneously saved-and-applied-and-ignored. A multi-select would create odd intersections (saved AND applied = applied with a star) that are better expressed as separate views than one combined query. If we ever need the intersection (e.g. "saved AND not yet applied") we'll spec it as a derived view rather than as additive multi-select.
 
-SQL synthesis (search modifiers):
+Predicate synthesis (in-memory):
 
-```
-WHERE rowid IN (SELECT rowid FROM jobs_fts WHERE jobs_fts MATCH ?)   -- FTS5 tokens
-  AND location_text LIKE ? COLLATE NOCASE                            -- per location token
-  AND ...                                                            -- existing facets
+```ts
+const tokens = parseSearchInput(state.q);
+const compiled = tokens.map(t => ({
+  field: t.field,
+  regex: new RegExp(escapeRegExp(t.value), "i"),
+}));
+
+// Per-row, per-token: the row matches the token iff its named field
+// (or any of title/company/location_text for an unscoped token)
+// passes regex.test. AND across tokens; OR within a single unscoped
+// token's three candidate fields.
 ```
 
-`LIKE` parameter is `%value%` with the four LIKE meta-characters (`%`, `_`, `[`, `\`) escaped to a literal class — values like `50%` or `r&d` cannot turn into wildcards.
+Every `value` is `escapeRegExp`'d before compilation, so regex
+metacharacters (`.`, `*`, `+`, `?`, `(`, `[`, `\`, etc.) inside a value
+match literally — `50%` and `r&d` and `c++` all behave as plain text.
+The flag set is `i` only; no `u`, no `g`. There is no anchored or
+boundary matching.
 
 Round-trip and safety invariants:
 
-- The user input is never passed verbatim to FTS5 or SQL. Every emitted FTS5 phrase is double-quoted with internal `"` doubled to `""`. FTS5 operators (`AND`, `OR`, `NEAR`, `^`, `*`) inside a value are inert because they sit inside a phrase. LIKE values are escaped + parameterized.
+- The user input is never passed verbatim to a regex constructor — `escapeRegExp` runs first.
 - The parser bounds the token list at 16 to short-circuit pathological inputs.
 - An empty value (`title:`) drops the token. A token whose value is only whitespace drops too.
-- Unicode in values survives quoting / LIKE-escaping unchanged.
-- The parser is **idempotent on the bare-term path**: parse-and-reemit of free text produces the same FTS5 phrase the v1.1.0 codepath produced. Existing user behavior is preserved.
+- Unicode in values survives the regex-escape unchanged; case-insensitive matching uses the JS `i` flag, which folds ASCII case but not full Unicode (good enough for ATS title text).
+- The parser is **idempotent on the bare-term path**: parse-and-reemit of free text produces the same token list, so existing shared search URLs continue to behave identically.
 
 Implementation: [site/src/lib/search-parser.ts](../site/src/lib/search-parser.ts) — pure functions `parseSearchInput(raw): Token[]`, `buildFtsExpression(tokens): string | null`, and `extractLocationLikes(tokens): string[]`. Property tests cover the safety invariants in [site/src/lib/search-parser.test.ts](../site/src/lib/search-parser.test.ts).
 
@@ -270,9 +292,9 @@ The filter UI breaks at `--bp-sidebar: 800px` (defined in [tokens.css](../site/s
 ## Performance
 
 - The filter island hydrates with `client:idle`, never `client:load`, so initial paint is unblocked.
-- Each query reads SQLite via `sql.js-httpvfs`; range fetches are cached by the browser HTTP cache for the lifetime of the SQLite filename (which is content-hashed).
-- The query result for the visible page is held in memory; pagination beyond the visible page issues a fresh query.
-- No SQL is constructed by string concatenation. Parameter binding is mandatory; the linter rejects template-string SQL.
+- The runtime data path is the slim-index, not SQLite. A Web Worker fetches each `data/slim/*.json.gz` chunk, gunzips it, and posts the parsed rows back to the main thread; the chunk filenames are content-hashed so the browser HTTP cache holds them for the lifetime of the build. Service-worker cache (`sw.js`) makes revisits cost ~0 bytes for the slim-index payload.
+- Filter / sort / search / pagination are all in-memory operations on the merged `SlimRow[]`. There is no SQL at runtime and no parameterised query path to defend against — the only escapable input is the regex `value` payload of a search token, and `escapeRegExp` runs before any `RegExp` construction.
+- Filter passes are debounced 250 ms on search input and throttled 1500 ms on chunk-merge updates. A busy indicator paints before each synchronous pass so a long sort on a 750k-row dataset reads as "loading" rather than "frozen".
 
 ## Rejection cases
 

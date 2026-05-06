@@ -10,12 +10,24 @@ A new feature lands in three steps:
 
 ## Index
 
+### Active
+
 | Spec | Scope |
 |---|---|
-| [data-schema.md](data-schema.md) | The on-disk schema: `Job`, `Tenant`, `Manifest`, the SQLite tables, the FTS5 layout, the indexes |
+| [data-schema.md](data-schema.md) | The on-disk schema: `Job`, `Tenant`, `Manifest`, the SQLite tables (build-time scaffolding), the FTS5 layout, the indexes |
 | [scraper-contract.md](scraper-contract.md) | Per-ATS scraper guarantees: input, output, retry policy, rate-limit etiquette, robots.txt handling |
 | [filter-ui.md](filter-ui.md) | Filter UI behavior: query language, URL state encoding, localStorage contract, mobile + desktop presentations |
-| [classifier-contract.md](classifier-contract.md) | Level + recruiter classifier contracts (added in Phase 3) |
+| [role-lifecycle.md](role-lifecycle.md) | How a role enters, persists in, and leaves the catalogue: `is_stale`, the 3-day TTL, `first_seen_at` semantics, drift-detector hooks |
+| [harvest-incremental.md](harvest-incremental.md) | Common Crawl tenant-list discovery + reprobe pipeline (companion to ADR-0011) |
+| [observability.md](observability.md) | Drift detector, dead-tenant alerts, run reports — pure modules under `scraper/src/observability/` |
+| [visual-theme.md](visual-theme.md) | Brutalist Press visual theme: tokens, type stack, palette, density, accent rules |
+
+### Historical / superseded
+
+| Spec | Status |
+|---|---|
+| [role-detail.md](role-detail.md) | Superseded by [ADR-0012](../docs/adr/0012-static-only-deployment.md) — per-role page no longer exists |
+| [uplift-v2-handoff.md](uplift-v2-handoff.md) | Landed in production; partially superseded by ADR-0012 (the broadsheet role-detail surface). Preserved for design-token cross-reference |
 
 ## Spec hygiene
 

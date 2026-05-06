@@ -1,6 +1,21 @@
 # Spec: Role detail page
 
 **Version**: 3.1.0
+**Status: SUPERSEDED by [ADR-0012](../docs/adr/0012-static-only-deployment.md)**
+
+> [!IMPORTANT]
+> This spec describes a feature that no longer exists. The per-role
+> detail page (`/role/?id=…`) and its `sql.js-httpvfs` runtime were
+> both removed in **ADR-0012 (static-only deployment)**. The row's
+> primary action (the role title and the Apply CTA) now links
+> directly to the source ATS in a new tab — there is no intermediate
+> openroles-hosted page for an individual role.
+>
+> The text below is preserved for historical context only. Do not
+> implement against it; do not link to it from new code or specs.
+> If you need the rationale for removing the page, read ADR-0012.
+
+---
 
 A client-rendered detail view for a single role, addressable by query string
 URL `/role/?id=<short_id>`. The page is a static HTML shell that hydrates a

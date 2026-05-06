@@ -76,7 +76,7 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
 These decisions are locked. To change one, write a new ADR that supersedes the existing one — do not silently change course.
 
 - [ADR-0001](docs/adr/0001-bun-runtime.md) — Bun as the only runtime
-- [ADR-0002](docs/adr/0002-sqlite-httpvfs.md) — SQLite + sql.js-httpvfs for the data layer
+- [ADR-0002](docs/adr/0002-sqlite-httpvfs.md) — SQLite + sql.js-httpvfs for the data layer (superseded by ADR-0012)
 - [ADR-0003](docs/adr/0003-clean-room-harvest.md) — Common Crawl CDX as the tenant-list source
 - [ADR-0004](docs/adr/0004-mobile-first-frontend.md) — Mobile-first frontend, day one
 - [ADR-0005](docs/adr/0005-static-only.md) — Static-only deployment; no backend
@@ -88,6 +88,7 @@ These decisions are locked. To change one, write a new ADR that supersedes the e
 - [ADR-0011](docs/adr/0011-incremental-harvest-and-reprobe.md) — Incremental harvest and re-probe
 - [ADR-0012](docs/adr/0012-static-only-deployment.md) — Static-only deployment, no per-role pages, no client SQLite
 - [ADR-0013](docs/adr/0013-no-subscription-model.md) — Drop the RSS feeds; no subscription model
+- [ADR-0014](docs/adr/0014-filter-information-architecture.md) — Filter UI information architecture
 
 ## Quality gates
 
