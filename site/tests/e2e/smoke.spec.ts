@@ -14,6 +14,18 @@ const INDEX = `${SITE_BASE}/`;
  * the surface that's actually visible. This helper opens the sheet on
  * mobile and returns a Locator scoped to the active surface.
  */
+async function expandAtsGroup(scope: Locator): Promise<void> {
+  // ATS now defaults collapsed across both desktop sidebar and mobile
+  // sheet (FilterGroups expansion default). The first thing tests need
+  // to do before reaching the chips is click the ATS group header to
+  // open it. Idempotent: if it's already expanded, the click toggles
+  // it shut and we'd miss the chip — so guard on aria-expanded first.
+  const header = scope.getByRole("button", { name: /^ATS(\b|·|,)/i });
+  await expect(header).toBeVisible({ timeout: 5_000 });
+  const expanded = (await header.getAttribute("aria-expanded")) === "true";
+  if (!expanded) await header.click();
+}
+
 async function openFilterUi(page: Page): Promise<Locator> {
   const sheetBtn = page.getByRole("button", { name: /^Filters(\s|·|$)/ });
   if (await sheetBtn.isVisible().catch(() => false)) {
@@ -33,7 +45,7 @@ async function openFilterUi(page: Page): Promise<Locator> {
       undefined,
       { timeout: 2_000 },
     );
-    // ATS group inside the sheet should be reachable.
+    await expandAtsGroup(dialog);
     await expect(dialog.getByRole("button", { name: /^greenhouse(\b|,)/i })).toBeVisible({
       timeout: 5_000,
     });
@@ -42,6 +54,7 @@ async function openFilterUi(page: Page): Promise<Locator> {
   // Desktop sidebar — labelled <aside aria-label="Filters">. Use the
   // <complementary role + accessible name to scope.
   const sidebar = page.getByRole("complementary", { name: /^Filters$/i });
+  await expandAtsGroup(sidebar);
   await expect(sidebar.getByRole("button", { name: /^greenhouse(\b|,)/i })).toBeVisible({
     timeout: 5_000,
   });
