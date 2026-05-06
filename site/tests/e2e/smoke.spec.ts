@@ -215,14 +215,24 @@ test.describe("index page smoke", () => {
     // Toggle "Verified only" — the stale row should disappear. The switch
     // lives in the Status group inside the sidebar / sheet (uplift v2 §2.6).
     // Status defaults to collapsed (ADR-0014); expand it before clicking
-    // through. Use the stable id selector (#status-header from
-    // GroupCard.svelte) — getByRole+name regex was too fuzzy on
-    // mobile-chrome where another button may have shared a Status prefix.
+    // through.
+    //
+    // GroupCard.svelte hides the body via {#if expanded} (DOM removal,
+    // not display:none) so the verified-only switch only exists in DOM
+    // once aria-expanded flips to "true". On mobile-chrome the standard
+    // .click() inside the bottom-sheet sometimes lands without updating
+    // svelte state — pointer events on the off-canvas dialog backdrop
+    // catch the event before the button does. Use evaluate(el => el.click())
+    // to dispatch the click directly on the element, bypassing
+    // Playwright's actionability checks. Then wait on aria-expanded
+    // before reaching for the switch so we fail clearly if the toggle
+    // didn't fire.
     const surface = await openFilterUi(page);
     const statusHeader = surface.locator("#status-header");
     await expect(statusHeader).toBeVisible({ timeout: 5_000 });
     if ((await statusHeader.getAttribute("aria-expanded")) === "false") {
-      await statusHeader.click();
+      await statusHeader.evaluate((el: HTMLElement) => el.click());
+      await expect(statusHeader).toHaveAttribute("aria-expanded", "true", { timeout: 5_000 });
     }
     const verifiedOnly = surface.getByRole("switch", { name: /verified only/i });
     await expect(verifiedOnly).toBeVisible({ timeout: 5_000 });
