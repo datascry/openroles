@@ -28,8 +28,11 @@ licences so anyone can audit it.
   directly to the source ATS in a new tab — openroles never sees the
   click target.
 - A logged-in product. There are no accounts, no email forms, no
-  cookies, no `localStorage` outside the per-browser saved/applied/
-  ignored selections you make yourself.
+  cookies, no first- or third-party trackers. The only client-side
+  state is a small set of `localStorage` keys you populate yourself:
+  saved / applied / ignored role IDs, saved searches, the active
+  filter group expansion preferences, and the light/dark theme
+  toggle. None of it ever leaves the browser.
 - A subscription surface. RSS, email digests, and per-tag feeds were
   all explicitly retired (see [ADR-0013](docs/adr/0013-no-subscription-model.md)).
 - A single-page app. The masthead, hero, and first 50 role rows are

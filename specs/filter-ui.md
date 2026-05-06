@@ -299,7 +299,10 @@ The filter UI breaks at `--bp-sidebar: 800px` (defined in [tokens.css](../site/s
 ## Rejection cases
 
 - A search input longer than 256 chars is truncated client-side before the query.
-- A `q` value containing only FTS5 operator characters is treated as empty.
+- A `q` value containing only whitespace, regex metacharacters, or
+  field-prefix syntax with empty values (e.g. `title:`, `:foo`,
+  `*****`) parses to zero tokens and the search collapses to "no
+  filter on q".
 - A `min_comp` value below 0 or above 10⁹ cents is clamped before query.
 - Unknown sort values fall back to the default `posted_at:desc`.
 

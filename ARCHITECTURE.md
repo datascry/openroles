@@ -95,7 +95,11 @@ These decisions are locked. To change one, write a new ADR that supersedes the e
 The full set of CI gates is documented in [`CONTRIBUTING.md`](CONTRIBUTING.md) and enforced in `.github/workflows/pr.yml`. Notable thresholds:
 
 - Per-file coverage: line ≥ 95%, function ≥ 95%, branch ≥ 90%
-- Bundle size: ≤ 50 KB JS, ≤ 1 MB total first paint
+- Bundle size budgets (gzipped, enforced by `bun run size-limit`):
+  - FilterTable island: ≤ 35 KB
+  - All client JS combined: ≤ 60 KB
+  - Index HTML (covers inlined CSS): ≤ 30 KB
+  - Global CSS: ≤ 15 KB
 - Lighthouse: desktop perf ≥ 95, mobile perf ≥ 90, A11y = 100
 - Accessibility: zero WCAG 2.1 AA violations on mobile and desktop viewports
 - Property tests: 1000 runs per property, zero failures
