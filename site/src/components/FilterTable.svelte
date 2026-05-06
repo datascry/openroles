@@ -62,26 +62,30 @@ const SINCE_LABEL: Record<SinceWindow, string> = {
   "90d": "LAST 90 DAYS",
 };
 
+// Sort options trimmed to the two end-users actually want — "what's new"
+// and "find a specific company alphabetically". The other six (oldest-
+// first, first-seen, company Z→A, level ↑/↓) are either developer-
+// facing concepts or are already covered by filters (Level chips do
+// what level-sort would). Keeping the popover short also keeps the
+// dataset's worst-case sort cost bounded — at 750k rows every sort is
+// a 2–10 s synchronous walk; halving the option list halves the
+// chance a curious click triggers an avoidable wait. SortOption stays
+// wider for URL-back-compat so a saved-search link with ?sort=level:asc
+// still parses; it just falls back to the default in the UI.
 const SORT_OPTIONS: ReadonlyArray<{ value: SortOption; label: string }> = [
   { value: "posted_at:desc", label: "Newest first" },
-  { value: "posted_at:asc", label: "Oldest first" },
-  { value: "first_seen:desc", label: "First seen (newest)" },
-  { value: "first_seen:asc", label: "First seen (oldest)" },
   { value: "company:asc", label: "Company A→Z" },
-  { value: "company:desc", label: "Company Z→A" },
-  { value: "level:asc", label: "Level: junior → senior" },
-  { value: "level:desc", label: "Level: senior → junior" },
 ];
 
 const SORT_SHORT: Record<SortOption, string> = {
   "posted_at:desc": "NEWEST FIRST",
-  "posted_at:asc": "OLDEST FIRST",
-  "first_seen:desc": "FIRST SEEN ↓",
-  "first_seen:asc": "FIRST SEEN ↑",
+  "posted_at:asc": "NEWEST FIRST",
+  "first_seen:desc": "NEWEST FIRST",
+  "first_seen:asc": "NEWEST FIRST",
   "company:asc": "COMPANY A→Z",
-  "company:desc": "COMPANY Z→A",
-  "level:asc": "LEVEL ↑",
-  "level:desc": "LEVEL ↓",
+  "company:desc": "COMPANY A→Z",
+  "level:asc": "NEWEST FIRST",
+  "level:desc": "NEWEST FIRST",
 };
 
 const PAGE_SIZE = 50;
@@ -132,6 +136,11 @@ let queryError: string | null = $state(null);
 let rows: JobRow[] = $state([]);
 let totalCount: number = $state(0);
 let queryToken: number = 0;
+// Set true when runFilter is about to start a heavy sort/filter pass so
+// the status line can show "SORTING…" before the synchronous work blocks
+// the main thread. Critical at 750k rows: without it, the click → sort
+// path was a 2-10 second perceptual freeze with zero feedback.
+let isQueryRunning: boolean = $state(false);
 // Two SEPARATE debounce handles, deliberately not sharing one. The
 // chunk-merge debounce ("filter again after the rows array grows") and
 // the user-input debounce ("filter again after the user finishes
@@ -529,21 +538,32 @@ const SORT_KEY_MAP: Record<SortOption, SortKey> = {
   "level:desc": "level:desc",
 };
 
-function runFilter(currentState: FilterState): void {
+async function runFilter(currentState: FilterState): Promise<void> {
   const token = ++queryToken;
   if (slimIndex === null) return;
-  const predicate = buildPredicate(currentState);
-  // Materialise then sort only the matched rows — sorting all 750k
-  // every keystroke is wasteful. `filterRows` walks the full set
-  // once and returns matches in input order; we then sort those.
-  const all = filterRows(slimIndex.rows, predicate, 0, Number.POSITIVE_INFINITY);
-  if (token !== queryToken) return;
-  const sortKey = SORT_KEY_MAP[currentState.sort];
-  sortRows(all.matches, sortKey);
-  const offset = (currentState.page - 1) * PAGE_SIZE;
-  rows = all.matches.slice(offset, offset + PAGE_SIZE);
-  totalCount = all.total;
-  queryError = null;
+  // Flip the busy flag and yield to the event loop so the status line
+  // can paint "WORKING…" before the synchronous filter+sort blocks the
+  // main thread. At 750k rows the sort alone costs 2–10 s on a slow
+  // CPU; without the yield, the click looks like a browser freeze.
+  isQueryRunning = true;
+  await new Promise<void>((resolve) => setTimeout(resolve, 0));
+  if (token !== queryToken) return; // a newer call superseded us
+  try {
+    const predicate = buildPredicate(currentState);
+    // Materialise then sort only the matched rows — sorting all 750k
+    // every keystroke is wasteful. `filterRows` walks the full set
+    // once and returns matches in input order; we then sort those.
+    const all = filterRows(slimIndex.rows, predicate, 0, Number.POSITIVE_INFINITY);
+    if (token !== queryToken) return;
+    const sortKey = SORT_KEY_MAP[currentState.sort];
+    sortRows(all.matches, sortKey);
+    const offset = (currentState.page - 1) * PAGE_SIZE;
+    rows = all.matches.slice(offset, offset + PAGE_SIZE);
+    totalCount = all.total;
+    queryError = null;
+  } finally {
+    if (token === queryToken) isQueryRunning = false;
+  }
 }
 
 $effect(() => {
@@ -846,11 +866,22 @@ function ariaSort(
   </aside>
   <div class="main-col">
 
-<p class="results-status" aria-live="polite" aria-busy={dbStatus === "loading"}>
+<p
+  class="results-status"
+  aria-live="polite"
+  aria-busy={dbStatus === "loading" || isQueryRunning}
+>
   {#if dbStatus === "ready"}
-    {#if state.showOnly !== undefined}<span class="status-scope">{state.showOnly.toUpperCase()} ·</span> {/if}
-    <b>{totalCount.toLocaleString()}</b> {totalCount === 1 ? "ROLE" : "ROLES"} ·
-    PAGE {state.page}
+    {#if isQueryRunning}
+      <!-- Busy indicator surfaces during the synchronous filter+sort
+           pass on the 750k-row dataset. Without it the click looks
+           like a browser freeze. -->
+      WORKING…
+    {:else}
+      {#if state.showOnly !== undefined}<span class="status-scope">{state.showOnly.toUpperCase()} ·</span> {/if}
+      <b>{totalCount.toLocaleString()}</b> {totalCount === 1 ? "ROLE" : "ROLES"} ·
+      PAGE {state.page}
+    {/if}
   {:else if dbStatus === "loading"}
     LOADING…
   {:else}
@@ -988,15 +1019,14 @@ function ariaSort(
                 type="button"
                 class="job-action save"
                 aria-pressed={isSaved(row.short_id)}
+                aria-label={isSaved(row.short_id) ? "Remove from saved" : "Save this role"}
+                title={isSaved(row.short_id) ? "Saved · click to remove" : "Save"}
                 onclick={() => onToggleSaved(row.short_id)}
               >
-                <!-- ☆ default / ★ saved. aria-hidden because aria-pressed
-                     already exposes the toggle state to assistive tech;
-                     the glyph is purely visual reinforcement. -->
-                <span class="job-action-glyph" aria-hidden="true"
-                  >{isSaved(row.short_id) ? "★" : "☆"}</span
-                >
-                {isSaved(row.short_id) ? "Saved" : "Save"}
+                <!-- Glyph-only. The ☆ / ★ toggle is the entire button
+                     content; aria-label + title surface the meaning to
+                     keyboard / screen-reader / hover users. -->
+                <span aria-hidden="true">{isSaved(row.short_id) ? "★" : "☆"}</span>
               </button>
               <a
                 href={row.url}
@@ -1012,16 +1042,14 @@ function ariaSort(
                 type="button"
                 class="job-action ignore"
                 aria-pressed={isIgnored(row.short_id)}
+                aria-label={isIgnored(row.short_id) ? "Restore this role" : "Hide this role"}
+                title={isIgnored(row.short_id) ? "Hidden · click to restore" : "Hide"}
                 onclick={() => onToggleIgnored(row.short_id)}
               >
-                <!-- × = dismiss (default); ↺ = restore (when already
-                     ignored, clicking brings the row back). The glyph
-                     advertises what the next click will do, mirroring
-                     the Save button's ☆/★ toggle. -->
-                <span class="job-action-glyph" aria-hidden="true"
-                  >{isIgnored(row.short_id) ? "↺" : "×"}</span
-                >
-                {isIgnored(row.short_id) ? "Unignore" : "Ignore"}
+                <!-- Glyph-only. × dismisses (default); ↺ restores when
+                     already ignored. aria-label + title carry the
+                     meaning for keyboard / screen-reader / hover users. -->
+                <span aria-hidden="true">{isIgnored(row.short_id) ? "↺" : "×"}</span>
               </button>
             </div>
           </div>
@@ -1628,15 +1656,16 @@ function ariaSort(
      with a quieter outline style; their "active" state colors the
      text + border (accent for saved, muted ink for ignored) without
      filling with ink which would compete with the Apply button. */
-  /* Three-weight action cluster (M3 in /wireframe/buttons): Apply is the
-     loud filled-accent CTA; Save is a quieter ghost-outline button; Ignore
-     drops to a borderless text link. The clear hierarchy stops three
-     similar-looking buttons from competing for the eye. */
+  /* Three-weight action cluster: Apply is the loud filled-accent CTA;
+     Save and Ignore are square glyph-only tap targets (☆/★ and ×/↺
+     respectively). Strict no-wrap so a tight Posted column can't push
+     a button below the row, which is what was overlapping Posted. */
   .job-actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+    flex-wrap: nowrap;
+    gap: var(--space-1);
     align-items: center;
+    justify-content: flex-end;
   }
   .job-action {
     display: inline-flex;
@@ -1670,59 +1699,47 @@ function ariaSort(
     border-color: var(--color-ink);
     color: var(--color-paper);
   }
-  /* Save — ghost outline. Smaller type than Apply, only the saved
-     state colors the ink+border accent. */
+  /* Save — square glyph-only tap target. The ☆/★ glyph IS the button.
+     Default state stays quiet (transparent / ink-3); the saved state
+     paints the star accent so it reads as "marked" at a glance. */
   .job-action.save {
-    padding: 0 var(--space-2);
-    background: transparent;
-    color: var(--color-ink-2);
-    border: var(--rule-1) solid var(--color-rule);
-    font-size: var(--text-0);
-  }
-  .job-action.save:hover:not(:disabled) {
-    color: var(--color-ink);
-    border-color: var(--color-ink);
-  }
-  .job-action.save[aria-pressed="true"] {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-  .job-action.save[aria-pressed="true"]:hover {
-    color: var(--color-on-accent);
-    background: var(--color-accent);
-  }
-  /* Ignore — borderless text link, lightest weight in the cluster.
-     The ignored state stays text-only; styling shifts to a strikethrough
-     on hover so it reads as "you've dismissed this" without becoming
-     visually heavy. */
-  .job-action.ignore {
-    padding: 0 var(--space-2);
+    width: var(--tap);
+    padding: 0;
     background: transparent;
     color: var(--color-ink-3);
     border: 0;
-    font-size: var(--text-0);
+    font-size: var(--text-3);
+    line-height: 1;
+  }
+  .job-action.save:hover:not(:disabled) {
+    color: var(--color-ink);
+  }
+  .job-action.save[aria-pressed="true"] {
+    color: var(--color-accent);
+  }
+  .job-action.save[aria-pressed="true"]:hover {
+    color: var(--color-ink);
+  }
+  /* Ignore — square glyph-only tap target, mirror of Save. × dismisses
+     (default), ↺ restores (active). Ink-3 ambient color → ink on hover
+     → accent when ignored to mark it as "you've dismissed this". */
+  .job-action.ignore {
+    width: var(--tap);
+    padding: 0;
+    background: transparent;
+    color: var(--color-ink-3);
+    border: 0;
+    font-size: var(--text-3);
+    line-height: 1;
   }
   .job-action.ignore:hover:not(:disabled) {
     color: var(--color-ink);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
   }
   .job-action.ignore[aria-pressed="true"] {
-    color: var(--color-ink);
-    text-decoration: line-through;
-    text-decoration-thickness: 0.1em;
-  }
-  .job-action.ignore[aria-pressed="true"]:hover {
     color: var(--color-accent);
   }
-  /* Glyph sits flush against the label with a thin space. Slightly
-     larger than the label so it reads as iconography, not a typo. */
-  .job-action-glyph {
-    margin-inline-end: 0.35em;
-    font-size: 1.05em;
-    line-height: 1;
-    display: inline-block;
-    transform: translateY(0.05em);
+  .job-action.ignore[aria-pressed="true"]:hover {
+    color: var(--color-ink);
   }
 
   /* ---------- Pager ----------
@@ -1802,12 +1819,17 @@ function ariaSort(
     .results-head,
     .job {
       display: grid;
+      /* role · location · level · posted · actions
+         Actions is now a fixed-content column (Apply CTA + two glyph
+         buttons) so it shrinks to its content rather than competing
+         with role/location for fr-share. Posted gets a hair more room
+         so "13D" never collides with the action cluster. */
       grid-template-columns:
         minmax(0, 2.4fr)
         minmax(0, 1.5fr)
         minmax(0, 0.7fr)
-        minmax(0, 0.7fr)
-        minmax(0, 1.6fr);
+        minmax(0, 0.85fr)
+        auto;
       column-gap: var(--space-3);
       align-items: start;
       padding-block: var(--space-3);
