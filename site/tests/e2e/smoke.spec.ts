@@ -215,13 +215,18 @@ test.describe("index page smoke", () => {
     // Toggle "Verified only" — the stale row should disappear. The switch
     // lives in the Status group inside the sidebar / sheet (uplift v2 §2.6).
     // Status defaults to collapsed (ADR-0014); expand it before clicking
-    // through.
+    // through. Use the stable id selector (#status-header from
+    // GroupCard.svelte) — getByRole+name regex was too fuzzy on
+    // mobile-chrome where another button may have shared a Status prefix.
     const surface = await openFilterUi(page);
-    const statusHeader = surface.getByRole("button", { name: /^Status(\b|·|,)/i });
+    const statusHeader = surface.locator("#status-header");
+    await expect(statusHeader).toBeVisible({ timeout: 5_000 });
     if ((await statusHeader.getAttribute("aria-expanded")) === "false") {
       await statusHeader.click();
     }
-    await surface.getByRole("switch", { name: /verified only/i }).click();
+    const verifiedOnly = surface.getByRole("switch", { name: /verified only/i });
+    await expect(verifiedOnly).toBeVisible({ timeout: 5_000 });
+    await verifiedOnly.click();
     await expect(page.locator("li.job.is-stale")).toHaveCount(0, { timeout: 5_000 });
     // URL reflects the filter.
     await expect(page).toHaveURL(/[?&]hide_stale=1(\b|&|$)/);
