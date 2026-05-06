@@ -236,7 +236,13 @@ test.describe("index page smoke", () => {
     }
     const verifiedOnly = surface.getByRole("switch", { name: /verified only/i });
     await expect(verifiedOnly).toBeVisible({ timeout: 5_000 });
-    await verifiedOnly.click();
+    // Same mobile-sheet pointer-events issue as the Status header above —
+    // a Playwright .click() can land without triggering svelte's onclick
+    // when the bottom-sheet backdrop competes for the event. evaluate
+    // dispatches the click directly. Wait on aria-checked flipping
+    // before asserting the downstream filter took effect.
+    await verifiedOnly.evaluate((el: HTMLElement) => el.click());
+    await expect(verifiedOnly).toHaveAttribute("aria-checked", "true", { timeout: 5_000 });
     await expect(page.locator("li.job.is-stale")).toHaveCount(0, { timeout: 5_000 });
     // URL reflects the filter.
     await expect(page).toHaveURL(/[?&]hide_stale=1(\b|&|$)/);
