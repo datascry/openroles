@@ -40,7 +40,11 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
 ---
 
 <header class="masthead">
-  <a class="brand" href={`${basePath}/`}>
+  <a
+    class="brand"
+    href={`${basePath}/`}
+    aria-current={current === "browse" ? "page" : undefined}
+  >
     <span aria-hidden="true">OPEN<span class="dot">·</span>ROLES</span>
     <span class="visually-hidden">openroles</span>
   </a>
@@ -199,8 +203,13 @@ const navItems: ReadonlyArray<{ key: NavCurrent; label: string; href: string }> 
   .build-sha {
     display: inline-flex;
     align-items: center;
-    min-height: 24px;
-    padding: 0 4px;
+    /* WCAG 2.5.5 AAA / specs/visual-theme.md tap-target floor — 44 x 44.
+       The visible glyph stays small (mono text-0); padding is what
+       satisfies the hit zone. */
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 8px;
+    margin-inline-start: 4px;
     color: var(--color-ink-3);
     text-decoration: none;
     font-family: var(--font-mono);

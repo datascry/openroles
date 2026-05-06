@@ -76,11 +76,15 @@ test.describe("Brutalist Press chrome", () => {
     expect(ratio).toBeGreaterThanOrEqual(4.5);
   });
 
-  test("the active nav item carries aria-current=page", async ({ page }) => {
+  test("the home affordance carries aria-current=page", async ({ page }) => {
     await page.goto(INDEX);
-    const active = page.locator("header.masthead nav a[aria-current='page']");
+    // The brand wordmark IS the home link now that the redundant BROWSE
+    // nav item was dropped — there are no per-role / about / saved
+    // routes left for nav to point at, so the brand carries
+    // aria-current on the home page itself.
+    const active = page.locator("header.masthead a[aria-current='page']");
     await expect(active).toHaveCount(1);
-    await expect(active).toContainText(/BROWSE/);
+    await expect(active).toContainText(/OPEN/i);
   });
 
   test("interactive elements meet the 44 px tap-target floor", async ({ page }) => {
