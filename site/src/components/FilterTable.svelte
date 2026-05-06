@@ -838,7 +838,6 @@ function ariaSort(
     <FilterSidebar
       filters={state}
       onPatch={onPatch}
-      resultCount={totalCount}
       savedCount={savedIds.length}
       appliedCount={appliedIds.length}
       ignoredCount={ignoredIds.length}

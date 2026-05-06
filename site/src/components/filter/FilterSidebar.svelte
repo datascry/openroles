@@ -6,7 +6,6 @@ import FilterGroups from "./FilterGroups.svelte";
 interface Props {
   filters: FilterState;
   onPatch: (patch: Partial<FilterState>) => void;
-  resultCount: number;
   savedCount: number;
   appliedCount: number;
   ignoredCount: number;
@@ -17,8 +16,7 @@ interface Props {
   };
 }
 
-let { filters, onPatch, resultCount, savedCount, appliedCount, ignoredCount, optionCounts }: Props =
-  $props();
+let { filters, onPatch, savedCount, appliedCount, ignoredCount, optionCounts }: Props = $props();
 
 let confirmingReset = $state(false);
 
@@ -81,9 +79,8 @@ function cancelReset() {
         onclick={onResetClick}
       >Reset all</button>
     {/if}
-    <p class="result-summary" aria-live="polite">
-      <strong>{resultCount.toLocaleString()}</strong> {resultCount === 1 ? "role" : "roles"}
-    </p>
+    <!-- Result count intentionally not duplicated here; the role-count
+         already lives at the top of the role table (.results-status). -->
   </footer>
 </aside>
 
@@ -193,13 +190,4 @@ function cancelReset() {
     color: var(--color-on-accent);
   }
 
-  .result-summary {
-    margin: 0;
-    color: var(--color-ink-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-0);
-    letter-spacing: var(--track-wider);
-    text-transform: uppercase;
-  }
-  .result-summary strong { color: var(--color-accent); font-weight: 700; }
 </style>
