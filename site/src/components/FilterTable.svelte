@@ -844,17 +844,20 @@ function ariaSort(
 >
   {#if dbStatus === "ready"}
     {#if isQueryRunning}
-      <!-- Busy indicator surfaces during the synchronous filter+sort
-           pass on the 750k-row dataset. Without it the click looks
-           like a browser freeze. -->
-      WORKING…
+      <!-- Busy indicator surfaces during the synchronous filter pass
+           on the 750k-row dataset. Without it the click looks like a
+           browser freeze. The blinking dot below adds motion so the
+           label isn't a static stretch of text during a long pass. -->
+      <span class="busy-dot" aria-hidden="true"></span>
+      LOADING ROLES…
     {:else}
       {#if state.showOnly !== undefined}<span class="status-scope">{state.showOnly.toUpperCase()} ·</span> {/if}
       <b>{totalCount.toLocaleString()}</b> {totalCount === 1 ? "ROLE" : "ROLES"} ·
       PAGE {state.page}
     {/if}
   {:else if dbStatus === "loading"}
-    LOADING…
+    <span class="busy-dot" aria-hidden="true"></span>
+    LOADING ROLES…
   {:else}
     COULD NOT LOAD THE JOB DATABASE.
   {/if}
@@ -1437,6 +1440,28 @@ function ariaSort(
   }
   .results-status b { color: var(--color-accent); font-weight: 700; }
   .results-status .status-scope { color: var(--color-accent); font-weight: 700; }
+
+  /* Animated dot before the LOADING ROLES text. Pulses ink → accent →
+     ink so motion is visible against the page bg in both themes. The
+     1.2 s cycle matches the rhythm of a typical filter pass; honors
+     prefers-reduced-motion by holding solid accent instead of pulsing. */
+  .busy-dot {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-inline-end: 0.5em;
+    border-radius: 50%;
+    background: var(--color-accent);
+    transform: translateY(-0.05em);
+    animation: busy-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes busy-pulse {
+    0%, 100% { opacity: 0.35; transform: translateY(-0.05em) scale(0.85); }
+    50%      { opacity: 1;    transform: translateY(-0.05em) scale(1.05); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .busy-dot { animation: none; opacity: 1; }
+  }
 
   .data-pending,
   .data-empty {
