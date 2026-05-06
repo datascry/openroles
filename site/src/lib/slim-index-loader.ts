@@ -13,6 +13,7 @@
 // chunk-0-merged.
 
 import type { ManifestRuntime } from "./manifest-runtime.ts";
+import { withRetry } from "./retry.ts";
 import { __test_internals as I, type SlimRow } from "./slim-index.ts";
 
 export interface SlimIndexLoadOptions {
@@ -138,7 +139,13 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
     return { ...result, fullyLoaded: true };
   }
   const firstUrl = `${base}/data/${firstChunk.file}`;
-  const firstRows = await requestChunk(firstUrl);
+  // Chunk-0 retry: this is the first request the user perceives as
+  // "loading data" and a single failure here is what surfaced the
+  // "COULD NOT LOAD" error flash on flaky mobile carriers. Three
+  // attempts with 200/800/2000 ms backoff before propagating the
+  // error; the worker stays alive between attempts (its onerror
+  // handler only rejects in-flight resolvers, doesn't terminate).
+  const firstRows = await withRetry(() => requestChunk(firstUrl));
   I.appendUnique(rows, firstRows);
   if (opts.onChunk) opts.onChunk(firstRows, rows.length, totalExpected);
 

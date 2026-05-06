@@ -13,6 +13,7 @@ import {
 } from "../lib/filter-state.ts";
 import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
 import { pagesToShow } from "../lib/pager.ts";
+import { withRetry } from "../lib/retry.ts";
 import {
   type FilterPredicate,
   filterRows,
@@ -413,7 +414,10 @@ onMount(async () => {
     document.getElementById("first-paint-rows")?.remove();
   }
   try {
-    manifest = await fetchManifest(basePath);
+    // Manifest fetch wrapped in withRetry so a single packet loss on a
+    // flaky mobile carrier doesn't surface the harsh "COULD NOT LOAD"
+    // error. Three attempts, 200/800/2000 ms backoff, then surrender.
+    manifest = await withRetry(() => fetchManifest(basePath));
     if (manifest.slim_index_chunks.length === 0) {
       throw new Error(
         "FilterTable: this build did not emit a slim index; cannot run client-side filters",
