@@ -162,6 +162,45 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
   });
 
+  it("workday hits the discovered metadata.site first (custom label, not External)", async () => {
+    // Auto-discovered site labels (e.g. Google's `GOCJobs`, NVIDIA's
+    // `NVIDIAExternalCareerSite`, Adobe's `external_experienced`)
+    // bypass the hardcoded External / Careers chain entirely. The
+    // dispatcher must use the discovered label as the FIRST candidate
+    // so we don't burn a 404 round-trip against External just to fall
+    // through to the right URL. Empirically ~70% of workday tenants
+    // expose a discoverable label via robots.txt.
+    const host = "google.wd5.myworkdayjobs.com";
+    let externalCalls = 0;
+    let gocCalls = 0;
+    server.use(
+      http.post(`https://${host}/wday/cxs/google/External/jobs`, () => {
+        externalCalls += 1;
+        return HttpResponse.text("Not Found", { status: 404 });
+      }),
+      http.post(`https://${host}/wday/cxs/google/GOCJobs/jobs`, () => {
+        gocCalls += 1;
+        return HttpResponse.json(readFixture("workday.small.json"));
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workday",
+        tenants: [{ slug: "google", metadata: { host, site: "GOCJobs" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.tenant_results[0]?.jobs_count).toBeGreaterThan(0);
+    expect(gocCalls).toBeGreaterThan(0);
+    // Critically — External must NOT be probed first when the discovered
+    // label is in metadata. That's the point of the discovery.
+    expect(externalCalls).toBe(0);
+  });
+
   it("workday falls back to Careers when External 404s", async () => {
     // ~3,000 of 4,300 harvested workday tenants 404 against `External`
     // because their public board lives under a different name (most

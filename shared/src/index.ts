@@ -1,3 +1,11 @@
+// 1.4.0 formalises workday tenant metadata.site as a robots.txt-discovered
+// label. Tenant metadata already accepted arbitrary string keys, so reads
+// of older tenant files remain backward-compatible — entries that pre-date
+// 1.4.0 simply lack the site key and the scraper continues to fall back
+// to the hardcoded External / Careers probe chain. See
+// scraper/src/ats/workday-site.ts for the parser and
+// scraper/src/ats/workday-site-fetch.ts for the discovery wrapper.
+//
 // 1.3.0 introduces the role lifecycle (specs/role-lifecycle.md): the build
 // pipeline carries forward roles whose tenant didn't scrape today, marks
 // them is_stale=1, and drops them after STALE_TTL_DAYS_DEFAULT misses.
@@ -12,7 +20,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.3.0";
+export const SCHEMA_VERSION = "1.4.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

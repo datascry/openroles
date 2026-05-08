@@ -110,7 +110,9 @@ describe("runHarvest", () => {
         return new Response("1", { status: 200 });
       }
       if (urlHostMatches(url, "commoncrawl.org")) return new Response(cdx, { status: 200 });
-      probedHost = url;
+      // Skip robots.txt — that's the post-probe site-discovery hop in
+      // probe.ts, not the liveness probe whose URL we're asserting on.
+      if (!url.endsWith("/robots.txt")) probedHost = url;
       return new Response("ok", { status: 200 });
     });
     const result = await runHarvest({
@@ -121,8 +123,9 @@ describe("runHarvest", () => {
     });
     expect(result.tenants[0]?.status).toBe("live");
     // Site stayed unset on the tenant record (we didn't promote the
-    // default into stored metadata) — only host is preserved as
-    // ground-truth from CDX.
+    // default into stored metadata, and the robots.txt body returned
+    // no extractable label) — only host is preserved as ground-truth
+    // from CDX.
     expect(result.tenants[0]?.metadata).toEqual({ host: "example.wd5.myworkdayjobs.com" });
     expect(probedHost).toContain("example.wd5.myworkdayjobs.com/External");
   });

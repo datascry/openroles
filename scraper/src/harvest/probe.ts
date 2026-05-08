@@ -1,6 +1,7 @@
 import type { ATSId, Tenant, TenantStatus } from "@openroles/shared";
 import pLimit from "p-limit";
 import { assertWorkdayHost, assertWorkdaySite } from "../ats/common.ts";
+import { fetchWorkdaySite } from "../ats/workday-site-fetch.ts";
 import { type HttpClient, HttpError } from "../http.ts";
 
 export type ProbeUrlBuilder = (slug: string) => string;
@@ -143,6 +144,12 @@ export interface ProbeOptions {
   // URL needs more than the slug to compose. Slugs without metadata in the
   // map fall back to transient_failure for those ATSes.
   readonly metadataBySlug?: ReadonlyMap<string, Record<string, string>>;
+  // When true, re-discover workday `metadata.site` even when already set.
+  // Default false: site labels almost never change, so the weekly reprobe
+  // pass should skip tenants that already have one. Operators force a
+  // rediscovery via `reprobe --force-rediscover` after a known mass
+  // rename (rare).
+  readonly forceRediscover?: boolean;
 }
 
 const DEFAULT_PROBE_CONCURRENCY = 6;
@@ -218,14 +225,43 @@ export async function probeOne(
   client: HttpClient,
   observedAt: string,
   metadata?: Record<string, string>,
+  forceRediscover?: boolean,
 ): Promise<Tenant> {
   // Hard-timeout the entire probe attempt. See HARD_PROBE_TIMEOUT_MS.
   const fallback: Tenant = { ats, slug, status: "transient_failure", last_probed_at: observedAt };
   return await withHardTimeout(
-    probeOneInner(ats, slug, client, observedAt, metadata),
+    probeOneInner(ats, slug, client, observedAt, metadata, forceRediscover ?? false),
     metadata ? { ...fallback, metadata } : fallback,
     HARD_PROBE_TIMEOUT_MS,
   );
+}
+
+/**
+ * Augment the `metadata` of a tenant that just probed `live` with any
+ * per-ATS lookups that are cheap enough to bundle into the probe pass.
+ * Currently: workday's `site` label (auto-discovered from /robots.txt).
+ *
+ * Empirically ~70% of workday tenants expose the label cleanly via
+ * robots.txt; the remaining ~30% have an empty body and stay on the
+ * scraper's hardcoded External / Careers / External_Career_Site /
+ * External_Site fallback chain. We skip the lookup when a site is
+ * already set (labels almost never change), unless `forceRediscover`
+ * is set after a known mass rename.
+ */
+async function augmentLiveMetadata(
+  ats: ATSId,
+  metadata: Record<string, string>,
+  client: HttpClient,
+  forceRediscover: boolean,
+): Promise<Record<string, string>> {
+  const out: Record<string, string> = { ...metadata };
+  if (ats !== "workday") return out;
+  const host = out["host"];
+  if (host === undefined) return out;
+  if (out["site"] !== undefined && !forceRediscover) return out;
+  const discovered = await fetchWorkdaySite(host, client);
+  if (discovered !== null) out["site"] = discovered;
+  return out;
 }
 
 async function probeOneInner(
@@ -233,7 +269,8 @@ async function probeOneInner(
   slug: string,
   client: HttpClient,
   observedAt: string,
-  metadata?: Record<string, string>,
+  metadata: Record<string, string> | undefined,
+  forceRediscover: boolean,
 ): Promise<Tenant> {
   if (!SLUG_RE.test(slug)) {
     return { ats, slug, status: "dead", last_probed_at: observedAt };
@@ -261,7 +298,8 @@ async function probeOneInner(
         ...(shape.body !== undefined ? { body: shape.body } : {}),
         ...(shape.headers !== undefined ? { headers: shape.headers } : {}),
       });
-      return { ats, slug, status: "live", last_probed_at: observedAt, metadata: metadata ?? {} };
+      const liveMetadata = await augmentLiveMetadata(ats, metadata ?? {}, client, forceRediscover);
+      return { ats, slug, status: "live", last_probed_at: observedAt, metadata: liveMetadata };
     } catch (err) {
       const status: TenantStatus =
         err instanceof HttpError && err.kind === "transient" ? "transient_failure" : "dead";
@@ -323,6 +361,7 @@ export function probeMany(
           opts.client,
           opts.observedAt,
           opts.metadataBySlug?.get(slug),
+          opts.forceRediscover,
         );
       }),
     ),

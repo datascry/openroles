@@ -10,6 +10,13 @@ const IsoUtc = z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z
 // the slug — used today by workday (`host`, `site`) and ultipro (`board_id`)
 // where the public job-board URL needs more than the slug to compose.
 // Constrained to safe ASCII to keep CSV / SQLite encoding predictable.
+//
+// For workday tenants `site` is the per-tenant label that addresses the
+// cxs JSON API at `/wday/cxs/{slug}/{site}/jobs`. It is auto-discovered
+// from the tenant's `/robots.txt` Allow / Sitemap directives by the
+// reprobe pass — see scraper/src/ats/workday-site-fetch.ts. When the
+// label cannot be discovered the field is absent and the scraper falls
+// back to the hardcoded External / Careers probe chain.
 const MetadataKey = z
   .string()
   .regex(/^[a-zA-Z0-9_-]+$/)

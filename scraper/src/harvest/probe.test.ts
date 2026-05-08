@@ -231,6 +231,104 @@ describe("probeOne", () => {
     });
     expect(t.status).toBe("dead");
   });
+
+  it("auto-discovers workday metadata.site from robots.txt on first live probe", async () => {
+    // Google-style tenants use a custom site label (`GOCJobs`); without
+    // discovery the cxs JSON 404s for ~70% of harvested workday tenants.
+    // Probe pulls the label out of the host's /robots.txt Allow directive
+    // and writes it back into metadata so the scraper can reuse it.
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/robots.txt")) {
+        return new Response("User-agent: *\nAllow: /GOCJobs/\n", { status: 200 });
+      }
+      return new Response("ok", { status: 200 });
+    });
+    const t = await probeOne("workday", "google", clientWith(fetchFn), OBSERVED_AT, {
+      host: "google.wd5.myworkdayjobs.com",
+    });
+    expect(t.status).toBe("live");
+    expect(t.metadata?.["site"]).toBe("GOCJobs");
+  });
+
+  it("does not re-discover workday metadata.site when already set", async () => {
+    let robotsCalls = 0;
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/robots.txt")) {
+        robotsCalls += 1;
+        return new Response("User-agent: *\nAllow: /Renamed/\n", { status: 200 });
+      }
+      return new Response("ok", { status: 200 });
+    });
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+      site: "External",
+    });
+    expect(t.status).toBe("live");
+    // Site preserved as-is; no robots.txt fetch was issued.
+    expect(t.metadata?.["site"]).toBe("External");
+    expect(robotsCalls).toBe(0);
+  });
+
+  it("re-discovers workday metadata.site when forceRediscover is set", async () => {
+    let robotsCalls = 0;
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/robots.txt")) {
+        robotsCalls += 1;
+        return new Response("User-agent: *\nAllow: /Renamed/\n", { status: 200 });
+      }
+      return new Response("ok", { status: 200 });
+    });
+    const tenants = await probeMany("workday", ["example"], {
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+      metadataBySlug: new Map([
+        ["example", { host: "example.wd5.myworkdayjobs.com", site: "External" }],
+      ]),
+      forceRediscover: true,
+    });
+    expect(tenants[0]?.status).toBe("live");
+    expect(tenants[0]?.metadata?.["site"]).toBe("Renamed");
+    expect(robotsCalls).toBe(1);
+  });
+
+  it("leaves workday metadata.site unset when robots.txt has no extractable label", async () => {
+    // ~30% of workday tenants ship an empty robots.txt or one with only
+    // Disallow lines. Discovery returns null and the scraper falls back
+    // to the hardcoded External / Careers chain.
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/robots.txt")) {
+        return new Response("User-agent: *\nDisallow: /\n", { status: 200 });
+      }
+      return new Response("ok", { status: 200 });
+    });
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+    });
+    expect(t.status).toBe("live");
+    expect(t.metadata?.["site"]).toBeUndefined();
+    expect(t.metadata?.["host"]).toBe("example.wd5.myworkdayjobs.com");
+  });
+
+  it("does not block the workday probe when robots.txt fetch fails", async () => {
+    // robots.txt may 404 / time out / be CDN-blocked — discovery is
+    // best-effort. The liveness verdict must still hold.
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.endsWith("/robots.txt")) {
+        throw new Error("network down");
+      }
+      return new Response("ok", { status: 200 });
+    });
+    const t = await probeOne("workday", "example", clientWith(fetchFn), OBSERVED_AT, {
+      host: "example.wd5.myworkdayjobs.com",
+    });
+    expect(t.status).toBe("live");
+    expect(t.metadata?.["site"]).toBeUndefined();
+  });
 });
 
 describe("probeMany", () => {
