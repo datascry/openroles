@@ -17,7 +17,7 @@
   "dependencies": {
     "@astrojs/svelte": "8.1.0",
     "@openroles/shared": "workspace:*",
-    "astro": "6.2.1",
+    "astro": "6.3.1",
     "open-props": "1.7.23",
     "svelte": "5.55.5"
   },
