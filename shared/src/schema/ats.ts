@@ -28,6 +28,7 @@ export const ATS_IDS = Object.freeze([
   "homerun",
   "factorial",
   "eightfold",
+  "successfactors",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

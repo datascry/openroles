@@ -1,3 +1,9 @@
+// 1.5.0 widens ATSId from 24 to 25 by adding `successfactors`. SAP's
+// SuccessFactors hosts a significant slice of Fortune-500 hiring
+// (SAP itself, Adidas, BMW, Costco, Publix, much of the EU-based
+// manufacturing sector). Reads of pre-1.5.0 manifests stay clean
+// because manifest.ats_counts auto-defaults missing ATS keys to 0.
+//
 // 1.4.0 formalises workday tenant metadata.site as a robots.txt-discovered
 // label. Tenant metadata already accepted arbitrary string keys, so reads
 // of older tenant files remain backward-compatible — entries that pre-date
@@ -20,7 +26,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.4.0";
+export const SCHEMA_VERSION = "1.5.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

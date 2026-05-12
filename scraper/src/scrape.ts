@@ -25,6 +25,7 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
+import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
@@ -196,5 +197,25 @@ function dispatchPerAts(
       return scrapeTaleoTenant(opts);
     case "zohorecruit":
       return scrapeZohorecruitTenant(opts);
+    case "successfactors": {
+      // SuccessFactors needs a regional-datacenter host
+      // (`career{N}.successfactors.{tld}`). Harvest captures it via
+      // the patterns regex; tenants whose record lacks it are marked
+      // dead by the dispatcher (matches the workday/ultipro pattern
+      // where composite metadata is mandatory and not slug-derivable).
+      const host = opts.tenant.metadata?.["host"];
+      if (host === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "successfactors tenant missing metadata.host",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeSuccessFactorsTenant({ ...opts, host });
+    }
   }
 }

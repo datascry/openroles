@@ -96,6 +96,22 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     // harvest to round-trip through SLUG_PATTERN, then uppercase here.
     return `https://recruiting.ultipro.com/${slug.toUpperCase()}/JobBoard/${boardId}/JobBoardView/LoadSearchResults`;
   },
+  successfactors: (slug, metadata) => {
+    // SuccessFactors tenants are addressed by `company={slug}` on a
+    // regional datacenter (`career{N}.successfactors.{tld}`). The host
+    // is non-derivable from the slug, so harvest must capture it; a
+    // tenant record without `metadata.host` stays at transient_failure
+    // until a later harvest pass surfaces the regional cluster
+    // (mirrors the workday/ultipro convention).
+    const host = metadata["host"];
+    if (typeof host !== "string" || host.length === 0) return undefined;
+    if (!/^career[0-9]{1,3}\.successfactors\.(?:com|eu|de|com\.cn|fr|co\.uk)$/.test(host)) {
+      return undefined;
+    }
+    // Customer-facing search page (HTML); 200 means SF acknowledges
+    // the company identifier, 404 means it doesn't.
+    return `https://${host}/career?company=${encodeURIComponent(slug)}`;
+  },
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {

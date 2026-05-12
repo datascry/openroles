@@ -257,6 +257,32 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.eightfold\.ai/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "successfactors",
+    // SuccessFactors career sites are addressed by a regional datacenter
+    // host (`career{N}.successfactors.{eu|com|de|com.cn|fr|co.uk}`) plus
+    // a `company={slug}` query parameter. The slug is the only
+    // tenant-identifier; the datacenter host is per-tenant routing
+    // metadata that we capture so the scraper knows which regional
+    // cluster to hit.
+    //
+    // extractSlugs reads `m[1]` as the slug (convention shared with
+    // every other pattern), so group 1 captures the slug from the
+    // query string. The host is parsed out of the full match string
+    // inside extractMetadata via a secondary regex; SuccessFactors is
+    // the only ATS where the slug is not part of the host, so the
+    // pattern is necessarily a little unusual.
+    cdxQuery: "*.successfactors.*",
+    regex:
+      /https?:\/\/career[0-9]{1,3}\.successfactors\.(?:com|eu|de|com\.cn|fr|co\.uk)\/career\?[^"\s]*company=([a-z0-9-]+)/gi,
+    denyList: SUBDOMAIN_DENY,
+    extractMetadata: (match) => {
+      const hostMatch = /career[0-9]{1,3}\.successfactors\.(?:com|eu|de|com\.cn|fr|co\.uk)/i.exec(
+        match[0],
+      );
+      return hostMatch ? { host: hostMatch[0] } : undefined;
+    },
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

@@ -313,6 +313,50 @@ describe("probeOne", () => {
     expect(t.metadata?.["host"]).toBe("example.wd5.myworkdayjobs.com");
   });
 
+  it("probes successfactors live via /career?company={slug} on the discovered host", async () => {
+    // SF tenants are addressed by company= query param on a regional
+    // datacenter host. Harvest captures `host` from CDX; the probe
+    // verifies the company identifier is recognised by SF.
+    let probedUrl = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      probedUrl = typeof input === "string" ? input : input.url;
+      return new Response("<html>ok</html>", { status: 200 });
+    });
+    const t = await probeOne("successfactors", "acme", clientWith(fetchFn), OBSERVED_AT, {
+      host: "career4.successfactors.eu",
+    });
+    expect(t.status).toBe("live");
+    expect(probedUrl).toBe("https://career4.successfactors.eu/career?company=acme");
+  });
+
+  it("returns transient_failure for successfactors without metadata.host", async () => {
+    // Mirrors the workday/ultipro convention: composite metadata is
+    // mandatory, not slug-derivable. The tenant stays at
+    // transient_failure until harvest surfaces a regional datacenter.
+    const fetchFn = mock(async () => new Response("<html>ok</html>", { status: 200 }));
+    const t = await probeOne("successfactors", "acme", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("returns transient_failure for successfactors when metadata is supplied but lacks host", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("successfactors", "acme", clientWith(fetchFn), OBSERVED_AT, {
+      seeded: "1",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects an SSRF-shaped successfactors host before dispatching", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("successfactors", "acme", clientWith(fetchFn), OBSERVED_AT, {
+      host: "evil.example.com",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
   it("does not block the workday probe when robots.txt fetch fails", async () => {
     // robots.txt may 404 / time out / be CDN-blocked — discovery is
     // best-effort. The liveness verdict must still hold.

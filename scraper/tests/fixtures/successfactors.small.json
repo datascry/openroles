@@ -1,0 +1,14 @@
+{
+  "jobs": [
+    {
+      "jobReqId": "R-1001",
+      "title": "Senior Software Engineer",
+      "shortDescription": "Build reliable systems at scale.",
+      "datePosted": "2026-04-10T00:00:00Z",
+      "location": "Berlin, DE",
+      "department": "Engineering",
+      "workplaceType": "hybrid"
+    }
+  ],
+  "totalCount": 1
+}

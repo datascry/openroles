@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "jobReqId": "R-3001",
+      "title": "  Engineer  ",
+      "datePosted": "not-a-real-date",
+      "location": "   "
+    },
+    {
+      "jobReqId": "R-3002",
+      "title": "Engineer with empty department",
+      "department": "  ",
+      "location": null
+    },
+    {
+      "title": "No req id should be dropped",
+      "shortDescription": "should not appear",
+      "location": "London, UK"
+    },
+    {
+      "jobReqId": "R-3001",
+      "title": "Engineer with empty department",
+      "location": "London, UK"
+    }
+  ]
+}
