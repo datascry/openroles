@@ -46,7 +46,7 @@
     "lefthook"
   ],
   "dependencies": {
-    "socks": "2.8.8"
+    "socks": "2.8.9"
   },
   "overrides": {
     "ip-address": "^10.2.0"
