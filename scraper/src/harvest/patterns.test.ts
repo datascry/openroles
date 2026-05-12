@@ -41,6 +41,39 @@ describe("harvestPatternFor", () => {
     expect(m.length).toBeGreaterThanOrEqual(2);
   });
 
+  it("successfactors pattern extracts slug from company= and host from regional cluster", () => {
+    const pattern = harvestPatternFor("successfactors");
+    const { regex, extractMetadata } = pattern;
+    const sample =
+      "https://career4.successfactors.eu/career?company=acme&career_ns=job_listing " +
+      "https://career2.successfactors.com/career?career_ns=job_listing&company=widgetco";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    const slugs = matches.map((m) => m[1]);
+    expect(slugs).toContain("acme");
+    expect(slugs).toContain("widgetco");
+    // extractMetadata recovers the regional datacenter host from the
+    // full match string (SF is the only ATS where slug !== host suffix,
+    // so the metadata extractor is non-positional).
+    expect(extractMetadata).toBeDefined();
+    const meta1 = extractMetadata?.(matches[0] as RegExpExecArray);
+    expect(meta1).toEqual({ host: "career4.successfactors.eu" });
+    const meta2 = extractMetadata?.(matches[1] as RegExpExecArray);
+    expect(meta2).toEqual({ host: "career2.successfactors.com" });
+  });
+
+  it("successfactors extractMetadata returns undefined when match[0] lacks a valid SF host", () => {
+    const pattern = harvestPatternFor("successfactors");
+    // Synthesize a RegExpExecArray-shaped object whose match[0] is a
+    // non-SF host — the host-recovery regex inside extractMetadata
+    // must fail closed.
+    const fake = Object.assign(["https://evil.example.com/career?company=acme", "acme"], {
+      index: 0,
+      input: "https://evil.example.com/career?company=acme",
+    }) as unknown as RegExpExecArray;
+    expect(pattern.extractMetadata?.(fake)).toBeUndefined();
+  });
+
   it("bamboohr pattern matches subdomain slugs", () => {
     const { regex } = harvestPatternFor("bamboohr");
     const m = Array.from("https://stripe.bamboohr.com/careers/list".matchAll(regex)).map(
