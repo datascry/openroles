@@ -278,6 +278,25 @@ jobs:
             echo "- **${ats}**: ${count} tenants (${live} live)" >> "$GITHUB_STEP_SUMMARY"
           done
 
+      - name: Validate tenant JSON before commit
+        run: |
+          # Reject malformed tenant JSON before it lands on main. The
+          # harvest pipeline previously committed with [skip ci] which
+          # masked atomic-write bugs (see commit 7984140 which committed
+          # six files with trailing-garbage / mid-array corruption and
+          # was only caught when downstream PRs failed lint). A simple
+          # parse check here makes the workflow fail loudly at the
+          # source instead of silently corrupting main.
+          set -e
+          shopt -s nullglob
+          for file in data/tenants/*.json; do
+            if ! jq -e 'type == "array"' "$file" > /dev/null 2>&1; then
+              echo "::error file=${file}::invalid JSON or not an array; refusing to commit"
+              exit 1
+            fi
+          done
+          echo "tenant json validation: ok"
+
       - name: Commit updated tenant lists and state files
         run: |
           if [ -z "$(git status --porcelain data/tenants/ data/harvest-state/)" ]; then
@@ -287,7 +306,12 @@ jobs:
           git config user.name "openroles-bot"
           git config user.email "openroles-bot@users.noreply.github.com"
           git add data/tenants/ data/harvest-state/
-          git commit -m "chore(harvest): refresh tenant lists [skip ci]"
+          # No [skip ci] — we want CI to run on harvest commits so the
+          # standard Lint + format / Type check / Test gates catch any
+          # corruption the pre-commit jq validation didn't. The data-only
+          # nature of the diff means CI completes fast (no rebuild of
+          # scraper/site internals).
+          git commit -m "chore(harvest): refresh tenant lists"
           # Harvest legs run for 5-30 minutes; main may move during that
           # window when other workflows commit or PR merges land. Plain push
           # then loses the harvest commit. Pull --rebase + retry handles the
