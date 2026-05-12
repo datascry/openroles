@@ -82,7 +82,14 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
       - run: bun install --frozen-lockfile
-      - run: bunx playwright install --with-deps chromium
+      # Playwright 1.50+ defaults to the chromium-headless-shell variant
+      # in headless mode (separate binary from the full chromium build).
+      # Installing only `chromium` leaves the headless-shell path missing,
+      # which surfaces as `Executable doesn't exist at
+      # .../chromium_headless_shell-<n>/...` and fails every spec. Install
+      # both so spec launches and Lighthouse runs (which want the full
+      # binary) both work.
+      - run: bunx playwright install --with-deps chromium chromium-headless-shell
       - run: bun run build
       - run: bun run e2e
       - name: Upload Playwright report
