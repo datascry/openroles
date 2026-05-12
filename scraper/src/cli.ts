@@ -111,6 +111,9 @@ reprobe:
   --batch-size <n>        Cap per-run reprobe count (default: 5000, max: 100000)
   --concurrency <n>       Override concurrent probes (1-32). Per-ATS host caps in probe.ts still apply
                           (workable=1, jobvite/smartrecruiters/ultipro=2, etc.) to avoid CDN rate-limits
+  --force-rediscover      Re-discover per-ATS metadata even when already populated (currently only affects
+                          workday metadata.site, which the probe pulls from /robots.txt). Use after a known
+                          mass site rename; otherwise leave off so the weekly pass stays cheap.
   --output-dir <dir>      Where the existing tenants/{ats}.json lives (default: ./data)
   --user-agent <ua>       Override the full User-Agent string
   --contact-url <url>     Contact URL interpolated into the default User-Agent
@@ -141,6 +144,7 @@ interface ParsedArgs {
   readonly batchSize: string | undefined;
   readonly concurrency: string | undefined;
   readonly skipProbe: boolean;
+  readonly forceRediscover: boolean;
   readonly userAgent: string | undefined;
   readonly contactUrl: string | undefined;
   readonly previousManifest: string | undefined;
@@ -168,6 +172,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
   let batchSize: string | undefined;
   let concurrency: string | undefined;
   let skipProbe = false;
+  let forceRediscover = false;
   let userAgent: string | undefined;
   let contactUrl: string | undefined;
   let previousManifest: string | undefined;
@@ -185,6 +190,10 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     }
     if (a === "--skip-probe") {
       skipProbe = true;
+      continue;
+    }
+    if (a === "--force-rediscover") {
+      forceRediscover = true;
       continue;
     }
     if (a === "--incremental") {
@@ -229,6 +238,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     batchSize,
     concurrency,
     skipProbe,
+    forceRediscover,
     userAgent,
     contactUrl,
     previousManifest,
@@ -715,6 +725,7 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
       observedAt,
       metadataBySlug,
       ...(concurrencyOverride !== undefined ? { concurrency: concurrencyOverride } : {}),
+      ...(args.forceRediscover ? { forceRediscover: true } : {}),
     },
   );
   const probedBySlug = new Map<string, Tenant>(probedTenants.map((p) => [p.slug, p]));

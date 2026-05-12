@@ -1,6 +1,6 @@
 # Spec: Data schema
 
-**Version**: 1.3.0 (matches `SCHEMA_VERSION` in [`shared/src/constants.ts`](../shared/src/constants.ts); bump major on backward-incompatible changes)
+**Version**: 1.4.0 (matches `SCHEMA_VERSION` in [`shared/src/constants.ts`](../shared/src/constants.ts); bump major on backward-incompatible changes)
 
 The on-disk schema is the single source of truth shared by the scraper, the build-db step, and the site. zod schemas in `shared/src/schema/` validate at every boundary.
 
@@ -56,8 +56,26 @@ interface Tenant {
   homepage_url?: string;    // optional canonical company homepage
   status: "live" | "transient_failure" | "dead";
   last_probed_at: string;   // ISO 8601 UTC
+  metadata?: Record<string, string>;
 }
 ```
+
+`metadata` is an optional per-ATS bag of strings the harvester captures
+alongside the slug. Keys are constrained to `[a-zA-Z0-9_-]{1,64}` and
+values to ASCII strings of length ≤ 256 so they round-trip safely
+through the CSV / SQLite encoding boundary.
+
+ATS-specific keys today:
+
+| ATS       | Keys              | Source / shape                                                                 |
+| --------- | ----------------- | ------------------------------------------------------------------------------ |
+| workday   | `host`, `site`    | `host` from CDX (`*.wd<n>.myworkdayjobs.com`); `site` auto-discovered from the |
+|           |                   | tenant's `/robots.txt` (preferring the first `Allow:` directive, falling back  |
+|           |                   | to the `Sitemap:` URL). When `site` is absent the workday scraper falls back   |
+|           |                   | to the hardcoded External → Careers → External_Career_Site → External_Site     |
+|           |                   | chain. Schema 1.4.0 formalises the discovery channel; older tenant files       |
+|           |                   | without `site` continue to read cleanly.                                       |
+| ultipro   | `board_id`        | `board_id` is the per-tenant GUID embedded in the public board URL.            |
 
 ### `Job`
 
