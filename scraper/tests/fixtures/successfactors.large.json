@@ -1,0 +1,33 @@
+{
+  "jobs": [
+    {
+      "jobReqId": 2001,
+      "title": "Staff Backend Engineer",
+      "shortDescription": "Design and operate distributed services.",
+      "datePosted": "2026-04-08T00:00:00Z",
+      "location": "Walldorf, DE",
+      "department": "Cloud Platform",
+      "workplaceType": "remote",
+      "remoteFlag": true
+    },
+    {
+      "jobReqId": "R-2002",
+      "title": "Technical Recruiter",
+      "shortDescription": "Help us hire the next 50 engineers.",
+      "datePosted": "2026-04-09T00:00:00Z",
+      "location": "Walldorf, DE",
+      "department": "People",
+      "workplaceType": "onsite"
+    },
+    {
+      "requisitionId": "R-2003",
+      "title": "Principal Architect",
+      "description": "Drive the architecture roadmap.",
+      "datePosted": "2026-04-11T00:00:00Z",
+      "location": "Remote, EU",
+      "department": "Engineering",
+      "url": "https://career4.successfactors.eu/career?company=acme&career_job_req_id=R-2003&career_ns=job_listing"
+    }
+  ],
+  "totalCount": 3
+}

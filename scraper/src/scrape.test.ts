@@ -370,6 +370,42 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("dead");
   });
 
+  it("dispatches successfactors with metadata.host", async () => {
+    const host = "career4.successfactors.eu";
+    server.use(
+      http.post(`https://${host}/careersection/rest/jobboard/search-jobs`, () =>
+        HttpResponse.json(readFixture("successfactors.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "successfactors",
+        tenants: [{ slug: "acme", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags successfactors tenant dead when metadata.host is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "successfactors",
+        tenants: [{ slug: "acme" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.host");
+  });
+
   it("dispatches icims using the full subdomain label as the slug", async () => {
     // iCIMS slug is the entire subdomain label (most production tenants use
     // the `careers-` prefix, but many use other branded prefixes); the URL
