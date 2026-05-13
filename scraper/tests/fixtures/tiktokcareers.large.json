@@ -1,0 +1,35 @@
+{
+  "code": 0,
+  "data": {
+    "count": 3,
+    "job_post_list": [
+      {
+        "id": 1234567,
+        "title": "Principal Engineer, ML Infrastructure",
+        "description": "Lead ML serving infra.",
+        "city_info": { "name": "Singapore" },
+        "country_info": { "name": "Singapore", "code": "SG" },
+        "job_category": { "name": "Engineering" },
+        "publish_time": "1712419200"
+      },
+      {
+        "id": "7283456789012345680",
+        "title": "Technical Recruiter",
+        "description": "Hire engineers across APAC.",
+        "city_info": { "name": "Singapore" },
+        "country_info": { "name": "Singapore", "code": "SG" },
+        "job_category": { "name": "People Operations" },
+        "publish_time": 1712505600
+      },
+      {
+        "id": "7283456789012345681",
+        "title": "Backend Engineer (Remote)",
+        "description": "Distributed services on the Live platform.",
+        "city_info": { "name": "Remote" },
+        "country_info": { "name": "United States", "code": "US" },
+        "job_function": { "name": "Backend" },
+        "publish_time": 1712678400
+      }
+    ]
+  }
+}

@@ -257,6 +257,35 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.eightfold\.ai/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  // Phase-6 custom ATSes — each is single-tenant, so group 1 captures
+  // the literal canonical slug embedded in the host. CDX surfaces the
+  // public board URL on every page of recent crawls, so harvest will
+  // discover the single tenant on the first matching record and stop
+  // (extractSlugs dedupes by slug).
+  {
+    ats: "amazonjobs",
+    cdxQuery: "amazon.jobs/*",
+    regex: /https?:\/\/(amazon)\.jobs\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "applejobs",
+    cdxQuery: "jobs.apple.com/*",
+    regex: /https?:\/\/jobs\.(apple)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "tiktokcareers",
+    cdxQuery: "careers.tiktok.com/*",
+    regex: /https?:\/\/careers\.(tiktok)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "metacareers",
+    cdxQuery: "metacareers.com/*",
+    regex: /https?:\/\/(?:www\.)?(meta)careers\.com\b/gi,
+    denyList: new Set<string>(),
+  },
   {
     ats: "successfactors",
     // SuccessFactors career sites are addressed by a regional datacenter

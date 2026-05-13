@@ -1,0 +1,38 @@
+{
+  "totalRecords": 3,
+  "pageSize": 100,
+  "searchResults": [
+    {
+      "positionId": 200612001,
+      "postingTitle": "Principal Architect, AI/ML",
+      "jobSummary": "Drive ML platform architecture.",
+      "locations": [
+        { "name": "Seattle, Washington, United States", "country": "United States", "countryCode": "US" }
+      ],
+      "postingDate": "2026-04-08T00:00:00.000Z",
+      "team": { "teamName": "Machine Learning and AI" },
+      "homeOffice": false
+    },
+    {
+      "positionId": "200612002",
+      "postingTitle": "Technical Recruiter",
+      "jobSummary": "Help scale engineering hiring.",
+      "locations": [
+        { "name": "Austin, Texas, United States", "country": "United States", "countryCode": "US" }
+      ],
+      "postingDate": "2026-04-09T00:00:00.000Z",
+      "department": "People"
+    },
+    {
+      "positionId": "200612003",
+      "postingTitle": "Software Engineer (Remote)",
+      "summary": "Remote-friendly role.",
+      "locations": [
+        { "name": "Remote, United States" }
+      ],
+      "postingDate": "2026-04-11T00:00:00.000Z",
+      "homeOffice": true,
+      "team": { "teamName": "Cloud Services" }
+    }
+  ]
+}

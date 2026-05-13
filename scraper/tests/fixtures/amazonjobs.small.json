@@ -1,0 +1,20 @@
+{
+  "error": null,
+  "hits": 1,
+  "jobs": [
+    {
+      "id_icims": "1234567",
+      "title": "Senior Software Engineer",
+      "description_short": "Build distributed systems for AWS.",
+      "posted_date": "April 10, 2026",
+      "updated_time": "about 5 hours",
+      "job_path": "/en/jobs/1234567/senior-software-engineer",
+      "city": "Seattle",
+      "state": "Washington",
+      "country_code": "US",
+      "primary_search_label": "Software Development",
+      "business_category": "Software Development",
+      "team": { "label": "AWS" }
+    }
+  ]
+}

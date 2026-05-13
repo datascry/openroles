@@ -1,0 +1,28 @@
+{
+  "code": 0,
+  "data": {
+    "count": 4,
+    "job_post_list": [
+      {
+        "id": "7283456789012346001",
+        "title": "  Engineer with whitespace  ",
+        "publish_time": -1,
+        "city_info": { "name": "London" },
+        "country_info": { "name": "United Kingdom", "code": "GB" }
+      },
+      {
+        "id": "7283456789012346002",
+        "title": "No description, no department",
+        "country_info": { "name": "Germany", "code": "DE" }
+      },
+      {
+        "title": "Missing id, must be dropped"
+      },
+      {
+        "id": "7283456789012346001",
+        "title": "Duplicate id should dedupe",
+        "city_info": { "name": "London" }
+      }
+    ]
+  }
+}

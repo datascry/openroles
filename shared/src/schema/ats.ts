@@ -29,6 +29,15 @@ export const ATS_IDS = Object.freeze([
   "factorial",
   "eightfold",
   "successfactors",
+  // Phase 6: per-company custom ATSes. Each is a single-tenant "ATS"
+  // whose only "slug" is the company name. They are added as distinct
+  // ATSIds (not a synthetic `custom` umbrella) so manifest.ats_counts,
+  // observability, and the run-report carry the same per-vendor shape
+  // as every other ATS.
+  "amazonjobs",
+  "applejobs",
+  "tiktokcareers",
+  "metacareers",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

@@ -406,6 +406,86 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.host");
   });
 
+  it("dispatches amazonjobs (single-tenant)", async () => {
+    server.use(
+      http.get("https://amazon.jobs/en/search.json", () =>
+        HttpResponse.json(readFixture("amazonjobs.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "amazonjobs",
+        tenants: [{ slug: "amazon", display_name: "Amazon" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches applejobs (single-tenant)", async () => {
+    server.use(
+      http.post("https://jobs.apple.com/api/role/search", () =>
+        HttpResponse.json(readFixture("applejobs.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applejobs",
+        tenants: [{ slug: "apple", display_name: "Apple" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches tiktokcareers (single-tenant)", async () => {
+    server.use(
+      http.post("https://careers.tiktok.com/api/v1/search/job/posts", () =>
+        HttpResponse.json(readFixture("tiktokcareers.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "tiktokcareers",
+        tenants: [{ slug: "tiktok", display_name: "TikTok" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches metacareers (single-tenant)", async () => {
+    server.use(
+      http.post("https://www.metacareers.com/api/jobs", () =>
+        HttpResponse.json(readFixture("metacareers.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "metacareers",
+        tenants: [{ slug: "meta", display_name: "Meta" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches icims using the full subdomain label as the slug", async () => {
     // iCIMS slug is the entire subdomain label (most production tenants use
     // the `careers-` prefix, but many use other branded prefixes); the URL

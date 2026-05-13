@@ -1,0 +1,37 @@
+{
+  "error": null,
+  "hits": 3,
+  "jobs": [
+    {
+      "id_icims": 2001,
+      "title": "Principal Engineer, Devices",
+      "description_short": "Drive architecture for Echo devices.",
+      "posted_date": "April 08, 2026",
+      "job_path": "/en/jobs/2001/principal-engineer-devices",
+      "city": "Sunnyvale",
+      "state": "California",
+      "country_code": "US",
+      "team": { "label": "Devices" }
+    },
+    {
+      "id_icims": "2002",
+      "title": "Technical Recruiter",
+      "description_short": "Help us scale engineering hiring.",
+      "posted_date": "April 09, 2026",
+      "job_path": "/en/jobs/2002/technical-recruiter",
+      "city": "Arlington",
+      "state": "Virginia",
+      "country_code": "US",
+      "business_category": "Human Resources"
+    },
+    {
+      "id_icims": "2003",
+      "title": "Software Engineer (Remote)",
+      "description": "Backend systems for AWS Lambda.",
+      "posted_date": "April 11, 2026",
+      "location": "Virtual, US",
+      "country_code": "US",
+      "team": { "label": "AWS" }
+    }
+  ]
+}

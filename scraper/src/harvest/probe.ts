@@ -53,6 +53,14 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // sitemap is the actual public signal — tenants with no published jobs
   // return 404 here.
   eightfold: (slug) => `https://${slug}.eightfold.ai/careers/sitemap.xml`,
+  // Phase-6 custom ATSes: each is single-tenant, so the probe URL is
+  // fixed. We use the GET-friendly public landing page (HTML or JSON
+  // GET) rather than the POST-only API endpoint the scraper hits;
+  // probe is a liveness check, not a representative call.
+  amazonjobs: () => "https://amazon.jobs/en/search.json?result_limit=1",
+  applejobs: () => "https://jobs.apple.com/",
+  tiktokcareers: () => "https://careers.tiktok.com/",
+  metacareers: () => "https://www.metacareers.com/jobs/",
   // workday + ultipro need composite metadata (host/site, board_id) — see
   // probeUrlForWithMetadata below.
 };
