@@ -124,3 +124,83 @@ per-brand evidence.
 The corrective action is one small seed PR (ExxonMobil → SuccessFactors,
 AMD → iCIMS once host is confirmed). Everything else is either already
 covered or genuinely deferred pending more research.
+
+## Addendum (2026-05-14, second pass): Phenom is structurally redundant
+
+A subsequent investigation probed the candidate Phenom tenants listed
+in a follow-up PR plan (walgreens, cvshealth, bp, gapinc, ti, att,
+tmobile, allstate, lowes, marriott, homedepot, toyota, verizon,
+mastercard, wayfair, mgm, usps, chick-fil-a, pwc). Three of these
+hosts cleanly fingerprint as Phenom in their HTML head:
+
+- `jobs.cvshealth.com` — `refNum: CVSCHLUS`,
+  `widgetApiEndpoint: https://jobs.cvshealth.com/widgets`
+- `careers.mastercard.com` — `refNum: MASRUS`
+- `careers.toyota.com` — `refNum: TOYOUS`
+
+Inspecting the server-rendered jobs JSON island on each (the `phApp.ddo`
+inline state object that Phenom embeds in `/{country}/{lang}/search-results`)
+revealed that every job carries an `applyUrl` field pointing back to
+the brand's existing Workday tenant:
+
+| Brand | Phenom host | applyUrl host |
+| --- | --- | --- |
+| CVS Health | jobs.cvshealth.com | cvshealth.wd1.myworkdayjobs.com |
+| Mastercard | careers.mastercard.com | mastercard.wd1.myworkdayjobs.com |
+| Toyota | careers.toyota.com | toyota.wd503.myworkdayjobs.com |
+
+All three brands are already live workday tenants in
+`data/tenants/workday.json`. The Phenom layer is a marketing/SEO
+front-end that re-displays roles sourced from the brand's Workday
+tenant. The corpus already captures the underlying data via the
+workday scraper.
+
+Implications:
+
+1. **Seeding Phenom for these brands is net-zero for coverage and
+   net-negative for corpus quality.** The `url` field on a Phenom-
+   scraped job would be `https://{phenom-host}/job/{id}` while the
+   workday-scraped job's `url` is `https://{tenant}.wd*.myworkdayjobs.com/...`.
+   The `jobs.url UNIQUE` constraint does not dedupe across ATSes, so
+   every role would land twice — once from each adapter — inflating
+   `manifest.total_rows` and bloating the slim-index chunks for no
+   information gain.
+
+2. **The other PR-1 candidates probed as non-Phenom:**
+   - `jobs.walgreens.com` — TalentBrew (`tbcdn.talentbrew.com` CDN)
+   - `careers.bp.com` — Avature (HTML fingerprints, deferred)
+   - `careers.t-mobile.com` — Workday (already in corpus)
+   - `careers.chick-fil-a.com` — iCIMS (already in corpus as `chickfila`)
+   - `jobs.us.pwc.com` — TalentBrew
+   - `careers.att.com`, `careers.allstate.com`, `careers.lowes.com`,
+     `careers.wayfair.com`, `jobs.mgmresorts.com`, `careers.usps.com` —
+     connection-blocked or 403, no fingerprint extractable
+
+3. **The Phenom adapter on main (PR #40) is itself unverified:**
+   - Fixtures `scraper/tests/fixtures/phenom.{small,large,edge}.json`
+     are hand-crafted with synthetic data; the `jobs.walgreens.com`
+     URL in the small fixture references a host that isn't even
+     Phenom.
+   - The adapter targets `/api/jobs?page=N&pagesize=M`; live probes
+     of the three confirmed Phenom hosts return 500 / 404 on that
+     path. The actual Phenom search API is `/api/jobs/search?from=N&size=M`
+     (POST + GET) gated behind tenant-context cookies that aren't
+     accessible via simple curl. The fixture-replay tests passed
+     against shapes nobody had observed.
+
+The Phenom adapter is being reverted in a companion PR. Future Phenom
+work would only be valuable for brands genuinely Phenom-only (i.e.
+not also on Workday); none of the candidates in the original PR-1
+list meet that bar.
+
+### Updated summary
+
+- 120 brand slugs queried
+- ~95 already covered (in corpus under canonical or alias slug)
+- 2 verified reachable via existing ATS (need seeds): ExxonMobil, AMD
+- 2 verified would need new multi-tenant adapter: Avature (TotalEnergies),
+  BrassRing (Publix)
+- ~10 deferred (probe failed or proprietary)
+- **0 brands genuinely need a new single-tenant scraper after validation**
+- **Phenom seeding for Workday-fronted brands is structurally counter-
+  productive; the 1.7.0 adapter is being reverted.**
