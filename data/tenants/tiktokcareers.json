@@ -3,8 +3,8 @@
     "ats": "tiktokcareers",
     "slug": "tiktok",
     "display_name": "TikTok",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T01:25:44.000Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:15:19.868Z",
     "first_seen_at": "2026-05-14T01:25:44.000Z"
   }
 ]

@@ -3,8 +3,8 @@
     "ats": "jsonld",
     "slug": "lockheedmartin",
     "display_name": "Lockheed Martin",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:15:08.669Z",
     "first_seen_at": "2026-05-14T00:00:00.000Z",
     "metadata": {
       "sitemap_url": "https://www.lockheedmartinjobs.com/sitemap.xml"
@@ -14,8 +14,8 @@
     "ats": "jsonld",
     "slug": "spectrum",
     "display_name": "Spectrum (Charter Communications)",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:15:08.669Z",
     "first_seen_at": "2026-05-14T00:00:00.000Z",
     "metadata": {
       "sitemap_url": "https://jobs.spectrum.com/sitemap.xml"

@@ -3,8 +3,8 @@
     "ats": "metacareers",
     "slug": "meta",
     "display_name": "Meta",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T01:25:44.000Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:15:22.768Z",
     "first_seen_at": "2026-05-14T01:25:44.000Z"
   }
 ]
