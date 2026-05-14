@@ -98175,5 +98175,13 @@
     "slug": "zsl",
     "status": "dead",
     "last_probed_at": "2026-05-01T15:45:40.580Z"
+  },
+  {
+    "ats": "icims",
+    "slug": "careers-amd",
+    "display_name": "AMD",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T02:52:47.000Z",
+    "first_seen_at": "2026-05-14T02:52:47.000Z"
   }
 ]
