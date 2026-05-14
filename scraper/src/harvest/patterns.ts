@@ -286,6 +286,22 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/(?:www\.)?(meta)careers\.com\b/gi,
     denyList: new Set<string>(),
   },
+  // Phenom is multi-tenant with no single canonical host (each customer
+  // has its own careers domain), so CDX-driven harvest can't enumerate
+  // tenants. We register a placeholder pattern that never matches,
+  // satisfying the "HARVEST_ATS_IDS == ATS_IDS" invariant while making
+  // the no-auto-harvest property explicit in code rather than implicit.
+  {
+    ats: "phenom",
+    cdxQuery: "phenompeople.com/*",
+    // Matches the vendor's own marketing site, never a customer host;
+    // groups 1 captures the vendor name, which is denied at the slug
+    // level — so this pattern is effectively a no-op for harvest while
+    // documenting that Phenom is the platform we intentionally don't
+    // try to auto-discover.
+    regex: /https?:\/\/(?:www\.)?(phenompeople)\.com\b/gi,
+    denyList: new Set<string>(["phenompeople"]),
+  },
   {
     ats: "successfactors",
     // SuccessFactors career sites are addressed by a regional datacenter

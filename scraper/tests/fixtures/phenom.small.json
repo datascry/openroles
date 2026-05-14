@@ -1,0 +1,18 @@
+{
+  "total": 1,
+  "jobs": [
+    {
+      "jobId": "12345",
+      "title": "Senior Pharmacist",
+      "description": "Provide patient consultation and prescription services.",
+      "category": "Pharmacy",
+      "department": "Pharmacy Services",
+      "ml_country": "United States",
+      "country_code": "US",
+      "city": "Chicago",
+      "state": "Illinois",
+      "posted_date": "2026-04-10T00:00:00.000Z",
+      "url": "https://jobs.walgreens.com/job/chicago/senior-pharmacist/12345"
+    }
+  ]
+}

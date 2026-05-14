@@ -38,6 +38,11 @@ export const ATS_IDS = Object.freeze([
   "applejobs",
   "tiktokcareers",
   "metacareers",
+  // Phase 7: multi-tenant Phenom People adapter. Workday-shaped ATS used
+  // by Walgreens, CVS, BP, ExxonMobil, GAP, TI, AMD, and ~600 other
+  // Fortune-1000 employers. Tenant identity = (slug, host) pair where
+  // host is the per-customer careers domain.
+  "phenom",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

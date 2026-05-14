@@ -1,0 +1,26 @@
+{
+  "total": 4,
+  "jobs": [
+    {
+      "jobId": "ED1",
+      "title": "  Engineer with whitespace  ",
+      "city": "London",
+      "country_code": "GB",
+      "posted_date": "not-a-real-date"
+    },
+    {
+      "jobId": "ED2",
+      "title": "No location at all",
+      "country_code": "DE"
+    },
+    {
+      "title": "Missing jobId, dropped",
+      "city": "London"
+    },
+    {
+      "jobId": "ED1",
+      "title": "Duplicate jobId should dedupe",
+      "city": "London"
+    }
+  ]
+}
