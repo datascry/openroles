@@ -17,7 +17,7 @@ type ATSId =
   | "applicantstack" | "homerun" | "factorial" | "eightfold"
   | "successfactors"
   | "amazonjobs" | "applejobs" | "tiktokcareers" | "metacareers"
-  | "phenom" | "infosys" | "tcs" | "wipro" | "ltimindtree";
+  | "phenom";
 ```
 
 Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding an ATS bumps the schema minor version.

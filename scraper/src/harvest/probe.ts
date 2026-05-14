@@ -61,15 +61,8 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   applejobs: () => "https://jobs.apple.com/",
   tiktokcareers: () => "https://careers.tiktok.com/",
   metacareers: () => "https://www.metacareers.com/jobs/",
-  // Phase-7 Indian-IT trio + LTIMindtree: each is single-tenant with a
-  // public careers landing page. Probe is a GET liveness check
-  // against the customer-facing root.
-  infosys: () => "https://career.infosys.com/",
-  tcs: () => "https://www.tcs.com/careers",
-  wipro: () => "https://careers.wipro.com/",
-  ltimindtree: () => "https://www.ltimindtree.com/careers/",
-  // workday + ultipro need composite metadata (host/site, board_id) — see
-  // probeUrlForWithMetadata below.
+  // workday + ultipro + successfactors + phenom need composite metadata
+  // (host/site, board_id) — see probeUrlForWithMetadata below.
 };
 
 // Probe URL builders that need both slug and metadata (workday, ultipro).
