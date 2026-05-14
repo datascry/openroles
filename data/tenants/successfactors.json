@@ -6,7 +6,9 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-14T01:25:59.000Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
-    "metadata": { "host": "career4.successfactors.eu" }
+    "metadata": {
+      "host": "career4.successfactors.eu"
+    }
   },
   {
     "ats": "successfactors",
@@ -15,7 +17,9 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-14T01:25:59.000Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
-    "metadata": { "host": "career4.successfactors.eu" }
+    "metadata": {
+      "host": "career4.successfactors.eu"
+    }
   },
   {
     "ats": "successfactors",
@@ -24,7 +28,9 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-14T01:25:59.000Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
-    "metadata": { "host": "career4.successfactors.de" }
+    "metadata": {
+      "host": "career4.successfactors.de"
+    }
   },
   {
     "ats": "successfactors",
@@ -33,7 +39,9 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-14T01:25:59.000Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
-    "metadata": { "host": "career4.successfactors.com" }
+    "metadata": {
+      "host": "career4.successfactors.com"
+    }
   },
   {
     "ats": "successfactors",
@@ -42,6 +50,19 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-14T01:25:59.000Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
-    "metadata": { "host": "career4.successfactors.com" }
+    "metadata": {
+      "host": "career4.successfactors.com"
+    }
+  },
+  {
+    "ats": "successfactors",
+    "slug": "exxonmobil",
+    "display_name": "ExxonMobil",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T02:52:47.000Z",
+    "first_seen_at": "2026-05-14T02:52:47.000Z",
+    "metadata": {
+      "host": "career4.successfactors.com"
+    }
   }
 ]
