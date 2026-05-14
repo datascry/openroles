@@ -78,6 +78,18 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("publix", "publix")).toBe("https://corporate.publix.com/careers");
     expect(probeUrlFor("seveneleven", "seveneleven")).toBe("https://careers.7-eleven.com/");
     expect(probeUrlFor("aldi", "aldi")).toBe("https://careers.aldi.us/");
+    // Phase-7C apparel + energy
+    expect(probeUrlFor("fastretailing", "fastretailing")).toBe(
+      "https://www.fastretailing.com/employment/",
+    );
+    expect(probeUrlFor("inditex", "inditex")).toBe("https://www.inditexcareers.com/");
+    expect(probeUrlFor("hmgroup", "hmgroup")).toBe("https://career.hm.com/");
+    expect(probeUrlFor("exxonmobil", "exxonmobil")).toBe("https://jobs.exxonmobil.com/");
+    expect(probeUrlFor("saudiaramco", "saudiaramco")).toBe("https://careers.aramco.com/");
+    expect(probeUrlFor("totalenergies", "totalenergies")).toBe(
+      "https://careers.totalenergies.com/",
+    );
+    expect(probeUrlFor("chevron", "chevron")).toBe("https://careers.chevron.com/");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

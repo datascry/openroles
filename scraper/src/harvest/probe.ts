@@ -73,6 +73,15 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   publix: () => "https://corporate.publix.com/careers",
   seveneleven: () => "https://careers.7-eleven.com/",
   aldi: () => "https://careers.aldi.us/",
+  // Phase-7C apparel one-offs
+  fastretailing: () => "https://www.fastretailing.com/employment/",
+  inditex: () => "https://www.inditexcareers.com/",
+  hmgroup: () => "https://career.hm.com/",
+  // Phase-7C energy one-offs
+  exxonmobil: () => "https://jobs.exxonmobil.com/",
+  saudiaramco: () => "https://careers.aramco.com/",
+  totalenergies: () => "https://careers.totalenergies.com/",
+  chevron: () => "https://careers.chevron.com/",
   // workday + ultipro need composite metadata (host/site, board_id) — see
   // probeUrlForWithMetadata below.
 };

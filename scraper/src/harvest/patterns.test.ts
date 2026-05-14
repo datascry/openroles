@@ -122,6 +122,34 @@ describe("harvestPatternFor", () => {
     expect(noTrailing).not.toContain("bad-");
   });
 
+  it("phase-7c apparel + energy patterns extract canonical slugs", () => {
+    const cases: Array<[string, string, string]> = [
+      ["fastretailing", "https://www.fastretailing.com/employment/page", "fastretailing"],
+      ["inditex", "https://www.inditexcareers.com/job/123", "inditex"],
+      ["exxonmobil", "https://jobs.exxonmobil.com/job/123", "exxonmobil"],
+      ["totalenergies", "https://careers.totalenergies.com/job/123", "totalenergies"],
+      ["chevron", "https://careers.chevron.com/job/123", "chevron"],
+    ];
+    for (const [ats, url, expectedSlug] of cases) {
+      const { regex } = harvestPatternFor(ats as Parameters<typeof harvestPatternFor>[0]);
+      const re = new RegExp(regex.source, regex.flags);
+      const m = re.exec(url);
+      expect(m).not.toBeNull();
+      expect(m?.[1]).toBe(expectedSlug);
+    }
+    // hmgroup and saudiaramco use metadata override for the slug.
+    const hm = harvestPatternFor("hmgroup");
+    const hmMatch = new RegExp(hm.regex.source, hm.regex.flags).exec("https://career.hm.com/jobs");
+    expect(hm.extractMetadata?.(hmMatch as RegExpExecArray)).toEqual({ tenant: "hmgroup" });
+    const aramco = harvestPatternFor("saudiaramco");
+    const aramcoMatch = new RegExp(aramco.regex.source, aramco.regex.flags).exec(
+      "https://careers.aramco.com/jobs",
+    );
+    expect(aramco.extractMetadata?.(aramcoMatch as RegExpExecArray)).toEqual({
+      tenant: "saudiaramco",
+    });
+  });
+
   it("phase-7b retail patterns extract canonical slugs and metadata", () => {
     const tjPattern = harvestPatternFor("traderjoes");
     const tjMatch = new RegExp(tjPattern.regex.source, tjPattern.regex.flags).exec(

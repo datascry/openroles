@@ -16,12 +16,17 @@ import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeChevronTenant } from "./ats/chevron.ts";
 import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
+import { scrapeExxonMobilTenant } from "./ats/exxonmobil.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
+import { scrapeFastRetailingTenant } from "./ats/fastretailing.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
+import { scrapeHmGroupTenant } from "./ats/hmgroup.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeInditexTenant } from "./ats/inditex.ts";
 import { scrapeInfosysTenant } from "./ats/infosys.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
@@ -32,6 +37,7 @@ import { scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapePublixTenant } from "./ats/publix.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeSaudiAramcoTenant } from "./ats/saudiaramco.ts";
 import { scrapeSevenElevenTenant } from "./ats/seveneleven.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
@@ -40,6 +46,7 @@ import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTcsTenant } from "./ats/tcs.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
+import { scrapeTotalEnergiesTenant } from "./ats/totalenergies.ts";
 import { scrapeTraderJoesTenant } from "./ats/traderjoes.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWiproTenant } from "./ats/wipro.ts";
@@ -252,6 +259,20 @@ function dispatchPerAts(
       return scrapeSevenElevenTenant(opts);
     case "aldi":
       return scrapeAldiTenant(opts);
+    case "fastretailing":
+      return scrapeFastRetailingTenant(opts);
+    case "inditex":
+      return scrapeInditexTenant(opts);
+    case "hmgroup":
+      return scrapeHmGroupTenant(opts);
+    case "exxonmobil":
+      return scrapeExxonMobilTenant(opts);
+    case "saudiaramco":
+      return scrapeSaudiAramcoTenant(opts);
+    case "totalenergies":
+      return scrapeTotalEnergiesTenant(opts);
+    case "chevron":
+      return scrapeChevronTenant(opts);
     case "successfactors": {
       // SuccessFactors needs a regional-datacenter host
       // (`career{N}.successfactors.{tld}`). Harvest captures it via

@@ -619,6 +619,135 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  // Phase-7C apparel
+  it("dispatches fastretailing (single-tenant)", async () => {
+    server.use(
+      http.get("https://www.fastretailing.com/employment/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "FR-1", title: "Store Manager" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "fastretailing",
+        tenants: [{ slug: "fastretailing" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  it("dispatches inditex (single-tenant)", async () => {
+    server.use(
+      http.get("https://www.inditexcareers.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "INDI-1", title: "Store Manager" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "inditex",
+        tenants: [{ slug: "inditex" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  it("dispatches hmgroup (single-tenant)", async () => {
+    server.use(
+      http.get("https://career.hm.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "HM-1", title: "Store Manager" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hmgroup",
+        tenants: [{ slug: "hmgroup" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  // Phase-7C energy
+  it("dispatches exxonmobil (single-tenant)", async () => {
+    server.use(
+      http.get("https://jobs.exxonmobil.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "XOM-1", title: "Petroleum Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "exxonmobil",
+        tenants: [{ slug: "exxonmobil" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  it("dispatches saudiaramco (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.aramco.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "ARA-1", title: "Reservoir Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "saudiaramco",
+        tenants: [{ slug: "saudiaramco" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  it("dispatches totalenergies (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.totalenergies.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "TTE-1", title: "Drilling Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "totalenergies",
+        tenants: [{ slug: "totalenergies" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+  it("dispatches chevron (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.chevron.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "CVX-1", title: "Process Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "chevron",
+        tenants: [{ slug: "chevron" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches aldi (single-tenant)", async () => {
     server.use(
       http.get("https://careers.aldi.us/api/jobs", () =>

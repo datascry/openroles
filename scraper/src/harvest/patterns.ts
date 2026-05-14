@@ -357,6 +357,51 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/careers\.(aldi)\.us\b/gi,
     denyList: new Set<string>(),
   },
+  // Phase-7C apparel + energy single-tenant one-offs
+  {
+    ats: "fastretailing",
+    cdxQuery: "fastretailing.com/employment/*",
+    regex: /https?:\/\/(?:www\.)?(fastretailing)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "inditex",
+    cdxQuery: "inditexcareers.com/*",
+    regex: /https?:\/\/(?:www\.)?(inditex)careers\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "hmgroup",
+    cdxQuery: "career.hm.com/*",
+    regex: /https?:\/\/career\.(hm)\.com\b/gi,
+    denyList: new Set<string>(),
+    extractMetadata: () => ({ tenant: "hmgroup" }),
+  },
+  {
+    ats: "exxonmobil",
+    cdxQuery: "jobs.exxonmobil.com/*",
+    regex: /https?:\/\/jobs\.(exxonmobil)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "saudiaramco",
+    cdxQuery: "careers.aramco.com/*",
+    regex: /https?:\/\/careers\.(aramco)\.com\b/gi,
+    denyList: new Set<string>(),
+    extractMetadata: () => ({ tenant: "saudiaramco" }),
+  },
+  {
+    ats: "totalenergies",
+    cdxQuery: "careers.totalenergies.com/*",
+    regex: /https?:\/\/careers\.(totalenergies)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "chevron",
+    cdxQuery: "careers.chevron.com/*",
+    regex: /https?:\/\/careers\.(chevron)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
   {
     ats: "successfactors",
     // SuccessFactors career sites are addressed by a regional datacenter

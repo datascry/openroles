@@ -1,3 +1,7 @@
+// 1.9.0 lands Phase-7C apparel + energy one-offs: Fast Retailing
+// (Uniqlo), Inditex (Zara), H&M Group, ExxonMobil, Saudi Aramco,
+// TotalEnergies, Chevron. Widens ATSId 38 → 45.
+//
 // 1.8.0 lands Phase-7B retail one-offs: Trader Joe's, Publix,
 // 7-Eleven, ALDI. Each is a single-tenant proprietary careers
 // stack with a public-but-undocumented search API. Widens
@@ -48,7 +52,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.8.0";
+export const SCHEMA_VERSION = "1.9.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

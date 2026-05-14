@@ -55,6 +55,15 @@ export const ATS_IDS = Object.freeze([
   "publix",
   "seveneleven",
   "aldi",
+  // Phase 7C apparel one-offs (Uniqlo / Zara / H&M parents):
+  "fastretailing", // Uniqlo, Theory, GU
+  "inditex", // Zara, Pull&Bear, Bershka, Stradivarius
+  "hmgroup", // H&M, COS, & Other Stories
+  // Phase 7C energy one-offs:
+  "exxonmobil",
+  "saudiaramco",
+  "totalenergies",
+  "chevron",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
