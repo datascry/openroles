@@ -68,6 +68,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("applejobs", "apple")).toBe("https://jobs.apple.com/");
     expect(probeUrlFor("tiktokcareers", "tiktok")).toBe("https://careers.tiktok.com/");
     expect(probeUrlFor("metacareers", "meta")).toBe("https://www.metacareers.com/jobs/");
+    // Phase-7 single-tenant Indian-IT
+    expect(probeUrlFor("infosys", "infosys")).toBe("https://career.infosys.com/");
+    expect(probeUrlFor("tcs", "tcs")).toBe("https://www.tcs.com/careers");
+    expect(probeUrlFor("wipro", "wipro")).toBe("https://careers.wipro.com/");
+    expect(probeUrlFor("ltimindtree", "ltimindtree")).toBe("https://www.ltimindtree.com/careers/");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

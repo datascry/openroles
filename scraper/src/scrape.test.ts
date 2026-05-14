@@ -466,6 +466,121 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches phenom with metadata.host (multi-tenant)", async () => {
+    const host = "jobs.walgreens.com";
+    server.use(
+      http.get(`https://${host}/api/jobs`, () =>
+        HttpResponse.json(readFixture("phenom.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "phenom",
+        tenants: [{ slug: "walgreens", display_name: "Walgreens", metadata: { host } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(1);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags phenom tenant dead when metadata.host is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "phenom",
+        tenants: [{ slug: "walgreens" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.host");
+  });
+
+  it("dispatches infosys (single-tenant)", async () => {
+    server.use(
+      http.get("https://career.infosys.com/jobsearch", () =>
+        HttpResponse.json({
+          total: 1,
+          results: [{ jobId: "I-1", title: "Engineer", location: "Bengaluru, India" }],
+        }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "infosys",
+        tenants: [{ slug: "infosys", display_name: "Infosys" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches tcs (single-tenant)", async () => {
+    server.use(
+      http.get("https://www.tcs.com/careers/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "T-1", title: "Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "tcs",
+        tenants: [{ slug: "tcs" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches wipro (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.wipro.com/careers-home/api/jobs", () =>
+        HttpResponse.json({ total: 1, results: [{ jobId: "W-1", title: "Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "wipro",
+        tenants: [{ slug: "wipro" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches ltimindtree (single-tenant)", async () => {
+    server.use(
+      http.get("https://www.ltimindtree.com/careers/api/jobs", () =>
+        HttpResponse.json({ total: 1, results: [{ jobId: "L-1", title: "Engineer" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "ltimindtree",
+        tenants: [{ slug: "ltimindtree" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches metacareers (single-tenant)", async () => {
     server.use(
       http.post("https://www.metacareers.com/api/jobs", () =>

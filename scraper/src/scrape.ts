@@ -21,19 +21,24 @@ import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeInfosysTenant } from "./ats/infosys.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
+import { scrapeLtimindtreeTenant } from "./ats/ltimindtree.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
+import { scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
+import { scrapeTcsTenant } from "./ats/tcs.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
+import { scrapeWiproTenant } from "./ats/wipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
 import { scrapeZohorecruitTenant } from "./ats/zohorecruit.ts";
@@ -209,6 +214,32 @@ function dispatchPerAts(
       return scrapeTiktokCareersTenant(opts);
     case "metacareers":
       return scrapeMetaCareersTenant(opts);
+    case "phenom": {
+      // Multi-tenant: each customer has its own host (e.g.
+      // jobs.walgreens.com, careers.bp.com). Composite metadata
+      // mandatory — slug alone doesn't identify the host.
+      const host = opts.tenant.metadata?.["host"];
+      if (host === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "phenom tenant missing metadata.host",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapePhenomTenant({ ...opts, host });
+    }
+    case "infosys":
+      return scrapeInfosysTenant(opts);
+    case "tcs":
+      return scrapeTcsTenant(opts);
+    case "wipro":
+      return scrapeWiproTenant(opts);
+    case "ltimindtree":
+      return scrapeLtimindtreeTenant(opts);
     case "successfactors": {
       // SuccessFactors needs a regional-datacenter host
       // (`career{N}.successfactors.{tld}`). Harvest captures it via

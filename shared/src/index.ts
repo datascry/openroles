@@ -1,3 +1,12 @@
+// 1.7.0 lands Phase-7 expansion: Phenom People (multi-tenant ATS used
+// by Walgreens, CVS, BP, ExxonMobil, GAP, TI, AMD, and ~600 more
+// Fortune-1000 employers) plus the Indian-IT-giant trio Infosys, TCS,
+// Wipro, and LTIMindtree (each a single-tenant proprietary careers
+// stack with a public-but-undocumented search api). Widens ATSId
+// 29 → 34. Phenom is the single highest-leverage addition since the
+// Workday adapter — adding a multi-tenant adapter unlocks hundreds
+// of tier-1 brands at once.
+//
 // 1.6.0 lands Phase-6 per-company custom ATSes for FAANG-tier brands
 // whose public boards run on bespoke infrastructure: amazonjobs (the
 // amazon.jobs public JSON API), applejobs (jobs.apple.com role-search
@@ -34,7 +43,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.6.0";
+export const SCHEMA_VERSION = "1.7.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

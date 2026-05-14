@@ -61,6 +61,13 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   applejobs: () => "https://jobs.apple.com/",
   tiktokcareers: () => "https://careers.tiktok.com/",
   metacareers: () => "https://www.metacareers.com/jobs/",
+  // Phase-7 Indian-IT trio + LTIMindtree: each is single-tenant with a
+  // public careers landing page. Probe is a GET liveness check
+  // against the customer-facing root.
+  infosys: () => "https://career.infosys.com/",
+  tcs: () => "https://www.tcs.com/careers",
+  wipro: () => "https://careers.wipro.com/",
+  ltimindtree: () => "https://www.ltimindtree.com/careers/",
   // workday + ultipro need composite metadata (host/site, board_id) — see
   // probeUrlForWithMetadata below.
 };
@@ -103,6 +110,18 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     // Tenant codes are uppercased on the public URL — we lowercase on
     // harvest to round-trip through SLUG_PATTERN, then uppercase here.
     return `https://recruiting.ultipro.com/${slug.toUpperCase()}/JobBoard/${boardId}/JobBoardView/LoadSearchResults`;
+  },
+  phenom: (slug, metadata) => {
+    // Phenom is multi-tenant: each customer has their own careers host
+    // (jobs.walgreens.com, careers.bp.com, etc.). Composite metadata
+    // is mandatory — slug alone doesn't identify the host.
+    const host = metadata["host"];
+    if (typeof host !== "string" || host.length === 0) return undefined;
+    if (!/^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$/.test(host)) return undefined;
+    if (host === "localhost" || host.endsWith(".local") || host.endsWith(".internal")) {
+      return undefined;
+    }
+    return `https://${host}/api/jobs?page=1&pagesize=1`;
   },
   successfactors: (slug, metadata) => {
     // SuccessFactors tenants are addressed by `company={slug}` on a

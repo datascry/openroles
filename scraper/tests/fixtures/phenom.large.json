@@ -1,0 +1,40 @@
+{
+  "total": 3,
+  "jobs": [
+    {
+      "jobId": 67001,
+      "title": "Principal Petroleum Engineer",
+      "description_text": "Lead reservoir engineering studies.",
+      "category": "Engineering",
+      "ml_country": "United Kingdom",
+      "country_code": "GB",
+      "city": "London",
+      "state": "England",
+      "posted_date": "2026-04-08T00:00:00.000Z",
+      "department": "Upstream",
+      "url": "https://careers.bp.com/job/london/principal-petroleum-engineer/67001"
+    },
+    {
+      "ats_job_id": "67002",
+      "title": "Technical Recruiter",
+      "description": "Lead engineering hiring across EMEA.",
+      "category": "Human Resources",
+      "ml_country": "United Kingdom",
+      "country_code": "GB",
+      "city": "London",
+      "state": "England",
+      "posted_date": "2026-04-09T00:00:00.000Z"
+    },
+    {
+      "jobId": "67003",
+      "title": "Cloud Engineer (Remote)",
+      "description": "Migrate workloads to AWS and Azure.",
+      "category": "Information Technology",
+      "ml_country": "United States",
+      "country_code": "US",
+      "city": "Remote",
+      "posted_date": "2026-04-11T00:00:00.000Z",
+      "apply_url": "https://careers.bp.com/apply/67003"
+    }
+  ]
+}
