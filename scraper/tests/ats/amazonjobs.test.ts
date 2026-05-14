@@ -100,6 +100,33 @@ describe("parseAmazonJobs (fixture replay)", () => {
     });
     expect(jobs[0]?.url).toBe("https://amazon.jobs/en/jobs/9001");
   });
+
+  it("accepts null location fields (state, city, country_code) without dropping the row", () => {
+    // Amazon's API returns null (not omitted) for these fields on roles
+    // without a specific state — e.g. virtual jobs and HQ-only postings.
+    // Strict z.string() rejected the whole response; nullish() lets the
+    // row through and the typeof-check at use-site filters the null out.
+    const jobs = parseAmazonJobs({
+      tenant: { slug: "amazon" },
+      company: "Amazon",
+      response: {
+        jobs: [
+          {
+            id_icims: "8001",
+            title: "Principal Engineer",
+            city: "Seattle",
+            state: null,
+            country_code: "US",
+            location: "Seattle, US",
+          },
+        ],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs).toHaveLength(1);
+    expect(jobs[0]?.location_region).toBeUndefined();
+    expect(jobs[0]?.location_country).toBe("US");
+  });
 });
 
 describe("parseAmazonJobs (property)", () => {
