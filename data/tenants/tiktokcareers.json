@@ -1,0 +1,10 @@
+[
+  {
+    "ats": "tiktokcareers",
+    "slug": "tiktok",
+    "display_name": "TikTok",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T01:25:44.000Z",
+    "first_seen_at": "2026-05-14T01:25:44.000Z"
+  }
+]
