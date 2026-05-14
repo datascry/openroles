@@ -22,6 +22,7 @@ import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
+import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
@@ -228,6 +229,26 @@ function dispatchPerAts(
         });
       }
       return scrapeSuccessFactorsTenant({ ...opts, host });
+    }
+    case "jsonld": {
+      // Vendor-agnostic JSON-LD harvester. Per-tenant `sitemap_url`
+      // metadata is mandatory — the adapter can't derive the sitemap
+      // location from the slug alone (the whole point of this ATS is
+      // to support brands with proprietary careers stacks where the
+      // URL shape is per-brand).
+      const sitemapUrl = opts.tenant.metadata?.["sitemap_url"];
+      if (sitemapUrl === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "jsonld tenant missing metadata.sitemap_url",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeJsonldTenant({ ...opts, sitemapUrl });
     }
   }
 }

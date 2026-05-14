@@ -1,6 +1,6 @@
 import type { ATSId, Tenant, TenantStatus } from "@openroles/shared";
 import pLimit from "p-limit";
-import { assertWorkdayHost, assertWorkdaySite } from "../ats/common.ts";
+import { assertWorkdayHost, assertWorkdaySite, isSafeFetchHost } from "../ats/common.ts";
 import { fetchWorkdaySite } from "../ats/workday-site-fetch.ts";
 import { type HttpClient, HttpError } from "../http.ts";
 
@@ -119,6 +119,26 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     // Customer-facing search page (HTML); 200 means SF acknowledges
     // the company identifier, 404 means it doesn't.
     return `https://${host}/career?company=${encodeURIComponent(slug)}`;
+  },
+  jsonld: (_slug, metadata) => {
+    // The jsonld harvester is vendor-agnostic: the sitemap URL itself
+    // is the probe target. 200 + XML content means a live sitemap; a
+    // missing or invalid sitemap_url short-circuits to transient.
+    const sitemapUrl = metadata["sitemap_url"];
+    if (typeof sitemapUrl !== "string" || sitemapUrl.length === 0) return undefined;
+    // Defence in depth: only allow https URLs, no loopback / private /
+    // metadata-IP exfil targets. Shared with the scrape path via
+    // isSafeFetchHost so both surfaces apply the same rejection rules
+    // (audit M-2 fix: the previous version of this builder enforced
+    // these rules but scrapeJsonldTenant did not).
+    let parsed: URL;
+    try {
+      parsed = new URL(sitemapUrl);
+    } catch {
+      return undefined;
+    }
+    if (!isSafeFetchHost(parsed)) return undefined;
+    return sitemapUrl;
   },
 };
 

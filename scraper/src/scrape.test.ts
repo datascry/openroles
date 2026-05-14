@@ -406,6 +406,52 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.host");
   });
 
+  it("dispatches jsonld with metadata.sitemap_url", async () => {
+    const sitemapUrl = "https://careers.example.com/sitemap.xml";
+    server.use(
+      http.get(sitemapUrl, () => HttpResponse.xml(readFixtureText("jsonld.sitemap.small.xml"))),
+      http.get("https://careers.example.com/job/1001-engineer", () =>
+        HttpResponse.html(readFixtureText("jsonld.job-basic.html")),
+      ),
+      http.get("https://careers.example.com/job/1002-designer", () =>
+        HttpResponse.html(readFixtureText("jsonld.job-remote.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jsonld",
+        tenants: [
+          {
+            slug: "example",
+            display_name: "Example Co",
+            metadata: { sitemap_url: sitemapUrl },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags jsonld tenant dead when metadata.sitemap_url is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "jsonld",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.sitemap_url");
+  });
+
   it("dispatches amazonjobs (single-tenant)", async () => {
     server.use(
       http.get("https://amazon.jobs/en/search.json", () =>

@@ -1,6 +1,6 @@
 # Spec: Data schema
 
-**Version**: 2.0.0 (matches `SCHEMA_VERSION` in [`shared/src/index.ts`](../shared/src/index.ts); bump major on backward-incompatible changes)
+**Version**: 3.0.0 (matches `SCHEMA_VERSION` in [`shared/src/index.ts`](../shared/src/index.ts); bump major on backward-incompatible changes)
 
 The on-disk schema is the single source of truth shared by the scraper, the build-db step, and the site. zod schemas in `shared/src/schema/` validate at every boundary.
 
@@ -16,7 +16,8 @@ type ATSId =
   | "zohorecruit" | "talentlyft" | "pinpointhq" | "applicantpro"
   | "applicantstack" | "homerun" | "factorial" | "eightfold"
   | "successfactors"
-  | "amazonjobs" | "applejobs" | "tiktokcareers" | "metacareers";
+  | "amazonjobs" | "applejobs" | "tiktokcareers" | "metacareers"
+  | "jsonld";
 ```
 
 Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding an ATS bumps the schema minor version.
@@ -81,6 +82,11 @@ ATS-specific keys today:
 | successfactors | `host`       | `host` is the per-tenant SuccessFactors regional datacenter (`career{N}.successfactors.{tld}`). |
 |           |                   | Harvest captures it from CDX URL parameters; missing metadata falls back to the |
 |           |                   | most common public cluster (`career4.successfactors.com`).                      |
+| jsonld    | `sitemap_url`     | Full `https://` URL to the tenant's sitemap.xml (or sitemapindex). The adapter |
+|           |                   | walks the sitemap, filters per-job URLs by same-host + `/job(s)/` path, fetches |
+|           |                   | each, and extracts `schema.org/JobPosting` JSON-LD. Hand-seeded — not             |
+|           |                   | discoverable from CDX. Vendor-agnostic; first verified seeds are TalentBrew-     |
+|           |                   | hosted brands but any future tenant that emits JobPosting JSON-LD plugs in.     |
 
 ### `Job`
 

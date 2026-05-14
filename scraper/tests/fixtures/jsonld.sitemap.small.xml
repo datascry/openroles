@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://careers.example.com/job/1001-engineer</loc>
+    <lastmod>2026-05-01</lastmod>
+  </url>
+  <url>
+    <loc>https://careers.example.com/job/1002-designer</loc>
+    <lastmod>2026-05-02</lastmod>
+  </url>
+  <url>
+    <loc>https://careers.example.com/about</loc>
+  </url>
+  <url>
+    <loc>https://other-host.com/job/should-be-rejected</loc>
+  </url>
+</urlset>

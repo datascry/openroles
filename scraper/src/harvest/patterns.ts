@@ -312,6 +312,21 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
       return hostMatch ? { host: hostMatch[0] } : undefined;
     },
   },
+  // The jsonld harvester is vendor-agnostic: tenants are hand-seeded
+  // with a `sitemap_url` rather than discovered from a canonical CDX
+  // host pattern. We register a no-op pattern that captures the
+  // vendor-neutral hostnames of any sitemap URL the corpus references —
+  // this keeps the `HARVEST_ATS_IDS == ATS_IDS` invariant intact and
+  // documents that this ATS is intentionally not CDX-driven. The slug
+  // group matches the literal token `jsonld` against itself in the
+  // deny list, so the regex never produces a fresh tenant from CDX
+  // (operator-curated seeds are the only path).
+  {
+    ats: "jsonld",
+    cdxQuery: "schema.org/JobPosting/*",
+    regex: /\b(jsonld)\b/gi,
+    denyList: new Set<string>(["jsonld"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

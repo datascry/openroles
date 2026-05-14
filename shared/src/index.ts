@@ -1,3 +1,22 @@
+// 3.0.0 lands the vendor-agnostic JSON-LD harvester (`jsonld` ATSId).
+// Major bump because adding an ATSId to the closed union is symmetric
+// to removing one: `ATSCountsSchema` in shared/src/schema/manifest.ts
+// is `.strict()`, so a 2.0.0 reader processing a 3.0.0 manifest emitted
+// with `ats_counts.jsonld = 0` would reject by unknown-key. PR-A bumped
+// 1.7.0 → 2.0.0 for removing `phenom`; this addition is the symmetric
+// break for older readers and gets the same major-bump treatment.
+//
+// The adapter walks a per-tenant sitemap URL and extracts
+// `schema.org/JobPosting` JSON-LD blocks from each linked page. Tenant
+// identity = (slug, sitemap_url). Unlocks the long tail of brands whose
+// careers stack is proprietary but who serve Google-for-Jobs structured
+// data for SEO. First verified seeds: Lockheed Martin, AT&T, Comcast,
+// Spectrum — all currently on TalentBrew but the adapter is vendor-
+// neutral so any future tenant emitting JobPosting JSON-LD plugs in by
+// hand-seeding `metadata.sitemap_url`. Widens ATSId 29 → 30. (Marriott
+// is also TalentBrew-hosted but uses a sitemap-index pointing to per-
+// locale sub-sitemaps; sitemap-index recursion lands in a follow-up.)
+//
 // 2.0.0 reverts the Phenom adapter introduced in 1.7.0. Major bump because
 // removing an ATSId from the closed union is a backward-incompatible read
 // break: `ATSCountsSchema` in shared/src/schema/manifest.ts is `.strict()`,
@@ -72,7 +91,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "2.0.0";
+export const SCHEMA_VERSION = "3.0.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

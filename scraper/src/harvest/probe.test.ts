@@ -366,6 +366,58 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
+  it("probes jsonld live by GETting the supplied sitemap_url", async () => {
+    let probedUrl = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      probedUrl = typeof input === "string" ? input : input.url;
+      return new Response("<urlset></urlset>", {
+        status: 200,
+        headers: { "content-type": "application/xml" },
+      });
+    });
+    const t = await probeOne("jsonld", "example", clientWith(fetchFn), OBSERVED_AT, {
+      sitemap_url: "https://careers.example.com/sitemap.xml",
+    });
+    expect(t.status).toBe("live");
+    expect(probedUrl).toBe("https://careers.example.com/sitemap.xml");
+  });
+
+  it("returns transient_failure for jsonld without metadata.sitemap_url", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("jsonld", "example", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects malformed jsonld sitemap_url before dispatching", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("jsonld", "example", clientWith(fetchFn), OBSERVED_AT, {
+      sitemap_url: "not a url",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects http jsonld sitemap_url (no TLS)", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("jsonld", "example", clientWith(fetchFn), OBSERVED_AT, {
+      sitemap_url: "http://careers.example.com/sitemap.xml",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects loopback and private-suffix jsonld sitemap hosts (SSRF guard)", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    for (const host of ["localhost", "internal.local", "metadata.internal"]) {
+      const t = await probeOne("jsonld", "example", clientWith(fetchFn), OBSERVED_AT, {
+        sitemap_url: `https://${host}/sitemap.xml`,
+      });
+      expect(t.status).toBe("transient_failure");
+    }
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
   it("does not block the workday probe when robots.txt fetch fails", async () => {
     // robots.txt may 404 / time out / be CDN-blocked — discovery is
     // best-effort. The liveness verdict must still hold.

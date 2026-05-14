@@ -38,6 +38,14 @@ export const ATS_IDS = Object.freeze([
   "applejobs",
   "tiktokcareers",
   "metacareers",
+  // Vendor-agnostic JSON-LD harvester. Walks a per-tenant sitemap URL
+  // and extracts `schema.org/JobPosting` JSON-LD blocks from each linked
+  // page. Tenant identity = (slug, sitemap_url). The underlying careers
+  // stack is opaque to the adapter; this unlocks brands whose stack is
+  // proprietary but who serve Google-for-Jobs structured data anyway
+  // (the TalentBrew-backed family — Lockheed Martin, AT&T, Comcast,
+  // Marriott, Spectrum — being the first verified seed set).
+  "jsonld",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
