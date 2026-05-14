@@ -12,28 +12,6 @@
   },
   {
     "ats": "jsonld",
-    "slug": "att",
-    "display_name": "AT&T",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T00:00:00.000Z",
-    "first_seen_at": "2026-05-14T00:00:00.000Z",
-    "metadata": {
-      "sitemap_url": "https://www.att.jobs/sitemap.xml"
-    }
-  },
-  {
-    "ats": "jsonld",
-    "slug": "comcast",
-    "display_name": "Comcast",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T00:00:00.000Z",
-    "first_seen_at": "2026-05-14T00:00:00.000Z",
-    "metadata": {
-      "sitemap_url": "https://jobs.comcast.com/sitemap.xml"
-    }
-  },
-  {
-    "ats": "jsonld",
     "slug": "spectrum",
     "display_name": "Spectrum (Charter Communications)",
     "status": "transient_failure",

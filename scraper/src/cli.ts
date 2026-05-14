@@ -18,7 +18,9 @@ import {
   type Tenant,
   TenantSchema,
 } from "@openroles/shared";
+import pLimit from "p-limit";
 import { z } from "zod";
+import { fetchWorkdaySite } from "./ats/workday-site-fetch.ts";
 import { buildDb } from "./db/build-db.ts";
 import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
@@ -67,11 +69,12 @@ Usage:
   openroles-scrape <command> [options]
 
 Commands:
-  scrape       Run the ATS scrapers against a tenant list
-  harvest      Discover tenant slugs from Common Crawl (incremental-aware)
-  reprobe      Re-probe stale tenants for liveness updates
-  build-db     Build data/jobs.{sha}.sqlite from one or more scrape outputs
-  report       Print run report from data/run-report.json (Phase 7)
+  scrape                   Run the ATS scrapers against a tenant list
+  harvest                  Discover tenant slugs from Common Crawl (incremental-aware)
+  reprobe                  Re-probe stale tenants for liveness updates
+  discover-workday-sites   Backfill metadata.site for workday tenants via robots.txt
+  build-db                 Build data/jobs.{sha}.sqlite from one or more scrape outputs
+  report                   Print run report from data/run-report.json (Phase 7)
 
 scrape:
   --input <path>          Path to a JSON file with a ScrapeInput body
@@ -125,6 +128,25 @@ report:
   --consecutive-dead <n>  Number of consecutive snapshots a tenant must be dead to be reported (default: 3)
   --output <path>         Path to write the Markdown report (default: stdout)
   --fail-on <severity>    Exit non-zero when drift severity reaches this level (info | warn | error; default: error)
+
+discover-workday-sites:
+  --batch-size <n>        Cap per-run discovery count (default: 200, max: 5000). Each tenant costs one
+                          robots.txt fetch against {host}; batching is the politeness control. Lower
+                          this for first-time runs against a fresh IP.
+  --concurrency <n>       Concurrent robots.txt fetches (1-32, default: 6). Each fetch hits a distinct
+                          Workday host so per-host rate-limits don't apply, but a global concurrency
+                          ceiling keeps the burst within polite limits.
+  --force-rediscover      Re-fetch even for tenants whose metadata.site is already populated. Use
+                          after a known mass site rename; otherwise leave off so the pass stays cheap.
+  --output-dir <dir>      Where the existing tenants/workday.json lives (default: ./data)
+  --user-agent <ua>       Override the full User-Agent string
+  --contact-url <url>     Contact URL interpolated into the default User-Agent
+
+  Why this exists: probe.augmentLiveMetadata only runs site discovery when the probe URL succeeds,
+  but for tenants with missing metadata.site the probe falls back to /External which 404s for the
+  ~99% of tenants whose real site is named something else (ATTGeneral, Comcast_Careers, etc.).
+  The probe then fails and never reaches the discovery step — a deadlock. This command sidesteps
+  that loop by fetching robots.txt directly and parsing the Allow / Sitemap directives.
 `);
 }
 
@@ -762,6 +784,147 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
   return 0;
 }
 
+const DEFAULT_DISCOVER_BATCH_SIZE = 200;
+const DEFAULT_DISCOVER_CONCURRENCY = 6;
+
+/**
+ * Backfill `metadata.site` for workday tenants by fetching their
+ * `/robots.txt` and parsing the Allow / Sitemap directives.
+ *
+ * The regular probe + reprobe paths can't fill this gap on their own:
+ * `augmentLiveMetadata` only runs site discovery for tenants whose
+ * probe URL returns 2xx, but the probe URL itself requires the site
+ * (`https://{host}/{site}`). For ~99% of workday tenants the corpus
+ * has `metadata.site` unset, so the probe falls back to /External which
+ * 404s for tenants whose real site is named something else
+ * (ATTGeneral, Comcast_Careers, GOCJobs, etc.) — the probe fails,
+ * augmentLiveMetadata never runs, and the tenant stays broken forever.
+ *
+ * This command sidesteps the loop by going directly to robots.txt.
+ * Idempotent: re-running picks up only tenants still missing a site,
+ * unless --force-rediscover is set.
+ */
+export async function runDiscoverWorkdaySitesCommand(argv: ReadonlyArray<string>): Promise<number> {
+  const args = parseArgs(argv);
+  if (args.help) {
+    usage();
+    return 0;
+  }
+
+  let userAgent: string;
+  if (args.userAgent !== undefined) {
+    userAgent = args.userAgent;
+  } else if (args.contactUrl !== undefined) {
+    userAgent = `openroles/${SCHEMA_VERSION} (+${args.contactUrl})`;
+  } else {
+    console.error("discover-workday-sites: --user-agent or --contact-url is required");
+    return 2;
+  }
+
+  const batchSize =
+    args.batchSize !== undefined
+      ? Number.parseInt(args.batchSize, 10)
+      : DEFAULT_DISCOVER_BATCH_SIZE;
+  if (!Number.isFinite(batchSize) || batchSize < 1 || batchSize > 5000) {
+    console.error(
+      `discover-workday-sites: --batch-size must be in [1, 5000], got ${args.batchSize}`,
+    );
+    return 2;
+  }
+
+  let concurrency = DEFAULT_DISCOVER_CONCURRENCY;
+  if (args.concurrency !== undefined) {
+    const n = Number.parseInt(args.concurrency, 10);
+    if (!Number.isFinite(n) || n < 1 || n > 32) {
+      console.error(
+        `discover-workday-sites: --concurrency must be in [1, 32], got ${args.concurrency}`,
+      );
+      return 2;
+    }
+    concurrency = n;
+  }
+
+  const outputDir = args.outputDir ?? defaultOutputDir();
+  const path = join(outputDir, "tenants", "workday.json");
+  const tenants = await loadTenants(path, "workday");
+  if (tenants.length === 0) {
+    console.error(`discover-workday-sites: no existing tenant file at ${path}; nothing to do`);
+    return 0;
+  }
+
+  // Candidates: tenants with metadata.host but no metadata.site (or all
+  // tenants when --force-rediscover). Ordered by slug for deterministic
+  // batching — re-runs without state will keep picking the same head.
+  const candidates = tenants
+    .filter((t) => {
+      const host = t.metadata?.["host"];
+      if (typeof host !== "string" || host.length === 0) return false;
+      if (args.forceRediscover) return true;
+      return t.metadata?.["site"] === undefined;
+    })
+    .sort((a, b) => a.slug.localeCompare(b.slug))
+    .slice(0, batchSize);
+  if (candidates.length === 0) {
+    console.error(
+      `discover-workday-sites: all ${tenants.length} workday tenants already have metadata.site (or no host); nothing to do`,
+    );
+    return 0;
+  }
+
+  const robots = new RobotsTxtCache();
+  const client = new HttpClient({ userAgent, robots });
+  const limit = pLimit(concurrency);
+
+  // probedSites: slug → discovered site (or null when discovery failed).
+  // Distinct from "did not probe" so the summary can distinguish "robots
+  // returned no Allow directive" from "we never asked".
+  const probedSites = new Map<string, string | null>();
+  await Promise.all(
+    candidates.map((t) =>
+      limit(async () => {
+        const host = t.metadata?.["host"];
+        if (typeof host !== "string") return;
+        const site = await fetchWorkdaySite(host, client);
+        probedSites.set(t.slug, site);
+      }),
+    ),
+  );
+
+  let discovered = 0;
+  let unchanged = 0;
+  const next = tenants.map((t) => {
+    if (!probedSites.has(t.slug)) return t;
+    const site = probedSites.get(t.slug);
+    if (site === null || site === undefined) {
+      unchanged += 1;
+      return t;
+    }
+    if (t.metadata?.["site"] === site) {
+      unchanged += 1;
+      return t;
+    }
+    discovered += 1;
+    const metadata: Record<string, string> = { ...(t.metadata ?? {}), site };
+    return { ...t, metadata };
+  });
+
+  const tmp = `${path}.tmp`;
+  try {
+    await writeFile(tmp, `${JSON.stringify(next, null, 2)}\n`);
+    await rename(tmp, path);
+    /* c8 ignore next 4 — cleanup path; only reached on rare fs/rename failure mid-write. */
+  } catch (err) {
+    await rm(tmp, { force: true });
+    throw err;
+  }
+
+  console.error(
+    `discover-workday-sites: probed ${candidates.length} of ${tenants.length} tenants ` +
+      `(discovered=${discovered}, no-allow-directive=${unchanged}, batch_size=${batchSize}, concurrency=${concurrency})`,
+  );
+  return 0;
+}
+
 type FailSeverity = "info" | "warn" | "error";
 
 const SEVERITY_ORDER: Record<FailSeverity, number> = { info: 0, warn: 1, error: 2 };
@@ -842,6 +1005,9 @@ export async function main(argv: ReadonlyArray<string>): Promise<number> {
   if (command === "build-db") return await runBuildDbCommand(rest);
   if (command === "harvest") return await runHarvestCommand(rest);
   if (command === "reprobe") return await runReprobeCommand(rest);
+  if (command === "discover-workday-sites") {
+    return await runDiscoverWorkdaySitesCommand(rest);
+  }
   if (command === "report") return await runReportCommand(rest);
   console.error(`Command '${command}' is not implemented yet.`);
   return 2;

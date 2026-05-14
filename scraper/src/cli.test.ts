@@ -5,6 +5,7 @@ import { join } from "node:path";
 import {
   main,
   runBuildDbCommand,
+  runDiscoverWorkdaySitesCommand,
   runHarvestCommand,
   runReportCommand,
   runReprobeCommand,
@@ -1149,5 +1150,300 @@ describe("runReprobeCommand", () => {
       "https://example.invalid/contact",
     ]);
     expect(code).toBe(0);
+  });
+});
+
+describe("runDiscoverWorkdaySitesCommand", () => {
+  it("returns 0 on --help", async () => {
+    expect(await runDiscoverWorkdaySitesCommand(["--help"])).toBe(0);
+  });
+
+  it("returns 2 when neither --user-agent nor --contact-url is set", async () => {
+    expect(await runDiscoverWorkdaySitesCommand([])).toBe(2);
+  });
+
+  it("returns 2 when --batch-size is out of range", async () => {
+    expect(
+      await runDiscoverWorkdaySitesCommand([
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--batch-size",
+        "9999",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 2 when --concurrency is out of range", async () => {
+    expect(
+      await runDiscoverWorkdaySitesCommand([
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--concurrency",
+        "0",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 0 with a notice when no tenants file exists", async () => {
+    const dir = tmpDir();
+    const code = await runDiscoverWorkdaySitesCommand([
+      "--output-dir",
+      dir,
+      "--contact-url",
+      "https://example.invalid/contact",
+    ]);
+    expect(code).toBe(0);
+  });
+
+  it("discovers site from robots.txt Allow directive and writes back atomically", async () => {
+    const originalFetch = globalThis.fetch;
+    const probedHosts: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u === "https://att.wd1.myworkdayjobs.com/robots.txt") {
+        probedHosts.push("att");
+        return new Response(
+          `User-agent: *\nAllow: /ATTGeneral/\nAllow: /Cricket/\nSitemap: https://att.wd1.myworkdayjobs.com/ATTGeneral/siteMap.xml`,
+          { status: 200 },
+        );
+      }
+      if (u === "https://comcast.wd5.myworkdayjobs.com/robots.txt") {
+        probedHosts.push("comcast");
+        return new Response(`User-agent: *\nAllow: /Comcast_Careers/\n`, { status: 200 });
+      }
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "att",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "att.wd1.myworkdayjobs.com" },
+          },
+          {
+            ats: "workday",
+            slug: "comcast",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "comcast.wd5.myworkdayjobs.com" },
+          },
+        ]),
+      );
+      const code = await runDiscoverWorkdaySitesCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      expect(probedHosts.sort()).toEqual(["att", "comcast"]);
+      const updated = JSON.parse(
+        readFileSync(join(dir, "tenants", "workday.json"), "utf8"),
+      ) as Array<{ slug: string; metadata?: { host?: string; site?: string } }>;
+      const att = updated.find((t) => t.slug === "att");
+      // ATTGeneral wins on keyword scoring (+5 for "general", token
+      // match), not first-Allow order — ATTCollege precedes it in the
+      // fixture above. Cricket (no scored keyword) ties at 0 but
+      // ATTGeneral's +5 wins outright.
+      expect(att?.metadata?.site).toBe("ATTGeneral");
+      // Original host metadata is preserved.
+      expect(att?.metadata?.host).toBe("att.wd1.myworkdayjobs.com");
+      const comcast = updated.find((t) => t.slug === "comcast");
+      expect(comcast?.metadata?.site).toBe("Comcast_Careers");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("skips tenants whose metadata.site is already set unless --force-rediscover", async () => {
+    const originalFetch = globalThis.fetch;
+    const probedHosts: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt") && u.includes("myworkdayjobs.com")) {
+        probedHosts.push(u);
+        return new Response(`User-agent: *\nAllow: /ATTGeneral/\n`, { status: 200 });
+      }
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "att",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "att.wd1.myworkdayjobs.com", site: "OldSite" },
+          },
+        ]),
+      );
+      const code = await runDiscoverWorkdaySitesCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      // No fetch happened because the only tenant already had a site.
+      expect(probedHosts).toEqual([]);
+      const updated = JSON.parse(
+        readFileSync(join(dir, "tenants", "workday.json"), "utf8"),
+      ) as Array<{ slug: string; metadata?: { site?: string } }>;
+      expect(updated[0]?.metadata?.site).toBe("OldSite");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("--force-rediscover overrides existing metadata.site", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u === "https://att.wd1.myworkdayjobs.com/robots.txt") {
+        return new Response(`User-agent: *\nAllow: /NewSite/\n`, { status: 200 });
+      }
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "att",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "att.wd1.myworkdayjobs.com", site: "OldSite" },
+          },
+        ]),
+      );
+      const code = await runDiscoverWorkdaySitesCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--force-rediscover",
+      ]);
+      expect(code).toBe(0);
+      const updated = JSON.parse(
+        readFileSync(join(dir, "tenants", "workday.json"), "utf8"),
+      ) as Array<{ slug: string; metadata?: { site?: string } }>;
+      expect(updated[0]?.metadata?.site).toBe("NewSite");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("leaves tenants unchanged when robots.txt has no Allow directive", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) {
+        // empty robots.txt — discovery returns null
+        return new Response("", { status: 200 });
+      }
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "spectrum",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "spectrum.wd1.myworkdayjobs.com" },
+          },
+        ]),
+      );
+      const code = await runDiscoverWorkdaySitesCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+      ]);
+      expect(code).toBe(0);
+      const updated = JSON.parse(
+        readFileSync(join(dir, "tenants", "workday.json"), "utf8"),
+      ) as Array<{ slug: string; metadata?: { site?: string } }>;
+      // Site stays unset; the row is otherwise untouched.
+      expect(updated[0]?.metadata?.site).toBeUndefined();
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("respects --batch-size and processes only the first N candidates", async () => {
+    const originalFetch = globalThis.fetch;
+    const probedHosts: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt") && u.includes("myworkdayjobs.com")) {
+        probedHosts.push(u);
+        return new Response(`User-agent: *\nAllow: /External/\n`, { status: 200 });
+      }
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "alpha",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "alpha.wd1.myworkdayjobs.com" },
+          },
+          {
+            ats: "workday",
+            slug: "beta",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "beta.wd1.myworkdayjobs.com" },
+          },
+          {
+            ats: "workday",
+            slug: "gamma",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "gamma.wd1.myworkdayjobs.com" },
+          },
+        ]),
+      );
+      const code = await runDiscoverWorkdaySitesCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://example.invalid/contact",
+        "--batch-size",
+        "2",
+      ]);
+      expect(code).toBe(0);
+      // Slug-ordered batching: alpha + beta first, gamma deferred.
+      expect(probedHosts).toHaveLength(2);
+      expect(probedHosts.some((u) => u.includes("alpha.wd1"))).toBe(true);
+      expect(probedHosts.some((u) => u.includes("beta.wd1"))).toBe(true);
+      expect(probedHosts.some((u) => u.includes("gamma.wd1"))).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });

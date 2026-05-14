@@ -18,6 +18,105 @@ describe("parseWorkdaySite", () => {
     expect(parseWorkdaySite(robots)).toBe("NVIDIAExternalCareerSite");
   });
 
+  it("accepts site labels that begin with a digit (e.g. 23andme's /23/)", () => {
+    // Workday permits site names with leading digits. 23andme's robots.txt
+    // lists three Allow directives (`/23/`, `/redditsite/`, `/23A/`); the
+    // first lexically is `/23/` which has 11 live jobs. A previous
+    // start-with-letter regex rejected it and the parser silently picked
+    // `redditsite` (0 jobs).
+    const robots = ["User-agent: *", "Allow: /23/", "Allow: /redditsite/", "Allow: /23A/", ""].join(
+      "\n",
+    );
+    expect(parseWorkdaySite(robots)).toBe("23");
+  });
+
+  it("prefers broad-audience sites (General) over narrow ones (College)", () => {
+    // AT&T's robots.txt lists ATTCollege first alphabetically, but the
+    // broad-audience site is ATTGeneral (1,133 vs 12 jobs). The keyword
+    // scoring resolves this: ATTGeneral gets +5 for "general",
+    // ATTCollege gets -10 for "college", Cricket scores 0.
+    const robots = [
+      "User-agent: *",
+      "Allow: /ATTCollege/",
+      "Allow: /ATTGeneral/",
+      "Allow: /Cricket/",
+      "",
+    ].join("\n");
+    expect(parseWorkdaySite(robots)).toBe("ATTGeneral");
+  });
+
+  it("preserves first-Allow order when sites tie on score (no keyword hits)", () => {
+    // 23andme's three sites (`23`, `redditsite`, `23A`) all score 0 —
+    // no broad or narrow keyword hits. Stable sort returns the
+    // earliest-listed: `23`.
+    const robots = ["User-agent: *", "Allow: /23/", "Allow: /redditsite/", "Allow: /23A/", ""].join(
+      "\n",
+    );
+    expect(parseWorkdaySite(robots)).toBe("23");
+  });
+
+  it("ignores `Search` as not a narrow keyword (3m's only site)", () => {
+    // 3m's robots.txt has just one Allow (`/Search/`) and that site
+    // yields 610 real jobs. We must not penalise it.
+    const robots = "User-agent: *\nAllow: /Search/\n";
+    expect(parseWorkdaySite(robots)).toBe("Search");
+  });
+
+  it("prefers Professional over Early (Kyndryl: 864 vs 17 jobs)", () => {
+    // KyndrylProfessionalCareers tokens: kyndryl / professional / careers
+    //   → +5 (professional) + 5 (careers) = +10
+    // KyndrylEarlyCareers tokens: kyndryl / early / careers
+    //   → -10 (early) + 5 (careers) = -5
+    const robots = [
+      "User-agent: *",
+      "Allow: /KyndrylEarlyCareers/",
+      "Allow: /KyndrylProfessionalCareers/",
+      "",
+    ].join("\n");
+    expect(parseWorkdaySite(robots)).toBe("KyndrylProfessionalCareers");
+  });
+
+  it("handles underscore-separated narrow keywords (Unilever_Early_Careers)", () => {
+    // Unilever_Early_Careers tokens: unilever / early / careers
+    //   → -10 + 5 = -5
+    // Unilever_Experienced_Professionals tokens: unilever / experienced / professionals
+    //   → +5 + 5 = +10
+    const robots = [
+      "User-agent: *",
+      "Allow: /Unilever_Early_Careers/",
+      "Allow: /Unilever_Experienced_Professionals/",
+      "",
+    ].join("\n");
+    expect(parseWorkdaySite(robots)).toBe("Unilever_Experienced_Professionals");
+  });
+
+  it("does NOT penalize International (whole-token, not substring 'intern')", () => {
+    // The pre-token-match heuristic substring-matched "intern" inside
+    // "International" — wrong. International is a real Workday site
+    // name; the parser must score it as neutral, not narrow.
+    const robots = ["User-agent: *", "Allow: /HUBInternational/", "Allow: /Internship/", ""].join(
+      "\n",
+    );
+    // HUBInternational: tokens hub / international → 0 (neither set)
+    // Internship: tokens internship → -10
+    // Score-descending picks HUBInternational.
+    expect(parseWorkdaySite(robots)).toBe("HUBInternational");
+  });
+
+  it("penalises Apprenticeships vs Graduates_and_Professionals (TRUMPF case)", () => {
+    // TRUMPF_Apprenticeships tokens: trumpf / apprenticeships → -10
+    // TRUMPF_Graduates_and_Professionals tokens: trumpf / graduates / and / professionals
+    //   → -10 (graduates) + 5 (professionals) = -5
+    // Both negative — but the second is higher (less narrow).
+    const robots = [
+      "User-agent: *",
+      "Allow: /TRUMPF_Apprenticeships/",
+      "Allow: /TRUMPF_Graduates_and_Professionals/",
+      "",
+    ].join("\n");
+    expect(parseWorkdaySite(robots)).toBe("TRUMPF_Graduates_and_Professionals");
+  });
+
   it("falls back to the Sitemap URL when no Allow line is present", () => {
     const robots =
       "User-agent: *\nSitemap: https://example.wd5.myworkdayjobs.com/GOCJobs/siteMap.xml\n";
