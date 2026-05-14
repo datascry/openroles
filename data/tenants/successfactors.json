@@ -3,33 +3,33 @@
     "ats": "successfactors",
     "slug": "sap",
     "display_name": "SAP",
-    "status": "dead",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
     "metadata": {
-      "host": "career4.successfactors.eu"
+      "host": "career5.successfactors.eu"
     }
   },
   {
     "ats": "successfactors",
     "slug": "adidas",
     "display_name": "Adidas",
-    "status": "dead",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
     "metadata": {
-      "host": "career4.successfactors.eu"
+      "host": "career5.successfactors.eu"
     }
   },
   {
     "ats": "successfactors",
     "slug": "bmw",
     "display_name": "BMW Group",
-    "status": "dead",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
     "metadata": {
-      "host": "career4.successfactors.de"
+      "host": "career10.successfactors.com"
     }
   },
   {
@@ -37,7 +37,7 @@
     "slug": "costco",
     "display_name": "Costco Wholesale",
     "status": "live",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
     "metadata": {
       "host": "career4.successfactors.com"
@@ -48,7 +48,7 @@
     "slug": "publix",
     "display_name": "Publix Super Markets",
     "status": "live",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T01:25:59.000Z",
     "metadata": {
       "host": "career4.successfactors.com"
@@ -59,7 +59,7 @@
     "slug": "exxonmobil",
     "display_name": "ExxonMobil",
     "status": "live",
-    "last_probed_at": "2026-05-14T22:15:17.207Z",
+    "last_probed_at": "2026-05-14T22:20:00.487Z",
     "first_seen_at": "2026-05-14T02:52:47.000Z",
     "metadata": {
       "host": "career4.successfactors.com"
