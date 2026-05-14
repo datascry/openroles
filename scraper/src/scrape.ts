@@ -25,7 +25,6 @@ import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
-import { scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
@@ -210,24 +209,6 @@ function dispatchPerAts(
       return scrapeTiktokCareersTenant(opts);
     case "metacareers":
       return scrapeMetaCareersTenant(opts);
-    case "phenom": {
-      // Multi-tenant: each customer has its own host (e.g.
-      // jobs.walgreens.com, careers.bp.com). Composite metadata
-      // mandatory — slug alone doesn't identify the host.
-      const host = opts.tenant.metadata?.["host"];
-      if (host === undefined) {
-        return Promise.resolve({
-          jobs: [],
-          result: {
-            slug: opts.tenant.slug,
-            status: "dead",
-            error: "phenom tenant missing metadata.host",
-            jobs_count: 0,
-          },
-        });
-      }
-      return scrapePhenomTenant({ ...opts, host });
-    }
     case "successfactors": {
       // SuccessFactors needs a regional-datacenter host
       // (`career{N}.successfactors.{tld}`). Harvest captures it via

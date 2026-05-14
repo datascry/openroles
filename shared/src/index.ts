@@ -1,9 +1,34 @@
+// 2.0.0 reverts the Phenom adapter introduced in 1.7.0. Major bump because
+// removing an ATSId from the closed union is a backward-incompatible read
+// break: `ATSCountsSchema` in shared/src/schema/manifest.ts is `.strict()`,
+// so a 1.7.0 manifest emitted with `ats_counts.phenom = 0` would be
+// rejected by a 2.0.0 reader. The wire data itself never carried a
+// "phenom" `jobs.ats` value (zero tenants were ever seeded), but the
+// manifest-level `ats_counts` keys did, so the read path is the
+// constrained surface. No 1.7.0 manifest was ever deployed (the production
+// build was 1.5.0 at the time of revert), so the break is theoretical for
+// the deploy pipeline today; the major bump records it for any reader
+// that pulls a 1.7.0 artifact built locally or in a stale CI cache.
+//
+// Post-validation found that the Phenom-fingerprinted brands probed during
+// PR planning (CVS Health, Mastercard, Toyota) are SEO veneer front-ends
+// whose `applyUrl` field on every job posts back to the brand's existing
+// Workday tenant — all three already covered as live workday tenants.
+// Seeding Phenom for these brands would create per-job duplicates under
+// a different `url` (the `jobs UNIQUE(url)` constraint doesn't dedupe
+// across ATSes). The 1.7.0 fixtures were also hand-crafted with synthetic
+// data and the adapter's `/api/jobs` endpoint path returned 500/404 on
+// every Phenom-fingerprinted host probed; the real path is `/api/jobs/search`
+// gated behind tenant-context cookies. Narrows ATSId 30 → 29.
+// See docs/audits/2026-05-14-brand-coverage-validation.md.
+//
 // 1.7.0 lands Phase-7: Phenom People — a multi-tenant ATS used by
 // Walgreens, CVS, BP, ExxonMobil, GAP, TI, AMD, and roughly 600 more
 // Fortune-1000 employers. Tenant identity = (slug, host) pair where
 // host is the per-customer careers domain. Widens ATSId 29 → 30.
 // Single highest-leverage adapter addition since the Workday adapter:
 // one multi-tenant adapter unlocks hundreds of tier-1 brands at once.
+// (Reverted in 2.0.0 — see entry above.)
 //
 // (Indian-IT adapters originally planned for this phase — Infosys,
 // TCS, Wipro, LTIMindtree — were dropped after the 2026-05-14
@@ -47,7 +72,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.7.0";
+export const SCHEMA_VERSION = "2.0.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

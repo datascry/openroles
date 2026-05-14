@@ -466,42 +466,6 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
-  it("dispatches phenom with metadata.host (multi-tenant)", async () => {
-    const host = "jobs.walgreens.com";
-    server.use(
-      http.get(`https://${host}/api/jobs`, () =>
-        HttpResponse.json(readFixture("phenom.small.json")),
-      ),
-    );
-    const out = await runScrape({
-      input: {
-        ats: "phenom",
-        tenants: [{ slug: "walgreens", display_name: "Walgreens", metadata: { host } }],
-        userAgent: "openroles/0.0.0",
-        contactUrl: "https://example.com",
-      },
-      clock: fixedClock,
-      httpClient: clientWithRobotsAllowAll(),
-    });
-    expect(out.jobs).toHaveLength(1);
-    expect(out.tenant_results[0]?.status).toBe("success");
-  });
-
-  it("flags phenom tenant dead when metadata.host is missing", async () => {
-    const out = await runScrape({
-      input: {
-        ats: "phenom",
-        tenants: [{ slug: "walgreens" }],
-        userAgent: "openroles/0.0.0",
-        contactUrl: "https://example.com",
-      },
-      clock: fixedClock,
-      httpClient: clientWithRobotsAllowAll(),
-    });
-    expect(out.tenant_results[0]?.status).toBe("dead");
-    expect(out.tenant_results[0]?.error).toContain("metadata.host");
-  });
-
   it("dispatches metacareers (single-tenant)", async () => {
     server.use(
       http.post("https://www.metacareers.com/api/jobs", () =>
