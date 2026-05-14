@@ -71,6 +71,17 @@ jobs:
           - homerun
           - factorial
           - eightfold
+          # Phase-5 successfactors adapter (multi-tenant SAP).
+          - successfactors
+          # Phase-6 per-company custom ATSes (single-tenant each).
+          - amazonjobs
+          - applejobs
+          - tiktokcareers
+          - metacareers
+          # Vendor-agnostic JSON-LD harvester (TalentBrew-family brands).
+          - jsonld
+          # IBM Kenexa / BrassRing multi-tenant ATS.
+          - brassring
         # icims has 14,810 tenants and hits the per-shard timeout on a
         # single runner. Splitting the tenant list into two
         # deterministic halves (sum-of-codepoints mod 2) lets each
