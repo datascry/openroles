@@ -366,6 +366,41 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
+  it("probes brassring live by GETting the home URL on sjobs.brassring.com", async () => {
+    let probedUrl = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      probedUrl = typeof input === "string" ? input : input.url;
+      return new Response("<html>ok</html>", { status: 200 });
+    });
+    const t = await probeOne("brassring", "publix", clientWith(fetchFn), OBSERVED_AT, {
+      partnerid: "26173",
+      siteid: "5197",
+    });
+    expect(t.status).toBe("live");
+    expect(probedUrl).toBe(
+      "https://sjobs.brassring.com/TGNewUI/Search/Home/Home?partnerid=26173&siteid=5197",
+    );
+  });
+
+  it("returns transient_failure for brassring missing metadata.partnerid", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("brassring", "publix", clientWith(fetchFn), OBSERVED_AT, {
+      siteid: "5197",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects non-numeric brassring ids before any HTTP fires", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("brassring", "publix", clientWith(fetchFn), OBSERVED_AT, {
+      partnerid: "26173 OR 1=1",
+      siteid: "5197",
+    });
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
   it("probes jsonld live by GETting the supplied sitemap_url", async () => {
     let probedUrl = "";
     const fetchFn = mock(async (input: Request | string) => {

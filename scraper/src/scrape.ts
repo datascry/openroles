@@ -14,6 +14,7 @@ import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
+import { scrapeBrassringTenant } from "./ats/brassring.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
 import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
@@ -249,6 +250,26 @@ function dispatchPerAts(
         });
       }
       return scrapeJsonldTenant({ ...opts, sitemapUrl });
+    }
+    case "brassring": {
+      // BrassRing tenants share the host sjobs.brassring.com; the
+      // (partnerid, siteid) pair selects the tenant. Both are numeric
+      // IDs captured as strings in metadata (digits only — see
+      // assertBrassringIds in the adapter).
+      const partnerId = opts.tenant.metadata?.["partnerid"];
+      const siteId = opts.tenant.metadata?.["siteid"];
+      if (partnerId === undefined || siteId === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "brassring tenant missing metadata.partnerid or metadata.siteid",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeBrassringTenant({ ...opts, partnerId, siteId });
     }
   }
 }

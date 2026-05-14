@@ -1,0 +1,122 @@
+[
+  {
+    "ats": "brassring",
+    "slug": "publix",
+    "display_name": "Publix Super Markets",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "26173",
+      "siteid": "5197"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "hobbylobby",
+    "display_name": "Hobby Lobby",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "25879",
+      "siteid": "5295"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "harborfreight",
+    "display_name": "Harbor Freight Tools",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "26281",
+      "siteid": "6660"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "bestbuy",
+    "display_name": "Best Buy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "25632",
+      "siteid": "5649"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "hcltech",
+    "display_name": "HCL Technologies",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "25667",
+      "siteid": "5417"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "adm",
+    "display_name": "Archer Daniels Midland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "25416",
+      "siteid": "5998"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "performancefoodgroup",
+    "display_name": "Performance Food Group",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "26350",
+      "siteid": "6930"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "gardaworld",
+    "display_name": "GardaWorld",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "26003",
+      "siteid": "5325"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "habitatforhumanity",
+    "display_name": "Habitat for Humanity",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "26053",
+      "siteid": "5396"
+    }
+  },
+  {
+    "ats": "brassring",
+    "slug": "helzberg",
+    "display_name": "Helzberg Diamonds",
+    "status": "transient_failure",
+    "last_probed_at": "2026-05-14T00:00:00.000Z",
+    "first_seen_at": "2026-05-14T00:00:00.000Z",
+    "metadata": {
+      "partnerid": "25949",
+      "siteid": "5707"
+    }
+  }
+]

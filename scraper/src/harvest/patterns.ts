@@ -327,6 +327,20 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(jsonld)\b/gi,
     denyList: new Set<string>(["jsonld"]),
   },
+  // BrassRing tenants share the host `sjobs.brassring.com` and are
+  // selected by (partnerid, siteid) query parameters — the slug is
+  // operator-assigned (brand-friendly) rather than derivable from the
+  // URL. CDX can enumerate the partnerid+siteid pairs that exist
+  // (123 unique pairs in CC-MAIN-2026-17), but the slug naming
+  // requires identifying each brand by hand. Initial seeds are
+  // operator-curated; the pattern is registered as a placeholder
+  // to keep HARVEST_ATS_IDS == ATS_IDS without spuriously matching.
+  {
+    ats: "brassring",
+    cdxQuery: "sjobs.brassring.com/TGnewUI/Search/Home/Home*",
+    regex: /\b(brassring)\b/gi,
+    denyList: new Set<string>(["brassring"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

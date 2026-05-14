@@ -452,6 +452,54 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.sitemap_url");
   });
 
+  it("dispatches brassring with metadata.partnerid + metadata.siteid", async () => {
+    server.use(
+      http.get("https://sjobs.brassring.com/TGNewUI/Search/Home/Home", () =>
+        HttpResponse.html(readFixtureText("brassring.home.html"), {
+          headers: {
+            "Set-Cookie": "ASP.NET_SessionId=abc; HttpOnly",
+          },
+        }),
+      ),
+      http.post("https://sjobs.brassring.com/TgNewUI/Search/Ajax/PowerSearchJobs", () =>
+        HttpResponse.json(readFixture("brassring.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "brassring",
+        tenants: [
+          {
+            slug: "publix",
+            display_name: "Publix Super Markets",
+            metadata: { partnerid: "26173", siteid: "5197" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags brassring tenant dead when metadata.partnerid is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "brassring",
+        tenants: [{ slug: "publix", metadata: { siteid: "5197" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("partnerid");
+  });
+
   it("dispatches amazonjobs (single-tenant)", async () => {
     server.use(
       http.get("https://amazon.jobs/en/search.json", () =>

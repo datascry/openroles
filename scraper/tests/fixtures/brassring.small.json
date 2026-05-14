@@ -1,0 +1,33 @@
+{
+  "Jobs": {
+    "Job": [
+      {
+        "Questions": [
+          { "QuestionName": "reqid", "Value": "REQ-1001" },
+          { "QuestionName": "jobtitle", "Value": "Senior Software Engineer" },
+          { "QuestionName": "location", "Value": "Austin, TX" },
+          { "QuestionName": "lastupdated", "Value": "01-Apr-2026" },
+          { "QuestionName": "clientid", "Value": "26173" },
+          { "QuestionName": "siteid", "Value": "5197" }
+        ],
+        "Link": "https://sjobs.brassring.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=26173&siteid=5197&PageType=JobDetails&jobid=REQ-1001"
+      },
+      {
+        "Questions": [
+          { "QuestionName": "reqid", "Value": "REQ-1002" },
+          { "QuestionName": "jobtitle", "Value": "Talent Acquisition Partner" },
+          { "QuestionName": "location", "Value": "Lakeland, FL" },
+          { "QuestionName": "lastupdated", "Value": "15-Mar-2026" }
+        ]
+      },
+      {
+        "Questions": [
+          { "QuestionName": "reqid", "Value": "REQ-1003" },
+          { "QuestionName": "jobtitle", "Value": "Pharmacy Technician" },
+          { "QuestionName": "location", "Value": "Remote, US" }
+        ]
+      }
+    ]
+  },
+  "JobsCount": 3
+}

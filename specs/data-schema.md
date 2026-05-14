@@ -1,6 +1,6 @@
 # Spec: Data schema
 
-**Version**: 3.0.0 (matches `SCHEMA_VERSION` in [`shared/src/index.ts`](../shared/src/index.ts); bump major on backward-incompatible changes)
+**Version**: 4.0.0 (matches `SCHEMA_VERSION` in [`shared/src/index.ts`](../shared/src/index.ts); bump major on backward-incompatible changes)
 
 The on-disk schema is the single source of truth shared by the scraper, the build-db step, and the site. zod schemas in `shared/src/schema/` validate at every boundary.
 
@@ -17,10 +17,11 @@ type ATSId =
   | "applicantstack" | "homerun" | "factorial" | "eightfold"
   | "successfactors"
   | "amazonjobs" | "applejobs" | "tiktokcareers" | "metacareers"
-  | "jsonld";
+  | "jsonld"
+  | "brassring";
 ```
 
-Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding an ATS bumps the schema minor version.
+Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding or removing an `ATSId` is a **major** schema bump because `ATSCountsSchema` (in `shared/src/schema/manifest.ts`) is `.strict()`: a reader on the older schema rejects a manifest carrying an `ats_counts.<new-key> = 0` entry with `Unrecognized key`. The 2.0.0 → 3.0.0 → 4.0.0 sequence (phenom revert / jsonld add / brassring add) all share this rule.
 
 ### `Level`
 
@@ -87,6 +88,11 @@ ATS-specific keys today:
 |           |                   | each, and extracts `schema.org/JobPosting` JSON-LD. Hand-seeded — not             |
 |           |                   | discoverable from CDX. Vendor-agnostic; first verified seeds are TalentBrew-     |
 |           |                   | hosted brands but any future tenant that emits JobPosting JSON-LD plugs in.     |
+| brassring | `partnerid`, `siteid` | Both numeric IDs (digit-only strings) that select the tenant within the |
+|           |                   | shared `sjobs.brassring.com` host. The adapter does a two-step home → API flow: |
+|           |                   | GET the home page to capture `__RequestVerificationToken` + Set-Cookie session, |
+|           |                   | then POST `/TgNewUI/Search/Ajax/PowerSearchJobs` with the RFT header + cookies. |
+|           |                   | Search-results endpoint omits description; title + location only.               |
 
 ### `Job`
 

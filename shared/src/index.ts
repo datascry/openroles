@@ -1,3 +1,19 @@
+// 4.0.0 lands the IBM Kenexa / BrassRing adapter (`brassring` ATSId).
+// Major bump for the same reason as 3.0.0 (adding an ATSId is symmetric
+// to removing one — `ATSCountsSchema` is `.strict()` so a 3.0.0 reader
+// rejects a 4.0.0 manifest with `ats_counts.brassring = 0`).
+//
+// Multi-tenant ATS shared at sjobs.brassring.com. Tenant identity =
+// (partnerid, siteid) — both numeric IDs, captured as string-form
+// `metadata.partnerid` + `metadata.siteid`. Verified live with Publix
+// (26173/5197) end-to-end; Common Crawl yields 123 distinct
+// (partnerid, siteid) pairs in the latest snapshot. Initial seed set
+// covers Publix, Hobby Lobby, Harbor Freight Tools, Best Buy, HCL
+// Technologies, ADM, Performance Food Group, GardaWorld, Habitat for
+// Humanity, Helzberg, Yale University — 11 enterprise / university
+// tenants whose Workday/Taleo/SuccessFactors corpus entries were
+// silently failing or never existed. Widens ATSId 30 → 31.
+//
 // 3.0.0 lands the vendor-agnostic JSON-LD harvester (`jsonld` ATSId).
 // Major bump because adding an ATSId to the closed union is symmetric
 // to removing one: `ATSCountsSchema` in shared/src/schema/manifest.ts
@@ -91,7 +107,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "3.0.0";
+export const SCHEMA_VERSION = "4.0.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

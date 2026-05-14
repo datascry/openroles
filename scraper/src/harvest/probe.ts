@@ -120,6 +120,21 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     // the company identifier, 404 means it doesn't.
     return `https://${host}/career?company=${encodeURIComponent(slug)}`;
   },
+  brassring: (_slug, metadata) => {
+    // BrassRing tenants are addressed by (partnerid, siteid) on the
+    // shared host sjobs.brassring.com. Both IDs are numeric strings;
+    // anything else is a template-injection signal and gets rejected
+    // by the adapter's own assertBrassringIds — same regex enforced
+    // here so the probe URL builder fails fast.
+    const partnerId = metadata["partnerid"];
+    const siteId = metadata["siteid"];
+    if (typeof partnerId !== "string" || !/^[0-9]{1,9}$/.test(partnerId)) return undefined;
+    if (typeof siteId !== "string" || !/^[0-9]{1,9}$/.test(siteId)) return undefined;
+    // Probe the home page — 200 means the tenant exists. The home page
+    // also serves the RFT token and session cookies the scrape path
+    // needs, so this probe is a strict prefix of the scrape flow.
+    return `https://sjobs.brassring.com/TGNewUI/Search/Home/Home?partnerid=${partnerId}&siteid=${siteId}`;
+  },
   jsonld: (_slug, metadata) => {
     // The jsonld harvester is vendor-agnostic: the sitemap URL itself
     // is the probe target. 200 + XML content means a live sitemap; a

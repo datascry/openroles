@@ -46,6 +46,13 @@ export const ATS_IDS = Object.freeze([
   // (the TalentBrew-backed family — Lockheed Martin, AT&T, Comcast,
   // Marriott, Spectrum — being the first verified seed set).
   "jsonld",
+  // IBM Kenexa / BrassRing Talent Suite. Multi-tenant ATS shared at
+  // sjobs.brassring.com; tenant identity = (partnerid, siteid). CSRF-
+  // token + cookie-session two-step API. Verified seeds: Publix,
+  // Hobby Lobby, Harbor Freight Tools, Best Buy, HCL Technologies,
+  // ADM, Performance Food Group, GardaWorld, Habitat for Humanity,
+  // Helzberg, Yale University.
+  "brassring",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
