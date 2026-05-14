@@ -562,6 +562,82 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches traderjoes (single-tenant)", async () => {
+    server.use(
+      http.get("https://www.traderjoes.com/api/career/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "TJ-1", title: "Crew Member" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "traderjoes",
+        tenants: [{ slug: "traderjoes" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches publix (single-tenant)", async () => {
+    server.use(
+      http.get("https://corporate.publix.com/api/careers/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "PUB-1", title: "Cashier" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "publix",
+        tenants: [{ slug: "publix" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches seveneleven (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.7-eleven.com/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "7E-1", title: "Store Associate" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "seveneleven",
+        tenants: [{ slug: "seveneleven" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches aldi (single-tenant)", async () => {
+    server.use(
+      http.get("https://careers.aldi.us/api/jobs", () =>
+        HttpResponse.json({ total: 1, jobs: [{ jobId: "ALDI-1", title: "Store Associate" }] }),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "aldi",
+        tenants: [{ slug: "aldi" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches ltimindtree (single-tenant)", async () => {
     server.use(
       http.get("https://www.ltimindtree.com/careers/api/jobs", () =>

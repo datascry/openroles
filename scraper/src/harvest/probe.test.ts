@@ -73,6 +73,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("tcs", "tcs")).toBe("https://www.tcs.com/careers");
     expect(probeUrlFor("wipro", "wipro")).toBe("https://careers.wipro.com/");
     expect(probeUrlFor("ltimindtree", "ltimindtree")).toBe("https://www.ltimindtree.com/careers/");
+    // Phase-7B retail one-offs
+    expect(probeUrlFor("traderjoes", "traderjoes")).toBe("https://www.traderjoes.com/careers");
+    expect(probeUrlFor("publix", "publix")).toBe("https://corporate.publix.com/careers");
+    expect(probeUrlFor("seveneleven", "seveneleven")).toBe("https://careers.7-eleven.com/");
+    expect(probeUrlFor("aldi", "aldi")).toBe("https://careers.aldi.us/");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

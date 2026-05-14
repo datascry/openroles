@@ -1,6 +1,6 @@
 # Spec: Data schema
 
-**Version**: 1.7.0 (matches `SCHEMA_VERSION` in [`shared/src/constants.ts`](../shared/src/constants.ts); bump major on backward-incompatible changes)
+**Version**: 1.8.0 (matches `SCHEMA_VERSION` in [`shared/src/constants.ts`](../shared/src/constants.ts); bump major on backward-incompatible changes)
 
 The on-disk schema is the single source of truth shared by the scraper, the build-db step, and the site. zod schemas in `shared/src/schema/` validate at every boundary.
 
@@ -17,7 +17,8 @@ type ATSId =
   | "applicantstack" | "homerun" | "factorial" | "eightfold"
   | "successfactors"
   | "amazonjobs" | "applejobs" | "tiktokcareers" | "metacareers"
-  | "phenom" | "infosys" | "tcs" | "wipro" | "ltimindtree";
+  | "phenom" | "infosys" | "tcs" | "wipro" | "ltimindtree"
+  | "traderjoes" | "publix" | "seveneleven" | "aldi";
 ```
 
 Canonical declaration in [`shared/src/schema/ats.ts`](../shared/src/schema/ats.ts) (`ATS_IDS`). New entries append to preserve the stable hash ordering used by `ATS_RANK`. Adding an ATS bumps the schema minor version.

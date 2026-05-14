@@ -8,6 +8,7 @@ import {
   type TenantResult,
 } from "@openroles/shared";
 import pLimit from "p-limit";
+import { scrapeAldiTenant } from "./ats/aldi.ts";
 import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
 import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
@@ -29,7 +30,9 @@ import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
+import { scrapePublixTenant } from "./ats/publix.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeSevenElevenTenant } from "./ats/seveneleven.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
@@ -37,6 +40,7 @@ import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTcsTenant } from "./ats/tcs.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
+import { scrapeTraderJoesTenant } from "./ats/traderjoes.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWiproTenant } from "./ats/wipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
@@ -240,6 +244,14 @@ function dispatchPerAts(
       return scrapeWiproTenant(opts);
     case "ltimindtree":
       return scrapeLtimindtreeTenant(opts);
+    case "traderjoes":
+      return scrapeTraderJoesTenant(opts);
+    case "publix":
+      return scrapePublixTenant(opts);
+    case "seveneleven":
+      return scrapeSevenElevenTenant(opts);
+    case "aldi":
+      return scrapeAldiTenant(opts);
     case "successfactors": {
       // SuccessFactors needs a regional-datacenter host
       // (`career{N}.successfactors.{tld}`). Harvest captures it via

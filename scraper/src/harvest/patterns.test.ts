@@ -122,6 +122,37 @@ describe("harvestPatternFor", () => {
     expect(noTrailing).not.toContain("bad-");
   });
 
+  it("phase-7b retail patterns extract canonical slugs and metadata", () => {
+    const tjPattern = harvestPatternFor("traderjoes");
+    const tjMatch = new RegExp(tjPattern.regex.source, tjPattern.regex.flags).exec(
+      "https://www.traderjoes.com/careers/job/123",
+    );
+    expect(tjMatch?.[1]).toBe("traderjoes");
+
+    const publixPattern = harvestPatternFor("publix");
+    const publixMatch = new RegExp(publixPattern.regex.source, publixPattern.regex.flags).exec(
+      "https://corporate.publix.com/careers/job/123",
+    );
+    expect(publixMatch?.[1]).toBe("publix");
+
+    const sevenPattern = harvestPatternFor("seveneleven");
+    const sevenMatch = new RegExp(sevenPattern.regex.source, sevenPattern.regex.flags).exec(
+      "https://careers.7-eleven.com/job/123",
+    );
+    expect(sevenMatch).not.toBeNull();
+    // 7-Eleven's URL contains digits/hyphens that don't form a valid
+    // tenant slug; extractMetadata supplies the canonical `seveneleven`.
+    expect(sevenPattern.extractMetadata?.(sevenMatch as RegExpExecArray)).toEqual({
+      tenant: "seveneleven",
+    });
+
+    const aldiPattern = harvestPatternFor("aldi");
+    const aldiMatch = new RegExp(aldiPattern.regex.source, aldiPattern.regex.flags).exec(
+      "https://careers.aldi.us/job/123",
+    );
+    expect(aldiMatch?.[1]).toBe("aldi");
+  });
+
   it("phase-6 custom ATS patterns emit the canonical single-tenant slug", () => {
     const cases: Array<[string, string, string]> = [
       ["amazonjobs", "https://amazon.jobs/en/jobs/1234567", "amazon"],

@@ -68,6 +68,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   tcs: () => "https://www.tcs.com/careers",
   wipro: () => "https://careers.wipro.com/",
   ltimindtree: () => "https://www.ltimindtree.com/careers/",
+  // Phase-7B retail one-offs
+  traderjoes: () => "https://www.traderjoes.com/careers",
+  publix: () => "https://corporate.publix.com/careers",
+  seveneleven: () => "https://careers.7-eleven.com/",
+  aldi: () => "https://careers.aldi.us/",
   // workday + ultipro need composite metadata (host/site, board_id) — see
   // probeUrlForWithMetadata below.
 };

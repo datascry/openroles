@@ -1,3 +1,8 @@
+// 1.8.0 lands Phase-7B retail one-offs: Trader Joe's, Publix,
+// 7-Eleven, ALDI. Each is a single-tenant proprietary careers
+// stack with a public-but-undocumented search API. Widens
+// ATSId 34 → 38.
+//
 // 1.7.0 lands Phase-7 expansion: Phenom People (multi-tenant ATS used
 // by Walgreens, CVS, BP, ExxonMobil, GAP, TI, AMD, and ~600 more
 // Fortune-1000 employers) plus the Indian-IT-giant trio Infosys, TCS,
@@ -43,7 +48,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.7.0";
+export const SCHEMA_VERSION = "1.8.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

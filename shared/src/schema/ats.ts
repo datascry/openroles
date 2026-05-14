@@ -49,6 +49,12 @@ export const ATS_IDS = Object.freeze([
   "tcs",
   "wipro",
   "ltimindtree",
+  // Phase 7B retail one-offs: each is a single-tenant proprietary
+  // careers stack with a public-but-undocumented search API.
+  "traderjoes",
+  "publix",
+  "seveneleven",
+  "aldi",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

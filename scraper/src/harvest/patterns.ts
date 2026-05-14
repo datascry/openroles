@@ -328,6 +328,35 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/(?:www\.)?(phenompeople)\.com\b/gi,
     denyList: new Set<string>(["phenompeople"]),
   },
+  // Phase-7B retail one-offs (single-tenant)
+  {
+    ats: "traderjoes",
+    cdxQuery: "traderjoes.com/careers/*",
+    regex: /https?:\/\/(?:www\.)?(traderjoes)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "publix",
+    cdxQuery: "publix.com/careers/*",
+    regex: /https?:\/\/corporate\.(publix)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "seveneleven",
+    // The brand uses both `7-eleven` and `7eleven` in URLs across
+    // their properties. Match either; emit canonical `seveneleven`.
+    cdxQuery: "careers.7-eleven.com/*",
+    regex: /https?:\/\/careers\.(?:7-eleven|7eleven)\.com\b/gi,
+    denyList: new Set<string>(),
+    // Synthesise the canonical slug since the URL has digits/hyphens.
+    extractMetadata: () => ({ tenant: "seveneleven" }),
+  },
+  {
+    ats: "aldi",
+    cdxQuery: "careers.aldi.us/*",
+    regex: /https?:\/\/careers\.(aldi)\.us\b/gi,
+    denyList: new Set<string>(),
+  },
   {
     ats: "successfactors",
     // SuccessFactors career sites are addressed by a regional datacenter
