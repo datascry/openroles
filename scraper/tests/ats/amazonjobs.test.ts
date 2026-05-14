@@ -127,6 +127,56 @@ describe("parseAmazonJobs (fixture replay)", () => {
     expect(jobs[0]?.location_region).toBeUndefined();
     expect(jobs[0]?.location_country).toBe("US");
   });
+
+  it("accepts null primary_search_label and team.label without dropping the row", () => {
+    // Production amazon.jobs responses also send null for several other
+    // optional fields (primary_search_label, team.label, business_category)
+    // that the schema previously required to be string-only. Property-test
+    // a row that nulls everything optional but keeps the required keys.
+    const jobs = parseAmazonJobs({
+      tenant: { slug: "amazon" },
+      company: "Amazon",
+      response: {
+        jobs: [
+          {
+            id_icims: "7777",
+            title: "Software Engineer",
+            primary_search_label: null,
+            business_category: null,
+            team: { label: null },
+            description_short: null,
+            description: null,
+            posted_date: null,
+            updated_time: null,
+            job_path: null,
+          },
+        ],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs).toHaveLength(1);
+    expect(jobs[0]?.source_id).toBe("7777");
+    expect(jobs[0]?.department).toBeUndefined();
+  });
+
+  it("drops rows where source id is null (rather than crashing on String(null))", () => {
+    // sourceIdOf used to only guard against `undefined`; the schema relax
+    // means id_icims / id can both be null. A "null"-string source_id
+    // would poison the job hash, so the parser must short-circuit.
+    const jobs = parseAmazonJobs({
+      tenant: { slug: "amazon" },
+      company: "Amazon",
+      response: {
+        jobs: [
+          { id_icims: null, id: null, title: "Has no id" },
+          { id_icims: "5500", title: "Has id" },
+        ],
+      },
+      observedAt: OBSERVED_AT,
+    });
+    expect(jobs).toHaveLength(1);
+    expect(jobs[0]?.source_id).toBe("5500");
+  });
 });
 
 describe("parseAmazonJobs (property)", () => {

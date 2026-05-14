@@ -41,21 +41,21 @@ import { dedupeById, errorToResult, isRecruiterTitle } from "./common.ts";
 
 const AmazonJob = z
   .object({
-    id_icims: z.union([z.string(), z.number()]).optional(),
-    id: z.union([z.string(), z.number()]).optional(),
-    title: z.string().optional(),
-    description_short: z.string().optional(),
-    description: z.string().optional(),
-    posted_date: z.string().optional(),
-    updated_time: z.string().optional(),
-    job_path: z.string().optional(),
+    id_icims: z.union([z.string(), z.number()]).nullish(),
+    id: z.union([z.string(), z.number()]).nullish(),
+    title: z.string().nullish(),
+    description_short: z.string().nullish(),
+    description: z.string().nullish(),
+    posted_date: z.string().nullish(),
+    updated_time: z.string().nullish(),
+    job_path: z.string().nullish(),
     city: z.string().nullish(),
     state: z.string().nullish(),
     country_code: z.string().nullish(),
     location: z.string().nullish(),
-    primary_search_label: z.string().optional(),
-    business_category: z.string().optional(),
-    team: z.object({ label: z.string().optional() }).optional(),
+    primary_search_label: z.string().nullish(),
+    business_category: z.string().nullish(),
+    team: z.object({ label: z.string().nullish() }).nullish(),
   })
   .passthrough();
 
@@ -96,7 +96,7 @@ function postedAtIso(job: z.infer<typeof AmazonJob>): string | undefined {
 
 function sourceIdOf(job: z.infer<typeof AmazonJob>): string | undefined {
   const id = job.id_icims ?? job.id;
-  if (id === undefined) return undefined;
+  if (id === undefined || id === null) return undefined;
   return String(id);
 }
 
