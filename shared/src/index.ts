@@ -1,3 +1,11 @@
+// 1.6.0 lands Phase-6 per-company custom ATSes for FAANG-tier brands
+// whose public boards run on bespoke infrastructure: amazonjobs (the
+// amazon.jobs public JSON API), applejobs (jobs.apple.com role-search
+// JSON), tiktokcareers (careers.tiktok.com jobsearch JSON), and
+// metacareers (metacareers.com REST). Each is a single-tenant "ATS"
+// keyed by the company name; widens ATSId 25 → 29. Phase plan row 6
+// (deferred since project start) moves to delivered.
+//
 // 1.5.0 widens ATSId from 24 to 25 by adding `successfactors`. SAP's
 // SuccessFactors hosts a significant slice of Fortune-500 hiring
 // (SAP itself, Adidas, BMW, Costco, Publix, much of the EU-based
@@ -26,7 +34,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "1.5.0";
+export const SCHEMA_VERSION = "1.6.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

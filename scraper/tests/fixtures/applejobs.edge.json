@@ -1,0 +1,25 @@
+{
+  "totalRecords": 4,
+  "pageSize": 100,
+  "searchResults": [
+    {
+      "positionId": "200712001",
+      "postingTitle": "  Engineer with whitespace  ",
+      "locations": [{ "name": "London, England, United Kingdom" }],
+      "postingDate": "not-a-real-date"
+    },
+    {
+      "positionId": "200712002",
+      "postingTitle": "No locations entry",
+      "locations": []
+    },
+    {
+      "postingTitle": "Missing positionId, must be dropped"
+    },
+    {
+      "positionId": "200712001",
+      "postingTitle": "Duplicate id should dedupe",
+      "locations": [{ "name": "London, England, United Kingdom" }]
+    }
+  ]
+}

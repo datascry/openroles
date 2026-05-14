@@ -122,6 +122,24 @@ describe("harvestPatternFor", () => {
     expect(noTrailing).not.toContain("bad-");
   });
 
+  it("phase-6 custom ATS patterns emit the canonical single-tenant slug", () => {
+    const cases: Array<[string, string, string]> = [
+      ["amazonjobs", "https://amazon.jobs/en/jobs/1234567", "amazon"],
+      ["applejobs", "https://jobs.apple.com/en-us/details/200512345", "apple"],
+      ["tiktokcareers", "https://careers.tiktok.com/position/7283456789/detail", "tiktok"],
+      ["metacareers", "https://www.metacareers.com/jobs/1234567890/", "meta"],
+      // Meta also accepts the bare host:
+      ["metacareers", "https://metacareers.com/jobs", "meta"],
+    ];
+    for (const [ats, url, expectedSlug] of cases) {
+      const { regex } = harvestPatternFor(ats as Parameters<typeof harvestPatternFor>[0]);
+      const re = new RegExp(regex.source, regex.flags);
+      const m = re.exec(url);
+      expect(m).not.toBeNull();
+      expect(m?.[1]).toBe(expectedSlug);
+    }
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("rippling" as any)).toThrow();
   });

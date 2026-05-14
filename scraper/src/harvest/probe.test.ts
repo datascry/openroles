@@ -59,6 +59,15 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("eightfold", "stripe")).toBe(
       "https://stripe.eightfold.ai/careers/sitemap.xml",
     );
+    // Phase-6 custom ATSes — single-tenant, slug ignored. Probe URL is
+    // the GET-friendly public landing page (not the POST-only API the
+    // scraper hits).
+    expect(probeUrlFor("amazonjobs", "amazon")).toBe(
+      "https://amazon.jobs/en/search.json?result_limit=1",
+    );
+    expect(probeUrlFor("applejobs", "apple")).toBe("https://jobs.apple.com/");
+    expect(probeUrlFor("tiktokcareers", "tiktok")).toBe("https://careers.tiktok.com/");
+    expect(probeUrlFor("metacareers", "meta")).toBe("https://www.metacareers.com/jobs/");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

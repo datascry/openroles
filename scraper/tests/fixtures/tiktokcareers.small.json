@@ -1,0 +1,19 @@
+{
+  "code": 0,
+  "data": {
+    "count": 1,
+    "job_post_list": [
+      {
+        "id": "7283456789012345678",
+        "title": "Software Engineer, Recommendation Algorithm",
+        "description": "Build ranking models for the For You feed.",
+        "code": "A102345",
+        "city_info": { "name": "Seattle" },
+        "country_info": { "name": "United States", "code": "US" },
+        "job_category": { "name": "Engineering" },
+        "publish_time": 1712592000,
+        "recruit_type": { "name": "Experienced" }
+      }
+    ]
+  }
+}

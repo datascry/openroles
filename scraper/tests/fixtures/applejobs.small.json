@@ -1,0 +1,18 @@
+{
+  "totalRecords": 1,
+  "pageSize": 100,
+  "searchResults": [
+    {
+      "positionId": "200512345",
+      "postingTitle": "Senior Software Engineer",
+      "jobSummary": "Build distributed systems for Apple services.",
+      "locations": [
+        { "name": "Cupertino, California, United States", "country": "United States" }
+      ],
+      "postingDate": "2026-04-10T00:00:00.000Z",
+      "team": { "teamName": "Software and Services" },
+      "homeOffice": false,
+      "managerial": "Individual Contributor"
+    }
+  ]
+}

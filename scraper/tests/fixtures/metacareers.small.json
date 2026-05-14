@@ -1,0 +1,23 @@
+{
+  "total_results": 1,
+  "jobs": [
+    {
+      "id": "v1-1234567890",
+      "title": "Software Engineer, Reality Labs",
+      "description": "Build the next generation of VR/AR systems.",
+      "url": "https://www.metacareers.com/jobs/1234567890/",
+      "locations": [
+        {
+          "label": "Menlo Park, CA",
+          "country": "United States",
+          "country_code": "US",
+          "region": "California"
+        }
+      ],
+      "team": "Reality Labs",
+      "leadership_levels": ["IC4", "IC5"],
+      "is_leadership": false,
+      "posted_date": "2026-04-10"
+    }
+  ]
+}

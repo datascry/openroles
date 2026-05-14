@@ -1,0 +1,28 @@
+{
+  "error": null,
+  "hits": 4,
+  "jobs": [
+    {
+      "id_icims": "3001",
+      "title": "  Engineer with whitespace  ",
+      "city": "London",
+      "country_code": "GB",
+      "posted_date": "not-a-real-date"
+    },
+    {
+      "id_icims": "3002",
+      "title": "No description",
+      "city": "Dublin",
+      "country_code": "IE"
+    },
+    {
+      "title": "Missing source id, must be dropped",
+      "description_short": "should not appear"
+    },
+    {
+      "id_icims": "3001",
+      "title": "Duplicate id should dedupe",
+      "city": "London"
+    }
+  ]
+}

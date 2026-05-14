@@ -1,0 +1,52 @@
+{
+  "total_results": 3,
+  "jobs": [
+    {
+      "id": "v1-2222222222",
+      "title": "Principal Engineer, Llama Infrastructure",
+      "description": "Lead the infra serving large language models.",
+      "url": "https://www.metacareers.com/jobs/2222222222/",
+      "locations": [
+        {
+          "label": "Seattle, WA",
+          "country": "United States",
+          "country_code": "US",
+          "region": "Washington"
+        }
+      ],
+      "team": "GenAI",
+      "leadership_levels": ["IC6"],
+      "posted_date": "2026-04-08"
+    },
+    {
+      "id": "v1-3333333333",
+      "title": "Technical Recruiter",
+      "description": "Hire the next generation of engineers.",
+      "url": "https://www.metacareers.com/jobs/3333333333/",
+      "locations": [
+        {
+          "label": "London, UK",
+          "country": "United Kingdom",
+          "country_code": "GB"
+        }
+      ],
+      "division": "People",
+      "posted_date": "2026-04-09"
+    },
+    {
+      "id": "v1-4444444444",
+      "title": "Software Engineer (Remote)",
+      "description": "Remote-friendly role.",
+      "url": "https://www.metacareers.com/jobs/4444444444/",
+      "locations": [
+        {
+          "label": "Remote, US",
+          "country": "United States",
+          "country_code": "US"
+        }
+      ],
+      "team": "Infrastructure",
+      "posted_date": "2026-04-11"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ import {
   type TenantResult,
 } from "@openroles/shared";
 import pLimit from "p-limit";
+import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
+import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
@@ -21,6 +23,7 @@ import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
+import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
@@ -29,6 +32,7 @@ import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
+import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
@@ -197,6 +201,14 @@ function dispatchPerAts(
       return scrapeTaleoTenant(opts);
     case "zohorecruit":
       return scrapeZohorecruitTenant(opts);
+    case "amazonjobs":
+      return scrapeAmazonJobsTenant(opts);
+    case "applejobs":
+      return scrapeAppleJobsTenant(opts);
+    case "tiktokcareers":
+      return scrapeTiktokCareersTenant(opts);
+    case "metacareers":
+      return scrapeMetaCareersTenant(opts);
     case "successfactors": {
       // SuccessFactors needs a regional-datacenter host
       // (`career{N}.successfactors.{tld}`). Harvest captures it via

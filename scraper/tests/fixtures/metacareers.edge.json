@@ -1,0 +1,24 @@
+{
+  "total_results": 4,
+  "jobs": [
+    {
+      "title": "  Engineer with whitespace and id-from-url  ",
+      "url": "https://www.metacareers.com/jobs/5555555555/",
+      "posted_date": "not-a-real-date",
+      "locations": [{ "label": "London, UK" }]
+    },
+    {
+      "id": "v1-6666666666",
+      "title": "No locations",
+      "url": "https://www.metacareers.com/jobs/6666666666/"
+    },
+    {
+      "title": "Missing id and url, must be dropped"
+    },
+    {
+      "id": "v1-5555555555-dup",
+      "title": "Same hash via url-derived id, deduped",
+      "url": "https://www.metacareers.com/jobs/5555555555/"
+    }
+  ]
+}
