@@ -3,8 +3,8 @@
     "ats": "applejobs",
     "slug": "apple",
     "display_name": "Apple",
-    "status": "transient_failure",
-    "last_probed_at": "2026-05-14T01:25:44.000Z",
+    "status": "live",
+    "last_probed_at": "2026-05-14T22:15:18.830Z",
     "first_seen_at": "2026-05-14T01:25:44.000Z"
   }
 ]

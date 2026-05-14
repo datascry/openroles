@@ -182,6 +182,20 @@ jobs:
           - homerun
           - factorial
           - eightfold
+          # Tenant lists for these ATSes are seeded by other paths
+          # (single-tenant constants, JSON-LD hand-curation, BrassRing
+          # CC enumeration) rather than CDX-pattern discover, so they
+          # are not in the discover matrix above. They still need
+          # weekly liveness reprobing — without it, newly-seeded slugs
+          # stay at `transient_failure` and the scrape workflow's
+          # `status == "live"` filter rejects them every day.
+          - successfactors
+          - amazonjobs
+          - applejobs
+          - tiktokcareers
+          - metacareers
+          - jsonld
+          - brassring
     steps:
       - uses: actions/checkout@v6
 
