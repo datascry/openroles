@@ -89,7 +89,17 @@ jobs:
       # .../chromium_headless_shell-<n>/...` and fails every spec. Install
       # both so spec launches and Lighthouse runs (which want the full
       # binary) both work.
+      #
+      # Run from `site/` so the playwright CLI resolves to
+      # `site/node_modules/@playwright/test` (the version pinned in
+      # site/package.json). A bare `bunx playwright install` from the
+      # repo root falls through to bun's global cache and downloads the
+      # newest published CLI, whose binary version (e.g. v1223) doesn't
+      # match what `@playwright/test` looks for at runtime (e.g. v1217).
+      # The mismatch wastes ~290 MB of download per run and then fails
+      # every spec with "Executable doesn't exist at .../chromium_headless_shell-<workspace_v>".
       - run: bunx playwright install --with-deps chromium chromium-headless-shell
+        working-directory: site
       - run: bun run build
       - run: bun run e2e
       - name: Upload Playwright report
