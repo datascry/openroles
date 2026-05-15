@@ -453,6 +453,46 @@ describe("probeOne", () => {
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
+  it("probes gjobsfeed live by GETting the supplied feed_url", async () => {
+    let probedUrl = "";
+    const fetchFn = mock(async (input: Request | string) => {
+      probedUrl = typeof input === "string" ? input : input.url;
+      return new Response("<rss version='2.0'><channel></channel></rss>", {
+        status: 200,
+        headers: { "content-type": "application/xml" },
+      });
+    });
+    const t = await probeOne("gjobsfeed", "sap", clientWith(fetchFn), OBSERVED_AT, {
+      feed_url: "https://jobs.sap.com/sitemap.xml",
+    });
+    expect(t.status).toBe("live");
+    expect(probedUrl).toBe("https://jobs.sap.com/sitemap.xml");
+  });
+
+  it("returns transient_failure for gjobsfeed without metadata.feed_url", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    const t = await probeOne("gjobsfeed", "sap", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("transient_failure");
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("rejects malformed / http / SSRF gjobsfeed feed_url before dispatching", async () => {
+    const fetchFn = mock(async () => new Response("ok", { status: 200 }));
+    for (const feed of [
+      "not a url",
+      "http://jobs.sap.com/sitemap.xml",
+      "https://localhost/feed.xml",
+      "https://feed.internal/feed.xml",
+      "https://169.254.169.254/feed.xml",
+    ]) {
+      const t = await probeOne("gjobsfeed", "sap", clientWith(fetchFn), OBSERVED_AT, {
+        feed_url: feed,
+      });
+      expect(t.status).toBe("transient_failure");
+    }
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
   it("does not block the workday probe when robots.txt fetch fails", async () => {
     // robots.txt may 404 / time out / be CDN-blocked — discovery is
     // best-effort. The liveness verdict must still hold.

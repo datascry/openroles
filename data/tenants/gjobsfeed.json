@@ -1,0 +1,24 @@
+[
+  {
+    "ats": "gjobsfeed",
+    "slug": "sap",
+    "display_name": "SAP",
+    "status": "live",
+    "last_probed_at": "2026-05-15T16:16:31.215Z",
+    "first_seen_at": "2026-05-15T00:00:00.000Z",
+    "metadata": {
+      "feed_url": "https://jobs.sap.com/sitemap.xml"
+    }
+  },
+  {
+    "ats": "gjobsfeed",
+    "slug": "exxonmobil",
+    "display_name": "ExxonMobil",
+    "status": "live",
+    "last_probed_at": "2026-05-15T16:16:31.215Z",
+    "first_seen_at": "2026-05-15T00:00:00.000Z",
+    "metadata": {
+      "feed_url": "https://jobs.exxonmobil.com/sitemap.xml"
+    }
+  }
+]

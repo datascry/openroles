@@ -196,6 +196,7 @@ jobs:
           - metacareers
           - jsonld
           - brassring
+          - gjobsfeed
     steps:
       - uses: actions/checkout@v6
 

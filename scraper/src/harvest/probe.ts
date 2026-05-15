@@ -155,6 +155,23 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     if (!isSafeFetchHost(parsed)) return undefined;
     return sitemapUrl;
   },
+  gjobsfeed: (_slug, metadata) => {
+    // Vendor-agnostic Google-for-Jobs RSS feed harvester: the feed URL
+    // itself is the probe target. 200 + RSS content means a live feed;
+    // a missing or invalid feed_url short-circuits to transient. Same
+    // SSRF guard as jsonld (https only, no loopback / private /
+    // metadata-IP exfil targets) so probe + scrape share the rule.
+    const feedUrl = metadata["feed_url"];
+    if (typeof feedUrl !== "string" || feedUrl.length === 0) return undefined;
+    let parsed: URL;
+    try {
+      parsed = new URL(feedUrl);
+    } catch {
+      return undefined;
+    }
+    if (!isSafeFetchHost(parsed)) return undefined;
+    return feedUrl;
+  },
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {
