@@ -19,6 +19,7 @@ import { scrapeBreezyTenant } from "./ats/breezy.ts";
 import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
+import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
@@ -270,6 +271,24 @@ function dispatchPerAts(
         });
       }
       return scrapeBrassringTenant({ ...opts, partnerId, siteId });
+    }
+    case "gjobsfeed": {
+      // Google-for-Jobs RSS feed harvester. Per-tenant `feed_url`
+      // metadata is mandatory — vendor-agnostic, the feed location is
+      // per-brand and not slug-derivable (same convention as jsonld).
+      const feedUrl = opts.tenant.metadata?.["feed_url"];
+      if (feedUrl === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "gjobsfeed tenant missing metadata.feed_url",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeGjobsfeedTenant({ ...opts, feedUrl });
     }
   }
 }

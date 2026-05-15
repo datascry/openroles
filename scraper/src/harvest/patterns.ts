@@ -341,6 +341,17 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(brassring)\b/gi,
     denyList: new Set<string>(["brassring"]),
   },
+  // Like jsonld, the Google-for-Jobs RSS feed harvester is hand-seeded
+  // (tenant identity = slug + feed_url, not a canonical CDX host
+  // pattern). Registered as a no-op pattern so HARVEST_ATS_IDS ==
+  // ATS_IDS holds; the regex matches the literal token `gjobsfeed`
+  // against the deny list so CDX never mints a fresh tenant.
+  {
+    ats: "gjobsfeed",
+    cdxQuery: "base.google.com/ns/1.0",
+    regex: /\b(gjobsfeed)\b/gi,
+    denyList: new Set<string>(["gjobsfeed"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

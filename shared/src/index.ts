@@ -1,3 +1,22 @@
+// 5.0.0 lands the Google for Jobs RSS feed harvester (`gjobsfeed`
+// ATSId). Major bump for the same reason as 3.0.0 / 4.0.0 (adding an
+// ATSId is symmetric to removing one — `ATSCountsSchema` is `.strict()`
+// so a 4.0.0 reader rejects a 5.0.0 manifest with
+// `ats_counts.gjobsfeed = 0`).
+//
+// Vendor-agnostic like `jsonld`: tenant identity = (slug, feed_url),
+// where feed_url is the brand's RSS 2.0 Google-for-Jobs feed
+// (`xmlns:g="http://base.google.com/ns/1.0"`). Every `<item>` is a
+// complete posting (title, full description HTML, link, stable g:id,
+// employer, function, location) so the adapter is a single GET with
+// no per-job fan-out. Unlocks brands whose backend API is
+// robots-disallowed but who publish this open feed for Google
+// ingestion. First verified seeds: SAP (jobs.sap.com, ~255 roles) and
+// ExxonMobil (jobs.exxonmobil.com, ~464 roles) — both SuccessFactors-
+// backed and 0-role under the `successfactors` adapter because the SF
+// `careersection` API is Disallow: /. Widens ATSId 31 → 32. See
+// specs/gjobsfeed-adapter.md.
+//
 // 4.0.0 lands the IBM Kenexa / BrassRing adapter (`brassring` ATSId).
 // Major bump for the same reason as 3.0.0 (adding an ATSId is symmetric
 // to removing one — `ATSCountsSchema` is `.strict()` so a 3.0.0 reader
@@ -107,7 +126,7 @@
 // homerun, factorial, eightfold). All additions ship harvest + probe;
 // scraper modules land progressively. Manifests built against earlier
 // schema versions remain readable since ats_counts keys default to 0.
-export const SCHEMA_VERSION = "4.0.0";
+export const SCHEMA_VERSION = "5.0.0";
 
 /**
  * Default number of days a role can stay marked is_stale before it drops

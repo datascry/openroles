@@ -53,6 +53,15 @@ export const ATS_IDS = Object.freeze([
   // ADM, Performance Food Group, GardaWorld, Habitat for Humanity,
   // Helzberg, Yale University.
   "brassring",
+  // Google for Jobs RSS feed harvester. Vendor-agnostic, like jsonld:
+  // tenant identity = (slug, feed_url). The feed is an RSS 2.0 document
+  // in the http://base.google.com/ns/1.0 namespace whose every <item>
+  // is a complete job posting. Unlocks brands whose backend API is
+  // robots-blocked (e.g. SuccessFactors `careersection`) but who
+  // publish this open feed for Google ingestion. First verified seeds:
+  // SAP, ExxonMobil (both SuccessFactors-backed, 0-role under the
+  // successfactors adapter because the SF API is Disallow: /).
+  "gjobsfeed",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

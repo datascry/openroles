@@ -82,6 +82,8 @@ jobs:
           - jsonld
           # IBM Kenexa / BrassRing multi-tenant ATS.
           - brassring
+          # Vendor-agnostic Google-for-Jobs RSS feed harvester.
+          - gjobsfeed
         # icims has 14,810 tenants and hits the per-shard timeout on a
         # single runner. Splitting the tenant list into two
         # deterministic halves (sum-of-codepoints mod 2) lets each
