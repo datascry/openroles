@@ -30,6 +30,17 @@ tenant record without `metadata.feed_url` is marked `dead` by the
 dispatcher (mirrors the `jsonld` / `workday` mandatory-metadata
 convention).
 
+> **Counterintuitive seed URLs (do not "fix").** TalentBrew /
+> SuccessFactors-fronted brands serve their Google-for-Jobs RSS feed
+> at the path **`/sitemap.xml`** (e.g. `https://jobs.sap.com/sitemap.xml`
+> and `https://jobs.exxonmobil.com/sitemap.xml` return the
+> `xmlns:g="http://base.google.com/ns/1.0"` RSS document, **not** a
+> sitemaps.org `<urlset>`). The seed `feed_url`s therefore end in
+> `/sitemap.xml` by design — verified live end-to-end (SAP 2,142 +
+> ExxonMobil 464 roles). Confirm the actual feed path per brand before
+> assuming a different convention; the path is vendor-determined, not
+> ours.
+
 ## Feed shape
 
 ```
@@ -84,11 +95,11 @@ feed into `BuildJobInput`.
 - An item missing `title` **or** a usable source id is skipped; the
   rest of the feed still yields. Items are de-duplicated by `Job.id`.
 - `TenantResult.status`:
-  - `success` — feed parsed, ≥0 jobs.
+  - `success` — feed parsed, ≥1 jobs.
   - `transient_failure` — feed fetch threw / non-2xx, or the document
-    parsed but contained zero `<item>` elements under a present
-    `<channel>` (usually a transient upstream blip; retained for retry
-    rather than marked `dead`).
+    parsed but yielded zero jobs (no `<item>` elements, or none with a
+    usable title+id) — usually a transient upstream blip; retained for
+    retry rather than marked `dead`.
   - `dead` — `feed_url` missing/invalid/unsafe host.
 
 ## Probe

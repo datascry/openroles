@@ -12,6 +12,9 @@ import {
 } from "../helpers.ts";
 
 const OBSERVED_AT = "2026-05-15T00:00:00Z";
+// TalentBrew/SF brands serve the Google-Jobs RSS feed at the
+// /sitemap.xml path (it is NOT a sitemaps.org urlset) — the seed URLs
+// look the same. See specs/gjobsfeed-adapter.md.
 const FEED_URL = "https://jobs.example.com/sitemap.xml";
 
 const server = makeServer();
