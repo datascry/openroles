@@ -1,6 +1,6 @@
 # openroles
 
-A static, privacy-respecting job-board aggregator across 24 applicant
+A static, privacy-respecting job-board aggregator across 31 applicant
 tracking systems. No tracking. No ads. No accounts. The whole site is
 HTML and JSON served from GitHub Pages; filters and saved-role state
 live in your browser, never on a server.
@@ -11,7 +11,7 @@ live in your browser, never on a server.
 
 ## What it is
 
-`openroles` scrapes the public APIs of 24 hiring platforms, normalises
+`openroles` scrapes the public APIs of 31 hiring platforms, normalises
 the postings into a shared schema, and emits a static dataset that
 loads into a single Svelte island in the browser. There is no backend,
 no database server, no analytics, no third-party scripts. Filtering,
@@ -75,20 +75,35 @@ behind ditching the in-browser SQL engine the previous design used.
 
 ## Coverage
 
-Twenty-four ATSes, weighted by tenant volume in the public Common
-Crawl index:
+Thirty-one ATSes. The multi-tenant set, weighted by tenant volume in
+the public Common Crawl index:
 
 ```
 Greenhouse · Lever · Ashby · BambooHR · Workday · iCIMS · Recruitee
 Breezy · Personio · Workable · Teamtailor · SmartRecruiters · CSOD
 Taleo · UltiPro · Jobvite · Zoho Recruit · Talentlyft · Pinpoint HQ
 ApplicantPro · ApplicantStack · Homerun · Factorial · Eightfold
+SuccessFactors · BrassRing
 ```
+
+Plus a vendor-agnostic **JSON-LD harvester** that walks a per-tenant
+sitemap and extracts `schema.org/JobPosting` structured data, unlocking
+brands on proprietary stacks that still publish Google-for-Jobs data
+(e.g. Lockheed Martin, Spectrum), and four per-company custom adapters
+for employers that run their own careers API: **Amazon · Apple ·
+TikTok · Meta**.
 
 Tenant slugs are discovered from public Common Crawl snapshots, not
 copied from another aggregator. Liveness is probed weekly; hard-dead
 slugs are dropped, transient failures are retained for retry. See
 [ADR-0003](docs/adr/0003-clean-room-harvest.md).
+
+> [!NOTE]
+> Apple, TikTok, Meta, and SuccessFactors currently return no roles —
+> each either gates its job API behind authentication or disallows
+> automated access in `robots.txt`. Their adapters remain in place and
+> the daily run will pick them up automatically if that access policy
+> changes.
 
 ## Quick start
 
