@@ -452,6 +452,46 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.sitemap_url");
   });
 
+  it("dispatches gjobsfeed with metadata.feed_url", async () => {
+    const feedUrl = "https://jobs.example.com/sitemap.xml";
+    server.use(
+      http.get(feedUrl, () => HttpResponse.xml(readFixtureText("gjobsfeed.exxonmobil-real.xml"))),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "gjobsfeed",
+        tenants: [
+          {
+            slug: "exxonmobil",
+            display_name: "ExxonMobil",
+            metadata: { feed_url: feedUrl },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags gjobsfeed tenant dead when metadata.feed_url is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "gjobsfeed",
+        tenants: [{ slug: "example" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.feed_url");
+  });
+
   it("dispatches brassring with metadata.partnerid + metadata.siteid", async () => {
     server.use(
       http.get("https://sjobs.brassring.com/TGNewUI/Search/Home/Home", () =>
