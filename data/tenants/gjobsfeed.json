@@ -1,13 +1,13 @@
 [
   {
     "ats": "gjobsfeed",
-    "slug": "sap",
-    "display_name": "SAP",
+    "slug": "eastman",
+    "display_name": "Eastman",
     "status": "live",
-    "last_probed_at": "2026-05-15T16:16:31.215Z",
-    "first_seen_at": "2026-05-15T00:00:00.000Z",
+    "last_probed_at": "2026-05-16T22:58:12.656Z",
+    "first_seen_at": "2026-05-16T22:57:58.510Z",
     "metadata": {
-      "feed_url": "https://jobs.sap.com/sitemap.xml"
+      "feed_url": "https://jobs.eastman.com/sitemap.xml"
     }
   },
   {
@@ -15,10 +15,43 @@
     "slug": "exxonmobil",
     "display_name": "ExxonMobil",
     "status": "live",
-    "last_probed_at": "2026-05-15T16:16:31.215Z",
+    "last_probed_at": "2026-05-16T22:58:12.656Z",
     "first_seen_at": "2026-05-15T00:00:00.000Z",
     "metadata": {
       "feed_url": "https://jobs.exxonmobil.com/sitemap.xml"
+    }
+  },
+  {
+    "ats": "gjobsfeed",
+    "slug": "halliburton",
+    "display_name": "Halliburton",
+    "status": "live",
+    "last_probed_at": "2026-05-16T22:58:12.656Z",
+    "first_seen_at": "2026-05-16T22:57:58.510Z",
+    "metadata": {
+      "feed_url": "https://jobs.halliburton.com/sitemap.xml"
+    }
+  },
+  {
+    "ats": "gjobsfeed",
+    "slug": "paccar",
+    "display_name": "PACCAR",
+    "status": "live",
+    "last_probed_at": "2026-05-16T22:58:12.656Z",
+    "first_seen_at": "2026-05-16T22:57:58.510Z",
+    "metadata": {
+      "feed_url": "https://jobs.paccar.com/sitemap.xml"
+    }
+  },
+  {
+    "ats": "gjobsfeed",
+    "slug": "sap",
+    "display_name": "SAP",
+    "status": "live",
+    "last_probed_at": "2026-05-16T22:58:12.656Z",
+    "first_seen_at": "2026-05-15T00:00:00.000Z",
+    "metadata": {
+      "feed_url": "https://jobs.sap.com/sitemap.xml"
     }
   }
 ]

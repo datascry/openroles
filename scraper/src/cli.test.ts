@@ -5,6 +5,7 @@ import { join } from "node:path";
 import {
   main,
   runBuildDbCommand,
+  runDiscoverGjobsfeedCommand,
   runDiscoverWorkdaySitesCommand,
   runHarvestCommand,
   runReportCommand,
@@ -1442,6 +1443,172 @@ describe("runDiscoverWorkdaySitesCommand", () => {
       expect(probedHosts.some((u) => u.includes("alpha.wd1"))).toBe(true);
       expect(probedHosts.some((u) => u.includes("beta.wd1"))).toBe(true);
       expect(probedHosts.some((u) => u.includes("gamma.wd1"))).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});
+
+describe("runDiscoverGjobsfeedCommand", () => {
+  const RSS = `<?xml version="1.0"?><rss version="2.0" xmlns:g="http://base.google.com/ns/1.0"><channel><title>x</title></channel></rss>`;
+  const URLSET = `<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>`;
+
+  function writeCandidates(dir: string, list: unknown): string {
+    const p = join(dir, "gjobsfeed-candidates.json");
+    writeFileSync(p, JSON.stringify(list));
+    return p;
+  }
+
+  it("returns 0 on --help", async () => {
+    expect(await runDiscoverGjobsfeedCommand(["--help"])).toBe(0);
+  });
+
+  it("returns 2 without --user-agent / --contact-url", async () => {
+    expect(await runDiscoverGjobsfeedCommand([])).toBe(2);
+  });
+
+  it("returns 2 on out-of-range --batch-size and --concurrency", async () => {
+    expect(
+      await runDiscoverGjobsfeedCommand([
+        "--contact-url",
+        "https://e.invalid",
+        "--batch-size",
+        "0",
+      ]),
+    ).toBe(2);
+    expect(
+      await runDiscoverGjobsfeedCommand([
+        "--contact-url",
+        "https://e.invalid",
+        "--concurrency",
+        "99",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 2 when the candidate list is missing", async () => {
+    const dir = tmpDir();
+    expect(
+      await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]),
+    ).toBe(2);
+  });
+
+  it("returns 0 when the candidate list is an empty array", async () => {
+    const dir = tmpDir();
+    writeCandidates(dir, []);
+    expect(
+      await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]),
+    ).toBe(0);
+  });
+
+  it("discovers a feed, skips a urlset host, dedups vs another live ATS, is idempotent", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      if (u === "https://jobs.acme.com/sitemap.xml")
+        return new Response(RSS, { status: 200, headers: { "content-type": "application/xml" } });
+      if (u === "https://jobs.plain.com/sitemap.xml")
+        return new Response(URLSET, {
+          status: 200,
+          headers: { "content-type": "application/xml" },
+        });
+      return new Response("", { status: 404 });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      // `dup` is already live under workday → must be skipped by guard.
+      writeFileSync(
+        join(dir, "tenants", "workday.json"),
+        JSON.stringify([
+          {
+            ats: "workday",
+            slug: "dup",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00Z",
+            metadata: { host: "dup.wd1.myworkdayjobs.com" },
+          },
+        ]),
+      );
+      writeCandidates(dir, [
+        { slug: "acme", display_name: "Acme", hosts: ["jobs.acme.com"] },
+        { slug: "plain", display_name: "Plain Co", hosts: ["jobs.plain.com"] },
+        { slug: "dup", display_name: "Dup Inc", hosts: ["jobs.acme.com"] },
+      ]);
+      const code = await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]);
+      expect(code).toBe(0);
+      const seeded = JSON.parse(
+        readFileSync(join(dir, "tenants", "gjobsfeed.json"), "utf8"),
+      ) as Array<{ slug: string; status: string; metadata?: { feed_url?: string } }>;
+      // Only acme is seeded: plain serves a urlset (no signature), dup
+      // is live elsewhere (dedup guard).
+      expect(seeded.map((t) => t.slug)).toEqual(["acme"]);
+      expect(seeded[0]?.status).toBe("transient_failure");
+      expect(seeded[0]?.metadata?.feed_url).toBe("https://jobs.acme.com/sitemap.xml");
+
+      // Idempotent: a second run with acme already seeded adds nothing.
+      const code2 = await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]);
+      expect(code2).toBe(0);
+      const seeded2 = JSON.parse(
+        readFileSync(join(dir, "tenants", "gjobsfeed.json"), "utf8"),
+      ) as Array<{ slug: string }>;
+      expect(seeded2.map((t) => t.slug)).toEqual(["acme"]);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("never fetches an unsafe host (SSRF guard short-circuits before client.request)", async () => {
+    const originalFetch = globalThis.fetch;
+    const fetched: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      fetched.push(u);
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      return new Response(RSS, { status: 200, headers: { "content-type": "application/xml" } });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeCandidates(dir, [
+        { slug: "loop", display_name: "Loopback", hosts: ["localhost"] },
+        { slug: "ipv4", display_name: "Metadata v4", hosts: ["169.254.169.254"] },
+        { slug: "ipv6", display_name: "Loopback v6", hosts: ["[::1]"] },
+        { slug: "ipv6meta", display_name: "Mapped meta", hosts: ["[::ffff:169.254.169.254]"] },
+        { slug: "intl", display_name: "Internal", hosts: ["feed.internal"] },
+      ]);
+      const code = await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]);
+      expect(code).toBe(0);
+      // No sitemap.xml request fired for any unsafe host — isSafeFetchHost
+      // rejects before client.request. Nothing seeded.
+      expect(fetched.some((u) => u.includes("/sitemap.xml"))).toBe(false);
+      expect(existsSync(join(dir, "tenants", "gjobsfeed.json"))).toBe(false);
     } finally {
       globalThis.fetch = originalFetch;
     }

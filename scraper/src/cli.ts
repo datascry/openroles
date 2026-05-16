@@ -20,11 +20,13 @@ import {
 } from "@openroles/shared";
 import pLimit from "p-limit";
 import { z } from "zod";
+import { isSafeFetchHost } from "./ats/common.ts";
 import { fetchWorkdaySite } from "./ats/workday-site-fetch.ts";
 import { buildDb } from "./db/build-db.ts";
 import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
+import { liveSlugsExcluding } from "./harvest/cross-ats-dedup.ts";
 import { probeMany } from "./harvest/probe.ts";
 import { runHarvest } from "./harvest/runner.ts";
 import { resolveAllSnapshots, resolveLatestSnapshots } from "./harvest/snapshots.ts";
@@ -73,6 +75,7 @@ Commands:
   harvest                  Discover tenant slugs from Common Crawl (incremental-aware)
   reprobe                  Re-probe stale tenants for liveness updates
   discover-workday-sites   Backfill metadata.site for workday tenants via robots.txt
+  discover-gjobsfeed       Probe candidate brands for a Google-for-Jobs RSS feed and seed gjobsfeed
   build-db                 Build data/jobs.{sha}.sqlite from one or more scrape outputs
   report                   Print run report from data/run-report.json (Phase 7)
 
@@ -147,6 +150,21 @@ discover-workday-sites:
   ~99% of tenants whose real site is named something else (ATTGeneral, Comcast_Careers, etc.).
   The probe then fails and never reaches the discovery step — a deadlock. This command sidesteps
   that loop by fetching robots.txt directly and parsing the Allow / Sitemap directives.
+
+discover-gjobsfeed:
+  --input <path>          Candidate list JSON (default: <output-dir>/gjobsfeed-candidates.json).
+                          Array of { slug, display_name, hosts: [host, ...] }. Each host is probed
+                          at https://{host}/sitemap.xml for the Google-for-Jobs RSS signature.
+  --batch-size <n>        Cap per-run probe count (default: 200, max: 5000).
+  --concurrency <n>       Concurrent feed probes (1-32, default: 6).
+  --output-dir <dir>      Where tenants/ + the candidate list live (default: ./data)
+  --user-agent <ua>       Override the full User-Agent string
+  --contact-url <url>     Contact URL interpolated into the default User-Agent
+
+  A match is appended to tenants/gjobsfeed.json as status=transient_failure (the reprobe / scrape
+  pass promotes it). Idempotent: candidates already in gjobsfeed.json are skipped. A slug already
+  status=live under ANY other ATS is skipped (cross-ATS dedup guard) — build-db only de-dupes by
+  exact Job.url, so the same role reachable via two adapters would otherwise double-count.
 `);
 }
 
@@ -925,6 +943,171 @@ export async function runDiscoverWorkdaySitesCommand(argv: ReadonlyArray<string>
   return 0;
 }
 
+// A discovery candidate: a brand we suspect publishes a Google-for-Jobs
+// RSS feed at one of `hosts` (path is always /sitemap.xml for the
+// TalentBrew/Radancy/SuccessFactors family — see specs/gjobsfeed-adapter.md).
+const GjobsfeedCandidateSchema = z.object({
+  slug: z.string().min(1),
+  display_name: z.string().min(1),
+  hosts: z.array(z.string().min(1)).min(1),
+});
+
+// The signature that distinguishes a Google-for-Jobs RSS feed from a
+// plain sitemaps.org <urlset> served at the same /sitemap.xml path.
+const GOOGLE_JOBS_FEED_SIGNATURE = "base.google.com/ns/1.0";
+
+// Cap the bytes inspected per probe: the namespace declaration is in
+// the <rss> root element, always within the first ~200 bytes. Reading
+// the whole feed (multi-MB for large brands) just to sniff the root is
+// wasteful and a soft DoS vector on a hostile host.
+const FEED_SNIFF_BYTES = 2048;
+
+export async function runDiscoverGjobsfeedCommand(argv: ReadonlyArray<string>): Promise<number> {
+  const args = parseArgs(argv);
+  if (args.help) {
+    usage();
+    return 0;
+  }
+
+  let userAgent: string;
+  if (args.userAgent !== undefined) {
+    userAgent = args.userAgent;
+  } else if (args.contactUrl !== undefined) {
+    userAgent = `openroles/${SCHEMA_VERSION} (+${args.contactUrl})`;
+  } else {
+    console.error("discover-gjobsfeed: --user-agent or --contact-url is required");
+    return 2;
+  }
+
+  const batchSize =
+    args.batchSize !== undefined
+      ? Number.parseInt(args.batchSize, 10)
+      : DEFAULT_DISCOVER_BATCH_SIZE;
+  if (!Number.isFinite(batchSize) || batchSize < 1 || batchSize > 5000) {
+    console.error(`discover-gjobsfeed: --batch-size must be in [1, 5000], got ${args.batchSize}`);
+    return 2;
+  }
+
+  let concurrency = DEFAULT_DISCOVER_CONCURRENCY;
+  if (args.concurrency !== undefined) {
+    const n = Number.parseInt(args.concurrency, 10);
+    if (!Number.isFinite(n) || n < 1 || n > 32) {
+      console.error(
+        `discover-gjobsfeed: --concurrency must be in [1, 32], got ${args.concurrency}`,
+      );
+      return 2;
+    }
+    concurrency = n;
+  }
+
+  const outputDir = args.outputDir ?? defaultOutputDir();
+  const candidatesPath = args.input ?? join(outputDir, "gjobsfeed-candidates.json");
+  let candidates: z.infer<typeof GjobsfeedCandidateSchema>[];
+  try {
+    const body = await readFile(candidatesPath, "utf8");
+    candidates = z.array(GjobsfeedCandidateSchema).parse(JSON.parse(body));
+  } catch (err) {
+    console.error(
+      `discover-gjobsfeed: cannot read candidate list at ${candidatesPath}: ${
+        err instanceof Error ? err.message : String(err)
+      }`,
+    );
+    return 2;
+  }
+  if (candidates.length === 0) {
+    console.error("discover-gjobsfeed: candidate list is empty; nothing to do");
+    return 0;
+  }
+
+  const tenantsDir = join(outputDir, "tenants");
+  const gjobsfeedPath = join(tenantsDir, "gjobsfeed.json");
+  const existing = await loadTenants(gjobsfeedPath, "gjobsfeed");
+  const existingSlugs = new Set(existing.map((t) => t.slug));
+  // Cross-ATS dedup guard: a slug already `live` under another adapter
+  // must not be re-seeded here, or the same role double-counts under
+  // two ATSes with two URLs (build-db only de-dupes by exact URL).
+  const liveElsewhere = await liveSlugsExcluding(tenantsDir, "gjobsfeed");
+
+  const robots = new RobotsTxtCache();
+  const client = new HttpClient({ userAgent, robots });
+  const limit = pLimit(concurrency);
+
+  const notYetSeeded = candidates.filter((c) => !existingSlugs.has(c.slug));
+  const alreadySeeded = candidates.length - notYetSeeded.length;
+  const queue = notYetSeeded.sort((a, b) => a.slug.localeCompare(b.slug)).slice(0, batchSize);
+
+  let discovered = 0;
+  let skippedDup = 0;
+  let noFeed = 0;
+  const found = new Map<string, { display_name: string; feed_url: string }>();
+  await Promise.all(
+    queue.map((c) =>
+      limit(async () => {
+        if (liveElsewhere.has(c.slug)) {
+          skippedDup += 1;
+          console.error(
+            `discover-gjobsfeed: skip ${c.slug} — already live under another ATS (dedup guard)`,
+          );
+          return;
+        }
+        for (const host of c.hosts) {
+          const feedUrl = `https://${host}/sitemap.xml`;
+          let parsed: URL;
+          try {
+            parsed = new URL(feedUrl);
+          } catch {
+            continue;
+          }
+          if (!isSafeFetchHost(parsed)) continue;
+          try {
+            const res = await client.request(feedUrl);
+            const body = await res.text();
+            if (body.slice(0, FEED_SNIFF_BYTES).includes(GOOGLE_JOBS_FEED_SIGNATURE)) {
+              found.set(c.slug, { display_name: c.display_name, feed_url: feedUrl });
+              discovered += 1;
+              return;
+            }
+          } catch {
+            // host unreachable / robots-blocked / non-2xx — try next host
+          }
+        }
+        noFeed += 1;
+      }),
+    ),
+  );
+
+  if (found.size > 0) {
+    const now = new Date().toISOString();
+    const additions: Tenant[] = [...found.entries()].map(([slug, v]) => ({
+      ats: "gjobsfeed",
+      slug,
+      display_name: v.display_name,
+      status: "transient_failure",
+      last_probed_at: now,
+      first_seen_at: now,
+      metadata: { feed_url: v.feed_url },
+    }));
+    const next = [...existing, ...additions].sort((a, b) => a.slug.localeCompare(b.slug));
+    const tmp = `${gjobsfeedPath}.tmp`;
+    try {
+      await mkdir(tenantsDir, { recursive: true });
+      await writeFile(tmp, `${JSON.stringify(next, null, 2)}\n`);
+      await rename(tmp, gjobsfeedPath);
+      /* c8 ignore next 4 — cleanup path; only reached on rare fs/rename failure mid-write. */
+    } catch (err) {
+      await rm(tmp, { force: true });
+      throw err;
+    }
+  }
+
+  console.error(
+    `discover-gjobsfeed: probed ${queue.length} of ${candidates.length} candidates ` +
+      `(discovered=${discovered}, skipped-dup=${skippedDup}, no-feed=${noFeed}, ` +
+      `already-seeded=${alreadySeeded}, batch_size=${batchSize}, concurrency=${concurrency})`,
+  );
+  return 0;
+}
+
 type FailSeverity = "info" | "warn" | "error";
 
 const SEVERITY_ORDER: Record<FailSeverity, number> = { info: 0, warn: 1, error: 2 };
@@ -1007,6 +1190,9 @@ export async function main(argv: ReadonlyArray<string>): Promise<number> {
   if (command === "reprobe") return await runReprobeCommand(rest);
   if (command === "discover-workday-sites") {
     return await runDiscoverWorkdaySitesCommand(rest);
+  }
+  if (command === "discover-gjobsfeed") {
+    return await runDiscoverGjobsfeedCommand(rest);
   }
   if (command === "report") return await runReportCommand(rest);
   console.error(`Command '${command}' is not implemented yet.`);
