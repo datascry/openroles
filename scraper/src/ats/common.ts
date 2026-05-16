@@ -90,25 +90,29 @@ export function vendorDateToIsoZ(value: string | null | undefined): string | und
 //   *.local, *.internal, AWS instance-metadata `169.254.169.254`, and
 //   the RFC1918 private IPv4 ranges (10/8, 172.16/12, 192.168/16).
 //
-// The host-string check is deliberately conservative: we don't try to
-// resolve DNS or reason about IPv6 — operator-curated seeds are the
-// only callers today, but treating the guard as defence-in-depth
-// matters because tenant records can flow in via untrusted harvest
-// channels in the future.
+// The host-string check is deliberately conservative: we don't resolve
+// DNS. Operator-curated seeds are the only callers today, but the guard
+// is treated as defence-in-depth because tenant records can flow in via
+// untrusted harvest channels in the future.
+//
+// Production careers feeds are always DNS hostnames, never raw IPs, so
+// the guard rejects *every* IP literal — IPv4 and IPv6 alike. This is
+// stricter than an RFC1918 deny list and closes the IPv6 bypass
+// (`[::1]`, `[::ffff:169.254.169.254]`, `[fd00::1]`) that a
+// range-based check leaves open. If a future legitimate tenant ever
+// needs a literal IP, narrow this rather than widen the allow list.
 export function isSafeFetchHost(parsed: URL): boolean {
   if (parsed.protocol !== "https:") return false;
-  const host = parsed.host.toLowerCase();
-  if (host === "localhost" || host.endsWith(".localhost")) return false;
-  if (host.endsWith(".local") || host.endsWith(".internal")) return false;
-  // AWS / GCP / Azure instance-metadata
-  if (host === "169.254.169.254" || host === "metadata.google.internal") return false;
-  // Naive RFC1918 + link-local + loopback IPv4 check. We don't accept
-  // any literal IP for production careers URLs; if a future legitimate
-  // tenant ever needs one, narrow the deny list rather than widening
-  // the allow list.
-  if (/^(?:10|127|0)\./.test(host)) return false;
-  if (/^192\.168\./.test(host)) return false;
-  if (/^172\.(?:1[6-9]|2\d|3[01])\./.test(host)) return false;
-  if (/^169\.254\./.test(host)) return false;
+  // `hostname` (not `host`) strips the port and the IPv6 brackets, so
+  // `[::1]:443` → `::1`. Any colon in a URL hostname is an IPv6 literal
+  // (DNS labels never contain `:`).
+  const hostname = parsed.hostname.toLowerCase();
+  if (hostname.includes(":")) return false; // IPv6 literal (any form)
+  // Dotted-quad IPv4 literal — reject regardless of range. A bare
+  // 4-octet host is never a real careers domain.
+  if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(hostname)) return false;
+  if (hostname === "localhost" || hostname.endsWith(".localhost")) return false;
+  if (hostname.endsWith(".local") || hostname.endsWith(".internal")) return false;
+  if (hostname === "metadata.google.internal") return false;
   return true;
 }

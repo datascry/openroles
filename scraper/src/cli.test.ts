@@ -1578,4 +1578,39 @@ describe("runDiscoverGjobsfeedCommand", () => {
       globalThis.fetch = originalFetch;
     }
   });
+
+  it("never fetches an unsafe host (SSRF guard short-circuits before client.request)", async () => {
+    const originalFetch = globalThis.fetch;
+    const fetched: string[] = [];
+    globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      fetched.push(u);
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      return new Response(RSS, { status: 200, headers: { "content-type": "application/xml" } });
+    };
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeCandidates(dir, [
+        { slug: "loop", display_name: "Loopback", hosts: ["localhost"] },
+        { slug: "ipv4", display_name: "Metadata v4", hosts: ["169.254.169.254"] },
+        { slug: "ipv6", display_name: "Loopback v6", hosts: ["[::1]"] },
+        { slug: "ipv6meta", display_name: "Mapped meta", hosts: ["[::ffff:169.254.169.254]"] },
+        { slug: "intl", display_name: "Internal", hosts: ["feed.internal"] },
+      ]);
+      const code = await runDiscoverGjobsfeedCommand([
+        "--output-dir",
+        dir,
+        "--contact-url",
+        "https://e.invalid",
+      ]);
+      expect(code).toBe(0);
+      // No sitemap.xml request fired for any unsafe host — isSafeFetchHost
+      // rejects before client.request. Nothing seeded.
+      expect(fetched.some((u) => u.includes("/sitemap.xml"))).toBe(false);
+      expect(existsSync(join(dir, "tenants", "gjobsfeed.json"))).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
 });
