@@ -1,12 +1,47 @@
 [
-  { "slug": "sap", "display_name": "SAP", "hosts": ["jobs.sap.com"] },
-  { "slug": "exxonmobil", "display_name": "ExxonMobil", "hosts": ["jobs.exxonmobil.com"] },
-  { "slug": "halliburton", "display_name": "Halliburton", "hosts": ["jobs.halliburton.com"] },
-  { "slug": "eastman", "display_name": "Eastman", "hosts": ["jobs.eastman.com"] },
   {
     "slug": "bostonscientific",
     "display_name": "Boston Scientific",
     "hosts": ["jobs.bostonscientific.com"]
   },
-  { "slug": "paccar", "display_name": "PACCAR", "hosts": ["jobs.paccar.com"] }
+  {
+    "slug": "colgate",
+    "display_name": "Colgate-Palmolive",
+    "hosts": ["jobs.colgate.com"]
+  },
+  {
+    "slug": "eastman",
+    "display_name": "Eastman",
+    "hosts": ["jobs.eastman.com"]
+  },
+  {
+    "slug": "exxonmobil",
+    "display_name": "ExxonMobil",
+    "hosts": ["jobs.exxonmobil.com"]
+  },
+  {
+    "slug": "halliburton",
+    "display_name": "Halliburton",
+    "hosts": ["jobs.halliburton.com"]
+  },
+  {
+    "slug": "molsoncoors",
+    "display_name": "Molson Coors",
+    "hosts": ["jobs.molsoncoors.com"]
+  },
+  {
+    "slug": "paccar",
+    "display_name": "PACCAR",
+    "hosts": ["jobs.paccar.com"]
+  },
+  {
+    "slug": "sap",
+    "display_name": "SAP",
+    "hosts": ["jobs.sap.com"]
+  },
+  {
+    "slug": "xpo",
+    "display_name": "XPO",
+    "hosts": ["jobs.xpo.com"]
+  }
 ]
