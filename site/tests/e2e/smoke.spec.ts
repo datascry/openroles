@@ -86,14 +86,21 @@ test.describe("index page smoke", () => {
 
   test("filter table island hydrates and event handlers update the URL", async ({ page }) => {
     await page.goto(INDEX);
-    // Open the relevant filter surface (sidebar on desktop, sheet on mobile)
-    // and toggle the greenhouse chip. The chip is implemented as an
-    // aria-pressed button rather than a checkbox so query by role=button.
-    await expect(async () => {
-      const surface = await openFilterUi(page);
-      await surface.getByRole("button", { name: /^greenhouse(\b|,)/i }).click();
-      await expect(page).toHaveURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 500 });
-    }).toPass({ timeout: 5_000 });
+    // Open the relevant filter surface (sidebar on desktop, sheet on
+    // mobile) and toggle the greenhouse chip. The chip is an
+    // aria-pressed button rather than a checkbox, so query by
+    // role=button.
+    //
+    // NOT wrapped in expect(...).toPass(): the greenhouse chip is a
+    // *toggle*, so a retry would re-click and turn the filter back OFF,
+    // dropping `ats=greenhouse` from the URL and failing the next
+    // attempt — a self-inflicted flake under slow parallel runs.
+    // openFilterUi already waits for the surface + chip to be visible
+    // (hydrated), so a single click is reliable; waitForURL then polls
+    // for the handler's history.pushState without re-clicking.
+    const surface = await openFilterUi(page);
+    await surface.getByRole("button", { name: /^greenhouse(\b|,)/i }).click();
+    await page.waitForURL(/[?&]ats=greenhouse(\b|&|$)/, { timeout: 5_000 });
   });
 
   test("renders job results from the fixture database", async ({ page }) => {
