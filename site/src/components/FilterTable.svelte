@@ -140,10 +140,17 @@ let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
+// True once every chunk has settled (loader's onComplete — fires after
+// the background fan-out, NOT when dbStatus flips to "ready", which
+// happens right after chunk 0). The progress bar keys off this so it
+// doesn't vanish the moment the first jobs render.
+let fullyLoaded: boolean = $state(false);
 // Thin progress bar shown under the search bar. View-model lives in
 // lib/load-progress.ts so the determinate/indeterminate + clamp logic
 // is unit-tested (CLAUDE.md: logic out of .svelte).
-const loadBar = $derived(loadProgress(dbStatus, chunksLoaded, chunksTotal, isQueryRunning));
+const loadBar = $derived(
+  loadProgress(dbStatus, chunksLoaded, chunksTotal, isQueryRunning, fullyLoaded),
+);
 // Reactivity hook: optionCounts and any other $derived that reads
 // slimIndex.rows by reference needs a value-based dependency to fire
 // when rows grows in place. (slimIndex is $state.raw because the loader
@@ -455,6 +462,9 @@ onMount(async () => {
       basePath,
       manifest,
       seed,
+      onComplete: () => {
+        fullyLoaded = true;
+      },
       onChunk: (_chunk, _cumulative, _total) => {
         chunksLoaded += 1;
         chunkMergeTick += 1;

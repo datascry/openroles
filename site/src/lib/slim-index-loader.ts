@@ -26,6 +26,15 @@ export interface SlimIndexLoadOptions {
    */
   readonly onChunk?: (chunk: SlimRow[], cumulative: number, total: number) => void;
   /**
+   * Called exactly once when every chunk has settled (including the
+   * background fan-out that this function does NOT await — it resolves
+   * to the caller after chunk 0 for fast first paint, then keeps
+   * streaming). Soft-failed chunks still count as settled, so this
+   * always fires; it is the only reliable "fully loaded" signal a
+   * caller gets. Used to drive the load-progress bar to completion.
+   */
+  readonly onComplete?: () => void;
+  /**
    * Optional rows to seed the in-memory dataset before any chunks
    * arrive — typically the rows the SSR pre-paint embedded as JSON.
    * Lets the FilterTable skip an extra render on first paint.
@@ -75,6 +84,7 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
   const rows: SlimRow[] = opts.seed ? [...opts.seed] : [];
 
   if (chunks.length === 0) {
+    opts.onComplete?.();
     return {
       rows,
       totalExpected,
@@ -136,6 +146,7 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
   // has real data to operate on.
   const firstChunk = chunks[0];
   if (firstChunk === undefined) {
+    opts.onComplete?.();
     return { ...result, fullyLoaded: true };
   }
   const firstUrl = `${base}/data/${firstChunk.file}`;
@@ -150,6 +161,7 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
   if (opts.onChunk) opts.onChunk(firstRows, rows.length, totalExpected);
 
   if (chunks.length === 1) {
+    opts.onComplete?.();
     return { ...result, fullyLoaded: true };
   }
 
@@ -194,6 +206,12 @@ export async function loadSlimIndex(opts: SlimIndexLoadOptions): Promise<SlimInd
       // biome-ignore lint/suspicious/noExplicitAny: diagnostic global
       (globalThis as any).__slimIndexFullyLoaded = true;
     }
+    // The only reliable "every chunk settled" signal the caller gets —
+    // loadSlimIndex resolved to it after chunk 0 for fast first paint;
+    // this fires after the background fan-out (incl. soft-failed
+    // chunks) so the progress bar can complete instead of vanishing
+    // the moment the first chunk renders.
+    opts.onComplete?.();
   });
 
   return result;
