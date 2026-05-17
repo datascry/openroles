@@ -27,6 +27,12 @@ import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
 import { liveSlugsExcluding } from "./harvest/cross-ats-dedup.ts";
+import {
+  buildEnumerationSql,
+  type GjobsfeedCandidate,
+  mergeCandidates,
+  parseDuckdbHostRows,
+} from "./harvest/gjobsfeed-enumerate.ts";
 import { probeMany } from "./harvest/probe.ts";
 import { runHarvest } from "./harvest/runner.ts";
 import { resolveAllSnapshots, resolveLatestSnapshots } from "./harvest/snapshots.ts";
@@ -76,6 +82,7 @@ Commands:
   reprobe                  Re-probe stale tenants for liveness updates
   discover-workday-sites   Backfill metadata.site for workday tenants via robots.txt
   discover-gjobsfeed       Probe candidate brands for a Google-for-Jobs RSS feed and seed gjobsfeed
+  enumerate-gjobsfeed-hosts  Operator-run: CC columnar-index scan → expand gjobsfeed-candidates.json
   build-db                 Build data/jobs.{sha}.sqlite from one or more scrape outputs
   report                   Print run report from data/run-report.json (Phase 7)
 
@@ -165,6 +172,19 @@ discover-gjobsfeed:
   pass promotes it). Idempotent: candidates already in gjobsfeed.json are skipped. A slug already
   status=live under ANY other ATS is skipped (cross-ATS dedup guard) — build-db only de-dupes by
   exact Job.url, so the same role reachable via two adapters would otherwise double-count.
+
+enumerate-gjobsfeed-hosts:
+  --snapshots <CC-MAIN-YYYY-NN>  REQUIRED. The Common Crawl crawl to scan (latest id from
+                          https://index.commoncrawl.org/collinfo.json). No default — this is a
+                          paid, heavyweight (~hundreds of GB Parquet), operator-run scan and must
+                          never be cron-triggered. See specs/gjobsfeed-cc-enumeration.md.
+  --input <path>          Candidate list to expand (default: <output-dir>/gjobsfeed-candidates.json)
+  --output-dir <dir>      Where the candidate list lives (default: ./data)
+
+  Requires the duckdb CLI on PATH (used with httpfs to read the CC index over S3 anonymously).
+  Selects DISTINCT url_host_name where url_path='/sitemap.xml', fetch_status=200, and the host is
+  career-prefixed; derives a brand slug per host; merges into the candidate list (dedupe by slug,
+  existing preserved). Then run discover-gjobsfeed to probe + seed.
 `);
 }
 
@@ -1108,6 +1128,101 @@ export async function runDiscoverGjobsfeedCommand(argv: ReadonlyArray<string>): 
   return 0;
 }
 
+// Operator-run Common Crawl columnar-index enumeration. Heavyweight
+// (a few hundred GB Parquet scan, ~$1-3 via Athena / a large httpfs
+// stream via the duckdb CLI) and deliberately NOT part of CI — see
+// specs/gjobsfeed-cc-enumeration.md. Refuses to run without an
+// explicit --crawl and the duckdb binary, so nothing can trigger the
+// scan silently.
+export async function runEnumerateGjobsfeedHostsCommand(
+  argv: ReadonlyArray<string>,
+): Promise<number> {
+  const args = parseArgs(argv);
+  if (args.help) {
+    usage();
+    return 0;
+  }
+
+  const crawl = args.snapshots;
+  if (crawl === undefined || !/^CC-MAIN-\d{4}-\d{2}$/.test(crawl)) {
+    console.error(
+      "enumerate-gjobsfeed-hosts: --snapshots <CC-MAIN-YYYY-NN> is required " +
+        "(the crawl to enumerate; this is a paid, operator-run scan)",
+    );
+    return 2;
+  }
+
+  const duckdbPath = Bun.which("duckdb");
+  if (duckdbPath === null) {
+    console.error(
+      "enumerate-gjobsfeed-hosts: `duckdb` not found on PATH. This command " +
+        "runs a Common Crawl columnar-index scan via the DuckDB CLI; install " +
+        "duckdb and re-run. (Not a CI step — see specs/gjobsfeed-cc-enumeration.md.)",
+    );
+    return 2;
+  }
+
+  const outputDir = args.outputDir ?? defaultOutputDir();
+  const candidatesPath = args.input ?? join(outputDir, "gjobsfeed-candidates.json");
+  let existing: GjobsfeedCandidate[] = [];
+  try {
+    const body = await readFile(candidatesPath, "utf8");
+    existing = z
+      .array(
+        z.object({
+          slug: z.string().min(1),
+          display_name: z.string().min(1),
+          hosts: z.array(z.string().min(1)).min(1),
+        }),
+      )
+      .parse(JSON.parse(body));
+    /* c8 ignore next 3 — first-run convenience: a missing/empty list is fine, we create it. */
+  } catch {
+    existing = [];
+  }
+
+  const sql = buildEnumerationSql(crawl);
+  const proc = Bun.spawn([duckdbPath, "-csv", "-c", sql], {
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const [stdout, stderr, exitCode] = await Promise.all([
+    new Response(proc.stdout).text(),
+    new Response(proc.stderr).text(),
+    proc.exited,
+  ]);
+  if (exitCode !== 0) {
+    console.error(
+      `enumerate-gjobsfeed-hosts: duckdb exited ${exitCode}: ${stderr.trim().slice(0, 500)}`,
+    );
+    return 1;
+  }
+
+  const hosts = parseDuckdbHostRows(stdout);
+  const { candidates, added, hostsAddedToExisting, skipped } = mergeCandidates(existing, hosts);
+
+  if (added > 0 || hostsAddedToExisting > 0) {
+    const tmp = `${candidatesPath}.tmp`;
+    try {
+      await mkdir(dirname(candidatesPath), { recursive: true });
+      await writeFile(tmp, `${JSON.stringify(candidates, null, 2)}\n`);
+      await rename(tmp, candidatesPath);
+      /* c8 ignore next 4 — cleanup path; only reached on rare fs/rename failure mid-write. */
+    } catch (err) {
+      await rm(tmp, { force: true });
+      throw err;
+    }
+  }
+
+  console.error(
+    `enumerate-gjobsfeed-hosts: ${crawl} → ${hosts.length} career-prefixed sitemap hosts ` +
+      `(added=${added}, hosts-merged-into-existing=${hostsAddedToExisting}, ` +
+      `unparseable-skipped=${skipped}, candidates-total=${candidates.length}). ` +
+      "Run `discover-gjobsfeed` next to probe + seed.",
+  );
+  return 0;
+}
+
 type FailSeverity = "info" | "warn" | "error";
 
 const SEVERITY_ORDER: Record<FailSeverity, number> = { info: 0, warn: 1, error: 2 };
@@ -1193,6 +1308,9 @@ export async function main(argv: ReadonlyArray<string>): Promise<number> {
   }
   if (command === "discover-gjobsfeed") {
     return await runDiscoverGjobsfeedCommand(rest);
+  }
+  if (command === "enumerate-gjobsfeed-hosts") {
+    return await runEnumerateGjobsfeedHostsCommand(rest);
   }
   if (command === "report") return await runReportCommand(rest);
   console.error(`Command '${command}' is not implemented yet.`);

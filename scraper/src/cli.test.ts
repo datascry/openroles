@@ -7,6 +7,7 @@ import {
   runBuildDbCommand,
   runDiscoverGjobsfeedCommand,
   runDiscoverWorkdaySitesCommand,
+  runEnumerateGjobsfeedHostsCommand,
   runHarvestCommand,
   runReportCommand,
   runReprobeCommand,
@@ -1611,6 +1612,102 @@ describe("runDiscoverGjobsfeedCommand", () => {
       expect(existsSync(join(dir, "tenants", "gjobsfeed.json"))).toBe(false);
     } finally {
       globalThis.fetch = originalFetch;
+    }
+  });
+});
+
+describe("runEnumerateGjobsfeedHostsCommand", () => {
+  it("returns 0 on --help", async () => {
+    expect(await runEnumerateGjobsfeedHostsCommand(["--help"])).toBe(0);
+  });
+
+  it("returns 2 without a valid --snapshots crawl id", async () => {
+    expect(await runEnumerateGjobsfeedHostsCommand([])).toBe(2);
+    expect(await runEnumerateGjobsfeedHostsCommand(["--snapshots", "latest"])).toBe(2);
+    expect(await runEnumerateGjobsfeedHostsCommand(["--snapshots", "CC-MAIN-2026-17'; --"])).toBe(
+      2,
+    );
+  });
+
+  it("returns 2 with a clear error when duckdb is not on PATH", async () => {
+    const originalWhich = Bun.which;
+    (Bun as { which: typeof Bun.which }).which = () => null;
+    try {
+      const code = await runEnumerateGjobsfeedHostsCommand(["--snapshots", "CC-MAIN-2026-17"]);
+      expect(code).toBe(2);
+    } finally {
+      (Bun as { which: typeof Bun.which }).which = originalWhich;
+    }
+  });
+
+  it("runs duckdb, merges enumerated hosts into the candidate list, idempotent", async () => {
+    const originalWhich = Bun.which;
+    const originalSpawn = Bun.spawn;
+    (Bun as { which: typeof Bun.which }).which = () => "/usr/bin/duckdb";
+    const csv = "url_host_name\njobs.acme.com\ncareers.acme.com\njobs.molsoncoors.com\nnodot\n";
+    (Bun as { spawn: typeof Bun.spawn }).spawn = (() => ({
+      stdout: new Response(csv).body,
+      stderr: new Response("").body,
+      exited: Promise.resolve(0),
+    })) as unknown as typeof Bun.spawn;
+    try {
+      const dir = tmpDir();
+      writeFileSync(
+        join(dir, "gjobsfeed-candidates.json"),
+        JSON.stringify([{ slug: "sap", display_name: "SAP", hosts: ["jobs.sap.com"] }]),
+      );
+      const code = await runEnumerateGjobsfeedHostsCommand([
+        "--snapshots",
+        "CC-MAIN-2026-17",
+        "--output-dir",
+        dir,
+      ]);
+      expect(code).toBe(0);
+      const merged = JSON.parse(
+        readFileSync(join(dir, "gjobsfeed-candidates.json"), "utf8"),
+      ) as Array<{ slug: string; hosts: string[] }>;
+      expect(merged.map((c) => c.slug).sort()).toEqual(["acme", "molsoncoors", "sap"]);
+      const acme = merged.find((c) => c.slug === "acme");
+      expect(acme?.hosts.sort()).toEqual(["careers.acme.com", "jobs.acme.com"]);
+
+      // Idempotent re-run: same hosts, no change.
+      const before = readFileSync(join(dir, "gjobsfeed-candidates.json"), "utf8");
+      const code2 = await runEnumerateGjobsfeedHostsCommand([
+        "--snapshots",
+        "CC-MAIN-2026-17",
+        "--output-dir",
+        dir,
+      ]);
+      expect(code2).toBe(0);
+      expect(readFileSync(join(dir, "gjobsfeed-candidates.json"), "utf8")).toBe(before);
+    } finally {
+      (Bun as { which: typeof Bun.which }).which = originalWhich;
+      (Bun as { spawn: typeof Bun.spawn }).spawn = originalSpawn;
+    }
+  });
+
+  it("returns 1 when duckdb exits non-zero", async () => {
+    const originalWhich = Bun.which;
+    const originalSpawn = Bun.spawn;
+    (Bun as { which: typeof Bun.which }).which = () => "/usr/bin/duckdb";
+    (Bun as { spawn: typeof Bun.spawn }).spawn = (() => ({
+      stdout: new Response("").body,
+      stderr: new Response("IO Error: s3 access denied").body,
+      exited: Promise.resolve(1),
+    })) as unknown as typeof Bun.spawn;
+    try {
+      const dir = tmpDir();
+      writeFileSync(join(dir, "gjobsfeed-candidates.json"), "[]");
+      const code = await runEnumerateGjobsfeedHostsCommand([
+        "--snapshots",
+        "CC-MAIN-2026-17",
+        "--output-dir",
+        dir,
+      ]);
+      expect(code).toBe(1);
+    } finally {
+      (Bun as { which: typeof Bun.which }).which = originalWhich;
+      (Bun as { spawn: typeof Bun.spawn }).spawn = originalSpawn;
     }
   });
 });
