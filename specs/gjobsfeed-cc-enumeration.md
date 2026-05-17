@@ -53,13 +53,13 @@ This is therefore a **deliberate, occasional, operator-run** step
 (quarterly is plenty — the feed-publishing population changes slowly),
 **not** part of `weekly-harvest.yml`. Running a multi-hundred-GB scan
 on every CI tick would be wrong. The command refuses to run unless
-`duckdb` is on PATH and the operator passed `--crawl` explicitly (no
+`duckdb` is on PATH and the operator passed `--snapshots` explicitly (no
 silent default that could be cron-triggered).
 
 ## Pipeline
 
 ```
-enumerate-gjobsfeed-hosts --crawl CC-MAIN-2026-17
+enumerate-gjobsfeed-hosts --snapshots CC-MAIN-2026-17
   └─ duckdb runs the query above over s3 (httpfs, anonymous)
   └─ each url_host_name → candidate { slug, display_name, hosts:[host] }
         slug = deriveSlug(host): strip a leading careers-prefix label,
@@ -95,5 +95,5 @@ floor:
   existing, stable sort, drop entries whose slug/host fail validation.
 
 The `duckdb` invocation is a thin shell-out with the validated SQL;
-absence of `duckdb` or a missing `--crawl` is a hard, actionable error
+absence of `duckdb` or a missing `--snapshots` is a hard, actionable error
 (exit 2), never a silent no-op.
