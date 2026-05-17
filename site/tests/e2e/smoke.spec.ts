@@ -108,6 +108,39 @@ test.describe("index page smoke", () => {
     await expect(results.locator(".company", { hasText: "Linear" }).first()).toBeVisible();
   });
 
+  test("shows a progress bar under the search bar while data loads, then removes it", async ({
+    page,
+  }) => {
+    // Delay every slim-index chunk so the progressive-load state is
+    // observable rather than flashing by. Without throttling the
+    // fixture loads in well under a frame.
+    await page.route("**/data/slim/**", async (route) => {
+      await new Promise((r) => setTimeout(r, 2000));
+      await route.continue();
+    });
+    await page.goto(INDEX);
+
+    const bar = page.locator(".load-bar");
+    await expect(bar).toBeVisible({ timeout: 10_000 });
+    // Snapshot every property in one shot — the bar is transient, so
+    // separate auto-waiting assertions can race its removal.
+    const snap = await bar.evaluate((el) => ({
+      ariaHidden: el.getAttribute("aria-hidden"),
+      fillBg: getComputedStyle(el.querySelector(".load-bar-fill") as Element).backgroundColor,
+      classes: el.className,
+    }));
+    // Brand-accent fill, present, and decorative (the textual state is
+    // announced by .results-status[aria-live]; the bar must not
+    // double-announce to screen readers).
+    expect(snap.fillBg).not.toBe("rgba(0, 0, 0, 0)");
+    expect(snap.ariaHidden).toBe("true");
+    expect(snap.classes).toContain("load-bar");
+
+    // Once results render the bar is gone (no stuck spinner).
+    await expect(page.getByTestId("job-results")).toBeVisible({ timeout: 20_000 });
+    await expect(bar).toHaveCount(0);
+  });
+
   test("clicking an ATS chip narrows the result set to that ATS only", async ({ page }) => {
     await page.goto(INDEX);
     const results = page.getByTestId("job-results");

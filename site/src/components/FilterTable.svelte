@@ -11,6 +11,7 @@ import {
   type SinceWindow,
   type SortOption,
 } from "../lib/filter-state.ts";
+import { loadProgress } from "../lib/load-progress.ts";
 import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
 import { pagesToShow } from "../lib/pager.ts";
 import { withRetry } from "../lib/retry.ts";
@@ -139,6 +140,10 @@ let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
+// Thin progress bar shown under the search bar. View-model lives in
+// lib/load-progress.ts so the determinate/indeterminate + clamp logic
+// is unit-tested (CLAUDE.md: logic out of .svelte).
+const loadBar = $derived(loadProgress(dbStatus, chunksLoaded, chunksTotal, isQueryRunning));
 // Reactivity hook: optionCounts and any other $derived that reads
 // slimIndex.rows by reference needs a value-based dependency to fire
 // when rows grows in place. (slimIndex is $state.raw because the loader
@@ -726,6 +731,25 @@ function ariaSort(
   applyToken={savedSearchApplyToken}
   applyMode={savedSearchApplyMode}
 />
+
+<!-- Thin load/progress bar directly under the search bar. Decorative:
+     the textual state is already announced by .results-status
+     (aria-live=polite), so this is aria-hidden to avoid double SR
+     output. Determinate fill during progressive chunk load; animated
+     sweep while the manifest parses or a filter pass runs. -->
+{#if loadBar.visible}
+  <div
+    class="load-bar"
+    class:is-indeterminate={loadBar.indeterminate}
+    aria-hidden="true"
+    title={loadBar.label}
+  >
+    <span
+      class="load-bar-fill"
+      style={loadBar.indeterminate ? "" : `width: ${(loadBar.fraction * 100).toFixed(1)}%`}
+    ></span>
+  </div>
+{/if}
 
 <!-- Filter bar: applied filters + add-filter buttons + sort + reset.
      The strip wraps; on desktop it stays on a single row when possible. -->
@@ -1474,6 +1498,42 @@ function ariaSort(
   }
   @media (prefers-reduced-motion: reduce) {
     .busy-dot { animation: none; opacity: 1; }
+  }
+
+  /* Thin load/progress bar under the search bar. 3px track in the soft
+     rule colour; the fill is the brand accent. Determinate state sets
+     an inline width; indeterminate runs a sliding sweep. Honors
+     prefers-reduced-motion by holding a static partial fill instead of
+     animating (mirrors .busy-dot's contract). */
+  .load-bar {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    margin-top: calc(var(--space-2) * -1);
+    margin-bottom: var(--space-2);
+    background: var(--color-rule-soft);
+    overflow: hidden;
+  }
+  .load-bar-fill {
+    display: block;
+    height: 100%;
+    background: var(--color-accent);
+    transition: width 160ms ease-out;
+  }
+  .load-bar.is-indeterminate .load-bar-fill {
+    width: 40%;
+    animation: load-sweep 1.1s ease-in-out infinite;
+  }
+  @keyframes load-sweep {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .load-bar.is-indeterminate .load-bar-fill {
+      animation: none;
+      width: 100%;
+      opacity: 0.5;
+    }
   }
 
   .data-pending,
