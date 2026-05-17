@@ -25,35 +25,53 @@ const HIDDEN: LoadProgress = {
 /**
  * Map the table's load/query state onto the bar.
  *
- * - `loading`            → indeterminate (manifest not parsed yet, no counts)
- * - `loading-progressive`→ determinate when chunksTotal known, else indeterminate
- * - `ready` + query running → indeterminate ("Filtering…" on the 750k-row pass)
- * - `ready` (idle)       → hidden
- * - `error`              → hidden (the error surfaces in the results banner)
+ * Crucial subtlety: `dbStatus` flips to `ready` right after **chunk 0**
+ * lands (so the UI is interactive ASAP) while the remaining ~37 chunks
+ * stream in the background. So `ready` does NOT mean "done loading" —
+ * `fullyLoaded` (driven by slim-index-loader's `onComplete`, which
+ * fires only after the background fan-out settles, soft-fails included)
+ * is the real terminal signal. Keying the bar off `fullyLoaded`
+ * instead of `dbStatus === "ready"` is what keeps it visible through
+ * the whole progressive load instead of vanishing the moment the first
+ * jobs render.
  *
- * `fraction` is clamped to [0,1]; a zero/negative `chunksTotal` falls
- * back to indeterminate rather than dividing by zero.
+ * - not loaded yet, no chunk counts (`loading`) → indeterminate sweep
+ * - chunks streaming (counts known)             → determinate fill
+ * - fully loaded + a filter pass running        → indeterminate
+ *   ("Filtering…" on the 750k-row synchronous pass)
+ * - fully loaded + idle                         → hidden
+ * - `error`                                     → hidden (the banner
+ *   owns the message)
+ *
+ * `fraction` is clamped to [0,1]; a zero/negative/non-finite
+ * `chunksTotal` falls back to indeterminate rather than dividing by
+ * zero.
  */
 export function loadProgress(
   dbStatus: DbStatus,
   chunksLoaded: number,
   chunksTotal: number,
   isQueryRunning: boolean,
+  fullyLoaded: boolean,
 ): LoadProgress {
   if (dbStatus === "error") return HIDDEN;
 
-  if (dbStatus === "ready") {
+  if (fullyLoaded) {
+    // Everything has settled. The only thing worth surfacing now is a
+    // long synchronous filter pass on the full dataset.
     if (isQueryRunning) {
       return { visible: true, indeterminate: true, fraction: 0, label: "Filtering…" };
     }
     return HIDDEN;
   }
 
+  // Still loading (this includes `ready` — interactive but the
+  // background chunk fan-out is not done).
   if (dbStatus === "loading") {
+    // Manifest not parsed yet → no chunk counts to show.
     return { visible: true, indeterminate: true, fraction: 0, label: "Loading…" };
   }
 
-  // loading-progressive
   if (!Number.isFinite(chunksTotal) || chunksTotal <= 0) {
     return { visible: true, indeterminate: true, fraction: 0, label: "Loading…" };
   }
