@@ -1509,6 +1509,9 @@ function ariaSort(
     position: relative;
     width: 100%;
     height: 3px;
+    /* Pull up into SearchBar's own bottom slack so the bar reads as
+       attached to it. Coupled to SearchBar's grid `gap: var(--space-2)`
+       (SearchBar.svelte .searchbar) — keep in sync if that changes. */
     margin-top: calc(var(--space-2) * -1);
     margin-bottom: var(--space-2);
     background: var(--color-rule-soft);
