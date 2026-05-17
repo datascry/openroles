@@ -74,7 +74,8 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Detect `is_recruiter_post` heuristically using a per-ATS rule (the recruiter classifier is a fallback, not the primary signal).
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
-The six ATS shapes (high-level):
+Representative ATS shapes (high-level — the contract above holds for
+all 32 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -84,6 +85,10 @@ The six ATS shapes (high-level):
 | bamboohr | REST GET `{slug}.bamboohr.com/careers/list` | JSON `{ result: [...] }` |
 | workday | POST `{slug}.wd{N}.myworkdayjobs.com/wday/cxs/{slug}/{site}/jobs` with `{ limit, offset }` | JSON paginated; iterate until total reached |
 | icims | GET `careers-{slug}.icims.com/sitemap.xml`, then walk job URLs | XML sitemap → individual JSON-LD blobs per job |
+| jsonld | GET tenant `metadata.sitemap_url`, walk same-host job URLs | XML sitemap → `schema.org/JobPosting` JSON-LD per page (vendor-agnostic; see specs/gjobsfeed-adapter.md sibling pattern) |
+| brassring | GET `sjobs.brassring.com` home (CSRF token + cookie), then POST `…/Search/Ajax/PowerSearchJobs` | two-step; JSON results (title + location, no description) |
+| gjobsfeed | one GET of tenant `metadata.feed_url` | RSS 2.0 `xmlns:g="http://base.google.com/ns/1.0"`; every `<item>` a full posting. See [gjobsfeed-adapter](gjobsfeed-adapter.md) |
+| amazonjobs / applejobs / tiktokcareers / metacareers | per-company custom endpoint (single-tenant) | JSON; see [ADR-0015](../docs/adr/0015-phase-6-custom-ats-scrapers.md) |
 
 ## Invariants
 
