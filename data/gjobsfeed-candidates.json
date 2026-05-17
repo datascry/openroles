@@ -1,8 +1,18 @@
 [
   {
+    "slug": "bayer",
+    "display_name": "Bayer",
+    "hosts": ["jobs.bayer.com"]
+  },
+  {
     "slug": "bostonscientific",
     "display_name": "Boston Scientific",
     "hosts": ["jobs.bostonscientific.com"]
+  },
+  {
+    "slug": "cintas",
+    "display_name": "Cintas",
+    "hosts": ["careers.cintas.com"]
   },
   {
     "slug": "colgate",
@@ -10,9 +20,24 @@
     "hosts": ["jobs.colgate.com"]
   },
   {
+    "slug": "deere",
+    "display_name": "John Deere",
+    "hosts": ["jobs.deere.com"]
+  },
+  {
+    "slug": "dominionenergy",
+    "display_name": "Dominion Energy",
+    "hosts": ["careers.dominionenergy.com"]
+  },
+  {
     "slug": "eastman",
     "display_name": "Eastman",
     "hosts": ["jobs.eastman.com"]
+  },
+  {
+    "slug": "entergy",
+    "display_name": "Entergy",
+    "hosts": ["jobs.entergy.com"]
   },
   {
     "slug": "exxonmobil",
@@ -23,6 +48,11 @@
     "slug": "halliburton",
     "display_name": "Halliburton",
     "hosts": ["jobs.halliburton.com"]
+  },
+  {
+    "slug": "hess",
+    "display_name": "Hess",
+    "hosts": ["jobs.hess.com"]
   },
   {
     "slug": "molsoncoors",
