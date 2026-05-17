@@ -25,6 +25,8 @@ The format used here is [Madr 4.0](https://adr.github.io/madr/).
 | 0012 | [Static-only deployment, no per-role pages](0012-static-only-deployment.md) | Accepted |
 | 0013 | [Drop the RSS feeds; no subscription model](0013-no-subscription-model.md) | Accepted |
 | 0014 | [Filter UI information architecture](0014-filter-information-architecture.md) | Accepted |
+| 0015 | [Phase-6 custom ATS scrapers](0015-phase-6-custom-ats-scrapers.md) | Accepted |
+| 0016 | [Vendor-agnostic harvesters + CC enumeration + cross-ATS dedup](0016-vendor-agnostic-harvesters.md) | Accepted |
 
 ## Adding a new ADR
 
