@@ -1268,7 +1268,15 @@ describe("runDiscoverWorkdaySitesCommand", () => {
     const probedHosts: string[] = [];
     globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
       const u = typeof url === "string" ? url : (url as URL).toString();
-      if (u.endsWith("/robots.txt") && u.includes("myworkdayjobs.com")) {
+      // Host-suffix match on the parsed host, not a substring of the
+      // raw URL — satisfies codeql/js/incomplete-url-substring-
+      // sanitization and rules out spoofers like
+      // `evil.com/?x=foo.myworkdayjobs.com`.
+      let host = "";
+      try {
+        host = new URL(u).host;
+      } catch {}
+      if (u.endsWith("/robots.txt") && host.endsWith(".myworkdayjobs.com")) {
         probedHosts.push(u);
         return new Response(`User-agent: *\nAllow: /ATTGeneral/\n`, { status: 200 });
       }
@@ -1395,7 +1403,13 @@ describe("runDiscoverWorkdaySitesCommand", () => {
     const probedHosts: string[] = [];
     globalThis.fetch = async (url: Parameters<typeof fetch>[0]) => {
       const u = typeof url === "string" ? url : (url as URL).toString();
-      if (u.endsWith("/robots.txt") && u.includes("myworkdayjobs.com")) {
+      // Host-suffix match on parsed host (see sibling test for rationale —
+      // codeql/js/incomplete-url-substring-sanitization).
+      let host = "";
+      try {
+        host = new URL(u).host;
+      } catch {}
+      if (u.endsWith("/robots.txt") && host.endsWith(".myworkdayjobs.com")) {
         probedHosts.push(u);
         return new Response(`User-agent: *\nAllow: /External/\n`, { status: 200 });
       }

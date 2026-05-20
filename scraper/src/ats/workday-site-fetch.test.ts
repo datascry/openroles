@@ -72,7 +72,15 @@ describe("fetchWorkdaySite", () => {
     });
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
-      if (url.endsWith("/robots.txt") && url.includes(HOST)) {
+      // Match on the parsed host, not a substring of the full URL —
+      // satisfies CodeQL's js/incomplete-url-substring-sanitization
+      // (hostile inputs like `evil.com/?x=example.wd5.myworkdayjobs.com`
+      // can't sneak through) and tightens the assertion intent.
+      let host = "";
+      try {
+        host = new URL(url).host;
+      } catch {}
+      if (url.endsWith("/robots.txt") && host === HOST) {
         return new Response("User-agent: *\nAllow: /Careers/\n", { status: 200 });
       }
       return new Response("blocked", { status: 403 });
