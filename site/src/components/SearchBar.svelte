@@ -7,6 +7,7 @@ import {
   Q_FIELD_MAX,
   Q_TOTAL_MAX,
   type StructuredQuery,
+  sameQuery,
 } from "../lib/search-dsl.ts";
 import { SAVED_SEARCH_LABEL_MAX } from "../lib/storage.ts";
 
@@ -118,7 +119,16 @@ function setMode(next: Mode) {
     // Compose the structured slot back into a single string.
     const composed = safeCompose(structured);
     freeText = composed;
-    if (composed !== q) onChange(composed);
+    // Semantic compare: composeQuery canonicalizes (field order,
+    // quoting, whitespace). String-comparing the canonical output to
+    // the original `q` would fire `onChange` for canonical no-ops
+    // — token reordering, quote normalization, etc. — and force the
+    // parent to re-run the full filter over the slim-index even
+    // though the user-visible query didn't change. Compare the
+    // PARSED forms instead: if both queries parse to the same
+    // StructuredQuery, the round-trip is a no-op and onChange is
+    // suppressed.
+    if (!sameQuery(parseQuery(composed), parseQuery(q))) onChange(composed);
   }
   mode = next;
 }
@@ -136,7 +146,10 @@ function onStructuredField(field: keyof StructuredQuery, value: string) {
 function onStructuredSubmit() {
   if (debounceHandle) clearTimeout(debounceHandle);
   const composed = safeCompose(structured);
-  if (composed !== q) onChange(composed);
+  // Same canonical-no-op suppression as setMode("free") — pressing
+  // Search when the structured form re-composes to a semantically
+  // identical query as the current `q` must not trigger a reload.
+  if (!sameQuery(parseQuery(composed), parseQuery(q))) onChange(composed);
 }
 
 function safeCompose(s: StructuredQuery): string {

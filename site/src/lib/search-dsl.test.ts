@@ -6,6 +6,7 @@ import {
   parseQuery,
   Q_TOTAL_MAX,
   type StructuredQuery,
+  sameQuery,
 } from "./search-dsl.ts";
 
 // Broad arbitrary: allows colons, embedded quotes (which composeQuery strips),
@@ -190,5 +191,77 @@ describe("hasStructured", () => {
     expect(hasStructured({ title: "x", company: "", location: "", freeText: "" })).toBe(true);
     expect(hasStructured({ title: "", company: "x", location: "", freeText: "" })).toBe(true);
     expect(hasStructured({ title: "", company: "", location: "x", freeText: "" })).toBe(true);
+  });
+});
+
+describe("sameQuery", () => {
+  const empty: StructuredQuery = { title: "", company: "", location: "", freeText: "" };
+
+  it("is true for identical queries", () => {
+    expect(sameQuery(empty, empty)).toBe(true);
+    const q: StructuredQuery = {
+      title: "engineer",
+      company: "stripe",
+      location: "berlin",
+      freeText: "rust",
+    };
+    expect(sameQuery(q, { ...q })).toBe(true);
+  });
+
+  it("is true for canonical-no-op round-trips (the regression this fixes)", () => {
+    // User types `company:stripe title:engineer` — composer emits
+    // `title:"engineer" company:"stripe"` (canonical field order +
+    // quoted values). The composed string differs from the input,
+    // but the PARSED forms are identical.
+    const userTyped = "company:stripe title:engineer";
+    const canonical = composeQuery(parseQuery(userTyped));
+    expect(canonical).not.toBe(userTyped); // composer reordered + quoted
+    expect(sameQuery(parseQuery(canonical), parseQuery(userTyped))).toBe(true);
+  });
+
+  it("is true after parse→compose→parse round-trip for any input", () => {
+    fc.assert(
+      fc.property(
+        fc.record({
+          title: fc.string({ minLength: 0, maxLength: 30 }).map((s) => s.replace(/"/g, "")),
+          company: fc.string({ minLength: 0, maxLength: 30 }).map((s) => s.replace(/"/g, "")),
+          location: fc.string({ minLength: 0, maxLength: 30 }).map((s) => s.replace(/"/g, "")),
+          freeText: fc.string({ minLength: 0, maxLength: 30 }).map((s) => s.replace(/"/g, "")),
+        }),
+        (raw) => {
+          // Filter to keep composed length under cap
+          const trimmed: StructuredQuery = {
+            title: raw.title.trim().slice(0, 20),
+            company: raw.company.trim().slice(0, 20),
+            location: raw.location.trim().slice(0, 20),
+            freeText: raw.freeText.trim().slice(0, 20),
+          };
+          let composed: string;
+          try {
+            composed = composeQuery(trimmed);
+          } catch {
+            return true; // skip overflows
+          }
+          return sameQuery(parseQuery(composed), trimmed);
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  it("is false when title differs", () => {
+    expect(sameQuery({ ...empty, title: "a" }, { ...empty, title: "b" })).toBe(false);
+  });
+
+  it("is false when company differs", () => {
+    expect(sameQuery({ ...empty, company: "a" }, { ...empty, company: "b" })).toBe(false);
+  });
+
+  it("is false when location differs", () => {
+    expect(sameQuery({ ...empty, location: "a" }, { ...empty, location: "b" })).toBe(false);
+  });
+
+  it("is false when freeText differs", () => {
+    expect(sameQuery({ ...empty, freeText: "a" }, { ...empty, freeText: "b" })).toBe(false);
   });
 });

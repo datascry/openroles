@@ -128,3 +128,29 @@ function quoteFreeTextIfNeeded(value: string): string {
 export function hasStructured(s: StructuredQuery): boolean {
   return s.title.length > 0 || s.company.length > 0 || s.location.length > 0;
 }
+
+/**
+ * Whether two structured queries are semantically equivalent.
+ *
+ * `composeQuery(parseQuery(x)) === x` does NOT hold in general: the
+ * composer canonicalizes (always quotes field values, fixes field
+ * order to title→company→location→freeText, strips embedded quotes,
+ * collapses whitespace). A user-typed string in non-canonical form
+ * round-trips through parse+compose to a DIFFERENT string with the
+ * SAME meaning.
+ *
+ * String-comparing the round-tripped output against the original
+ * therefore reports a change when no semantic change occurred —
+ * which spuriously fires `onChange` in the SearchBar mode-switch
+ * path and triggers a full filter recompute. Use this helper to
+ * compare semantically: identical field contents (after trim) and
+ * identical freeText.
+ */
+export function sameQuery(a: StructuredQuery, b: StructuredQuery): boolean {
+  return (
+    a.title === b.title &&
+    a.company === b.company &&
+    a.location === b.location &&
+    a.freeText === b.freeText
+  );
+}
