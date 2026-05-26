@@ -10,6 +10,7 @@ import {
   type FilterState,
   type SinceWindow,
   type SortOption,
+  sameFilterState,
 } from "../lib/filter-state.ts";
 import { loadProgress } from "../lib/load-progress.ts";
 import { fetchManifest, type ManifestRuntime } from "../lib/manifest-runtime.ts";
@@ -137,6 +138,13 @@ let isQueryRunning: boolean = $state(false);
 // queryToken arbitrates if both fire close together.
 let queryDebounceHandle: ReturnType<typeof setTimeout> | undefined;
 let chunkDebounceHandle: ReturnType<typeof setTimeout> | undefined;
+// Tracks the FilterState last handed off to runFilter so the $effect can
+// short-circuit canonical no-ops. URL hydration, SearchBar canonical
+// round-trips, and saved-search re-applies all push a fresh FilterState
+// object that's value-equal to the previous one — without this guard,
+// the $effect would re-fire and runFilter would walk the slim-index
+// again with no semantic change.
+let lastAppliedState: FilterState | null = null;
 // Progressive load progress for the "loading 4 of 16 chunks" indicator.
 let chunksLoaded: number = $state(0);
 let chunksTotal: number = $state(0);
@@ -581,6 +589,12 @@ async function runFilter(currentState: FilterState): Promise<void> {
 $effect(() => {
   const snapshot = state;
   if (slimIndex === null) return;
+  // Idempotency guard: if the new FilterState deep-equals the last one
+  // we scheduled, don't re-run the filter. Covers canonical no-ops
+  // from the SearchBar mode-switch + any other path that emits a
+  // fresh state object whose values are unchanged.
+  if (lastAppliedState !== null && sameFilterState(snapshot, lastAppliedState)) return;
+  lastAppliedState = snapshot;
   if (queryDebounceHandle) clearTimeout(queryDebounceHandle);
   queryDebounceHandle = setTimeout(() => runFilter(snapshot), QUERY_DEBOUNCE_MS);
 });

@@ -104,6 +104,48 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   showOnly: undefined,
 };
 
+/**
+ * Deep-equality check between two `FilterState` values.
+ *
+ * Used as an idempotency guard so paths that update state without a
+ * semantic change (URL hydration, SearchBar canonical-no-op
+ * round-trips, saved-search re-apply) do not trigger a full filter
+ * recompute over the ~50k-row slim-index.
+ *
+ * Implementation: field-by-field compare. Arrays compare element-wise
+ * in order (order is meaningful for the URL canonicalization).
+ */
+export function sameFilterState(a: FilterState, b: FilterState): boolean {
+  if (a === b) return true;
+  if (
+    a.q !== b.q ||
+    a.country !== b.country ||
+    a.region !== b.region ||
+    a.since !== b.since ||
+    a.hideRecruiter !== b.hideRecruiter ||
+    a.hideStale !== b.hideStale ||
+    a.minComp !== b.minComp ||
+    a.sort !== b.sort ||
+    a.page !== b.page ||
+    a.showOnly !== b.showOnly
+  ) {
+    return false;
+  }
+  if (!sameReadonlyArray(a.ats, b.ats)) return false;
+  if (!sameReadonlyArray(a.level, b.level)) return false;
+  if (!sameReadonlyArray(a.wt, b.wt)) return false;
+  return true;
+}
+
+function sameReadonlyArray<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): boolean {
+  if (a === b) return true;
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 const NON_NULL_LEVELS = LEVELS.filter((l): l is NonNullable<Level> => l !== null);
 const NON_NULL_WORKPLACES = WORKPLACE_TYPES;
 

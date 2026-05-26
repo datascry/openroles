@@ -6,6 +6,7 @@ import {
   decodeFilterState,
   encodeFilterState,
   type FilterState,
+  sameFilterState,
 } from "./filter-state.ts";
 
 describe("encode + decodeFilterState", () => {
@@ -199,6 +200,135 @@ describe("encode + decodeFilterState", () => {
         const redecoded = decodeFilterState(reencoded);
         return JSON.stringify(decoded) === JSON.stringify(redecoded);
       }),
+      { numRuns: 50 },
+    );
+  });
+});
+
+describe("sameFilterState", () => {
+  // A non-default state that exercises every comparable field. Used as the
+  // baseline so each "field differs" case can toggle a single attribute
+  // while everything else stays identical.
+  const baseline: FilterState = {
+    q: "engineer",
+    ats: ["greenhouse", "lever"],
+    level: ["senior", "staff"],
+    wt: ["remote"],
+    country: "US",
+    region: "California",
+    since: "7d",
+    hideRecruiter: true,
+    hideStale: true,
+    showOnly: "saved",
+    minComp: 150_000,
+    sort: "first_seen:desc",
+    page: 3,
+  };
+
+  it("returns true for the same reference", () => {
+    expect(sameFilterState(baseline, baseline)).toBe(true);
+  });
+
+  it("returns true for two default states (the most common no-op)", () => {
+    expect(sameFilterState(DEFAULT_FILTER_STATE, { ...DEFAULT_FILTER_STATE })).toBe(true);
+  });
+
+  it("returns true for two value-equal but distinct objects (the regression this fixes)", () => {
+    const clone: FilterState = {
+      ...baseline,
+      ats: [...baseline.ats],
+      level: [...baseline.level],
+      wt: [...baseline.wt],
+    };
+    expect(clone).not.toBe(baseline);
+    expect(sameFilterState(baseline, clone)).toBe(true);
+  });
+
+  it("returns false when q differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, q: "designer" })).toBe(false);
+  });
+
+  it("returns false when country differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, country: "GB" })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, country: undefined })).toBe(false);
+  });
+
+  it("returns false when region differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, region: "Texas" })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, region: undefined })).toBe(false);
+  });
+
+  it("returns false when since differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, since: "30d" })).toBe(false);
+  });
+
+  it("returns false when hideRecruiter differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, hideRecruiter: false })).toBe(false);
+  });
+
+  it("returns false when hideStale differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, hideStale: false })).toBe(false);
+  });
+
+  it("returns false when minComp differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, minComp: 200_000 })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, minComp: undefined })).toBe(false);
+  });
+
+  it("returns false when sort differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, sort: "posted_at:asc" })).toBe(false);
+  });
+
+  it("returns false when page differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, page: 4 })).toBe(false);
+  });
+
+  it("returns false when showOnly differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, showOnly: "applied" })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, showOnly: undefined })).toBe(false);
+  });
+
+  it("returns false when ats array has different elements", () => {
+    expect(sameFilterState(baseline, { ...baseline, ats: ["greenhouse"] })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, ats: ["greenhouse", "ashby"] })).toBe(false);
+  });
+
+  it("returns false when ats array has the same elements in different order", () => {
+    // Order matters because the URL canonicalization treats it as significant.
+    expect(sameFilterState(baseline, { ...baseline, ats: ["lever", "greenhouse"] })).toBe(false);
+  });
+
+  it("returns false when level array differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, level: ["senior"] })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, level: ["staff", "senior"] })).toBe(false);
+  });
+
+  it("returns false when wt array differs", () => {
+    expect(sameFilterState(baseline, { ...baseline, wt: [] })).toBe(false);
+    expect(sameFilterState(baseline, { ...baseline, wt: ["hybrid"] })).toBe(false);
+  });
+
+  it("returns true when both arrays are empty (same-ref vs new empty)", () => {
+    const a: FilterState = { ...DEFAULT_FILTER_STATE };
+    const b: FilterState = { ...DEFAULT_FILTER_STATE, ats: [], level: [], wt: [] };
+    expect(sameFilterState(a, b)).toBe(true);
+  });
+
+  it("is symmetric (property)", () => {
+    fc.assert(
+      fc.property(
+        fc.record({
+          q: fc.string({ maxLength: 20 }),
+          page: fc.integer({ min: 1, max: 100 }),
+          hideRecruiter: fc.boolean(),
+          hideStale: fc.boolean(),
+        }),
+        (raw) => {
+          const a: FilterState = { ...DEFAULT_FILTER_STATE, ...raw };
+          const b: FilterState = { ...DEFAULT_FILTER_STATE, ...raw };
+          return sameFilterState(a, b) === sameFilterState(b, a);
+        },
+      ),
       { numRuns: 50 },
     );
   });
