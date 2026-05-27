@@ -58,7 +58,17 @@ export function idbRowsCache(): RowsCache {
       if (db === null) return null;
       try {
         return await new Promise<SlimRow[] | null>((resolve) => {
-          const req = db.transaction(STORE, "readonly").objectStore(STORE).get(shortSha);
+          // Defensive: an empty/undefined key throws synchronously from
+          // IDBObjectStore.get. The cache is best-effort — never let a
+          // bad key (e.g. caller forgot to populate manifest.short_sha)
+          // bubble up into the user-visible "could not load" path.
+          let req: IDBRequest;
+          try {
+            req = db.transaction(STORE, "readonly").objectStore(STORE).get(shortSha);
+          } catch {
+            resolve(null);
+            return;
+          }
           req.onsuccess = () => {
             const v = req.result as CachedEntry | undefined;
             if (v === undefined) {
