@@ -549,6 +549,10 @@ const saveDisabled = $derived(q.trim().length === 0);
     transition: color 120ms ease-out, border-color 120ms ease-out;
   }
   .save-trigger:hover:not(:disabled) {
+    /* Defensive bg reset — global button:hover (global.css) paints
+       --color-ink, which would put accent-red text on ink (~3.5:1).
+       Keep transparent so the accent color is read on the page bg. */
+    background: transparent;
     color: var(--color-accent);
     border-color: var(--color-accent);
   }

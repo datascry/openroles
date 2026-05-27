@@ -144,6 +144,8 @@ function cancelReset() {
     min-height: var(--tap);
   }
   .reset-all:hover:not(:disabled) {
+    /* Defensive bg reset against global button:hover (global.css). */
+    background: transparent;
     text-decoration: underline;
     text-underline-offset: 0.15em;
   }

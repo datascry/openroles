@@ -76,8 +76,13 @@ function pick(id: SinceWindow) {
   }
   /* :not(.is-active) prevents the hover rule from clobbering active-chip
      contrast — without it, hovering an active chip would paint the
-     ink-colored text on the ink-colored bg (invisible). */
-  .chip:hover:not(.is-active) { border-color: var(--color-ink); color: var(--color-ink); }
+     ink-colored text on the ink-colored bg (invisible).
+     `background: transparent` is load-bearing: the global `button:hover`
+     in global.css paints bg to --color-ink, which combined with our
+     color: ink declaration would paint ink-on-ink and hide the label
+     (both themes). Reassert transparent here so our color wins against
+     a visible background. */
+  .chip:hover:not(.is-active) { background: transparent; border-color: var(--color-ink); color: var(--color-ink); }
   .chip.is-active {
     background: var(--color-ink);
     border-color: var(--color-ink);
