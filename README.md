@@ -11,10 +11,20 @@
 [![Data: CC BY-SA 4.0](https://img.shields.io/badge/data-CC%20BY--SA%204.0-blue.svg)](LICENSE-DATA)
 [![GitHub Repo stars](https://img.shields.io/github/stars/datascry/openroles?style=social)](https://github.com/datascry/openroles/stargazers)
 
-A static, privacy-respecting job-board aggregator across 32 applicant
-tracking systems. No tracking. No ads. No accounts. The whole site is
-HTML and JSON served from GitHub Pages; filters and saved-role state
-live in your browser, never on a server.
+[![openroles in action](.github/assets/screenshot-desktop.png)](https://datascry.github.io/openroles/)
+
+<details>
+<summary><strong>Dark mode &amp; mobile</strong></summary>
+
+<p>
+  <img alt="openroles in dark mode" src=".github/assets/screenshot-dark.png" />
+</p>
+
+<p>
+  <img alt="openroles on mobile" src=".github/assets/screenshot-mobile.png" width="320" />
+</p>
+
+</details>
 
 > [!NOTE]
 > Live at **https://datascry.github.io/openroles/**.
