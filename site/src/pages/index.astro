@@ -72,9 +72,62 @@ const seoDescription =
     )}
   </section>
 
-  <FirstPaintRows rows={firstPaintRows} basePath={base} />
-  <FilterTable client:idle basePath={base} />
+  <!--
+    Grid-stack the SSR pre-paint aside and the hydrated FilterTable
+    island in the SAME grid cell so they occupy identical layout
+    positions throughout hydration. Without this, the island sits
+    below the SSR aside in document flow at top=~7500 px; when the
+    SSR aside switches to `display: none` (via the :has() rule in
+    FirstPaintRows.astro), the island rockets up ~7200 px to fill
+    the space, producing the dominant CLS event on first paint.
+
+    The grid cell takes the max of its children's heights, so while
+    the SSR aside is in flow (visible) the FilterTable below it lines
+    up at the same top. When the SSR aside is removed, the cell
+    height = FilterTable's height (which equals the SSR's height
+    because the island seeds its initial rows from the same SSR data).
+    Net layout shift: zero.
+  -->
+  <div class="paint-swap">
+    <FirstPaintRows rows={firstPaintRows} basePath={base} />
+    <FilterTable client:idle basePath={base} />
+  </div>
 </BaseLayout>
+
+<style is:global>
+  /* Single-cell grid holding the SSR pre-paint aside + the hydrated
+     FilterTable island. Both children occupy `grid-area: 1 / 1` so
+     they stack in the same slot — the island's `top` doesn't change
+     when the aside is removed, which is what kills the ~7200 px CLS
+     event on first paint. The cell height = max(child heights),
+     stable across the hydration swap.
+
+     `is:global` is load-bearing here: Astro scopes the cid attribute
+     to elements rendered by this .astro file directly, but the SSR
+     aside (rendered by FirstPaintRows) and the FilterTable island
+     don't carry it. Without `is:global`, the `> *` rule targets
+     `[data-astro-cid-XXX]` and fails to match either child, leaving
+     them in normal document flow stacked vertically. */
+  .paint-swap {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+  .paint-swap > * {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+  /* `astro-island` defaults to `display: contents`, which makes the
+     element transparent to layout — its children flow into the
+     parent's grid as if they were direct children. That defeats the
+     grid stacking: searchbar / filter-bar / layout-grid become
+     siblings of the SSR aside instead of stacking inside one cell.
+     Force `display: block` on the island that wraps FilterTable so
+     it occupies its assigned grid cell as a single box. */
+  .paint-swap > astro-island {
+    display: block;
+  }
+</style>
 
 <style>
   .lede {

@@ -430,16 +430,22 @@ onMount(async () => {
     rows = seed;
     totalCount = seed.length;
   }
-  // Remove the SSR pre-paint aside as soon as the Svelte island is
-  // active and ready to render its own rows. Without this, both the
-  // SSR markup AND the FilterTable's hydrated rows render — doubles
-  // the homepage list visually. The :has() CSS selector approach we
-  // tried first turned out unreliable because the aside itself
-  // contains <ul class="results">, so the trigger matches its own
-  // content. Imperative removal is foolproof.
-  if (typeof document !== "undefined") {
-    document.getElementById("first-paint-rows")?.remove();
-  }
+  // The SSR pre-paint aside is hidden via a :has() selector in
+  // FirstPaintRows.astro that fires the SAME paint frame as the
+  // companion rule un-hiding the FilterTable island — the swap is
+  // layout-shift-free. We still imperatively remove the aside from
+  // the DOM below once the island has rows, because:
+  //   1. Tests + locators that match by class (e.g. `.stale-badge`)
+  //      otherwise see the hidden-but-DOM-present SSR badge first
+  //      and report "element is not visible".
+  //   2. The SSR markup is dead weight in the document once the
+  //      island owns the result list — removing it cleans up the
+  //      DOM for assistive tech and DevTools alike.
+  // Removing it here in onMount unconditionally (the previous
+  // behaviour) raced the data load: the aside vanished before the
+  // island had anything to show, leaving a ~7200 px gap that
+  // dominated CLS. The deferred remove below waits for the island
+  // to render real rows first.
   try {
     // Manifest fetch wrapped in withRetry so a single packet loss on a
     // flaky mobile carrier doesn't surface the harsh "COULD NOT LOAD"
@@ -634,6 +640,17 @@ $effect(() => {
   queryDebounceHandle = setTimeout(() => runFilter(snapshot), QUERY_DEBOUNCE_MS);
 });
 
+// Once the island has rendered at least one role row, remove the SSR
+// pre-paint aside from the DOM. The CSS swap in FirstPaintRows.astro
+// has already hidden it visually; this just cleans up the now-dead
+// markup so locators and assistive tech don't trip over a duplicate
+// hidden result list.
+$effect(() => {
+  if (rows.length > 0 && typeof document !== "undefined") {
+    document.getElementById("first-paint-rows")?.remove();
+  }
+});
+
 // Per-chip option counts derived from the slim index. Re-runs every
 // time a chunk merges (chunkMergeTick increments) so chip counts grow
 // alongside the corpus during progressive load — without that read,
@@ -795,20 +812,26 @@ function ariaSort(
      the textual state is already announced by .results-status
      (aria-live=polite), so this is aria-hidden to avoid double SR
      output. Determinate fill during progressive chunk load; animated
-     sweep while the manifest parses or a filter pass runs. -->
-{#if loadBar.visible}
-  <div
-    class="load-bar"
-    class:is-indeterminate={loadBar.indeterminate}
-    aria-hidden="true"
-    title={loadBar.label}
-  >
-    <span
-      class="load-bar-fill"
-      style={loadBar.indeterminate ? "" : `width: ${(loadBar.fraction * 100).toFixed(1)}%`}
-    ></span>
-  </div>
-{/if}
+     sweep while the manifest parses or a filter pass runs.
+
+     The bar is ALWAYS in the DOM and toggles visibility rather than
+     mounting / unmounting — without this, the 3 px bar would
+     disappear from the layout once loading finished and the
+     filter-bar below would jump up by 3 px (a small but real CLS
+     event of ~0.009). Reserving the 3 px keeps layout stable across
+     the load lifecycle. -->
+<div
+  class="load-bar"
+  class:is-indeterminate={loadBar.indeterminate}
+  class:is-hidden={!loadBar.visible}
+  aria-hidden="true"
+  title={loadBar.label}
+>
+  <span
+    class="load-bar-fill"
+    style={loadBar.indeterminate ? "" : `width: ${(loadBar.fraction * 100).toFixed(1)}%`}
+  ></span>
+</div>
 
 <!-- Filter bar: applied filters + add-filter buttons + sort + reset.
      The strip wraps; on desktop it stays on a single row when possible. -->
@@ -965,12 +988,14 @@ function ariaSort(
     <code>sql.js-httpvfs</code>; results are rendered after the database loads.</p>
 </noscript>
 
-{#if dbStatus === "loading"}
-  <p class="data-pending">Loading data…</p>
-{:else if dbStatus === "error"}
+{#if dbStatus === "error"}
   <p class="data-error" role="alert">
     {dbError ?? "Unknown error loading the database."}
   </p>
+{:else if rows.length === 0 && dbStatus === "loading"}
+  <!-- True initial load with no seed data: nothing to show yet, defer
+       to the load-bar above for progress signalling. -->
+  <p class="data-pending">Loading data…</p>
 {:else}
   {#if queryError}
     <p class="data-error" role="status">{queryError}</p>
@@ -978,6 +1003,13 @@ function ariaSort(
   {#if rows.length === 0}
     <p class="data-empty">No roles match the current filters.</p>
   {:else}
+    <!-- Render the UL whenever we have rows, including during dbStatus
+         = "loading" when the SSR seed has populated `rows` but the
+         manifest fetch hasn't resolved yet. This is what triggers the
+         :has() rule in FirstPaintRows.astro that hides the SSR pre-
+         paint aside — without it, the SSR aside stays visible while
+         FilterTable shows "Loading data…" below it, then both swap
+         abruptly producing the ~7200 px CLS event. -->
     <!--
       The header row uses CSS grid + buttons to drive sort. The previous
       version put aria-sort directly on the buttons, which axe (correctly)
@@ -1589,6 +1621,12 @@ function ariaSort(
     margin-bottom: var(--space-2);
     background: var(--color-rule-soft);
     overflow: hidden;
+  }
+  /* Always-in-DOM bar with toggled visibility — see comment in the
+     template. Keeps the 3 px slot occupied so the filter-bar below
+     doesn't jump up by 3 px when loading completes. */
+  .load-bar.is-hidden {
+    visibility: hidden;
   }
   .load-bar-fill {
     display: block;
