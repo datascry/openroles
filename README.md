@@ -32,32 +32,18 @@
 
 ## What it is
 
-`openroles` scrapes the public APIs of 32 hiring platforms, normalises
-the postings into a shared schema, and emits a static dataset that
-loads into a single Svelte island in the browser. There is no backend,
-no database server, no analytics, no third-party scripts. Filtering,
-sorting, search, and saved-role state all run client-side over a
-chunked JSON index that's gzip-cached by the browser after first load.
+`openroles` scrapes the public APIs of 32 hiring platforms each
+night, normalises the postings into a shared schema, and ships them
+to your browser as a set of content-hashed JSON.gz chunks. Filter,
+sort, search, and pagination all run client-side over the in-memory
+dataset — once the chunks have loaded, every interaction is instant
+and works offline.
 
-It is, deliberately, a website that does very little — and exposes its
-provenance, its build pipeline, and its dataset under permissive
-licences so anyone can audit it.
-
-## What it isn't
-
-- A submit-once-and-pray applicant funnel. Every "Apply" link goes
-  directly to the source ATS in a new tab — openroles never sees the
-  click target.
-- A logged-in product. There are no accounts, no email forms, no
-  cookies, no first- or third-party trackers. The only client-side
-  state is a small set of `localStorage` keys you populate yourself:
-  saved / applied / ignored role IDs, saved searches, the active
-  filter group expansion preferences, and the light/dark theme
-  toggle. None of it ever leaves the browser.
-- A subscription surface. RSS, email digests, and per-tag feeds were
-  all explicitly retired (see [ADR-0013](docs/adr/0013-no-subscription-model.md)).
-- A single-page app. The masthead, hero, and first 50 role rows are
-  pre-rendered HTML so first paint never depends on JavaScript.
+Apply links go directly to the source ATS. Saved roles, applied
+roles, ignored roles, saved searches, and your theme preference live
+in `localStorage` on your device — nothing about you ever leaves the
+browser. The masthead, hero, and first 50 rows are pre-rendered HTML
+so first paint never waits on JavaScript.
 
 ## Try it
 
@@ -102,13 +88,12 @@ ATS public APIs ──►  scrape.yml (nightly)  ──►  data/scrape-outputs/
 
 The build-time SQLite is scaffolding only — it isn't deployed. What
 ships to the browser is 38 content-hashed JSON.gz chunks plus a
-`manifest.json`. Filters, sort, search, and pagination are all in-memory
-operations on the merged row array; nothing roundtrips to the network
-once the chunks have loaded.
+`manifest.json`. The merged dataset is cached in IndexedDB keyed by
+the build sha, so warm reloads restore in ~100 ms and skip the chunk
+pipeline entirely.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
-[ADR-0012](docs/adr/0012-static-only-deployment.md) for the rationale
-behind ditching the in-browser SQL engine the previous design used.
+[`docs/adr/`](docs/adr/) for the locked architectural decisions.
 
 ## Coverage
 
@@ -130,25 +115,14 @@ adapters:
   `schema.org/JobPosting` structured data (e.g. Lockheed Martin,
   Spectrum).
 - **Google-for-Jobs RSS harvester** (`gjobsfeed`) — reads a brand's
-  public Google-for-Jobs feed. This recovers SuccessFactors-backed
-  brands whose own API is `robots.txt`-blocked (SAP, ExxonMobil,
-  Halliburton, Cintas, …). Candidate hosts are enumerated from the
-  Common Crawl columnar index, then confirmed by probe.
+  public Google-for-Jobs feed. Recovers brands whose primary API is
+  `robots.txt`-blocked (SAP, ExxonMobil, Halliburton, Cintas, …).
 - Four per-company custom adapters for employers running their own
   careers API: **Amazon · Apple · TikTok · Meta**.
 
-Tenant slugs are discovered from public Common Crawl snapshots, not
-copied from another aggregator. Liveness is probed weekly; hard-dead
-slugs are dropped, transient failures are retained for retry. See
-[ADR-0003](docs/adr/0003-clean-room-harvest.md).
-
-> [!NOTE]
-> The `applejobs`, `tiktokcareers`, `metacareers`, and `successfactors`
-> adapters currently return no roles — each gates its job API behind
-> authentication or disallows automated access in `robots.txt`. The
-> adapters remain in place and the daily run resumes them automatically
-> if that policy changes. SuccessFactors-backed *brands* are largely
-> recovered separately via the Google-for-Jobs RSS harvester above.
+Tenant slugs are discovered from public Common Crawl snapshots and
+liveness-probed weekly; hard-dead slugs are dropped, transient
+failures are retained for retry.
 
 ## Quick start
 
@@ -192,10 +166,8 @@ docs/adr/   Locked architectural decisions
 
 ## Licence
 
-Two licences, picked deliberately ([ADR-0006](docs/adr/0006-mit-and-cc-by-sa.md)):
-
 - **Code** — [MIT](LICENSE). Fork it, ship it, sell it; the only ask is to keep the copyright line.
-- **Listings dataset** — [CC BY-SA 4.0](LICENSE-DATA). Reuse is fine; attribution + share-alike is required so derivative aggregators stay open.
+- **Listings dataset** — [CC BY-SA 4.0](LICENSE-DATA). Reuse is fine; attribution + share-alike are required so derivative aggregators stay open.
 
 ## Acknowledgements
 
