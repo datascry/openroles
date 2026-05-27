@@ -7,7 +7,7 @@
 
 import { type Browser, chromium } from "@playwright/test";
 
-const BASE = process.argv[2] ?? "https://datascry.github.io/openroles/";
+const BASE = process.argv[2] ?? "https://openroles.today/";
 const PER_TEST_TIMEOUT_MS = 90_000;
 
 function emit(line: string): void {

@@ -18,7 +18,7 @@ import { chromium, type Page, type Response as PWResponse } from "@playwright/te
 const args = process.argv.slice(2);
 const useLocalWorker = args.includes("--use-local-worker");
 const positional = args.filter((a) => !a.startsWith("--"));
-const TARGET = positional[0] ?? "https://datascry.github.io/openroles/";
+const TARGET = positional[0] ?? "https://openroles.today/";
 
 function emit(line: string): void {
   // Single sink so we don't sprinkle biome-ignore comments at every console

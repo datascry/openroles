@@ -2,11 +2,11 @@ import { defineConfig, devices } from "@playwright/test";
 
 const PREVIEW_PORT = 4321;
 const HOST_URL = `http://127.0.0.1:${PREVIEW_PORT}`;
-// Astro serves under base="/openroles"; baseURL only sets the host so test
-// paths can stay literal (e.g. `/openroles/role/?id=...`). URL resolution
-// drops the base path when paths are root-relative, which is why we don't
-// include it here.
-export const SITE_BASE = "/openroles";
+// The site is served at the openroles.today apex with no base path. Test
+// paths stay literal (e.g. `/role/?id=...`). SITE_BASE is kept as an empty
+// string so existing `${SITE_BASE}/foo` interpolations still produce
+// root-relative paths without a special-case at every call site.
+export const SITE_BASE = "";
 // Chrome DevTools Protocol port for the lighthouse project. Lighthouse
 // connects over CDP to the browser Playwright launches; the port must match
 // what the Chromium binary is started with.

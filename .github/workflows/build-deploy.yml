@@ -136,7 +136,7 @@ jobs:
       - name: Download previous build's SQLite (for carry-forward)
         id: previous-db
         env:
-          PAGES_BASE: "https://datascry.github.io/openroles"
+          PAGES_BASE: "https://openroles.today"
         run: |
           set +e
           mkdir -p data/previous

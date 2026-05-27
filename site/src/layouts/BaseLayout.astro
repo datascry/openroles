@@ -44,7 +44,7 @@ const {
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "https://datascry.github.io";
+const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "https://openroles.today";
 const siteRoot = `${siteOrigin}${basePath}`;
 const canonical = `${siteOrigin}${canonicalPath ?? Astro.url.pathname}`;
 
@@ -248,9 +248,9 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          // BASE_URL is rewritten at build time. The trailing slash is
-          // significant — `scope: "/openroles/"` confines the SW to the
-          // app, not the whole datascry.github.io origin.
+          // BASE_URL is rewritten at build time. With the apex domain
+          // serving the app at root, BASE_URL is "/" and the scope is "/"
+          // — the SW owns the whole openroles.today origin.
           const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           navigator.serviceWorker
             .register(`${base}/sw.js`, { scope: `${base}/` })
