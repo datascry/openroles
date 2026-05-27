@@ -20,6 +20,12 @@ export interface SlimChunkRuntime {
 
 export interface ManifestRuntime {
   readonly built_at: string;
+  /**
+   * Short git SHA of the build. Used as the cache key for
+   * site/src/lib/slim-index-cache.ts — a new SHA means a new corpus
+   * and invalidates the previous cached merged dataset.
+   */
+  readonly short_sha: string;
   readonly total_rows: number;
   readonly tenants_total: number;
   readonly tenants_live: number;
@@ -49,6 +55,7 @@ export function parseManifest(body: unknown): ManifestRuntime {
   const m = body as Record<string, unknown>;
   return {
     built_at: asString(m["built_at"], "built_at"),
+    short_sha: asString(m["short_sha"], "short_sha"),
     total_rows: asNonNegInt(m["total_rows"], "total_rows"),
     tenants_total: asNonNegInt(m["tenants_total"], "tenants_total"),
     tenants_live: asNonNegInt(m["tenants_live"], "tenants_live"),

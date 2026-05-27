@@ -3,6 +3,7 @@ import { fetchManifest, parseManifest } from "./manifest-runtime.ts";
 
 const VALID_BODY = {
   built_at: "2026-04-26T00:00:00Z",
+  short_sha: "0123456",
   total_rows: 100,
   tenants_total: 10,
   tenants_live: 8,
@@ -39,7 +40,13 @@ describe("parseManifest", () => {
   });
 
   it("requires every top-level field", () => {
-    for (const drop of ["built_at", "total_rows", "tenants_total", "tenants_live"] as const) {
+    for (const drop of [
+      "built_at",
+      "short_sha",
+      "total_rows",
+      "tenants_total",
+      "tenants_live",
+    ] as const) {
       const partial = { ...VALID_BODY };
       delete (partial as Record<string, unknown>)[drop];
       expect(() => parseManifest(partial)).toThrow();
@@ -49,6 +56,7 @@ describe("parseManifest", () => {
   it("defaults missing slim_index_* fields rather than throwing", () => {
     const minimal = {
       built_at: "2026-04-26T00:00:00Z",
+      short_sha: "0123456",
       total_rows: 0,
       tenants_total: 0,
       tenants_live: 0,
@@ -57,6 +65,10 @@ describe("parseManifest", () => {
     expect(m.slim_index_schema_version).toBe("0.0");
     expect(m.slim_index_total_rows).toBe(0);
     expect(m.slim_index_chunks).toEqual([]);
+  });
+
+  it("exposes short_sha for use as a cache key", () => {
+    expect(parseManifest(VALID_BODY).short_sha).toBe("0123456");
   });
 
   it("rejects malformed slim_index_chunks", () => {
