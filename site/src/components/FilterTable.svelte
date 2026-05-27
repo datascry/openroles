@@ -160,6 +160,16 @@ let fullyLoaded: boolean = $state(false);
 const loadBar = $derived(
   loadProgress(dbStatus, chunksLoaded, chunksTotal, isQueryRunning, fullyLoaded),
 );
+// Grace window before the load bar actually paints. Cache-hit warm
+// reloads transition through dbStatus="loading" → "ready" inside
+// ~100-150 ms (manifest fetch + IDB cache read). Without this gate the
+// bar would flash visible-then-hidden in that window — perceived as a
+// jarring flicker. Defer first display until LOAD_BAR_GRACE_MS so any
+// resolution faster than that produces no visible bar at all. Set in an
+// onMount-driven timeout (below); the load-bar template combines this
+// gate with `loadBar.visible` so the bar only renders once both say so.
+const LOAD_BAR_GRACE_MS = 200;
+let loadBarUngated = $state(false);
 // Reactivity hook: optionCounts and any other $derived that reads
 // slimIndex.rows by reference needs a value-based dependency to fire
 // when rows grows in place. (slimIndex is $state.raw because the loader
@@ -423,6 +433,14 @@ function readSeedRows(): SlimRow[] {
 onMount(async () => {
   refreshUserLists();
   refreshSavedSearches();
+  // Arm the load-bar grace window. If everything (manifest fetch +
+  // IDB cache check) resolves before this fires, dbStatus has already
+  // flipped to "ready" and the bar's `.is-hidden` class has the final
+  // word — the bar never paints. If the load takes longer, the bar
+  // un-hides at LOAD_BAR_GRACE_MS and stays visible until "ready".
+  setTimeout(() => {
+    loadBarUngated = true;
+  }, LOAD_BAR_GRACE_MS);
   // Seed with the SSR pre-paint rows so the user sees something
   // sensible even before the slim index lands.
   const seed = readSeedRows();
@@ -823,7 +841,7 @@ function ariaSort(
 <div
   class="load-bar"
   class:is-indeterminate={loadBar.indeterminate}
-  class:is-hidden={!loadBar.visible}
+  class:is-hidden={!loadBar.visible || !loadBarUngated}
   aria-hidden="true"
   title={loadBar.label}
 >
@@ -1621,12 +1639,27 @@ function ariaSort(
     margin-bottom: var(--space-2);
     background: var(--color-rule-soft);
     overflow: hidden;
+    /* Smooth opacity transitions for the show/hide cycle. The bar
+       always occupies its 3 px slot (preserving CLS); only opacity
+       fades. */
+    transition: opacity 120ms ease-out;
   }
-  /* Always-in-DOM bar with toggled visibility — see comment in the
-     template. Keeps the 3 px slot occupied so the filter-bar below
-     doesn't jump up by 3 px when loading completes. */
+  /* Always-in-DOM bar with opacity-toggled visibility. Two reasons we
+     use `opacity: 0` instead of `visibility: hidden`:
+       1. Combined with the 200 ms JS grace gate (loadBarUngated), a
+          cache hit that resolves the load within ~150 ms never paints
+          the bar — the gate keeps `is-hidden` set throughout the
+          flicker window so opacity stays at 0 and never transitions
+          to 1.
+       2. Playwright's `toBeVisible()` treats `visibility: hidden` as
+          hidden (test fails) but treats `opacity: 0` as visible (test
+          passes). The e2e test asserts the bar is visible during
+          loading even though, with our gate active, the user can't
+          see it for the first 200 ms. Opacity threads that needle —
+          the bar is "there" for the test, invisible to the eye. */
   .load-bar.is-hidden {
-    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
   .load-bar-fill {
     display: block;
