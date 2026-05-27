@@ -1704,7 +1704,22 @@ function ariaSort(
     letter-spacing: var(--track-wide);
   }
 
-  /* ---------- Result list ---------- */
+  /* ---------- Result list ----------
+     This block uses Svelte 5's `:global { ... }` to bypass component
+     scoping for the role-row styles. These classes (.results, .job,
+     .job-cell, .company, .job-title, .stale-badge, .new-badge,
+     .recruiter-badge, .job-action.*, etc.) are ALSO rendered by the
+     SSR pre-paint aside in `FirstPaintRows.astro`. That markup
+     doesn't carry FilterTable's component cid, so without :global the
+     CSS wouldn't apply to it — SSR rows would render unstyled (plain
+     <li> + browser-default <a> blue link) for the ~80 ms hydration
+     window. Marking these rules global keeps SSR + hydrated rows
+     visually identical from first paint through the swap.
+     Hover states + interactive button rules also live inside :global
+     so they apply consistently; SSR rows simply don't have the
+     buttons that those rules target, so the rules harmlessly don't
+     match there. */
+  :global {
   .results-head { display: none; }
 
   .results {
@@ -1978,6 +1993,7 @@ function ariaSort(
     background: transparent;
     color: var(--color-ink);
   }
+  } /* end :global — result list */
 
   /* ---------- Pager ----------
      Single-row layout. Below 640 px the numbered list collapses to a
@@ -2051,7 +2067,13 @@ function ariaSort(
     .pager-summary { display: none; }
   }
 
-  /* ---------- Desktop layout: results as a table-grid with sortable columns ---------- */
+  /* ---------- Desktop layout: results as a table-grid with sortable columns ----------
+     Also wrapped in :global because the .job + .job-cell grid layout
+     needs to apply to SSR pre-paint rows too (same reason as the
+     result-list block above). Without it, the SSR rows are visible
+     but stacked vertically without column structure during the
+     hydration window. */
+  :global {
   @media (min-width: 960px) {
     .results-head,
     .job {
@@ -2124,4 +2146,5 @@ function ariaSort(
     .job-actions { flex-wrap: nowrap; gap: var(--space-1); }
     .job-action.apply { padding: 0 var(--space-2); }
   }
+  } /* end :global — desktop layout */
 </style>
