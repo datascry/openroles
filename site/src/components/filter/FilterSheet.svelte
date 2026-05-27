@@ -283,7 +283,9 @@ function onOverlayClick(e: MouseEvent) {
     text-transform: uppercase;
     cursor: pointer;
   }
-  .close-btn:hover { color: var(--color-accent); }
+  /* Defensive bg reset against global button:hover (global.css) which
+     paints --color-ink — accent-red on ink would lose contrast. */
+  .close-btn:hover { background: transparent; color: var(--color-accent); }
 
   .sheet-body {
     padding: var(--space-3);

@@ -96,7 +96,8 @@ function pick(id: ShowOnly) {
     text-transform: uppercase;
     cursor: pointer;
   }
-  .switch-row:hover:not(:disabled) { color: var(--color-accent); }
+  /* Defensive bg reset against global button:hover (global.css). */
+  .switch-row:hover:not(:disabled) { background: transparent; color: var(--color-accent); }
   .switch-row.is-empty { opacity: 0.5; cursor: not-allowed; }
   .count {
     margin-inline-start: var(--space-1);

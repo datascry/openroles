@@ -160,8 +160,15 @@ const hiddenCount = $derived(
      chip overrides .chip.is-active's text color. The active chip's
      background is --color-ink (cream in dark mode, near-black in
      light mode); the hover rule's color: var(--color-ink) would then
-     paint cream-on-cream / black-on-black — text would vanish. */
+     paint cream-on-cream / black-on-black — text would vanish.
+     `background: transparent` is also load-bearing — the global
+     `button:hover` rule in global.css paints bg to --color-ink. If we
+     don't reassert transparent here, the color: ink declaration below
+     paints ink-on-ink and the chip label vanishes on hover (both
+     themes). The global hover assumes the "stamped/printed inverted
+     button" primitive at button { ... }; chip overrides that. */
   .chip:hover:not(:disabled):not(.is-active) {
+    background: transparent;
     border-color: var(--color-ink);
     color: var(--color-ink);
   }

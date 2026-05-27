@@ -1391,6 +1391,11 @@ function ariaSort(
     cursor: pointer;
   }
   .reset:hover {
+    /* Defensive bg reset — global button:hover paints --color-ink,
+       which would put accent-red on ink (~3.5:1) and hide the
+       underline cue. Keep transparent so the text-decoration is
+       the visual signal. */
+    background: transparent;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.15em;
@@ -1820,13 +1825,19 @@ function ariaSort(
     font-size: var(--text-3);
     line-height: 1;
   }
+  /* The global `button:hover` (global.css) paints bg to --color-ink.
+     Without `background: transparent` here, color: ink + bg: ink paints
+     the star glyph in the same colour as its background — invisible in
+     both themes. Same applies to .ignore below. */
   .job-action.save:hover:not(:disabled) {
+    background: transparent;
     color: var(--color-ink);
   }
   .job-action.save[aria-pressed="true"] {
     color: var(--color-accent);
   }
   .job-action.save[aria-pressed="true"]:hover {
+    background: transparent;
     color: var(--color-ink);
   }
   /* Ignore — square glyph-only tap target, mirror of Save. × dismisses
@@ -1842,12 +1853,14 @@ function ariaSort(
     line-height: 1;
   }
   .job-action.ignore:hover:not(:disabled) {
+    background: transparent;
     color: var(--color-ink);
   }
   .job-action.ignore[aria-pressed="true"] {
     color: var(--color-accent);
   }
   .job-action.ignore[aria-pressed="true"]:hover {
+    background: transparent;
     color: var(--color-ink);
   }
 
