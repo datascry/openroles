@@ -9,6 +9,7 @@ import "../styles/tokens.css";
 import "../styles/global.css";
 import Masthead, { type NavCurrent } from "../components/Masthead.astro";
 import { jsonLdSafe } from "../lib/json-ld.ts";
+import { SITE_ORIGIN } from "../lib/site-config.ts";
 
 interface Props {
   title: string;
@@ -44,7 +45,11 @@ const {
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "https://openroles.today";
+// Astro.site is set by astro.config.ts from the SITE_ORIGIN constant.
+// The defensive fallback also uses SITE_ORIGIN so there's only one
+// hardcoded URL string in the codebase — both branches resolve to the
+// same value, the fallback exists only to satisfy the type-narrowing.
+const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? SITE_ORIGIN;
 const siteRoot = `${siteOrigin}${basePath}`;
 const canonical = `${siteOrigin}${canonicalPath ?? Astro.url.pathname}`;
 
@@ -94,6 +99,13 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <!--
+      Favicon — single SVG asset, scales from 16 px tab favicon up to
+      iOS home-screen size. The mark is the accent-red dot from the
+      OPEN·ROLES wordmark on a paper-cream square: instantly recognises
+      against both light and dark browser chrome.
+    -->
+    <link rel="icon" type="image/svg+xml" href={`${basePath}/favicon.svg`} />
 
     {noindex ? (
       <>

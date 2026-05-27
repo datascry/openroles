@@ -14,11 +14,12 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { chromium, type Page, type Response as PWResponse } from "@playwright/test";
+import { SITE_ORIGIN } from "../src/lib/site-config.ts";
 
 const args = process.argv.slice(2);
 const useLocalWorker = args.includes("--use-local-worker");
 const positional = args.filter((a) => !a.startsWith("--"));
-const TARGET = positional[0] ?? "https://openroles.today/";
+const TARGET = positional[0] ?? `${SITE_ORIGIN}/`;
 
 function emit(line: string): void {
   // Single sink so we don't sprinkle biome-ignore comments at every console
