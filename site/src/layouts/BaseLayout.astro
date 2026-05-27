@@ -101,11 +101,14 @@ const totalRolesFormatted = new Intl.NumberFormat("en-US").format(totalRoles);
     <link rel="canonical" href={canonical} />
     <!--
       Favicon — single SVG asset, scales from 16 px tab favicon up to
-      iOS home-screen size. The mark is the accent-red dot from the
-      OPEN·ROLES wordmark on a paper-cream square: instantly recognises
-      against both light and dark browser chrome.
+      iOS home-screen size. `sizes="any"` is load-bearing: without it,
+      browsers (notably Chrome) treat the SVG as size-unknown and
+      prefer an auto-requested `/favicon.ico` over it. Since we don't
+      ship a `.ico` and that auto-request 404s, the absence of
+      `sizes="any"` lands the browser on its generic fallback icon
+      even though the SVG exists and the link tag is correct.
     -->
-    <link rel="icon" type="image/svg+xml" href={`${basePath}/favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" sizes="any" href={`${basePath}/favicon.svg`} />
 
     {noindex ? (
       <>

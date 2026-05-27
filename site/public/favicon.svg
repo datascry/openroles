@@ -1,12 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="openroles">
   <!--
-    The OPEN·ROLES wordmark's middle dot is the brand element.
-    Favicon strips everything but the dot: cream square + accent-red disc,
-    instantly readable at 16 px in both light and dark browser chrome.
-    Tokens kept inline (not var()) because favicons aren't part of the
-    cascade — the colours must match tokens.css --color-paper and
-    --color-accent (light scheme).
+    Brand mark distilled to the wordmark's signature element: the
+    accent-red middle dot in OPEN·ROLES, set on a solid ink square so
+    the silhouette reads instantly at 16 px in both light and dark
+    browser chrome. Previous design (cream + small disc) blended into
+    light-mode chrome and effectively disappeared on hi-DPI tabs.
+
+    Token literals must mirror tokens.css (light scheme):
+      #0a0a0a — --color-ink
+      #c8261a — --color-accent
+    Favicons sit outside the page cascade, so var() is not an option.
   -->
-  <rect width="64" height="64" rx="0" fill="#f2efe9" />
-  <circle cx="32" cy="32" r="14" fill="#c8261a" />
+  <rect width="64" height="64" fill="#0a0a0a" />
+  <circle cx="32" cy="32" r="20" fill="#c8261a" />
 </svg>
