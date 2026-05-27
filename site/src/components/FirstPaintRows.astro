@@ -86,12 +86,14 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
       {/* Search-bar + filter-bar placeholder. Reserves the vertical
           space the SearchBar + filter-chip strip will occupy after
           hydration so the role list doesn't lurch upward when the
-          FilterTable mounts. ~146 px is the actual measured height
-          on desktop (search 60 + chips 56 + margins). */}
-      <div class="first-paint-chrome" aria-hidden="true">
-        <div class="first-paint-search" />
-        <div class="first-paint-filter-bar" />
-      </div>
+          FilterTable mounts. Heights are measured against the live
+          hydrated chrome on each viewport:
+            - desktop ≥ 800 px: ~170 px (search 129 + filter-bar 31 + gaps)
+            - narrower: ~204 px (search 121 + filter-bar 73 + gaps;
+              the chip strip wraps to more rows on mobile)
+          Mismatch costs CLS — the chrome block IS the hydrated
+          chrome's shadow. */}
+      <div class="first-paint-chrome" aria-hidden="true"></div>
       {/* Two-column wrapper mirroring FilterTable's .layout-grid so
           the SSR rows occupy the same horizontal slot the hydrated
           rows will. The empty .first-paint-sidebar-slot reserves the
@@ -189,12 +191,46 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
   )
 }
 
-<style>
-  /* Hide the SSR rows once FilterTable's own .results list has any
-   * children (= it's rendered its own rows). :has() is supported in
-   * all major browsers since 2023. */
-  :global(main:has(svelte-island ul.results > li.job) #first-paint-rows),
-  :global(main:has(.filter-table-shell ul.results > li.job) #first-paint-rows) {
+<style is:global>
+  /* All rules in this block are intentionally global (no Astro cid
+     scoping). The previous scoped variant compiled to selectors like
+     `.first-paint-search[data-astro-cid-XXX]` whose runtime
+     specificity / load-order behaviour produced computed height = 0
+     in the deployed bundle — the placeholder collapsed and the role
+     list dropped ~218 px when the FilterTable hydrated, costing
+     CLS = 0.56 (well into the "poor" band). `is:global` removes the
+     cid attribute selector entirely so the rules match unconditionally. */
+
+  /* Atomic swap between SSR pre-paint and the hydrated FilterTable
+     island. Both elements occupy the same logical position in <main>
+     (the FilterTable is a sibling immediately after FirstPaintRows),
+     but they take turns being in flow:
+
+       - Until the FilterTable has rendered at least one role row, its
+         astro-island is `display: none` and the SSR aside is the only
+         visible result list.
+       - Once the island has rendered a row, the SSR aside hides and
+         the island becomes visible in the SAME paint frame.
+
+     This eliminates the ~7200 px layout shift that occurred when the
+     two were both in flow at different times: the island used to sit
+     below the SSR aside, hidden off-screen, and rocket up by the
+     aside's full height when the aside switched to `display: none`.
+
+     `:has()` ships in every major browser since early 2023. The
+     selector matches the FilterTable island specifically via its
+     `opts` attribute (Astro embeds the component name there); other
+     islands on the page (none today, but defensively scoped) won't
+     trigger the swap. */
+
+  /* When the FilterTable island has rendered rows (i.e. its UL has at
+     least one <li.job>), hide the SSR aside. The island renders rows
+     immediately on hydration via the embedded SSR seed data, so this
+     swap fires the moment the FilterTable mounts — no transition
+     frame where both are visible, no transition frame where neither
+     is, no CLS event from the SSR's height vanishing while the
+     island's content is still loading. */
+  main:has(astro-island[opts*="FilterTable"] ul.results > li.job) #first-paint-rows {
     display: none;
   }
 
@@ -202,21 +238,20 @@ function isFresh(postedAt: string | null, firstSeenAt: string): boolean {
     display: block;
   }
 
-  /* Reserve the vertical space SearchBar + FilterBar will fill after
-     hydration, so the role list doesn't lurch up when the island
-     mounts. Heights are calibrated to the measured rendered chrome
-     (search input ≈ 60 px, filter strip ≈ 56 px, plus margins). */
+  /* Single block that reserves the FULL chrome height (SearchBar +
+     filter-bar + their gaps) at the SSR pre-paint stage. Measured
+     against the live hydrated chrome:
+       - default (mobile, < 800 px): chip strip wraps to multiple
+         rows so the chrome runs ~204 px tall.
+       - desktop (≥ 800 px): chips fit on one row, chrome is ~170 px. */
   .first-paint-chrome {
+    height: 204px;
     margin-block-end: var(--space-2);
   }
-  .first-paint-search {
-    height: 76px;
-    margin-block-end: var(--space-3);
-  }
-  .first-paint-filter-bar {
-    height: 56px;
-    margin-block-end: var(--space-2);
-    border-bottom: var(--rule-1) solid var(--color-rule);
+  @media (min-width: 800px) {
+    .first-paint-chrome {
+      height: 170px;
+    }
   }
 
   /* Single-column layout below the sidebar breakpoint — the placeholder

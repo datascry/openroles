@@ -115,7 +115,7 @@ test.describe("index page smoke", () => {
     await expect(results.locator(".company", { hasText: "Linear" }).first()).toBeVisible();
   });
 
-  test("shows a progress bar under the search bar while data loads, then removes it", async ({
+  test("shows a progress bar under the search bar while data loads, then hides it", async ({
     page,
   }) => {
     // Delay every slim-index chunk so the progressive-load state is
@@ -143,9 +143,16 @@ test.describe("index page smoke", () => {
     expect(snap.ariaHidden).toBe("true");
     expect(snap.classes).toContain("load-bar");
 
-    // Once results render the bar is gone (no stuck spinner).
+    // Once results render the bar transitions to its hidden state. The
+    // element stays in the DOM (toggling visibility rather than
+    // mounting / unmounting keeps the 3 px slot occupied so the
+    // filter-bar below doesn't jump — see CLS-zeroing commit), so the
+    // assertion is on the `.is-hidden` class + `visibility: hidden`
+    // rather than `toHaveCount(0)`.
     await expect(page.getByTestId("job-results")).toBeVisible({ timeout: 20_000 });
-    await expect(bar).toHaveCount(0);
+    await expect(bar).toHaveClass(/(^| )is-hidden( |$)/);
+    const cs = await bar.evaluate((el) => getComputedStyle(el).visibility);
+    expect(cs).toBe("hidden");
   });
 
   test("clicking an ATS chip narrows the result set to that ATS only", async ({ page }) => {
