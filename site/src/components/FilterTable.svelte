@@ -23,6 +23,7 @@ import {
   type SortKey,
   sortRows,
 } from "../lib/slim-index.ts";
+import { createRowsCache } from "../lib/slim-index-cache.ts";
 import { loadSlimIndex, type SlimIndex } from "../lib/slim-index-loader.ts";
 import {
   loadApplied,
@@ -450,6 +451,32 @@ onMount(async () => {
       );
     }
     chunksTotal = manifest.slim_index_chunks.length;
+
+    // Persistent rows cache: skip the entire worker pipeline if the
+    // last visit's merged dataset is still valid for this manifest
+    // sha. The SW caches the gzipped bytes (no network) but the
+    // ~5 s of decompress + JSON.parse + merge runs on every reload
+    // without this — that's what produces the "loading bar restarts"
+    // experience. Cache hit short-circuits to fully-loaded in ~50 ms.
+    const rowsCache = createRowsCache();
+    const cachedRows = await rowsCache.load(manifest.short_sha, manifest.slim_index_total_rows);
+    if (cachedRows !== null) {
+      // Hydrate the SlimIndex directly from cache. Fast-forward all
+      // progress counters so the loading bar transitions from 0% to
+      // 100% in one tick instead of streaming 45 incremental updates.
+      slimIndex = {
+        rows: cachedRows,
+        totalExpected: manifest.slim_index_total_rows,
+        fullyLoaded: true,
+      };
+      chunksLoaded = manifest.slim_index_chunks.length;
+      fullyLoaded = true;
+      dbStatus = "ready";
+      chunkMergeTick += 1;
+      runFilter(state);
+      return;
+    }
+
     dbStatus = "loading-progressive";
     // Throttle the per-chunk re-render rather than debounce. Each filter
     // pass is an O(n) walk over the accumulated rows array — on a slow
@@ -472,6 +499,14 @@ onMount(async () => {
       seed,
       onComplete: () => {
         fullyLoaded = true;
+        // Persist the merged dataset so the next reload skips the
+        // worker pipeline entirely. Fire-and-forget; errors swallowed
+        // inside the cache so a storage failure can't break the UI.
+        // We capture `slimIndex` after onComplete fires; the rows
+        // array is the canonical merged dataset at this point.
+        if (slimIndex && manifest) {
+          void rowsCache.save(manifest.short_sha, slimIndex.rows);
+        }
       },
       onChunk: (_chunk, _cumulative, _total) => {
         chunksLoaded += 1;

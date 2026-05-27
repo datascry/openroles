@@ -27,6 +27,11 @@ coveragePathIgnorePatterns = [
   # Browser-only fetch + Web Worker code; bun:test cannot exercise it.
   # Covered by Playwright e2e in tests/e2e/slim-index.spec.ts.
   "**/slim-index-loader.ts",
+  # Browser-only IndexedDB code; bun:test has no IDB polyfill. The
+  # contract (NULL_CACHE fallback) is unit-tested in
+  # slim-index-cache.test.ts. The IDB happy-path is exercised by
+  # Playwright against real Chromium.
+  "**/slim-index-cache-idb.ts",
 ]
 coverageDir = "coverage"
 bail = 0
