@@ -928,7 +928,7 @@ function ariaSort(
 <p
   class="results-status"
   aria-live="polite"
-  aria-busy={dbStatus === "loading" || isQueryRunning}
+  aria-busy={dbStatus === "loading" || dbStatus === "loading-progressive" || isQueryRunning}
 >
   {#if dbStatus === "ready"}
     {#if isQueryRunning}
@@ -943,11 +943,20 @@ function ariaSort(
       <b>{totalCount.toLocaleString()}</b> {totalCount === 1 ? "ROLE" : "ROLES"} ·
       PAGE {state.page}
     {/if}
-  {:else if dbStatus === "loading"}
+  {:else if dbStatus === "error"}
+    <!-- Real terminal failure: manifest fetch threw, or every chunk
+         retry exhausted. Only this branch shows the alarming copy. -->
+    COULD NOT LOAD THE JOB DATABASE.
+  {:else}
+    <!-- "loading" (waiting on manifest + chunk 0) OR
+         "loading-progressive" (chunk 0 merged, chunks 1-N streaming).
+         Both are legitimate in-progress states — the user should see
+         a progress signal, NOT the error copy. Previously the
+         `{:else}` branch caught both "error" AND "loading-progressive"
+         which surfaced "COULD NOT LOAD" for ~5 s on mobile during
+         every cold load. -->
     <span class="busy-dot" aria-hidden="true"></span>
     LOADING ROLES…
-  {:else}
-    COULD NOT LOAD THE JOB DATABASE.
   {/if}
 </p>
 
