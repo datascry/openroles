@@ -97,6 +97,23 @@ function onToggle() {
     cursor: pointer;
     min-height: var(--tap);
   }
+  /* Defensive overrides against global `button:hover` (global.css),
+     which paints `background: --color-ink; color: --color-paper`.
+     Both need to be reasserted on hover:
+       - bg → transparent: without it the header bg becomes ink and the
+         chev (color: ink-3) drops to ink-3-on-ink (near-invisible).
+       - color → ink: without it the title text inherits paper from
+         the button, which becomes paper-on-(now-transparent)-paper-bg
+         (also invisible).
+     Hover affordance is delivered by the chev darkening from ink-3
+     to ink, which reads against the transparent bg in both themes. */
+  .group-header.group-header-button:hover {
+    background: transparent;
+    color: var(--color-ink);
+  }
+  .group-header.group-header-button:hover .chev {
+    color: var(--color-ink);
+  }
   .title { flex: 0 0 auto; }
   .count {
     margin-inline-start: auto;
