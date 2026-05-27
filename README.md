@@ -5,13 +5,13 @@
 [![Build + deploy](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml)
 [![Nightly scrape](https://github.com/datascry/openroles/actions/workflows/scrape.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/scrape.yml)
 [![PR checks](https://github.com/datascry/openroles/actions/workflows/pr.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/pr.yml)
-[![Live roles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdatascry.github.io%2Fopenroles%2Fdata%2Fmanifest.json&query=%24.total_rows&label=live%20roles&color=brightgreen)](https://datascry.github.io/openroles/)
-[![Last refreshed](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdatascry.github.io%2Fopenroles%2Fdata%2Fmanifest.json&query=%24.built_at&label=last%20refreshed&color=blue)](https://datascry.github.io/openroles/)
+[![Live roles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fopenroles.today%2Fdata%2Fmanifest.json&query=%24.total_rows&label=live%20roles&color=brightgreen)](https://openroles.today/)
+[![Last refreshed](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fopenroles.today%2Fdata%2Fmanifest.json&query=%24.built_at&label=last%20refreshed&color=blue)](https://openroles.today/)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![Data: CC BY-SA 4.0](https://img.shields.io/badge/data-CC%20BY--SA%204.0-blue.svg)](LICENSE-DATA)
 [![GitHub Repo stars](https://img.shields.io/github/stars/datascry/openroles?style=social)](https://github.com/datascry/openroles/stargazers)
 
-[![openroles in action](.github/assets/screenshot-desktop.png)](https://datascry.github.io/openroles/)
+[![openroles in action](.github/assets/screenshot-desktop.png)](https://openroles.today/)
 
 <details>
 <summary><strong>Dark mode &amp; mobile</strong></summary>
@@ -27,7 +27,7 @@
 </details>
 
 > [!NOTE]
-> Live at **https://datascry.github.io/openroles/**.
+> Live at **https://openroles.today/**.
 > Refreshed every night.
 
 ## What it is
@@ -66,10 +66,10 @@ a Notion page. No login required for any of these.
 
 | Query | URL |
 |---|---|
-| Senior + staff engineers on Greenhouse or Lever, remote-only, last 7 days | [`?ats=greenhouse,lever&level=senior,staff&wt=remote&since=7d`](https://datascry.github.io/openroles/?ats=greenhouse,lever&level=senior,staff&wt=remote&since=7d) |
-| "Staff engineer" anywhere in the title, Germany only | [`?q=title:"staff engineer"&country=DE`](https://datascry.github.io/openroles/?q=title%3A%22staff+engineer%22&country=DE) |
-| Stripe, all roles | [`?q=company:stripe`](https://datascry.github.io/openroles/?q=company%3Astripe) |
-| Hide recruiter posts + hide stale carry-forwards | [`?recruiter=0&hide_stale=1`](https://datascry.github.io/openroles/?recruiter=0&hide_stale=1) |
+| Senior + staff engineers on Greenhouse or Lever, remote-only, last 7 days | [`?ats=greenhouse,lever&level=senior,staff&wt=remote&since=7d`](https://openroles.today/?ats=greenhouse,lever&level=senior,staff&wt=remote&since=7d) |
+| "Staff engineer" anywhere in the title, Germany only | [`?q=title:"staff engineer"&country=DE`](https://openroles.today/?q=title%3A%22staff+engineer%22&country=DE) |
+| Stripe, all roles | [`?q=company:stripe`](https://openroles.today/?q=company%3Astripe) |
+| Hide recruiter posts + hide stale carry-forwards | [`?recruiter=0&hide_stale=1`](https://openroles.today/?recruiter=0&hide_stale=1) |
 
 The URL DSL is documented in [`specs/filter-ui.md`](specs/filter-ui.md);
 the parser is property-tested in
@@ -154,7 +154,7 @@ slugs are dropped, transient failures are retained for retry. See
 
 ```sh
 bun install
-bun run dev      # http://localhost:4321/openroles/
+bun run dev      # http://localhost:4321/
 bun run test     # full suite, 95% line / 95% function / 90% branch
 bun run e2e      # Playwright + axe-core a11y + Lighthouse
 bun run build    # static site to site/dist/

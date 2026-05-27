@@ -6,8 +6,7 @@ import { defineConfig } from "astro/config";
 
 // Site config — https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
-  site: "https://datascry.github.io",
-  base: "/openroles",
+  site: "https://openroles.today",
   output: "static",
   trailingSlash: "ignore",
   integrations: [

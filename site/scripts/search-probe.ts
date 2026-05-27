@@ -7,7 +7,7 @@
 import { chromium } from "@playwright/test";
 
 const QUERY = process.argv[2] ?? "threat";
-const TARGET = process.argv[3] ?? "https://datascry.github.io/openroles/";
+const TARGET = process.argv[3] ?? "https://openroles.today/";
 
 function emit(line: string): void {
   process.stdout.write(`${line}\n`);

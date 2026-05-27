@@ -88,7 +88,7 @@ jobs:
       - name: Stage release assets from latest Pages deploy
         id: assets
         env:
-          PAGES_BASE: "https://datascry.github.io/openroles"
+          PAGES_BASE: "https://openroles.today"
         run: |
           # Best-effort attach of the currently-deployed SQLite + manifest.
           # Skipped silently if the live site isn't there yet — first-ever

@@ -19,7 +19,7 @@
 
 import { chromium, type Page } from "@playwright/test";
 
-const TARGET = process.argv[2] ?? "https://datascry.github.io/openroles/";
+const TARGET = process.argv[2] ?? "https://openroles.today/";
 const VISIT_DURATION_MS = 60_000; // observe for a minute
 const FILTER_INTERACTIONS = [
   // Wait until rows render, then exercise filters
