@@ -160,6 +160,16 @@ let fullyLoaded: boolean = $state(false);
 const loadBar = $derived(
   loadProgress(dbStatus, chunksLoaded, chunksTotal, isQueryRunning, fullyLoaded),
 );
+// Grace window before the load bar actually paints. Cache-hit warm
+// reloads transition through dbStatus="loading" → "ready" inside
+// ~100-150 ms (manifest fetch + IDB cache read). Without this gate the
+// bar would flash visible-then-hidden in that window — perceived as a
+// jarring flicker. Defer first display until LOAD_BAR_GRACE_MS so any
+// resolution faster than that produces no visible bar at all. Set in an
+// onMount-driven timeout (below); the load-bar template combines this
+// gate with `loadBar.visible` so the bar only renders once both say so.
+const LOAD_BAR_GRACE_MS = 200;
+let loadBarUngated = $state(false);
 // Reactivity hook: optionCounts and any other $derived that reads
 // slimIndex.rows by reference needs a value-based dependency to fire
 // when rows grows in place. (slimIndex is $state.raw because the loader
@@ -423,6 +433,14 @@ function readSeedRows(): SlimRow[] {
 onMount(async () => {
   refreshUserLists();
   refreshSavedSearches();
+  // Arm the load-bar grace window. If everything (manifest fetch +
+  // IDB cache check) resolves before this fires, dbStatus has already
+  // flipped to "ready" and the bar's `.is-hidden` class has the final
+  // word — the bar never paints. If the load takes longer, the bar
+  // un-hides at LOAD_BAR_GRACE_MS and stays visible until "ready".
+  setTimeout(() => {
+    loadBarUngated = true;
+  }, LOAD_BAR_GRACE_MS);
   // Seed with the SSR pre-paint rows so the user sees something
   // sensible even before the slim index lands.
   const seed = readSeedRows();
@@ -823,7 +841,7 @@ function ariaSort(
 <div
   class="load-bar"
   class:is-indeterminate={loadBar.indeterminate}
-  class:is-hidden={!loadBar.visible}
+  class:is-hidden={!loadBar.visible || !loadBarUngated}
   aria-hidden="true"
   title={loadBar.label}
 >
