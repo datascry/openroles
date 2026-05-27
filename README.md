@@ -1,6 +1,6 @@
 # openroles
 
-**A daily-refreshed, privacy-respecting job board across 32 applicant tracking systems. No accounts. No ads. No tracking. Just static HTML and a 2 MB JSON index, served from GitHub Pages.**
+**A daily-refreshed, privacy-respecting job board across 32 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
 
 [![Build + deploy](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml)
 [![Nightly scrape](https://github.com/datascry/openroles/actions/workflows/scrape.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/scrape.yml)
@@ -87,10 +87,11 @@ ATS public APIs ──►  scrape.yml (nightly)  ──►  data/scrape-outputs/
 ```
 
 The build-time SQLite is scaffolding only — it isn't deployed. What
-ships to the browser is 38 content-hashed JSON.gz chunks plus a
-`manifest.json`. The merged dataset is cached in IndexedDB keyed by
-the build sha, so warm reloads restore in ~100 ms and skip the chunk
-pipeline entirely.
+ships to the browser is a few dozen content-hashed JSON.gz chunks
+(~50 MB total today, growing with the corpus) plus a `manifest.json`.
+A Service Worker caches the gzipped bytes; the merged dataset is
+further cached in IndexedDB keyed by the build sha, so warm reloads
+restore in ~100 ms and skip the chunk pipeline entirely.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
 [`docs/adr/`](docs/adr/) for the locked architectural decisions.
