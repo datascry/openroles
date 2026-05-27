@@ -136,6 +136,9 @@ jobs:
       - name: Download previous build's SQLite (for carry-forward)
         id: previous-db
         env:
+          # Must match site/src/lib/site-config.ts SITE_ORIGIN. YAML can't
+          # import from TS, so this URL is the workflow's local mirror —
+          # update both surfaces in lockstep when the domain moves.
           PAGES_BASE: "https://openroles.today"
         run: |
           set +e

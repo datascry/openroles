@@ -1,12 +1,16 @@
-// @ts-check
-
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import { defineConfig } from "astro/config";
+import { SITE_ORIGIN } from "./src/lib/site-config.ts";
 
 // Site config — https://docs.astro.build/en/reference/configuration-reference/
+//
+// `site` is read at build time to populate `Astro.site`, the sitemap base,
+// and canonical URLs. Sourced from the canonical constant in
+// `src/lib/site-config.ts` so the hostname lives in exactly one
+// TypeScript-readable place.
 export default defineConfig({
-  site: "https://openroles.today",
+  site: SITE_ORIGIN,
   output: "static",
   trailingSlash: "ignore",
   integrations: [

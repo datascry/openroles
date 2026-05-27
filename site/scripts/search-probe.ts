@@ -5,9 +5,10 @@
 // Run: bun run scripts/search-probe.ts <query> [base-url]
 
 import { chromium } from "@playwright/test";
+import { SITE_ORIGIN } from "../src/lib/site-config.ts";
 
 const QUERY = process.argv[2] ?? "threat";
-const TARGET = process.argv[3] ?? "https://openroles.today/";
+const TARGET = process.argv[3] ?? `${SITE_ORIGIN}/`;
 
 function emit(line: string): void {
   process.stdout.write(`${line}\n`);

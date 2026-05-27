@@ -18,8 +18,9 @@
 // the Lighthouse "Good" threshold).
 
 import { chromium, type Page } from "@playwright/test";
+import { SITE_ORIGIN } from "../src/lib/site-config.ts";
 
-const TARGET = process.argv[2] ?? "https://openroles.today/";
+const TARGET = process.argv[2] ?? `${SITE_ORIGIN}/`;
 const VISIT_DURATION_MS = 60_000; // observe for a minute
 const FILTER_INTERACTIONS = [
   // Wait until rows render, then exercise filters
