@@ -12,6 +12,7 @@
     "preview": "bun --bun astro preview",
     "e2e": "playwright test",
     "lighthouse": "playwright test --project=lighthouse",
+    "validate:live": "bun run scripts/validate-live.ts",
     "size-limit": "size-limit"
   },
   "dependencies": {
