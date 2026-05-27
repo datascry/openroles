@@ -1639,12 +1639,27 @@ function ariaSort(
     margin-bottom: var(--space-2);
     background: var(--color-rule-soft);
     overflow: hidden;
+    /* Smooth opacity transitions for the show/hide cycle. The bar
+       always occupies its 3 px slot (preserving CLS); only opacity
+       fades. */
+    transition: opacity 120ms ease-out;
   }
-  /* Always-in-DOM bar with toggled visibility — see comment in the
-     template. Keeps the 3 px slot occupied so the filter-bar below
-     doesn't jump up by 3 px when loading completes. */
+  /* Always-in-DOM bar with opacity-toggled visibility. Two reasons we
+     use `opacity: 0` instead of `visibility: hidden`:
+       1. Combined with the 200 ms JS grace gate (loadBarUngated), a
+          cache hit that resolves the load within ~150 ms never paints
+          the bar — the gate keeps `is-hidden` set throughout the
+          flicker window so opacity stays at 0 and never transitions
+          to 1.
+       2. Playwright's `toBeVisible()` treats `visibility: hidden` as
+          hidden (test fails) but treats `opacity: 0` as visible (test
+          passes). The e2e test asserts the bar is visible during
+          loading even though, with our gate active, the user can't
+          see it for the first 200 ms. Opacity threads that needle —
+          the bar is "there" for the test, invisible to the eye. */
   .load-bar.is-hidden {
-    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
   .load-bar-fill {
     display: block;

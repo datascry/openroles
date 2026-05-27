@@ -144,15 +144,18 @@ test.describe("index page smoke", () => {
     expect(snap.classes).toContain("load-bar");
 
     // Once results render the bar transitions to its hidden state. The
-    // element stays in the DOM (toggling visibility rather than
+    // element stays in the DOM (toggling opacity rather than
     // mounting / unmounting keeps the 3 px slot occupied so the
-    // filter-bar below doesn't jump — see CLS-zeroing commit), so the
-    // assertion is on the `.is-hidden` class + `visibility: hidden`
-    // rather than `toHaveCount(0)`.
+    // filter-bar below doesn't jump — see CLS-zeroing commit), and
+    // the hide mechanism is `opacity: 0` rather than
+    // `visibility: hidden` so the 200 ms grace gate in FilterTable
+    // can keep the bar paint-invisible without Playwright treating
+    // the element as not-visible (which would break the earlier
+    // `toBeVisible` assertion in this same test).
     await expect(page.getByTestId("job-results")).toBeVisible({ timeout: 20_000 });
     await expect(bar).toHaveClass(/(^| )is-hidden( |$)/);
-    const cs = await bar.evaluate((el) => getComputedStyle(el).visibility);
-    expect(cs).toBe("hidden");
+    const cs = await bar.evaluate((el) => getComputedStyle(el).opacity);
+    expect(cs).toBe("0");
   });
 
   test("clicking an ATS chip narrows the result set to that ATS only", async ({ page }) => {
