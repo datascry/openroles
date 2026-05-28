@@ -6,6 +6,8 @@
  * Desktop (≥ 768 px): single row, three-column grid.
  */
 
+import { REPO_URL } from "../lib/site-config.ts";
+
 export type NavCurrent = "browse" | "saved" | "applied" | "about";
 
 interface Props {
@@ -19,8 +21,7 @@ interface Props {
 }
 
 const { current, totalRoles, builtAtIso, basePath, shortSha } = Astro.props;
-const REPO_BASE_URL = "https://github.com/datascry/openroles";
-const commitUrl = shortSha ? `${REPO_BASE_URL}/commit/${shortSha}` : null;
+const commitUrl = shortSha ? `${REPO_URL}/commit/${shortSha}` : null;
 
 const builtAt = new Date(builtAtIso);
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
