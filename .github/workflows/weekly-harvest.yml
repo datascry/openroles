@@ -94,7 +94,7 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
 
       - name: Discover ${{ matrix.ats }}
         env:
@@ -204,7 +204,7 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
 
       - name: Pull discovery artifact for ${{ matrix.ats }} (if any)
         # When discover ran in this same workflow (mode=both / bootstrap)

@@ -1,0 +1,49 @@
+name: bun install with retry
+description: >
+  Wraps `bun install --frozen-lockfile` in an exponential-backoff retry
+  loop. CI's install step occasionally fails on transient npm-registry /
+  CDN hiccups (most commonly Astro's optional `sharp` image-optim
+  binaries — `@img/sharp-libvips-linux-x64` etc. — failing to extract).
+  When that happens the install hangs and the workflow gets killed by
+  GitHub Actions' 6-hour timeout, gating all downstream PR checks on a
+  flake.
+
+  A single attempt is what every previous PR shipped. Three attempts
+  with 10 / 20 / 40 s backoff costs at most ~70 s on the bad case and
+  zero on the happy path. The retry is the smallest knob that makes
+  transient registry pain non-blocking.
+
+inputs:
+  cwd:
+    description: Working directory for the install (defaults to repo root).
+    required: false
+    default: "."
+
+runs:
+  using: composite
+  steps:
+    - name: bun install --frozen-lockfile (with retry)
+      shell: bash
+      working-directory: ${{ inputs.cwd }}
+      run: |
+        # Pure-shell retry, no third-party action. Three attempts with
+        # 10 / 20 / 40 s sleeps between. Exits 0 on first success;
+        # propagates failure exit code after the final attempt.
+        attempts=3
+        for attempt in $(seq 1 $attempts); do
+          if bun install --frozen-lockfile; then
+            if [ "$attempt" -gt 1 ]; then
+              echo "::notice::bun install succeeded on attempt $attempt of $attempts"
+            fi
+            exit 0
+          fi
+          rc=$?
+          if [ "$attempt" -lt "$attempts" ]; then
+            delay=$((attempt * 10))
+            echo "::warning::bun install attempt $attempt of $attempts failed (rc=$rc); sleeping ${delay}s before retry"
+            sleep $delay
+          else
+            echo "::error::bun install failed after $attempts attempts (final rc=$rc)"
+            exit "$rc"
+          fi
+        done
