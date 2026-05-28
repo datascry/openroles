@@ -105,7 +105,7 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
 
       - name: Build scrape input for ${{ matrix.ats }}
         id: input

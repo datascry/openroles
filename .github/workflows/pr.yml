@@ -29,7 +29,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - name: Validate PR commits
         run: bunx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
@@ -41,7 +41,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - run: bun run lint
 
   typecheck:
@@ -52,7 +52,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - run: bun run typecheck
 
   test:
@@ -63,7 +63,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - name: Run tests with coverage
         run: bun run test
       - name: Upload coverage to Codecov
@@ -81,7 +81,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       # Playwright 1.50+ defaults to the chromium-headless-shell variant
       # in headless mode (separate binary from the full chromium build).
       # Installing only `chromium` leaves the headless-shell path missing,
@@ -118,7 +118,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - run: bun run build
       - run: bun run size-limit
 
@@ -159,5 +159,5 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
       - run: bun audit
