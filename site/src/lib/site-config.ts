@@ -28,3 +28,11 @@ export const SITE_ORIGIN = "https://openroles.today" as const;
  * that build a URL piecewise, or for the CNAME-style host-only context.
  */
 export const SITE_HOST = "openroles.today" as const;
+
+/**
+ * Canonical source-of-truth for the public GitHub repository URL.
+ * Linked from the masthead's build-SHA chip and the global footer
+ * "SOURCE" link. Imported anywhere the repo URL surfaces so a future
+ * rename / fork lives in this file alone.
+ */
+export const REPO_URL = "https://github.com/datascry/openroles" as const;
