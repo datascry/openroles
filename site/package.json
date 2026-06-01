@@ -16,14 +16,14 @@
     "size-limit": "size-limit"
   },
   "dependencies": {
-    "@astrojs/svelte": "8.1.1",
+    "@astrojs/svelte": "8.1.2",
     "@openroles/shared": "workspace:*",
-    "astro": "6.3.7",
+    "astro": "6.4.2",
     "open-props": "1.7.23",
     "svelte": "5.55.9"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "3.7.2",
+    "@astrojs/sitemap": "3.7.3",
     "@axe-core/playwright": "4.11.3",
     "@playwright/test": "1.60.0",
     "@size-limit/file": "12.1.0",
