@@ -57,7 +57,7 @@ jobs:
           - breezy
           - personio
           - workable
-          - teamtailor
+          # teamtailor is sharded — see the include: block below.
           - smartrecruiters
           - csod
           - taleo
@@ -84,18 +84,31 @@ jobs:
           - brassring
           # Vendor-agnostic Google-for-Jobs RSS feed harvester.
           - gjobsfeed
-        # icims has 14,810 tenants and hits the per-shard timeout on a
-        # single runner. Splitting the tenant list into two
-        # deterministic halves (sum-of-codepoints mod 2) lets each
-        # half finish in ~30 min on parallel runners. The downstream
-        # Build + deploy step downloads every `scrape-*` artifact and
-        # merges them, so two icims artifacts (`scrape-icims-0` and
-        # `scrape-icims-1`) coexist with the rest.
+        # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
+        # but each tenant requires its own subdomain TLS handshake, so
+        # the per-tenant cost is higher than icims's JSON walk) both
+        # hit the per-shard 60-min timeout on a single runner.
+        # Splitting tenant lists across multiple parallel runners
+        # (sum-of-codepoints mod N) lets each half finish well under
+        # the cap. The downstream Build + deploy step downloads every
+        # `scrape-*` artifact and merges them, so shard artifacts
+        # (`scrape-icims-0`, `scrape-teamtailor-0`, etc.) coexist with
+        # the unsharded legs.
+        #
+        # teamtailor was sharded after run 26983403586 timed out at
+        # 60:14 with 1,624 live tenants @ concurrency=24 — the
+        # workflow_dispatch retry would have hit the same wall.
         include:
           - ats: icims
             shard: 0
             total_shards: 2
           - ats: icims
+            shard: 1
+            total_shards: 2
+          - ats: teamtailor
+            shard: 0
+            total_shards: 2
+          - ats: teamtailor
             shard: 1
             total_shards: 2
     steps:
