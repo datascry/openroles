@@ -269,17 +269,42 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Download all per-ATS artifacts
-        # reprobe-* takes precedence over discover-* (it's the later stage
-        # writing the same file). merge-multiple is fine here because the
-        # second download replaces the first.
-        # path=data because actions/upload-artifact strips the common
-        # parent (data/) on upload — see the per-shard pull step's
-        # comment for the full explanation.
+      # Download discover-* and reprobe-* in TWO SEPARATE STEPS instead
+      # of one `pattern: "{discover,reprobe}-*"` step.
+      #
+      # Why: actions/download-artifact@v8 extracts a matched-pattern set
+      # in parallel, so when two artifacts contain the same path
+      # (discover-X and reprobe-X both write `tenants/X.json` +
+      # `harvest-state/X.json`), concurrent unzip threads race on the
+      # same destination file and the resulting bytes can be a
+      # half-and-half splice — invalid JSON, even though both source
+      # artifacts are individually valid. That race silently broke the
+      # commit job for ~4 weeks of weekly runs (the validation step
+      # then rejected `applicantpro.json` and the whole commit failed),
+      # which left `last_probed_at` stuck on its last good date until
+      # the 30-day staleness filter in scrape.yml tipped and the daily
+      # corpus dropped by ~half.
+      #
+      # Sequential downloads sidestep the race: discover-* extracts to
+      # completion, then reprobe-* overwrites cleanly (reprobe is the
+      # later pipeline stage, so reprobe must always win — this matches
+      # the original `merge-multiple` intent).
+      #
+      # path=data because actions/upload-artifact strips the common
+      # parent (data/) on upload — see the per-shard pull step's
+      # comment for the full explanation.
+      - name: Download discover artifacts
         uses: actions/download-artifact@v8
         with:
           path: data
-          pattern: "{discover,reprobe}-*"
+          pattern: "discover-*"
+          merge-multiple: true
+
+      - name: Download reprobe artifacts (overwrites discover)
+        uses: actions/download-artifact@v8
+        with:
+          path: data
+          pattern: "reprobe-*"
           merge-multiple: true
 
       - name: Show diff summary
