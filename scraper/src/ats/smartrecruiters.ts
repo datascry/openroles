@@ -114,9 +114,14 @@ function postingToJob(
 ): Job | null {
   if (!p.id || !p.name) return null;
   const sourceId = p.id;
-  // Public canonical posting URL — careers.smartrecruiters.com renders the
-  // job card by id; the trailing path slug is cosmetic and ignored on read.
-  const url = `https://careers.smartrecruiters.com/${tenantSlug}/${sourceId}`;
+  // Public canonical posting URL. The per-posting host
+  // `jobs.smartrecruiters.com/{tenant}/{id}` renders the job card directly
+  // (200, no redirect) and accepts the id with no trailing title slug. The
+  // company-branded `careers.smartrecruiters.com/{tenant}` host is a listing
+  // page only: a `/{tenant}/{id}` deep link there 302-redirects to the bare
+  // `/{tenant}` listing, dropping the posting entirely (verified live across
+  // multiple tenants, 2026-06-05).
+  const url = `https://jobs.smartrecruiters.com/${tenantSlug}/${sourceId}`;
   const id = jobId({ ats: "smartrecruiters", tenant_slug: tenantSlug, source_id: sourceId, url });
   const postedAt = isoOrUndefined(p.releasedDate);
   const country = p.location?.country?.toUpperCase();

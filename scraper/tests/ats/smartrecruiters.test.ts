@@ -77,6 +77,12 @@ describe("scrapeSmartRecruitersTenant", () => {
     const data = out.jobs.find((j) => j.title === "Staff Data Scientist");
     expect(data?.description_excerpt).toContain("Run experiments");
     expect(data?.workplace_type).toBe("hybrid");
+    // The apply link must deep-link to the specific posting. Only the
+    // per-posting host `jobs.smartrecruiters.com/{tenant}/{id}` serves the
+    // job card; `careers.smartrecruiters.com/{tenant}/{id}` 302-redirects to
+    // the tenant's job *listing*, dropping the id (verified live, 2026-06-05).
+    expect(eng?.url).toBe("https://jobs.smartrecruiters.com/acme/abc-1");
+    expect(data?.url).toBe("https://jobs.smartrecruiters.com/acme/abc-2");
   });
 
   it("falls back to listing-only data when the detail endpoint fails", async () => {
