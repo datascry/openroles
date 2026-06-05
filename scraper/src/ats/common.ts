@@ -25,6 +25,32 @@ export function assertWorkdaySite(site: string): void {
   }
 }
 
+// Oracle Fusion HCM Candidate Experience pods. The careers host is a
+// per-tenant Fusion pod under `*.fa[.region].oraclecloud.com` — e.g.
+// `ejhp.fa.us6.oraclecloud.com`, `jpmc.fa.oraclecloud.com`,
+// `fa-eups-saasfaprod1.fa.ocs.oraclecloud.com`. Anchoring to the
+// `oraclecloud.com` suffix is the SSRF guard: a tenant-supplied host can
+// only ever address an Oracle pod, never an arbitrary origin.
+const ORACLE_HOST = /^[a-z0-9-]{1,40}\.fa\.(?:[a-z0-9-]{1,20}\.){0,3}oraclecloud\.com$/;
+
+export function assertOracleHost(host: string): void {
+  if (!ORACLE_HOST.test(host)) {
+    throw new HttpError("permanent", `oraclecloud host rejected: ${JSON.stringify(host)}`);
+  }
+}
+
+// Candidate Experience site code — the `siteNumber` that selects which
+// public career site on the pod to read (`CX`, `CX_2`, `CX_1003`,
+// `jobsearch`, `ULSolutionsCareers`, …). Alphanumeric + underscore only;
+// it flows into both the REST `finder` expression and the job-card URL.
+const ORACLE_SITE = /^[A-Za-z0-9_]{1,64}$/;
+
+export function assertOracleSite(site: string): void {
+  if (!ORACLE_SITE.test(site)) {
+    throw new HttpError("permanent", `oraclecloud site rejected: ${JSON.stringify(site)}`);
+  }
+}
+
 export function dedupeById(jobs: Job[]): Job[] {
   const seen = new Set<string>();
   const out: Job[] = [];

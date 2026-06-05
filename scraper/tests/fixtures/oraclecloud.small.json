@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "SearchId": 1,
+      "Limit": 100,
+      "Offset": 0,
+      "SortBy": "POSTING_DATES_DESC",
+      "TotalJobsCount": 2,
+      "SiteNumber": "CX_1",
+      "requisitionList": [
+        {
+          "Id": "2607409",
+          "Title": "Senior Security Engineer",
+          "PostedDate": "2026-05-20",
+          "Language": "US",
+          "PrimaryLocation": "Austin, TX, United States",
+          "PrimaryLocationCountry": "US",
+          "ShortDescriptionStr": "<p>Lead our threat detection program.</p>\nBuild detections across the SIEM.",
+          "JobFamily": "Information Technology",
+          "WorkplaceTypeCode": "ORA_REMOTE",
+          "workLocation": [{ "LocationId": 300000129649514, "TownOrCity": null }]
+        },
+        {
+          "Id": "2607410",
+          "Title": "Staff Threat Intelligence Analyst",
+          "PostedDate": "2026-05-18",
+          "Language": "US",
+          "PrimaryLocation": "London, , United Kingdom",
+          "PrimaryLocationCountry": "GB",
+          "ShortDescriptionStr": "Track adversary infrastructure and author finished intelligence.",
+          "JobFamily": "Security",
+          "WorkplaceTypeCode": "ORA_HYBRID"
+        }
+      ]
+    }
+  ]
+}

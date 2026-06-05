@@ -137,6 +137,57 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.host");
   });
 
+  it("dispatches oraclecloud with metadata.host and metadata.site", async () => {
+    const host = "etest.fa.us2.oraclecloud.com";
+    server.use(
+      http.get(`https://${host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions`, () =>
+        HttpResponse.json(readFixture("oraclecloud.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "oraclecloud",
+        tenants: [{ slug: "acme", metadata: { host, site: "CX_1" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags oraclecloud tenant dead when metadata.host is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "oraclecloud",
+        tenants: [{ slug: "missing-host", metadata: { site: "CX_1" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.host or metadata.site");
+  });
+
+  it("flags oraclecloud tenant dead when metadata.site is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "oraclecloud",
+        tenants: [{ slug: "missing-site", metadata: { host: "etest.fa.us2.oraclecloud.com" } }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("metadata.host or metadata.site");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

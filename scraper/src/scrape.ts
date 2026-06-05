@@ -27,6 +27,7 @@ import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
+import { scrapeOracleCloudTenant } from "./ats/oraclecloud.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
@@ -289,6 +290,27 @@ function dispatchPerAts(
         });
       }
       return scrapeGjobsfeedTenant({ ...opts, feedUrl });
+    }
+    case "oraclecloud": {
+      // Oracle Fusion HCM Candidate Experience. Tenant identity is the
+      // composite (host, site): the Fusion pod host plus the CE site code
+      // (`siteNumber`). Both are mandatory and not slug-derivable, so a
+      // tenant missing either is marked dead — same convention as workday's
+      // host/site and successfactors' host.
+      const host = opts.tenant.metadata?.["host"];
+      const site = opts.tenant.metadata?.["site"];
+      if (host === undefined || site === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "oraclecloud tenant missing metadata.host or metadata.site",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeOracleCloudTenant({ ...opts, host, site });
     }
   }
 }
