@@ -87,6 +87,15 @@ export const ATS_IDS = Object.freeze([
   // SSRF-guarded rather than slug-derivable, like the jsonld harvester.
   // Verified seeds: Phenom, Southwest Airlines, Regions Bank.
   "phenom",
+  // HRMDirect (ClearCompany) hosted boards. Public board at
+  // `{slug}.hrmdirect.com/employment/job-openings.php` server-renders a
+  // single table of every open role; the adapter parses that one page
+  // (no detail fetch, no JSON-LD). Title + URL + id are uniform across
+  // tenants; the optional location/department columns are per-tenant
+  // configurable, so seeds favour the semantic-column layout. Tenant
+  // identity = slug (subdomain), so no metadata is required. Verified
+  // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
+  "hrmdirect",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

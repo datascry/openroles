@@ -22,6 +22,7 @@ import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
+import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
@@ -337,5 +338,9 @@ function dispatchPerAts(
       }
       return scrapePhenomTenant({ ...opts, host, locale });
     }
+    case "hrmdirect":
+      // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
+      // single listing page carries every role, so no metadata is needed.
+      return scrapeHrmDirectTenant(opts);
   }
 }

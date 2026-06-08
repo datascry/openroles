@@ -255,6 +255,27 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("phenom tenant missing metadata.host");
   });
 
+  it("dispatches hrmdirect from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://acme.hrmdirect.com/employment/job-openings.php",
+        () => new HttpResponse(readFixtureText("hrmdirect.listing.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hrmdirect",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(6);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

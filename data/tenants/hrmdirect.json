@@ -1,0 +1,34 @@
+[
+  {
+    "ats": "hrmdirect",
+    "slug": "energysystemsgroup",
+    "display_name": "Energy Systems Group",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "uso",
+    "display_name": "USO",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "jw",
+    "display_name": "Jackson Walker",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "pmic",
+    "display_name": "Preferred Mutual Insurance Company",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  }
+]

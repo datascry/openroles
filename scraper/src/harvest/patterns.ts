@@ -382,6 +382,14 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(phenom)\b/gi,
     denyList: new Set<string>(["phenom"]),
   },
+  {
+    ats: "hrmdirect",
+    // HRMDirect hosted boards live at `{slug}.hrmdirect.com`; the tenant
+    // slug is the subdomain label (same shape as bamboohr/breezy).
+    cdxQuery: "*.hrmdirect.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(
