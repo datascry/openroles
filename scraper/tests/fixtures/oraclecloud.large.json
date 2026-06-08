@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "TotalJobsCount": 6,
+      "SiteNumber": "CX_1",
+      "requisitionList": [
+        {
+          "Id": "300001",
+          "Title": "Senior Software Engineer, Payments",
+          "PostedDate": "2026-05-22",
+          "PrimaryLocation": "Austin, TX, United States",
+          "PrimaryLocationCountry": "US",
+          "ShortDescriptionStr": "<p>Build the payments platform.</p> Own services end to end.",
+          "JobFamily": "Engineering",
+          "WorkplaceTypeCode": "ORA_REMOTE"
+        },
+        {
+          "Id": "300002",
+          "Title": "Staff Threat Intelligence Analyst",
+          "PostedDate": "2026-05-21",
+          "PrimaryLocation": "London, , United Kingdom",
+          "PrimaryLocationCountry": "GB",
+          "ShortDescriptionStr": "Track adversary infrastructure and brief leadership.",
+          "JobFamily": "Security",
+          "WorkplaceTypeCode": "ORA_HYBRID"
+        },
+        {
+          "Id": "300003",
+          "Title": "Principal Security Architect",
+          "PostedDate": "2026-05-20",
+          "PrimaryLocation": "San Jose, CA, United States",
+          "PrimaryLocationCountry": "US",
+          "ShortDescriptionStr": "Set the security architecture across product lines.",
+          "JobFamily": "Information Technology",
+          "WorkplaceTypeCode": "ORA_ONSITE"
+        },
+        {
+          "Id": "300004",
+          "Title": "Technical Recruiter",
+          "PostedDate": "2026-05-19",
+          "PrimaryLocation": "Dallas, TX, United States",
+          "PrimaryLocationCountry": "US",
+          "ShortDescriptionStr": "Hire engineers across the org.",
+          "JobFamily": "Human Resources",
+          "WorkplaceTypeCode": null
+        },
+        {
+          "Id": "300005",
+          "Title": "Remote Incident Responder",
+          "PostedDate": "2026-05-18",
+          "PrimaryLocation": "Anywhere, United States",
+          "PrimaryLocationCountry": "US",
+          "ShortDescriptionStr": "Respond to security incidents 24x7.",
+          "JobFamily": "Security",
+          "WorkplaceTypeCode": null
+        },
+        {
+          "Id": "300006",
+          "Title": "Junior Frontend Engineer",
+          "PostedDate": "2026-05-17",
+          "PrimaryLocation": "Toronto, ON, Canada",
+          "PrimaryLocationCountry": "CA",
+          "ShortDescriptionStr": "Build accessible UI components.",
+          "JobFamily": "Engineering",
+          "WorkplaceTypeCode": "ORA_HYBRID"
+        }
+      ]
+    }
+  ]
+}

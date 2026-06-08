@@ -352,6 +352,22 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(gjobsfeed)\b/gi,
     denyList: new Set<string>(["gjobsfeed"]),
   },
+  // Oracle Fusion HCM Candidate Experience tenants are addressed by the
+  // composite (host, site): a per-tenant Fusion pod host
+  // (`ejhp.fa.us6.oraclecloud.com`) plus a CE site code (`CX_2`). CDX can
+  // enumerate which pods exist, but the pod prefix is an opaque datacenter
+  // code — not a brand name — so mapping a pod to a company slug needs
+  // operator knowledge (the same situation as brassring's partnerid/siteid
+  // pairs). Initial seeds are therefore operator-curated in
+  // data/tenants/oraclecloud.json; this registered placeholder never mints a
+  // fresh tenant from CDX (the regex matches the literal token against its
+  // own deny list), keeping the HARVEST_ATS_IDS == ATS_IDS invariant intact.
+  {
+    ats: "oraclecloud",
+    cdxQuery: "*.oraclecloud.com/hcmUI/CandidateExperience/*",
+    regex: /\b(oraclecloud)\b/gi,
+    denyList: new Set<string>(["oraclecloud"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

@@ -1,0 +1,86 @@
+[
+  {
+    "ats": "oraclecloud",
+    "slug": "sherwin-williams",
+    "display_name": "Sherwin-Williams",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "ejhp.fa.us6.oraclecloud.com", "site": "CX_2" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "vertiv",
+    "display_name": "Vertiv",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "egup.fa.us2.oraclecloud.com", "site": "CX" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "ford",
+    "display_name": "Ford Motor Company",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "efds.fa.em5.oraclecloud.com", "site": "CX_1" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "dtcc",
+    "display_name": "DTCC",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "ebxr.fa.us2.oraclecloud.com", "site": "CX_1" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "cantor-fitzgerald",
+    "display_name": "Cantor Fitzgerald / BGC",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "hdow.fa.us6.oraclecloud.com", "site": "CX_1003" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "sensient",
+    "display_name": "Sensient Technologies",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "eour.fa.us2.oraclecloud.com", "site": "CX" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "ul-solutions",
+    "display_name": "UL Solutions",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": {
+      "host": "fa-eups-saasfaprod1.fa.ocs.oraclecloud.com",
+      "site": "ULSolutionsCareers"
+    }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "sci",
+    "display_name": "Service Corporation International",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "hcri.fa.em2.oraclecloud.com", "site": "CX_1" }
+  },
+  {
+    "ats": "oraclecloud",
+    "slug": "oracle",
+    "display_name": "Oracle",
+    "status": "live",
+    "last_probed_at": "2026-06-05T00:00:00.000Z",
+    "first_seen_at": "2026-06-05T00:00:00.000Z",
+    "metadata": { "host": "eeho.fa.us2.oraclecloud.com", "site": "jobsearch" }
+  }
+]

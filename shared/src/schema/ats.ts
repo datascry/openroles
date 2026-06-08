@@ -62,6 +62,16 @@ export const ATS_IDS = Object.freeze([
   // SAP, ExxonMobil (both SuccessFactors-backed, 0-role under the
   // successfactors adapter because the SF API is Disallow: /).
   "gjobsfeed",
+  // Oracle Fusion HCM Candidate Experience. Multi-tenant enterprise ATS
+  // whose public careers API is the documented Candidate Experience REST
+  // resource `recruitingCEJobRequisitions` on a per-tenant Fusion pod.
+  // Tenant identity = (host, site): the pod host
+  // (`ejhp.fa.us6.oraclecloud.com`) plus the CE site code (`siteNumber`,
+  // e.g. `CX_2`), exactly the two-field composite the workday adapter
+  // uses. Single GET per page; the listing already carries the summary
+  // blurb so no detail fan-out is needed. Verified seeds: Sherwin-Williams,
+  // Vertiv, Ford, DTCC, Cantor Fitzgerald.
+  "oraclecloud",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

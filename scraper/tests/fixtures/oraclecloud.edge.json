@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "TotalJobsCount": 6,
+      "SiteNumber": "CX_1",
+      "requisitionList": [
+        { "Title": "No Id Job", "PostedDate": "2026-05-01" },
+        { "Id": "e2", "PostedDate": "2026-05-01" },
+        {
+          "Id": "e3",
+          "Title": "Onsite Line Cook",
+          "WorkplaceTypeCode": "ORA_ONSITE",
+          "PrimaryLocation": "Reno",
+          "PrimaryLocationCountry": "usa"
+        },
+        {
+          "Id": "e4",
+          "Title": "Remote Incident Responder",
+          "WorkplaceTypeCode": null,
+          "PrimaryLocation": "Anywhere, United States"
+        },
+        {
+          "Id": "e5",
+          "Title": "Future Posted Role",
+          "PostedDate": "2099-01-01",
+          "ShortDescriptionStr": "   "
+        },
+        {
+          "Id": "e6",
+          "Title": "Control Char Description Role",
+          "ShortDescriptionStr": "Line one\nLine two\twith tab"
+        }
+      ]
+    }
+  ]
+}
