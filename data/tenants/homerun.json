@@ -1348,6 +1348,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "burostedelijk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "buutvrij-for-life",
     "status": "live",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -3282,6 +3289,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "follow-the-money",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "fonds-voor-cultuurparticipatie",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -3475,6 +3489,13 @@
     "slug": "funguy",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "future-house-music",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -5659,6 +5680,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "mecc-maastricht",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "media-group",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -5698,6 +5726,13 @@
     "slug": "meijer-walters",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "meili",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -6074,6 +6109,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "narwal-creative",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "natra",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -6140,6 +6182,13 @@
     "slug": "negometrix",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "neople",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -6478,6 +6527,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "nxt-museum-bv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "oaklins",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -6709,6 +6765,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "open-climate-fix-limited",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "open-now",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -6724,6 +6787,13 @@
     "slug": "openred",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "opnaarnul",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -7562,6 +7632,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "redivis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "redkiwi",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -8295,6 +8372,13 @@
     "slug": "softup",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "solarplaza",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -9402,6 +9486,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "tien-procent-club",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "tigevents",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -10121,6 +10212,13 @@
   },
   {
     "ats": "homerun",
+    "slug": "verify",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
+  },
+  {
+    "ats": "homerun",
     "slug": "vermeer",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
@@ -10259,6 +10357,13 @@
     "slug": "volta-energy",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "volume-technology",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",
@@ -10801,6 +10906,13 @@
     "slug": "workforyouagency",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:59:31.221Z"
+  },
+  {
+    "ats": "homerun",
+    "slug": "workwithmix",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:46.364Z",
+    "first_seen_at": "2026-06-08T07:15:46.364Z"
   },
   {
     "ats": "homerun",

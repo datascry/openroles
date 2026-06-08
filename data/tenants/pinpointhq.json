@@ -306,6 +306,13 @@
   },
   {
     "ats": "pinpointhq",
+    "slug": "armstrongwatson",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.633Z",
+    "first_seen_at": "2026-06-08T07:15:30.633Z"
+  },
+  {
+    "ats": "pinpointhq",
     "slug": "arthurcox",
     "status": "live",
     "last_probed_at": "2026-06-04T18:59:40.531Z"
@@ -383,6 +390,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:59:40.531Z",
     "first_seen_at": "2026-05-01T14:35:14.648Z"
+  },
+  {
+    "ats": "pinpointhq",
+    "slug": "avaaz",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.633Z",
+    "first_seen_at": "2026-06-08T07:15:30.633Z"
   },
   {
     "ats": "pinpointhq",
@@ -1145,6 +1159,13 @@
     "slug": "deepseas",
     "status": "live",
     "last_probed_at": "2026-06-04T18:59:40.531Z"
+  },
+  {
+    "ats": "pinpointhq",
+    "slug": "deister",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.633Z",
+    "first_seen_at": "2026-06-08T07:15:30.633Z"
   },
   {
     "ats": "pinpointhq",
@@ -4102,6 +4123,13 @@
     "slug": "thewayout",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:59:40.531Z"
+  },
+  {
+    "ats": "pinpointhq",
+    "slug": "thorne",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.633Z",
+    "first_seen_at": "2026-06-08T07:15:30.633Z"
   },
   {
     "ats": "pinpointhq",

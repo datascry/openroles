@@ -59,6 +59,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "360wellnesswi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "3degreesinc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -645,6 +652,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "acpllibin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "acrbots",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
@@ -1032,6 +1046,13 @@
     "slug": "agilityenergyinc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "agilyx",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -2126,6 +2147,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "anamcare",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "anastasiabeverlyhills",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
@@ -2500,6 +2528,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "arapahoeinterns",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -3545,6 +3580,13 @@
     "slug": "avecc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "avenuesrecovery",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -6022,6 +6064,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "butlerchimneys",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "butlerhomecareservices",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
@@ -6175,6 +6224,13 @@
     "slug": "cachecounty",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "cackentorg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -6813,6 +6869,13 @@
     "slug": "caron",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "carpentersplace",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -7537,6 +7600,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "centriecut",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "centrodentallasamericas",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -7592,6 +7662,13 @@
     "slug": "cexec",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "cfcssacramento",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -7801,6 +7878,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "cherrywoodcare",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -9029,6 +9113,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "commercialtoolgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -10600,6 +10691,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "dakcu",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "dakotatrafficservices",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
@@ -10959,6 +11057,13 @@
     "slug": "dekatherm",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "deksia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -11369,6 +11474,13 @@
     "slug": "dietzpropertygroup",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "difoggioandsamplumbing",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -13029,6 +13141,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "engelsmahomes",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "engeniusmicro",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -13418,6 +13537,13 @@
     "slug": "evansautodothan",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "evcoplastics",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -14585,6 +14711,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "floyds99mckinney",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "floyds99orlandohourglass",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -15009,6 +15142,13 @@
     "slug": "freedomenterprisesinc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "freedomoutfitters",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -17065,6 +17205,13 @@
     "slug": "harpmech",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "harringtonbottlingcompany",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -23845,6 +23992,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "mcnabbplumbing",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "mcphersonccs",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
@@ -24668,6 +24822,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "millerjohnson",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "millermillerinc",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
@@ -25358,6 +25519,13 @@
     "slug": "mpms",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "mpw",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -26683,6 +26851,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "nexa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "nexdine",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z",
@@ -27765,6 +27940,13 @@
     "slug": "odessatx",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "odrasweeper",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -29494,6 +29676,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "pharrtx",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "phigenics",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
@@ -29790,6 +29979,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "plumbingconnection",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "plumblevel",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
@@ -29876,6 +30072,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "polyconsolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -30008,6 +30211,13 @@
     "slug": "powdersvillepa",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "powelldentalgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -30346,6 +30556,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.168Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "princetonstaffingsolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -33280,6 +33497,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "seastarseniorservices",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "seattlegoodwill",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -33639,6 +33863,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "sgsolutionsgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "shadestoyouwindowblindsorlando",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
@@ -33711,6 +33942,13 @@
     "slug": "sheltercorp",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "shelterinc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -34408,6 +34646,13 @@
     "slug": "snacontracting",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "snappyservices",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",
@@ -39997,6 +40242,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:50.179Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "volcorp",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:31.438Z",
+    "first_seen_at": "2026-06-08T07:15:31.438Z"
   },
   {
     "ats": "applicantpro",

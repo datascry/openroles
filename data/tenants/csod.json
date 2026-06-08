@@ -224,6 +224,13 @@
   },
   {
     "ats": "csod",
+    "slug": "adtran",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.108Z",
+    "first_seen_at": "2026-06-08T07:15:30.108Z"
+  },
+  {
+    "ats": "csod",
     "slug": "adventist",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:52.462Z",
@@ -1184,6 +1191,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:52.462Z",
     "first_seen_at": "2026-05-01T14:35:14.532Z"
+  },
+  {
+    "ats": "csod",
+    "slug": "battersea",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.108Z",
+    "first_seen_at": "2026-06-08T07:15:30.108Z"
   },
   {
     "ats": "csod",
@@ -3849,6 +3863,13 @@
   },
   {
     "ats": "csod",
+    "slug": "energysafety",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.108Z",
+    "first_seen_at": "2026-06-08T07:15:30.108Z"
+  },
+  {
+    "ats": "csod",
     "slug": "eng",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:52.462Z",
@@ -4139,6 +4160,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:52.462Z",
     "first_seen_at": "2026-05-01T14:35:14.532Z"
+  },
+  {
+    "ats": "csod",
+    "slug": "ferranti",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.108Z",
+    "first_seen_at": "2026-06-08T07:15:30.108Z"
   },
   {
     "ats": "csod",

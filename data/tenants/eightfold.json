@@ -115,6 +115,13 @@
   },
   {
     "ats": "eightfold",
+    "slug": "atb",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.768Z",
+    "first_seen_at": "2026-06-08T07:15:28.768Z"
+  },
+  {
+    "ats": "eightfold",
     "slug": "auburn",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:57:43.950Z",
@@ -1022,6 +1029,13 @@
     "slug": "ukg",
     "status": "live",
     "last_probed_at": "2026-06-04T18:57:43.950Z"
+  },
+  {
+    "ats": "eightfold",
+    "slug": "usaa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.768Z",
+    "first_seen_at": "2026-06-08T07:15:28.768Z"
   },
   {
     "ats": "eightfold",

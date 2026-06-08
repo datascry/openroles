@@ -1963,6 +1963,16 @@
   },
   {
     "ats": "ultipro",
+    "slug": "ban1006botp",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.951Z",
+    "first_seen_at": "2026-06-08T07:15:30.951Z",
+    "metadata": {
+      "board_id": "29f60e4c-539b-ee23-5b10-c8ca4947bad2"
+    }
+  },
+  {
+    "ats": "ultipro",
     "slug": "ban1008bankt",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:46.082Z",
@@ -21592,6 +21602,16 @@
     "last_probed_at": "2026-06-04T18:56:46.082Z",
     "metadata": {
       "board_id": "fdc97a1b-f715-932d-58ad-68b3bc64ed9f"
+    }
+  },
+  {
+    "ats": "ultipro",
+    "slug": "wav1000wlc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.951Z",
+    "first_seen_at": "2026-06-08T07:15:30.951Z",
+    "metadata": {
+      "board_id": "2b6e8319-f43e-4c13-8f4d-5107d67055d6"
     }
   },
   {

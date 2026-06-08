@@ -559,6 +559,13 @@
   },
   {
     "ats": "personio",
+    "slug": "albaspross",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "alchemy",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -747,6 +754,13 @@
   },
   {
     "ats": "personio",
+    "slug": "and-e",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "andcompany",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -864,6 +878,13 @@
   },
   {
     "ats": "personio",
+    "slug": "aperitivos-snack",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "apfelwerk",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -918,6 +939,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "aqipa-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -998,6 +1026,13 @@
     "slug": "artal-automocin",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "arthurmueller",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -1208,6 +1243,20 @@
   },
   {
     "ats": "personio",
+    "slug": "avantgarde",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "avantpark-dk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "avelios-medical",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -1273,6 +1322,13 @@
     "slug": "axontic",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "azowo-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -1435,9 +1491,23 @@
   },
   {
     "ats": "personio",
+    "slug": "bca-autoauktionen-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "be-maschinenmesser-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "beaglesystems",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -1767,6 +1837,13 @@
     "slug": "blue-earth-capital-ag",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "blue-marine-foundation",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -2110,6 +2187,13 @@
   },
   {
     "ats": "personio",
+    "slug": "bvo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "bw-partner-partnerschaft-mbb",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -2421,6 +2505,13 @@
   },
   {
     "ats": "personio",
+    "slug": "centorva",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "certania",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -2600,6 +2691,13 @@
     "slug": "claimini-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "claneo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -2840,6 +2938,13 @@
   },
   {
     "ats": "personio",
+    "slug": "compliance-instituut",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "comply2gether",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
@@ -3009,6 +3114,20 @@
   },
   {
     "ats": "personio",
+    "slug": "cp-bap",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "crate-io",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "creamnn",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -3160,6 +3279,13 @@
   },
   {
     "ats": "personio",
+    "slug": "cybus-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "cycle",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -3217,6 +3343,13 @@
     "slug": "dao",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "daphos",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -3442,6 +3575,13 @@
   },
   {
     "ats": "personio",
+    "slug": "desotec",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "deutschakademieat",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -3582,6 +3722,13 @@
   },
   {
     "ats": "personio",
+    "slug": "digitalerhubregionbonnag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "digooh2",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -3688,6 +3835,13 @@
     "slug": "dosmatix-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "dotbase",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -3920,6 +4074,13 @@
   },
   {
     "ats": "personio",
+    "slug": "ecog",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "ecoligo",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -3948,6 +4109,13 @@
     "slug": "ecosia",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "eddyson",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -4073,6 +4241,13 @@
   },
   {
     "ats": "personio",
+    "slug": "elbdudler",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "elbe",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -4149,6 +4324,20 @@
     "slug": "elockers",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "elxis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "em-ag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -4276,6 +4465,13 @@
     "slug": "enovetic-it-gmbh",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "entelios",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -4683,6 +4879,13 @@
     "slug": "fanzone",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "fare-guenther-fassbender-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -5264,6 +5467,13 @@
   },
   {
     "ats": "personio",
+    "slug": "future-cleantech-architects-ggmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "g-r-b",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -5530,6 +5740,13 @@
   },
   {
     "ats": "personio",
+    "slug": "gluecklichegaeste",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "glycothera",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -5575,6 +5792,13 @@
     "slug": "goal-systems",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "goalhanger",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -5654,6 +5878,13 @@
     "slug": "graswald-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "grayoak",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -5794,6 +6025,13 @@
   },
   {
     "ats": "personio",
+    "slug": "hades",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "haelssen-lyon",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -5821,6 +6059,13 @@
     "slug": "hallotheo",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "hamburg-leuchtfeuer-ggmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -6038,6 +6283,13 @@
   },
   {
     "ats": "personio",
+    "slug": "hessische-krebsgesellschaft-ev",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "hetbadhuis",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -6113,6 +6365,13 @@
     "slug": "hive-robotics",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "hkconsulting",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -6259,6 +6518,13 @@
   },
   {
     "ats": "personio",
+    "slug": "homing",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "hongfa-europe-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -6388,6 +6654,13 @@
     "slug": "hussle",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "hwp",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -6796,6 +7069,13 @@
   },
   {
     "ats": "personio",
+    "slug": "interactive-tools",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "interactiveai",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -6868,6 +7148,20 @@
   },
   {
     "ats": "personio",
+    "slug": "investforwomen",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "invia-group",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "invision-ag",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -6913,6 +7207,13 @@
     "slug": "iota-foundation",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "ipg-automotive-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -6967,6 +7268,13 @@
     "slug": "isn",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "isolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -7128,6 +7436,13 @@
   },
   {
     "ats": "personio",
+    "slug": "journaway-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "juna",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -7278,6 +7593,13 @@
   },
   {
     "ats": "personio",
+    "slug": "kb1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "kbtoolzz",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
@@ -7316,6 +7638,13 @@
   },
   {
     "ats": "personio",
+    "slug": "kessler-handorn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "keuerleber-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -7337,6 +7666,13 @@
     "slug": "kindermissionswerk-die-sternsinger-e-v",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "king-art-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -7450,6 +7786,13 @@
   },
   {
     "ats": "personio",
+    "slug": "kolibri-fm-leipzig",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "kolmargroup",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -7504,6 +7847,13 @@
     "slug": "kosys",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "kraftblock",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -7759,6 +8109,13 @@
   },
   {
     "ats": "personio",
+    "slug": "lemundo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "lendahand",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -7780,6 +8137,13 @@
     "slug": "letmeship",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "lfca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -8124,6 +8488,13 @@
     "slug": "macaw-nl",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "macits",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -8493,6 +8864,20 @@
     "slug": "meltlake",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "membion-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "memodo-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -8879,6 +9264,13 @@
   },
   {
     "ats": "personio",
+    "slug": "mp-corporate-finance",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "mpc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -9027,6 +9419,13 @@
   },
   {
     "ats": "personio",
+    "slug": "native-design",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "naturemetrics",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -9036,6 +9435,13 @@
     "slug": "naturtreu",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "nauten",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -9100,6 +9506,13 @@
   },
   {
     "ats": "personio",
+    "slug": "neoshare-val",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "neotaste",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
@@ -9155,6 +9568,13 @@
   },
   {
     "ats": "personio",
+    "slug": "neuroelectrics",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "new-soul-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -9176,6 +9596,13 @@
     "slug": "newston-automated-solutions",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "nex-aero",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -9350,6 +9777,13 @@
   },
   {
     "ats": "personio",
+    "slug": "northc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "norvestor",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -9359,6 +9793,13 @@
     "slug": "notpla",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "novaswiss",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -9497,6 +9938,13 @@
   },
   {
     "ats": "personio",
+    "slug": "obsidianhelsinki",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "oc-hairsystems",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -9537,6 +9985,13 @@
     "slug": "oh-so",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "oilquick-deutschland-kg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -9719,6 +10174,13 @@
     "slug": "optaresolutions-mexico",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "optilyz",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -10346,6 +10808,13 @@
   },
   {
     "ats": "personio",
+    "slug": "ppura-sagl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "pran",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -10416,6 +10885,13 @@
     "slug": "proemion",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "proglove",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -10700,6 +11176,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "qyobo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -11372,6 +11855,13 @@
   },
   {
     "ats": "personio",
+    "slug": "schako-kg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "schiller-international-university",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -11396,6 +11886,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "schneckenburger-opm",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -11552,6 +12049,13 @@
   },
   {
     "ats": "personio",
+    "slug": "segmenta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "seipp-wohnen-gmbh",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -11623,6 +12127,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "sgl-schienen-gueter-logistik-gmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -11740,6 +12251,13 @@
   },
   {
     "ats": "personio",
+    "slug": "silemelife-sl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "silverflow",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -11831,9 +12349,23 @@
   },
   {
     "ats": "personio",
+    "slug": "skarke",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "skeholding",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "skoove",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -12046,6 +12578,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "sozialhummel-ggmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -12336,6 +12875,13 @@
   },
   {
     "ats": "personio",
+    "slug": "student-consultant-1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "studyflix-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -12444,6 +12990,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z",
     "first_seen_at": "2026-05-01T14:35:14.559Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "swissdrones",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -12680,6 +13233,13 @@
     "slug": "taurob",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "tdagroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -13034,6 +13594,13 @@
   },
   {
     "ats": "personio",
+    "slug": "tinkerlist",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "tiny-technologies",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -13254,6 +13821,13 @@
     "slug": "trim",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "trimedic",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -13521,6 +14095,13 @@
     "slug": "uniteplus",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "unity-group-1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -14129,6 +14710,13 @@
   },
   {
     "ats": "personio",
+    "slug": "wellneuss",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "wemove-europe",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -14198,6 +14786,13 @@
     "slug": "wifor",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "wild-balance",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -14384,6 +14979,13 @@
   },
   {
     "ats": "personio",
+    "slug": "wyn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "xapix",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
@@ -14456,9 +15058,23 @@
   },
   {
     "ats": "personio",
+    "slug": "xpate",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
+  },
+  {
+    "ats": "personio",
     "slug": "xport",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "xrxes-cc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",
@@ -14631,6 +15247,13 @@
     "slug": "zeus-beteiligungs-und-beratungs-gmbh",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:31.707Z"
+  },
+  {
+    "ats": "personio",
+    "slug": "zigzag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:28.481Z",
+    "first_seen_at": "2026-06-08T07:15:28.481Z"
   },
   {
     "ats": "personio",

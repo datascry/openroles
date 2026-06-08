@@ -197,6 +197,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "73strings",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "7a",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -423,6 +430,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "abyhotel",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "academee",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -628,6 +642,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "acumetis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -1008,6 +1029,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "aenergi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "aera",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -1030,6 +1058,13 @@
     "slug": "afelteknik",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "afnorgroupe",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -1057,6 +1092,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "aftonbladet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -1104,6 +1146,13 @@
     "slug": "agiledayoy",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "agileretail",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -1845,6 +1894,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "alpazurhotels-1738160088",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -2955,6 +3011,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "artprocessors",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "arundoanalyticsas",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -2991,6 +3054,13 @@
     "slug": "ashridgehomecare-1649672509",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "askable",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -3351,6 +3421,13 @@
     "slug": "atteviks",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "atticusadvisorysolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -4714,6 +4791,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "bensonforbeds-1745844029",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "beproud",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -5113,6 +5197,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "bioserenity-1743515112",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "biotage-1708019070",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -5144,6 +5235,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "biscuitinternationalvf",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -5367,6 +5465,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "blacknova-black-nova-portfolio",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "blacksip",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -5382,6 +5487,13 @@
     "slug": "bladins",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "blank",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -5633,6 +5745,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "boardofcyber-1738744782",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "boardtalk",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -5783,6 +5902,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "bonglet-1741775549-les-peintures-reunies-sn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -6092,6 +6218,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "brams",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -6422,6 +6555,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "bruce",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -6834,6 +6974,13 @@
     "slug": "cacustomeralliancegmbh",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "cadeler",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -7419,6 +7566,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "causeaeffet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "causeway-1588594217",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -7770,6 +7924,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "charcoalblue",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -8425,6 +8586,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "coinpoker",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -9314,6 +9482,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "criteria-1693478031",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "criteriaempleos",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -9914,6 +10089,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "davantfrance",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "davidantonijevic",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -10040,6 +10222,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "dedge-1743088149",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "dedicarenorway",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -10077,6 +10266,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "deezer",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -11214,10 +11410,24 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "dunigmbh-demo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "dunigroup",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "dunigroupmalmo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -11314,6 +11524,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "easpring",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -11902,6 +12119,20 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "electrify",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "electroheatswedenab-1645023271",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "electroneum",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -12109,9 +12340,23 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "emballatorlagan-1741355253",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "emballatormellerud-1741355453",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "emballatortectubes-1741355423",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -12588,6 +12833,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "epicompany",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "epidemic-sound",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -12597,6 +12849,13 @@
     "slug": "epionaholdinggmbh-1745582936-orthophysio-st-gallen-ag",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "epionaholdinggmbh-1745582936-schmerzklinik-zuerich-ag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -12735,6 +12994,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "esg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -13032,6 +13298,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "europeanlifecaregroupuk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "europeanmediapartner",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -13050,6 +13323,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "evaro-1741597511",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -13184,6 +13464,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "eworgmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "exactalogistics-1637228124",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -13257,6 +13544,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "experimental",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -13598,6 +13892,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "feedgy-1733322460",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -13981,6 +14282,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "fit-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "fitflop-1706800191",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -14051,6 +14359,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "fjallraven",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -14328,10 +14643,24 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "fondationoeuvredelacroixsaintsimon",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "fonecta",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "fonrochelighting-1741108097",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -14439,6 +14768,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "forlagssentralen",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -14619,6 +14955,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "frankenburg1-1734600107",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -14885,6 +15228,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "frontrowgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "frontwalkeruppsala",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -15101,6 +15451,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "gameboost",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -16259,6 +16616,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "groupe-bonglet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "groupeacorus",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -16317,6 +16681,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "groupehamecher",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "groupekedgebusinessschool",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -16356,10 +16727,31 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "groupeoci",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "groupeomnium",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "grouperhinos-1728048081",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "grouperocca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -16410,6 +16802,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "grouponese",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "grouponline",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -16444,6 +16843,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "gruntpro",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "grupoaldesa",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -16473,6 +16879,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "grupoelalto-1738067471",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -16545,6 +16958,13 @@
     "slug": "grupoysondos",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "gruppomontenegro",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -17481,9 +17901,23 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "hertility",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "hertinmankert",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "hesperiaworld",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -17675,6 +18109,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "hirschgroup-ard",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "hirskane",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -17726,6 +18167,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "hkchotels",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -17945,6 +18393,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "hotellkungcarl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "hotellonyxen",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -18102,6 +18557,13 @@
     "slug": "huawei",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "huaweiaustria",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -18446,6 +18908,20 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "hyphen",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "hyprspace-1708613410",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "hyr-1694675336",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -18480,10 +18956,24 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "iarsystemssarl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "ibanfirst",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "ibcegos",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -18549,6 +19039,13 @@
     "slug": "icgruppen",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "ictech",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -18659,6 +19156,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "ihe",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "ihrb",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -18717,6 +19221,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "ikonscience-test",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "ikue",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -18746,6 +19257,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "imaschellinggroupgmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -18815,6 +19333,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "imsm",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -19047,6 +19572,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "inforcer",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "informa",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -19146,6 +19678,13 @@
     "slug": "ingenjorsfirman",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "ingenuitydigitallimited-1745490609",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -20307,6 +20846,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "jobbson",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "jobinnovation",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -20410,6 +20956,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "jottacloud-amby",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -20586,6 +21139,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "kahrsgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -20891,6 +21451,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "kelcocareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -21712,6 +22279,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "koala-1743644840",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "koalitionen",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -22286,6 +22860,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "lapsellekoti",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "lararnasarbetsloshetskassa",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -22821,6 +23402,13 @@
     "slug": "lfgconstruction",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "lgg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -23647,6 +24235,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "lumenradioab",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "luminarventures",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -23815,6 +24410,13 @@
     "slug": "maccpeople",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "maclesimmobilier",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -24054,6 +24656,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "mangia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "mangold",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -24105,6 +24714,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "manual-1734607080-formel-skin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -24875,6 +25491,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "metaline",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "metanet",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -25110,6 +25733,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "millog",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "milttonoy",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -25269,6 +25899,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "mirrastone",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -25636,6 +26273,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "montessori-erlangen",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "montessoriforderkreisnurnbergev",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -25746,6 +26390,13 @@
     "slug": "motelrocks-1709028154",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "motherroot",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -25949,6 +26600,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "multitempo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -26194,6 +26852,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "nachhilfeunterricht",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "nackaenergi",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -26204,6 +26869,13 @@
     "slug": "nad",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "naffco",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -26684,6 +27356,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "newbestsrl-1746516054",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "newglue",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -27004,6 +27683,13 @@
     "slug": "nobiaab-hth",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "nobiaab-magnet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -27361,6 +28047,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "norevie-1742377716",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "norionbankgroup",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -27658,6 +28351,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "novicellspain",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -28118,6 +28818,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "ohmenergie",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -28738,6 +29445,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "oresundit",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "oresunditconsulting",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -28781,6 +29495,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "oritainuklimited-1750769274",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -29457,6 +30178,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "peopleoftech",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "peopleprovide",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -30045,10 +30773,24 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "plummygames",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "plummygamesnew",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "poetsquants",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -30585,6 +31327,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "primeflightuk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "primekssnew",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -30714,6 +31463,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "proco-demo-demo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -31018,6 +31774,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "psv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "psykologpartners",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -31080,6 +31843,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "publix",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -32109,6 +32879,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "regengroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "regincontrols",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
@@ -32317,6 +33094,20 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "remoteworld",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "remoteworld-demo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "remsales",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -32327,6 +33118,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "renatak-karriar",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -33447,6 +34245,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "sanabilstudio-1742970956",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "sancare-1694702307",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:43.896Z"
@@ -33902,6 +34707,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "seasonhotel",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -34512,6 +35324,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "shd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "shellworks",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
@@ -34623,6 +35442,13 @@
     "slug": "showcase",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "shtsmarthightech",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -35395,6 +36221,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "smsparbank-1746432881",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "snapitsolutions",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
@@ -36093,6 +36926,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "spiko",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -37159,6 +37999,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "suomenrokotepalveluoy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "superappdemo",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
@@ -37386,6 +38233,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "svenskakyrkanmalmo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -37651,6 +38505,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "swegonsverige",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "swiftgames",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
@@ -37764,9 +38625,23 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "synergiahr",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "synertek",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "synolia-1668523139",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -38199,6 +39074,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "tanndalen",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "taratestoy",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
@@ -38247,6 +39129,13 @@
     "slug": "tbgroupscandinavia",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "tcconcept",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -38951,6 +39840,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "thefamilyofficecompany",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "thefarminteractive",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
@@ -39601,6 +40497,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "tmm-demo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "tmpo",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
@@ -40079,6 +40982,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "trelleborgsenergi-1746431312",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "treloar",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
@@ -40358,6 +41268,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "tryggsam-riktiga",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -41909,6 +42826,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "veriam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "veridapt-1737499906",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
@@ -42038,6 +42962,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "vi2vi-1743597718",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -43148,6 +44079,13 @@
   },
   {
     "ats": "teamtailor",
+    "slug": "waterdrop-1732181682",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
     "slug": "watersheds",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
@@ -43355,6 +44293,13 @@
     "slug": "webmasterybv",
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "webnode",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",
@@ -43723,6 +44668,27 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:14.182Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "wienerberger",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "wienerberger-deko",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
+  },
+  {
+    "ats": "teamtailor",
+    "slug": "wienerberger-wioniq",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.547Z",
+    "first_seen_at": "2026-06-08T07:15:27.547Z"
   },
   {
     "ats": "teamtailor",

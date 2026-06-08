@@ -348,6 +348,13 @@
   },
   {
     "ats": "smartrecruiters",
+    "slug": "agencedelabiomedecine1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
+  },
+  {
+    "ats": "smartrecruiters",
     "slug": "agil3techagil3technologysolution",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z",
@@ -1000,6 +1007,13 @@
     "slug": "ashburnconsulting",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z"
+  },
+  {
+    "ats": "smartrecruiters",
+    "slug": "asics",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
   },
   {
     "ats": "smartrecruiters",
@@ -9070,6 +9084,13 @@
   },
   {
     "ats": "smartrecruiters",
+    "slug": "mitsubishipoweremea",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
+  },
+  {
+    "ats": "smartrecruiters",
     "slug": "mjcc1",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z",
@@ -9213,6 +9234,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z",
     "first_seen_at": "2026-05-01T14:35:14.567Z"
+  },
+  {
+    "ats": "smartrecruiters",
+    "slug": "moralisweb3technology",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
   },
   {
     "ats": "smartrecruiters",
@@ -10089,6 +10117,13 @@
     "slug": "ossuspeitosdocostume",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z"
+  },
+  {
+    "ats": "smartrecruiters",
+    "slug": "oterra1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
   },
   {
     "ats": "smartrecruiters",
@@ -11652,6 +11687,13 @@
     "slug": "saludfamilyhealthcenters",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z"
+  },
+  {
+    "ats": "smartrecruiters",
+    "slug": "sanacommerce",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
   },
   {
     "ats": "smartrecruiters",
@@ -14357,6 +14399,13 @@
     "slug": "valueselectinternationalrecruitmentsolutions",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:37.481Z"
+  },
+  {
+    "ats": "smartrecruiters",
+    "slug": "vamsystems",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.897Z",
+    "first_seen_at": "2026-06-08T07:15:27.897Z"
   },
   {
     "ats": "smartrecruiters",

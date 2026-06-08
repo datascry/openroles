@@ -854,6 +854,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "amberstudiocarrers-review",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "amchesjobs",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -1076,6 +1083,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "animalcliniceast",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -2007,6 +2021,13 @@
     "slug": "biomarin-internal",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "biote",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -3969,6 +3990,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "crystalspringspethospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "csajobs",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -4486,6 +4514,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "dmns",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -6813,6 +6848,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "hi-tech",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "highpoint-global",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
@@ -7731,6 +7773,13 @@
     "slug": "iowaclinic",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "ip-infusion",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -9332,6 +9381,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "maplesandcalder",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "maplesgroup",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -9417,6 +9473,13 @@
     "slug": "marvelmarketers",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "mas",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -9701,6 +9764,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "merrimacvalleyanimalhospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -11655,6 +11725,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "peachtreehillsanimalhospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "peakgroup",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -11711,6 +11788,13 @@
     "slug": "peopleconnectstaffing",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "peoriaareavet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -11799,6 +11883,13 @@
     "slug": "petparadiseresort",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "petsandvets",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -12532,6 +12623,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "quarryridgeanimalhospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "quinstreet",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -13052,6 +13150,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "rockbrook-montessori-academy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "rockcreekseniorliving",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -13190,6 +13295,13 @@
     "slug": "safecu",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "sagamoreanimalhospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -13688,6 +13800,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "sevenhillsvet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "sews",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -13706,6 +13825,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "shadowcreekvetclinic",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",
@@ -14979,6 +15105,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "theanimalhospitalofsmithsonvalley",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "theappbusiness",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
@@ -16046,6 +16179,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "villageveterinary",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "vinlux",
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z"
@@ -16188,6 +16328,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:58:09.227Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "vitalityveterinaryswansea",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:30.700Z",
+    "first_seen_at": "2026-06-08T07:15:30.700Z"
   },
   {
     "ats": "jobvite",

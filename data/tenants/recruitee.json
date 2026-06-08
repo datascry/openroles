@@ -302,6 +302,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "abriogmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "abyssal",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -378,6 +385,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "accso",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -594,6 +608,13 @@
     "slug": "adimec",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "adinternationalbv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -2396,6 +2417,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "atmb",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "atmosuav",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -2548,6 +2576,13 @@
     "slug": "aurorajetfueldmcc",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "aurumfitnessag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -3997,6 +4032,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "biscuitinternational",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "bisnowmedia",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -4274,6 +4316,13 @@
     "slug": "bluedeskcrm",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "bluedolphin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -5674,6 +5723,13 @@
     "slug": "caretochange",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "careyn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -7686,6 +7742,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "craftzing",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "crateio",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -7717,6 +7780,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "creaitorag",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -8088,6 +8158,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "cvonlineltuab",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "cvonwf",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -8333,6 +8410,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "dbfinancial",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -8680,6 +8764,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "deluxeholidayhomes",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "demaco",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -8823,6 +8914,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "destinationnancy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -9485,6 +9583,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "domusconsult",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "domusvita",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -9768,6 +9873,13 @@
     "slug": "dtx",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "dualentry",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -11059,6 +11171,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "enviemholdingbv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "envipco",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -11397,6 +11516,13 @@
     "slug": "eunerd",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "eupagohub",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -13432,6 +13558,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "gain",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "gainpro",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -13883,6 +14016,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "gieskerlaakmann",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -14366,6 +14506,13 @@
     "slug": "gpvslovakia",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "gpvsweden",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -16796,6 +16943,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "ibexa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -20116,6 +20270,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "lamor",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "landacquisitiondotcom",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -20431,6 +20592,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "leebointelligentebouwsystemenbv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "leeruniek",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -20502,6 +20670,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "lekremlinbicetre",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "lemonwayjobcareers",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -20563,6 +20738,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "leostevenscie",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -22733,6 +22915,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "mimatigmbh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "mimiruth",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -23242,6 +23431,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "mosadex",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "mosaic",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -23704,6 +23900,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "n2jsoft2",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "naarea",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.054Z",
@@ -24043,6 +24246,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:05.054Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "nestsammelstiftung",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -25941,6 +26151,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "oxygenconservation",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "oxygenhouse",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.054Z"
@@ -26703,6 +26920,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "piagroupnetherlands",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "picard",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.054Z"
@@ -27343,6 +27567,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.054Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "prescan",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -28942,6 +29173,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "repscorecrutement",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "resalepartners",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T23:39:05.054Z"
@@ -29179,6 +29417,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T23:39:05.054Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "rickmershelgoland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -29724,6 +29969,13 @@
     "slug": "rsmaustriaconsultinggmbh",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T23:39:05.054Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "rswaccountantsadviseurs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -32011,6 +32263,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "southernelectric",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "sovak3",
     "status": "live",
     "last_probed_at": "2026-06-04T23:39:05.054Z"
@@ -32303,6 +32562,13 @@
     "slug": "sportbedrijfdrachten",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "sportcity1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -33199,6 +33465,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "suomenhumanistinenammattikorkeakouluoy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "suorabroadcastoy",
     "status": "transient_failure",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -33361,6 +33634,13 @@
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "suttons",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -36100,6 +36380,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "ultimosoftwaresolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "ultratendency",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
@@ -36960,6 +37247,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "vebegolandscapingservices",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "vebegoosterreich",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -37008,6 +37302,13 @@
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z",
     "first_seen_at": "2026-05-01T14:35:14.633Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "vencomaticgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -37271,6 +37572,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "vicotx",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "victoryranch",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -37370,6 +37678,13 @@
     "slug": "villari",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "vilniausbaldai",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -37792,6 +38107,13 @@
     "slug": "vvcconsultancy",
     "status": "dead",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "vxcompanydevelopmentpartnerbv",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
@@ -39128,6 +39450,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "whello",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "whiffle",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
@@ -39960,6 +40289,13 @@
     "slug": "yellowstone",
     "status": "live",
     "last_probed_at": "2026-06-04T18:56:29.603Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "yellowtail",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-08T07:15:27.526Z",
+    "first_seen_at": "2026-06-08T07:15:27.526Z"
   },
   {
     "ats": "recruitee",
