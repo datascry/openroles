@@ -30,6 +30,7 @@ import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapeOracleCloudTenant } from "./ats/oraclecloud.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
+import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
@@ -317,5 +318,24 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.applytojob.com` and
       // every job URL is the canonical apply link, so no metadata is needed.
       return scrapeJazzHrTenant(opts);
+    case "phenom": {
+      // Phenom career site. `host` is the (often vanity) careers domain and
+      // is mandatory; `locale` (the `{country}/{lang}` path segment) defaults
+      // to us/en when absent. Host missing → dead, same as workday.
+      const host = opts.tenant.metadata?.["host"];
+      const locale = opts.tenant.metadata?.["locale"] ?? PHENOM_DEFAULT_LOCALE;
+      if (host === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "phenom tenant missing metadata.host",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapePhenomTenant({ ...opts, host, locale });
+    }
   }
 }

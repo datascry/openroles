@@ -79,6 +79,14 @@ export const ATS_IDS = Object.freeze([
   // required. Eight verified seeds, including Marc Jacobs, Storyteller,
   // Industrial Fabricators, Brennan Center and Understory.
   "jazzhr",
+  // Phenom ("Phenom People") personalised career sites. The search page
+  // server-renders its first results window into a
+  // `phApp.ddo.eagerLoadRefineSearch` object; `?from=N` paginates it.
+  // Tenant identity = (host, locale): big customers serve from vanity
+  // domains (careers.{brand}.com), so the host is operator-seeded and
+  // SSRF-guarded rather than slug-derivable, like the jsonld harvester.
+  // Verified seeds: Phenom, Southwest Airlines, Regions Bank.
+  "phenom",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
