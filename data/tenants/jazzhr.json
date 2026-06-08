@@ -1,0 +1,66 @@
+[
+  {
+    "ats": "jazzhr",
+    "slug": "marcjacobs",
+    "display_name": "Marc Jacobs",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "storyteller",
+    "display_name": "Storyteller",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "industrialfabricators",
+    "display_name": "IFab Corporation",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "brennancenter",
+    "display_name": "Brennan Center for Justice",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "poarchbandofcreekindians",
+    "display_name": "Poarch Band of Creek Indians",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "understory",
+    "display_name": "Understory, Inc.",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "easeinc",
+    "display_name": "Ease",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "talentwwinc",
+    "display_name": "Career.io",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  }
+]

@@ -188,6 +188,35 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("metadata.host or metadata.site");
   });
 
+  it("dispatches jazzhr from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://acme.applytojob.com/apply/",
+        () => new HttpResponse(readFixtureText("jazzhr.listing.html")),
+      ),
+      http.get(
+        "https://acme.applytojob.com/apply/AbC123dEf0/Senior-Security-Engineer",
+        () => new HttpResponse(readFixtureText("jazzhr.detail.html")),
+      ),
+      http.get(
+        "https://acme.applytojob.com/apply/Zy9X8w7V6u/Threat-Intelligence-Analyst",
+        () => new HttpResponse(readFixtureText("jazzhr.detail.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jazzhr",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

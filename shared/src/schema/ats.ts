@@ -72,6 +72,13 @@ export const ATS_IDS = Object.freeze([
   // blurb so no detail fan-out is needed. Verified seeds: Sherwin-Williams,
   // Vertiv, Ford, DTCC, Cantor Fitzgerald.
   "oraclecloud",
+  // JazzHR (formerly The Resumator). Public hosted board at
+  // `{slug}.applytojob.com/apply/` server-renders one link per role;
+  // each job page carries schema.org/JobPosting JSON-LD (read via
+  // jsonld-core). Tenant identity = slug (subdomain), so no metadata is
+  // required. Eight verified seeds, including Marc Jacobs, Storyteller,
+  // Industrial Fabricators, Brennan Center and Understory.
+  "jazzhr",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

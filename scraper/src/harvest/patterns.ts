@@ -368,6 +368,14 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(oraclecloud)\b/gi,
     denyList: new Set<string>(["oraclecloud"]),
   },
+  {
+    ats: "jazzhr",
+    // JazzHR hosted boards live at `{slug}.applytojob.com`; the tenant
+    // slug is the subdomain label (same shape as bamboohr/breezy).
+    cdxQuery: "*.applytojob.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applytojob\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

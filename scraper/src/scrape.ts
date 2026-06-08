@@ -23,6 +23,7 @@ import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
@@ -312,5 +313,9 @@ function dispatchPerAts(
       }
       return scrapeOracleCloudTenant({ ...opts, host, site });
     }
+    case "jazzhr":
+      // Slug-only tenancy: the board host is `{slug}.applytojob.com` and
+      // every job URL is the canonical apply link, so no metadata is needed.
+      return scrapeJazzHrTenant(opts);
   }
 }
