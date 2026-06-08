@@ -376,6 +376,12 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applytojob\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "phenom",
+    cdxQuery: "*.phenompeople.com/*",
+    regex: /\b(phenom)\b/gi,
+    denyList: new Set<string>(["phenom"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

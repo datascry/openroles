@@ -1,0 +1,29 @@
+[
+  {
+    "ats": "phenom",
+    "slug": "phenom",
+    "display_name": "Phenom",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z",
+    "metadata": { "host": "careers.phenom.com", "locale": "us/en" }
+  },
+  {
+    "ats": "phenom",
+    "slug": "southwest-airlines",
+    "display_name": "Southwest Airlines",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z",
+    "metadata": { "host": "careers.southwestair.com", "locale": "us/en" }
+  },
+  {
+    "ats": "phenom",
+    "slug": "regions-bank",
+    "display_name": "Regions Bank",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z",
+    "metadata": { "host": "careers.regions.com", "locale": "us/en" }
+  }
+]

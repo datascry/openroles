@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 34 adapters in `ATS_IDS`, not only these examples):
+all 35 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -91,6 +91,7 @@ all 34 adapters in `ATS_IDS`, not only these examples):
 | amazonjobs / applejobs / tiktokcareers / metacareers | per-company custom endpoint (single-tenant) | JSON; see [ADR-0015](../docs/adr/0015-phase-6-custom-ats-scrapers.md) |
 | oraclecloud | GET `{metadata.host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList…&finder=findReqs;siteNumber={metadata.site},limit,offset` | JSON `{ items: [{ TotalJobsCount, requisitionList: [...] }] }`; paginate via finder offset until total reached |
 | jazzhr | GET `{slug}.applytojob.com/apply/` (server-rendered link list), then walk each `/apply/{jobCode}` page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core) |
+| phenom | GET `{metadata.host}/{metadata.locale}/search-results?from=N` (per-tenant vanity host) | HTML embedding `phApp.ddo.eagerLoadRefineSearch` `{ totalHits, data.jobs }`; `?from=N` paginates (10/page) |
 
 ## Invariants
 

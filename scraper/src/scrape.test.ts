@@ -217,6 +217,44 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches phenom with metadata.host (locale defaulting to us/en)", async () => {
+    server.use(
+      http.get(
+        "https://careers.acme.com/us/en/search-results",
+        () => new HttpResponse(readFixtureText("phenom.search.small.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "phenom",
+        tenants: [
+          { slug: "acme", display_name: "Acme Corp", metadata: { host: "careers.acme.com" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags phenom tenant dead when metadata.host is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "phenom",
+        tenants: [{ slug: "no-host" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("phenom tenant missing metadata.host");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to
