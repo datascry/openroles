@@ -681,6 +681,20 @@ async function writeHarvestState(path: string, state: HarvestState): Promise<voi
   }
 }
 
+// Mass-failure guard thresholds. A healthy ATS host sheds tenants
+// gradually, not in a single reprobe. When a large share of a connector's
+// previously-`live` tenants flip to `dead` in one run, that's the fingerprint
+// of a transient host/network incident — a brief outage whose connection
+// failures HttpClient classifies as permanent. Persisting those as `dead`
+// has wiped whole connectors before (workable ~4.9k live tenants flipped
+// dead on 2026-04-28; breezy ~4.7k on 2026-06-04), dropping them from the
+// daily scrape. Above BOTH thresholds we treat the run as a suspected
+// incident and demote the live→dead transitions to `transient_failure` so
+// they survive and get re-probed, rather than permanently dropping live
+// tenants on the strength of one bad run.
+const INCIDENT_MIN_LIVE_TO_DEAD = 50;
+const INCIDENT_LIVE_TO_DEAD_FRACTION = 0.5;
+
 /**
  * Re-probe tenants whose `last_probed_at` is older than `--max-age-days`,
  * up to `--batch-size` of them per run. Status is updated in place;
@@ -802,6 +816,22 @@ export async function runReprobeCommand(argv: ReadonlyArray<string>): Promise<nu
       merged.metadata = result.metadata;
     }
     updated.set(t.slug, merged);
+  }
+
+  // Mass-failure guard — see INCIDENT_* constants above.
+  const previouslyLive = stale.filter((t) => t.status === "live");
+  const liveToDead = previouslyLive.filter((t) => updated.get(t.slug)?.status === "dead");
+  const incidentSuspected =
+    liveToDead.length >= INCIDENT_MIN_LIVE_TO_DEAD &&
+    liveToDead.length >= INCIDENT_LIVE_TO_DEAD_FRACTION * previouslyLive.length;
+  if (incidentSuspected) {
+    for (const t of liveToDead) {
+      const m = updated.get(t.slug);
+      if (m) updated.set(t.slug, { ...m, status: "transient_failure" });
+    }
+    console.error(
+      `reprobe: ${ats} → SUSPECTED INCIDENT — ${liveToDead.length}/${previouslyLive.length} live tenants flipped dead in one run; demoted to transient_failure instead of persisting as dead. Check host health before the next run.`,
+    );
   }
 
   const next = tenants.map((t) => updated.get(t.slug) ?? t);

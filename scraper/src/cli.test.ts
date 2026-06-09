@@ -1153,6 +1153,172 @@ describe("runReprobeCommand", () => {
     ]);
     expect(code).toBe(0);
   });
+
+  // Mass-failure guard: a transient host/network incident that flips a large
+  // share of a connector's live tenants to dead in one run must not be
+  // persisted as `dead` — those tenants are demoted to transient_failure.
+  // Uses bamboohr (per-subdomain host, no inter-probe delay) so even a
+  // few-hundred-tenant reprobe completes instantly against the mocked fetch.
+  function writeLiveBamboo(dir: string, slugs: ReadonlyArray<string>): void {
+    const old = "2026-01-01T00:00:00Z"; // stale → eligible for reprobe
+    mkdirSync(join(dir, "tenants"), { recursive: true });
+    writeFileSync(
+      join(dir, "tenants", "bamboohr.json"),
+      JSON.stringify(
+        slugs.map((slug) => ({
+          ats: "bamboohr",
+          slug,
+          status: "live",
+          last_probed_at: old,
+          first_seen_at: "2024-01-01T00:00:00Z",
+        })),
+      ),
+    );
+  }
+  // Mock fetch where bamboohr tenants in `deadSet` 404 (→ dead) and the rest 200.
+  function bambooFetch(deadSet: ReadonlySet<string>): typeof globalThis.fetch {
+    return async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith("/robots.txt")) return new Response("", { status: 404 });
+      const m = u.match(/^https:\/\/([^.]+)\.bamboohr\.com/);
+      if (m?.[1]) {
+        return deadSet.has(m[1])
+          ? new Response("nope", { status: 404 })
+          : new Response('{"result":[]}', { status: 200 });
+      }
+      return new Response("", { status: 200 });
+    };
+  }
+  async function reprobeAll(dir: string): Promise<void> {
+    await runReprobeCommand([
+      "--ats",
+      "bamboohr",
+      "--output-dir",
+      dir,
+      "--max-age-days",
+      "7",
+      "--contact-url",
+      "https://example.invalid/contact",
+    ]);
+  }
+  function statusBySlug(dir: string): Map<string, string> {
+    const rows = JSON.parse(readFileSync(join(dir, "tenants", "bamboohr.json"), "utf8")) as Array<{
+      slug: string;
+      status: string;
+    }>;
+    return new Map(rows.map((r) => [r.slug, r.status]));
+  }
+
+  it("demotes a mass live→dead flip to transient_failure (suspected incident)", async () => {
+    const originalFetch = globalThis.fetch;
+    const slugs = Array.from({ length: 60 }, (_, i) => `t${i}`);
+    globalThis.fetch = bambooFetch(new Set(slugs)); // every tenant 404s
+    try {
+      const dir = tmpDir();
+      writeLiveBamboo(dir, slugs);
+      await reprobeAll(dir);
+      const status = statusBySlug(dir);
+      const dead = [...status.values()].filter((s) => s === "dead").length;
+      const transient = [...status.values()].filter((s) => s === "transient_failure").length;
+      expect(dead).toBe(0); // none persisted as dead
+      expect(transient).toBe(60); // all demoted
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("keeps a small live→dead flip as dead (below the incident count floor)", async () => {
+    const originalFetch = globalThis.fetch;
+    const slugs = Array.from({ length: 10 }, (_, i) => `s${i}`);
+    globalThis.fetch = bambooFetch(new Set(slugs)); // all 10 die, but < min count
+    try {
+      const dir = tmpDir();
+      writeLiveBamboo(dir, slugs);
+      await reprobeAll(dir);
+      const status = statusBySlug(dir);
+      expect([...status.values()].filter((s) => s === "dead").length).toBe(10);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("keeps a minority live→dead flip as dead (below the incident fraction)", async () => {
+    const originalFetch = globalThis.fetch;
+    const slugs = Array.from({ length: 200 }, (_, i) => `u${i}`);
+    const deadSlugs = slugs.slice(0, 60); // 60 die (≥ count floor) but < 50% of 200
+    globalThis.fetch = bambooFetch(new Set(deadSlugs));
+    try {
+      const dir = tmpDir();
+      writeLiveBamboo(dir, slugs);
+      await reprobeAll(dir);
+      const status = statusBySlug(dir);
+      expect([...status.values()].filter((s) => s === "dead").length).toBe(60);
+      expect([...status.values()].filter((s) => s === "live").length).toBe(140);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("fires at exactly the count floor (50 live all dying)", async () => {
+    const originalFetch = globalThis.fetch;
+    const slugs = Array.from({ length: 50 }, (_, i) => `b${i}`);
+    globalThis.fetch = bambooFetch(new Set(slugs)); // 50 == INCIDENT_MIN_LIVE_TO_DEAD
+    try {
+      const dir = tmpDir();
+      writeLiveBamboo(dir, slugs);
+      await reprobeAll(dir);
+      const status = statusBySlug(dir);
+      expect([...status.values()].filter((s) => s === "transient_failure").length).toBe(50);
+      expect([...status.values()].filter((s) => s === "dead").length).toBe(0);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("during an incident, demotes only live→dead — other statuses untouched", async () => {
+    const originalFetch = globalThis.fetch;
+    const live = Array.from({ length: 60 }, (_, i) => `lv${i}`); // all 404 → incident
+    const deadSet = new Set([...live, "stays-dead"]); // a pre-existing dead that re-probes dead
+    globalThis.fetch = bambooFetch(deadSet);
+    try {
+      const dir = tmpDir();
+      const old = "2026-01-01T00:00:00Z";
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      const rows = [
+        ...live.map((slug) => ({
+          ats: "bamboohr",
+          slug,
+          status: "live",
+          last_probed_at: old,
+          first_seen_at: old,
+        })),
+        // already dead and re-probes dead → must stay dead, NOT swept into the demotion
+        {
+          ats: "bamboohr",
+          slug: "stays-dead",
+          status: "dead",
+          last_probed_at: old,
+          first_seen_at: old,
+        },
+        // re-probes 200 → a genuine dead→live recovery must still happen
+        {
+          ats: "bamboohr",
+          slug: "recovers",
+          status: "dead",
+          last_probed_at: old,
+          first_seen_at: old,
+        },
+      ];
+      writeFileSync(join(dir, "tenants", "bamboohr.json"), JSON.stringify(rows));
+      await reprobeAll(dir);
+      const status = statusBySlug(dir);
+      expect(live.every((s) => status.get(s) === "transient_failure")).toBe(true); // demoted
+      expect(status.get("stays-dead")).toBe("dead"); // not swept into the demotion
+      expect(status.get("recovers")).toBe("live"); // recovery not blocked by the guard
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
 });
 
 describe("runDiscoverWorkdaySitesCommand", () => {
