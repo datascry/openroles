@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, mock } from "bun:test";
 import { HttpClient } from "../http.ts";
 import { RobotsTxtCache } from "../robots.ts";
-import { probeMany, probeOne, probeUrlFor } from "./probe.ts";
+import { probeMany, probeOne, probeUrlFor, probeUrlForWithMetadata } from "./probe.ts";
 import { urlHostIs } from "./test-helpers.ts";
 
 const OBSERVED_AT = "2026-04-26T00:00:00Z";
@@ -68,6 +68,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("applejobs", "apple")).toBe("https://jobs.apple.com/");
     expect(probeUrlFor("tiktokcareers", "tiktok")).toBe("https://careers.tiktok.com/");
     expect(probeUrlFor("metacareers", "meta")).toBe("https://www.metacareers.com/jobs/");
+    // Subdomain-per-tenant boards: the public listing page is the probe.
+    expect(probeUrlFor("jazzhr", "stripe")).toBe("https://stripe.applytojob.com/apply/");
+    expect(probeUrlFor("hrmdirect", "stripe")).toBe(
+      "https://stripe.hrmdirect.com/employment/job-openings.php",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
@@ -78,11 +83,151 @@ describe("probeUrlFor", () => {
   });
 });
 
+describe("probeUrlForWithMetadata", () => {
+  it("returns undefined for ATSes with no composite-metadata builder", () => {
+    expect(probeUrlForWithMetadata("greenhouse", "stripe", { host: "x" })).toBeUndefined();
+  });
+
+  it("composes the oraclecloud requisitions URL from host + site", () => {
+    expect(
+      probeUrlForWithMetadata("oraclecloud", "acme", {
+        host: "acme.fa.us2.oraclecloud.com",
+        site: "CX_1001",
+      }),
+    ).toBe(
+      "https://acme.fa.us2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=CX_1001,limit=1,sortBy=POSTING_DATES_DESC",
+    );
+  });
+
+  it("rejects oraclecloud with a missing site or an SSRF/injection host", () => {
+    // No site → can't address the candidate-experience site.
+    expect(
+      probeUrlForWithMetadata("oraclecloud", "acme", { host: "acme.fa.us2.oraclecloud.com" }),
+    ).toBeUndefined();
+    // Host outside the *.fa.*.oraclecloud.com shape → assertOracleHost rejects.
+    expect(
+      probeUrlForWithMetadata("oraclecloud", "acme", {
+        host: "evil.example.com",
+        site: "CX_1001",
+      }),
+    ).toBeUndefined();
+    // Site with URL-breaking characters → assertOracleSite rejects.
+    expect(
+      probeUrlForWithMetadata("oraclecloud", "acme", {
+        host: "acme.fa.us2.oraclecloud.com",
+        site: "CX_1001;limit=999",
+      }),
+    ).toBeUndefined();
+  });
+
+  it("composes the phenom search-results URL and defaults locale to us/en", () => {
+    expect(probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com" })).toBe(
+      "https://careers.acme.com/us/en/search-results",
+    );
+    expect(
+      probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com", locale: "uk/en" }),
+    ).toBe("https://careers.acme.com/uk/en/search-results");
+  });
+
+  it("rejects phenom with a malformed locale or an unsafe host", () => {
+    // Locale must be `{country}/{lang}`; an underscore form is rejected.
+    expect(
+      probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com", locale: "EN_US" }),
+    ).toBeUndefined();
+    // Bare IPv4 literal fails the hostname regex.
+    expect(probeUrlForWithMetadata("phenom", "acme", { host: "169.254.169.254" })).toBeUndefined();
+    // Regex-valid but SSRF-unsafe (`.internal`) → isSafeFetchHost rejects.
+    expect(
+      probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.internal" }),
+    ).toBeUndefined();
+  });
+});
+
 describe("probeOne", () => {
   it("classifies a 200 response as live", async () => {
     const fetchFn = mock(async () => new Response("[]", { status: 200 }));
     const t = await probeOne("greenhouse", "stripe", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("live");
+  });
+
+  it("probes jazzhr with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<html>career page</html>", { status: 200 });
+    });
+    const t = await probeOne("jazzhr", "10xhealthsystem", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    // Must NOT follow redirects, otherwise a dead board's cross-host 302 to a
+    // generic landing page would be followed into a 200 and look live.
+    expect(seenRedirect).toBe("manual");
+  });
+
+  it("classifies a jazzhr 3xx (cross-host redirect to generic page) as dead", async () => {
+    // A nonexistent applytojob.com subdomain 302-redirects to the vendor's
+    // generic job-seekers page; treat that redirect itself as the dead signal.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "https://info.example.com/job-seekers.html" },
+        }),
+    );
+    const t = await probeOne("jazzhr", "no-such-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
+  });
+
+  it("probes hrmdirect with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<table>jobs</table>", { status: 200 });
+    });
+    const t = await probeOne("hrmdirect", "energysystemsgroup", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    expect(seenRedirect).toBe("manual");
+  });
+
+  it("classifies an hrmdirect same-host 3xx (self URL-normalization) as live", async () => {
+    // A live hrmdirect board 302-redirects its listing to itself with a
+    // default category sort appended (`?cust_sort1=NNNNNN`). That same-host
+    // redirect must NOT be read as dead — only a cross-host bounce is dead.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: {
+            location:
+              "https://energysystemsgroup.hrmdirect.com/employment/job-openings.php?cust_sort1=123456",
+          },
+        }),
+    );
+    const t = await probeOne("hrmdirect", "energysystemsgroup", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+  });
+
+  it("treats a 3xx with no Location header as live, not dead", async () => {
+    // Defensive: a malformed redirect (3xx without a Location) is not provably
+    // cross-host, so we keep the tenant rather than dropping it.
+    const fetchFn = mock(async () => new Response(null, { status: 302 }));
+    const t = await probeOne("jazzhr", "some-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+  });
+
+  it("treats a 3xx with an unparseable Location as live (defensive)", async () => {
+    // A Location that fails URL parsing isn't provably cross-host either, so
+    // the tenant is kept rather than dropped on a malformed redirect.
+    const fetchFn = mock(
+      async () => new Response(null, { status: 302, headers: { location: "http://" } }),
+    );
+    const t = await probeOne("jazzhr", "some-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+  });
+
+  it("classifies an hrmdirect 404 as dead", async () => {
+    const fetchFn = mock(async () => new Response("not found", { status: 404 }));
+    const t = await probeOne("hrmdirect", "no-such-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
   });
 
   it("classifies 404 / 410 as dead", async () => {

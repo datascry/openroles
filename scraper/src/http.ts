@@ -51,6 +51,12 @@ export interface HttpRequestInit {
   // robots.txt is written for general crawlers but does not represent
   // their wishes for API access. Caller must justify each use.
   readonly skipRobots?: boolean;
+  // Redirect handling, forwarded to the underlying fetch. Defaults to
+  // "follow". Use "manual" when the caller needs to see a 3xx itself —
+  // e.g. a liveness probe where a cross-host redirect to a generic
+  // landing page must be classified as a dead tenant, not silently
+  // followed into a 200.
+  readonly redirect?: "follow" | "manual";
 }
 
 function isAbortError(err: unknown): boolean {
@@ -260,7 +266,7 @@ export class HttpClient {
       headers,
       ...(init.body !== undefined ? { body: init.body } : {}),
       signal,
-      redirect: "follow",
+      redirect: init.redirect ?? "follow",
       credentials: "omit",
     });
   }

@@ -1,6 +1,69 @@
 [
   {
     "ats": "hrmdirect",
+    "slug": "alleninstitutecellscience",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "ampp",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "aspeninstitute",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "azcourts",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "campusadvantage",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "canfiscogroup",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "castaliasystems",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "chicagosteel",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "dasny",
+    "status": "dead",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
     "slug": "energysystemsgroup",
     "display_name": "Energy Systems Group",
     "status": "live",
@@ -9,11 +72,17 @@
   },
   {
     "ats": "hrmdirect",
-    "slug": "uso",
-    "display_name": "USO",
+    "slug": "freseniuskabicanada",
     "status": "live",
-    "last_probed_at": "2026-06-07T00:00:00.000Z",
-    "first_seen_at": "2026-06-07T00:00:00.000Z"
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "imtinsurance",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
   },
   {
     "ats": "hrmdirect",
@@ -25,10 +94,130 @@
   },
   {
     "ats": "hrmdirect",
+    "slug": "missionedge",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "mountainaircargo",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "nepgroup",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "newhaven",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "oru",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "osmose",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "parkvistaathome",
+    "status": "dead",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
     "slug": "pmic",
     "display_name": "Preferred Mutual Insurance Company",
     "status": "live",
     "last_probed_at": "2026-06-07T00:00:00.000Z",
     "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "reports",
+    "status": "dead",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "rsg",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "sci",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "thebreakers",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "thethirdfloorinc",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "topsidemarinas",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "uso",
+    "display_name": "USO",
+    "status": "live",
+    "last_probed_at": "2026-06-07T00:00:00.000Z",
+    "first_seen_at": "2026-06-07T00:00:00.000Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "webtoon",
+    "status": "dead",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "wells",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
+  },
+  {
+    "ats": "hrmdirect",
+    "slug": "westernvetpartners",
+    "status": "live",
+    "last_probed_at": "2026-06-09T00:51:26.397Z",
+    "first_seen_at": "2026-06-09T00:51:26.397Z"
   }
 ]
