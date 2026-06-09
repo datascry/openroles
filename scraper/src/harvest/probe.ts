@@ -1,6 +1,12 @@
 import type { ATSId, Tenant, TenantStatus } from "@openroles/shared";
 import pLimit from "p-limit";
-import { assertWorkdayHost, assertWorkdaySite, isSafeFetchHost } from "../ats/common.ts";
+import {
+  assertOracleHost,
+  assertOracleSite,
+  assertWorkdayHost,
+  assertWorkdaySite,
+  isSafeFetchHost,
+} from "../ats/common.ts";
 import { fetchWorkdaySite } from "../ats/workday-site-fetch.ts";
 import { type HttpClient, HttpError } from "../http.ts";
 
@@ -61,9 +67,42 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   applejobs: () => "https://jobs.apple.com/",
   tiktokcareers: () => "https://careers.tiktok.com/",
   metacareers: () => "https://www.metacareers.com/jobs/",
-  // workday + ultipro + successfactors need composite metadata
-  // (host/site, board_id) — see probeUrlForWithMetadata below.
+  // JazzHR hosted boards: the public board is `{slug}.applytojob.com/apply/`
+  // (200 on a live tenant; a nonexistent slug fails DNS → dead).
+  jazzhr: (slug) => `https://${slug}.applytojob.com/apply/`,
+  // HRMDirect (ClearCompany): the job-openings listing is the public signal
+  // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
+  hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // workday + ultipro + successfactors + oraclecloud + phenom need composite
+  // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };
+
+// ATSes whose dead tenants answer a probe with a *cross-host* redirect to a
+// generic landing page rather than an honest 4xx. JazzHR's `*.applytojob.com`
+// 302-redirects unknown subdomains to `info.jazzhr.com/job-seekers.html`
+// (HTTP 200), so a plain follow-redirect probe would mark every dead board
+// `live`. For these ATSes we probe with `redirect: "manual"` and read the
+// `Location` ourselves: a redirect that leaves the tenant's own host is dead,
+// while a *same-host* redirect is a live board normalizing its own URL (e.g.
+// hrmdirect appends a default `?cust_sort1=...` category sort) and stays live.
+// A direct 2xx is always live.
+const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
+  jazzhr: true,
+  hrmdirect: true,
+};
+
+// True when `location` (resolved against the probe URL) points at a different
+// host than the probe itself. An unparseable or missing Location is treated as
+// not-cross-host so we keep the tenant `live` rather than dropping it on a
+// malformed redirect — a later reprobe or scrape will reclassify if needed.
+function redirectsToDifferentHost(probeUrl: string, location: string | null): boolean {
+  if (location === null || location.length === 0) return false;
+  try {
+    return new URL(location, probeUrl).host !== new URL(probeUrl).host;
+  } catch {
+    return false;
+  }
+}
 
 // Probe URL builders that need both slug and metadata (workday, ultipro).
 // These return undefined when the metadata bag is missing the required keys.
@@ -171,6 +210,42 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     }
     if (!isSafeFetchHost(parsed)) return undefined;
     return feedUrl;
+  },
+  oraclecloud: (_slug, metadata) => {
+    // Oracle Fusion HCM Candidate Experience tenants are addressed by the
+    // (host, site) composite. Both are mandatory and validated for SSRF /
+    // injection exactly as the adapter does; a record missing either stays
+    // transient_failure. A limit=1 requisitions call is the cheapest 200.
+    const host = metadata["host"];
+    const site = metadata["site"];
+    if (typeof host !== "string" || typeof site !== "string") return undefined;
+    try {
+      assertOracleHost(host);
+      assertOracleSite(site);
+    } catch {
+      return undefined;
+    }
+    return `https://${host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${site},limit=1,sortBy=POSTING_DATES_DESC`;
+  },
+  phenom: (_slug, metadata) => {
+    // Phenom career sites are addressed by (host, locale). The host is a
+    // (often vanity) careers domain, SSRF-guarded the same way the adapter
+    // does; locale (the `{country}/{lang}` segment) defaults to us/en. The
+    // search-results page returns 200 for a live tenant.
+    const host = metadata["host"];
+    if (typeof host !== "string" || host.length === 0) return undefined;
+    const locale = metadata["locale"] ?? "us/en";
+    if (!/^[a-z]{2,8}\/[a-z]{2}$/.test(locale)) return undefined;
+    if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?\.)+[a-z]{2,}$/i.test(host)) return undefined;
+    let parsed: URL;
+    try {
+      parsed = new URL(`https://${host}`);
+      /* c8 ignore next 3 — host already passed the strict DNS-label regex above, so new URL cannot throw here. */
+    } catch {
+      return undefined;
+    }
+    if (parsed.hostname !== host.toLowerCase() || !isSafeFetchHost(parsed)) return undefined;
+    return `https://${host}/${locale}/search-results`;
   },
 };
 
@@ -388,7 +463,25 @@ async function probeOneInner(
     // their public read-only API is documented and intended for programmatic
     // use (smartrecruiters whitelists LinkedInBot, others are silent).
     // Treat the probe URL as an API call rather than a crawl.
-    await client.request(probeUrlFor(ats, slug), { method: "GET", skipRobots: true });
+    const probeUrl = probeUrlFor(ats, slug);
+    const redirectHostMeansDead = REDIRECT_HOST_MEANS_DEAD[ats] === true;
+    const res = await client.request(probeUrl, {
+      method: "GET",
+      skipRobots: true,
+      ...(redirectHostMeansDead ? { redirect: "manual" as const } : {}),
+    });
+    // For these ATSes, a dead board answers with a cross-host redirect to a
+    // generic vendor page; a same-host redirect is a live board normalizing
+    // its own URL, and a direct 2xx is a live board. Only the cross-host
+    // redirect is dead.
+    if (
+      redirectHostMeansDead &&
+      res.status >= 300 &&
+      res.status < 400 &&
+      redirectsToDifferentHost(probeUrl, res.headers.get("location"))
+    ) {
+      return { ats, slug, status: "dead", last_probed_at: observedAt };
+    }
     return { ats, slug, status: "live", last_probed_at: observedAt };
   } catch (err) {
     if (err instanceof HttpError) {

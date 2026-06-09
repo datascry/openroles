@@ -87,6 +87,9 @@ jobs:
           - homerun
           - factorial
           - eightfold
+          # New subdomain connectors with real CDX discovery patterns.
+          - jazzhr
+          - hrmdirect
     steps:
       - uses: actions/checkout@v6
 
@@ -197,6 +200,14 @@ jobs:
           - jsonld
           - brassring
           - gjobsfeed
+          # New connectors. jazzhr/hrmdirect are CDX-discovered (also in the
+          # discover matrix); oraclecloud/phenom are operator-seeded. All four
+          # need weekly reprobing to keep tenants `live` (probe URL builders
+          # added in harvest/probe.ts).
+          - jazzhr
+          - hrmdirect
+          - oraclecloud
+          - phenom
     steps:
       - uses: actions/checkout@v6
 
