@@ -315,15 +315,22 @@ const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 // triggered Cloudflare to IP-ban us mid-bootstrap (workable returned
 // 429 to every subsequent request for hours).
 //
-// Per-subdomain ATSes (bamboohr, breezy, icims, etc.) hit a unique
-// host per probe, so they're not capped here — each can run at the
-// caller-supplied concurrency.
+// Most per-subdomain ATSes (bamboohr, icims, etc.) hit a unique host per
+// probe, so they're not capped here — each can run at the caller-supplied
+// concurrency.
+//
+// breezy is the exception: despite addressing tenants per-subdomain
+// (`{slug}.breezy.hr`), breezy.hr enforces a shared rate limit across all
+// subdomains. A full-corpus reprobe burst got the prober IP blocked (every
+// subsequent probe failed → tenants mis-marked dead), so it's capped and
+// delayed like a shared-host ATS.
 //
 // Workday is per-tenant-host but uses the same operator's CDN
 // (workday.com) for all of them, so caps similarly to shared-host
 // ATSes despite the host varying per-tenant.
 const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   workable: 1,
+  breezy: 2,
   jobvite: 2,
   smartrecruiters: 2,
   ultipro: 2,
@@ -339,6 +346,9 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
 // concurrency cap above.
 const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   workable: 800,
+  // breezy.hr rate-limits across all subdomains (see PROBE_HOST_CONCURRENCY);
+  // ~2.5 probes/s was observed safe, so 700ms × 2-concurrent stays under it.
+  breezy: 700,
   jobvite: 200,
   smartrecruiters: 200,
   ultipro: 200,
