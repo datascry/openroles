@@ -57,13 +57,13 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
 
 2. **Nightly scrape** — `cli.ts scrape` reads the tenant lists, fans out HTTP requests with per-ATS concurrency caps, parses the response shape per ATS, classifies level + recruiter status, and emits a normalized `Job[]`.
 
-3. **Build DB** — `db/build-db.ts` writes the rows into an in-process `jobs.{sha}.sqlite` (build-time scaffolding only — the SQLite itself is no longer deployed) and emits the slim-index: 38 pre-gzipped JSON chunks of ~20k rows each, sorted by `posted_at DESC NULLS LAST`, content-hashed for cache safety. See [ADR-0012](docs/adr/0012-static-only-deployment.md).
+3. **Build DB** — `db/build-db.ts` writes the rows into an in-process `jobs.{sha}.sqlite` (build-time scaffolding only — the SQLite itself is no longer deployed) and emits the slim-index: pre-gzipped JSON chunks of ~20k rows each (count scales with the corpus), sorted by `posted_at DESC NULLS LAST`, content-hashed for cache safety. See [ADR-0012](docs/adr/0012-static-only-deployment.md).
 
 4. **Site build** — Astro reads the build-time SQLite for the SSR seed rows (top-50 newest) and emits the static shell. The slim-index chunks + `manifest.json` are copied into `dist/data/`.
 
 5. **Deploy** — `actions/upload-pages-artifact` + `actions/deploy-pages` ship the bundle. No commits to `main` for build artifacts.
 
-6. **Runtime** — the browser fetches `manifest.json`, then a Web Worker streams the 38 slim-index chunks, `gunzip`s each, and merges them into an in-memory `SlimRow[]`. Filter / sort / search become array operations — sub-50ms after the index has loaded. URL state and `localStorage` persist filter and saved/applied/ignored selections.
+6. **Runtime** — the browser fetches `manifest.json`, then a Web Worker streams the slim-index chunks, `gunzip`s each, and merges them into an in-memory `SlimRow[]`. Filter / sort / search become array operations — sub-50ms after the index has loaded. URL state and `localStorage` persist filter and saved/applied/ignored selections.
 
 ## Workspace layout
 

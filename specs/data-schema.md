@@ -263,8 +263,9 @@ INSERT INTO jobs_fts(jobs_fts) VALUES ('optimize');  -- compact FTS5
 ```
 
 > The build-time SQLite is not deployed (ADR-0012). The runtime data
-> path is the slim-index — 38 chunked `.json.gz` files derived from
-> the same row set, emitted by `db/slim-index.ts`. The schema below is
+> path is the slim-index — chunked `.json.gz` files (count scales with
+> the corpus, ~20k rows/chunk) derived from the same row set, emitted by
+> `db/slim-index.ts`. The schema below is
 > still authoritative for the build-time DB and the parquet side
 > artifact.
 

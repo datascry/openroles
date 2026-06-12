@@ -20,7 +20,7 @@ Daily refresh via GitHub Action.
 - **Workspace**: bun workspaces — packages: `scraper/`, `site/`, `shared/`
 - **Frontend**: Astro 6 + one Svelte 5 island (`FilterTable.svelte`), mobile-first
 - **CSS**: Open Props design tokens + custom mobile-first CSS
-- **Data**: SQLite via `bun:sqlite` (build-time scaffolding) → 38 chunked `.json.gz` slim-index files served from GitHub Pages, decoded in a Web Worker, merged into an in-memory `SlimRow[]`. The build-time SQLite is *not* deployed — see [ADR-0012](docs/adr/0012-static-only-deployment.md). Parquet side artifact via DuckDB CLI.
+- **Data**: SQLite via `bun:sqlite` (build-time scaffolding) → chunked `.json.gz` slim-index files (count scales with the corpus, ~20k rows/chunk) served from GitHub Pages, decoded in a Web Worker, merged into an in-memory `SlimRow[]`. The build-time SQLite is *not* deployed — see [ADR-0012](docs/adr/0012-static-only-deployment.md). Parquet side artifact via DuckDB CLI.
 - **Lint + format**: Biome 2.x (single tool)
 - **Tests**: `bun test` (vitest-compatible API), `fast-check` for properties, MSW for HTTP mocking, Playwright for e2e + a11y
 - **Pre-commit**: lefthook (Go binary)
