@@ -1,6 +1,6 @@
 # openroles
 
-**A daily-refreshed, privacy-respecting job board across 32 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
+**A daily-refreshed, privacy-respecting job board across 36 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
 
 [![Build + deploy](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml)
 [![Nightly scrape](https://github.com/datascry/openroles/actions/workflows/scrape.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/scrape.yml)
@@ -98,7 +98,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
 
 ## Coverage
 
-Thirty-two ATSes. The multi-tenant set, weighted by tenant volume in
+Thirty-six ATSes. The multi-tenant set, weighted by tenant volume in
 the public Common Crawl index:
 
 ```
@@ -106,7 +106,8 @@ Greenhouse · Lever · Ashby · BambooHR · Workday · iCIMS · Recruitee
 Breezy · Personio · Workable · Teamtailor · SmartRecruiters · CSOD
 Taleo · UltiPro · Jobvite · Zoho Recruit · Talentlyft · Pinpoint HQ
 ApplicantPro · ApplicantStack · Homerun · Factorial · Eightfold
-SuccessFactors · BrassRing
+SuccessFactors · BrassRing · Oracle HCM Cloud · JazzHR · Phenom
+HRMDirect
 ```
 
 Plus two vendor-agnostic harvesters and four per-company custom

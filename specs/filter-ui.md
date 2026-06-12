@@ -16,7 +16,7 @@ What ships today:
 - Saved-searches strip with localStorage persistence
 - Save / Apply / Ignore per-row buttons backed by localStorage; "Show only" filter chips for each
 - URL ↔ FilterState round-trip via `history.replaceState`
-- Slim-index runtime: a Web Worker fetches and decodes 38 chunked `.json.gz` files, merges them into an in-memory `SlimRow[]`, and the FilterTable runs filter / sort / search / pagination as array operations
+- Slim-index runtime: a Web Worker fetches and decodes the chunked `.json.gz` files (count scales with the corpus, ~20k rows/chunk), merges them into an in-memory `SlimRow[]`, and the FilterTable runs filter / sort / search / pagination as array operations
 - Pagination controls with `requestAnimationFrame`-deferred scroll-to-top on page change
 - Loading / empty / busy ("LOADING ROLES…" pulse-dot) / terminal-load-error states
 - `aria-live="polite"` results-status; `role="alert"` on terminal errors
