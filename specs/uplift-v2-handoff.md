@@ -2,7 +2,7 @@
 
 **Version**: 0.1.0 (draft)
 **Status: Historical — landed; partially superseded**
-**Companion**: `design-wireframes/v2-uplift/` (interactive HTML reference)
+**Companion**: the interactive HTML wireframes were removed from the repo as a dev artifact — this doc is the source of truth.
 
 > [!NOTE]
 > This handoff doc describes a past redesign milestone. Two of its
@@ -117,7 +117,7 @@ Use Open Props' `--ease-2: cubic-bezier(.25,0,.4,1)` where the value is referenc
 
 ## 1. Surface — Dual-mode tabbed search
 
-**Wireframe**: `design-wireframes/v2-uplift/01-search-bar-alternatives.html` § Alt 2
+**Design choice**: search-bar alternatives, Alt 2 (interactive wireframe removed from repo)
 
 ### 1.1 Overview
 
@@ -266,7 +266,7 @@ Do not animate the mode-panel swap. Crossfading two forms is more disorienting t
 
 ## 2. Surface — Persistent sidebar filter (desktop) + sheet (mobile)
 
-**Wireframe**: `design-wireframes/v2-uplift/02-filter-strip-alternatives.html` § Alt 1
+**Design choice**: filter-strip alternatives, Alt 1 (interactive wireframe removed from repo)
 
 ### 2.1 Overview
 
@@ -440,7 +440,7 @@ j. **Sheet open with on-screen keyboard** (mobile): inputs inside the sheet must
 
 ## 3. Surface — Editorial broadsheet role detail
 
-**Wireframe**: `design-wireframes/v2-uplift/03-role-detail-alternatives.html` § Alt 1
+**Design choice**: role-detail alternatives, Alt 1 (interactive wireframe removed from repo)
 
 ### 3.1 Overview
 
@@ -651,4 +651,4 @@ These choices are flagged for design review before implementation locks them.
 
 ---
 
-*Last edited 2026-05-04 — pairs with `design-wireframes/v2-uplift/` interactive reference. Supersedes the prior critique document.*
+*Last edited 2026-05-04 — supersedes the prior critique document.*
