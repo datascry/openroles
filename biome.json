@@ -18,8 +18,7 @@
       "!**/data/*.gz",
       "!**/data/harvest-state",
       "!**/*.lockb",
-      "!**/tests/fixtures/**/*",
-      "!design-wireframes"
+      "!**/tests/fixtures/**/*"
     ]
   },
   "formatter": {
