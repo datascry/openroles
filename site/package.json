@@ -16,9 +16,9 @@
     "size-limit": "size-limit"
   },
   "dependencies": {
-    "@astrojs/svelte": "8.1.2",
+    "@astrojs/svelte": "9.0.0",
     "@openroles/shared": "workspace:*",
-    "astro": "6.4.6",
+    "astro": "7.0.3",
     "open-props": "1.7.23",
     "svelte": "5.56.3"
   },
