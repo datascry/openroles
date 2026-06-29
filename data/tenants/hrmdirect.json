@@ -1884,6 +1884,13 @@
   },
   {
     "ats": "hrmdirect",
+    "slug": "brentwood",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-29T07:14:25.740Z",
+    "first_seen_at": "2026-06-29T07:14:25.740Z"
+  },
+  {
+    "ats": "hrmdirect",
     "slug": "brickamerica",
     "status": "live",
     "last_probed_at": "2026-06-22T08:43:07.522Z",
@@ -5002,7 +5009,7 @@
     "slug": "energysystemsgroup",
     "display_name": "Energy Systems Group",
     "status": "live",
-    "last_probed_at": "2026-06-15T09:06:44.672Z",
+    "last_probed_at": "2026-06-29T07:15:47.595Z",
     "first_seen_at": "2026-06-07T00:00:00.000Z"
   },
   {
@@ -7411,7 +7418,7 @@
     "slug": "jw",
     "display_name": "Jackson Walker",
     "status": "live",
-    "last_probed_at": "2026-06-15T09:06:44.672Z",
+    "last_probed_at": "2026-06-29T07:15:47.595Z",
     "first_seen_at": "2026-06-07T00:00:00.000Z"
   },
   {
@@ -10688,7 +10695,7 @@
     "slug": "pmic",
     "display_name": "Preferred Mutual Insurance Company",
     "status": "live",
-    "last_probed_at": "2026-06-15T09:06:44.672Z",
+    "last_probed_at": "2026-06-29T07:15:47.595Z",
     "first_seen_at": "2026-06-07T00:00:00.000Z"
   },
   {
@@ -12352,6 +12359,13 @@
   },
   {
     "ats": "hrmdirect",
+    "slug": "spja",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-29T07:14:25.740Z",
+    "first_seen_at": "2026-06-29T07:14:25.740Z"
+  },
+  {
+    "ats": "hrmdirect",
     "slug": "splashpoolservice",
     "status": "live",
     "last_probed_at": "2026-06-22T08:43:07.522Z",
@@ -13220,6 +13234,13 @@
   },
   {
     "ats": "hrmdirect",
+    "slug": "thenationalcouncil",
+    "status": "transient_failure",
+    "last_probed_at": "2026-06-29T07:14:25.740Z",
+    "first_seen_at": "2026-06-29T07:14:25.740Z"
+  },
+  {
+    "ats": "hrmdirect",
     "slug": "thepalms",
     "status": "live",
     "last_probed_at": "2026-06-22T08:43:07.522Z",
@@ -13860,7 +13881,7 @@
     "slug": "uso",
     "display_name": "USO",
     "status": "live",
-    "last_probed_at": "2026-06-15T09:06:44.672Z",
+    "last_probed_at": "2026-06-29T07:15:47.595Z",
     "first_seen_at": "2026-06-07T00:00:00.000Z"
   },
   {
