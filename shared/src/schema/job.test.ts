@@ -89,7 +89,7 @@ describe("JobSchema", () => {
   });
 
   it("rejects unknown ATSId", () => {
-    expect(() => JobSchema.parse({ ...baseJob, ats: "rippling" })).toThrow();
+    expect(() => JobSchema.parse({ ...baseJob, ats: "not-a-real-ats" })).toThrow();
   });
 
   it("rejects unknown Level", () => {

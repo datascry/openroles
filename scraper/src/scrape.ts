@@ -43,6 +43,7 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeRipplingTenant } from "./ats/rippling.ts";
 import { scrapeSchoolSpringTenant } from "./ats/schoolspring.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
@@ -466,5 +467,11 @@ function dispatchPerAts(
       // per-tenant domain_id is discovered from the board page itself, so no
       // metadata is needed (same engine as isolvedhire, different host).
       return scrapeApplicantpoolTenant(opts);
+    case "rippling":
+      // Slug-only tenancy: the public API is
+      // `api.rippling.com/platform/api/ats/v1/board/{slug}/jobs`, so no
+      // metadata is needed. The list carries no date/description, so the
+      // adapter fans out a bounded detail GET per role to enrich them.
+      return scrapeRipplingTenant(opts);
   }
 }

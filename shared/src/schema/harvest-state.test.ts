@@ -42,7 +42,7 @@ describe("HarvestStateSchema", () => {
     expect(() =>
       HarvestStateSchema.parse({
         schema_version: HARVEST_STATE_SCHEMA_VERSION,
-        ats: "rippling",
+        ats: "not-a-real-ats",
         snapshots_processed: [],
         tenant_count: 0,
         last_updated_at: "2026-04-30T00:00:00Z",

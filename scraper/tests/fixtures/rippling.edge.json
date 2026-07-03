@@ -1,0 +1,38 @@
+[
+  {
+    "uuid": null,
+    "name": "No UUID Role",
+    "url": "https://ats.rippling.com/edgeco/jobs/x",
+    "workLocation": { "label": "Austin, TX" }
+  },
+  {
+    "uuid": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    "name": "   ",
+    "url": "https://ats.rippling.com/edgeco/jobs/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    "workLocation": { "label": "Austin, TX" }
+  },
+  {
+    "uuid": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+    "name": "Off-Host URL Role",
+    "url": "https://evil.example.com/steal/bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+    "workLocation": { "label": "Austin, TX" }
+  },
+  {
+    "uuid": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+    "name": "Future Dated Role",
+    "url": "https://ats.rippling.com/edgeco/jobs/cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+    "workLocation": { "label": "Seattle, WA" }
+  },
+  {
+    "uuid": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "name": "Duplicate Role",
+    "url": "https://ats.rippling.com/edgeco/jobs/dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "workLocation": { "label": "Denver, CO" }
+  },
+  {
+    "uuid": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "name": "Duplicate Role",
+    "url": "https://ats.rippling.com/edgeco/jobs/dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "workLocation": { "label": "Denver, CO" }
+  }
+]

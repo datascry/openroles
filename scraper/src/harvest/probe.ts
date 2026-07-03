@@ -120,6 +120,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // tenants dead because the placeholder carries no `courierCurrentRouteData`
   // domain_id (same engine + convention as isolvedhire).
   applicantpool: (slug) => `https://${slug}.applicantpool.com/jobs/`,
+  // Rippling: the public board list API is the signal (200 + a JSON array on
+  // a live tenant, 404 `RESOURCE_NOT_FOUND` on an unknown slug — verified
+  // live). The whole board is one small array so no size param is needed.
+  rippling: (slug) => `https://api.rippling.com/platform/api/ats/v1/board/${slug}/jobs`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
   // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe

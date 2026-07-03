@@ -609,6 +609,30 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches rippling from the slug alone (list + detail fan-out)", async () => {
+    const board = "https://api.rippling.com/platform/api/ats/v1/board/acme-careers";
+    server.use(
+      http.get(`${board}/jobs`, () => HttpResponse.json(readFixture("rippling.small.json"))),
+      http.get(`${board}/jobs/:uuid`, ({ params }) => {
+        const details = readFixture("rippling.details.json") as Record<string, unknown>;
+        const record = details[params["uuid"] as string];
+        return record ? HttpResponse.json(record) : HttpResponse.json({});
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "rippling",
+        tenants: [{ slug: "acme-careers", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches jibeapply against a vanity CNAME via metadata.host", async () => {
     server.use(
       http.get("https://careers.acme-example.com/api/jobs", () =>
@@ -3875,7 +3899,7 @@ ${body}
     await expect(
       runScrape({
         input: {
-          ats: "rippling" as any,
+          ats: "not-a-real-ats" as any,
           tenants: [],
           userAgent: "openroles/0.0.0",
           contactUrl: "https://example.com",
