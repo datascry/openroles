@@ -87,6 +87,42 @@ export function assertTaleoTbeCws(cws: string): void {
   }
 }
 
+// PageUp career hosts. Every hosted board lives on one of three shared
+// PageUp hosts under `pageuppeople.com`. Anchoring to this exact allow-set
+// is the SSRF guard: a tenant-supplied host can only ever address a PageUp
+// career host, never an arbitrary origin. Lowercase only — metadata is
+// stored lowercase and a mixed-case host would dodge string comparisons.
+const PAGEUP_HOST = /^(?:careers|careersmanager|careersite)\.pageuppeople\.com$/;
+
+export function assertPageupHost(host: string): void {
+  if (!PAGEUP_HOST.test(host)) {
+    throw new HttpError("permanent", `pageup host rejected: ${JSON.stringify(host)}`);
+  }
+}
+
+// PageUp pod instance — the numeric first path segment of every board URL
+// (`438`, `959`, `541`). Digits only; anything else would inject extra path
+// segments into the request URL.
+const PAGEUP_INSTANCE = /^[0-9]{1,9}$/;
+
+export function assertPageupInstance(instance: string): void {
+  if (!PAGEUP_INSTANCE.test(instance)) {
+    throw new HttpError("permanent", `pageup instance rejected: ${JSON.stringify(instance)}`);
+  }
+}
+
+// PageUp customer clientkey — the second path segment selecting which board
+// on the pod to read (`caw`, `cw`, `ce`). Lowercase alphanumeric + hyphen,
+// the same DNS-label shape the customer codes take; it flows into the
+// request path so a stricter-than-necessary guard is deliberate.
+const PAGEUP_CLIENTKEY = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
+
+export function assertPageupClientKey(clientKey: string): void {
+  if (!PAGEUP_CLIENTKEY.test(clientKey)) {
+    throw new HttpError("permanent", `pageup clientkey rejected: ${JSON.stringify(clientKey)}`);
+  }
+}
+
 export function dedupeById(jobs: Job[]): Job[] {
   const seen = new Set<string>();
   const out: Job[] = [];

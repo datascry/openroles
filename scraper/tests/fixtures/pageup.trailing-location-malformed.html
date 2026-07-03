@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="results-list">
+<ul id="search-results-content">
+  <li class="joblisting">
+    <h3><a class="job-link" href="/438/caw/en/job/8001/first-role">First Role</a></h3>
+    <span class="location">Perth</span>
+  </li>
+  <li class="joblisting">
+    <h3><a class="job-link" href="/438/caw/en/job/8002/last-role-no-li">Last Role No Li</a></h3>
+</ul>
+</div>
+<!-- The final row is malformed: its own `</li>` is missing. A "suggested
+     roles" widget after the list carries its own location span, which the
+     last row must NOT borrow — the scan is capped at `</ul>`. -->
+<div class="suggested-roles">
+  <span class="location">Sydney</span>
+</div>
+</body>
+</html>

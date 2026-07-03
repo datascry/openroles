@@ -112,6 +112,10 @@ jobs:
           - applitrack
           - hiringthing
           - hireology
+          # PageUp boards on the shared *.pageuppeople.com hosts; CDX
+          # discovery captures the clientkey (slug) plus host/instance
+          # metadata from the `/{instance}/{clientkey}/en/listing` path.
+          - pageup
     steps:
       - uses: actions/checkout@v7
 
@@ -308,6 +312,11 @@ jobs:
           - apploi
           - taleotbe
           - workstream
+          # PageUp boards; CDX-discovered (also in the discover matrix above)
+          # and reprobed weekly. Composite (host, instance, clientkey)
+          # tenancy, so seeds missing metadata stay transient until harvest
+          # completes the composite (same as taleotbe).
+          - pageup
     steps:
       - uses: actions/checkout@v7
 

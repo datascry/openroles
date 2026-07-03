@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 48 adapters in `ATS_IDS`, not only these examples):
+all 49 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -105,6 +105,7 @@ all 48 adapters in `ATS_IDS`, not only these examples):
 | careerplug | GET `{slug}.careerplug.com/jobs`, then `?page=N` up to the last page the `.pagination` nav announces | HTML cards (~30/page); each `<a href="/jobs/{id}">` carries title, `ST-City-ZIP` location and post date — parsed directly, no detail fetch |
 | jibeapply | GET `{host}/api/jobs?page=N&limit=100` (host = `{slug}.jibeapply.com`, or an optional vanity `metadata.host`) | JSON `{ jobs: [{ data: {…} }], totalCount }`; 1-based `page` + `limit` paginate until totalCount reached; full HTML description ships in the list payload (no detail fetch). Job url = `{host}/jobs/{req_id}` — the payload's `apply_url` is a login deep-link, not a public page |
 | hireology | GET `api.hireology.com/v2/public/careers/{slug}?page={n}&page_size=100` | JSON `{ data: [...], count }`; each row carries full HTML description + locations + career-site deep link; paginate `page` until `count` reached |
+| pageup | GET `{metadata.host}/{metadata.instance}/{metadata.clientkey}/en/listing/`, then `?page=N` | server-rendered HTML; one or more `job-link` anchors per role (title + `/en/job/{id}/{slug}` deep link) plus a `location` cell — parsed directly, no detail fetch. Composite (host, instance, clientkey) tenancy, slug = `{instance}-{clientkey}` (a clientkey is not globally unique); exposes only an application close-date, so posted_at is never emitted. Walk terminates on the first page with no fresh job ids (the load-more button and facet counts are not reliable end signals) |
 
 ## Invariants
 

@@ -39,6 +39,7 @@ import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapeOracleCloudTenant } from "./ats/oraclecloud.ts";
+import { scrapePageupTenant } from "./ats/pageup.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
@@ -466,5 +467,29 @@ function dispatchPerAts(
       // per-tenant domain_id is discovered from the board page itself, so no
       // metadata is needed (same engine as isolvedhire, different host).
       return scrapeApplicantpoolTenant(opts);
+    case "pageup": {
+      // PageUp hosted boards. Tenant identity is the composite
+      // (host, instance, clientkey) with the slug `{instance}-{clientkey}`:
+      // the shared PageUp career host (`careers.pageuppeople.com`), the
+      // numeric pod id (`438`) and the customer clientkey (`caw`). A clientkey
+      // is not globally unique, so none of the three is slug-derivable and a
+      // tenant missing any is marked dead — same convention as workday's
+      // host/site and taleotbe's host/instance/cws.
+      const host = opts.tenant.metadata?.["host"];
+      const instance = opts.tenant.metadata?.["instance"];
+      const clientKey = opts.tenant.metadata?.["clientkey"];
+      if (host === undefined || instance === undefined || clientKey === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "pageup tenant missing metadata.host, metadata.instance or metadata.clientkey",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapePageupTenant({ ...opts, host, instance, clientKey });
+    }
   }
 }

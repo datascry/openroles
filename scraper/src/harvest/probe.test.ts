@@ -191,6 +191,49 @@ describe("probeUrlForWithMetadata", () => {
     ).toBeUndefined();
   });
 
+  it("composes the pageup listing URL from host + instance + clientkey", () => {
+    expect(
+      probeUrlForWithMetadata("pageup", "438-caw", {
+        host: "careers.pageuppeople.com",
+        instance: "438",
+        clientkey: "caw",
+      }),
+    ).toBe("https://careers.pageuppeople.com/438/caw/en/listing/");
+  });
+
+  it("rejects pageup with missing or malformed composite metadata", () => {
+    // Missing clientkey → composite incomplete.
+    expect(
+      probeUrlForWithMetadata("pageup", "438-caw", {
+        host: "careers.pageuppeople.com",
+        instance: "438",
+      }),
+    ).toBeUndefined();
+    // Host outside the pageuppeople.com allow-set → assertPageupHost rejects.
+    expect(
+      probeUrlForWithMetadata("pageup", "438-caw", {
+        host: "careers.pageuppeople.com.evil.com",
+        instance: "438",
+        clientkey: "caw",
+      }),
+    ).toBeUndefined();
+    // Path-injecting instance and clientkey are rejected.
+    expect(
+      probeUrlForWithMetadata("pageup", "438-caw", {
+        host: "careers.pageuppeople.com",
+        instance: "438/admin",
+        clientkey: "caw",
+      }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("pageup", "438-caw", {
+        host: "careers.pageuppeople.com",
+        instance: "438",
+        clientkey: "caw/../uat",
+      }),
+    ).toBeUndefined();
+  });
+
   it("composes the phenom search-results URL and defaults locale to us/en", () => {
     expect(probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com" })).toBe(
       "https://careers.acme.com/us/en/search-results",
@@ -266,6 +309,57 @@ describe("probeOne", () => {
     const fetchFn = mock(async () => new Response("[]", { status: 200 }));
     const t = await probeOne("greenhouse", "stripe", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("live");
+  });
+
+  const PAGEUP_META = {
+    host: "careers.pageuppeople.com",
+    instance: "438",
+    clientkey: "caw",
+  };
+
+  it("probes pageup with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    let seenUrl: string | undefined;
+    const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      seenUrl = typeof input === "string" ? input : input.url;
+      return new Response("<ul id='search-results-content'></ul>", { status: 200 });
+    });
+    const t = await probeOne("pageup", "438-caw", clientWith(fetchFn), OBSERVED_AT, PAGEUP_META);
+    expect(t.status).toBe("live");
+    expect(t.metadata).toEqual(PAGEUP_META);
+    expect(seenRedirect).toBe("manual");
+    expect(seenUrl).toBe("https://careers.pageuppeople.com/438/caw/en/listing/");
+  });
+
+  it("classifies a pageup dead clientkey (same-host 302 to the pod default) as dead", async () => {
+    // A dead clientkey bounces same-host to the pod's default board, which
+    // then serves 200 — so following the redirect would look live. The
+    // redirect:manual probe reads the 302 itself as the dead signal.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "/438/caw/en/listing" },
+        }),
+    );
+    const t = await probeOne("pageup", "438-zzznope", clientWith(fetchFn), OBSERVED_AT, {
+      host: "careers.pageuppeople.com",
+      instance: "438",
+      clientkey: "zzznope",
+    });
+    expect(t.status).toBe("dead");
+  });
+
+  it("keeps a pageup tenant transient when composite metadata is missing", async () => {
+    const fetchFn = mock(async () => new Response("", { status: 200 }));
+    const t = await probeOne("pageup", "438-caw", clientWith(fetchFn), OBSERVED_AT, {
+      host: "careers.pageuppeople.com",
+      instance: "438",
+    });
+    expect(t.status).toBe("transient_failure");
+    // Never fetched — the URL builder returned undefined before any request.
+    expect(fetchFn).not.toHaveBeenCalled();
   });
 
   it("probes jazzhr with redirect:manual and classifies a direct 200 as live", async () => {
