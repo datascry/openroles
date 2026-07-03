@@ -10,6 +10,7 @@ import {
 import pLimit from "p-limit";
 import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
 import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
+import { scrapeApplicantpoolTenant } from "./ats/applicantpool.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
 import { scrapeApplitrackTenant } from "./ats/applitrack.ts";
@@ -460,5 +461,10 @@ function dispatchPerAts(
       // Slug-only tenancy: the public API is
       // `api.hireology.com/v2/public/careers/{slug}`, so no metadata is needed.
       return scrapeHireologyTenant(opts);
+    case "applicantpool":
+      // Slug-only tenancy: the board host is `{slug}.applicantpool.com`; the
+      // per-tenant domain_id is discovered from the board page itself, so no
+      // metadata is needed (same engine as isolvedhire, different host).
+      return scrapeApplicantpoolTenant(opts);
   }
 }

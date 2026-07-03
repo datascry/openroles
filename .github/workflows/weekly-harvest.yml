@@ -99,6 +99,19 @@ jobs:
           # Shared-host connector; CDX discovery captures the numeric cid
           # query parameter on recruit.hirebridge.com URLs.
           - hirebridge
+          # ApplicantPool hosted boards; CDX discovery captures the subdomain
+          # slug on *.applicantpool.com URLs (same shape as bamboohr/breezy).
+          - applicantpool
+          # Subdomain/path connectors with real CDX discovery patterns whose
+          # tenant lists shipped seed-only. Bootstrap once (mode=bootstrap)
+          # to mint the historical corpus, then incremental discovery keeps
+          # them fresh like every other pattern-based ATS.
+          - careerplug
+          - jibeapply
+          - isolvedhire
+          - applitrack
+          - hiringthing
+          - hireology
     steps:
       - uses: actions/checkout@v7
 
@@ -273,15 +286,28 @@ jobs:
           # SchoolSpring: single-tenant constant, reprobed like the
           # other single-tenant customs above.
           - schoolspring
-          # Sitemap-seeded connectors. In mode=sitemap the sitemap stage
-          # seeds net-new isolvedhire/hiringthing slugs (and re-asserts
-          # jazzhr) as transient_failure; they must be reprobed here to be
-          # promoted to `live`. probe.ts has URL builders for both.
-          - isolvedhire
-          - hiringthing
           # Shared-host connector (recruit.hirebridge.com, tenant = numeric
           # cid); also in the discover matrix above.
           - hirebridge
+          # ApplicantPool hosted boards ({slug}.applicantpool.com); CDX-
+          # discovered (also in the discover matrix above), reprobed weekly.
+          - applicantpool
+          # Remaining 2026-07 connectors. The first six are also in the
+          # discover matrix; the last three are metadata-tenancy (no CDX
+          # pattern) so they are operator-seeded and reprobe-only, like
+          # workday/oraclecloud. All need weekly reprobing so seeds don't
+          # decay out of `live` and transient failures can recover.
+          # isolvedhire/hiringthing are also seeded by the mode=sitemap
+          # stage (as transient_failure), and this reprobe promotes them.
+          - careerplug
+          - jibeapply
+          - isolvedhire
+          - applitrack
+          - hiringthing
+          - hireology
+          - apploi
+          - taleotbe
+          - workstream
     steps:
       - uses: actions/checkout@v7
 
