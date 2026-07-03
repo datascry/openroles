@@ -390,6 +390,19 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "applitrack",
+    // Frontline AppliTrack district boards share the host
+    // `www.applitrack.com`; the district slug is the first path segment
+    // (`www.applitrack.com/{district}/onlineapp/...`), the same path-based
+    // shape as smartrecruiters/jobvite. Beyond the generic path-word deny
+    // list, the host also serves shared assets under `olacommon` and (on
+    // some captures) bare `onlineapp` links, so both are excluded to keep
+    // CDX asset/deep-link captures from minting phantom tenants.
+    cdxQuery: "www.applitrack.com/*",
+    regex: /www\.applitrack\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: new Set<string>([...PATH_DENY, "olacommon", "onlineapp"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

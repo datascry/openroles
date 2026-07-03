@@ -12,6 +12,7 @@ import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
 import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
+import { scrapeApplitrackTenant } from "./ats/applitrack.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBrassringTenant } from "./ats/brassring.ts";
@@ -342,5 +343,10 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "applitrack":
+      // Slug-only tenancy: the district board lives under
+      // `www.applitrack.com/{slug}/onlineapp/` and one Output.asp GET
+      // carries every posting, so no metadata is needed.
+      return scrapeApplitrackTenant(opts);
   }
 }

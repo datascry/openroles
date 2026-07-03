@@ -1,0 +1,26 @@
+[
+  {
+    "ats": "applitrack",
+    "slug": "carolinecounty",
+    "display_name": "Caroline County Public Schools",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "applitrack",
+    "slug": "tesd",
+    "display_name": "Tredyffrin/Easttown School District",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "applitrack",
+    "slug": "lmusd",
+    "display_name": "Lucia Mar Unified School District",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

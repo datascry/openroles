@@ -73,6 +73,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // Frontline AppliTrack: the Output.asp posting stream itself is the
+  // cheapest reliable signal — the shared host answers 200 for a live
+  // district and an honest 404 for an unknown path slug (verified live:
+  // no redirect-to-marketing dance, so no REDIRECT_HOST_MEANS_DEAD entry).
+  applitrack: (slug) => `https://www.applitrack.com/${slug}/onlineapp/jobpostings/Output.asp?all=1`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };
@@ -330,6 +335,8 @@ const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 // ATSes despite the host varying per-tenant.
 const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   workable: 1,
+  // Every applitrack probe hits the one shared host www.applitrack.com.
+  applitrack: 2,
   breezy: 2,
   jobvite: 2,
   smartrecruiters: 2,
@@ -346,6 +353,7 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
 // concurrency cap above.
 const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   workable: 800,
+  applitrack: 200,
   // breezy.hr rate-limits across all subdomains (see PROBE_HOST_CONCURRENCY);
   // ~2.5 probes/s was observed safe, so 700ms × 2-concurrent stays under it.
   breezy: 700,

@@ -73,6 +73,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // Path-per-tenant on a shared host: the Output.asp posting stream is
+    // the probe (200 on a live district, honest 404 on an unknown slug).
+    expect(probeUrlFor("applitrack", "carolinecounty")).toBe(
+      "https://www.applitrack.com/carolinecounty/onlineapp/jobpostings/Output.asp?all=1",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

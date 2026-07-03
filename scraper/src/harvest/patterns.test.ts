@@ -140,6 +140,21 @@ describe("harvestPatternFor", () => {
     }
   });
 
+  it("applitrack pattern captures the district path segment on the shared host", () => {
+    const { regex, denyList } = harvestPatternFor("applitrack");
+    const sample =
+      "https://www.applitrack.com/carolinecounty/onlineapp/jobpostings/view.asp?AppliTrackJobId=123 " +
+      "https://www.applitrack.com/tesd/onlineapp/default.aspx " +
+      "https://www.applitrack.com/olacommon/jobpostings/css/output.css";
+    const matches = Array.from(sample.matchAll(regex)).map((m) => m[1] as string);
+    expect(matches).toContain("carolinecounty");
+    expect(matches).toContain("tesd");
+    // Shared asset / app paths on the host must never mint tenants.
+    expect(denyList.has("olacommon")).toBe(true);
+    expect(denyList.has("onlineapp")).toBe(true);
+    expect(denyList.has("admin")).toBe(true);
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("rippling" as any)).toThrow();
   });

@@ -276,6 +276,27 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches applitrack from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://www.applitrack.com/unionsd/onlineapp/jobpostings/Output.asp",
+        () => new HttpResponse(readFixtureText("applitrack.listing.js")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applitrack",
+        tenants: [{ slug: "unionsd", display_name: "Union School District" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

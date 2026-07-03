@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Frontline AppliTrack K-12 recruiting boards. Every district gets a
+  // public board on the shared host `www.applitrack.com/{district}/…`;
+  // the `onlineapp/jobpostings/Output.asp?all=1` endpoint streams a
+  // JavaScript document of `document.write` calls whose concatenated
+  // payloads are the full HTML for every open posting — one GET per
+  // tenant, no pagination, no detail fetch. Tenant identity = the
+  // district path slug, so no metadata is required. Verified seeds:
+  // Caroline County Public Schools, Tredyffrin/Easttown School District,
+  // Lucia Mar Unified School District.
+  "applitrack",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];
