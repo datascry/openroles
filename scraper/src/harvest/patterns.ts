@@ -542,6 +542,17 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /careers\.hireology\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
     denyList: PATH_DENY,
   },
+  {
+    ats: "applicantpool",
+    // ApplicantPool hosted boards live at `{slug}.applicantpool.com`; the
+    // tenant slug is the subdomain label (same shape as bamboohr/breezy).
+    // `feeds` is the platform-wide sitemap host
+    // (feeds.applicantpool.com/site_map_index.xml), not a tenant, so it
+    // joins the standard subdomain deny terms.
+    cdxQuery: "*.applicantpool.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applicantpool\.com/gi,
+    denyList: new Set<string>([...SUBDOMAIN_DENY, "feeds"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript">
+	// Our component loader function which waits until our `module` files have been loaded
+	window.bootstrapVue = async function(mountSelector, componentsToLoad, mountingData) {
+		const csrfToken = "";
+		const isMobile = 0;
+
+		// Default value for the mounting data if none was given
+		mountingData = mountingData || {};
+
+		// Add the csrf token to every component's mountingData
+		mountingData.csrfToken = csrfToken;
+		mountingData.isMobile = isMobile;
+
+		if(typeof mountingData.courierCurrentRouteData === 'undefined') {
+
+			mountingData.courierCurrentRouteData = {"domain_id":"313","career_site_name":"Scientific Drilling Inc.","root_domain_title":"ApplicantPool","root_domain_id":"10","organization_id":"247","organization_name":"Scientific Drilling Inc.","user_id":0,"use_autocomplete":"1","csrfToken":""};
+		}
+
+		// Wait until the initVue exists
+		while (!window.initVue) {
+			await sleep(50);
+		}
+
+		return await initVue(mountSelector, componentsToLoad, mountingData, {"primary":"#005587","secondary":"#e6e6e6","accent":"#b1b1b1"});
+	}
+</script>
+
+<script type="text/javascript">
+	window.bootstrapVue('#toaster', [ 'WaveToaster' ]);
+</script>
+<body>
+<div id="job-listings-mount"></div>
+</body>
+</html>

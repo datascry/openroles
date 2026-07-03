@@ -208,6 +208,17 @@ export const ATS_IDS = Object.freeze([
   // = slug (no metadata required). Verified seeds: three Home Instead
   // franchise boards.
   "hireology",
+  // ApplicantPool hosted boards. The same Vue board engine as isolvedhire /
+  // applicantpro, on the `{slug}.applicantpool.com` host: the public board at
+  // `/jobs/` embeds a `courierCurrentRouteData` blob with the per-tenant
+  // `domain_id`; `/core/jobs/{domainId}` then returns the entire job list
+  // (title, city/state, workplace type, posting date, pay range, canonical
+  // job URL) in one unpaginated call. The platform publishes a live-tenant
+  // sitemap at feeds.applicantpool.com/site_map_index.xml — a discovery
+  // surface the applicantpro adapter's `.applicantpro.com` host never reaches.
+  // Tenant identity = slug (subdomain), so no metadata is required. Verified
+  // seeds: Scientific Drilling, Travel Portland, First Federal.
+  "applicantpool",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

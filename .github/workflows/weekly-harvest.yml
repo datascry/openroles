@@ -93,6 +93,9 @@ jobs:
           # Shared-host connector; CDX discovery captures the numeric cid
           # query parameter on recruit.hirebridge.com URLs.
           - hirebridge
+          # ApplicantPool hosted boards; CDX discovery captures the subdomain
+          # slug on *.applicantpool.com URLs (same shape as bamboohr/breezy).
+          - applicantpool
           # Subdomain/path connectors with real CDX discovery patterns whose
           # tenant lists shipped seed-only. Bootstrap once (mode=bootstrap)
           # to mint the historical corpus, then incremental discovery keeps
@@ -227,6 +230,9 @@ jobs:
           # Shared-host connector (recruit.hirebridge.com, tenant = numeric
           # cid); also in the discover matrix above.
           - hirebridge
+          # ApplicantPool hosted boards ({slug}.applicantpool.com); CDX-
+          # discovered (also in the discover matrix above), reprobed weekly.
+          - applicantpool
           # Remaining 2026-07 connectors. The first six are also in the
           # discover matrix; the last three are metadata-tenancy (no CDX
           # pattern) so they are operator-seeded and reprobe-only, like
