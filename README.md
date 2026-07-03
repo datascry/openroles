@@ -1,6 +1,6 @@
 # openroles
 
-**A daily-refreshed, privacy-respecting job board across 36 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
+**A daily-refreshed, privacy-respecting job board across 47 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
 
 [![Build + deploy](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml)
 [![Nightly scrape](https://github.com/datascry/openroles/actions/workflows/scrape.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/scrape.yml)
@@ -32,7 +32,7 @@
 
 ## What it is
 
-`openroles` scrapes the public APIs of 32 hiring platforms each
+`openroles` scrapes the public APIs of 47 hiring platforms each
 night, normalises the postings into a shared schema, and ships them
 to your browser as a set of content-hashed JSON.gz chunks. Filter,
 sort, search, and pagination all run client-side over the in-memory
@@ -98,19 +98,22 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
 
 ## Coverage
 
-Thirty-six ATSes. The multi-tenant set, weighted by tenant volume in
+Forty-seven ATSes. The multi-tenant set, weighted by tenant volume in
 the public Common Crawl index:
 
 ```
 Greenhouse · Lever · Ashby · BambooHR · Workday · iCIMS · Recruitee
 Breezy · Personio · Workable · Teamtailor · SmartRecruiters · CSOD
-Taleo · UltiPro · Jobvite · Zoho Recruit · Talentlyft · Pinpoint HQ
-ApplicantPro · ApplicantStack · Homerun · Factorial · Eightfold
-SuccessFactors · BrassRing · Oracle HCM Cloud · JazzHR · Phenom
-HRMDirect
+Taleo · Taleo Business Edition · UltiPro · Jobvite · Zoho Recruit
+Talentlyft · Pinpoint HQ · ApplicantPro · ApplicantStack · Homerun
+Factorial · Eightfold · SuccessFactors · BrassRing · Oracle HCM Cloud
+JazzHR · Phenom · HRMDirect · Jibe · CareerPlug · Hireology
+isolved Hire · AppliTrack · HiringThing · Apploi · Hirebridge
+Workstream
 ```
 
-Plus two vendor-agnostic harvesters and four per-company custom
+Plus two vendor-agnostic harvesters, a single-tenant education board
+(**SchoolSpring**, ~100k K-12 roles), and four per-company custom
 adapters:
 
 - **JSON-LD harvester** — walks a per-tenant sitemap and extracts
