@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 49 adapters in `ATS_IDS`, not only these examples):
+all 50 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -106,6 +106,7 @@ all 49 adapters in `ATS_IDS`, not only these examples):
 | jibeapply | GET `{host}/api/jobs?page=N&limit=100` (host = `{slug}.jibeapply.com`, or an optional vanity `metadata.host`) | JSON `{ jobs: [{ data: {…} }], totalCount }`; 1-based `page` + `limit` paginate until totalCount reached; full HTML description ships in the list payload (no detail fetch). Job url = `{host}/jobs/{req_id}` — the payload's `apply_url` is a login deep-link, not a public page |
 | hireology | GET `api.hireology.com/v2/public/careers/{slug}?page={n}&page_size=100` | JSON `{ data: [...], count }`; each row carries full HTML description + locations + career-site deep link; paginate `page` until `count` reached |
 | manatal | GET `www.careers-page.com/{slug}` (server-rendered link list of `/{slug}/job/{code}` anchors), then walk each linked job page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core); no list JSON endpoint, so a bounded N+1 detail fan-out; dead/unknown slug answers a clean 404 |
+| rippling | GET `api.rippling.com/platform/api/ats/v1/board/{slug}/jobs` (top-level array, unpaginated), then a bounded concurrency-limited detail GET `…/jobs/{uuid}` per role | JSON array of list rows (uuid, title, department, workLocation, canonical url); the list carries no date/description, so each detail GET adds the HTML `description.role`, `createdOn` post date, `workLocations`, `payRangeDetails` and `companyName`. Detail is enrichment — a failed detail GET keeps the list-only row; a board past the 500-role cap is emitted list-only with a "capped" note |
 
 ## Invariants
 

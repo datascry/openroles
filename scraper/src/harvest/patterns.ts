@@ -571,6 +571,16 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /www\.careers-page\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?=[/?#\s"'<>]|$)/gi,
     denyList: new Set<string>([...PATH_DENY, "job"]),
   },
+  {
+    ats: "rippling",
+    // Rippling boards are path-addressed on the shared host
+    // (ats.rippling.com/{slug}/jobs); the tenant slug is the first path
+    // segment (same shape as hireology/smartrecruiters). `internal` is the
+    // one path Rippling's robots.txt disallows, so it joins the deny terms.
+    cdxQuery: "ats.rippling.com/*",
+    regex: /ats\.rippling\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: new Set<string>([...PATH_DENY, "internal"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

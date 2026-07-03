@@ -104,6 +104,11 @@ describe("probeUrlFor", () => {
     // Path-per-tenant board on the shared host: the board page is the probe
     // (200 on a live slug, honest 404 on an unknown slug — verified live).
     expect(probeUrlFor("manatal", "stripe")).toBe("https://www.careers-page.com/stripe");
+    // Path-per-tenant board: the public board list API is the probe
+    // (200 array on a live slug, 404 on an unknown one).
+    expect(probeUrlFor("rippling", "routeware-careers")).toBe(
+      "https://api.rippling.com/platform/api/ats/v1/board/routeware-careers/jobs",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

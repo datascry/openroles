@@ -308,7 +308,21 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("api")).toBe(true);
   });
 
+  it("rippling pattern extracts the first path segment on the shared board host", () => {
+    const { regex, denyList } = harvestPatternFor("rippling");
+    const sample =
+      "https://ats.rippling.com/routeware-careers/jobs/4345711d-74af-400f-8872-8b1b5393dcdf " +
+      "https://ats.rippling.com/fifth-season-careers/jobs?utm=x " +
+      "https://ats.rippling.com/internal/health";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1] as string);
+    expect(matches).toContain("routeware-careers");
+    expect(matches).toContain("fifth-season-careers");
+    // The one path Rippling's robots.txt disallows is not a tenant.
+    expect(denyList.has("internal")).toBe(true);
+  });
+
   it("throws for unknown ats id", () => {
-    expect(() => harvestPatternFor("rippling" as any)).toThrow();
+    expect(() => harvestPatternFor("not-a-real-ats" as any)).toThrow();
   });
 });

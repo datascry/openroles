@@ -44,6 +44,7 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeRipplingTenant } from "./ats/rippling.ts";
 import { scrapeSchoolSpringTenant } from "./ats/schoolspring.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
@@ -471,5 +472,11 @@ function dispatchPerAts(
       // Slug-only tenancy: the board is `www.careers-page.com/{slug}` and every
       // job URL is `.../{slug}/job/{code}`, so no metadata is needed.
       return scrapeManatalTenant(opts);
+    case "rippling":
+      // Slug-only tenancy: the public API is
+      // `api.rippling.com/platform/api/ats/v1/board/{slug}/jobs`, so no
+      // metadata is needed. The list carries no date/description, so the
+      // adapter fans out a bounded detail GET per role to enrich them.
+      return scrapeRipplingTenant(opts);
   }
 }

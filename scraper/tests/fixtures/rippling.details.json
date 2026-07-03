@@ -1,0 +1,41 @@
+{
+  "4345711d-74af-400f-8872-8b1b5393dcdf": {
+    "uuid": "4345711d-74af-400f-8872-8b1b5393dcdf",
+    "name": "Account Executive - Municipalities",
+    "description": {
+      "company": "<p>About Acme</p>",
+      "role": "<p style=\"font-size:12pt;\">Own the <b>Mountain West</b> municipal territory &amp; grow the book of business.</p><ul><li>Prospect and close new logos.</li></ul>"
+    },
+    "workLocations": ["Remote (United States)"],
+    "department": { "name": "440-Account Executive" },
+    "employmentType": { "label": "SALARIED_FT", "id": "Salaried, full-time" },
+    "createdOn": "2026-05-14T08:06:50.603000-07:00",
+    "companyName": "Acme, Inc.",
+    "payRangeDetails": [
+      {
+        "location": "Remote (United States)",
+        "currency": "USD",
+        "frequency": "YEAR",
+        "rangeStart": 200000.0,
+        "rangeEnd": 250000.0,
+        "isRemote": true
+      }
+    ],
+    "url": "https://ats.rippling.com/acme-careers/jobs/4345711d-74af-400f-8872-8b1b5393dcdf"
+  },
+  "9d72e71d-127c-4083-8126-fb198fce8141": {
+    "uuid": "9d72e71d-127c-4083-8126-fb198fce8141",
+    "name": "Field Service Technician",
+    "description": {
+      "company": "<p>About Acme</p>",
+      "role": "   "
+    },
+    "workLocations": ["Portland, OR"],
+    "department": { "name": "920-Field Services" },
+    "employmentType": { "label": "HOURLY_FT", "id": "Hourly, full-time" },
+    "createdOn": "2026-04-02T10:30:00.000000-07:00",
+    "companyName": "Acme, Inc.",
+    "payRangeDetails": [],
+    "url": "https://ats.rippling.com/acme-careers/jobs/9d72e71d-127c-4083-8126-fb198fce8141"
+  }
+}
