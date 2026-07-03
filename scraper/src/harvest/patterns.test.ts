@@ -140,6 +140,20 @@ describe("harvestPatternFor", () => {
     }
   });
 
+  it("hireology pattern extracts the first path segment on the shared SPA host", () => {
+    const { regex, denyList } = harvestPatternFor("hireology");
+    const sample =
+      "https://careers.hireology.com/homeinsteadoftheblackhills/2784438/description " +
+      "https://careers.hireology.com/homeinstead-evansvillein?utm=x " +
+      "https://careers.hireology.com/api/health";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1] as string);
+    expect(matches).toContain("homeinsteadoftheblackhills");
+    expect(matches).toContain("homeinstead-evansvillein");
+    // Reserved path words on the shared host are not tenants.
+    expect(denyList.has("api")).toBe(true);
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("rippling" as any)).toThrow();
   });

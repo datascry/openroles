@@ -73,6 +73,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // Path-per-tenant SPA board: the public careers API is the probe
+    // (404 on unknown slugs), sized to one row.
+    expect(probeUrlFor("hireology", "stripe")).toBe(
+      "https://api.hireology.com/v2/public/careers/stripe?page=1&page_size=1",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

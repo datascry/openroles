@@ -73,6 +73,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // Hireology: the public careers API is the signal (200 + job JSON on a
+  // live tenant, 404 on an unknown slug — verified live); page_size=1
+  // keeps the probe cheap.
+  hireology: (slug) => `https://api.hireology.com/v2/public/careers/${slug}?page=1&page_size=1`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };
