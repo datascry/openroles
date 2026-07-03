@@ -1,0 +1,26 @@
+[
+  {
+    "ats": "isolvedhire",
+    "slug": "davidsonoil",
+    "display_name": "Davidson Oil",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "isolvedhire",
+    "slug": "goflyingstar",
+    "display_name": "Flying Star Transport",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "isolvedhire",
+    "slug": "safetireauto",
+    "display_name": "Safe Tire & Auto",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

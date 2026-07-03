@@ -3,6 +3,9 @@ import pLimit from "p-limit";
 import {
   assertOracleHost,
   assertOracleSite,
+  assertTaleoTbeCws,
+  assertTaleoTbeHost,
+  assertTaleoTbeInstance,
   assertWorkdayHost,
   assertWorkdaySite,
   isSafeFetchHost,
@@ -36,8 +39,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   smartrecruiters: (slug) =>
     `https://api.smartrecruiters.com/v1/companies/${slug}/postings?limit=1`,
   csod: (slug) => `https://${slug}.csod.com/`,
-  // Taleo career sites live under either `{tenant}.taleo.net` or the TBE
-  // pool `{tenant}.tbe.taleo.net`; the careersection root returns 200 on both.
+  // Taleo enterprise career sites live under `{tenant}.taleo.net`; the
+  // careersection root returns 200 on a live tenant. The TBE pool is a
+  // separate ATS (`taleotbe`) with composite metadata — see
+  // PROBE_URL_META below.
   taleo: (slug) => `https://${slug}.taleo.net/careersection/`,
   jobvite: (slug) => `https://jobs.jobvite.com/${slug}`,
   zohorecruit: (slug) => `https://${slug}.zohorecruit.com/jobs/Careers`,
@@ -73,6 +78,34 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // SchoolSpring is single-tenant, so the probe URL is fixed. The count
+  // endpoint is the cheapest authentication-free signal: a tiny JSON
+  // envelope (`{ success, value: <int> }`) instead of a job page.
+  schoolspring: () =>
+    "https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch?keyword=&location=&category=&gradelevel=&jobtype=&organization=",
+  // isolved Hire hosted boards: the public board page is the probe. Unknown
+  // subdomains 302-redirect on the SAME host to a `/notset.php` placeholder
+  // (so cross-host redirect detection doesn't apply); the scraper still
+  // classifies those tenants dead because the placeholder page carries no
+  // `courierCurrentRouteData` domain_id.
+  isolvedhire: (slug) => `https://${slug}.isolvedhire.com/jobs/`,
+  // Frontline AppliTrack: the Output.asp posting stream itself is the
+  // cheapest reliable signal — the shared host answers 200 for a live
+  // district and an honest 404 for an unknown path slug (verified live:
+  // no redirect-to-marketing dance, so no REDIRECT_HOST_MEANS_DEAD entry).
+  applitrack: (slug) => `https://www.applitrack.com/${slug}/onlineapp/jobpostings/Output.asp?all=1`,
+  // HiringThing hosted boards: the /api/rss.xml feed is the public signal
+  // (200 on a live tenant, even with an empty channel; an unknown
+  // subdomain 302-bounces to the vendor's www marketing site → dead).
+  hiringthing: (slug) => `https://${slug}.hiringthing.com/api/rss.xml`,
+  // Hirebridge: every board shares recruit.hirebridge.com, selected by a
+  // numeric cid (= the tenant slug). The listing page is the public
+  // signal: a live cid answers 200 directly, an unknown cid answers a
+  // same-host 302 to the vendor error page (see REDIRECT_PATH_MEANS_DEAD).
+  hirebridge: (slug) => `https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=${slug}`,
+  // CareerPlug: the paginated /jobs listing is the public signal (200 on a
+  // live tenant; nonexistent subdomain fails DNS → dead).
+  careerplug: (slug) => `https://${slug}.careerplug.com/jobs`,
   // Jibe hosted boards: a limit=1 listing call is the cheapest 200 on a
   // live tenant (the same endpoint the scraper pages through). Vanity-CNAME
   // tenants are operator-seeded and their default-host probe still answers.
@@ -83,6 +116,9 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   hireology: (slug) => `https://api.hireology.com/v2/public/careers/${slug}?page=1&page_size=1`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
+  // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe
+  // need composite metadata (host/site, board_id, locale,
+  // host/instance/cws) — see probeUrlForWithMetadata below.
 };
 
 // ATSes whose dead tenants answer a probe with a *cross-host* redirect to a
@@ -97,6 +133,24 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
 const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
   jazzhr: true,
   hrmdirect: true,
+  // Unknown `*.hiringthing.com` subdomains answer /api/rss.xml with a
+  // 302 to `www.hiringthing.com` (the vendor marketing site), which
+  // itself serves 403 — only the cross-host bounce is the dead signal.
+  hiringthing: true,
+};
+
+// ATSes whose dead tenants answer a probe with a *same-host* redirect to a
+// shared vendor error page — a cross-host check can't see it. When the
+// probed ATS has an entry here, the probe also runs with
+// `redirect: "manual"` and a 3xx whose Location matches the pattern is
+// dead; any other redirect stays live (same defensive posture as the
+// cross-host rule: only a provably-dead shape drops the tenant).
+const REDIRECT_PATH_MEANS_DEAD: Partial<Record<ATSId, RegExp>> = {
+  // Hirebridge bounces an unknown cid from the listing to
+  // `/v3/Application/AppErrMsg.aspx?cid={cid}&errorType=badurl`, which then
+  // serves HTTP 200 — so following the redirect would mark every dead cid
+  // live. Live cids answer the listing with a direct 200.
+  hirebridge: /\/AppErrMsg\.aspx/i,
 };
 
 // True when `location` (resolved against the probe URL) points at a different
@@ -235,6 +289,42 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     }
     return `https://${host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${site},limit=1,sortBy=POSTING_DATES_DESC`;
   },
+  apploi: (_slug, metadata) => {
+    // Apploi tenants are addressed by the verbatim `brand` name string on
+    // the shared search host. A size=1 brand query is the cheapest 200 and
+    // a strict prefix of the scrape flow; the brand is URL-encoded, and
+    // the same shape rules the adapter enforces (non-empty, no control
+    // characters, ≤256 chars) apply here so a malformed record stays
+    // transient rather than emitting a bad request.
+    const brand = metadata["brand"];
+    if (typeof brand !== "string" || brand.trim().length === 0) return undefined;
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: rejects control chars in an operator-seeded query value
+    if (brand.length > 256 || /[\x00-\x1f\x7f]/.test(brand)) return undefined;
+    return `https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=${encodeURIComponent(brand)}`;
+  },
+  taleotbe: (slug, metadata) => {
+    // Taleo Business Edition tenants are addressed by the composite
+    // (host, instance, cws) plus the org code (the slug). All three
+    // metadata keys are mandatory and validated exactly as the adapter
+    // does; a record missing any stays transient_failure until harvest
+    // (or an operator) completes the composite. The v2 searchResults
+    // page is the public board itself — 200 for a live org, a redirect
+    // chain into an error page otherwise.
+    const host = metadata["host"];
+    const instance = metadata["instance"];
+    const cws = metadata["cws"];
+    if (typeof host !== "string" || typeof instance !== "string" || typeof cws !== "string") {
+      return undefined;
+    }
+    try {
+      assertTaleoTbeHost(host);
+      assertTaleoTbeInstance(instance);
+      assertTaleoTbeCws(cws);
+    } catch {
+      return undefined;
+    }
+    return `https://${host}/${instance}/ats/careers/v2/searchResults?org=${slug}&cws=${cws}`;
+  },
   phenom: (_slug, metadata) => {
     // Phenom career sites are addressed by (host, locale). The host is a
     // (often vanity) careers domain, SSRF-guarded the same way the adapter
@@ -254,6 +344,18 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     }
     if (parsed.hostname !== host.toLowerCase() || !isSafeFetchHost(parsed)) return undefined;
     return `https://${host}/${locale}/search-results`;
+  },
+  workstream: (slug, metadata) => {
+    // Workstream boards are addressed by the composite (company_id, slug)
+    // on the shared host www.workstream.us. The 8-hex company id is
+    // mandatory and validated for shape before it flows into the URL; a
+    // record missing it stays transient_failure (same convention as
+    // workday/ultipro). The positions listing is the public signal: a live
+    // board answers 200 (even with zero roles), a dead/unknown pair
+    // answers 410 Gone.
+    const companyId = metadata["company_id"];
+    if (typeof companyId !== "string" || !/^[0-9a-f]{8}$/.test(companyId)) return undefined;
+    return `https://www.workstream.us/j/${companyId}/${slug}/positions`;
   },
 };
 
@@ -338,14 +440,21 @@ const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 // ATSes despite the host varying per-tenant.
 const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   workable: 1,
+  // Every applitrack probe hits the one shared host www.applitrack.com.
+  applitrack: 2,
   breezy: 2,
   jobvite: 2,
   smartrecruiters: 2,
   ultipro: 2,
+  // Every workstream tenant probe hits the single shared host
+  // www.workstream.us, so it caps like the other shared-host ATSes.
+  workstream: 2,
   greenhouse: 3,
   lever: 3,
   ashby: 3,
   workday: 4,
+  // recruit.hirebridge.com is one shared origin for every tenant probe.
+  hirebridge: 2,
 };
 
 // Inter-probe delay (ms) injected before every probe of a shared-host
@@ -354,15 +463,18 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
 // concurrency cap above.
 const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   workable: 800,
+  applitrack: 200,
   // breezy.hr rate-limits across all subdomains (see PROBE_HOST_CONCURRENCY);
   // ~2.5 probes/s was observed safe, so 700ms × 2-concurrent stays under it.
   breezy: 700,
   jobvite: 200,
   smartrecruiters: 200,
   ultipro: 200,
+  workstream: 200,
   greenhouse: 100,
   lever: 100,
   ashby: 100,
+  hirebridge: 200,
 };
 
 // Hard ceiling on how long a single probe may take before we declare it
@@ -483,22 +595,26 @@ async function probeOneInner(
     // Treat the probe URL as an API call rather than a crawl.
     const probeUrl = probeUrlFor(ats, slug);
     const redirectHostMeansDead = REDIRECT_HOST_MEANS_DEAD[ats] === true;
+    const deadRedirectPath = REDIRECT_PATH_MEANS_DEAD[ats];
+    const inspectRedirects = redirectHostMeansDead || deadRedirectPath !== undefined;
     const res = await client.request(probeUrl, {
       method: "GET",
       skipRobots: true,
-      ...(redirectHostMeansDead ? { redirect: "manual" as const } : {}),
+      ...(inspectRedirects ? { redirect: "manual" as const } : {}),
     });
-    // For these ATSes, a dead board answers with a cross-host redirect to a
-    // generic vendor page; a same-host redirect is a live board normalizing
-    // its own URL, and a direct 2xx is a live board. Only the cross-host
-    // redirect is dead.
-    if (
-      redirectHostMeansDead &&
-      res.status >= 300 &&
-      res.status < 400 &&
-      redirectsToDifferentHost(probeUrl, res.headers.get("location"))
-    ) {
-      return { ats, slug, status: "dead", last_probed_at: observedAt };
+    // For these ATSes, a dead board answers with a redirect: either a
+    // cross-host bounce to a generic vendor page (jazzhr/hrmdirect) or a
+    // same-host bounce to the vendor error page (hirebridge). A same-host
+    // redirect that isn't the error page is a live board normalizing its
+    // own URL, and a direct 2xx is a live board.
+    if (inspectRedirects && res.status >= 300 && res.status < 400) {
+      const location = res.headers.get("location");
+      if (redirectHostMeansDead && redirectsToDifferentHost(probeUrl, location)) {
+        return { ats, slug, status: "dead", last_probed_at: observedAt };
+      }
+      if (deadRedirectPath !== undefined && location !== null && deadRedirectPath.test(location)) {
+        return { ats, slug, status: "dead", last_probed_at: observedAt };
+      }
     }
     return { ats, slug, status: "live", last_probed_at: observedAt };
   } catch (err) {

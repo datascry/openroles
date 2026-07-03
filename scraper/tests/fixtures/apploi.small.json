@@ -1,0 +1,45 @@
+{
+  "data": [
+    {
+      "address": "Austin, TX 78701, USA",
+      "aggregated": false,
+      "apply_method": "full_apply_endpoint",
+      "brand_name": "Acme Health",
+      "city": "Austin",
+      "state": "Texas",
+      "id": "900001",
+      "name": "Registered Nurse (RN)",
+      "published": true,
+      "published_date": "2026-05-20",
+      "job_type": "Full Time",
+      "salary_min": 38.5,
+      "salary_max": 45.25,
+      "salary_rate": "HOURLY",
+      "salary_type": "RANGE",
+      "description": "<p><strong>Position Summary</strong></p><ul><li>Provide direct patient care on a med-surg unit &amp; coordinate discharge planning.</li><li>Collaborate with the interdisciplinary team.</li></ul>",
+      "source": "apploi"
+    },
+    {
+      "address": "Dallas, TX 75201, USA",
+      "aggregated": false,
+      "apply_method": "full_apply_endpoint",
+      "brand_name": "Acme Health",
+      "city": "Dallas",
+      "state": "Texas",
+      "id": "900002",
+      "name": "Home Health Aide (HHA)",
+      "published": true,
+      "published_date": "2026-05-28",
+      "job_type": "Part Time",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "salary_rate": null,
+      "salary_type": null,
+      "description": "<p>Assist clients with activities of daily living in their homes.</p>",
+      "source": "apploi"
+    }
+  ],
+  "elasticsearch_errors": [],
+  "errors": [],
+  "buckets": []
+}

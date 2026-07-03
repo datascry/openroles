@@ -75,6 +75,8 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
+all 47 adapters in `ATS_IDS`, not only these examples):
+all 37 adapters in `ATS_IDS`, not only these examples):
 all 38 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
@@ -93,6 +95,15 @@ all 38 adapters in `ATS_IDS`, not only these examples):
 | jazzhr | GET `{slug}.applytojob.com/apply/` (server-rendered link list), then walk each `/apply/{jobCode}` page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core) |
 | phenom | GET `{metadata.host}/{metadata.locale}/search-results?from=N` (per-tenant vanity host) | HTML embedding `phApp.ddo.eagerLoadRefineSearch` `{ totalHits, data.jobs }`; `?from=N` paginates (10/page) |
 | hrmdirect | GET `{slug}.hrmdirect.com/employment/job-openings.php` | HTML table; one `<tr data-req-id>` per role (title/department/city/state) — parsed directly, no detail fetch |
+| schoolspring | GET `api.schoolspring.com/api/Jobs/GetJobsCountWithSearch`, then `…/GetPagedJobsWithSearch?page={N}&size={M}` (single-tenant, multi-employer) | JSON `{ success, value: { jobsList } }` envelope; 1-based pages, list rows only (no detail fan-out); per-row `employer` becomes `Job.company` |
+| isolvedhire | GET `{slug}.isolvedhire.com/jobs/` (HTML embeds `courierCurrentRouteData` → `domain_id`), then GET `…/core/jobs/{domainId}?getParams={"isInternal":0}` | two-step; JSON `{ success, data: { jobs: [...] } }` — the entire job list in one call, no pagination |
+| applitrack | one GET `www.applitrack.com/{slug}/onlineapp/jobpostings/Output.asp?all=1` | JavaScript `document.write` stream; payloads are unescaped and concatenated into HTML with one `<ul class='postingsList' id='p{id}_'>` block per posting (title/date posted/location) |
+| hiringthing | one GET of `{slug}.hiringthing.com/api/rss.xml` | RSS 2.0 (media namespace); every `<item>` a full posting — title, `/job/{id}/{title-slug}` link (numeric id = source identity), location, HTML description in `media:description` CDATA; no dates |
+| apploi | GET `ats-integrations.apploi.com/search/jobs/?page=N&size=100&brand={metadata.brand}` | JSON `{ data: [...] }`; rows carry full description + salary. `brand` is a relevance search, not a filter — keep only exact `brand_name` matches; a page with zero exact rows (or a mixed page) ends pagination |
+| hirebridge | GET `recruit.hirebridge.com/v3/jobs/list.aspx?cid={cid}` (shared host; tenant slug = numeric cid) | HTML; every open role on one page as location-grouped link lists (title/department under a location heading) — parsed directly, no pagination, no detail fetch |
+| taleotbe | GET `{metadata.host}/{metadata.instance}/ats/careers/v2/searchResults?org={slug}&cws={metadata.cws}`, then `&next&rowFrom=N` (10/page) | server-rendered HTML; one `viewJobLink` anchor + location line per role, no detail fetch. Page 1 sets a JSESSIONID that must be echoed on later pages of the same walk (cookie-less pages come back empty); nothing persists across tenants or runs |
+| workstream | GET `www.workstream.us/j/{metadata.company_id}/{slug}/positions` (server-rendered link list, `?page=N` paginates 10/page), then walk each linked job page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core); dead tenants answer 410; a per-IP soft rate limit serves 200s with the JSON-LD stripped, so the fan-out is paced ~1 req/s with a delayed re-fetch on degraded pages |
+| careerplug | GET `{slug}.careerplug.com/jobs`, then `?page=N` up to the last page the `.pagination` nav announces | HTML cards (~30/page); each `<a href="/jobs/{id}">` carries title, `ST-City-ZIP` location and post date — parsed directly, no detail fetch |
 | jibeapply | GET `{host}/api/jobs?page=N&limit=100` (host = `{slug}.jibeapply.com`, or an optional vanity `metadata.host`) | JSON `{ jobs: [{ data: {…} }], totalCount }`; 1-based `page` + `limit` paginate until totalCount reached; full HTML description ships in the list payload (no detail fetch). Job url = `{host}/jobs/{req_id}` — the payload's `apply_url` is a login deep-link, not a public page |
 | hireology | GET `api.hireology.com/v2/public/careers/{slug}?page={n}&page_size=100` | JSON `{ data: [...], count }`; each row carries full HTML description + locations + career-site deep link; paginate `page` until `count` reached |
 

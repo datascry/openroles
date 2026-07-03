@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "message": "",
+  "validationErrors": [],
+  "value": {
+    "page": 1,
+    "size": 9,
+    "jobsList": [
+      {
+        "jobId": 9001,
+        "employer": "Mesa Public Schools",
+        "title": "Child Nutrition Caf&#xE9; Special Programs",
+        "location": "Mesa, Arizona",
+        "displayDate": "2026-04-01T06:00:00"
+      },
+      {
+        "jobId": 9002,
+        "employer": "Springfield School District 186",
+        "title": "Math Teacher",
+        "location": "Springfield, Illinois"
+      },
+      {
+        "jobId": 9003,
+        "employer": "Riverside Academy",
+        "title": "Reading Specialist",
+        "location": "",
+        "displayDate": "2026-05-12T08:00:00"
+      },
+      {
+        "jobId": 9001,
+        "employer": "Mesa Public Schools",
+        "title": "Duplicate posting of 9001",
+        "location": "Mesa, Arizona",
+        "displayDate": "2026-04-01T06:00:00"
+      },
+      {
+        "jobId": { "bad": true },
+        "employer": 42,
+        "title": ["not", "a", "string"],
+        "location": null,
+        "displayDate": false
+      },
+      {
+        "jobId": 9006,
+        "employer": "Lakeview Public Schools",
+        "title": "Band Director",
+        "location": "Lakeview, Michigan",
+        "displayDate": "2030-01-01T00:00:00"
+      },
+      {
+        "employer": "Orphaned District",
+        "title": "Assistant Coach",
+        "location": "Nowhere, Kansas",
+        "displayDate": "2026-06-01T00:00:00"
+      },
+      {
+        "jobId": 9008,
+        "employer": "Blank Title District",
+        "title": "   ",
+        "location": "Topeka, Kansas",
+        "displayDate": "2026-06-01T00:00:00"
+      },
+      {
+        "jobId": 9009,
+        "employer": null,
+        "title": "Custodian",
+        "location": "Dover, Delaware",
+        "displayDate": "2026-06-02T00:00:00"
+      }
+    ]
+  }
+}

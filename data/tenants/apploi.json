@@ -1,0 +1,35 @@
+[
+  {
+    "ats": "apploi",
+    "slug": "university-health",
+    "display_name": "University Health",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "brand": "University Health"
+    }
+  },
+  {
+    "ats": "apploi",
+    "slug": "the-laurels-of-blanchester",
+    "display_name": "The Laurels of Blanchester",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "brand": "The Laurels of Blanchester"
+    }
+  },
+  {
+    "ats": "apploi",
+    "slug": "community-care-home-health-services-white-plains",
+    "display_name": "Community Care Home Health Services - White Plains",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "brand": "Community Care Home Health Services - White Plains"
+    }
+  }
+]
