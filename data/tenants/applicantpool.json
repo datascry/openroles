@@ -1,0 +1,26 @@
+[
+  {
+    "ats": "applicantpool",
+    "slug": "scientificdrilling",
+    "display_name": "Scientific Drilling",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "travelportland",
+    "display_name": "Travel Portland",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "firstfed",
+    "display_name": "First Federal",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

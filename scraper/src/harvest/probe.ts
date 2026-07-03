@@ -114,6 +114,12 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // live tenant, 404 on an unknown slug — verified live); page_size=1
   // keeps the probe cheap.
   hireology: (slug) => `https://api.hireology.com/v2/public/careers/${slug}?page=1&page_size=1`,
+  // ApplicantPool hosted boards: the public board page is the probe. Unknown
+  // subdomains 302-redirect on the SAME host to a placeholder (so cross-host
+  // redirect detection doesn't apply); the scraper still classifies those
+  // tenants dead because the placeholder carries no `courierCurrentRouteData`
+  // domain_id (same engine + convention as isolvedhire).
+  applicantpool: (slug) => `https://${slug}.applicantpool.com/jobs/`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
   // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe

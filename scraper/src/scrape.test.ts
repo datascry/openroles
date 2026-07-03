@@ -347,6 +347,30 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches applicantpool from the slug alone (bootstrap + job list)", async () => {
+    server.use(
+      http.get(
+        "https://acme.applicantpool.com/jobs/",
+        () => new HttpResponse(readFixtureText("applicantpool.board.html")),
+      ),
+      http.get("https://acme.applicantpool.com/core/jobs/313", () =>
+        HttpResponse.json(readFixture("applicantpool.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applicantpool",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches applitrack from the slug alone (no metadata)", async () => {
     server.use(
       http.get(

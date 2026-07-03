@@ -79,6 +79,8 @@ describe("probeUrlFor", () => {
       "https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch?keyword=&location=&category=&gradelevel=&jobtype=&organization=",
     );
     expect(probeUrlFor("isolvedhire", "stripe")).toBe("https://stripe.isolvedhire.com/jobs/");
+    // Same board engine as isolvedhire, on the applicantpool.com host.
+    expect(probeUrlFor("applicantpool", "stripe")).toBe("https://stripe.applicantpool.com/jobs/");
     // Path-per-tenant on a shared host: the Output.asp posting stream is
     // the probe (200 on a live district, honest 404 on an unknown slug).
     expect(probeUrlFor("applitrack", "carolinecounty")).toBe(
