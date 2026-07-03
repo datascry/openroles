@@ -6,6 +6,7 @@ import {
   main,
   runBuildDbCommand,
   runDiscoverGjobsfeedCommand,
+  runDiscoverSitemapCommand,
   runDiscoverWorkdaySitesCommand,
   runEnumerateGjobsfeedHostsCommand,
   runHarvestCommand,
@@ -1888,6 +1889,247 @@ describe("runEnumerateGjobsfeedHostsCommand", () => {
     } finally {
       (Bun as { which: typeof Bun.which }).which = originalWhich;
       (Bun as { spawn: typeof Bun.spawn }).spawn = originalSpawn;
+    }
+  });
+});
+
+describe("runDiscoverSitemapCommand", () => {
+  const ISOLVED_INDEX = `<?xml version='1.0' encoding='UTF-8'?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://davidsonoil.isolvedhire.com/job_site_map.xml</loc></sitemap><sitemap><loc>https://acmefresh.isolvedhire.com/job_site_map.xml</loc></sitemap><sitemap><loc>https://feeds.isolvedhire.com/site_map_index.xml</loc></sitemap></sitemapindex>`;
+  const JAZZ_FEED = `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://easeinc.applytojob.com/apply/x/Role</loc></url><url><loc>https://revived.applytojob.com/apply/y/Role</loc></url></urlset>`;
+
+  it("returns 0 on --help", async () => {
+    expect(await runDiscoverSitemapCommand(["--help"])).toBe(0);
+  });
+
+  it("returns 2 without --ats", async () => {
+    expect(await runDiscoverSitemapCommand([])).toBe(2);
+  });
+
+  it("returns 2 for an unknown ats id", async () => {
+    expect(await runDiscoverSitemapCommand(["--ats", "notreal"])).toBe(2);
+  });
+
+  it("returns 2 for a known ats with no sitemap source", async () => {
+    expect(await runDiscoverSitemapCommand(["--ats", "greenhouse"])).toBe(2);
+  });
+
+  it("returns 2 on out-of-range --max", async () => {
+    expect(await runDiscoverSitemapCommand(["--ats", "hiringthing", "--max", "0"])).toBe(2);
+  });
+
+  it("notes that --max is ignored for a non-descending source", async () => {
+    const originalFetch = globalThis.fetch;
+    const originalErr = console.error;
+    const logs: string[] = [];
+    console.error = (...a: unknown[]) => logs.push(a.join(" "));
+    globalThis.fetch = (async () => new Response("", { status: 500 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const code = await runDiscoverSitemapCommand([
+        "--ats",
+        "isolvedhire",
+        "--output-dir",
+        dir,
+        "--max",
+        "50",
+      ]);
+      expect(code).toBe(0);
+      expect(logs.some((l) => l.includes("--max is ignored for 'isolvedhire'"))).toBe(true);
+    } finally {
+      globalThis.fetch = originalFetch;
+      console.error = originalErr;
+    }
+  });
+
+  it("honors a valid --max on the descending hiringthing source", async () => {
+    const { gzipSync } = await import("node:zlib");
+    const HT_INDEX = `<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://s3.amazonaws.com/applicant-tracking-production-sitemap-us-east-1/sitemaps/cid_00000001_sitemap.xml.gz</loc></sitemap><sitemap><loc>https://s3.amazonaws.com/applicant-tracking-production-sitemap-us-east-1/sitemaps/cid_00000002_sitemap.xml.gz</loc></sitemap></sitemapindex>`;
+    const HT_CHILD = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://acmeboard.hiringthing.com/job/1/role</loc></url></urlset>`;
+    const gz = gzipSync(Buffer.from(HT_CHILD));
+    const originalFetch = globalThis.fetch;
+    const childCalls: string[] = [];
+    globalThis.fetch = (async (url: Parameters<typeof fetch>[0]) => {
+      const u = typeof url === "string" ? url : (url as URL).toString();
+      if (u.endsWith(".xml.gz")) {
+        childCalls.push(u);
+        return new Response(gz, { status: 200 });
+      }
+      return new Response(HT_INDEX, { status: 200 });
+    }) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const code = await runDiscoverSitemapCommand([
+        "--ats",
+        "hiringthing",
+        "--output-dir",
+        dir,
+        "--max",
+        "1",
+      ]);
+      expect(code).toBe(0);
+      // --max 1 caps the descent to a single child.
+      expect(childCalls.length).toBe(1);
+      const out = JSON.parse(
+        readFileSync(join(dir, "tenants", "hiringthing.json"), "utf8"),
+      ) as Array<{ slug: string; status: string }>;
+      expect(out.find((t) => t.slug === "acmeboard")?.status).toBe("transient_failure");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("seeds net-new isolvedhire slugs as transient_failure, skips the feed host", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response(ISOLVED_INDEX, { status: 200 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      // davidsonoil already live — must be preserved untouched.
+      writeFileSync(
+        join(dir, "tenants", "isolvedhire.json"),
+        JSON.stringify([
+          {
+            ats: "isolvedhire",
+            slug: "davidsonoil",
+            status: "live",
+            last_probed_at: "2026-01-01T00:00:00.000Z",
+            first_seen_at: "2026-01-01T00:00:00.000Z",
+          },
+        ]),
+      );
+      const code = await runDiscoverSitemapCommand(["--ats", "isolvedhire", "--output-dir", dir]);
+      expect(code).toBe(0);
+      const out = JSON.parse(
+        readFileSync(join(dir, "tenants", "isolvedhire.json"), "utf8"),
+      ) as Array<{ slug: string; status: string }>;
+      const bySlug = new Map(out.map((t) => [t.slug, t]));
+      // acmefresh is net-new (transient_failure); davidsonoil preserved
+      // live; feeds is deny-listed so never minted.
+      expect(bySlug.get("acmefresh")?.status).toBe("transient_failure");
+      expect(bySlug.get("davidsonoil")?.status).toBe("live");
+      expect(bySlug.has("feeds")).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("resurrects a stale jazzhr slug (liveness-truth) for re-probe", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response(JAZZ_FEED, { status: 200 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      mkdirSync(join(dir, "tenants"), { recursive: true });
+      writeFileSync(
+        join(dir, "tenants", "jazzhr.json"),
+        JSON.stringify([
+          {
+            ats: "jazzhr",
+            slug: "revived",
+            status: "dead",
+            last_probed_at: "2026-06-01T00:00:00.000Z",
+            first_seen_at: "2026-01-01T00:00:00.000Z",
+          },
+        ]),
+      );
+      const code = await runDiscoverSitemapCommand(["--ats", "jazzhr", "--output-dir", dir]);
+      expect(code).toBe(0);
+      const out = JSON.parse(readFileSync(join(dir, "tenants", "jazzhr.json"), "utf8")) as Array<{
+        slug: string;
+        status: string;
+        last_probed_at: string;
+      }>;
+      const revived = out.find((t) => t.slug === "revived");
+      // dead → transient_failure, last_probed_at reset to epoch.
+      expect(revived?.status).toBe("transient_failure");
+      expect(revived?.last_probed_at).toBe("1970-01-01T00:00:00.000Z");
+      // easeinc is net-new.
+      expect(out.find((t) => t.slug === "easeinc")?.status).toBe("transient_failure");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("--dry-run computes the summary without writing the tenant file", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response(ISOLVED_INDEX, { status: 200 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const code = await runDiscoverSitemapCommand([
+        "--ats",
+        "isolvedhire",
+        "--output-dir",
+        dir,
+        "--dry-run",
+      ]);
+      expect(code).toBe(0);
+      expect(existsSync(join(dir, "tenants", "isolvedhire.json"))).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("writes to --tenants-file when provided and is idempotent", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response(ISOLVED_INDEX, { status: 200 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const file = join(dir, "custom-isolved.json");
+      const code = await runDiscoverSitemapCommand([
+        "--ats",
+        "isolvedhire",
+        "--output-dir",
+        dir,
+        "--tenants-file",
+        file,
+      ]);
+      expect(code).toBe(0);
+      const first = readFileSync(file, "utf8");
+      // Second run seeds nothing new → file content is unchanged.
+      const code2 = await runDiscoverSitemapCommand([
+        "--ats",
+        "isolvedhire",
+        "--output-dir",
+        dir,
+        "--tenants-file",
+        file,
+      ]);
+      expect(code2).toBe(0);
+      expect(readFileSync(file, "utf8")).toBe(first);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("returns 0 and writes nothing when the sitemap yields no slugs", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response("", { status: 500 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const code = await runDiscoverSitemapCommand(["--ats", "isolvedhire", "--output-dir", dir]);
+      expect(code).toBe(0);
+      expect(existsSync(join(dir, "tenants", "isolvedhire.json"))).toBe(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("dispatches discover-sitemap via main() too", async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response("", { status: 500 })) as typeof fetch;
+    try {
+      const dir = tmpDir();
+      const code = await main([
+        "bun",
+        "cli.ts",
+        "discover-sitemap",
+        "--ats",
+        "isolvedhire",
+        "--output-dir",
+        dir,
+      ]);
+      expect(code).toBe(0);
+    } finally {
+      globalThis.fetch = originalFetch;
     }
   });
 });
