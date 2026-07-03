@@ -1,10 +1,2208 @@
 [
   {
     "ats": "careerplug",
+    "slug": "1-stop-design-shop-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "28th-beltline",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-1614",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-fort-myers-9724",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-little-river-8127",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-memphis-0017",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "360clean-tinley-park-3321",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-1st-avenue-coralville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-ca-main",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-citrus-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-colorado-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-culver-city",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-grafton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-laurel",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-rancho-santa-margarita",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-washington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "9round-wellington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "a-t-moore-health-care",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "abc-for-me-preschool-and-tiny-tots",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "acker-appliance",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "afc-urgent-care-san-diego",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "agents-with-a-smile",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us004",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us146",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us190",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us398",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us416",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us460",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us700",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us719",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us758",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "alphagraphics-us793",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "amandapohlmanteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "amandaponceteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-arvada",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-corporate-office",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-ken-caryl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-nw-fresno",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-union-city",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-west-chester",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-wichita",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-family-care-willow-grove",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-swim-academy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "americas-swimming-pool-co-arlington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "americas-swimming-pool-co-dallas",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "americas-swimming-pool-co-south-shore",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ampera-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "amydownsteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "animal-health-care-center",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "annettes-corral-llc-dba-golden-corral",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "anytime-fitness-929344",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "art-of-drawers-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-arlington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-bowie-upper-marlboro",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-central-virginia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-east-greenville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-east-memphis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-fort-wayne",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-granite-bay-folsom",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-montgomery",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-north-cental-naples-bonita-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-norwalk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-puget-sound",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aussie-pet-mobile-sherman-oaks",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "aventis-systems-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ayscareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "beef-o-bradys-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "benjamin-franklin-plumbing-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "benkinneyteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "benkinneyteamofnashville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "besco-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bestpack",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "beta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "big-i-ky-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "biglifeteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bison-restoration-services",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bkcomortgage",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bktsouthsound",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bktvancouver",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "blink-charging",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "body20-prairie-village",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bodybar-pilates-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bodyrok-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "boomzeal",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "boundary-community-hospital",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bretkoenig",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bright-brothers-group",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bright-brothers-of-delmarva",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brittanypurcellassociates",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brivity",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brothersgutters--grand-rapids-mi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brothersgutters-huntington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brothersgutterscareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "brownsville-preparatory-institute",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "budget-blinds-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bushrealtygroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "caa-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "cabo-bobs-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "carter-hospitality-group",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "carver-enterprises",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "cci-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "certapro-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "certapro-painters-south-central-ct",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "cfc-sarasota",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chargetronix",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "charlottemabryteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chessmith",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a-dedham",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a-of-dawsonville-dahlonega",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a-pueblo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a-woodbury",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chick-fil-a-yoder-plaza",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chiefsfit",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chipwilliamsgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "class-101-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "class-101-peachtree-city-ga",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "coconut-point-ford",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "comprehensive-health-clinics",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "conserva-irrigation-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "container-one",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "convergent-dental-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "crunch",
     "status": "live",
     "last_probed_at": "2026-07-03T00:00:00.000Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ctrg-station-incorporated",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "culligan-83ia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-45-sports",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-arlington-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-auburn-tallahassee",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-bradon",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-brighton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-bryant",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-cincy-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-hoover",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-lake-orion",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-lake-travis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-lakeland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-north-pittsburgh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-north-shore",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-olive-branch",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-rogers-little-rock",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-sandy-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-south-forsyth",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-south-jordan",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-the-woodlands",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-tri-cities",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-upper-westside-atlanta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-west-frisco",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "d1-training-winter-garden",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-boston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-co-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-kalamazoo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-louisville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-morgan-hill",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-san-carlos",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "daisy-south-florida",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "darosateam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "deldi-ortegon-group",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "desjardins-insurance-nicole-fulcher",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "disaster-kleenup-specialists-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "discovery-point-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "donhaneline",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "dreaming-out-loud-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "dryer-vent-superheroes-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "eco-cleaning-solutions-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "efkcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "elevation-individual-and-family-therapy-pllc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-014",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-038",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-041",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-093",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-115",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-117",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-118",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-124",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-165",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-173",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-185",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-186",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-198",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-203",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-208",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-216",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-246",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-247",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellie-mental-health-248",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "energy-fitness",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "energyguard",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-buffalo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-cypress-katy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-durham-region-of-ontario",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-greater-nashville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-halton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-hoover-al",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-minneapolis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-north-atlanta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-of-madison",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "engineering-for-kids-windsor",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "esperanza-community-housing-corpora",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "evansville-welding-supply-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "farris-wholesale",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastest-labs-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-104101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-10606",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-110301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-110701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-13001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-131101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-15902",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-16401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-16501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-170101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-174701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-174701-purge",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-180704",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-20108",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-221001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-222101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-250501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-270201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-280801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-301201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-321501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-330501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-381701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-381901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-512001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-65001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-69901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-70801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-90501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fastsigns-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fieldclock",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-subs-airdrie-calgary-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-subs-cedar-rapids",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-subs-m-and-r-family-restaurants",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-subs-mishawaka",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-subs-nb-pei-ns",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehousefranchiseejobs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehousesubs-stateline",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehousesubssarasota-hillsborough-polk",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fish-window-cleaning-casper",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fish-window-cleaning-north-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fish-window-cleaning-savannah",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fishwindowcleaningcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "foster-plumbing-and-heating-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "freedomrealestatehomes",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "frsteam-restoration-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "fuel-fitness-holdings-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "furniture-medic-canada-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gainesvillewoodhousespas",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "garson-window-cleaning-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "generator-supercenter-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "generator-supercenter-of-beaumont",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "generator-supercenter-of-rockwall",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "genesishealthclubs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "georgeekluckteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gjertsen-enterprises-corporation",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "global-language-system-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "golden-heart-indy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "golden-heart-walnut-creek",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-ann-arbor",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-arlington-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-aurora",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-brookline",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-ladera-ranch",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-livingston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-portland-me",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-urbandale",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-waugh-chapel",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "goldfish-swim-school-winter-park",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "good-feet-store-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gym-guyz-nw-washington",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gymguyz-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gymguyz-corporate-studios",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gymguyz-suncoast",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hair-saloon-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hallschophousenashville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hand-and-stone-malvern-pa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hand-stone-massage-and-facial-spa---austin-great-hills",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonebedfordnhportsmouthnhandstonehamma",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonebrandywinemd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonebrynmawrkingofprussia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonecanadacareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonecareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonedearborn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonefairfax-1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonekennettsquare",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonekingwood",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonemidlothian",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstoneriversidecounty",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonespringhilltrinityorlando",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstonevisalia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hanwha-asset-management-usa-ltd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "heights-wellness-retreat-dallas-coppell",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "homesonthesound",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hospitalitycareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "house-doctors-colorado-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "house-doctors-csra",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "housemaster-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "housemaster-columbus-newark-chillicothe-oh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "housemaster-kissimmee",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "housemaster-miami",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hubbardswim",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "huddle-house-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "huddle-house-north-alabama",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "huddle-house-standiford-group-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
   },
   {
     "ats": "careerplug",
@@ -15,9 +2213,4265 @@
   },
   {
     "ats": "careerplug",
+    "slug": "insuracademy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "integritycommercialcleaning",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-1658",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-1689",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-1745",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-1766",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-2073",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-2180",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-2357",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-2451",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3100",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3164",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3294",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3296",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3365",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3366",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3399",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3470",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3493",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3495",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-3514",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-922",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-agd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-bem",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-cct",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-con",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-coo-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-dhi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-eai",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-edy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-emh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-epl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-eta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-ezi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-fhb",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-fkd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-fln",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-fxs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-gby",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-gmi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-guu",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-headquarters",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hej",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hjh",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hqn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hqr",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hsd",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hsf",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hti",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-htn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jackson-hewitt-hwq",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jacob-krueger-studio",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jasonflischel",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "javaheri-yahoudai-a-professional-law-corporation",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jerseystrong",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "john-neill-painting-and-decorating",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "jw-williamson-services",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kaia-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kaskaid-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "keithcompany",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kenosrestaurant",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidcreate-studio-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-auburn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-ca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-kleinburg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-macleod-trail",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-mcdonough",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-milton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-northeast-florida",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrong-soho",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidstrongcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kidtokidcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kind-senior-care-maine",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kitchen-solvers-la-crosse",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kitchen-solvers-potomac",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "layes-tire-service",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "levelupgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "lighthouse-insurance-agency",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "lightspeed-restoration-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "line-saguaro-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "little-gym-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "livesayismyagent",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "lola-beans-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "london-drugs-limited-jobs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "maid-brigade-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "maidrightcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "main-event-caterers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massage-heights-atlanta-decatur",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massage-heights-austin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massage-heights-san-antonio",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massage-heights-sanantonio-boerne",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massage-heights-vegas-adobe",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "massageheightscareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "masterstouchjanitorialinc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2201901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2202405",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2408801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2410104",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2411601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2412101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2414601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2416001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2416301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2417501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2420701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2420801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2423201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2424102",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2424301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2501901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2503201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2802501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2802502",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2802701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2803001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2804001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2804701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2805401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2806001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2903001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-2903501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3100103",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3203301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3301001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3400701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3500501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-3904101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4000501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4200601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4700201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4700901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4901801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4902101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4904401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4904901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4905001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-4905301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5000201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5100401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5101601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5104301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5200101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5201401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5202403",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5203301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5402401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5600201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5600601",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5701401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-5702301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6202901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6203801",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6209301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6210401",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6213901",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6502001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6503701",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6601201",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6601501",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6602101",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-6603001",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-id-2807301",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mathnasium-id-3203007",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mcgarrah-jessee",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke-2811",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke-415",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke-639",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke-81",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke1247",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke2479",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke2970",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "meineke477",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "merrymaidsenglewood-pueblo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miaa-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "millicare-by-advanced-green-solutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "millicare-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-atlanta-north-and-south",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-boise",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-boulder",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-bucks-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-central-nh-northern-mass",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-charleston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-charlotte",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-chicago-nw-metro",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-cincinnati",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-cleveland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-colorado-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-des-moines-west",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-gilbert-chandler",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-indianapolis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-irvine",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-memphis-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-miami-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-northeast-georgia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-oklahoma-city-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-pinellas-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-portland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-quad-cities",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-richmond",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-sacramento",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-salt-lake-city-east",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-san-antonio-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-san-antonio-west",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-san-francisco-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-santa-clara",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-seattle",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-sonoma",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-south-philadelphia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-southeastern-nc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-tempe",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-tulsa-southeast",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-waco",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-western-colorado",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-western-massachusetts",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "miracle-method-of-western-ny",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mit45",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "modern-mechanical-systems-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mr-rooter-of-macomb",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "n2ins-yahoo-com",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "napa-auto-parts",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "napaa-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "national-radon-defense",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nino-salvaggio",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes--163",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-1173",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-172",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-177",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-184",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-195",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-198",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-248",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-3",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-358",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-5",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-80",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-cincinnati",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-evansville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-lancaster-pa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-las-vegas-eastern-se",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-monroeville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-orchard-park-amherst",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-south-bend",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "octaviussmith",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-fort-lauderdale-hollywood",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-birmingham-trussville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-cedar-rapids",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-huntsville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-indianapolis-greenfield",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-lebanon",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-raleigh-wake-forest",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "office-pride-of-york",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "one-you-love-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10007",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10018",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10033",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10034",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10076",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10094",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10096",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-10144",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-fitness-affiliates",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0279",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "otrecruitca-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "owbc-careerplug-com",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pa-foot-and-ankle-associates",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "paul-davis-restoration-of-lexington-ky",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "paul-davis-restoration-of-north-florida",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "paul-davis-restoration-of-suburban-maryland-dc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdr-of-bucks-county-pa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdr-of-greater-rochester-ny",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdr-of-mid-michigan",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdr-of-santa-clarita-ca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdrandr-of-cleveland-metro-west",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdrr-of-lancaster-and-lebanon-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pdrr-of-north-atlanta",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "penrose-associates-physical-therapy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "peoria-music-academy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-northcott-hospitality",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-41-food-company",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-charlie-seravalli",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-cyhawk-hospitality",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-eight-ks-enterprises",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-flaherty",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-gail-von-holten",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-gls-associates",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-jlc-companies",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-k-r-invesco",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-karestco",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-krmm-hospitality",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-ob-enterprises",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-patrick-doyle",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-rbs-foods",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-rbt-realty-associates",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-sugarland-enterprises",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-vadnais-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-bakery-yellowstone-cakes",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perkins-restaurant-jdk-management",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pestmaster-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-bensongroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-biddeford-windham-me",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-bobenagegroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-coregroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-fittonclubs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-glowbrands",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-inner-harbor-md",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-johnston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-midwest",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-mortensengroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-rondinonegroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-southalabamagroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-united-fp-management-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pf-woodstock",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "pfcareers",
     "status": "live",
     "last_probed_at": "2026-07-03T00:00:00.000Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pip-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pip-indianapolis-in2",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pip-saint-augustine-palatka-fl",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pirtekca-customization-account",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pizzainncareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "place",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "place-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "planet-fitness",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "planet-fitness-foley",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "planetfitnessjegfit",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "planetfitnessredding",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "poolwerx-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "poolwerx-noblesville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "poolwerx-sarasota",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "poolwerx-st-johns",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "postnet-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "precision-door-service-central-md",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "precision-door-service-kansas-city-mo-milwaukee-wi",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "precisiondoorcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "premier-academy-walnut-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "premier-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "protectpainterscareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "providencecommercialcleaningsolutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "puroclean",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "puroclean-disaster-response-middlesex",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "puroclean-howell",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "puroclean-providence",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "puroclean-western-reserve",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pyramid-brokerage",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "qntm-fit-life",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "quality-swimming",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rivergate-muffler-auto-repair",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rochester-east",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "roto-group-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rpmcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rubbish-works-charlottesville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "santacruzcinema",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "saullopez-1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-chesapeake",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-clean-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-of-kalamazoo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-restoration-dsi-3419",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-restore-7383-salem",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-restore-7622-gilbert",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicemaster-restore-usa-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servicenet",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-adamstown-mohnton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-alamo-heights-braun-station",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-alexandria-marlton-morningside",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-allentown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-americus-albany",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-anaheim-central-garden-grove-east",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-anniston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-anytown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ardnos-inc-gisib-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ascension-parish-east-baton-rouge",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-athens-mineola-palestine-tyler",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-aurora-central",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-barron-dunn-rusk-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-bath-brunswick",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-beckley",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-bellaire",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-benton-jasper-newton-southern-lake",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-birmingham",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-birmingham-north",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-brandon-north-riverview",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-buffalo-grove-lake-zurich",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-camarillo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-cape-girardeau-scott-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-carbondalemarion",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-carmichael-citrusheights-roseville-e-w-modesto-manteca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-carteret-east-onslow-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-carthage-joplin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-casper-bsm-casper",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-cedar-mill-oak-hills",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-central-auglaize-hardin-logan-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-central-honolulu-kailua",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-chambersburg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-coffee-franklin-warren-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-colorado-springs-southeast",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-columbia-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-conway-faulkner-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-cookeville-carthage-smithville-woodbury",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-corinth",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-crd-sumner-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-danbury-ridgefield",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-dane-county-west-12299",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-danville-pittsylvania-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-decatur-limestone-lawrence-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-denver-southeast",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-des-moines-nw",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-disaster-restoration-services-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-dover-middletown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-downtown-oklahoma-city-midtown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-duncanville-desoto",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-dyersburg-union-city-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-east-mahoning-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-east-mahoning-county-10513",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-eastdallas",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-elgin-northwest-kane-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-evanston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-evergreen-park-south-chicago-city",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-fantastic-five-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-fort-collins",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-friermuth",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-geauga-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-glendora-baldwin-park",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-grand-junction",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-hampshire-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-hattiesburg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-haverhill-newburyport",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-helena-great-falls",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-henrico-county-richmond-tri-cities-plus-chesterfield",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-hesperia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-houston-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-indiana-county-ebensburg",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-jacksonville-beach-ponte-vedra",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-jamestown-olean",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-jwilco-enterprises-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-kansas-city-midtown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-kennettsquare-oxford",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-kingsport-bristol",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-kingston-pittston-city-wyoming-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-lafayette",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-lawrence-ottawa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-leavens-enterprises-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-lebanon-hanover-littleton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-lewiston-auburn",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-linn-county-benton-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ll-jp-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-marietta-west",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-marshfield-rockland",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-mayes-wagoner-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-mcguire-enterprises-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-milwaukee-north-10376",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ne-albuquerque",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ne-grand-rapids",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-new-hanover-brunswick-south-columbus-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-newington-central-hartford",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-northeast-wichita",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-northern-summit-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-northwest-charlotte",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-northwest-wichita",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-norwich-windham-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-oak-park-ferndale",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-of-columbia-montour---sullivan-counties",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-of-oldham-shelby-11211",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-ohio-kentucky-indiana-tri-state-area",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-orange-villa-park-tustin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-panthersville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-rocky-mount",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-salem-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-san-angelo-11832",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-south-frisco-the-colony",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-springfield",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-sugar-land",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-tbn-holdings-inc-n-a-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-team-jrf",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-team-wall-9695",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-troup-coweta-counties-douglasville-carrollton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-wolfe-restoration-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "servpro-wright-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "shininglightservicesllc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-boston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-houston",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-jupiter",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-orlando",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-grout-washington-dc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-speedy-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-speedy-hanover-md",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-speedy-new-orleans-la",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-speedy-providence-ri",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sir-speedy-whittier-ca",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "skinnyfats",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "snapology-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "snapology-fitchburg-ma",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "snapology-of-atlanta-east-ga",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "soccer-shots-memphis",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "soccershots-southeastpa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sparkle-squad-of--miami",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "spectrum-resorts",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "statefarm-kyle-tx",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "steri-clean-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "suncoast-paper-chemical",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sydellcareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "team-bob-s-heating-cooling-plumbing",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "team-tutor",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-alexandria",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-ann-arbor",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-austin",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-bellevue",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-birmingham",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-boise",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-cleaning-authority-chattanooga",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-flying-locksmiths-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-goddard-school-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-goddard-school-of-bethlehem-pa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-goddard-school-of-chadds-ford-pa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-goddard-school-of-huntersville-nc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-learning-experience",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-learning-experience-387",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-learning-experience-hq-1",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-amarillo",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-asheville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-braselton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-cincinnati-hyde-park",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-costa-mesa",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-east-cobb",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-englewood",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-fernandina-beach",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-fort-collins-timnath",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-ft-worth-southwest",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-gaithersburg-at-downtown-crown",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-kennesaw",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-lafayette",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-littleton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-medway",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-mockingbird-abrams-preston-forest",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-north-san-antonio",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-north-virginia",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-northeast-orlando",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-pittsburgh-north-hills",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-post-falls",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-roanoke",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-rogers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-savannah",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-scotch-plains",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-sea-girt",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-shaker-heights",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-somersault",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-st-louis-park",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-stevens-creek",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-summerville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-waxhaw-winston-salem",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-west-ashley",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-little-gym-of-westminster",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-washington-house-bucks-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-williams-team",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "theblehmgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thebuchergroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thecleaningauthoritycareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thecorylauergroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "theherndongroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thekeitnergroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "themcleodgroupnetwork",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "theramseysteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thericciteam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thesandsgroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thewhitegroup",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thrifty-white-pharmacy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "thunderzone-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "tle-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "transmountain-corral-llc-dba-golden-corral",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "tropical-smoothie-cafe",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "trublue-total-house-care-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "tuffy-tire-auto-23022",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "tuffy-tire-auto-77004",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "two-maids-a-mop-manchester",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "united-way-of-weld-county",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "urners",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-austin-n-and-s-carrollton",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-colorado-springs",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-green-bay",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-houston-sw-nw-and-ne",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-new-england",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "usa-insulation-of-oklahoma",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "vilna-shul",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "visiting-angels-myrtle-beach",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "voda-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "voda-cleaning-restoration-of-atlanta-brookhaven",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "waterworks-aquatics",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "wellness-studios-inc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "west-texas-meineke",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "westside-subs-llc",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "whitney-holdings",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "window-hero-careers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "window-wash-enterprises",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "woodhousecareers",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "woofie-s-of-east-louisville",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "yourcasateam",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "zero-impact-builders",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "zero-impact-energy",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "zero-impact-solutions",
+    "status": "transient_failure",
+    "last_probed_at": "2026-07-03T22:21:34.300Z",
+    "first_seen_at": "2026-07-03T22:21:34.300Z"
   }
 ]
