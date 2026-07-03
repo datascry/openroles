@@ -553,6 +553,24 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.applicantpool\.com/gi,
     denyList: new Set<string>([...SUBDOMAIN_DENY, "feeds"]),
   },
+  {
+    ats: "manatal",
+    // Manatal hosted boards share the host `www.careers-page.com`; the tenant
+    // slug is the FIRST path segment (`/{slug}` for the board, `/{slug}/job/
+    // {code}` for a role), the same path-based shape as smartrecruiters/
+    // jobvite. The capture is bounded to the leading path segment, so a job
+    // deep link mints the slug (`/{slug}`) rather than the reserved `job`
+    // token — but `job` is added to the deny list as belt-and-braces so a
+    // pathological `/job/...` capture can never become a phantom tenant.
+    cdxQuery: "www.careers-page.com/*",
+    // The board root often appears as a bare `.../{slug}` with no trailing
+    // path, so the segment terminator is a non-consuming lookahead over any
+    // delimiter (`/ ? #`, whitespace, quote/angle-bracket in HTML, or EOL)
+    // rather than `(?:[/?#]|$)` — the latter would drop a slug followed by a
+    // space or newline, exactly the shape CDX and raw HTML emit.
+    regex: /www\.careers-page\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?=[/?#\s"'<>]|$)/gi,
+    denyList: new Set<string>([...PATH_DENY, "job"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

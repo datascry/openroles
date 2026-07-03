@@ -371,6 +371,39 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches manatal from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://www.careers-page.com/manatal",
+        () => new HttpResponse(readFixtureText("manatal.board.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/L975Y966",
+        () => new HttpResponse(readFixtureText("manatal.detail-1.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/3W35R9R8",
+        () => new HttpResponse(readFixtureText("manatal.detail-2.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/V55YR",
+        () => new HttpResponse(readFixtureText("manatal.detail-blr.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "manatal",
+        tenants: [{ slug: "manatal", display_name: "Manatal" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches applitrack from the slug alone (no metadata)", async () => {
     server.use(
       http.get(

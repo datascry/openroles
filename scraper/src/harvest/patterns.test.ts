@@ -214,6 +214,24 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("admin")).toBe(true);
   });
 
+  it("manatal pattern captures the first path segment and excludes /job/ deep links from minting a phantom slug", () => {
+    const { regex, denyList } = harvestPatternFor("manatal");
+    const sample =
+      "https://www.careers-page.com/manatal " +
+      "https://www.careers-page.com/blr-world/job/5WR47RRR " +
+      "https://www.careers-page.com/gaprecruitment/ " +
+      "https://evil.example.com/hacker/job/9999";
+    const matches = Array.from(sample.matchAll(regex)).map((m) => m[1] as string);
+    // A job deep link mints its tenant slug (the first segment), never `job`.
+    expect(matches).toEqual(["manatal", "blr-world", "gaprecruitment"]);
+    expect(matches).not.toContain("job");
+    // Off-host links can never mint a tenant.
+    expect(matches).not.toContain("hacker");
+    // Belt-and-braces: `job` is denied so a pathological capture can't leak.
+    expect(denyList.has("job")).toBe(true);
+    expect(denyList.has("admin")).toBe(true);
+  });
+
   it("hirebridge pattern captures the numeric cid query parameter", () => {
     // Hirebridge is a shared-host ATS: the tenant identity is the `cid`
     // query parameter, not a DNS label, so the capture reads the query

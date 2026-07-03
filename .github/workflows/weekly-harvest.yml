@@ -102,6 +102,9 @@ jobs:
           # ApplicantPool hosted boards; CDX discovery captures the subdomain
           # slug on *.applicantpool.com URLs (same shape as bamboohr/breezy).
           - applicantpool
+          # Manatal hosted boards; CDX discovery captures the first path
+          # segment on www.careers-page.com/{slug} URLs (path-slug shape).
+          - manatal
           # Subdomain/path connectors with real CDX discovery patterns whose
           # tenant lists shipped seed-only. Bootstrap once (mode=bootstrap)
           # to mint the historical corpus, then incremental discovery keeps
@@ -308,6 +311,9 @@ jobs:
           - apploi
           - taleotbe
           - workstream
+          # Manatal hosted boards (www.careers-page.com/{slug}); CDX-discovered
+          # (also in the discover matrix above), reprobed weekly.
+          - manatal
     steps:
       - uses: actions/checkout@v7
 

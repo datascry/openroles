@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 48 adapters in `ATS_IDS`, not only these examples):
+all 49 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -105,6 +105,7 @@ all 48 adapters in `ATS_IDS`, not only these examples):
 | careerplug | GET `{slug}.careerplug.com/jobs`, then `?page=N` up to the last page the `.pagination` nav announces | HTML cards (~30/page); each `<a href="/jobs/{id}">` carries title, `ST-City-ZIP` location and post date — parsed directly, no detail fetch |
 | jibeapply | GET `{host}/api/jobs?page=N&limit=100` (host = `{slug}.jibeapply.com`, or an optional vanity `metadata.host`) | JSON `{ jobs: [{ data: {…} }], totalCount }`; 1-based `page` + `limit` paginate until totalCount reached; full HTML description ships in the list payload (no detail fetch). Job url = `{host}/jobs/{req_id}` — the payload's `apply_url` is a login deep-link, not a public page |
 | hireology | GET `api.hireology.com/v2/public/careers/{slug}?page={n}&page_size=100` | JSON `{ data: [...], count }`; each row carries full HTML description + locations + career-site deep link; paginate `page` until `count` reached |
+| manatal | GET `www.careers-page.com/{slug}` (server-rendered link list of `/{slug}/job/{code}` anchors), then walk each linked job page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core); no list JSON endpoint, so a bounded N+1 detail fan-out; dead/unknown slug answers a clean 404 |
 
 ## Invariants
 

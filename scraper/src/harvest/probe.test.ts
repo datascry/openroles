@@ -101,6 +101,9 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hireology", "stripe")).toBe(
       "https://api.hireology.com/v2/public/careers/stripe?page=1&page_size=1",
     );
+    // Path-per-tenant board on the shared host: the board page is the probe
+    // (200 on a live slug, honest 404 on an unknown slug — verified live).
+    expect(probeUrlFor("manatal", "stripe")).toBe("https://www.careers-page.com/stripe");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
@@ -417,6 +420,16 @@ describe("probeOne", () => {
     const fetchFn = mock(async () => new Response("not found", { status: 404 }));
     const t = await probeOne("hrmdirect", "no-such-tenant", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("dead");
+  });
+
+  it("classifies a manatal board 200 as live and a dead slug's 404 as dead", async () => {
+    const live = mock(async () => new Response("<html>board</html>", { status: 200 }));
+    const t1 = await probeOne("manatal", "manatal", clientWith(live), OBSERVED_AT);
+    expect(t1.status).toBe("live");
+
+    const dead = mock(async () => new Response("not found", { status: 404 }));
+    const t2 = await probeOne("manatal", "no-such-slug", clientWith(dead), OBSERVED_AT);
+    expect(t2.status).toBe("dead");
   });
 
   it("classifies 404 / 410 as dead", async () => {
