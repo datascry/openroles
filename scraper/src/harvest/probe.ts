@@ -73,6 +73,12 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // isolved Hire hosted boards: the public board page is the probe. Unknown
+  // subdomains 302-redirect on the SAME host to a `/notset.php` placeholder
+  // (so cross-host redirect detection doesn't apply); the scraper still
+  // classifies those tenants dead because the placeholder page carries no
+  // `courierCurrentRouteData` domain_id.
+  isolvedhire: (slug) => `https://${slug}.isolvedhire.com/jobs/`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };

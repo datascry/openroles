@@ -383,6 +383,16 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     denyList: new Set<string>(["phenom"]),
   },
   {
+    ats: "isolvedhire",
+    // isolved Hire hosted boards live at `{slug}.isolvedhire.com`; the tenant
+    // slug is the subdomain label (same shape as bamboohr/breezy). `feeds` is
+    // the platform-wide sitemap host (feeds.isolvedhire.com/site_map_index.xml),
+    // not a tenant, so it joins the standard subdomain deny terms.
+    cdxQuery: "*.isolvedhire.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.isolvedhire\.com/gi,
+    denyList: new Set<string>([...SUBDOMAIN_DENY, "feeds"]),
+  },
+  {
     ats: "hrmdirect",
     // HRMDirect hosted boards live at `{slug}.hrmdirect.com`; the tenant
     // slug is the subdomain label (same shape as bamboohr/breezy).

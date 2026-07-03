@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // isolved Hire hosted boards. Public board at `{slug}.isolvedhire.com/jobs/`
+  // is a Vue SPA whose loader embeds a `courierCurrentRouteData` blob with
+  // the per-tenant `domain_id`; `/core/jobs/{domainId}` then returns the
+  // entire job list (title, city/state, workplace type, posting date, pay
+  // range, canonical job URL) in one unpaginated call. The same board engine
+  // also serves the `applicantpro.com` domain family (already covered by the
+  // applicantpro adapter); this adapter covers only the `isolvedhire.com`
+  // host. Tenant identity = slug (subdomain), so no metadata is required.
+  // Verified seeds: Safe Tire & Auto, Davidson Oil, Flying Star Transport.
+  "isolvedhire",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

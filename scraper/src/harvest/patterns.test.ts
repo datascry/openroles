@@ -103,6 +103,19 @@ describe("harvestPatternFor", () => {
     );
   });
 
+  it("isolvedhire pattern matches subdomain slugs and denies the platform feeds host", () => {
+    const { regex, denyList } = harvestPatternFor("isolvedhire");
+    const m = Array.from(
+      "https://safetireauto.isolvedhire.com/jobs/ https://feeds.isolvedhire.com/site_map_index.xml".matchAll(
+        regex,
+      ),
+    ).map((x) => x[1]);
+    expect(m).toContain("safetireauto");
+    // `feeds` is the platform-wide sitemap host, not a tenant.
+    expect(denyList.has("feeds")).toBe(true);
+    expect(denyList.has("www")).toBe(true);
+  });
+
   it("icims cdxQuery uses the * domain prefix that CDX actually honors", () => {
     // CDX prefix-match semantics on URL queries are rooted at the registrable
     // domain in SURT form; wildcards inside a host segment do not work. The

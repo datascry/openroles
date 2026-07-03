@@ -24,6 +24,7 @@ import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeIsolvedhireTenant } from "./ats/isolvedhire.ts";
 import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
@@ -342,5 +343,10 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "isolvedhire":
+      // Slug-only tenancy: the board host is `{slug}.isolvedhire.com`; the
+      // per-tenant domain_id is discovered from the board page itself, so
+      // no metadata is needed.
+      return scrapeIsolvedhireTenant(opts);
   }
 }
