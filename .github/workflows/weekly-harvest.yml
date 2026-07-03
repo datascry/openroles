@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "discover-only, reprobe-only, bootstrap (full historical pull), or both (default)."
+        description: "discover-only, reprobe-only, bootstrap (full historical pull), sitemap (platform sitemap seed), or both (default)."
         required: false
         type: choice
         options:
@@ -15,7 +15,13 @@ on:
           - discover-only
           - reprobe-only
           - bootstrap
+          - sitemap
         default: both
+      sitemap_max:
+        description: "Sitemap mode: cap child sitemaps fetched per descending source (hiringthing). Default: 200 (a bounded sample; raise for a full ~2,891-child sweep)."
+        required: false
+        type: string
+        default: "200"
       bootstrap_since_year:
         description: "Bootstrap mode: walk every CC-MAIN snapshot from this year onward (default 2008)."
         required: false
@@ -53,7 +59,7 @@ jobs:
   # promoted in the reprobe stage. See ADR-0011.
   discover:
     name: Discover ${{ matrix.ats }}
-    if: ${{ github.event.inputs.mode != 'reprobe-only' }}
+    if: ${{ github.event.inputs.mode != 'reprobe-only' && github.event.inputs.mode != 'sitemap' }}
     runs-on: ubuntu-24.04
     # Bootstrap walks ~120 snapshots × ~10 pages each = an hour-ish per ATS;
     # incremental discovery is ~30 seconds. Sized for the bootstrap worst
@@ -162,6 +168,59 @@ jobs:
             data/harvest-state/${{ matrix.ats }}.json
           retention-days: 14
 
+  # Optional stage: platform-sitemap discovery. Off the default nightly /
+  # weekly path — runs ONLY on an explicit workflow_dispatch with
+  # mode=sitemap. Reads each supported platform's complete public sitemap
+  # index (a second discovery source alongside CDX) and seeds net-new
+  # tenants as transient_failure into data/tenants/{ats}.json; for the
+  # liveness-truth source (jazzhr) it also re-asserts stale dead/transient
+  # boards for re-probe. The reprobe stage below pulls these artifacts and
+  # validates the newly-seeded slugs in the same run.
+  #
+  # Fetch cost (see specs/sitemap-discovery.md): isolvedhire = 1 request
+  # (~7,176 slugs), jazzhr = 5 requests (~7,200 slugs), hiringthing = 1
+  # index + up to sitemap_max gzip children (default 200; a full sweep is
+  # ~2,891 GET+gunzip). Kept operator-triggered because the hiringthing
+  # full sweep is expensive; isolvedhire/jazzhr are cheap.
+  sitemap:
+    name: Sitemap discover ${{ matrix.ats }}
+    if: ${{ github.event.inputs.mode == 'sitemap' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        ats:
+          - isolvedhire
+          - jazzhr
+          - hiringthing
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - uses: ./.github/actions/bun-install
+
+      - name: Sitemap discover ${{ matrix.ats }}
+        env:
+          SITEMAP_MAX: ${{ github.event.inputs.sitemap_max || '200' }}
+        run: |
+          mkdir -p data/tenants
+          bun run discover-sitemap \
+            --ats "${{ matrix.ats }}" \
+            --max "$SITEMAP_MAX" \
+            --output-dir "${GITHUB_WORKSPACE}/data"
+
+      - name: Upload sitemap-seeded tenants for ${{ matrix.ats }}
+        if: hashFiles(format('data/tenants/{0}.json', matrix.ats)) != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: sitemap-${{ matrix.ats }}
+          path: data/tenants/${{ matrix.ats }}.json
+          retention-days: 14
+
   # Stage 2: liveness reprobe. Operates on the tenant list (post-discovery),
   # picks tenants whose last_probed_at is older than max_age_days, probes
   # them, updates status in place. Bounded by batch_size so each runner
@@ -169,7 +228,7 @@ jobs:
   # are not re-probed this run — they wait their turn next week.
   reprobe:
     name: Reprobe ${{ matrix.ats }}
-    needs: discover
+    needs: [discover, sitemap]
     if: ${{ always() && github.event.inputs.mode != 'discover-only' }}
     runs-on: ubuntu-24.04
     # Bootstrap reprobes the whole just-discovered corpus (tens of
@@ -241,6 +300,8 @@ jobs:
           # pattern) so they are operator-seeded and reprobe-only, like
           # workday/oraclecloud. All need weekly reprobing so seeds don't
           # decay out of `live` and transient failures can recover.
+          # isolvedhire/hiringthing are also seeded by the mode=sitemap
+          # stage (as transient_failure), and this reprobe promotes them.
           - careerplug
           - jibeapply
           - isolvedhire
@@ -280,6 +341,23 @@ jobs:
           # workflow + the repo expect them.
           path: data
           merge-multiple: true
+
+      - name: Pull sitemap artifact for ${{ matrix.ats }} (if any)
+        # In mode=sitemap the sitemap stage seeded net-new / resurrected
+        # slugs into tenants/<ats>.json (no harvest-state file). Pull it so
+        # this reprobe pass validates those transient_failure slugs and
+        # promotes the live ones. Gated on mode=sitemap; other modes never
+        # produce this artifact, so the download would just emit a
+        # not-found annotation.
+        if: ${{ github.event.inputs.mode == 'sitemap' }}
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: sitemap-${{ matrix.ats }}
+          # The sitemap artifact holds tenants/<ats>.json (single path, so
+          # upload-artifact keeps the tenants/ prefix). path=data lands it
+          # at data/tenants/<ats>.json where reprobe reads it.
+          path: data/tenants
 
       - name: Reprobe ${{ matrix.ats }}
         env:
