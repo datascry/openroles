@@ -93,6 +93,16 @@ jobs:
           # Shared-host connector; CDX discovery captures the numeric cid
           # query parameter on recruit.hirebridge.com URLs.
           - hirebridge
+          # Subdomain/path connectors with real CDX discovery patterns whose
+          # tenant lists shipped seed-only. Bootstrap once (mode=bootstrap)
+          # to mint the historical corpus, then incremental discovery keeps
+          # them fresh like every other pattern-based ATS.
+          - careerplug
+          - jibeapply
+          - isolvedhire
+          - applitrack
+          - hiringthing
+          - hireology
     steps:
       - uses: actions/checkout@v7
 
@@ -217,6 +227,20 @@ jobs:
           # Shared-host connector (recruit.hirebridge.com, tenant = numeric
           # cid); also in the discover matrix above.
           - hirebridge
+          # Remaining 2026-07 connectors. The first six are also in the
+          # discover matrix; the last three are metadata-tenancy (no CDX
+          # pattern) so they are operator-seeded and reprobe-only, like
+          # workday/oraclecloud. All need weekly reprobing so seeds don't
+          # decay out of `live` and transient failures can recover.
+          - careerplug
+          - jibeapply
+          - isolvedhire
+          - applitrack
+          - hiringthing
+          - hireology
+          - apploi
+          - taleotbe
+          - workstream
     steps:
       - uses: actions/checkout@v7
 
