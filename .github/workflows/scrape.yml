@@ -94,6 +94,8 @@ jobs:
           - hrmdirect
           # Jibe hosted career sites ({slug}.jibeapply.com); shared backend.
           - jibeapply
+          # Hireology hosted career sites (careers.hireology.com/{slug}).
+          - hireology
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both

@@ -107,6 +107,15 @@ export const ATS_IDS = Object.freeze([
   // `apply_url` leads to a login flow and is not used. Verified seeds:
   // Davidson Hospitality, Mount Sinai, FedEx Freight.
   "jibeapply",
+  // Hireology hosted career sites. Every tenant is a path slug on the
+  // shared SPA host (`careers.hireology.com/{slug}`); the SPA is backed
+  // by a public JSON API at `api.hireology.com/v2/public/careers/{slug}`
+  // returning `{ data: [...], count }` with page/page_size pagination.
+  // The listing already carries the full HTML job description, so one
+  // GET per page covers everything — no detail fan-out. Tenant identity
+  // = slug (no metadata required). Verified seeds: three Home Instead
+  // franchise boards.
+  "hireology",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

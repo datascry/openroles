@@ -1,0 +1,115 @@
+{
+  "data": [
+    {
+      "id": 300001,
+      "name": "Senior Automotive Technician",
+      "created_at": "2026-04-10T12:00:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - hourly",
+      "job_description": "<p>Diagnose and repair vehicles across all major systems in a busy dealership service department.</p>",
+      "locations": [
+        { "city": "Rapid City", "state": "SD", "zip_code": "57701", "address": "710 Mount Rushmore Rd" }
+      ],
+      "remote": false,
+      "job_family": { "id": 3, "name": "Service", "shorten": true, "arrange": 4, "global_id": "1b7e0d3a-9d51-4a5f-8f65-000000000001" },
+      "career_site_path": "/acme/300001/description",
+      "career_site_url": "https://careers.hireology.com/acme/300001/description",
+      "organization": { "id": 41001, "name": "Acme Motors", "type": "Location" },
+      "compensation": {
+        "is_comp_range": true,
+        "comp_single_amount": "0.0",
+        "comp_range_min": "28.0",
+        "comp_range_max": "38.0",
+        "comp_period": "hour",
+        "comp_frequency": "biweekly"
+      }
+    },
+    {
+      "id": 300002,
+      "name": "Customer Success Specialist",
+      "created_at": "2026-04-15T09:30:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - salary",
+      "job_description": "<p>Support dealership customers by phone and email from anywhere in the US.</p>",
+      "locations": [],
+      "remote": true,
+      "job_family": { "id": 12, "name": "Customer Support", "shorten": false, "arrange": 7, "global_id": "1b7e0d3a-9d51-4a5f-8f65-000000000002" },
+      "career_site_path": "/acme/300002/description",
+      "career_site_url": null,
+      "organization": { "id": 41001, "name": "Acme Motors", "type": "Location" },
+      "compensation": null
+    },
+    {
+      "id": 300003,
+      "name": "Technical Recruiter",
+      "created_at": "2026-04-20T16:45:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - salary",
+      "job_description": "<p>Own full-cycle recruiting for our service and sales teams.</p>",
+      "locations": [
+        { "city": "Sioux Falls", "state": "SD", "zip_code": "57104", "address": "100 Main St" }
+      ],
+      "remote": false,
+      "job_family": { "id": 5, "name": "People", "shorten": true, "arrange": 9, "global_id": "1b7e0d3a-9d51-4a5f-8f65-000000000003" },
+      "career_site_path": "/acme/300003/description",
+      "career_site_url": "https://evil.example.com/acme/300003/description",
+      "organization": { "id": 41001, "name": "Acme Motors", "type": "Location" },
+      "compensation": null
+    },
+    {
+      "id": 300004,
+      "name": "Service Advisor",
+      "created_at": "2026-05-01T08:00:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - hourly",
+      "job_description": "<p>Greet service customers, write repair orders and coordinate with technicians across both stores.</p>",
+      "locations": [
+        { "city": "Spearfish", "state": "SD", "zip_code": "57783", "address": "2200 Lazelle St" },
+        { "city": "Sturgis", "state": "SD", "zip_code": "57785", "address": "1040 Junction Ave" }
+      ],
+      "remote": false,
+      "job_family": { "id": 3, "name": "Service", "shorten": true, "arrange": 4, "global_id": "1b7e0d3a-9d51-4a5f-8f65-000000000001" },
+      "career_site_path": "/acme/300004/description",
+      "career_site_url": "https://careers.hireology.com/acme/300004/description",
+      "organization": { "id": 41002, "name": "Acme Motors Northern Hills", "type": "Location" },
+      "compensation": null
+    },
+    {
+      "id": 300005,
+      "name": "Sales Consultant",
+      "created_at": "2026-05-10T14:20:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - commission",
+      "job_description": "<p>Guide customers through the vehicle purchase process from first visit to delivery.</p>",
+      "locations": [
+        { "city": "Rapid City", "state": "SD", "zip_code": "57701", "address": "710 Mount Rushmore Rd" }
+      ],
+      "remote": false,
+      "job_family": { "id": 2, "name": "Sales", "shorten": true, "arrange": 2, "global_id": "1b7e0d3a-9d51-4a5f-8f65-000000000004" },
+      "career_site_path": "/acme/300005/description",
+      "career_site_url": "https://careers.hireology.com/acme/300005/description",
+      "organization": null,
+      "compensation": null
+    },
+    {
+      "id": 300006,
+      "name": "Body Shop Estimator",
+      "created_at": "2026-05-12T10:05:00.000Z",
+      "status": "Open",
+      "employment_status": "Full Time - hourly",
+      "job_description": "<p>Prepare collision repair estimates and coordinate with insurance adjusters.</p>",
+      "locations": [
+        { "city": "Rapid City", "state": "SD", "zip_code": "57701", "address": "710 Mount Rushmore Rd" }
+      ],
+      "remote": false,
+      "job_family": null,
+      "career_site_path": "/acme/300006/description",
+      "career_site_url": "https://careers.hireology.com/acme/300006/description",
+      "organization": { "id": 41001, "name": "Acme Motors", "type": "Location" },
+      "compensation": null
+    }
+  ],
+  "count": 6,
+  "page": 1,
+  "page_size": 100
+}

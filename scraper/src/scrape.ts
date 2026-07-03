@@ -21,6 +21,7 @@ import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
+import { scrapeHireologyTenant } from "./ats/hireology.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
@@ -358,5 +359,9 @@ function dispatchPerAts(
       // identical API from a branded CNAME captured as metadata.host
       // (SSRF-guarded in the adapter, like phenom's vanity domains).
       return dispatchJibeapply(opts);
+    case "hireology":
+      // Slug-only tenancy: the public API is
+      // `api.hireology.com/v2/public/careers/{slug}`, so no metadata is needed.
+      return scrapeHireologyTenant(opts);
   }
 }
