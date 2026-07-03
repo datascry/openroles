@@ -13,6 +13,7 @@
     "scrape": "bun run bin/openroles-scrape.ts scrape",
     "harvest": "bun run bin/openroles-scrape.ts harvest",
     "reprobe": "bun run bin/openroles-scrape.ts reprobe",
+    "discover-sitemap": "bun run bin/openroles-scrape.ts discover-sitemap",
     "build-db": "bun run bin/openroles-scrape.ts build-db",
     "report": "bun run bin/openroles-scrape.ts report"
   },

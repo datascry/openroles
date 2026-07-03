@@ -35,6 +35,7 @@ import {
 } from "./harvest/gjobsfeed-enumerate.ts";
 import { probeMany } from "./harvest/probe.ts";
 import { runHarvest } from "./harvest/runner.ts";
+import { fetchSitemapSlugs, mergeSitemapSlugs, sitemapSourceFor } from "./harvest/sitemap-index.ts";
 import { resolveAllSnapshots, resolveLatestSnapshots } from "./harvest/snapshots.ts";
 import { HttpClient } from "./http.ts";
 import { detectDeadTenants, type TenantSnapshot } from "./observability/dead-tenants.ts";
@@ -82,6 +83,7 @@ Commands:
   reprobe                  Re-probe stale tenants for liveness updates
   discover-workday-sites   Backfill metadata.site for workday tenants via robots.txt
   discover-gjobsfeed       Probe candidate brands for a Google-for-Jobs RSS feed and seed gjobsfeed
+  discover-sitemap         Seed tenants from a platform's public sitemap index (isolvedhire/jazzhr/hiringthing)
   enumerate-gjobsfeed-hosts  Operator-run: CC columnar-index scan → expand gjobsfeed-candidates.json
   build-db                 Build data/jobs.{sha}.sqlite from one or more scrape outputs
   report                   Print run report from data/run-report.json (Phase 7)
@@ -173,6 +175,21 @@ discover-gjobsfeed:
   status=live under ANY other ATS is skipped (cross-ATS dedup guard) — build-db only de-dupes by
   exact Job.url, so the same role reachable via two adapters would otherwise double-count.
 
+discover-sitemap:
+  --ats <id>              REQUIRED. Platform whose public sitemap to read. Supported:
+                          isolvedhire (1 request, ~7,176 slugs, seed net-new),
+                          jazzhr (5 requests, ~7,200 slugs, liveness-truth: re-asserts live boards),
+                          hiringthing (WEAK: ~2,891 gzip children, one GET each — default samples 200).
+  --tenants-file <path>   Override the tenant file to merge into (default: <output-dir>/tenants/{ats}.json)
+  --max <n>               Cap child sitemaps fetched (hiringthing only; default 200). Raise for a full sweep.
+  --dry-run               Compute + print the summary without writing the tenant file.
+  --output-dir <dir>      Where tenants/ lives (default: ./data)
+
+  New slugs are appended as status=transient_failure (the reprobe pass validates them before they
+  count as live). Existing live slugs are untouched. For jazzhr (liveness-truth), a dead/transient
+  slug the sitemap re-asserts is reset for immediate re-probe. A slug already live under another ATS
+  is skipped (cross-ATS dedup guard). Idempotent, deterministic. See specs/sitemap-discovery.md.
+
 enumerate-gjobsfeed-hosts:
   --snapshots <CC-MAIN-YYYY-NN>  REQUIRED. The Common Crawl crawl to scan (latest id from
                           https://index.commoncrawl.org/collinfo.json). No default — this is a
@@ -213,6 +230,9 @@ interface ParsedArgs {
   readonly tenantsHistory: string | undefined;
   readonly consecutiveDead: string | undefined;
   readonly failOn: string | undefined;
+  readonly tenantsFile: string | undefined;
+  readonly max: string | undefined;
+  readonly dryRun: boolean;
   readonly help: boolean;
 }
 
@@ -241,6 +261,9 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
   let tenantsHistory: string | undefined;
   let consecutiveDead: string | undefined;
   let failOn: string | undefined;
+  let tenantsFile: string | undefined;
+  let max: string | undefined;
+  let dryRun = false;
   let help = false;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -258,6 +281,10 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     }
     if (a === "--incremental") {
       incremental = true;
+      continue;
+    }
+    if (a === "--dry-run") {
+      dryRun = true;
       continue;
     }
     if (a === "--input") input = argv[++i];
@@ -281,6 +308,8 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     else if (a === "--tenants-history") tenantsHistory = argv[++i];
     else if (a === "--consecutive-dead") consecutiveDead = argv[++i];
     else if (a === "--fail-on") failOn = argv[++i];
+    else if (a === "--tenants-file") tenantsFile = argv[++i];
+    else if (a === "--max") max = argv[++i];
   }
   return {
     input,
@@ -307,6 +336,9 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     tenantsHistory,
     consecutiveDead,
     failOn,
+    tenantsFile,
+    max,
+    dryRun,
     help,
   };
 }
@@ -1158,6 +1190,118 @@ export async function runDiscoverGjobsfeedCommand(argv: ReadonlyArray<string>): 
   return 0;
 }
 
+// Platform-sitemap tenant-discovery. Reads a platform's public sitemap
+// index (a second discovery source alongside CDX) and merges the tenants
+// it enumerates into data/tenants/{ats}.json — new slugs seeded as
+// transient_failure (the reprobe pass validates them), and, for
+// liveness-truth sources (jazzhr), stale dead/transient slugs the sitemap
+// re-asserts as live are reset for immediate re-probe. See
+// specs/sitemap-discovery.md.
+export async function runDiscoverSitemapCommand(argv: ReadonlyArray<string>): Promise<number> {
+  const args = parseArgs(argv);
+  if (args.help) {
+    usage();
+    return 0;
+  }
+  if (args.ats === undefined) {
+    console.error("discover-sitemap: --ats <id> is required");
+    return 2;
+  }
+  const atsParse = ATSIdSchema.safeParse(args.ats);
+  if (!atsParse.success) {
+    console.error(`discover-sitemap: --ats must be one of ${ATS_IDS.join("|")}, got ${args.ats}`);
+    return 2;
+  }
+  const ats: ATSId = atsParse.data;
+  const source = sitemapSourceFor(ats);
+  if (source === undefined) {
+    console.error(
+      `discover-sitemap: no sitemap source configured for '${ats}'. ` +
+        "Supported: isolvedhire, jazzhr, hiringthing. See specs/sitemap-discovery.md.",
+    );
+    return 2;
+  }
+
+  let maxChildren = source.maxChildren;
+  if (args.max !== undefined) {
+    const n = Number.parseInt(args.max, 10);
+    if (!Number.isFinite(n) || n < 1 || n > 100_000) {
+      console.error(`discover-sitemap: --max must be in [1, 100000], got ${args.max}`);
+      return 2;
+    }
+    // --max only bounds child-sitemap descent. A non-descending source
+    // (isolvedhire/jazzhr) fetches its index in one shot, so the flag has
+    // no effect — say so rather than silently ignore it.
+    if (!source.descend) {
+      console.error(
+        `discover-sitemap: --max is ignored for '${ats}' (it does not descend into ` +
+          "child sitemaps; the index is fetched in one request)",
+      );
+    }
+    maxChildren = n;
+  }
+
+  const outputDir = args.outputDir ?? defaultOutputDir();
+  const tenantsDir = join(outputDir, "tenants");
+  const path = args.tenantsFile ?? join(tenantsDir, `${ats}.json`);
+
+  const fetched = await fetchSitemapSlugs({ ats, maxChildren });
+  if (fetched.slugs.length === 0) {
+    console.error(
+      `discover-sitemap: ${ats} sitemap yielded no slugs ` +
+        `(children_attempted=${fetched.childrenAttempted}, ` +
+        `children_failed=${fetched.childrenFailed}); nothing to do`,
+    );
+    return 0;
+  }
+
+  const existing = await loadTenants(path, ats);
+  // Cross-ATS dedup guard: a slug already live under another adapter must
+  // not be re-seeded here (build-db de-dupes only by exact URL).
+  const liveElsewhere = await liveSlugsExcluding(tenantsDir, ats);
+
+  const merged = mergeSitemapSlugs({
+    ats,
+    existing,
+    sitemapSlugs: fetched.slugs,
+    liveElsewhere,
+    livenessTruth: source.livenessTruth,
+    now: new Date().toISOString(),
+  });
+
+  if (args.dryRun) {
+    console.error(
+      `discover-sitemap: DRY RUN ${ats} — fetched=${fetched.slugs.length} ` +
+        `new=${merged.added} resurrected=${merged.resurrected} skipped=${merged.skipped} ` +
+        `(children_attempted=${fetched.childrenAttempted}, ` +
+        `children_failed=${fetched.childrenFailed}, truncated=${fetched.truncated}); ` +
+        "no file written",
+    );
+    return 0;
+  }
+
+  if (merged.added > 0 || merged.resurrected > 0) {
+    await mkdir(tenantsDir, { recursive: true });
+    const tmp = `${path}.tmp`;
+    try {
+      await writeFile(tmp, `${JSON.stringify(merged.tenants, null, 2)}\n`);
+      await rename(tmp, path);
+      /* c8 ignore next 4 — cleanup path; only reached on rare fs/rename failure mid-write. */
+    } catch (err) {
+      await rm(tmp, { force: true });
+      throw err;
+    }
+  }
+
+  console.error(
+    `discover-sitemap: ${ats} — fetched=${fetched.slugs.length} ` +
+      `new=${merged.added} resurrected=${merged.resurrected} skipped=${merged.skipped} ` +
+      `(children_attempted=${fetched.childrenAttempted}, ` +
+      `children_failed=${fetched.childrenFailed}, truncated=${fetched.truncated})`,
+  );
+  return 0;
+}
+
 // Operator-run Common Crawl columnar-index enumeration. Heavyweight
 // (a few hundred GB Parquet scan, ~$1-3 via Athena / a large httpfs
 // stream via the duckdb CLI) and deliberately NOT part of CI — see
@@ -1338,6 +1482,9 @@ export async function main(argv: ReadonlyArray<string>): Promise<number> {
   }
   if (command === "discover-gjobsfeed") {
     return await runDiscoverGjobsfeedCommand(rest);
+  }
+  if (command === "discover-sitemap") {
+    return await runDiscoverSitemapCommand(rest);
   }
   if (command === "enumerate-gjobsfeed-hosts") {
     return await runEnumerateGjobsfeedHostsCommand(rest);
