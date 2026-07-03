@@ -3,6 +3,9 @@ import pLimit from "p-limit";
 import {
   assertOracleHost,
   assertOracleSite,
+  assertTaleoTbeCws,
+  assertTaleoTbeHost,
+  assertTaleoTbeInstance,
   assertWorkdayHost,
   assertWorkdaySite,
   isSafeFetchHost,
@@ -36,8 +39,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   smartrecruiters: (slug) =>
     `https://api.smartrecruiters.com/v1/companies/${slug}/postings?limit=1`,
   csod: (slug) => `https://${slug}.csod.com/`,
-  // Taleo career sites live under either `{tenant}.taleo.net` or the TBE
-  // pool `{tenant}.tbe.taleo.net`; the careersection root returns 200 on both.
+  // Taleo enterprise career sites live under `{tenant}.taleo.net`; the
+  // careersection root returns 200 on a live tenant. The TBE pool is a
+  // separate ATS (`taleotbe`) with composite metadata — see
+  // PROBE_URL_META below.
   taleo: (slug) => `https://${slug}.taleo.net/careersection/`,
   jobvite: (slug) => `https://jobs.jobvite.com/${slug}`,
   zohorecruit: (slug) => `https://${slug}.zohorecruit.com/jobs/Careers`,
@@ -73,8 +78,9 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
-  // workday + ultipro + successfactors + oraclecloud + phenom need composite
-  // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
+  // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe
+  // need composite metadata (host/site, board_id, locale,
+  // host/instance/cws) — see probeUrlForWithMetadata below.
 };
 
 // ATSes whose dead tenants answer a probe with a *cross-host* redirect to a
@@ -226,6 +232,29 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
       return undefined;
     }
     return `https://${host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${site},limit=1,sortBy=POSTING_DATES_DESC`;
+  },
+  taleotbe: (slug, metadata) => {
+    // Taleo Business Edition tenants are addressed by the composite
+    // (host, instance, cws) plus the org code (the slug). All three
+    // metadata keys are mandatory and validated exactly as the adapter
+    // does; a record missing any stays transient_failure until harvest
+    // (or an operator) completes the composite. The v2 searchResults
+    // page is the public board itself — 200 for a live org, a redirect
+    // chain into an error page otherwise.
+    const host = metadata["host"];
+    const instance = metadata["instance"];
+    const cws = metadata["cws"];
+    if (typeof host !== "string" || typeof instance !== "string" || typeof cws !== "string") {
+      return undefined;
+    }
+    try {
+      assertTaleoTbeHost(host);
+      assertTaleoTbeInstance(instance);
+      assertTaleoTbeCws(cws);
+    } catch {
+      return undefined;
+    }
+    return `https://${host}/${instance}/ats/careers/v2/searchResults?org=${slug}&cws=${cws}`;
   },
   phenom: (_slug, metadata) => {
     // Phenom career sites are addressed by (host, locale). The host is a

@@ -140,6 +140,51 @@ describe("harvestPatternFor", () => {
     }
   });
 
+  it("taleotbe pattern extracts the org slug and host/instance/cws metadata", () => {
+    const { regex, extractMetadata } = harvestPatternFor("taleotbe");
+    const sample =
+      "https://phh.tbe.taleo.net/phh03/ats/careers/searchResults.jsp?org=INVXIS&cws=37 " +
+      "https://tre.tbe.taleo.net/tre01/ats/careers/requisition.jsp?org=CITYBURNABY&cws=1&rid=633";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    // extractSlugs lowercases group 1; mirror that here.
+    expect(matches.map((m) => m[1]?.toLowerCase())).toEqual(["invxis", "cityburnaby"]);
+    expect(extractMetadata?.(matches[0] as RegExpExecArray)).toEqual({
+      host: "phh.tbe.taleo.net",
+      instance: "phh03",
+      cws: "37",
+    });
+    expect(extractMetadata?.(matches[1] as RegExpExecArray)).toEqual({
+      host: "tre.tbe.taleo.net",
+      instance: "tre01",
+      cws: "1",
+    });
+  });
+
+  it("taleotbe pattern omits cws when the URL lacks it and fails closed on a bad host", () => {
+    const { regex, extractMetadata } = harvestPatternFor("taleotbe");
+    const re = new RegExp(regex.source, regex.flags);
+    const m = re.exec("https://lde.tbe.taleo.net/lde01/ats/careers/viewRequisition?org=URSAUS");
+    expect(m?.[1]?.toLowerCase()).toBe("ursaus");
+    expect(extractMetadata?.(m as RegExpExecArray)).toEqual({
+      host: "lde.tbe.taleo.net",
+      instance: "lde01",
+    });
+    // A synthesized match whose match[0] lacks the pod-host shape must
+    // fail closed rather than emit junk metadata.
+    const fake = Object.assign(["https://evil.example.com/ats/careers/x?org=ACME", "ACME"], {
+      index: 0,
+      input: "https://evil.example.com/ats/careers/x?org=ACME",
+    }) as unknown as RegExpExecArray;
+    expect(extractMetadata?.(fake)).toBeUndefined();
+  });
+
+  it("taleotbe pattern does not match the enterprise taleo pool", () => {
+    const { regex } = harvestPatternFor("taleotbe");
+    const re = new RegExp(regex.source, regex.flags);
+    expect(re.exec("https://acme.taleo.net/careersection/jobsearch.ftl?org=ACME")).toBeNull();
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("rippling" as any)).toThrow();
   });

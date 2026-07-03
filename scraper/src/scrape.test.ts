@@ -158,6 +158,53 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches taleotbe with metadata.host, metadata.instance and metadata.cws", async () => {
+    server.use(
+      http.get("https://phh.tbe.taleo.net/phh03/ats/careers/v2/searchResults", () =>
+        HttpResponse.html(readFixtureText("taleotbe.listing.page2.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "taleotbe",
+        tenants: [
+          {
+            slug: "invxis",
+            metadata: { host: "phh.tbe.taleo.net", instance: "phh03", cws: "37" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.jobs).toHaveLength(3);
+  });
+
+  it("flags taleotbe tenant dead when any of host/instance/cws is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "taleotbe",
+        tenants: [
+          { slug: "no-metadata" },
+          { slug: "no-cws", metadata: { host: "phh.tbe.taleo.net", instance: "phh03" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    for (const result of out.tenant_results) {
+      expect(result.status).toBe("dead");
+      expect(result.error).toContain(
+        "taleotbe tenant missing metadata.host, metadata.instance or metadata.cws",
+      );
+    }
+  });
+
   it("flags oraclecloud tenant dead when metadata.host is missing", async () => {
     const out = await runScrape({
       input: {

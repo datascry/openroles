@@ -382,6 +382,37 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(phenom)\b/gi,
     denyList: new Set<string>(["phenom"]),
   },
+  // Taleo Business Edition boards are addressed by (host, instance, cws)
+  // plus the org code: `{pod}.tbe.taleo.net/{instance}/ats/careers/
+  // …?org={ORG}&cws={n}`. Everything is derivable from a captured careers
+  // URL, so — like successfactors, the other query-param-slug ATS — the
+  // slug (group 1) is the `org=` value and the host/instance/cws are
+  // re-parsed out of match[0] in extractMetadata. The `.tbe.` label keeps
+  // this pattern disjoint from the enterprise `taleo` pattern's bare-host
+  // capture. URLs without a `cws=` (e.g. requisition deep links that only
+  // carry org+rid) still mint the slug with host+instance; the tenant
+  // stays at transient_failure until a cws-bearing URL (or an operator)
+  // completes the composite.
+  {
+    ats: "taleotbe",
+    cdxQuery: "*.tbe.taleo.net/*",
+    // The trailing `[^"\s]*` keeps the rest of the query string inside
+    // match[0] so extractMetadata can recover a `cws=` that follows the
+    // org parameter.
+    regex:
+      /https?:\/\/[a-z0-9-]{1,32}\.tbe\.taleo\.net\/[a-z0-9]{1,32}\/ats\/careers\/[^"\s]*?[?&](?:amp;)?org=([a-z0-9]+)[^"\s]*/gi,
+    denyList: SUBDOMAIN_DENY,
+    extractMetadata: (match) => {
+      const hostMatch = /([a-z0-9-]{1,32}\.tbe\.taleo\.net)\/([a-z0-9]{1,32})\//i.exec(match[0]);
+      if (!hostMatch?.[1] || !hostMatch[2]) return undefined;
+      const cws = /[?&](?:amp;)?cws=([0-9]{1,6})/i.exec(match[0])?.[1];
+      return {
+        host: hostMatch[1].toLowerCase(),
+        instance: hostMatch[2].toLowerCase(),
+        ...(cws !== undefined ? { cws } : {}),
+      };
+    },
+  },
   {
     ats: "hrmdirect",
     // HRMDirect hosted boards live at `{slug}.hrmdirect.com`; the tenant

@@ -1,0 +1,41 @@
+[
+  {
+    "ats": "taleotbe",
+    "slug": "invxis",
+    "display_name": "RealmOne",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "host": "phh.tbe.taleo.net",
+      "instance": "phh03",
+      "cws": "37"
+    }
+  },
+  {
+    "ats": "taleotbe",
+    "slug": "cityburnaby",
+    "display_name": "City of Burnaby",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "host": "tre.tbe.taleo.net",
+      "instance": "tre01",
+      "cws": "37"
+    }
+  },
+  {
+    "ats": "taleotbe",
+    "slug": "ursaus",
+    "display_name": "DT Global",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "host": "lde.tbe.taleo.net",
+      "instance": "lde01",
+      "cws": "39"
+    }
+  }
+]

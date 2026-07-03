@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 36 adapters in `ATS_IDS`, not only these examples):
+all 37 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -93,6 +93,7 @@ all 36 adapters in `ATS_IDS`, not only these examples):
 | jazzhr | GET `{slug}.applytojob.com/apply/` (server-rendered link list), then walk each `/apply/{jobCode}` page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core) |
 | phenom | GET `{metadata.host}/{metadata.locale}/search-results?from=N` (per-tenant vanity host) | HTML embedding `phApp.ddo.eagerLoadRefineSearch` `{ totalHits, data.jobs }`; `?from=N` paginates (10/page) |
 | hrmdirect | GET `{slug}.hrmdirect.com/employment/job-openings.php` | HTML table; one `<tr data-req-id>` per role (title/department/city/state) — parsed directly, no detail fetch |
+| taleotbe | GET `{metadata.host}/{metadata.instance}/ats/careers/v2/searchResults?org={slug}&cws={metadata.cws}`, then `&next&rowFrom=N` (10/page) | server-rendered HTML; one `viewJobLink` anchor + location line per role, no detail fetch. Page 1 sets a JSESSIONID that must be echoed on later pages of the same walk (cookie-less pages come back empty); nothing persists across tenants or runs |
 
 ## Invariants
 

@@ -120,6 +120,49 @@ describe("probeUrlForWithMetadata", () => {
     ).toBeUndefined();
   });
 
+  it("composes the taleotbe searchResults URL from host + instance + cws", () => {
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+        cws: "37",
+      }),
+    ).toBe("https://phh.tbe.taleo.net/phh03/ats/careers/v2/searchResults?org=invxis&cws=37");
+  });
+
+  it("rejects taleotbe with missing or malformed composite metadata", () => {
+    // Missing cws → composite incomplete.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+      }),
+    ).toBeUndefined();
+    // Host outside the *.tbe.taleo.net pool → assertTaleoTbeHost rejects.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net.evil.com",
+        instance: "phh03",
+        cws: "37",
+      }),
+    ).toBeUndefined();
+    // Path-injecting instance and non-numeric cws are rejected.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03/evil",
+        cws: "37",
+      }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+        cws: "37&org=other",
+      }),
+    ).toBeUndefined();
+  });
+
   it("composes the phenom search-results URL and defaults locale to us/en", () => {
     expect(probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com" })).toBe(
       "https://careers.acme.com/us/en/search-results",

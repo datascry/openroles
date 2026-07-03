@@ -96,6 +96,17 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Taleo Business Edition (the SMB pool, distinct from the enterprise
+  // `taleo` careersection stack). Every customer's public board is a
+  // server-rendered page on a shared pod host:
+  // `{pod}.tbe.taleo.net/{instance}/ats/careers/v2/searchResults?org={ORG}&cws={n}`.
+  // Tenant identity is the composite (host, instance, cws) plus the org
+  // code as slug — none of it derivable from the slug alone, so all
+  // three metadata keys are mandatory (workday/oraclecloud convention).
+  // Pagination (`&next&rowFrom=N`, 10 rows/page) requires echoing the
+  // JSESSIONID the first page sets; without it every later page is
+  // empty. Verified seeds: RealmOne, City of Burnaby, DT Global.
+  "taleotbe",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

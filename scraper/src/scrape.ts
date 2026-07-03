@@ -38,6 +38,7 @@ import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
+import { scrapeTaleoTbeTenant } from "./ats/taleotbe.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
@@ -200,11 +201,10 @@ function dispatchPerAts(
     case "csod":
       return scrapeCsodTenant(opts);
     case "taleo":
-      // Standard pool only (`{slug}.taleo.net`). The TBE pool requires a
-      // per-tenant `org=<CODE>` parameter we don't capture in harvest;
-      // when TBE-specific metadata lands, gate that variant here. The
-      // scraper discovers the careersection portalNo from the section
-      // HTML, so no metadata is required for the standard pool.
+      // Enterprise pool only (`{slug}.taleo.net`). The scraper discovers
+      // the careersection portalNo from the section HTML, so no metadata
+      // is required. Taleo Business Edition boards are a separate ATS id
+      // (`taleotbe`) with composite tenancy — see that case below.
       return scrapeTaleoTenant(opts);
     case "zohorecruit":
       return scrapeZohorecruitTenant(opts);
@@ -342,5 +342,29 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "taleotbe": {
+      // Taleo Business Edition. Tenant identity is the composite
+      // (host, instance, cws) plus the org code as slug: the pod host
+      // (`phh.tbe.taleo.net`), the pod instance path segment (`phh03`)
+      // and the career-website selector (`37`). None of the three is
+      // slug-derivable, so a tenant missing any of them is marked dead —
+      // same convention as workday's host/site and oraclecloud's
+      // host/site.
+      const host = opts.tenant.metadata?.["host"];
+      const instance = opts.tenant.metadata?.["instance"];
+      const cws = opts.tenant.metadata?.["cws"];
+      if (host === undefined || instance === undefined || cws === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "taleotbe tenant missing metadata.host, metadata.instance or metadata.cws",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeTaleoTbeTenant({ ...opts, host, instance, cws });
+    }
   }
 }
