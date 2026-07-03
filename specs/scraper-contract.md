@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 37 adapters in `ATS_IDS`, not only these examples):
+all 38 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -93,6 +93,7 @@ all 37 adapters in `ATS_IDS`, not only these examples):
 | jazzhr | GET `{slug}.applytojob.com/apply/` (server-rendered link list), then walk each `/apply/{jobCode}` page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core) |
 | phenom | GET `{metadata.host}/{metadata.locale}/search-results?from=N` (per-tenant vanity host) | HTML embedding `phApp.ddo.eagerLoadRefineSearch` `{ totalHits, data.jobs }`; `?from=N` paginates (10/page) |
 | hrmdirect | GET `{slug}.hrmdirect.com/employment/job-openings.php` | HTML table; one `<tr data-req-id>` per role (title/department/city/state) — parsed directly, no detail fetch |
+| jibeapply | GET `{host}/api/jobs?page=N&limit=100` (host = `{slug}.jibeapply.com`, or an optional vanity `metadata.host`) | JSON `{ jobs: [{ data: {…} }], totalCount }`; 1-based `page` + `limit` paginate until totalCount reached; full HTML description ships in the list payload (no detail fetch). Job url = `{host}/jobs/{req_id}` — the payload's `apply_url` is a login deep-link, not a public page |
 | hireology | GET `api.hireology.com/v2/public/careers/{slug}?page={n}&page_size=100` | JSON `{ data: [...], count }`; each row carries full HTML description + locations + career-site deep link; paginate `page` until `count` reached |
 
 ## Invariants

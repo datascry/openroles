@@ -1,0 +1,61 @@
+{
+  "jobs": [
+    {
+      "data": {
+        "slug": "27341",
+        "req_id": "27341",
+        "title": "Senior Security Engineer",
+        "description": "<p>Lead our threat detection program.</p><p>Build detections across the SIEM and tune them against real intrusions.</p>",
+        "location_name": "Riverfront Campus",
+        "city": "Savannah",
+        "state": "Georgia",
+        "country": "United States",
+        "country_code": "US",
+        "postal_code": "31401",
+        "full_location": "Savannah, Georgia",
+        "short_location": "Savannah, Georgia",
+        "categories": [{ "name": "Information Technology" }],
+        "department": "Security Operations",
+        "salary_min_value": 120000,
+        "salary_max_value": 150000,
+        "salary_value": 0,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Acme Corp",
+        "posted_date": "2026-05-20T14:27:00+0000",
+        "update_date": "2026-05-21T17:14:56+0000",
+        "create_date": "2026-05-20T14:20:00+0000",
+        "apply_url": "https://careers-acme.icims.com/jobs/27341/login",
+        "client_code": "acme"
+      }
+    },
+    {
+      "data": {
+        "slug": "27342",
+        "req_id": "27342",
+        "title": "Remote Threat Intelligence Analyst",
+        "description": "<p>Track adversary infrastructure and publish intel briefs.</p>",
+        "city": "",
+        "state": "",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "Remote, United States",
+        "categories": [{ "name": "Professional / Managerial / Administrative" }],
+        "department": "",
+        "salary_min_value": 0,
+        "salary_max_value": 0,
+        "salary_value": 0,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Acme Corp",
+        "posted_date": "2026-05-28T09:00:00+0000",
+        "update_date": "2026-05-28T09:00:00+0000",
+        "create_date": "2026-05-28T08:55:00+0000",
+        "apply_url": "https://careers-acme.icims.com/jobs/27342/login",
+        "client_code": "acme"
+      }
+    }
+  ],
+  "totalCount": 2,
+  "count": 2,
+  "request_id": "3f1c9a2e-small",
+  "filter": {}
+}

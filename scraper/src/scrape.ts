@@ -26,6 +26,7 @@ import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
+import { scrapeJibeapplyTenant } from "./ats/jibeapply.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
@@ -125,6 +126,15 @@ interface DispatchOpts {
   readonly tenant: TenantInput;
   readonly client: HttpClient;
   readonly observedAt: string;
+}
+
+// The vanity host is optional, so the metadata lookup lives outside
+// dispatchPerAts to keep that switch under the complexity ceiling.
+function dispatchJibeapply(
+  opts: DispatchOpts,
+): Promise<{ jobs: ReadonlyArray<Job>; result: TenantResult }> {
+  const host = opts.tenant.metadata?.["host"];
+  return scrapeJibeapplyTenant({ ...opts, ...(host !== undefined ? { host } : {}) });
 }
 
 function dispatchPerAts(
@@ -343,6 +353,12 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "jibeapply":
+      // Slug-only tenancy with an optional vanity-host override: the board
+      // defaults to `{slug}.jibeapply.com`, but a few customers serve the
+      // identical API from a branded CNAME captured as metadata.host
+      // (SSRF-guarded in the adapter, like phenom's vanity domains).
+      return dispatchJibeapply(opts);
     case "hireology":
       // Slug-only tenancy: the public API is
       // `api.hireology.com/v2/public/careers/{slug}`, so no metadata is needed.

@@ -92,6 +92,8 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # Jibe hosted career sites ({slug}.jibeapply.com); shared backend.
+          - jibeapply
           # Hireology hosted career sites (careers.hireology.com/{slug}).
           - hireology
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today

@@ -1,0 +1,132 @@
+{
+  "jobs": [
+    {
+      "data": {
+        "slug": "300001",
+        "req_id": "300001",
+        "title": "Senior Software Engineer, Payments",
+        "description": "<p>Own the payments platform end to end.</p>",
+        "city": "Nashville",
+        "state": "Tennessee",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "Remote, Tennessee",
+        "categories": [{ "name": "Engineering" }],
+        "department": "Payments Engineering",
+        "salary_min_value": 58661,
+        "salary_max_value": 69330.76,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-01T12:00:00+0000",
+        "update_date": "2026-05-02T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300001/login",
+        "client_code": "globex"
+      }
+    },
+    {
+      "data": {
+        "slug": "300002",
+        "req_id": "300002",
+        "title": "Staff Threat Intelligence Analyst",
+        "description": "<p>Hybrid role: split your week between the SOC and home.</p>",
+        "city": "London",
+        "state": "",
+        "country": "United Kingdom",
+        "country_code": "GB",
+        "full_location": "Hybrid, London",
+        "categories": [{ "name": "Security" }],
+        "department": "Threat Intelligence",
+        "salary_min_value": 0,
+        "salary_max_value": 0,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-03T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300002/login",
+        "client_code": "globex"
+      }
+    },
+    {
+      "data": {
+        "slug": "300003",
+        "req_id": "300003",
+        "title": "Principal Security Architect",
+        "description": "<p>On-site leadership role at our Denver campus.</p>",
+        "city": "Denver",
+        "state": "Colorado",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "Onsite, Denver, Colorado",
+        "categories": [{ "name": "Security" }],
+        "department": "Architecture",
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-04T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300003/login",
+        "client_code": "globex"
+      }
+    },
+    {
+      "data": {
+        "slug": "300004",
+        "req_id": "300004",
+        "title": "Technical Recruiter",
+        "description": "<p>Source and close engineering candidates.</p>",
+        "city": "Austin",
+        "state": "Texas",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "Austin, Texas",
+        "categories": [{ "name": "Human Resources" }],
+        "department": "Talent Acquisition",
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-05T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300004/login",
+        "client_code": "globex"
+      }
+    },
+    {
+      "data": {
+        "slug": "300005",
+        "req_id": "300005",
+        "title": "Remote Incident Responder",
+        "description": "<p>Answer the pager from anywhere in the US.</p>",
+        "city": "",
+        "state": "",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "",
+        "categories": [],
+        "department": "",
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-06T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300005/login",
+        "client_code": "globex"
+      }
+    },
+    {
+      "data": {
+        "slug": "300006",
+        "req_id": "300006",
+        "title": "Junior Frontend Engineer",
+        "description": "<p>Ship UI for the customer portal.</p>",
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "country_code": "CA",
+        "full_location": "Toronto, ON",
+        "categories": [{ "name": "Engineering" }],
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Globex",
+        "posted_date": "2026-05-07T12:00:00+0000",
+        "apply_url": "https://careers-globex.icims.com/jobs/300006/login",
+        "client_code": "globex"
+      }
+    }
+  ],
+  "totalCount": 6,
+  "count": 6,
+  "request_id": "3f1c9a2e-large",
+  "filter": {}
+}
