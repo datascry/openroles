@@ -1,0 +1,85 @@
+{
+  "data": [
+    {
+      "brand_name": "Acme Health",
+      "city": "San Antonio",
+      "state": "Texas",
+      "id": "910001",
+      "name": "Cardiac Registered Nurse",
+      "published_date": "2026-05-01",
+      "job_type": "Full Time",
+      "salary_min": 34.0,
+      "salary_max": 52.0,
+      "salary_rate": "HOURLY",
+      "salary_type": "RANGE",
+      "description": "<p>Deliver bedside care on the cardiac telemetry unit. Monitor rhythms, administer medications and educate patients and families about recovery plans.</p>"
+    },
+    {
+      "brand_name": "Acme Health",
+      "city": "San Antonio",
+      "state": "Texas",
+      "id": "910002",
+      "name": "Maintenance Technician",
+      "published_date": "2026-05-02",
+      "job_type": "Full Time",
+      "salary_min": 20.27,
+      "salary_max": 20.27,
+      "salary_rate": "HOURLY",
+      "salary_type": "EXACT_AMOUNT",
+      "description": "<ul><li>Performs minor carpentry, electrical and plumbing repairs across hospital facilities.</li><li>Estimates materials and labor costs.</li></ul>"
+    },
+    {
+      "brand_name": "Acme Health",
+      "city": "Houston",
+      "state": "Texas",
+      "id": "910003",
+      "name": "Remote Intake Coordinator",
+      "published_date": "2026-05-10",
+      "job_type": "Full Time",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Handle referral intake calls from a fully remote home office.</p>"
+    },
+    {
+      "brand_name": "Acme Health",
+      "city": "Houston",
+      "state": "Texas",
+      "id": "910004",
+      "name": "Technical Recruiter",
+      "published_date": "2026-05-11",
+      "job_type": "Full Time",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Source and screen clinical and technical candidates for open requisitions.</p>"
+    },
+    {
+      "brand_name": "Acme Health",
+      "city": "El Paso",
+      "state": "Texas",
+      "id": "910005",
+      "name": "Dietary Aide (Onsite)",
+      "published_date": "2026-05-12",
+      "job_type": "Part Time",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Prepare and deliver resident meal trays in the facility kitchen.</p>"
+    },
+    {
+      "brand_name": "Acme Health",
+      "city": "Laredo",
+      "state": "Texas",
+      "id": "910006",
+      "name": "Licensed Vocational Nurse (LVN)",
+      "published_date": "2026-05-15",
+      "job_type": "Full Time",
+      "salary_min": 26.0,
+      "salary_max": 31.0,
+      "salary_rate": "HOURLY",
+      "salary_type": "RANGE",
+      "description": "<p>Administer medications and treatments under RN supervision.</p>"
+    }
+  ],
+  "elasticsearch_errors": [],
+  "errors": [],
+  "buckets": []
+}

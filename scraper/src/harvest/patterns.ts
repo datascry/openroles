@@ -382,6 +382,21 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(phenom)\b/gi,
     denyList: new Set<string>(["phenom"]),
   },
+  // Apploi tenants share the host ats-integrations.apploi.com and are
+  // selected by a verbatim `brand` name string in the query — the slug is
+  // operator-assigned (brand-friendly kebab case) rather than derivable
+  // from any URL. CDX could enumerate job-card URLs, but mapping an id
+  // back to its brand string requires reading each posting by hand, so
+  // seeds are operator-curated in data/tenants/apploi.json. The pattern is
+  // registered as a placeholder to keep HARVEST_ATS_IDS == ATS_IDS without
+  // spuriously matching (the regex matches the literal token against its
+  // own deny list, so CDX never mints a fresh tenant).
+  {
+    ats: "apploi",
+    cdxQuery: "jobs.apploi.com/view/*",
+    regex: /\b(apploi)\b/gi,
+    denyList: new Set<string>(["apploi"]),
+  },
   {
     ats: "hrmdirect",
     // HRMDirect hosted boards live at `{slug}.hrmdirect.com`; the tenant

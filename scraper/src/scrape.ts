@@ -12,6 +12,7 @@ import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
 import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
+import { scrapeApploiTenant } from "./ats/apploi.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBrassringTenant } from "./ats/brassring.ts";
@@ -342,5 +343,24 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "apploi": {
+      // Apploi scopes a tenant by the verbatim `brand` name string the
+      // shared search API filters on — not URL-derivable, so it is
+      // mandatory seed metadata. Brand missing → dead, same as phenom's
+      // missing host.
+      const brand = opts.tenant.metadata?.["brand"];
+      if (brand === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "apploi tenant missing metadata.brand",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeApploiTenant({ ...opts, brand });
+    }
   }
 }

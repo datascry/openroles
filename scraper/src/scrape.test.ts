@@ -255,6 +255,43 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.error).toContain("phenom tenant missing metadata.host");
   });
 
+  it("dispatches apploi with metadata.brand", async () => {
+    server.use(
+      http.get("https://ats-integrations.apploi.com/search/jobs/", () =>
+        HttpResponse.json(readFixture("apploi.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "apploi",
+        tenants: [
+          { slug: "acme-health", display_name: "Acme Health", metadata: { brand: "Acme Health" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags apploi tenant dead when metadata.brand is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "apploi",
+        tenants: [{ slug: "no-brand" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("apploi tenant missing metadata.brand");
+  });
+
   it("dispatches hrmdirect from the slug alone (no metadata)", async () => {
     server.use(
       http.get(

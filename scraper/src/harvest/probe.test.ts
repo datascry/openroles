@@ -141,6 +141,32 @@ describe("probeUrlForWithMetadata", () => {
       probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.internal" }),
     ).toBeUndefined();
   });
+
+  it("composes the apploi search URL with the brand URL-encoded", () => {
+    expect(
+      probeUrlForWithMetadata("apploi", "university-health", { brand: "University Health" }),
+    ).toBe(
+      "https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=University%20Health",
+    );
+    expect(
+      probeUrlForWithMetadata("apploi", "cchhs-white-plains", {
+        brand: "Community Care Home Health Services - White Plains",
+      }),
+    ).toBe(
+      "https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=Community%20Care%20Home%20Health%20Services%20-%20White%20Plains",
+    );
+  });
+
+  it("rejects apploi with a missing, blank, control-char or oversized brand", () => {
+    expect(probeUrlForWithMetadata("apploi", "acme-health", {})).toBeUndefined();
+    expect(probeUrlForWithMetadata("apploi", "acme-health", { brand: "   " })).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("apploi", "acme-health", { brand: "bad\nbrand" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("apploi", "acme-health", { brand: "x".repeat(257) }),
+    ).toBeUndefined();
+  });
 });
 
 describe("probeOne", () => {

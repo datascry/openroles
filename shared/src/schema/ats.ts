@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Apploi job platform (healthcare-heavy multi-brand hiring). Every brand
+  // shares one public search API at ats-integrations.apploi.com; the org
+  // scope is the exact `brand` name string passed as a query parameter —
+  // there is no URL-derivable slug. Tenant identity = (slug, metadata.brand):
+  // an operator-chosen kebab slug plus the verbatim brand string the API
+  // filters on. The `brand` parameter is a relevance search, not a strict
+  // filter, so the adapter keeps only rows whose `brand_name` matches
+  // exactly. Verified seeds: University Health, The Laurels of Blanchester,
+  // Community Care Home Health Services - White Plains.
+  "apploi",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

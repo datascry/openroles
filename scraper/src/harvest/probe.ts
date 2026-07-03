@@ -227,6 +227,19 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     }
     return `https://${host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${site},limit=1,sortBy=POSTING_DATES_DESC`;
   },
+  apploi: (_slug, metadata) => {
+    // Apploi tenants are addressed by the verbatim `brand` name string on
+    // the shared search host. A size=1 brand query is the cheapest 200 and
+    // a strict prefix of the scrape flow; the brand is URL-encoded, and
+    // the same shape rules the adapter enforces (non-empty, no control
+    // characters, ≤256 chars) apply here so a malformed record stays
+    // transient rather than emitting a bad request.
+    const brand = metadata["brand"];
+    if (typeof brand !== "string" || brand.trim().length === 0) return undefined;
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: rejects control chars in an operator-seeded query value
+    if (brand.length > 256 || /[\x00-\x1f\x7f]/.test(brand)) return undefined;
+    return `https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=${encodeURIComponent(brand)}`;
+  },
   phenom: (_slug, metadata) => {
     // Phenom career sites are addressed by (host, locale). The host is a
     // (often vanity) careers domain, SSRF-guarded the same way the adapter
