@@ -73,6 +73,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // Hirebridge: every board shares recruit.hirebridge.com, selected by a
+  // numeric cid (= the tenant slug). The listing page is the public
+  // signal: a live cid answers 200 directly, an unknown cid answers a
+  // same-host 302 to the vendor error page (see REDIRECT_PATH_MEANS_DEAD).
+  hirebridge: (slug) => `https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=${slug}`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };
@@ -89,6 +94,20 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
 const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
   jazzhr: true,
   hrmdirect: true,
+};
+
+// ATSes whose dead tenants answer a probe with a *same-host* redirect to a
+// shared vendor error page — a cross-host check can't see it. When the
+// probed ATS has an entry here, the probe also runs with
+// `redirect: "manual"` and a 3xx whose Location matches the pattern is
+// dead; any other redirect stays live (same defensive posture as the
+// cross-host rule: only a provably-dead shape drops the tenant).
+const REDIRECT_PATH_MEANS_DEAD: Partial<Record<ATSId, RegExp>> = {
+  // Hirebridge bounces an unknown cid from the listing to
+  // `/v3/Application/AppErrMsg.aspx?cid={cid}&errorType=badurl`, which then
+  // serves HTTP 200 — so following the redirect would mark every dead cid
+  // live. Live cids answer the listing with a direct 200.
+  hirebridge: /\/AppErrMsg\.aspx/i,
 };
 
 // True when `location` (resolved against the probe URL) points at a different
@@ -338,6 +357,8 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   lever: 3,
   ashby: 3,
   workday: 4,
+  // recruit.hirebridge.com is one shared origin for every tenant probe.
+  hirebridge: 2,
 };
 
 // Inter-probe delay (ms) injected before every probe of a shared-host
@@ -355,6 +376,7 @@ const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   greenhouse: 100,
   lever: 100,
   ashby: 100,
+  hirebridge: 200,
 };
 
 // Hard ceiling on how long a single probe may take before we declare it
@@ -475,22 +497,26 @@ async function probeOneInner(
     // Treat the probe URL as an API call rather than a crawl.
     const probeUrl = probeUrlFor(ats, slug);
     const redirectHostMeansDead = REDIRECT_HOST_MEANS_DEAD[ats] === true;
+    const deadRedirectPath = REDIRECT_PATH_MEANS_DEAD[ats];
+    const inspectRedirects = redirectHostMeansDead || deadRedirectPath !== undefined;
     const res = await client.request(probeUrl, {
       method: "GET",
       skipRobots: true,
-      ...(redirectHostMeansDead ? { redirect: "manual" as const } : {}),
+      ...(inspectRedirects ? { redirect: "manual" as const } : {}),
     });
-    // For these ATSes, a dead board answers with a cross-host redirect to a
-    // generic vendor page; a same-host redirect is a live board normalizing
-    // its own URL, and a direct 2xx is a live board. Only the cross-host
-    // redirect is dead.
-    if (
-      redirectHostMeansDead &&
-      res.status >= 300 &&
-      res.status < 400 &&
-      redirectsToDifferentHost(probeUrl, res.headers.get("location"))
-    ) {
-      return { ats, slug, status: "dead", last_probed_at: observedAt };
+    // For these ATSes, a dead board answers with a redirect: either a
+    // cross-host bounce to a generic vendor page (jazzhr/hrmdirect) or a
+    // same-host bounce to the vendor error page (hirebridge). A same-host
+    // redirect that isn't the error page is a live board normalizing its
+    // own URL, and a direct 2xx is a live board.
+    if (inspectRedirects && res.status >= 300 && res.status < 400) {
+      const location = res.headers.get("location");
+      if (redirectHostMeansDead && redirectsToDifferentHost(probeUrl, location)) {
+        return { ats, slug, status: "dead", last_probed_at: observedAt };
+      }
+      if (deadRedirectPath !== undefined && location !== null && deadRedirectPath.test(location)) {
+        return { ats, slug, status: "dead", last_probed_at: observedAt };
+      }
     }
     return { ats, slug, status: "live", last_probed_at: observedAt };
   } catch (err) {

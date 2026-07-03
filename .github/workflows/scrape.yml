@@ -92,6 +92,8 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # Hirebridge hosted boards (shared host recruit.hirebridge.com, tenant = numeric cid).
+          - hirebridge
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both
@@ -167,7 +169,7 @@ jobs:
           # cap because bursting hits CDN rate-limits — workable's
           # cloudflare ip-banned us mid-bootstrap at default concurrency.
           case "${{ matrix.ats }}" in
-            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr)
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|hirebridge)
               concurrency_value=4 ;;
             *)
               concurrency_value=24 ;;

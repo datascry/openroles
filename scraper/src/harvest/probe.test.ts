@@ -73,6 +73,10 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // Shared-host board addressed by a numeric cid query parameter.
+    expect(probeUrlFor("hirebridge", "5535")).toBe(
+      "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
@@ -221,6 +225,54 @@ describe("probeOne", () => {
       async () => new Response(null, { status: 302, headers: { location: "http://" } }),
     );
     const t = await probeOne("jazzhr", "some-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+  });
+
+  it("probes hirebridge with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<ul class='jobs'>links</ul>", { status: 200 });
+    });
+    const t = await probeOne("hirebridge", "5535", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    // Must NOT follow redirects: a dead cid's same-host 302 lands on the
+    // vendor error page which serves HTTP 200 and would look live.
+    expect(seenRedirect).toBe("manual");
+  });
+
+  it("classifies a hirebridge same-host 3xx to the vendor error page as dead", async () => {
+    // An unknown cid 302-bounces the listing to
+    // /v3/Application/AppErrMsg.aspx?cid={cid}&errorType=badurl on the SAME
+    // host — the cross-host rule can't see it, so the Location path itself
+    // is the dead signal.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: {
+            location:
+              "https://recruit.hirebridge.com/v3/Application/AppErrMsg.aspx?cid=99999999&errorType=badurl",
+          },
+        }),
+    );
+    const t = await probeOne("hirebridge", "99999999", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
+  });
+
+  it("keeps a hirebridge same-host 3xx that is NOT the error page live", async () => {
+    // Only the provably-dead error-page bounce drops the tenant; an
+    // unobserved redirect shape (e.g. self URL-normalization) stays live.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: {
+            location: "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535&sorted=1",
+          },
+        }),
+    );
+    const t = await probeOne("hirebridge", "5535", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("live");
   });
 

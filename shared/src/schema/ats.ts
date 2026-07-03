@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Hirebridge hosted boards. Every customer board lives on the single
+  // shared host `recruit.hirebridge.com`, selected by a numeric `cid`
+  // query parameter — the tenant slug IS that cid string (no subdomain,
+  // no metadata). The listing page (`/v3/jobs/list.aspx?cid={cid}`)
+  // server-renders every open role on one page as location-grouped link
+  // lists, so a single GET per tenant covers it (no pagination, no
+  // detail fetch; the hbapi JSON search endpoint returns empty
+  // title/url/date fields and only powers the filter dropdowns).
+  // Verified seeds: Menard Inc, Rinker Materials, Avenue5 Residential.
+  "hirebridge",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

@@ -21,6 +21,7 @@ import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
+import { scrapeHirebridgeTenant } from "./ats/hirebridge.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
@@ -342,5 +343,10 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "hirebridge":
+      // cid-only tenancy: the shared host recruit.hirebridge.com selects the
+      // board by the numeric cid (= the tenant slug), and the single listing
+      // page carries every role, so no metadata is needed.
+      return scrapeHirebridgeTenant(opts);
   }
 }

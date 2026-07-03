@@ -390,6 +390,20 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "hirebridge",
+    // Hirebridge boards share the single host `recruit.hirebridge.com`;
+    // the tenant identity is the numeric `cid` query parameter carried on
+    // every listing/detail URL (`/v3/jobs/list.aspx?cid=5535`,
+    // `/v3/Jobs/JobDetails.aspx?cid=5535&jid=…`), so — unlike the
+    // subdomain-shaped ATSes — the capture group reads the query string,
+    // not a DNS label. The `(?:amp;)?` arm also matches URLs lifted from
+    // entity-encoded HTML. A numeric-only capture can never collide with
+    // reserved words, so no deny list applies.
+    cdxQuery: "recruit.hirebridge.com/*",
+    regex: /https?:\/\/recruit\.hirebridge\.com\/[^"'\s<>]*?[?&](?:amp;)?cid=(\d{1,9})(?!\d)/gi,
+    denyList: new Set<string>(),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

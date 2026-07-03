@@ -90,6 +90,9 @@ jobs:
           # New subdomain connectors with real CDX discovery patterns.
           - jazzhr
           - hrmdirect
+          # Shared-host connector; CDX discovery captures the numeric cid
+          # query parameter on recruit.hirebridge.com URLs.
+          - hirebridge
     steps:
       - uses: actions/checkout@v7
 
@@ -208,6 +211,9 @@ jobs:
           - hrmdirect
           - oraclecloud
           - phenom
+          # Shared-host connector (recruit.hirebridge.com, tenant = numeric
+          # cid); also in the discover matrix above.
+          - hirebridge
     steps:
       - uses: actions/checkout@v7
 

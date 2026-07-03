@@ -140,6 +140,23 @@ describe("harvestPatternFor", () => {
     }
   });
 
+  it("hirebridge pattern captures the numeric cid query parameter", () => {
+    // Hirebridge is a shared-host ATS: the tenant identity is the `cid`
+    // query parameter, not a DNS label, so the capture reads the query
+    // string on both the listing and the JobDetails deep link — including
+    // entity-encoded HTML sources (`&amp;cid=`).
+    const { regex, denyList } = harvestPatternFor("hirebridge");
+    const sample =
+      "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535 " +
+      "https://recruit.hirebridge.com/v3/Jobs/JobDetails.aspx?cid=8419&jid=651294 " +
+      "https://recruit.hirebridge.com/v3/CareerCenter/v2/details.aspx?jid=730878&amp;cid=7997 " +
+      "https://evil.example.com/v3/jobs/list.aspx?cid=1111";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1]);
+    expect(matches).toEqual(["5535", "8419", "7997"]); // off-host cid ignored
+    expect(denyList.size).toBe(0); // numeric capture — no reserved words to deny
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("rippling" as any)).toThrow();
   });

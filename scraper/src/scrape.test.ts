@@ -276,6 +276,27 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches hirebridge from the numeric cid alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://recruit.hirebridge.com/v3/jobs/list.aspx",
+        () => new HttpResponse(readFixtureText("hirebridge.listing.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hirebridge",
+        tenants: [{ slug: "5535", display_name: "Menard Inc" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to
