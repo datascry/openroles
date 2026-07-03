@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // CareerPlug hosted boards. Public board at `{slug}.careerplug.com/jobs`
+  // server-renders paginated job cards (~30 per page via `?page=N`; a
+  // `.pagination` nav exposes the last page number). Each card carries
+  // the title, a `ST-City-ZIP` location and a post date, so jobs are
+  // built from the listing alone — no per-job detail fetch (detail pages
+  // redirect straight into the application flow). Tenant identity = slug
+  // (subdomain), so no metadata is required; franchise brands commonly
+  // run one subdomain per location. Verified seeds: Planet Fitness,
+  // Crunch Fitness, i9 Sports.
+  "careerplug",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

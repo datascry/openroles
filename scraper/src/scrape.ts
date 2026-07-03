@@ -16,6 +16,7 @@ import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBrassringTenant } from "./ats/brassring.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeCareerplugTenant } from "./ats/careerplug.ts";
 import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
@@ -342,5 +343,9 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "careerplug":
+      // Slug-only tenancy: the board host is `{slug}.careerplug.com` and the
+      // listing's pagination nav drives the page walk, so no metadata is needed.
+      return scrapeCareerplugTenant(opts);
   }
 }

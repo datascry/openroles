@@ -1,0 +1,23 @@
+[
+  {
+    "ats": "careerplug",
+    "slug": "crunch",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "i9-sports-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pfcareers",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

@@ -276,6 +276,29 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches careerplug from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://acme.careerplug.com/jobs", ({ request }) => {
+        const page = new URL(request.url).searchParams.get("page");
+        return new HttpResponse(
+          readFixtureText(page === "2" ? "careerplug.page2.html" : "careerplug.listing.html"),
+        );
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "careerplug",
+        tenants: [{ slug: "acme", display_name: "Acme Fitness" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(5); // 3 on page 1 + 2 on page 2
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to
