@@ -276,6 +276,26 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches hireology from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://api.hireology.com/v2/public/careers/acme", () =>
+        HttpResponse.json(readFixture("hireology.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hireology",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

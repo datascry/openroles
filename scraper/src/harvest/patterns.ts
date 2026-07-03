@@ -390,6 +390,15 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "hireology",
+    // Hireology career sites are path-addressed on the shared SPA host
+    // (careers.hireology.com/{slug}); the tenant slug is the first path
+    // segment (same shape as smartrecruiters/jobvite).
+    cdxQuery: "careers.hireology.com/*",
+    regex: /careers\.hireology\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

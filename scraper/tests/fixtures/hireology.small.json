@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": 2561400,
+      "name": "Caregiver",
+      "created_at": "2025-10-22T15:01:42.316Z",
+      "status": "Open",
+      "employment_status": "Full Time - hourly",
+      "job_description": "<div><h2>Caregiver</h2><p>Provide <strong>non-medical</strong> support &amp; companionship to aging adults in their homes.</p><ul><li>Meal preparation</li><li>Light housekeeping</li></ul></div>",
+      "locations": [
+        { "city": "Evansville", "state": "IN", "zip_code": "47715", "address": "635 Metro Ave" }
+      ],
+      "remote": false,
+      "job_family": {
+        "id": 9,
+        "name": "General",
+        "shorten": true,
+        "arrange": 15,
+        "global_id": "da25d3da-3c22-410b-8a0f-964e6bcbe3a4"
+      },
+      "career_site_path": "/acme/2561400/description",
+      "career_site_url": "https://careers.hireology.com/acme/2561400/description",
+      "organization": { "id": 35707, "name": "Acme Home Care", "type": "Location" },
+      "compensation": {
+        "is_comp_range": true,
+        "comp_single_amount": "16.0",
+        "comp_range_min": "15.0",
+        "comp_range_max": "16.0",
+        "comp_period": "hour",
+        "comp_frequency": "semimonthly"
+      }
+    },
+    {
+      "id": 2782684,
+      "name": "General Manager",
+      "created_at": "2026-05-08T18:26:00.865Z",
+      "status": "Open",
+      "employment_status": "Full Time - salary",
+      "job_description": "<p>Lead daily operations for a growing home-care office, including scheduling, hiring and client onboarding.</p>",
+      "locations": [
+        { "city": "Evansville", "state": "IN", "zip_code": "47715", "address": "635 Metro Ave" }
+      ],
+      "remote": false,
+      "job_family": {
+        "id": 9,
+        "name": "General",
+        "shorten": true,
+        "arrange": 15,
+        "global_id": "da25d3da-3c22-410b-8a0f-964e6bcbe3a4"
+      },
+      "career_site_path": "/acme/2782684/description",
+      "career_site_url": "https://careers.hireology.com/acme/2782684/description",
+      "organization": { "id": 35707, "name": "Acme Home Care", "type": "Location" },
+      "compensation": {
+        "is_comp_range": true,
+        "comp_single_amount": "0.0",
+        "comp_range_min": "70000.0",
+        "comp_range_max": "75000.0",
+        "comp_period": "year",
+        "comp_frequency": "semimonthly"
+      }
+    }
+  ],
+  "count": 2,
+  "page": 1,
+  "page_size": 100
+}
