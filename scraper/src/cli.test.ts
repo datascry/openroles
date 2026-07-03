@@ -540,7 +540,7 @@ describe("runHarvestCommand", () => {
   });
 
   it("returns 2 when --ats is unknown", async () => {
-    expect(await runHarvestCommand(["--ats", "rippling", "--snapshots", "2026-13"])).toBe(2);
+    expect(await runHarvestCommand(["--ats", "not-a-real-ats", "--snapshots", "2026-13"])).toBe(2);
   });
 
   it("returns 2 when neither --user-agent nor --contact-url is given", async () => {
@@ -1018,7 +1018,7 @@ describe("runReprobeCommand", () => {
   });
 
   it("returns 2 when --ats is unknown", async () => {
-    expect(await runReprobeCommand(["--ats", "rippling"])).toBe(2);
+    expect(await runReprobeCommand(["--ats", "not-a-real-ats"])).toBe(2);
   });
 
   it("returns 2 when neither --user-agent nor --contact-url is set", async () => {

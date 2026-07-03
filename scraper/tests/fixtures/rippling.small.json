@@ -1,0 +1,16 @@
+[
+  {
+    "uuid": "4345711d-74af-400f-8872-8b1b5393dcdf",
+    "name": "Account Executive - Municipalities",
+    "department": { "id": "440-Account Executive", "label": "440-Account Executive" },
+    "url": "https://ats.rippling.com/acme-careers/jobs/4345711d-74af-400f-8872-8b1b5393dcdf",
+    "workLocation": { "label": "Remote (United States)", "id": "Remote (United States)" }
+  },
+  {
+    "uuid": "9d72e71d-127c-4083-8126-fb198fce8141",
+    "name": "Field Service Technician",
+    "department": { "id": "920-Field Services", "label": "920-Field Services" },
+    "url": "https://ats.rippling.com/acme-careers/jobs/9d72e71d-127c-4083-8126-fb198fce8141",
+    "workLocation": { "label": "Portland, OR", "id": "Portland, OR" }
+  }
+]

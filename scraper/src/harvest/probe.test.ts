@@ -101,6 +101,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hireology", "stripe")).toBe(
       "https://api.hireology.com/v2/public/careers/stripe?page=1&page_size=1",
     );
+    // Path-per-tenant board: the public board list API is the probe
+    // (200 array on a live slug, 404 on an unknown one).
+    expect(probeUrlFor("rippling", "routeware-careers")).toBe(
+      "https://api.rippling.com/platform/api/ats/v1/board/routeware-careers/jobs",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

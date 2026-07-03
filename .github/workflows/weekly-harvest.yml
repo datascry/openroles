@@ -106,6 +106,9 @@ jobs:
           - applitrack
           - hiringthing
           - hireology
+          # Rippling boards are path-addressed on ats.rippling.com/{slug};
+          # CDX discovery captures the first path segment (like hireology).
+          - rippling
     steps:
       - uses: actions/checkout@v7
 
@@ -247,6 +250,7 @@ jobs:
           - apploi
           - taleotbe
           - workstream
+          - rippling
     steps:
       - uses: actions/checkout@v7
 
