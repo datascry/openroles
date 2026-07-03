@@ -294,6 +294,43 @@ describe("harvestPatternFor", () => {
     expect(re.exec("https://acme.taleo.net/careersection/jobsearch.ftl?org=ACME")).toBeNull();
   });
 
+  it("pageup pattern extracts the clientkey slug and host/instance/clientkey metadata", () => {
+    const { regex, extractMetadata } = harvestPatternFor("pageup");
+    const sample =
+      "https://careers.pageuppeople.com/438/caw/en/listing/ " +
+      "https://careersmanager.pageuppeople.com/541/ce/en/job/721048/head-chef";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    // extractSlugs lowercases group 1 (the clientkey); mirror that here.
+    expect(matches.map((m) => m[1]?.toLowerCase())).toEqual(["caw", "ce"]);
+    expect(extractMetadata?.(matches[0] as RegExpExecArray)).toEqual({
+      host: "careers.pageuppeople.com",
+      instance: "438",
+      clientkey: "caw",
+    });
+    expect(extractMetadata?.(matches[1] as RegExpExecArray)).toEqual({
+      host: "careersmanager.pageuppeople.com",
+      instance: "541",
+      clientkey: "ce",
+    });
+  });
+
+  it("pageup pattern denies the robots-disallowed demo/UAT clientkeys and fails closed", () => {
+    const { regex, denyList, extractMetadata } = harvestPatternFor("pageup");
+    // The `ci`/`uat`/`staging` demo keys PageUp's robots.txt disallows are in
+    // the deny list, so extractSlugs never mints a phantom tenant for them.
+    for (const key of ["ci", "uat", "staging"]) expect(denyList.has(key)).toBe(true);
+    // A synthesized match whose match[0] lacks the pod path must fail closed.
+    const fake = Object.assign(["https://evil.example.com/1/x/en/listing", "x"], {
+      index: 0,
+      input: "https://evil.example.com/1/x/en/listing",
+    }) as unknown as RegExpExecArray;
+    expect(extractMetadata?.(fake)).toBeUndefined();
+    // A non-PageUp host does not match at all.
+    const re = new RegExp(regex.source, regex.flags);
+    expect(re.exec("https://careers.example.com/438/caw/en/listing/")).toBeNull();
+  });
+
   it("hireology pattern extracts the first path segment on the shared SPA host", () => {
     const { regex, denyList } = harvestPatternFor("hireology");
     const sample =

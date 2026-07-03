@@ -3,6 +3,9 @@ import pLimit from "p-limit";
 import {
   assertOracleHost,
   assertOracleSite,
+  assertPageupClientKey,
+  assertPageupHost,
+  assertPageupInstance,
   assertTaleoTbeCws,
   assertTaleoTbeHost,
   assertTaleoTbeInstance,
@@ -152,6 +155,16 @@ const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
   // 302 to `www.hiringthing.com` (the vendor marketing site), which
   // itself serves 403 — only the cross-host bounce is the dead signal.
   hiringthing: true,
+};
+
+// Composite-metadata ATSes whose live board answers the probe URL with a
+// direct 2xx and whose dead tenant instead 302-redirects (on any host). For
+// these the metadata-probe path runs `redirect: "manual"` and treats a 3xx as
+// dead — the redirect target itself serves 200, so following it would mark
+// every dead board live. PageUp is the first: a dead clientkey bounces
+// same-host to the pod's default board.
+const DEAD_ON_REDIRECT_META: Partial<Record<ATSId, true>> = {
+  pageup: true,
 };
 
 // ATSes whose dead tenants answer a probe with a *same-host* redirect to a
@@ -339,6 +352,30 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
       return undefined;
     }
     return `https://${host}/${instance}/ats/careers/v2/searchResults?org=${slug}&cws=${cws}`;
+  },
+  pageup: (_slug, metadata) => {
+    // PageUp boards are addressed by the composite (host, instance,
+    // clientkey). All three are mandatory and validated exactly as the
+    // adapter does; a record missing any stays transient_failure until
+    // harvest (or an operator) completes the composite. The listing page is
+    // the public board itself: a live board answers a direct 200, while a
+    // dead clientkey 302-redirects (same host) to the pod's default board —
+    // so the probe runs redirect:manual and treats any 3xx as dead (see
+    // DEAD_ON_REDIRECT below).
+    const host = metadata["host"];
+    const instance = metadata["instance"];
+    const clientKey = metadata["clientkey"];
+    if (typeof host !== "string" || typeof instance !== "string" || typeof clientKey !== "string") {
+      return undefined;
+    }
+    try {
+      assertPageupHost(host);
+      assertPageupInstance(instance);
+      assertPageupClientKey(clientKey);
+    } catch {
+      return undefined;
+    }
+    return `https://${host}/${instance}/${clientKey}/en/listing/`;
   },
   phenom: (_slug, metadata) => {
     // Phenom career sites are addressed by (host, locale). The host is a
@@ -591,13 +628,22 @@ async function probeOneInner(
       return metadata ? { ...result, metadata } : result;
     }
     const shape: ProbeRequestShape = PROBE_REQUEST_SHAPE[ats] ?? { method: "GET" };
+    const deadOnRedirect = DEAD_ON_REDIRECT_META[ats] === true;
     try {
-      await client.request(url, {
+      const res = await client.request(url, {
         method: shape.method,
         skipRobots: true,
+        ...(deadOnRedirect ? { redirect: "manual" as const } : {}),
         ...(shape.body !== undefined ? { body: shape.body } : {}),
         ...(shape.headers !== undefined ? { headers: shape.headers } : {}),
       });
+      // A live board answers the listing with a direct 2xx; a dead clientkey
+      // 302s to the pod's default board (which serves 200), so a redirect
+      // here is the honest dead signal.
+      if (deadOnRedirect && res.status >= 300 && res.status < 400) {
+        const result: Tenant = { ats, slug, status: "dead", last_probed_at: observedAt };
+        return metadata ? { ...result, metadata } : result;
+      }
       const liveMetadata = await augmentLiveMetadata(ats, metadata ?? {}, client, forceRediscover);
       return { ats, slug, status: "live", last_probed_at: observedAt, metadata: liveMetadata };
     } catch (err) {

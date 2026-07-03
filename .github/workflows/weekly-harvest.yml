@@ -115,6 +115,10 @@ jobs:
           - applitrack
           - hiringthing
           - hireology
+          # PageUp boards on the shared *.pageuppeople.com hosts; CDX
+          # discovery captures the clientkey (slug) plus host/instance
+          # metadata from the `/{instance}/{clientkey}/en/listing` path.
+          - pageup
           # Rippling boards are path-addressed on ats.rippling.com/{slug};
           # CDX discovery captures the first path segment (like hireology).
           - rippling
@@ -314,6 +318,11 @@ jobs:
           - apploi
           - taleotbe
           - workstream
+          # PageUp boards; CDX-discovered (also in the discover matrix above)
+          # and reprobed weekly. Composite (host, instance, clientkey)
+          # tenancy, so seeds missing metadata stay transient until harvest
+          # completes the composite (same as taleotbe).
+          - pageup
           # Manatal hosted boards (www.careers-page.com/{slug}); CDX-discovered
           # (also in the discover matrix above), reprobed weekly.
           - manatal

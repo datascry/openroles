@@ -126,6 +126,9 @@ jobs:
           # ApplicantPool hosted boards ({slug}.applicantpool.com); same board
           # engine as isolvedhire on a different host.
           - applicantpool
+          # PageUp hosted boards (careers/careersmanager.pageuppeople.com,
+          # composite (host, instance, clientkey) tenancy, ?page=N listing).
+          - pageup
           # Manatal hosted boards (www.careers-page.com/{slug}); board HTML +
           # per-job JSON-LD detail fetch.
           - manatal

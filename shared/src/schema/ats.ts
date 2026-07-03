@@ -219,6 +219,21 @@ export const ATS_IDS = Object.freeze([
   // Tenant identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Scientific Drilling, Travel Portland, First Federal.
   "applicantpool",
+  // PageUp hosted careers boards. Public board is server-rendered HTML at
+  // `{host}/{instance}/{clientkey}/en/listing/`, where `host` is one of the
+  // shared PageUp career hosts (`careers` / `careersmanager` /
+  // `careersite`.pageuppeople.com), `instance` is the numeric pod id and
+  // `clientkey` is the customer code. A clientkey is NOT globally unique —
+  // demo keys like `caw`/`cw` recur across many instances — so tenant
+  // identity is the composite `{instance}-{clientkey}` slug plus mandatory
+  // `host` + `instance` + `clientkey` metadata (the workday/taleotbe
+  // convention). None of the three is slug-derivable, so a tenant missing
+  // any is marked dead. The listing carries title, deep link (id + slug) and
+  // location per row; it exposes only an application close-date, never a
+  // posting date, so posted_at is never emitted. Pagination is `?page=N`,
+  // walked until a page yields no fresh job ids. Verified seeds: Just Group
+  // (438/caw), PageUp demo (959/cw), Compass Group Education (541/ce).
+  "pageup",
   // Manatal hosted career boards. Every customer board lives on the single
   // shared host `www.careers-page.com` at `/{slug}`, which server-renders a
   // flat list of `<a href="/{slug}/job/{code}">` links — one per open role.

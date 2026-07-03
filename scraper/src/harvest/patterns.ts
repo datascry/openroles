@@ -554,6 +554,53 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     denyList: new Set<string>([...SUBDOMAIN_DENY, "feeds"]),
   },
   {
+    ats: "pageup",
+    // PageUp hosted boards are addressed by (host, instance, clientkey):
+    // `{host}/{instance}/{clientkey}/en/listing/…`. The clientkey is NOT
+    // globally unique (demo keys such as `caw`/`cw` recur across many pod
+    // instances), and extractSlugs mints the slug from a single captured
+    // group, so the harvested slug is the clientkey (group 1) with the pod
+    // host + numeric instance recovered into metadata from match[0] — the
+    // same non-positional recovery successfactors/workstream use. Because two
+    // distinct instances can share a clientkey, a CDX-minted tenant is a
+    // best-effort seed: it dispatches from its metadata, and where a clientkey
+    // genuinely collides an operator seeds the canonical `{instance}-{clientkey}`
+    // slug to separate them. The demo/UAT clientkeys PageUp's robots.txt
+    // disallows (`ci`, `uat`, `staging`, …) are denied so harvest never mints
+    // a phantom tenant on a board we would not scrape.
+    cdxQuery: "*.pageuppeople.com/*",
+    regex:
+      /https?:\/\/(?:careers|careersmanager|careersite)\.pageuppeople\.com\/\d{1,9}\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\/(?:[a-z]{2}\/)?(?:listing|job)\b/gi,
+    denyList: new Set<string>([
+      "ci",
+      "cwuat",
+      "ciuat",
+      "uat",
+      "uatinternal",
+      "testint",
+      "staging",
+      "awake",
+      "admin",
+    ]),
+    extractMetadata: (match) => {
+      const m =
+        /(careers|careersmanager|careersite)\.pageuppeople\.com\/(\d{1,9})\/([a-z0-9-]+)\//i.exec(
+          match[0],
+        );
+      const host = m?.[1];
+      const instance = m?.[2];
+      const clientKey = m?.[3];
+      if (host === undefined || instance === undefined || clientKey === undefined) {
+        return undefined;
+      }
+      return {
+        host: `${host.toLowerCase()}.pageuppeople.com`,
+        instance,
+        clientkey: clientKey.toLowerCase(),
+      };
+    },
+  },
+  {
     ats: "manatal",
     // Manatal hosted boards share the host `www.careers-page.com`; the tenant
     // slug is the FIRST path segment (`/{slug}` for the board, `/{slug}/job/

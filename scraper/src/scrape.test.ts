@@ -587,6 +587,57 @@ describe("runScrape", () => {
     }
   });
 
+  it("dispatches pageup with metadata.host, metadata.instance and metadata.clientkey", async () => {
+    server.use(
+      http.get("https://careers.pageuppeople.com/438/caw/en/listing/", () =>
+        HttpResponse.html(readFixtureText("pageup.classic.page1.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "pageup",
+        tenants: [
+          {
+            slug: "438-caw",
+            display_name: "Just Group",
+            metadata: { host: "careers.pageuppeople.com", instance: "438", clientkey: "caw" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.jobs).toHaveLength(3);
+  });
+
+  it("flags pageup tenant dead when any of host/instance/clientkey is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "pageup",
+        tenants: [
+          { slug: "no-metadata" },
+          {
+            slug: "no-clientkey",
+            metadata: { host: "careers.pageuppeople.com", instance: "438" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    for (const result of out.tenant_results) {
+      expect(result.status).toBe("dead");
+      expect(result.error).toContain(
+        "pageup tenant missing metadata.host, metadata.instance or metadata.clientkey",
+      );
+    }
+  });
+
   it("flags workstream tenant dead when metadata.company_id is missing", async () => {
     const out = await runScrape({
       input: {
