@@ -96,6 +96,17 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Jibe hosted career sites. Public unauthenticated JSON at
+  // `{host}/api/jobs?page=N&limit=100` returns `jobs[].data` rows plus a
+  // `totalCount`; the full HTML description ships in the list payload, so
+  // one paginated walk covers everything (no detail fetch). Tenant
+  // identity = slug (board host `{slug}.jibeapply.com`); a few customers
+  // serve the same API from a vanity CNAME, seeded via optional
+  // `metadata.host` and SSRF-guarded like phenom's vanity domains. The
+  // canonical public job URL is `{host}/jobs/{req_id}` — the payload's
+  // `apply_url` leads to a login flow and is not used. Verified seeds:
+  // Davidson Hospitality, Mount Sinai, FedEx Freight.
+  "jibeapply",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

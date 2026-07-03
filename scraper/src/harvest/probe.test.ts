@@ -73,6 +73,9 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    expect(probeUrlFor("jibeapply", "stripe")).toBe(
+      "https://stripe.jibeapply.com/api/jobs?page=1&limit=1",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

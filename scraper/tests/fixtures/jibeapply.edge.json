@@ -1,0 +1,99 @@
+{
+  "jobs": [
+    {
+      "data": {
+        "slug": "400001",
+        "title": "No Req Id Job",
+        "description": "<p>Dropped: no req_id.</p>",
+        "city": "Chicago",
+        "state": "Illinois",
+        "full_location": "Chicago, Illinois"
+      }
+    },
+    {
+      "data": {
+        "slug": "400002",
+        "req_id": "400002",
+        "description": "<p>Dropped: no title.</p>",
+        "city": "Chicago",
+        "state": "Illinois",
+        "full_location": "Chicago, Illinois"
+      }
+    },
+    {
+      "data": {
+        "slug": "400003",
+        "req_id": "400003",
+        "title": "R&amp;D Engineer &mdash; Platform",
+        "description": "<p>Entities in the title decode; salary nulls are ignored.</p>",
+        "city": "",
+        "state": "Vermont",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "",
+        "categories": [{ "name": "Engineering" }],
+        "department": "",
+        "salary_min_value": null,
+        "salary_max_value": null,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Edge Co",
+        "update_date": "2026-05-10T12:00:00+0000",
+        "apply_url": "https://careers-edgeco.icims.com/jobs/400003/login",
+        "client_code": "edgeco"
+      }
+    },
+    {
+      "data": {
+        "slug": "400004",
+        "req_id": "400004",
+        "title": "Future Posted Role",
+        "description": "   ",
+        "city": "Boise",
+        "state": "Idaho",
+        "country": "United States",
+        "country_code": "US",
+        "full_location": "Boise, Idaho",
+        "categories": [{ "name": "Operations" }],
+        "department": "Facilities",
+        "salary_min_value": 90000,
+        "salary_max_value": 50000,
+        "employment_type": "FULL_TIME",
+        "hiring_organization": "Edge Co",
+        "posted_date": "2026-09-01T00:00:00+0000",
+        "update_date": "2026-09-01T00:00:00+0000",
+        "apply_url": "https://careers-edgeco.icims.com/jobs/400004/login",
+        "client_code": "edgeco"
+      }
+    },
+    {
+      "data": {
+        "slug": "400005",
+        "req_id": "400005",
+        "title": "Duplicate Req Role",
+        "description": "<p>First copy wins.</p>",
+        "city": "Reno",
+        "state": "Nevada",
+        "full_location": "Reno, Nevada",
+        "categories": [{ "name": "Sales" }],
+        "posted_date": "not-a-real-date",
+        "client_code": "edgeco"
+      }
+    },
+    {
+      "data": {
+        "slug": "400005",
+        "req_id": "400005",
+        "title": "Duplicate Req Role (second copy)",
+        "description": "<p>Deduped away.</p>",
+        "city": "Reno",
+        "state": "Nevada",
+        "full_location": "Reno, Nevada",
+        "client_code": "edgeco"
+      }
+    }
+  ],
+  "totalCount": 6,
+  "count": 6,
+  "request_id": "3f1c9a2e-edge",
+  "filter": {}
+}

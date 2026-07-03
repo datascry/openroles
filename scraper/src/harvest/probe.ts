@@ -73,6 +73,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // Jibe hosted boards: a limit=1 listing call is the cheapest 200 on a
+  // live tenant (the same endpoint the scraper pages through). Vanity-CNAME
+  // tenants are operator-seeded and their default-host probe still answers.
+  jibeapply: (slug) => `https://${slug}.jibeapply.com/api/jobs?page=1&limit=1`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };

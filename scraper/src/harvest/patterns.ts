@@ -390,6 +390,15 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "jibeapply",
+    // Jibe hosted boards live at `{slug}.jibeapply.com`; the tenant slug is
+    // the subdomain label (same shape as bamboohr/breezy). Vanity-CNAME
+    // tenants can't surface here and are operator-seeded with metadata.host.
+    cdxQuery: "*.jibeapply.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.jibeapply\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

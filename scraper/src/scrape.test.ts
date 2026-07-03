@@ -276,6 +276,53 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches jibeapply from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://acme.jibeapply.com/api/jobs", () =>
+        HttpResponse.json(readFixture("jibeapply.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jibeapply",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches jibeapply against a vanity CNAME via metadata.host", async () => {
+    server.use(
+      http.get("https://careers.acme-example.com/api/jobs", () =>
+        HttpResponse.json(readFixture("jibeapply.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jibeapply",
+        tenants: [
+          {
+            slug: "acme",
+            display_name: "Acme Corp",
+            metadata: { host: "careers.acme-example.com" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.jobs[0]?.url).toContain("https://careers.acme-example.com/jobs/");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to
