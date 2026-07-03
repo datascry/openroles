@@ -96,6 +96,19 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // HiringThing hosted job boards. Every customer board lives at
+  // `{slug}.hiringthing.com` and publishes an RSS feed at `/api/rss.xml`
+  // whose every <item> is a complete listing entry: title, deep link
+  // (`/job/{id}/{title-slug}`, carrying the numeric job id), location,
+  // and an HTML description — so a single GET per tenant covers the
+  // whole board, no pagination, no per-job fan-out. The feed carries no
+  // publish date, so posted_at is omitted (as with hrmdirect). Tenant
+  // identity = slug (subdomain); no metadata is required. The platform
+  // also links a global S3 sitemap of hosted boards from each board's
+  // robots.txt, a useful discovery surface. White-label boards on
+  // custom domains exist but are out of scope — slug boards only.
+  // Verified seeds: Pinnacle, Greater SATX, Your SmartSource.
+  "hiringthing",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

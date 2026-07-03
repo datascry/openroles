@@ -73,6 +73,8 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // hiringthing probes the per-board RSS feed (200 even on an empty board).
+    expect(probeUrlFor("hiringthing", "stripe")).toBe("https://stripe.hiringthing.com/api/rss.xml");
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
@@ -222,6 +224,32 @@ describe("probeOne", () => {
     );
     const t = await probeOne("jazzhr", "some-tenant", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("live");
+  });
+
+  it("classifies a hiringthing cross-host 302 (vendor marketing bounce) as dead", async () => {
+    // An unknown `*.hiringthing.com` subdomain answers /api/rss.xml with a
+    // 302 to `www.hiringthing.com` — the cross-host bounce itself is the
+    // dead signal (following it would land on the vendor marketing site).
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "http://www.hiringthing.com" },
+        }),
+    );
+    const t = await probeOne("hiringthing", "no-such-board", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
+  });
+
+  it("probes hiringthing with redirect:manual and classifies a direct 200 feed as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<rss version='2.0'><channel/></rss>", { status: 200 });
+    });
+    const t = await probeOne("hiringthing", "pinnacle", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    expect(seenRedirect).toBe("manual");
   });
 
   it("classifies an hrmdirect 404 as dead", async () => {

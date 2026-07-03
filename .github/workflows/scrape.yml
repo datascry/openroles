@@ -92,6 +92,8 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # HiringThing hosted boards ({slug}.hiringthing.com) via per-board RSS.
+          - hiringthing
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both

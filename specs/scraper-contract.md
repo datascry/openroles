@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 36 adapters in `ATS_IDS`, not only these examples):
+all 37 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -93,6 +93,7 @@ all 36 adapters in `ATS_IDS`, not only these examples):
 | jazzhr | GET `{slug}.applytojob.com/apply/` (server-rendered link list), then walk each `/apply/{jobCode}` page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core) |
 | phenom | GET `{metadata.host}/{metadata.locale}/search-results?from=N` (per-tenant vanity host) | HTML embedding `phApp.ddo.eagerLoadRefineSearch` `{ totalHits, data.jobs }`; `?from=N` paginates (10/page) |
 | hrmdirect | GET `{slug}.hrmdirect.com/employment/job-openings.php` | HTML table; one `<tr data-req-id>` per role (title/department/city/state) — parsed directly, no detail fetch |
+| hiringthing | one GET of `{slug}.hiringthing.com/api/rss.xml` | RSS 2.0 (media namespace); every `<item>` a full posting — title, `/job/{id}/{title-slug}` link (numeric id = source identity), location, HTML description in `media:description` CDATA; no dates |
 
 ## Invariants
 

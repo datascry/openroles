@@ -390,6 +390,16 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "hiringthing",
+    // HiringThing hosted boards live at `{slug}.hiringthing.com`; the
+    // tenant slug is the subdomain label (same shape as bamboohr/breezy).
+    // The platform also links a global S3 sitemap of hosted boards from
+    // each board's robots.txt — a complementary discovery surface to CDX.
+    cdxQuery: "*.hiringthing.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hiringthing\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

@@ -73,6 +73,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // HiringThing hosted boards: the /api/rss.xml feed is the public signal
+  // (200 on a live tenant, even with an empty channel; an unknown
+  // subdomain 302-bounces to the vendor's www marketing site → dead).
+  hiringthing: (slug) => `https://${slug}.hiringthing.com/api/rss.xml`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };
@@ -89,6 +93,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
 const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
   jazzhr: true,
   hrmdirect: true,
+  // Unknown `*.hiringthing.com` subdomains answer /api/rss.xml with a
+  // 302 to `www.hiringthing.com` (the vendor marketing site), which
+  // itself serves 403 — only the cross-host bounce is the dead signal.
+  hiringthing: true,
 };
 
 // True when `location` (resolved against the probe URL) points at a different
