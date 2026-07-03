@@ -130,6 +130,9 @@ describe("harvestPatternFor", () => {
       ["metacareers", "https://www.metacareers.com/jobs/1234567890/", "meta"],
       // Meta also accepts the bare host:
       ["metacareers", "https://metacareers.com/jobs", "meta"],
+      // SchoolSpring: www-prefixed and bare host both emit the slug.
+      ["schoolspring", "https://www.schoolspring.com/jobdetail?jobId=5815345", "schoolspring"],
+      ["schoolspring", "https://schoolspring.com/", "schoolspring"],
     ];
     for (const [ats, url, expectedSlug] of cases) {
       const { regex } = harvestPatternFor(ats as Parameters<typeof harvestPatternFor>[0]);

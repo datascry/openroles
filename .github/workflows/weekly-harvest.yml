@@ -208,6 +208,9 @@ jobs:
           - hrmdirect
           - oraclecloud
           - phenom
+          # SchoolSpring: single-tenant constant, reprobed like the
+          # other single-tenant customs above.
+          - schoolspring
     steps:
       - uses: actions/checkout@v7
 

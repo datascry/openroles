@@ -759,6 +759,30 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches schoolspring (single-tenant, per-row employer as company)", async () => {
+    server.use(
+      http.get("https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch", () =>
+        HttpResponse.json({ success: true, message: "", validationErrors: [], value: 2 }),
+      ),
+      http.get("https://api.schoolspring.com/api/Jobs/GetPagedJobsWithSearch", () =>
+        HttpResponse.json(readFixture("schoolspring.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "schoolspring",
+        tenants: [{ slug: "schoolspring", display_name: "SchoolSpring" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.jobs[0]?.company).toBe("Beaufort County School District");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches icims using the full subdomain label as the slug", async () => {
     // iCIMS slug is the entire subdomain label (most production tenants use
     // the `careers-` prefix, but many use other branded prefixes); the URL

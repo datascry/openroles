@@ -390,6 +390,17 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  // SchoolSpring is single-tenant (one national K-12 board), so group 1
+  // captures the literal canonical slug from the host — the same shape
+  // as the phase-6 per-company customs above. CDX surfaces the public
+  // board URL on every recent crawl, so harvest discovers the single
+  // tenant on the first matching record and stops.
+  {
+    ats: "schoolspring",
+    cdxQuery: "www.schoolspring.com/*",
+    regex: /https?:\/\/(?:www\.)?(schoolspring)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

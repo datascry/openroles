@@ -34,6 +34,7 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeSchoolSpringTenant } from "./ats/schoolspring.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
@@ -342,5 +343,9 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "schoolspring":
+      // Single-tenant national K-12 board; the per-job company comes
+      // from each list row's employer field, not the tenant record.
+      return scrapeSchoolSpringTenant(opts);
   }
 }

@@ -73,6 +73,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // SchoolSpring is single-tenant, slug ignored; the probe is the
+    // cheap jobs-count endpoint on the public API host.
+    expect(probeUrlFor("schoolspring", "schoolspring")).toBe(
+      "https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch?keyword=&location=&category=&gradelevel=&jobtype=&organization=",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {

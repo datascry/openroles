@@ -73,6 +73,11 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // HRMDirect (ClearCompany): the job-openings listing is the public signal
   // (200 on a live tenant; nonexistent subdomain fails DNS → dead).
   hrmdirect: (slug) => `https://${slug}.hrmdirect.com/employment/job-openings.php`,
+  // SchoolSpring is single-tenant, so the probe URL is fixed. The count
+  // endpoint is the cheapest authentication-free signal: a tiny JSON
+  // envelope (`{ success, value: <int> }`) instead of a job page.
+  schoolspring: () =>
+    "https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch?keyword=&location=&category=&gradelevel=&jobtype=&organization=",
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
 };

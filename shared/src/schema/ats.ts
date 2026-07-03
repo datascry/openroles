@@ -96,6 +96,16 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // SchoolSpring, a K-12 education job platform: districts and schools
+  // nationwide post to one shared board at www.schoolspring.com. Public
+  // JSON API (`api.schoolspring.com/api/Jobs/GetPagedJobsWithSearch`),
+  // single-tenant like the per-company customs above — but
+  // multi-EMPLOYER: the company on each Job comes from the row's
+  // `employer` field, not the tenant display name. ~100k live roles, so
+  // the adapter reads the list payload only (no per-job detail
+  // fan-out), with a large page size to keep the request count in the
+  // single digits.
+  "schoolspring",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

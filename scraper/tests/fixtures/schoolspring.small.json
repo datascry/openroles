@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "message": "",
+  "validationErrors": [],
+  "value": {
+    "page": 1,
+    "size": 2,
+    "jobsList": [
+      {
+        "jobId": 5815345,
+        "employer": "Beaufort County School District",
+        "title": "Assistant Coach Varsity Baseball",
+        "location": "Bluffton, South Carolina",
+        "displayDate": "2026-07-03T13:08:11"
+      },
+      {
+        "jobId": 5815343,
+        "employer": "Middletown City Schools",
+        "title": "Integrated Science Teacher",
+        "location": "Middletown, Ohio",
+        "displayDate": "2026-07-03T13:06:54"
+      }
+    ]
+  }
+}

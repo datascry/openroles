@@ -92,6 +92,8 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # SchoolSpring national K-12 education board (single-tenant, ~100k roles).
+          - schoolspring
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both
