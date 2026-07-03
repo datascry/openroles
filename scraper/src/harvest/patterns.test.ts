@@ -74,6 +74,36 @@ describe("harvestPatternFor", () => {
     expect(pattern.extractMetadata?.(fake)).toBeUndefined();
   });
 
+  it("workstream pattern extracts slug (group 1) and company_id via extractMetadata", () => {
+    const pattern = harvestPatternFor("workstream");
+    const { regex, extractMetadata } = pattern;
+    const sample =
+      "https://www.workstream.us/j/ab12cd34/acme-grill/positions " +
+      "https://www.workstream.us/j/1d35674b/joey-restaurants?locale=en";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    expect(matches.map((m) => m[1])).toEqual(["acme-grill", "joey-restaurants"]);
+    expect(extractMetadata).toBeDefined();
+    expect(extractMetadata?.(matches[0] as RegExpExecArray)).toEqual({ company_id: "ab12cd34" });
+    expect(extractMetadata?.(matches[1] as RegExpExecArray)).toEqual({ company_id: "1d35674b" });
+  });
+
+  it("workstream pattern rejects non-hex company ids and workstream extractMetadata fails closed", () => {
+    const { regex, extractMetadata } = harvestPatternFor("workstream");
+    // A /j/ path whose first segment is not an 8-hex id never matches.
+    const re = new RegExp(regex.source, regex.flags);
+    expect(Array.from("https://www.workstream.us/j/notanid/acme/positions".matchAll(re))).toEqual(
+      [],
+    );
+    // Synthesize a match whose full string lacks the /j/{8-hex}/ shape —
+    // the id-recovery regex inside extractMetadata must return undefined.
+    const fake = Object.assign(["workstream.us/j/acme-grill", "acme-grill"], {
+      index: 0,
+      input: "workstream.us/j/acme-grill",
+    }) as unknown as RegExpExecArray;
+    expect(extractMetadata?.(fake)).toBeUndefined();
+  });
+
   it("bamboohr pattern matches subdomain slugs", () => {
     const { regex } = harvestPatternFor("bamboohr");
     const m = Array.from("https://stripe.bamboohr.com/careers/list".matchAll(regex)).map(
@@ -103,6 +133,19 @@ describe("harvestPatternFor", () => {
     );
   });
 
+  it("isolvedhire pattern matches subdomain slugs and denies the platform feeds host", () => {
+    const { regex, denyList } = harvestPatternFor("isolvedhire");
+    const m = Array.from(
+      "https://safetireauto.isolvedhire.com/jobs/ https://feeds.isolvedhire.com/site_map_index.xml".matchAll(
+        regex,
+      ),
+    ).map((x) => x[1]);
+    expect(m).toContain("safetireauto");
+    // `feeds` is the platform-wide sitemap host, not a tenant.
+    expect(denyList.has("feeds")).toBe(true);
+    expect(denyList.has("www")).toBe(true);
+  });
+
   it("icims cdxQuery uses the * domain prefix that CDX actually honors", () => {
     // CDX prefix-match semantics on URL queries are rooted at the registrable
     // domain in SURT form; wildcards inside a host segment do not work. The
@@ -130,6 +173,9 @@ describe("harvestPatternFor", () => {
       ["metacareers", "https://www.metacareers.com/jobs/1234567890/", "meta"],
       // Meta also accepts the bare host:
       ["metacareers", "https://metacareers.com/jobs", "meta"],
+      // SchoolSpring: www-prefixed and bare host both emit the slug.
+      ["schoolspring", "https://www.schoolspring.com/jobdetail?jobId=5815345", "schoolspring"],
+      ["schoolspring", "https://schoolspring.com/", "schoolspring"],
     ];
     for (const [ats, url, expectedSlug] of cases) {
       const { regex } = harvestPatternFor(ats as Parameters<typeof harvestPatternFor>[0]);
@@ -138,6 +184,83 @@ describe("harvestPatternFor", () => {
       expect(m).not.toBeNull();
       expect(m?.[1]).toBe(expectedSlug);
     }
+  });
+
+  it("applitrack pattern captures the district path segment on the shared host", () => {
+    const { regex, denyList } = harvestPatternFor("applitrack");
+    const sample =
+      "https://www.applitrack.com/carolinecounty/onlineapp/jobpostings/view.asp?AppliTrackJobId=123 " +
+      "https://www.applitrack.com/tesd/onlineapp/default.aspx " +
+      "https://www.applitrack.com/olacommon/jobpostings/css/output.css";
+    const matches = Array.from(sample.matchAll(regex)).map((m) => m[1] as string);
+    expect(matches).toContain("carolinecounty");
+    expect(matches).toContain("tesd");
+    // Shared asset / app paths on the host must never mint tenants.
+    expect(denyList.has("olacommon")).toBe(true);
+    expect(denyList.has("onlineapp")).toBe(true);
+    expect(denyList.has("admin")).toBe(true);
+  });
+
+  it("hirebridge pattern captures the numeric cid query parameter", () => {
+    // Hirebridge is a shared-host ATS: the tenant identity is the `cid`
+    // query parameter, not a DNS label, so the capture reads the query
+    // string on both the listing and the JobDetails deep link — including
+    // entity-encoded HTML sources (`&amp;cid=`).
+    const { regex, denyList } = harvestPatternFor("hirebridge");
+    const sample =
+      "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535 " +
+      "https://recruit.hirebridge.com/v3/Jobs/JobDetails.aspx?cid=8419&jid=651294 " +
+      "https://recruit.hirebridge.com/v3/CareerCenter/v2/details.aspx?jid=730878&amp;cid=7997 " +
+      "https://evil.example.com/v3/jobs/list.aspx?cid=1111";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1]);
+    expect(matches).toEqual(["5535", "8419", "7997"]); // off-host cid ignored
+    expect(denyList.size).toBe(0); // numeric capture — no reserved words to deny
+  });
+
+  it("taleotbe pattern extracts the org slug and host/instance/cws metadata", () => {
+    const { regex, extractMetadata } = harvestPatternFor("taleotbe");
+    const sample =
+      "https://phh.tbe.taleo.net/phh03/ats/careers/searchResults.jsp?org=INVXIS&cws=37 " +
+      "https://tre.tbe.taleo.net/tre01/ats/careers/requisition.jsp?org=CITYBURNABY&cws=1&rid=633";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    // extractSlugs lowercases group 1; mirror that here.
+    expect(matches.map((m) => m[1]?.toLowerCase())).toEqual(["invxis", "cityburnaby"]);
+    expect(extractMetadata?.(matches[0] as RegExpExecArray)).toEqual({
+      host: "phh.tbe.taleo.net",
+      instance: "phh03",
+      cws: "37",
+    });
+    expect(extractMetadata?.(matches[1] as RegExpExecArray)).toEqual({
+      host: "tre.tbe.taleo.net",
+      instance: "tre01",
+      cws: "1",
+    });
+  });
+
+  it("taleotbe pattern omits cws when the URL lacks it and fails closed on a bad host", () => {
+    const { regex, extractMetadata } = harvestPatternFor("taleotbe");
+    const re = new RegExp(regex.source, regex.flags);
+    const m = re.exec("https://lde.tbe.taleo.net/lde01/ats/careers/viewRequisition?org=URSAUS");
+    expect(m?.[1]?.toLowerCase()).toBe("ursaus");
+    expect(extractMetadata?.(m as RegExpExecArray)).toEqual({
+      host: "lde.tbe.taleo.net",
+      instance: "lde01",
+    });
+    // A synthesized match whose match[0] lacks the pod-host shape must
+    // fail closed rather than emit junk metadata.
+    const fake = Object.assign(["https://evil.example.com/ats/careers/x?org=ACME", "ACME"], {
+      index: 0,
+      input: "https://evil.example.com/ats/careers/x?org=ACME",
+    }) as unknown as RegExpExecArray;
+    expect(extractMetadata?.(fake)).toBeUndefined();
+  });
+
+  it("taleotbe pattern does not match the enterprise taleo pool", () => {
+    const { regex } = harvestPatternFor("taleotbe");
+    const re = new RegExp(regex.source, regex.flags);
+    expect(re.exec("https://acme.taleo.net/careersection/jobsearch.ftl?org=ACME")).toBeNull();
   });
 
   it("hireology pattern extracts the first path segment on the shared SPA host", () => {

@@ -96,6 +96,98 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // SchoolSpring, a K-12 education job platform: districts and schools
+  // nationwide post to one shared board at www.schoolspring.com. Public
+  // JSON API (`api.schoolspring.com/api/Jobs/GetPagedJobsWithSearch`),
+  // single-tenant like the per-company customs above — but
+  // multi-EMPLOYER: the company on each Job comes from the row's
+  // `employer` field, not the tenant display name. ~100k live roles, so
+  // the adapter reads the list payload only (no per-job detail
+  // fan-out), with a large page size to keep the request count in the
+  // single digits.
+  "schoolspring",
+  // isolved Hire hosted boards. Public board at `{slug}.isolvedhire.com/jobs/`
+  // is a Vue SPA whose loader embeds a `courierCurrentRouteData` blob with
+  // the per-tenant `domain_id`; `/core/jobs/{domainId}` then returns the
+  // entire job list (title, city/state, workplace type, posting date, pay
+  // range, canonical job URL) in one unpaginated call. The same board engine
+  // also serves the `applicantpro.com` domain family (already covered by the
+  // applicantpro adapter); this adapter covers only the `isolvedhire.com`
+  // host. Tenant identity = slug (subdomain), so no metadata is required.
+  // Verified seeds: Safe Tire & Auto, Davidson Oil, Flying Star Transport.
+  "isolvedhire",
+  // Frontline AppliTrack K-12 recruiting boards. Every district gets a
+  // public board on the shared host `www.applitrack.com/{district}/…`;
+  // the `onlineapp/jobpostings/Output.asp?all=1` endpoint streams a
+  // JavaScript document of `document.write` calls whose concatenated
+  // payloads are the full HTML for every open posting — one GET per
+  // tenant, no pagination, no detail fetch. Tenant identity = the
+  // district path slug, so no metadata is required. Verified seeds:
+  // Caroline County Public Schools, Tredyffrin/Easttown School District,
+  // Lucia Mar Unified School District.
+  "applitrack",
+  // HiringThing hosted job boards. Every customer board lives at
+  // `{slug}.hiringthing.com` and publishes an RSS feed at `/api/rss.xml`
+  // whose every <item> is a complete listing entry: title, deep link
+  // (`/job/{id}/{title-slug}`, carrying the numeric job id), location,
+  // and an HTML description — so a single GET per tenant covers the
+  // whole board, no pagination, no per-job fan-out. The feed carries no
+  // publish date, so posted_at is omitted (as with hrmdirect). Tenant
+  // identity = slug (subdomain); no metadata is required. The platform
+  // also links a global S3 sitemap of hosted boards from each board's
+  // robots.txt, a useful discovery surface. White-label boards on
+  // custom domains exist but are out of scope — slug boards only.
+  // Verified seeds: Pinnacle, Greater SATX, Your SmartSource.
+  "hiringthing",
+  // Apploi job platform (healthcare-heavy multi-brand hiring). Every brand
+  // shares one public search API at ats-integrations.apploi.com; the org
+  // scope is the exact `brand` name string passed as a query parameter —
+  // there is no URL-derivable slug. Tenant identity = (slug, metadata.brand):
+  // an operator-chosen kebab slug plus the verbatim brand string the API
+  // filters on. The `brand` parameter is a relevance search, not a strict
+  // filter, so the adapter keeps only rows whose `brand_name` matches
+  // exactly. Verified seeds: University Health, The Laurels of Blanchester,
+  // Community Care Home Health Services - White Plains.
+  "apploi",
+  // Hirebridge hosted boards. Every customer board lives on the single
+  // shared host `recruit.hirebridge.com`, selected by a numeric `cid`
+  // query parameter — the tenant slug IS that cid string (no subdomain,
+  // no metadata). The listing page (`/v3/jobs/list.aspx?cid={cid}`)
+  // server-renders every open role on one page as location-grouped link
+  // lists, so a single GET per tenant covers it (no pagination, no
+  // detail fetch; the hbapi JSON search endpoint returns empty
+  // title/url/date fields and only powers the filter dropdowns).
+  // Verified seeds: Menard Inc, Rinker Materials, Avenue5 Residential.
+  "hirebridge",
+  // Taleo Business Edition (the SMB pool, distinct from the enterprise
+  // `taleo` careersection stack). Every customer's public board is a
+  // server-rendered page on a shared pod host:
+  // `{pod}.tbe.taleo.net/{instance}/ats/careers/v2/searchResults?org={ORG}&cws={n}`.
+  // Tenant identity is the composite (host, instance, cws) plus the org
+  // code as slug — none of it derivable from the slug alone, so all
+  // three metadata keys are mandatory (workday/oraclecloud convention).
+  // Pagination (`&next&rowFrom=N`, 10 rows/page) requires echoing the
+  // JSESSIONID the first page sets; without it every later page is
+  // empty. Verified seeds: RealmOne, City of Burnaby, DT Global.
+  "taleotbe",
+  // Workstream hourly-hiring boards. Every tenant's public board lives on
+  // the shared host `www.workstream.us` at `/j/{companyId}/{slug}/positions`,
+  // server-rendering 10 role links per page (`?page=N` paginates); each job
+  // page carries schema.org/JobPosting JSON-LD (read via jsonld-core).
+  // Tenant identity = (company_id, slug): the 8-hex company id is mandatory
+  // routing metadata because the board URL embeds both. Verified seeds:
+  // Chick-fil-A, JOEY Restaurants, Wingstop, Burger King.
+  "workstream",
+  // CareerPlug hosted boards. Public board at `{slug}.careerplug.com/jobs`
+  // server-renders paginated job cards (~30 per page via `?page=N`; a
+  // `.pagination` nav exposes the last page number). Each card carries
+  // the title, a `ST-City-ZIP` location and a post date, so jobs are
+  // built from the listing alone — no per-job detail fetch (detail pages
+  // redirect straight into the application flow). Tenant identity = slug
+  // (subdomain), so no metadata is required; franchise brands commonly
+  // run one subdomain per location. Verified seeds: Planet Fitness,
+  // Crunch Fitness, i9 Sports.
+  "careerplug",
   // Jibe hosted career sites. Public unauthenticated JSON at
   // `{host}/api/jobs?page=N&limit=100` returns `jobs[].data` rows plus a
   // `totalCount`; the full HTML description ships in the list payload, so

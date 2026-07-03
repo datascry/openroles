@@ -73,6 +73,24 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("hrmdirect", "stripe")).toBe(
       "https://stripe.hrmdirect.com/employment/job-openings.php",
     );
+    // SchoolSpring is single-tenant, slug ignored; the probe is the
+    // cheap jobs-count endpoint on the public API host.
+    expect(probeUrlFor("schoolspring", "schoolspring")).toBe(
+      "https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch?keyword=&location=&category=&gradelevel=&jobtype=&organization=",
+    );
+    expect(probeUrlFor("isolvedhire", "stripe")).toBe("https://stripe.isolvedhire.com/jobs/");
+    // Path-per-tenant on a shared host: the Output.asp posting stream is
+    // the probe (200 on a live district, honest 404 on an unknown slug).
+    expect(probeUrlFor("applitrack", "carolinecounty")).toBe(
+      "https://www.applitrack.com/carolinecounty/onlineapp/jobpostings/Output.asp?all=1",
+    );
+    // hiringthing probes the per-board RSS feed (200 even on an empty board).
+    expect(probeUrlFor("hiringthing", "stripe")).toBe("https://stripe.hiringthing.com/api/rss.xml");
+    // Shared-host board addressed by a numeric cid query parameter.
+    expect(probeUrlFor("hirebridge", "5535")).toBe(
+      "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535",
+    );
+    expect(probeUrlFor("careerplug", "stripe")).toBe("https://stripe.careerplug.com/jobs");
     expect(probeUrlFor("jibeapply", "stripe")).toBe(
       "https://stripe.jibeapply.com/api/jobs?page=1&limit=1",
     );
@@ -128,6 +146,49 @@ describe("probeUrlForWithMetadata", () => {
     ).toBeUndefined();
   });
 
+  it("composes the taleotbe searchResults URL from host + instance + cws", () => {
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+        cws: "37",
+      }),
+    ).toBe("https://phh.tbe.taleo.net/phh03/ats/careers/v2/searchResults?org=invxis&cws=37");
+  });
+
+  it("rejects taleotbe with missing or malformed composite metadata", () => {
+    // Missing cws → composite incomplete.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+      }),
+    ).toBeUndefined();
+    // Host outside the *.tbe.taleo.net pool → assertTaleoTbeHost rejects.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net.evil.com",
+        instance: "phh03",
+        cws: "37",
+      }),
+    ).toBeUndefined();
+    // Path-injecting instance and non-numeric cws are rejected.
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03/evil",
+        cws: "37",
+      }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("taleotbe", "invxis", {
+        host: "phh.tbe.taleo.net",
+        instance: "phh03",
+        cws: "37&org=other",
+      }),
+    ).toBeUndefined();
+  });
+
   it("composes the phenom search-results URL and defaults locale to us/en", () => {
     expect(probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.com" })).toBe(
       "https://careers.acme.com/us/en/search-results",
@@ -147,6 +208,53 @@ describe("probeUrlForWithMetadata", () => {
     // Regex-valid but SSRF-unsafe (`.internal`) → isSafeFetchHost rejects.
     expect(
       probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.internal" }),
+    ).toBeUndefined();
+  });
+
+  it("composes the apploi search URL with the brand URL-encoded", () => {
+    expect(
+      probeUrlForWithMetadata("apploi", "university-health", { brand: "University Health" }),
+    ).toBe(
+      "https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=University%20Health",
+    );
+    expect(
+      probeUrlForWithMetadata("apploi", "cchhs-white-plains", {
+        brand: "Community Care Home Health Services - White Plains",
+      }),
+    ).toBe(
+      "https://ats-integrations.apploi.com/search/jobs/?page=1&size=1&brand=Community%20Care%20Home%20Health%20Services%20-%20White%20Plains",
+    );
+  });
+
+  it("rejects apploi with a missing, blank, control-char or oversized brand", () => {
+    expect(probeUrlForWithMetadata("apploi", "acme-health", {})).toBeUndefined();
+    expect(probeUrlForWithMetadata("apploi", "acme-health", { brand: "   " })).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("apploi", "acme-health", { brand: "bad\nbrand" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("apploi", "acme-health", { brand: "x".repeat(257) }),
+    ).toBeUndefined();
+  });
+
+  it("composes the workstream positions URL from (company_id, slug)", () => {
+    expect(probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "ab12cd34" })).toBe(
+      "https://www.workstream.us/j/ab12cd34/acme-grill/positions",
+    );
+  });
+
+  it("rejects workstream with a missing or malformed company_id", () => {
+    expect(probeUrlForWithMetadata("workstream", "acme-grill", {})).toBeUndefined();
+    // Uppercase hex, wrong length, and non-hex are all rejected before the
+    // id flows into the URL path.
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "AB12CD34" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "ab12cd3" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "../admin" }),
     ).toBeUndefined();
   });
 });
@@ -229,6 +337,77 @@ describe("probeOne", () => {
       async () => new Response(null, { status: 302, headers: { location: "http://" } }),
     );
     const t = await probeOne("jazzhr", "some-tenant", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+  });
+
+  it("classifies a hiringthing cross-host 302 (vendor marketing bounce) as dead", async () => {
+    // An unknown `*.hiringthing.com` subdomain answers /api/rss.xml with a
+    // 302 to `www.hiringthing.com` — the cross-host bounce itself is the
+    // dead signal (following it would land on the vendor marketing site).
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "http://www.hiringthing.com" },
+        }),
+    );
+    const t = await probeOne("hiringthing", "no-such-board", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
+  });
+
+  it("probes hirebridge with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<ul class='jobs'>links</ul>", { status: 200 });
+    });
+    const t = await probeOne("hirebridge", "5535", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    // Must NOT follow redirects: a dead cid's same-host 302 lands on the
+    // vendor error page which serves HTTP 200 and would look live.
+    expect(seenRedirect).toBe("manual");
+  });
+
+  it("classifies a hirebridge same-host 3xx to the vendor error page as dead", async () => {
+    // An unknown cid 302-bounces the listing to
+    // /v3/Application/AppErrMsg.aspx?cid={cid}&errorType=badurl on the SAME
+    // host — the cross-host rule can't see it, so the Location path itself
+    // is the dead signal.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "http://www.hiringthing.com" },
+        }),
+    );
+    const t = await probeOne("hiringthing", "no-such-board", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("dead");
+  });
+
+  it("probes hiringthing with redirect:manual and classifies a direct 200 feed as live", async () => {
+    let seenRedirect: string | undefined;
+    const fetchFn = mock(async (_input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      return new Response("<rss version='2.0'><channel/></rss>", { status: 200 });
+    });
+    const t = await probeOne("hiringthing", "pinnacle", clientWith(fetchFn), OBSERVED_AT);
+    expect(t.status).toBe("live");
+    expect(seenRedirect).toBe("manual");
+  });
+
+  it("keeps a hirebridge same-host 3xx that is NOT the error page live", async () => {
+    // Only the provably-dead error-page bounce drops the tenant; an
+    // unobserved redirect shape (e.g. self URL-normalization) stays live.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: {
+            location: "https://recruit.hirebridge.com/v3/jobs/list.aspx?cid=5535&sorted=1",
+          },
+        }),
+    );
+    const t = await probeOne("hirebridge", "5535", clientWith(fetchFn), OBSERVED_AT);
     expect(t.status).toBe("live");
   });
 

@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "id": "920001",
+      "name": "State Tested Nursing Assistant (STNA)",
+      "published_date": null,
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Support residents with daily living activities.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": null,
+      "state": "Ohio",
+      "id": "920002",
+      "name": "Chef &amp; Dietary Manager",
+      "published_date": "2026-04-01",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "   "
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "id": "920003",
+      "name": "Future Posted Role",
+      "published_date": "2027-01-01",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Posting date sits in the future relative to the scrape.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "id": "920003",
+      "name": "Duplicate Id Role",
+      "published_date": "2026-04-02",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Same id as the previous row; must dedupe.</p>"
+    },
+    {
+      "brand_name": "Other Facility",
+      "city": "Columbus",
+      "state": "Ohio",
+      "id": "920004",
+      "name": "Fuzzy Match Leak",
+      "published_date": "2026-04-03",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Relevance-matched row from a different brand; must be filtered.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "name": "No Id Role",
+      "published_date": "2026-04-04",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Missing id; must be skipped.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "id": "920005",
+      "published_date": "2026-04-05",
+      "salary_min": 0.0,
+      "salary_max": 0.0,
+      "description": "<p>Missing name; must be skipped.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Blanchester",
+      "state": "Ohio",
+      "id": "920006",
+      "name": "Inverted Salary Role",
+      "published_date": "2026-04-06",
+      "salary_min": 40.0,
+      "salary_max": 12.0,
+      "description": "<p>salary_min above salary_max; the pair is dropped.</p>"
+    },
+    {
+      "brand_name": "Edge Care",
+      "city": "Remote",
+      "state": null,
+      "id": "920007",
+      "name": "Remote Scheduler",
+      "published_date": "2026-04-07",
+      "salary_min": 18.75,
+      "salary_max": 0.0,
+      "description": "<p>Only salary_min carries a value.</p>"
+    }
+  ],
+  "elasticsearch_errors": [],
+  "errors": [],
+  "buckets": []
+}

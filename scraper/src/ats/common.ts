@@ -51,6 +51,42 @@ export function assertOracleSite(site: string): void {
   }
 }
 
+// Taleo Business Edition pods. Every TBE customer board lives on a shared
+// pod host under `*.tbe.taleo.net` (e.g. `phh.tbe.taleo.net`,
+// `tre.tbe.taleo.net`). Anchoring to the `.tbe.taleo.net` suffix is the
+// SSRF guard: a tenant-supplied host can only ever address a TBE pod,
+// never an arbitrary origin. Lowercase only — metadata is stored lowercase
+// and a mixed-case host would dodge string-comparison checks downstream.
+const TALEOTBE_HOST = /^[a-z0-9-]{1,32}\.tbe\.taleo\.net$/;
+
+export function assertTaleoTbeHost(host: string): void {
+  if (!TALEOTBE_HOST.test(host)) {
+    throw new HttpError("permanent", `taleotbe host rejected: ${JSON.stringify(host)}`);
+  }
+}
+
+// TBE pod instance — the first path segment of every careers URL on the
+// pod (`phh03`, `tre01`, `lde01`). A single alphanumeric token; anything
+// else would inject extra path segments into the request URL.
+const TALEOTBE_INSTANCE = /^[a-z0-9]{1,32}$/;
+
+export function assertTaleoTbeInstance(instance: string): void {
+  if (!TALEOTBE_INSTANCE.test(instance)) {
+    throw new HttpError("permanent", `taleotbe instance rejected: ${JSON.stringify(instance)}`);
+  }
+}
+
+// TBE career-website selector (`cws`) — a small numeric id that picks
+// which of the org's published career sites to read. Digits only; it
+// flows into the query string of every request.
+const TALEOTBE_CWS = /^[0-9]{1,6}$/;
+
+export function assertTaleoTbeCws(cws: string): void {
+  if (!TALEOTBE_CWS.test(cws)) {
+    throw new HttpError("permanent", `taleotbe cws rejected: ${JSON.stringify(cws)}`);
+  }
+}
+
 export function dedupeById(jobs: Job[]): Job[] {
   const seen = new Set<string>();
   const out: Job[] = [];

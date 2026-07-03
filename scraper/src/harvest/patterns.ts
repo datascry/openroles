@@ -382,12 +382,146 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /\b(phenom)\b/gi,
     denyList: new Set<string>(["phenom"]),
   },
+  // Apploi tenants share the host ats-integrations.apploi.com and are
+  // selected by a verbatim `brand` name string in the query — the slug is
+  // operator-assigned (brand-friendly kebab case) rather than derivable
+  // from any URL. CDX could enumerate job-card URLs, but mapping an id
+  // back to its brand string requires reading each posting by hand, so
+  // seeds are operator-curated in data/tenants/apploi.json. The pattern is
+  // registered as a placeholder to keep HARVEST_ATS_IDS == ATS_IDS without
+  // spuriously matching (the regex matches the literal token against its
+  // own deny list, so CDX never mints a fresh tenant).
+  {
+    ats: "apploi",
+    cdxQuery: "jobs.apploi.com/view/*",
+    regex: /\b(apploi)\b/gi,
+    denyList: new Set<string>(["apploi"]),
+  },
+  {
+    ats: "isolvedhire",
+    // isolved Hire hosted boards live at `{slug}.isolvedhire.com`; the tenant
+    // slug is the subdomain label (same shape as bamboohr/breezy). `feeds` is
+    // the platform-wide sitemap host (feeds.isolvedhire.com/site_map_index.xml),
+    // not a tenant, so it joins the standard subdomain deny terms.
+    cdxQuery: "*.isolvedhire.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.isolvedhire\.com/gi,
+    denyList: new Set<string>([...SUBDOMAIN_DENY, "feeds"]),
+  },
+  // Taleo Business Edition boards are addressed by (host, instance, cws)
+  // plus the org code: `{pod}.tbe.taleo.net/{instance}/ats/careers/
+  // …?org={ORG}&cws={n}`. Everything is derivable from a captured careers
+  // URL, so — like successfactors, the other query-param-slug ATS — the
+  // slug (group 1) is the `org=` value and the host/instance/cws are
+  // re-parsed out of match[0] in extractMetadata. The `.tbe.` label keeps
+  // this pattern disjoint from the enterprise `taleo` pattern's bare-host
+  // capture. URLs without a `cws=` (e.g. requisition deep links that only
+  // carry org+rid) still mint the slug with host+instance; the tenant
+  // stays at transient_failure until a cws-bearing URL (or an operator)
+  // completes the composite.
+  {
+    ats: "taleotbe",
+    cdxQuery: "*.tbe.taleo.net/*",
+    // The trailing `[^"\s]*` keeps the rest of the query string inside
+    // match[0] so extractMetadata can recover a `cws=` that follows the
+    // org parameter.
+    regex:
+      /https?:\/\/[a-z0-9-]{1,32}\.tbe\.taleo\.net\/[a-z0-9]{1,32}\/ats\/careers\/[^"\s]*?[?&](?:amp;)?org=([a-z0-9]+)[^"\s]*/gi,
+    denyList: SUBDOMAIN_DENY,
+    extractMetadata: (match) => {
+      const hostMatch = /([a-z0-9-]{1,32}\.tbe\.taleo\.net)\/([a-z0-9]{1,32})\//i.exec(match[0]);
+      if (!hostMatch?.[1] || !hostMatch[2]) return undefined;
+      const cws = /[?&](?:amp;)?cws=([0-9]{1,6})/i.exec(match[0])?.[1];
+      return {
+        host: hostMatch[1].toLowerCase(),
+        instance: hostMatch[2].toLowerCase(),
+        ...(cws !== undefined ? { cws } : {}),
+      };
+    },
+  },
   {
     ats: "hrmdirect",
     // HRMDirect hosted boards live at `{slug}.hrmdirect.com`; the tenant
     // slug is the subdomain label (same shape as bamboohr/breezy).
     cdxQuery: "*.hrmdirect.com/*",
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  // SchoolSpring is single-tenant (one national K-12 board), so group 1
+  // captures the literal canonical slug from the host — the same shape
+  // as the phase-6 per-company customs above. CDX surfaces the public
+  // board URL on every recent crawl, so harvest discovers the single
+  // tenant on the first matching record and stops.
+  {
+    ats: "schoolspring",
+    cdxQuery: "www.schoolspring.com/*",
+    regex: /https?:\/\/(?:www\.)?(schoolspring)\.com\b/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "applitrack",
+    // Frontline AppliTrack district boards share the host
+    // `www.applitrack.com`; the district slug is the first path segment
+    // (`www.applitrack.com/{district}/onlineapp/...`), the same path-based
+    // shape as smartrecruiters/jobvite. Beyond the generic path-word deny
+    // list, the host also serves shared assets under `olacommon` and (on
+    // some captures) bare `onlineapp` links, so both are excluded to keep
+    // CDX asset/deep-link captures from minting phantom tenants.
+    cdxQuery: "www.applitrack.com/*",
+    regex: /www\.applitrack\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: new Set<string>([...PATH_DENY, "olacommon", "onlineapp"]),
+  },
+  {
+    ats: "hiringthing",
+    // HiringThing hosted boards live at `{slug}.hiringthing.com`; the
+    // tenant slug is the subdomain label (same shape as bamboohr/breezy).
+    // The platform also links a global S3 sitemap of hosted boards from
+    // each board's robots.txt — a complementary discovery surface to CDX.
+    cdxQuery: "*.hiringthing.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hiringthing\.com/gi,
+    denyList: SUBDOMAIN_DENY,
+  },
+  {
+    ats: "hirebridge",
+    // Hirebridge boards share the single host `recruit.hirebridge.com`;
+    // the tenant identity is the numeric `cid` query parameter carried on
+    // every listing/detail URL (`/v3/jobs/list.aspx?cid=5535`,
+    // `/v3/Jobs/JobDetails.aspx?cid=5535&jid=…`), so — unlike the
+    // subdomain-shaped ATSes — the capture group reads the query string,
+    // not a DNS label. The `(?:amp;)?` arm also matches URLs lifted from
+    // entity-encoded HTML. A numeric-only capture can never collide with
+    // reserved words, so no deny list applies.
+    cdxQuery: "recruit.hirebridge.com/*",
+    regex: /https?:\/\/recruit\.hirebridge\.com\/[^"'\s<>]*?[?&](?:amp;)?cid=(\d{1,9})(?!\d)/gi,
+    denyList: new Set<string>(),
+  },
+  {
+    ats: "workstream",
+    // Workstream boards share the host www.workstream.us; the tenant is
+    // addressed by the composite `/j/{companyId}/{slug}` path where the
+    // 8-hex company id and the brand slug appear together in every board
+    // and job URL. extractSlugs reads m[1] as the slug (shared convention),
+    // so group 1 captures the slug; the company id is recovered from the
+    // full match string inside extractMetadata via a secondary regex — the
+    // same non-positional metadata recovery successfactors uses for its
+    // regional host. A match whose id segment is somehow malformed yields
+    // no metadata; the slug still counts, and the tenant stays dead at
+    // dispatch until a later pass surfaces the id.
+    cdxQuery: "www.workstream.us/j/*",
+    regex: /workstream\.us\/j\/[0-9a-f]{8}\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+    extractMetadata: (match) => {
+      const idMatch = /\/j\/([0-9a-f]{8})\//i.exec(match[0]);
+      const companyId = idMatch?.[1];
+      if (typeof companyId !== "string" || companyId.length === 0) return undefined;
+      return { company_id: companyId.toLowerCase() };
+    },
+  },
+  {
+    ats: "careerplug",
+    // CareerPlug hosted boards live at `{slug}.careerplug.com`; the tenant
+    // slug is the subdomain label (same shape as bamboohr/breezy).
+    cdxQuery: "*.careerplug.com/*",
+    regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.careerplug\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
   {

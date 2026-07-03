@@ -1,0 +1,26 @@
+[
+  {
+    "ats": "hirebridge",
+    "slug": "5535",
+    "display_name": "Menard Inc",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "hirebridge",
+    "slug": "7997",
+    "display_name": "Avenue5 Residential",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "hirebridge",
+    "slug": "8419",
+    "display_name": "Rinker Materials",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "message": "",
+  "validationErrors": [],
+  "value": {
+    "page": 1,
+    "size": 6,
+    "jobsList": [
+      {
+        "jobId": 5815342,
+        "employer": "Warren County Career Center",
+        "title": "Work-Based Learning Coordinator",
+        "location": "Lebanon, Ohio",
+        "displayDate": "2026-07-03T13:06:51"
+      },
+      {
+        "jobId": 5815160,
+        "employer": "Mesa Public Schools",
+        "title": "Child Nutrition Caf&#xE9; Special Programs",
+        "location": "Mesa, Arizona",
+        "displayDate": "2026-07-03T06:00:00"
+      },
+      {
+        "jobId": 5815379,
+        "employer": "La Salle Academy High School",
+        "title": "High School Science Teacher (Chemistry &amp; Electives)",
+        "location": "Providence, Rhode Island",
+        "displayDate": "2026-07-03T04:00:00"
+      },
+      {
+        "jobId": 5798716,
+        "employer": "Sheridan AllPrep Academy",
+        "title": "School Psychologist (Remote / Virtual)",
+        "location": "Sheridan, Oregon",
+        "displayDate": "2026-06-23T07:00:00"
+      },
+      {
+        "jobId": 5815398,
+        "employer": "SANDY HILL ELEMENTARY SCHOOL",
+        "title": "Early Childhood Education Teacher Pool ($55,948&#x2B;)",
+        "location": "CAMBRIDGE, Maryland",
+        "displayDate": "2026-07-03T04:00:00"
+      },
+      {
+        "jobId": 5801234,
+        "employer": "Statewide Educator Services",
+        "title": "Teacher Recruiter",
+        "location": "Columbus, Ohio",
+        "displayDate": "2026-06-25T09:30:00"
+      }
+    ]
+  }
+}

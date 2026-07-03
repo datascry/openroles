@@ -276,6 +276,275 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches careerplug from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://acme.careerplug.com/jobs", ({ request }) => {
+        const page = new URL(request.url).searchParams.get("page");
+        return new HttpResponse(
+          readFixtureText(page === "2" ? "careerplug.page2.html" : "careerplug.listing.html"),
+        );
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "careerplug",
+        tenants: [{ slug: "acme", display_name: "Acme Fitness" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(5); // 3 on page 1 + 2 on page 2
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches schoolspring (single-tenant, per-row employer as company)", async () => {
+    server.use(
+      http.get("https://api.schoolspring.com/api/Jobs/GetJobsCountWithSearch", () =>
+        HttpResponse.json({ success: true, message: "", validationErrors: [], value: 2 }),
+      ),
+      http.get("https://api.schoolspring.com/api/Jobs/GetPagedJobsWithSearch", () =>
+        HttpResponse.json(readFixture("schoolspring.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "schoolspring",
+        tenants: [{ slug: "schoolspring", display_name: "SchoolSpring" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.jobs[0]?.company).toBe("Beaufort County School District");
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches isolvedhire from the slug alone (bootstrap + job list)", async () => {
+    server.use(
+      http.get(
+        "https://acme.isolvedhire.com/jobs/",
+        () => new HttpResponse(readFixtureText("isolvedhire.board.html")),
+      ),
+      http.get("https://acme.isolvedhire.com/core/jobs/9440", () =>
+        HttpResponse.json(readFixture("isolvedhire.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "isolvedhire",
+        tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches applitrack from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://www.applitrack.com/unionsd/onlineapp/jobpostings/Output.asp",
+        () => new HttpResponse(readFixtureText("applitrack.listing.js")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "applitrack",
+        tenants: [{ slug: "unionsd", display_name: "Union School District" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches hiringthing from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://pinnacle.hiringthing.com/api/rss.xml", () =>
+        HttpResponse.xml(readFixtureText("hiringthing.feed.xml")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hiringthing",
+        tenants: [{ slug: "pinnacle", display_name: "Pinnacle" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches apploi with metadata.brand", async () => {
+    server.use(
+      http.get("https://ats-integrations.apploi.com/search/jobs/", () =>
+        HttpResponse.json(readFixture("apploi.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "apploi",
+        tenants: [
+          { slug: "acme-health", display_name: "Acme Health", metadata: { brand: "Acme Health" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches hirebridge from the numeric cid alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://recruit.hirebridge.com/v3/jobs/list.aspx",
+        () => new HttpResponse(readFixtureText("hirebridge.listing.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "hirebridge",
+        tenants: [{ slug: "5535", display_name: "Menard Inc" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches taleotbe with metadata.host, metadata.instance and metadata.cws", async () => {
+    server.use(
+      http.get("https://phh.tbe.taleo.net/phh03/ats/careers/v2/searchResults", () =>
+        HttpResponse.html(readFixtureText("taleotbe.listing.page2.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "taleotbe",
+        tenants: [
+          {
+            slug: "invxis",
+            metadata: { host: "phh.tbe.taleo.net", instance: "phh03", cws: "37" },
+          },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.jobs).toHaveLength(3);
+  });
+
+  it("dispatches workstream with metadata.company_id", async () => {
+    server.use(
+      http.get("https://www.workstream.us/j/ab12cd34/acme-grill/positions", ({ request }) => {
+        const page = new URL(request.url).searchParams.get("page");
+        return page === null
+          ? new HttpResponse(readFixtureText("workstream.board.page2.html"))
+          : new HttpResponse(readFixtureText("workstream.board.empty.html"));
+      }),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685/bar-manager-acme-north-df016e56",
+        () => new HttpResponse(readFixtureText("workstream.job.barmanager.html")),
+      ),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685/sous-chef-acme-north-1894119b",
+        () => new HttpResponse(readFixtureText("workstream.job.souschef.html")),
+      ),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/dishwasher-acme-downtown-a726f5c8",
+        () => new HttpResponse(readFixtureText("workstream.job.dishwasher.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workstream",
+        tenants: [
+          { slug: "acme-grill", display_name: "Acme Grill", metadata: { company_id: "ab12cd34" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags apploi tenant dead when metadata.brand is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "apploi",
+        tenants: [{ slug: "no-brand" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("apploi tenant missing metadata.brand");
+  });
+
+  it("flags taleotbe tenant dead when any of host/instance/cws is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "taleotbe",
+        tenants: [
+          { slug: "no-metadata" },
+          { slug: "no-cws", metadata: { host: "phh.tbe.taleo.net", instance: "phh03" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    for (const result of out.tenant_results) {
+      expect(result.status).toBe("dead");
+      expect(result.error).toContain(
+        "taleotbe tenant missing metadata.host, metadata.instance or metadata.cws",
+      );
+    }
+  });
+
+  it("flags workstream tenant dead when metadata.company_id is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "workstream",
+        tenants: [{ slug: "no-company-id" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("workstream tenant missing metadata.company_id");
+  });
+
   it("dispatches jibeapply from the slug alone (no metadata)", async () => {
     server.use(
       http.get("https://acme.jibeapply.com/api/jobs", () =>

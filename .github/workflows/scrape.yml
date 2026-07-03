@@ -92,6 +92,33 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # SchoolSpring national K-12 education board (single-tenant, ~100k roles).
+          - schoolspring
+          # isolved Hire hosted boards ({slug}.isolvedhire.com).
+          - isolvedhire
+          # Frontline AppliTrack K-12 district boards; every tenant is a path
+          # on the one shared host www.applitrack.com, so keep bursts low.
+          - applitrack
+          # HiringThing hosted boards ({slug}.hiringthing.com) via per-board RSS.
+          - hiringthing
+          # Apploi multi-brand hiring platform (shared search API, brand-scoped).
+          - apploi
+          # Hirebridge hosted boards (shared host recruit.hirebridge.com, tenant = numeric cid).
+          - hirebridge
+          # Taleo Business Edition boards ({pod}.tbe.taleo.net, composite tenancy).
+          - taleotbe
+          # Workstream hourly-hiring boards (shared host www.workstream.us).
+          # The adapter self-paces every request through one process-wide
+          # gate at ~1 req/s aggregate (the host's per-IP soft rate limit
+          # strips JSON-LD past that), so a 60-min runner sustains ~3,000
+          # requests. The seeded corpus (4 tenants, well under 1,000 detail
+          # pages total, each tenant hard-capped at 460 paced requests +
+          # <=300s of degraded-backoff stalls) sits far inside that budget;
+          # if harvest growth approaches it, shard the tenant list across
+          # runners like teamtailor below.
+          - workstream
+          # CareerPlug hosted boards ({slug}.careerplug.com, paginated cards).
+          - careerplug
           # Jibe hosted career sites ({slug}.jibeapply.com); shared backend.
           - jibeapply
           # Hireology hosted career sites (careers.hireology.com/{slug}).
@@ -171,7 +198,7 @@ jobs:
           # cap because bursting hits CDN rate-limits — workable's
           # cloudflare ip-banned us mid-bootstrap at default concurrency.
           case "${{ matrix.ats }}" in
-            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr)
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|applitrack|hirebridge|workstream)
               concurrency_value=4 ;;
             *)
               concurrency_value=24 ;;

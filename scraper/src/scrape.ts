@@ -12,19 +12,25 @@ import { scrapeAmazonJobsTenant } from "./ats/amazonjobs.ts";
 import { scrapeAppleJobsTenant } from "./ats/applejobs.ts";
 import { scrapeApplicantProTenant } from "./ats/applicantpro.ts";
 import { scrapeApplicantStackTenant } from "./ats/applicantstack.ts";
+import { scrapeApplitrackTenant } from "./ats/applitrack.ts";
+import { scrapeApploiTenant } from "./ats/apploi.ts";
 import { scrapeAshbyTenant } from "./ats/ashby.ts";
 import { scrapeBambooTenant } from "./ats/bamboohr.ts";
 import { scrapeBrassringTenant } from "./ats/brassring.ts";
 import { scrapeBreezyTenant } from "./ats/breezy.ts";
+import { scrapeCareerplugTenant } from "./ats/careerplug.ts";
 import { scrapeCsodTenant } from "./ats/csod.ts";
 import { scrapeEightfoldTenant } from "./ats/eightfold.ts";
 import { scrapeFactorialTenant } from "./ats/factorial.ts";
 import { scrapeGjobsfeedTenant } from "./ats/gjobsfeed.ts";
 import { scrapeGreenhouseTenant } from "./ats/greenhouse.ts";
+import { scrapeHirebridgeTenant } from "./ats/hirebridge.ts";
 import { scrapeHireologyTenant } from "./ats/hireology.ts";
+import { scrapeHiringthingTenant } from "./ats/hiringthing.ts";
 import { scrapeHomerunTenant } from "./ats/homerun.ts";
 import { scrapeHrmDirectTenant } from "./ats/hrmdirect.ts";
 import { scrapeIcimsTenant } from "./ats/icims.ts";
+import { scrapeIsolvedhireTenant } from "./ats/isolvedhire.ts";
 import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
 import { scrapeJibeapplyTenant } from "./ats/jibeapply.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
@@ -36,15 +42,18 @@ import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
 import { scrapeRecruiteeTenant } from "./ats/recruitee.ts";
+import { scrapeSchoolSpringTenant } from "./ats/schoolspring.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
+import { scrapeTaleoTbeTenant } from "./ats/taleotbe.ts";
 import { scrapeTeamtailorTenant } from "./ats/teamtailor.ts";
 import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
+import { scrapeWorkstreamTenant } from "./ats/workstream.ts";
 import { scrapeZohorecruitTenant } from "./ats/zohorecruit.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
 import { RobotsTxtCache } from "./robots.ts";
@@ -211,11 +220,10 @@ function dispatchPerAts(
     case "csod":
       return scrapeCsodTenant(opts);
     case "taleo":
-      // Standard pool only (`{slug}.taleo.net`). The TBE pool requires a
-      // per-tenant `org=<CODE>` parameter we don't capture in harvest;
-      // when TBE-specific metadata lands, gate that variant here. The
-      // scraper discovers the careersection portalNo from the section
-      // HTML, so no metadata is required for the standard pool.
+      // Enterprise pool only (`{slug}.taleo.net`). The scraper discovers
+      // the careersection portalNo from the section HTML, so no metadata
+      // is required. Taleo Business Edition boards are a separate ATS id
+      // (`taleotbe`) with composite tenancy — see that case below.
       return scrapeTaleoTenant(opts);
     case "zohorecruit":
       return scrapeZohorecruitTenant(opts);
@@ -353,6 +361,95 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "schoolspring":
+      // Single-tenant national K-12 board; the per-job company comes
+      // from each list row's employer field, not the tenant record.
+      return scrapeSchoolSpringTenant(opts);
+    case "isolvedhire":
+      // Slug-only tenancy: the board host is `{slug}.isolvedhire.com`; the
+      // per-tenant domain_id is discovered from the board page itself, so
+      // no metadata is needed.
+      return scrapeIsolvedhireTenant(opts);
+    case "applitrack":
+      // Slug-only tenancy: the district board lives under
+      // `www.applitrack.com/{slug}/onlineapp/` and one Output.asp GET
+      // carries every posting, so no metadata is needed.
+      return scrapeApplitrackTenant(opts);
+    case "hiringthing":
+      // Slug-only tenancy: the board host is `{slug}.hiringthing.com` and
+      // the /api/rss.xml feed carries every role, so no metadata is needed.
+      return scrapeHiringthingTenant(opts);
+    case "apploi": {
+      // Apploi scopes a tenant by the verbatim `brand` name string the
+      // shared search API filters on — not URL-derivable, so it is
+      // mandatory seed metadata. Brand missing → dead, same as phenom's
+      // missing host.
+      const brand = opts.tenant.metadata?.["brand"];
+      if (brand === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "apploi tenant missing metadata.brand",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeApploiTenant({ ...opts, brand });
+    }
+    case "taleotbe": {
+      // Taleo Business Edition. Tenant identity is the composite
+      // (host, instance, cws) plus the org code as slug: the pod host
+      // (`phh.tbe.taleo.net`), the pod instance path segment (`phh03`)
+      // and the career-website selector (`37`). None of the three is
+      // slug-derivable, so a tenant missing any of them is marked dead —
+      // same convention as workday's host/site and oraclecloud's
+      // host/site.
+      const host = opts.tenant.metadata?.["host"];
+      const instance = opts.tenant.metadata?.["instance"];
+      const cws = opts.tenant.metadata?.["cws"];
+      if (host === undefined || instance === undefined || cws === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "taleotbe tenant missing metadata.host, metadata.instance or metadata.cws",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeTaleoTbeTenant({ ...opts, host, instance, cws });
+    }
+    case "workstream": {
+      // Workstream boards live on the shared host www.workstream.us at
+      // `/j/{companyId}/{slug}/positions`. The 8-hex company id is routing
+      // metadata the slug cannot derive, so it is mandatory — a tenant
+      // missing it is marked dead, same convention as workday's host.
+      const companyId = opts.tenant.metadata?.["company_id"];
+      if (companyId === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "workstream tenant missing metadata.company_id",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeWorkstreamTenant({ ...opts, companyId });
+    }
+    case "hirebridge":
+      // cid-only tenancy: the shared host recruit.hirebridge.com selects the
+      // board by the numeric cid (= the tenant slug), and the single listing
+      // page carries every role, so no metadata is needed.
+      return scrapeHirebridgeTenant(opts);
+    case "careerplug":
+      // Slug-only tenancy: the board host is `{slug}.careerplug.com` and the
+      // listing's pagination nav drives the page walk, so no metadata is needed.
+      return scrapeCareerplugTenant(opts);
     case "jibeapply":
       // Slug-only tenancy with an optional vanity-host override: the board
       // defaults to `{slug}.jibeapply.com`, but a few customers serve the

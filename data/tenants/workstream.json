@@ -1,0 +1,46 @@
+[
+  {
+    "ats": "workstream",
+    "slug": "chick-fil-a",
+    "display_name": "Chick-fil-A",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "company_id": "a468d092"
+    }
+  },
+  {
+    "ats": "workstream",
+    "slug": "joey-restaurants",
+    "display_name": "JOEY Restaurants",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "company_id": "1d35674b"
+    }
+  },
+  {
+    "ats": "workstream",
+    "slug": "wingstop",
+    "display_name": "Wingstop",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "company_id": "6ee86cfd"
+    }
+  },
+  {
+    "ats": "workstream",
+    "slug": "burger-king",
+    "display_name": "Burger King",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z",
+    "metadata": {
+      "company_id": "b6364531"
+    }
+  }
+]

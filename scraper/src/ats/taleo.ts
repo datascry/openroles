@@ -29,11 +29,9 @@ import { assertSafeSlug, dedupeById, errorToResult, isRecruiterTitle } from "./c
 // active"; or all sections return the "Career Section Unavailable"
 // placeholder).
 //
-// TBE pool (`{slug}.tbe.taleo.net`) is intentionally not handled here.
-// Its `/CR<n>/ATS/careers/searchResults.jsp` requires a per-tenant
-// `org=<CODE>` query param we don't capture in harvest, and the bare
-// host redirects to `tbe.taleo.net/login` on every probe. When TBE-
-// specific harvest metadata lands, a sibling code path can plug in.
+// The TBE pool (`{pod}.tbe.taleo.net`) is a separate product with its
+// own board surface and composite tenancy (host/instance/cws + org),
+// handled by the sibling `taleotbe` adapter in ./taleotbe.ts.
 
 const TaleoJob = z
   .object({
