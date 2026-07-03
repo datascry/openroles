@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Acme Grill hiring | Workstream</title>
+  <link rel="stylesheet" href="/j/css/index.css"/>
+  <link rel="stylesheet" href="/j/css/organization.css"/>
+</head>
+<body>
+<div class="organization-header">
+  <a href="https://www.workstream.us/j/ab12cd34/acme-grill?locale=en">Acme Grill</a>
+  <a href="https://www.workstream.us/j/ab12cd34/acme-grill/positions?locale=en">Open positions</a>
+  <a href="https://www.workstream.us/j/ab12cd34/acme-grill/locations?locale=en">Locations</a>
+</div>
+<div class="positions-list">
+  <div class="position-card">
+    <span class="position-title">Dishwasher - Acme Downtown</span>
+    <a href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686?locale=en">Austin</a>
+    <a class="view-position-btn" href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/dishwasher-acme-downtown-a726f5c8?locale=en" alt="Dishwasher - Acme Downtown" data-testid="view-position-btn"><img class="image-icons" src="/j/images/icon-right-arrow.svg" alt="View position" data-icon="right-arrow"/></a>
+  </div>
+  <div class="position-card">
+    <span class="position-title">Line Cook / Prep Cook - Acme Downtown</span>
+    <a href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686?locale=en">Austin</a>
+    <a class="view-position-btn" href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/line-cook-prep-cook-acme-downtown-c8751e83?locale=en" alt="Line Cook / Prep Cook - Acme Downtown" data-testid="view-position-btn"><img class="image-icons" src="/j/images/icon-right-arrow.svg" alt="View position" data-icon="right-arrow"/></a>
+  </div>
+  <div class="position-card">
+    <span class="position-title">Server &amp; Bartender - Acme North</span>
+    <a href="https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685?locale=en">Dallas</a>
+    <a class="view-position-btn" href="https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685/server-bartender-acme-north-87dd151d?locale=en" alt="Server &amp; Bartender - Acme North" data-testid="view-position-btn"><img class="image-icons" src="/j/images/icon-right-arrow.svg" alt="View position" data-icon="right-arrow"/></a>
+  </div>
+  <!-- Repeated card link for the first role (mobile layout renders the card
+       twice); the extractor must dedupe by job id. -->
+  <a class="view-position-btn" href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/dishwasher-acme-downtown-a726f5c8?locale=en" alt="Dishwasher - Acme Downtown" data-testid="view-position-btn">View</a>
+  <!-- Cross-tenant link: different companyId + slug, must be ignored. -->
+  <a class="view-position-btn" href="https://www.workstream.us/j/deadbeef/other-restaurant/houston-11111/cook-other-restaurant-11223344?locale=en" alt="Cook" data-testid="view-position-btn">View</a>
+  <!-- Malformed link: role segment lacks the trailing 8-hex job id, skipped. -->
+  <a class="view-position-btn" href="https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/broken-posting-zzz?locale=en" alt="Broken" data-testid="view-position-btn">View</a>
+</div>
+<nav class="rounded-pagination mt20px" style="width: 100%; text-align: center;"><ul class="pagination" id="pagination"></ul></nav>
+<div class="talent-network-passive-container mv20px" style="display: none"></div>
+</body>
+</html>

@@ -141,6 +141,27 @@ describe("probeUrlForWithMetadata", () => {
       probeUrlForWithMetadata("phenom", "acme", { host: "careers.acme.internal" }),
     ).toBeUndefined();
   });
+
+  it("composes the workstream positions URL from (company_id, slug)", () => {
+    expect(probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "ab12cd34" })).toBe(
+      "https://www.workstream.us/j/ab12cd34/acme-grill/positions",
+    );
+  });
+
+  it("rejects workstream with a missing or malformed company_id", () => {
+    expect(probeUrlForWithMetadata("workstream", "acme-grill", {})).toBeUndefined();
+    // Uppercase hex, wrong length, and non-hex are all rejected before the
+    // id flows into the URL path.
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "AB12CD34" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "ab12cd3" }),
+    ).toBeUndefined();
+    expect(
+      probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "../admin" }),
+    ).toBeUndefined();
+  });
 });
 
 describe("probeOne", () => {

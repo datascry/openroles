@@ -247,6 +247,18 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     if (parsed.hostname !== host.toLowerCase() || !isSafeFetchHost(parsed)) return undefined;
     return `https://${host}/${locale}/search-results`;
   },
+  workstream: (slug, metadata) => {
+    // Workstream boards are addressed by the composite (company_id, slug)
+    // on the shared host www.workstream.us. The 8-hex company id is
+    // mandatory and validated for shape before it flows into the URL; a
+    // record missing it stays transient_failure (same convention as
+    // workday/ultipro). The positions listing is the public signal: a live
+    // board answers 200 (even with zero roles), a dead/unknown pair
+    // answers 410 Gone.
+    const companyId = metadata["company_id"];
+    if (typeof companyId !== "string" || !/^[0-9a-f]{8}$/.test(companyId)) return undefined;
+    return `https://www.workstream.us/j/${companyId}/${slug}/positions`;
+  },
 };
 
 export function probeUrlFor(ats: ATSId, slug: string): string {
@@ -334,6 +346,9 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   jobvite: 2,
   smartrecruiters: 2,
   ultipro: 2,
+  // Every workstream tenant probe hits the single shared host
+  // www.workstream.us, so it caps like the other shared-host ATSes.
+  workstream: 2,
   greenhouse: 3,
   lever: 3,
   ashby: 3,
@@ -352,6 +367,7 @@ const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   jobvite: 200,
   smartrecruiters: 200,
   ultipro: 200,
+  workstream: 200,
   greenhouse: 100,
   lever: 100,
   ashby: 100,

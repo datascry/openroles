@@ -276,6 +276,58 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches workstream with metadata.company_id", async () => {
+    server.use(
+      http.get("https://www.workstream.us/j/ab12cd34/acme-grill/positions", ({ request }) => {
+        const page = new URL(request.url).searchParams.get("page");
+        return page === null
+          ? new HttpResponse(readFixtureText("workstream.board.page2.html"))
+          : new HttpResponse(readFixtureText("workstream.board.empty.html"));
+      }),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685/bar-manager-acme-north-df016e56",
+        () => new HttpResponse(readFixtureText("workstream.job.barmanager.html")),
+      ),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/dallas-68685/sous-chef-acme-north-1894119b",
+        () => new HttpResponse(readFixtureText("workstream.job.souschef.html")),
+      ),
+      http.get(
+        "https://www.workstream.us/j/ab12cd34/acme-grill/austin-68686/dishwasher-acme-downtown-a726f5c8",
+        () => new HttpResponse(readFixtureText("workstream.job.dishwasher.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "workstream",
+        tenants: [
+          { slug: "acme-grill", display_name: "Acme Grill", metadata: { company_id: "ab12cd34" } },
+        ],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("flags workstream tenant dead when metadata.company_id is missing", async () => {
+    const out = await runScrape({
+      input: {
+        ats: "workstream",
+        tenants: [{ slug: "no-company-id" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.tenant_results[0]?.status).toBe("dead");
+    expect(out.tenant_results[0]?.error).toContain("workstream tenant missing metadata.company_id");
+  });
+
   it("dispatches workday with only metadata.host, defaulting site to External", async () => {
     // The S3 bootstrap captured `host` for ~all 4,295 workday tenants but
     // only 44 had `site` from CDX. The dispatcher must fall back to

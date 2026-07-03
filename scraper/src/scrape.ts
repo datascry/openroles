@@ -43,6 +43,7 @@ import { scrapeTiktokCareersTenant } from "./ats/tiktokcareers.ts";
 import { scrapeUltiproTenant } from "./ats/ultipro.ts";
 import { scrapeWorkableTenant } from "./ats/workable.ts";
 import { scrapeWorkdayTenant } from "./ats/workday.ts";
+import { scrapeWorkstreamTenant } from "./ats/workstream.ts";
 import { scrapeZohorecruitTenant } from "./ats/zohorecruit.ts";
 import { HttpClient, type RetryPolicy } from "./http.ts";
 import { RobotsTxtCache } from "./robots.ts";
@@ -342,5 +343,24 @@ function dispatchPerAts(
       // Slug-only tenancy: the board host is `{slug}.hrmdirect.com` and the
       // single listing page carries every role, so no metadata is needed.
       return scrapeHrmDirectTenant(opts);
+    case "workstream": {
+      // Workstream boards live on the shared host www.workstream.us at
+      // `/j/{companyId}/{slug}/positions`. The 8-hex company id is routing
+      // metadata the slug cannot derive, so it is mandatory — a tenant
+      // missing it is marked dead, same convention as workday's host.
+      const companyId = opts.tenant.metadata?.["company_id"];
+      if (companyId === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "workstream tenant missing metadata.company_id",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeWorkstreamTenant({ ...opts, companyId });
+    }
   }
 }

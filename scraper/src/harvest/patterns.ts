@@ -390,6 +390,28 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /https?:\/\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)\.hrmdirect\.com/gi,
     denyList: SUBDOMAIN_DENY,
   },
+  {
+    ats: "workstream",
+    // Workstream boards share the host www.workstream.us; the tenant is
+    // addressed by the composite `/j/{companyId}/{slug}` path where the
+    // 8-hex company id and the brand slug appear together in every board
+    // and job URL. extractSlugs reads m[1] as the slug (shared convention),
+    // so group 1 captures the slug; the company id is recovered from the
+    // full match string inside extractMetadata via a secondary regex — the
+    // same non-positional metadata recovery successfactors uses for its
+    // regional host. A match whose id segment is somehow malformed yields
+    // no metadata; the slug still counts, and the tenant stays dead at
+    // dispatch until a later pass surfaces the id.
+    cdxQuery: "www.workstream.us/j/*",
+    regex: /workstream\.us\/j\/[0-9a-f]{8}\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+    extractMetadata: (match) => {
+      const idMatch = /\/j\/([0-9a-f]{8})\//i.exec(match[0]);
+      const companyId = idMatch?.[1];
+      if (typeof companyId !== "string" || companyId.length === 0) return undefined;
+      return { company_id: companyId.toLowerCase() };
+    },
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

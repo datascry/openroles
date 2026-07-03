@@ -96,6 +96,14 @@ export const ATS_IDS = Object.freeze([
   // identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Energy Systems Group, USO, Jackson Walker, Preferred Mutual.
   "hrmdirect",
+  // Workstream hourly-hiring boards. Every tenant's public board lives on
+  // the shared host `www.workstream.us` at `/j/{companyId}/{slug}/positions`,
+  // server-rendering 10 role links per page (`?page=N` paginates); each job
+  // page carries schema.org/JobPosting JSON-LD (read via jsonld-core).
+  // Tenant identity = (company_id, slug): the 8-hex company id is mandatory
+  // routing metadata because the board URL embeds both. Verified seeds:
+  // Chick-fil-A, JOEY Restaurants, Wingstop, Burger King.
+  "workstream",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

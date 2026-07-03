@@ -92,6 +92,16 @@ jobs:
           - phenom
           # HRMDirect (ClearCompany) hosted boards ({slug}.hrmdirect.com).
           - hrmdirect
+          # Workstream hourly-hiring boards (shared host www.workstream.us).
+          # The adapter self-paces every request through one process-wide
+          # gate at ~1 req/s aggregate (the host's per-IP soft rate limit
+          # strips JSON-LD past that), so a 60-min runner sustains ~3,000
+          # requests. The seeded corpus (4 tenants, well under 1,000 detail
+          # pages total, each tenant hard-capped at 460 paced requests +
+          # <=300s of degraded-backoff stalls) sits far inside that budget;
+          # if harvest growth approaches it, shard the tenant list across
+          # runners like teamtailor below.
+          - workstream
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both
@@ -167,7 +177,7 @@ jobs:
           # cap because bursting hits CDN rate-limits — workable's
           # cloudflare ip-banned us mid-bootstrap at default concurrency.
           case "${{ matrix.ats }}" in
-            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr)
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|workstream)
               concurrency_value=4 ;;
             *)
               concurrency_value=24 ;;

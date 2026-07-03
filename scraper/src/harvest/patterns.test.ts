@@ -74,6 +74,36 @@ describe("harvestPatternFor", () => {
     expect(pattern.extractMetadata?.(fake)).toBeUndefined();
   });
 
+  it("workstream pattern extracts slug (group 1) and company_id via extractMetadata", () => {
+    const pattern = harvestPatternFor("workstream");
+    const { regex, extractMetadata } = pattern;
+    const sample =
+      "https://www.workstream.us/j/ab12cd34/acme-grill/positions " +
+      "https://www.workstream.us/j/1d35674b/joey-restaurants?locale=en";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re));
+    expect(matches.map((m) => m[1])).toEqual(["acme-grill", "joey-restaurants"]);
+    expect(extractMetadata).toBeDefined();
+    expect(extractMetadata?.(matches[0] as RegExpExecArray)).toEqual({ company_id: "ab12cd34" });
+    expect(extractMetadata?.(matches[1] as RegExpExecArray)).toEqual({ company_id: "1d35674b" });
+  });
+
+  it("workstream pattern rejects non-hex company ids and workstream extractMetadata fails closed", () => {
+    const { regex, extractMetadata } = harvestPatternFor("workstream");
+    // A /j/ path whose first segment is not an 8-hex id never matches.
+    const re = new RegExp(regex.source, regex.flags);
+    expect(Array.from("https://www.workstream.us/j/notanid/acme/positions".matchAll(re))).toEqual(
+      [],
+    );
+    // Synthesize a match whose full string lacks the /j/{8-hex}/ shape —
+    // the id-recovery regex inside extractMetadata must return undefined.
+    const fake = Object.assign(["workstream.us/j/acme-grill", "acme-grill"], {
+      index: 0,
+      input: "workstream.us/j/acme-grill",
+    }) as unknown as RegExpExecArray;
+    expect(extractMetadata?.(fake)).toBeUndefined();
+  });
+
   it("bamboohr pattern matches subdomain slugs", () => {
     const { regex } = harvestPatternFor("bamboohr");
     const m = Array.from("https://stripe.bamboohr.com/careers/list".matchAll(regex)).map(
