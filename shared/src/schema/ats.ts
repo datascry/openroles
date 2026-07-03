@@ -219,6 +219,16 @@ export const ATS_IDS = Object.freeze([
   // Tenant identity = slug (subdomain), so no metadata is required. Verified
   // seeds: Scientific Drilling, Travel Portland, First Federal.
   "applicantpool",
+  // Manatal hosted career boards. Every customer board lives on the single
+  // shared host `www.careers-page.com` at `/{slug}`, which server-renders a
+  // flat list of `<a href="/{slug}/job/{code}">` links — one per open role.
+  // There is no list JSON endpoint, so the board HTML is parsed for the job
+  // codes and each detail page (`/{slug}/job/{code}`) is fetched for its one
+  // `schema.org/JobPosting` JSON-LD block (emitted for Google for Jobs), read
+  // via jsonld-core. Tenant identity = slug (the first path segment); a dead
+  // or unknown slug answers a clean HTTP 404, so no metadata is required.
+  // Verified seeds: Manatal, BLR WORLD, GAP Recruitment Services.
+  "manatal",
   // Rippling hosted ATS boards. Every tenant's public board lives at
   // `ats.rippling.com/{slug}/jobs`, backed by an unauthenticated JSON API on
   // `api.rippling.com`: the list resource

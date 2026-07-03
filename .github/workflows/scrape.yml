@@ -126,6 +126,9 @@ jobs:
           # ApplicantPool hosted boards ({slug}.applicantpool.com); same board
           # engine as isolvedhire on a different host.
           - applicantpool
+          # Manatal hosted boards (www.careers-page.com/{slug}); board HTML +
+          # per-job JSON-LD detail fetch.
+          - manatal
           # Rippling hosted boards (ats.rippling.com/{slug}); JSON list API
           # with a bounded detail fan-out per role for date + description.
           - rippling

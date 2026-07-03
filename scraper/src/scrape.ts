@@ -37,6 +37,7 @@ import { scrapeJibeapplyTenant } from "./ats/jibeapply.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
+import { scrapeManatalTenant } from "./ats/manatal.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapeOracleCloudTenant } from "./ats/oraclecloud.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
@@ -467,6 +468,10 @@ function dispatchPerAts(
       // per-tenant domain_id is discovered from the board page itself, so no
       // metadata is needed (same engine as isolvedhire, different host).
       return scrapeApplicantpoolTenant(opts);
+    case "manatal":
+      // Slug-only tenancy: the board is `www.careers-page.com/{slug}` and every
+      // job URL is `.../{slug}/job/{code}`, so no metadata is needed.
+      return scrapeManatalTenant(opts);
     case "rippling":
       // Slug-only tenancy: the public API is
       // `api.rippling.com/platform/api/ats/v1/board/{slug}/jobs`, so no
