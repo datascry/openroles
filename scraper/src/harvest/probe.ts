@@ -123,6 +123,15 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // tenants dead because the placeholder carries no `courierCurrentRouteData`
   // domain_id (same engine + convention as isolvedhire).
   applicantpool: (slug) => `https://${slug}.applicantpool.com/jobs/`,
+  // Manatal: the board page on the shared host is the public signal. A live
+  // slug answers HTTP 200 with the board chrome (even with zero roles); a dead
+  // or unknown slug answers a clean HTTP 404 (verified live — no redirect), so
+  // the default status classification handles it with no redirect map entry.
+  manatal: (slug) => `https://www.careers-page.com/${slug}`,
+  // Rippling: the public board list API is the signal (200 + a JSON array on
+  // a live tenant, 404 `RESOURCE_NOT_FOUND` on an unknown slug — verified
+  // live). The whole board is one small array so no size param is needed.
+  rippling: (slug) => `https://api.rippling.com/platform/api/ats/v1/board/${slug}/jobs`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
   // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe
@@ -498,6 +507,9 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   workday: 4,
   // recruit.hirebridge.com is one shared origin for every tenant probe.
   hirebridge: 2,
+  // Every manatal tenant probe hits the single shared host
+  // www.careers-page.com, so it caps like the other shared-host ATSes.
+  manatal: 2,
 };
 
 // Inter-probe delay (ms) injected before every probe of a shared-host
@@ -518,6 +530,7 @@ const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   lever: 100,
   ashby: 100,
   hirebridge: 200,
+  manatal: 200,
 };
 
 // Hard ceiling on how long a single probe may take before we declare it

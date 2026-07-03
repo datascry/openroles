@@ -234,6 +234,30 @@ export const ATS_IDS = Object.freeze([
   // walked until a page yields no fresh job ids. Verified seeds: Just Group
   // (438/caw), PageUp demo (959/cw), Compass Group Education (541/ce).
   "pageup",
+  // Manatal hosted career boards. Every customer board lives on the single
+  // shared host `www.careers-page.com` at `/{slug}`, which server-renders a
+  // flat list of `<a href="/{slug}/job/{code}">` links — one per open role.
+  // There is no list JSON endpoint, so the board HTML is parsed for the job
+  // codes and each detail page (`/{slug}/job/{code}`) is fetched for its one
+  // `schema.org/JobPosting` JSON-LD block (emitted for Google for Jobs), read
+  // via jsonld-core. Tenant identity = slug (the first path segment); a dead
+  // or unknown slug answers a clean HTTP 404, so no metadata is required.
+  // Verified seeds: Manatal, BLR WORLD, GAP Recruitment Services.
+  "manatal",
+  // Rippling hosted ATS boards. Every tenant's public board lives at
+  // `ats.rippling.com/{slug}/jobs`, backed by an unauthenticated JSON API on
+  // `api.rippling.com`: the list resource
+  // `/platform/api/ats/v1/board/{slug}/jobs` returns a top-level array of
+  // roles (uuid, title, department, workLocation, canonical url) in one
+  // unpaginated call, and the detail resource
+  // `/platform/api/ats/v1/board/{slug}/jobs/{uuid}` adds the HTML description,
+  // `createdOn` post date, `workLocations`, `employmentType`, `companyName`
+  // and `payRangeDetails`. Because the list carries no date or description,
+  // the adapter fans out a bounded, concurrency-limited detail GET per role to
+  // populate posted_at + excerpt + pay. Tenant identity = the URL path slug,
+  // so no metadata is required. Verified seeds: routeware-careers,
+  // talentneuroncareers, fifth-season-careers.
+  "rippling",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

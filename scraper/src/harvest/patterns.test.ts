@@ -214,6 +214,24 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("admin")).toBe(true);
   });
 
+  it("manatal pattern captures the first path segment and excludes /job/ deep links from minting a phantom slug", () => {
+    const { regex, denyList } = harvestPatternFor("manatal");
+    const sample =
+      "https://www.careers-page.com/manatal " +
+      "https://www.careers-page.com/blr-world/job/5WR47RRR " +
+      "https://www.careers-page.com/gaprecruitment/ " +
+      "https://evil.example.com/hacker/job/9999";
+    const matches = Array.from(sample.matchAll(regex)).map((m) => m[1] as string);
+    // A job deep link mints its tenant slug (the first segment), never `job`.
+    expect(matches).toEqual(["manatal", "blr-world", "gaprecruitment"]);
+    expect(matches).not.toContain("job");
+    // Off-host links can never mint a tenant.
+    expect(matches).not.toContain("hacker");
+    // Belt-and-braces: `job` is denied so a pathological capture can't leak.
+    expect(denyList.has("job")).toBe(true);
+    expect(denyList.has("admin")).toBe(true);
+  });
+
   it("hirebridge pattern captures the numeric cid query parameter", () => {
     // Hirebridge is a shared-host ATS: the tenant identity is the `cid`
     // query parameter, not a DNS label, so the capture reads the query
@@ -327,7 +345,21 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("api")).toBe(true);
   });
 
+  it("rippling pattern extracts the first path segment on the shared board host", () => {
+    const { regex, denyList } = harvestPatternFor("rippling");
+    const sample =
+      "https://ats.rippling.com/routeware-careers/jobs/4345711d-74af-400f-8872-8b1b5393dcdf " +
+      "https://ats.rippling.com/fifth-season-careers/jobs?utm=x " +
+      "https://ats.rippling.com/internal/health";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1] as string);
+    expect(matches).toContain("routeware-careers");
+    expect(matches).toContain("fifth-season-careers");
+    // The one path Rippling's robots.txt disallows is not a tenant.
+    expect(denyList.has("internal")).toBe(true);
+  });
+
   it("throws for unknown ats id", () => {
-    expect(() => harvestPatternFor("rippling" as any)).toThrow();
+    expect(() => harvestPatternFor("not-a-real-ats" as any)).toThrow();
   });
 });

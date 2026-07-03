@@ -1,0 +1,29 @@
+{
+  "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb": {
+    "uuid": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+    "name": "Off-Host URL Role",
+    "description": { "company": "<p>x</p>", "role": "<p>Role body.</p>" },
+    "workLocations": ["Austin, TX"],
+    "createdOn": "2026-01-15T00:00:00.000000-08:00",
+    "companyName": "Edge Co",
+    "payRangeDetails": []
+  },
+  "cccccccc-cccc-4ccc-8ccc-cccccccccccc": {
+    "uuid": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+    "name": "Future Dated Role",
+    "description": { "company": "<p>x</p>", "role": "<p>Role body.</p>" },
+    "workLocations": ["Seattle, WA"],
+    "createdOn": "2099-12-31T00:00:00.000000-08:00",
+    "companyName": "Edge Co",
+    "payRangeDetails": []
+  },
+  "dddddddd-dddd-4ddd-8ddd-dddddddddddd": {
+    "uuid": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "name": "Duplicate Role",
+    "description": { "company": "<p>x</p>", "role": "<p>Role body.</p>" },
+    "workLocations": ["Denver, CO"],
+    "createdOn": "2026-03-01T00:00:00.000000-07:00",
+    "companyName": "Edge Co",
+    "payRangeDetails": []
+  }
+}

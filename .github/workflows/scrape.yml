@@ -129,6 +129,12 @@ jobs:
           # PageUp hosted boards (careers/careersmanager.pageuppeople.com,
           # composite (host, instance, clientkey) tenancy, ?page=N listing).
           - pageup
+          # Manatal hosted boards (www.careers-page.com/{slug}); board HTML +
+          # per-job JSON-LD detail fetch.
+          - manatal
+          # Rippling hosted boards (ats.rippling.com/{slug}); JSON list API
+          # with a bounded detail fan-out per role for date + description.
+          - rippling
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both

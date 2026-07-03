@@ -1,0 +1,26 @@
+[
+  {
+    "ats": "manatal",
+    "slug": "manatal",
+    "display_name": "Manatal",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "manatal",
+    "slug": "blr-world",
+    "display_name": "BLR WORLD",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "manatal",
+    "slug": "gaprecruitment",
+    "display_name": "GAP Recruitment Services Limited",
+    "status": "live",
+    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "first_seen_at": "2026-07-03T00:00:00.000Z"
+  }
+]

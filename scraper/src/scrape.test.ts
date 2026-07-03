@@ -371,6 +371,39 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches manatal from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get(
+        "https://www.careers-page.com/manatal",
+        () => new HttpResponse(readFixtureText("manatal.board.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/L975Y966",
+        () => new HttpResponse(readFixtureText("manatal.detail-1.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/3W35R9R8",
+        () => new HttpResponse(readFixtureText("manatal.detail-2.html")),
+      ),
+      http.get(
+        "https://www.careers-page.com/manatal/job/V55YR",
+        () => new HttpResponse(readFixtureText("manatal.detail-blr.html")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "manatal",
+        tenants: [{ slug: "manatal", display_name: "Manatal" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches applitrack from the slug alone (no metadata)", async () => {
     server.use(
       http.get(
@@ -650,6 +683,30 @@ describe("runScrape", () => {
       input: {
         ats: "hireology",
         tenants: [{ slug: "acme", display_name: "Acme Corp" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
+  it("dispatches rippling from the slug alone (list + detail fan-out)", async () => {
+    const board = "https://api.rippling.com/platform/api/ats/v1/board/acme-careers";
+    server.use(
+      http.get(`${board}/jobs`, () => HttpResponse.json(readFixture("rippling.small.json"))),
+      http.get(`${board}/jobs/:uuid`, ({ params }) => {
+        const details = readFixture("rippling.details.json") as Record<string, unknown>;
+        const record = details[params["uuid"] as string];
+        return record ? HttpResponse.json(record) : HttpResponse.json({});
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "rippling",
+        tenants: [{ slug: "acme-careers", display_name: "Acme Corp" }],
         userAgent: "openroles/0.0.0",
         contactUrl: "https://example.com",
       },
@@ -3926,7 +3983,7 @@ ${body}
     await expect(
       runScrape({
         input: {
-          ats: "rippling" as any,
+          ats: "not-a-real-ats" as any,
           tenants: [],
           userAgent: "openroles/0.0.0",
           contactUrl: "https://example.com",
