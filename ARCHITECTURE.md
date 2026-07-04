@@ -16,7 +16,7 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
        ┌────────────────────────────────────────────────────────────────┐
        │                        scraper/  (Bun)                          │
        │                                                                 │
-       │   harvest/cdx ──► tenants/{ats}.json    (Common Crawl, weekly) │
+       │   harvest/{cdx,sitemap-index} ──► tenants/{ats}.json  (weekly) │
        │                                                                 │
        │   ats/{greenhouse,lever,ashby,bamboohr,workday,icims}           │
        │            │                                                    │
@@ -53,7 +53,7 @@ High-level system shape. For locked decisions and their rationale, see [`docs/ad
 
 ## Data flow
 
-1. **Weekly harvest** — `harvest/cdx.ts` queries the Common Crawl CDX index across the last four crawl snapshots, applies per-ATS regex patterns to extract tenant slugs, dedupes, and writes `data/tenants/{ats}.json`. Liveness is probed; hard-dead tenants (404/410) are dropped, transient failures are retained for retry.
+1. **Weekly harvest** — `harvest/cdx.ts` queries the Common Crawl CDX index across the last four crawl snapshots, applies per-ATS regex patterns to extract tenant slugs, dedupes, and writes `data/tenants/{ats}.json`. For platforms that publish a public sitemap index (e.g. isolved Hire, JazzHR, HiringThing), `harvest/sitemap-index.ts` is a second discovery source that enumerates tenants the crawl misses. Liveness is probed; hard-dead tenants (404/410) are dropped, transient failures are retained for retry.
 
 2. **Nightly scrape** — `cli.ts scrape` reads the tenant lists, fans out HTTP requests with per-ATS concurrency caps, parses the response shape per ATS, classifies level + recruiter status, and emits a normalized `Job[]`.
 

@@ -1,6 +1,6 @@
 # openroles
 
-**A daily-refreshed, privacy-respecting job board across 47 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
+**A daily-refreshed, privacy-respecting job board across 51 applicant tracking systems. No accounts. No ads. No tracking. Static HTML and gzipped JSON, served from GitHub Pages — filtered in your browser, cached for instant revisits.**
 
 [![Build + deploy](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/build-deploy.yml)
 [![Nightly scrape](https://github.com/datascry/openroles/actions/workflows/scrape.yml/badge.svg)](https://github.com/datascry/openroles/actions/workflows/scrape.yml)
@@ -32,7 +32,7 @@
 
 ## What it is
 
-`openroles` scrapes the public APIs of 47 hiring platforms each
+`openroles` scrapes the public APIs of 51 hiring platforms each
 night, normalises the postings into a shared schema, and ships them
 to your browser as a set of content-hashed JSON.gz chunks. Filter,
 sort, search, and pagination all run client-side over the in-memory
@@ -65,6 +65,7 @@ the parser is property-tested in
 
 ```
 Common Crawl  ──►  weekly-harvest.yml  ──►  data/tenants/{ats}.json
++ platform sitemaps          (discovery)
                                                     │
                                                     ▼
 ATS public APIs ──►  scrape.yml (nightly)  ──►  data/scrape-outputs/*
@@ -98,18 +99,17 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system shape and
 
 ## Coverage
 
-Forty-seven ATSes. The multi-tenant set, weighted by tenant volume in
-the public Common Crawl index:
+Fifty-one ATSes. The multi-tenant set, roughly by tenant volume:
 
 ```
 Greenhouse · Lever · Ashby · BambooHR · Workday · iCIMS · Recruitee
 Breezy · Personio · Workable · Teamtailor · SmartRecruiters · CSOD
 Taleo · Taleo Business Edition · UltiPro · Jobvite · Zoho Recruit
-Talentlyft · Pinpoint HQ · ApplicantPro · ApplicantStack · Homerun
-Factorial · Eightfold · SuccessFactors · BrassRing · Oracle HCM Cloud
-JazzHR · Phenom · HRMDirect · Jibe · CareerPlug · Hireology
-isolved Hire · AppliTrack · HiringThing · Apploi · Hirebridge
-Workstream
+Talentlyft · Pinpoint HQ · ApplicantPro · ApplicantPool · ApplicantStack
+Homerun · Factorial · Eightfold · SuccessFactors · BrassRing
+Oracle HCM Cloud · JazzHR · Phenom · HRMDirect · Jibe · CareerPlug
+Hireology · isolved Hire · AppliTrack · HiringThing · Apploi
+Hirebridge · Workstream · Rippling · Manatal · PageUp
 ```
 
 Plus two vendor-agnostic harvesters, a single-tenant education board
@@ -125,7 +125,8 @@ adapters:
 - Four per-company custom adapters for employers running their own
   careers API: **Amazon · Apple · TikTok · Meta**.
 
-Tenant slugs are discovered from public Common Crawl snapshots and
+Tenant slugs are discovered from public Common Crawl snapshots and,
+for platforms that publish one, their own public sitemap index — then
 liveness-probed weekly; hard-dead slugs are dropped, transient
 failures are retained for retry.
 
