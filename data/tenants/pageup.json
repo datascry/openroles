@@ -41,8 +41,8 @@
   {
     "ats": "pageup",
     "slug": "aw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -53,8 +53,8 @@
   {
     "ats": "pageup",
     "slug": "cai",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -65,8 +65,8 @@
   {
     "ats": "pageup",
     "slug": "caw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -77,8 +77,8 @@
   {
     "ats": "pageup",
     "slug": "cdw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -89,8 +89,8 @@
   {
     "ats": "pageup",
     "slug": "cg",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -101,8 +101,8 @@
   {
     "ats": "pageup",
     "slug": "cue",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careersmanager.pageuppeople.com",
@@ -113,8 +113,8 @@
   {
     "ats": "pageup",
     "slug": "cw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -125,8 +125,8 @@
   {
     "ats": "pageup",
     "slug": "cwlive",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -137,8 +137,8 @@
   {
     "ats": "pageup",
     "slug": "cwtetratech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careersmanager.pageuppeople.com",
@@ -149,8 +149,8 @@
   {
     "ats": "pageup",
     "slug": "en",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -161,8 +161,8 @@
   {
     "ats": "pageup",
     "slug": "eon",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -173,8 +173,8 @@
   {
     "ats": "pageup",
     "slug": "hiw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -185,8 +185,8 @@
   {
     "ats": "pageup",
     "slug": "hn",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -197,8 +197,8 @@
   {
     "ats": "pageup",
     "slug": "hnso",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -209,8 +209,8 @@
   {
     "ats": "pageup",
     "slug": "ht",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -221,8 +221,8 @@
   {
     "ats": "pageup",
     "slug": "idncw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -233,8 +233,8 @@
   {
     "ats": "pageup",
     "slug": "in",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -245,8 +245,8 @@
   {
     "ats": "pageup",
     "slug": "macq",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -257,8 +257,8 @@
   {
     "ats": "pageup",
     "slug": "mw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -269,8 +269,8 @@
   {
     "ats": "pageup",
     "slug": "nel",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -281,8 +281,8 @@
   {
     "ats": "pageup",
     "slug": "new",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -293,8 +293,8 @@
   {
     "ats": "pageup",
     "slug": "pa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -305,8 +305,8 @@
   {
     "ats": "pageup",
     "slug": "prs",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -317,8 +317,8 @@
   {
     "ats": "pageup",
     "slug": "saffire",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -329,8 +329,8 @@
   {
     "ats": "pageup",
     "slug": "smiggle",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -341,8 +341,8 @@
   {
     "ats": "pageup",
     "slug": "sus",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -353,8 +353,8 @@
   {
     "ats": "pageup",
     "slug": "usw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-06T21:12:44.344Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
