@@ -12,6 +12,16 @@ import {
 import { harvestPatternFor } from "./patterns.ts";
 import { probeMany } from "./probe.ts";
 
+// A newly-discovered slug in skipProbe mode has never actually been probed,
+// so its last_probed_at is stamped with the Unix epoch — a maximally-stale
+// sentinel. The reprobe's `--max-age-days` gate re-probes rows older than the
+// cutoff, so an epoch row is picked up on the very next reprobe pass instead
+// of waiting out a full staleness window from the discovery timestamp. Using
+// `now` here would make a never-probed slug look freshly probed and leave it
+// invisible to both reprobe (too "fresh") and scrape (not yet `live`) for the
+// whole window. first_seen_at stays the real discovery day.
+const NEVER_PROBED_AT = "1970-01-01T00:00:00.000Z";
+
 export interface HarvestRunOptions {
   readonly ats: ATSId;
   readonly snapshots: ReadonlyArray<string>;
@@ -297,12 +307,14 @@ export async function runHarvest(opts: HarvestRunOptions): Promise<HarvestResult
     }
 
     // skipProbe mode — record the slug as transient_failure pending a
-    // later reprobe pass. first_seen_at is set to today.
+    // later reprobe pass. last_probed_at is the epoch sentinel (it has never
+    // actually been probed) so the next reprobe includes it immediately;
+    // first_seen_at is genuinely today.
     const t: Tenant = {
       ats: opts.ats,
       slug,
       status: "transient_failure" as const,
-      last_probed_at: opts.observedAt,
+      last_probed_at: NEVER_PROBED_AT,
       first_seen_at: opts.observedAt,
     };
     return meta ? { ...t, metadata: meta } : t;

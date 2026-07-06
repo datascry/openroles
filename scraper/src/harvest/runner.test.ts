@@ -146,6 +146,29 @@ describe("runHarvest", () => {
     expect(result.tenants.every((t) => t.status === "transient_failure")).toBe(true);
   });
 
+  it("stamps skipProbe new slugs with an epoch last_probed_at so the next reprobe picks them up", async () => {
+    const fetchFn = mock(async (input: Request | string) => {
+      const url = typeof input === "string" ? input : input.url;
+      if (url.includes("showNumPages")) return new Response("1", { status: 200 });
+      return new Response(FAKE_CDX, { status: 200 });
+    });
+    const result = await runHarvest({
+      ats: "greenhouse",
+      snapshots: ["2026-13"],
+      client: clientWith(fetchFn),
+      observedAt: OBSERVED_AT,
+      skipProbe: true,
+    });
+    expect(result.tenants.length).toBeGreaterThan(0);
+    for (const t of result.tenants) {
+      // A never-probed slug must NOT masquerade as freshly probed: last_probed_at
+      // is the epoch sentinel (maximally stale) so the reprobe's max-age gate
+      // includes it immediately, while first_seen_at is genuinely today.
+      expect(t.last_probed_at).toBe("1970-01-01T00:00:00.000Z");
+      expect(t.first_seen_at).toBe(OBSERVED_AT);
+    }
+  });
+
   it("counts cdx_fetch_errors when a CDX request fails (not 404)", async () => {
     const fetchFn = mock(async (input: Request | string) => {
       const url = typeof input === "string" ? input : input.url;
