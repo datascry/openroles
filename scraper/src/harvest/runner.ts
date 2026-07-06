@@ -10,6 +10,7 @@ import {
   parseNumPages,
 } from "./cdx.ts";
 import { harvestPatternFor } from "./patterns.ts";
+import { probeMany } from "./probe.ts";
 
 // A newly-discovered slug in skipProbe mode has never actually been probed,
 // so its last_probed_at is stamped with the Unix epoch — a maximally-stale
@@ -20,8 +21,6 @@ import { harvestPatternFor } from "./patterns.ts";
 // invisible to both reprobe (too "fresh") and scrape (not yet `live`) for the
 // whole window. first_seen_at stays the real discovery day.
 const NEVER_PROBED_AT = "1970-01-01T00:00:00.000Z";
-
-import { probeMany } from "./probe.ts";
 
 export interface HarvestRunOptions {
   readonly ats: ATSId;
