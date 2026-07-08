@@ -1,0 +1,23 @@
+[
+  {
+    "ats": "paycom",
+    "slug": "b2bd1063bf1b0a2978ea308e72ccf7d3",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "ats": "paycom",
+    "slug": "091ec3604a527bcaa57d140e2bfae4a1",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "ats": "paycom",
+    "slug": "08fe64a5986a8bf5e0eacb0974be30b9",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "53229": {
+    "jobId": 53229,
+    "clientCode": "17T96",
+    "jobTitle": "Driver",
+    "location": "GRAFTON, WI 53024",
+    "city": "GRAFTON",
+    "secondaryLocations": [],
+    "remoteType": "",
+    "salaryRange": "$15.00 Hourly",
+    "startDate": "2026-04-02",
+    "endDate": "",
+    "jobCategory": "Transportation",
+    "description": "<p>Must be responsible, energetic, enthusiastic, compassionate, &amp; enjoy working with people inclusive of adults with disABILITIES.&nbsp;</p>\n",
+    "qualifications": "<p>No Special Drivers License needed.</p>"
+  },
+  "73957": {
+    "jobId": 73957,
+    "clientCode": "17T96",
+    "jobTitle": "Life Enrichment Facilitator",
+    "location": "Remote",
+    "city": "",
+    "secondaryLocations": [],
+    "remoteType": "Remote",
+    "salaryRange": "$40,000.00 - $52,000.00 Annually",
+    "startDate": "",
+    "jobCategory": "Program",
+    "description": "<p>The Life Enrichment Facilitator plays a crucial role.</p>"
+  },
+  "105020": {
+    "jobId": 105020,
+    "clientCode": "17T96",
+    "jobTitle": "Recreation Facilitator",
+    "location": "MILWAUKEE, WI 53201",
+    "city": "MILWAUKEE",
+    "secondaryLocations": [],
+    "remoteType": "",
+    "salaryRange": "DOE",
+    "startDate": "",
+    "jobCategory": "",
+    "description": "<p>This pivotal role requires close collaboration.</p>"
+  }
+}

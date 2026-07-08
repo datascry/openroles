@@ -109,6 +109,10 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("rippling", "routeware-careers")).toBe(
       "https://api.rippling.com/platform/api/ats/v1/board/routeware-careers/jobs",
     );
+    // Paycom shell probe: clientkey slug is uppercased in the portal URL.
+    expect(probeUrlFor("paycom", "b2bd1063bf1b0a2978ea308e72ccf7d3")).toBe(
+      "https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=B2BD1063BF1B0A2978EA308E72CCF7D3",
+    );
   });
 
   it("throws for ATSes with no probe URL configured (defensive)", () => {
@@ -529,6 +533,71 @@ describe("probeOne", () => {
     const dead = mock(async () => new Response("not found", { status: 404 }));
     const t2 = await probeOne("manatal", "no-such-slug", clientWith(dead), OBSERVED_AT);
     expect(t2.status).toBe("dead");
+  });
+
+  it("probes paycom with redirect:manual and classifies the career-page 302 as live", async () => {
+    let seenRedirect: string | undefined;
+    let seenUrl: string | undefined;
+    const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      seenUrl = typeof input === "string" ? input : input.url;
+      // A live clientkey 302s the shell to its career page.
+      return new Response(null, {
+        status: 302,
+        headers: {
+          location:
+            "https://www.paycomonline.net/v4/ats/web.php/portal/B2BD1063BF1B0A2978EA308E72CCF7D3/career-page",
+        },
+      });
+    });
+    const t = await probeOne(
+      "paycom",
+      "b2bd1063bf1b0a2978ea308e72ccf7d3",
+      clientWith(fetchFn),
+      OBSERVED_AT,
+    );
+    expect(t.status).toBe("live");
+    // Must NOT follow the redirect — following it lands on the career page
+    // which serves 200 for both live and dead clientkeys.
+    expect(seenRedirect).toBe("manual");
+    expect(seenUrl).toBe(
+      "https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=B2BD1063BF1B0A2978EA308E72CCF7D3",
+    );
+  });
+
+  it("classifies a paycom dead clientkey (direct 200 'does not exist' page) as dead", async () => {
+    // A dead/unknown clientkey does NOT redirect — the shell serves a direct
+    // 200 placeholder. Inverting the usual convention, that direct 2xx is the
+    // dead signal because only a redirect to the career page proves a board.
+    const fetchFn = mock(
+      async () => new Response("<div>The portal does not exist.</div>", { status: 200 }),
+    );
+    const t = await probeOne(
+      "paycom",
+      "00000000000000000000000000000000",
+      clientWith(fetchFn),
+      OBSERVED_AT,
+    );
+    expect(t.status).toBe("dead");
+  });
+
+  it("classifies a paycom 3xx to an unexpected Location as dead", async () => {
+    // Only a redirect matching the career-page pattern is live; any other
+    // redirect target is not a proof-of-life and is treated as dead.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { location: "https://www.paycomonline.net/v4/ats/web.php/jobs" },
+        }),
+    );
+    const t = await probeOne(
+      "paycom",
+      "00000000000000000000000000000000",
+      clientWith(fetchFn),
+      OBSERVED_AT,
+    );
+    expect(t.status).toBe("dead");
   });
 
   it("classifies 404 / 410 as dead", async () => {

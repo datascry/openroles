@@ -41,6 +41,7 @@ import { scrapeManatalTenant } from "./ats/manatal.ts";
 import { scrapeMetaCareersTenant } from "./ats/metacareers.ts";
 import { scrapeOracleCloudTenant } from "./ats/oraclecloud.ts";
 import { scrapePageupTenant } from "./ats/pageup.ts";
+import { scrapePaycomTenant } from "./ats/paycom.ts";
 import { scrapePersonioTenant } from "./ats/personio.ts";
 import { PHENOM_DEFAULT_LOCALE, scrapePhenomTenant } from "./ats/phenom.ts";
 import { scrapePinpointHqTenant } from "./ats/pinpointhq.ts";
@@ -503,5 +504,12 @@ function dispatchPerAts(
       // metadata is needed. The list carries no date/description, so the
       // adapter fans out a bounded detail GET per role to enrich them.
       return scrapeRipplingTenant(opts);
+    case "paycom":
+      // Slug-only tenancy: the slug is the 32-hex clientkey. The career page
+      // (`.../portal/{CLIENTKEY}/career-page`) hands out the per-tenant JWT +
+      // API base, so no metadata is needed. The list search carries no
+      // location/salary/date, so the adapter fans out a bounded detail GET
+      // per role to enrich them.
+      return scrapePaycomTenant(opts);
   }
 }

@@ -258,6 +258,25 @@ export const ATS_IDS = Object.freeze([
   // so no metadata is required. Verified seeds: routeware-careers,
   // talentneuroncareers, fifth-season-careers.
   "rippling",
+  // Paycom hosted career portals. A tenant is a 32-hex `clientkey` (public,
+  // appearing verbatim in the portal URL — uppercased there, stored
+  // lowercased as the slug). The career page at
+  // `www.paycomonline.net/v4/ats/web.php/portal/{CLIENTKEY}/career-page`
+  // embeds a `configsFromHost` object carrying two things: a short-lived
+  // `sessionJWT` the page issues automatically to every visitor (no login,
+  // no credential harvesting) and a `libConfig` JSON string whose
+  // `atsPortalMantleServiceUrl` is the per-tenant API base on a per-pod host
+  // (`portal-applicant-tracking.{pod}.paycomonline.net`, varying by
+  // datacenter). Two-step from there: a POST list search
+  // (`api/ats/job-posting-previews/search`, skip/take paginated) yields
+  // preview rows (jobId, title, positionType, remoteType, description),
+  // then a bounded, concurrency-limited detail GET per role
+  // (`api/ats/job-postings/{jobId}`) adds the location, salary range and
+  // start date the previews omit. The JWT and API base are per-tenant and
+  // are used only for that tenant's requests; the API host is SSRF-guarded
+  // to the paycomonline.net pod shape before any request. Verified seeds:
+  // Portal Inc and two other live client portals.
+  "paycom",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

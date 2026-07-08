@@ -135,6 +135,12 @@ jobs:
           # Rippling hosted boards (ats.rippling.com/{slug}); JSON list API
           # with a bounded detail fan-out per role for date + description.
           - rippling
+          # Paycom hosted portals (32-hex clientkey slug). The career-page
+          # shells all hit ONE shared host (www.paycomonline.net), so the
+          # shell fetches cap like the other shared-host ATSes; the list +
+          # detail API calls fan out to per-pod hosts
+          # (portal-applicant-tracking.{pod}.paycomonline.net).
+          - paycom
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both
@@ -210,7 +216,7 @@ jobs:
           # cap because bursting hits CDN rate-limits — workable's
           # cloudflare ip-banned us mid-bootstrap at default concurrency.
           case "${{ matrix.ats }}" in
-            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|applitrack|hirebridge|workstream)
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|applitrack|hirebridge|workstream|paycom)
               concurrency_value=4 ;;
             *)
               concurrency_value=24 ;;

@@ -1,0 +1,12 @@
+{
+  "9001": {
+    "jobId": 9001,
+    "location": null,
+    "city": null,
+    "remoteType": "Remote",
+    "jobCategory": "Skilled Trades",
+    "salaryRange": "$30.00 - $20.00 Hourly",
+    "startDate": "2099-01-01",
+    "description": "<p>Weld things well.</p>"
+  }
+}

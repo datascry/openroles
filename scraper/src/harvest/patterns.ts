@@ -628,6 +628,22 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /ats\.rippling\.com\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
     denyList: new Set<string>([...PATH_DENY, "internal"]),
   },
+  {
+    ats: "paycom",
+    // Paycom portals share the host `www.paycomonline.net`; the tenant is the
+    // 32-hex `clientkey` that appears both as the `?clientkey={CK}` query
+    // parameter on the shell URL (`/v4/ats/web.php/jobs?clientkey=…`) and as
+    // the `/portal/{CK}/` path segment on the career page. Either surface
+    // mints the slug — the capture group reads whichever is present. The
+    // clientkey is UPPERCASE in live portal URLs but extractSlugs lowercases
+    // group 1, so it round-trips through SLUG_PATTERN and is re-uppercased at
+    // probe/scrape URL time (the same lowercase-on-harvest convention as
+    // ultipro/pageup). A 32-hex capture can never collide with a reserved
+    // word, so no deny list applies.
+    cdxQuery: "www.paycomonline.net/*",
+    regex: /paycomonline\.net\/[^"'\s<>]*?(?:clientkey=|\/portal\/)([0-9a-f]{32})(?![0-9a-f])/gi,
+    denyList: new Set<string>(),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

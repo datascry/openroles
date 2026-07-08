@@ -1,0 +1,45 @@
+{
+  "jobPostingPreviews": [
+    {
+      "jobId": 9001,
+      "jobTitle": "Maintenance Tech &amp; Welder",
+      "remoteType": "",
+      "locations": "",
+      "description": "<p>Weld things.</p>",
+      "postedOn": ""
+    },
+    {
+      "jobId": null,
+      "jobTitle": "No Id Role",
+      "description": "dropped"
+    },
+    {
+      "jobId": 9002,
+      "jobTitle": "Sales Associate",
+      "remoteType": "",
+      "locations": "Reno, NV",
+      "description": "Sell",
+      "postedOn": "2026-05-01"
+    },
+    {
+      "jobId": 9002,
+      "jobTitle": "Sales Associate (duplicate)",
+      "locations": "Reno, NV",
+      "description": "Sell"
+    },
+    {
+      "jobId": 9003,
+      "jobTitle": "   ",
+      "description": "blank title dropped"
+    },
+    {
+      "jobId": 9004,
+      "jobTitle": "Technical Recruiter",
+      "remoteType": "",
+      "locations": "",
+      "description": "Hire people",
+      "postedOn": "2099-12-31"
+    }
+  ],
+  "jobPostingPreviewsCount": 6
+}
