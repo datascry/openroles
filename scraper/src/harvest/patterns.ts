@@ -644,6 +644,21 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /paycomonline\.net\/[^"'\s<>]*?(?:clientkey=|\/portal\/)([0-9a-f]{32})(?![0-9a-f])/gi,
     denyList: new Set<string>(),
   },
+  {
+    ats: "jobscore",
+    // JobScore boards are path-addressed on the shared host
+    // `careers.jobscore.com`; the tenant slug is the segment after `/jobs/`
+    // (`careers.jobscore.com/jobs/{slug}/feed.json`), the same path-based shape
+    // as smartrecruiters/hireology. The board host also serves per-job pages
+    // under `/careers/{slug}/jobs/{...}`, but the `/jobs/{slug}/` feed surface
+    // is where the slug appears cleanly, so the regex anchors on `/jobs/`.
+    // Reserved words like `apply_flow` (the only robots-disallowed path) sit
+    // under other path prefixes and can never be captured here; the generic
+    // path-word deny list covers the rest.
+    cdxQuery: "careers.jobscore.com/*",
+    regex: /careers\.jobscore\.com\/jobs\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
+    denyList: PATH_DENY,
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

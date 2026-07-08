@@ -1,0 +1,87 @@
+{
+  "publisher": "JobScore",
+  "title": "Good Day Farm Jobs",
+  "company_name": "Good Day Farm",
+  "company_code": "gooddayfarm",
+  "last_updated": "2026-05-20T00:00:00.000Z",
+  "jobs": [
+    {
+      "id": "cSSTMBffXdMkTptgeFJpwv",
+      "title": "Senior Software Engineer",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/senior-software-engineer-cSSTMBffXdMkTptgeFJpwv?ref=rss&sid=68",
+      "url_slug": "senior-software-engineer-cSSTMBffXdMkTptgeFJpwv",
+      "department": "Engineering",
+      "location": "Remote - US",
+      "description": "<p>Build the platform powering our retail operations.</p>",
+      "opened_date": "2026-05-01T12:00:00.000Z",
+      "last_updated_date": "2026-05-02T12:00:00.000Z"
+    },
+    {
+      "id": "aEILNuxxXbnASaQQ2DmQzd",
+      "title": "Technical Recruiter",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/technical-recruiter-aEILNuxxXbnASaQQ2DmQzd",
+      "url_slug": "technical-recruiter-aEILNuxxXbnASaQQ2DmQzd",
+      "department": "People",
+      "location": "New Orleans, LA",
+      "description": "<p>Own full-cycle recruiting for our engineering org.</p>",
+      "opened_date": "2026-04-15T00:00:00.000Z",
+      "last_updated_date": "2026-04-16T00:00:00.000Z"
+    },
+    {
+      "id": "aSITRYc55nk5ok0NXYcptE",
+      "title": "Cultivation Technician",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/cultivation-technician-aSITRYc55nk5ok0NXYcptE",
+      "url_slug": "cultivation-technician-aSITRYc55nk5ok0NXYcptE",
+      "department": "Operations",
+      "location": "Little Rock, AR",
+      "description": "<p>Tend plants across the grow cycle in our indoor facility.</p>",
+      "opened_date": "2026-03-20T00:00:00.000Z",
+      "last_updated_date": "2026-03-21T00:00:00.000Z"
+    },
+    {
+      "id": "bsDsLcWKna76a_n1IaM5K0",
+      "title": "Marketing Manager",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/marketing-manager-bsDsLcWKna76a_n1IaM5K0",
+      "url_slug": "marketing-manager-bsDsLcWKna76a_n1IaM5K0",
+      "department": "Marketing",
+      "location": "Hybrid in Austin, TX",
+      "description": "<p>Lead brand and demand-gen campaigns across our markets.</p>",
+      "opened_date": "2026-02-10T00:00:00.000Z",
+      "last_updated_date": "2026-02-11T00:00:00.000Z"
+    },
+    {
+      "id": "cmujA8DuzeW6zIJl6GJv6n",
+      "title": "Retail Associate",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/retail-associate-cmujA8DuzeW6zIJl6GJv6n",
+      "url_slug": "retail-associate-cmujA8DuzeW6zIJl6GJv6n",
+      "department": "Retail",
+      "location": "Jackson, MS",
+      "description": "<p>Deliver a warm customer experience on the dispensary floor.</p>",
+      "opened_date": "2026-01-05T00:00:00.000Z",
+      "last_updated_date": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "d1Jh2yFrbaHOXkxyUH5V6C",
+      "title": "Data Analyst",
+      "job_status_id": 81,
+      "company_name": "Good Day Farm",
+      "detail_url": "https://careers.jobscore.com/careers/gooddayfarm/jobs/data-analyst-d1Jh2yFrbaHOXkxyUH5V6C",
+      "url_slug": "data-analyst-d1Jh2yFrbaHOXkxyUH5V6C",
+      "department": "Analytics",
+      "location": "Memphis, TN",
+      "description": "<p>Turn point-of-sale data into decisions the business can act on.</p>",
+      "opened_date": "2026-05-18T00:00:00.000Z",
+      "last_updated_date": "2026-05-19T00:00:00.000Z"
+    }
+  ]
+}

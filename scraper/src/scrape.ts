@@ -34,6 +34,7 @@ import { scrapeIcimsTenant } from "./ats/icims.ts";
 import { scrapeIsolvedhireTenant } from "./ats/isolvedhire.ts";
 import { scrapeJazzHrTenant } from "./ats/jazzhr.ts";
 import { scrapeJibeapplyTenant } from "./ats/jibeapply.ts";
+import { scrapeJobscoreTenant } from "./ats/jobscore.ts";
 import { scrapeJobviteTenant } from "./ats/jobvite.ts";
 import { scrapeJsonldTenant } from "./ats/jsonld.ts";
 import { scrapeLeverTenant } from "./ats/lever.ts";
@@ -504,6 +505,11 @@ function dispatchPerAts(
       // metadata is needed. The list carries no date/description, so the
       // adapter fans out a bounded detail GET per role to enrich them.
       return scrapeRipplingTenant(opts);
+    case "jobscore":
+      // Slug-only tenancy: the public feed is
+      // `careers.jobscore.com/jobs/{slug}/feed.json`, which returns the whole
+      // open-role list in one call, so no metadata is needed.
+      return scrapeJobscoreTenant(opts);
     case "paycom":
       // Slug-only tenancy: the slug is the 32-hex clientkey. The career page
       // (`.../portal/{CLIENTKEY}/career-page`) hands out the per-tenant JWT +

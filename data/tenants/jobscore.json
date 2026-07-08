@@ -1,0 +1,23 @@
+[
+  {
+    "ats": "jobscore",
+    "slug": "gooddayfarm",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
+    "slug": "pacificprogrammanagement",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
+    "slug": "solutions2go",
+    "status": "live",
+    "last_probed_at": "2026-07-04T00:00:00.000Z",
+    "first_seen_at": "2026-07-04T00:00:00.000Z"
+  }
+]

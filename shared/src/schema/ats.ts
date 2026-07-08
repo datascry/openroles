@@ -277,6 +277,22 @@ export const ATS_IDS = Object.freeze([
   // to the paycomonline.net pod shape before any request. Verified seeds:
   // Portal Inc and two other live client portals.
   "paycom",
+  // JobScore hosted careers boards. Every tenant is a path slug on the
+  // shared host `careers.jobscore.com`; the public unauthenticated JSON
+  // feed at `careers.jobscore.com/jobs/{slug}/feed.json` returns the entire
+  // open-role list in a single call (`{ company_name, company_code (== slug),
+  // jobs: [...] }`). Each row already carries the full HTML `description`,
+  // the `opened_date` / `last_updated_date` timestamps, `location` /
+  // `department`, an integer `job_status_id` (81 = open — the only value seen
+  // live, and the adapter keeps only those), and a canonical `detail_url` on
+  // the shared host — so one GET per tenant covers everything: the feed
+  // returns every role regardless of `?page=N` (verified against a 65-role
+  // board), so there is no pagination and no per-job detail fetch. robots.txt
+  // disallows only `/apply_flow/`, so the feed path is crawl-permitted, and an
+  // unknown slug answers a clean HTTP 404. Tenant identity = slug (path
+  // segment), so no metadata is required. Verified seeds: Good Day Farm,
+  // Cresa (pacificprogrammanagement), Solutions 2 GO.
+  "jobscore",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

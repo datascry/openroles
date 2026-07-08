@@ -1,0 +1,41 @@
+{
+  "publisher": "JobScore",
+  "publisher_url": "https://www.jobscore.com/",
+  "title": "Solutions 2 GO Jobs",
+  "company_name": "Solutions 2 GO",
+  "company_code": "solutions2go",
+  "company_url": "https://careers.jobscore.com/careers/solutions2go",
+  "last_updated": "2026-05-27T16:24:50.102Z",
+  "jobs": [
+    {
+      "id": "d02lIpZW9pVBUlBdjtK6_f",
+      "atom_id": "2026-05-27:/d02lIpZW9pVBUlBdjtK6_f",
+      "title": "Regional Product &amp; Demand Planning Manager",
+      "job_status_id": 81,
+      "company_name": "Solutions 2 GO",
+      "company_code": "solutions2go",
+      "detail_url": "https://careers.jobscore.com/careers/solutions2go/jobs/regional-product-demand-planning-manager-d02lIpZW9pVBUlBdjtK6_f?ref=rss&sid=68",
+      "url_slug": "regional-product-demand-planning-manager-d02lIpZW9pVBUlBdjtK6_f",
+      "department": "Compras",
+      "location": "Hybrid in Mexico City, Santa Fe, Alvaro Obregon, Mexico",
+      "description": "<h2>Position Summary</h2><p>We are looking for a Regional Product &amp; Demand Planning Manager to lead product lifecycle strategy, forecasting, and inventory planning across LATAM.</p>",
+      "opened_date": "2026-05-27T16:22:10.459Z",
+      "last_updated_date": "2026-05-27T16:24:50.102Z"
+    },
+    {
+      "id": "bknEz4MFbifRdZjC1-E2h5",
+      "atom_id": "2026-03-10:/bknEz4MFbifRdZjC1-E2h5",
+      "title": "Warehouse Associate",
+      "job_status_id": 81,
+      "company_name": "Solutions 2 GO",
+      "company_code": "solutions2go",
+      "detail_url": "https://careers.jobscore.com/careers/solutions2go/jobs/warehouse-associate-bknEz4MFbifRdZjC1-E2h5?ref=rss&sid=68",
+      "url_slug": "warehouse-associate-bknEz4MFbifRdZjC1-E2h5",
+      "department": "Operations",
+      "location": "Toronto, ON",
+      "description": "<p>Pick, pack and ship gaming and mobile inventory in a fast-paced distribution centre.</p>",
+      "opened_date": "2026-03-10T09:00:00.000Z",
+      "last_updated_date": "2026-03-12T11:30:00.000Z"
+    }
+  ]
+}

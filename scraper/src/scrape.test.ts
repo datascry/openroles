@@ -693,6 +693,26 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches jobscore from the slug alone (no metadata)", async () => {
+    server.use(
+      http.get("https://careers.jobscore.com/jobs/solutions2go/feed.json", () =>
+        HttpResponse.json(readFixture("jobscore.small.json")),
+      ),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "jobscore",
+        tenants: [{ slug: "solutions2go", display_name: "Solutions 2 GO" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(2);
+    expect(out.tenant_results[0]?.status).toBe("success");
+  });
+
   it("dispatches rippling from the slug alone (list + detail fan-out)", async () => {
     const board = "https://api.rippling.com/platform/api/ats/v1/board/acme-careers";
     server.use(
