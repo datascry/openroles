@@ -1,0 +1,98 @@
+{
+  "publisher": "JobScore",
+  "company_name": "Edge Co",
+  "company_code": "edgeco",
+  "jobs": [
+    {
+      "id": "e1",
+      "title": "Filled Position",
+      "job_status_id": 82,
+      "detail_url": "https://careers.jobscore.com/careers/edgeco/jobs/filled-position-e1",
+      "url_slug": "filled-position-e1",
+      "location": "Deadwood, SD"
+    },
+    {
+      "id": null,
+      "title": "No Id Job",
+      "job_status_id": 81,
+      "location": "Deadwood, SD"
+    },
+    {
+      "id": "e3",
+      "title": "   ",
+      "job_status_id": 81,
+      "location": "Deadwood, SD"
+    },
+    {
+      "id": "dup1",
+      "title": "Duplicate Role",
+      "job_status_id": 81,
+      "detail_url": "https://careers.jobscore.com/careers/edgeco/jobs/duplicate-role-dup1?ref=rss",
+      "url_slug": "duplicate-role-dup1",
+      "department": "Ops",
+      "location": "Rapid City, SD",
+      "description": "<p>A role that appears twice in the feed.</p>",
+      "opened_date": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "id": "dup1",
+      "title": "Duplicate Role",
+      "job_status_id": 81,
+      "detail_url": "https://careers.jobscore.com/careers/edgeco/jobs/duplicate-role-dup1?ref=rss",
+      "url_slug": "duplicate-role-dup1",
+      "department": "Ops",
+      "location": "Rapid City, SD",
+      "description": "<p>A role that appears twice in the feed.</p>",
+      "opened_date": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "id": "e6",
+      "title": "Off Host Role",
+      "job_status_id": 81,
+      "detail_url": "https://evil.example.com/careers/edgeco/jobs/off-host-role-e6",
+      "url_slug": "off-host-role-e6",
+      "location": "Remote"
+    },
+    {
+      "id": "e7",
+      "title": "Future Role",
+      "job_status_id": 81,
+      "detail_url": "https://careers.jobscore.com/careers/edgeco/jobs/future-role-e7",
+      "url_slug": "future-role-e7",
+      "location": "Spearfish, SD",
+      "description": "   ",
+      "opened_date": "2027-01-01T00:00:00.000Z",
+      "last_updated_date": "not-a-date"
+    },
+    {
+      "id": "e8",
+      "title": "Userinfo Url Role",
+      "job_status_id": 81,
+      "detail_url": "https://user:pass@careers.jobscore.com/careers/edgeco/jobs/userinfo-url-role-e8",
+      "location": "Sturgis, SD"
+    },
+    {
+      "id": "e9",
+      "title": "Front Desk &amp; Guest Services",
+      "job_status_id": 81,
+      "detail_url": "https://careers.jobscore.com/careers/edgeco/jobs/front-desk-guest-services-e9",
+      "url_slug": "front-desk-guest-services-e9",
+      "location": "Lead, SD"
+    },
+    {
+      "id": "e10",
+      "title": "Malformed Url Role",
+      "job_status_id": 81,
+      "detail_url": "http://[not a url",
+      "location": "Belle Fourche, SD"
+    },
+    {
+      "id": "e11",
+      "title": "Http Downgrade Role",
+      "job_status_id": 81,
+      "detail_url": "http://careers.jobscore.com/careers/edgeco/jobs/http-downgrade-role-e11",
+      "url_slug": "http-downgrade-role-e11",
+      "location": "Custer, SD"
+    }
+  ]
+}

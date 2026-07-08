@@ -141,6 +141,10 @@ jobs:
           # detail API calls fan out to per-pod hosts
           # (portal-applicant-tracking.{pod}.paycomonline.net).
           - paycom
+          # JobScore hosted boards (careers.jobscore.com/{slug}/feed.json).
+          # Every tenant feed hits ONE shared host (careers.jobscore.com), so
+          # it caps like the other shared-host ATSes below.
+          - jobscore
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both
@@ -216,7 +220,7 @@ jobs:
           # cap because bursting hits CDN rate-limits — workable's
           # cloudflare ip-banned us mid-bootstrap at default concurrency.
           case "${{ matrix.ats }}" in
-            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|applitrack|hirebridge|workstream|paycom)
+            workable|jobvite|smartrecruiters|ultipro|greenhouse|lever|ashby|jazzhr|applitrack|hirebridge|workstream|paycom|jobscore)
               concurrency_value=4 ;;
             *)
               concurrency_value=24 ;;

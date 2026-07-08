@@ -125,6 +125,9 @@ jobs:
           # Paycom portals on www.paycomonline.net; CDX discovery captures the
           # 32-hex clientkey from the `?clientkey=` / `/portal/{CK}/` surfaces.
           - paycom
+          # JobScore boards are path-addressed on careers.jobscore.com; CDX
+          # discovery captures the slug after `/jobs/` (like hireology).
+          - jobscore
     steps:
       - uses: actions/checkout@v7
 
@@ -331,6 +334,9 @@ jobs:
           - manatal
           - rippling
           - paycom
+          # JobScore boards (careers.jobscore.com/{slug}); CDX-discovered (also
+          # in the discover matrix above), reprobed weekly.
+          - jobscore
     steps:
       - uses: actions/checkout@v7
 

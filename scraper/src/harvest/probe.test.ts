@@ -109,6 +109,11 @@ describe("probeUrlFor", () => {
     expect(probeUrlFor("rippling", "routeware-careers")).toBe(
       "https://api.rippling.com/platform/api/ats/v1/board/routeware-careers/jobs",
     );
+    // Path-per-tenant feed on the shared host: the feed.json is the probe
+    // (200 on a live slug, clean 404 on an unknown one — verified live).
+    expect(probeUrlFor("jobscore", "solutions2go")).toBe(
+      "https://careers.jobscore.com/jobs/solutions2go/feed.json",
+    );
     // Paycom shell probe: clientkey slug is uppercased in the portal URL.
     expect(probeUrlFor("paycom", "b2bd1063bf1b0a2978ea308e72ccf7d3")).toBe(
       "https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=B2BD1063BF1B0A2978EA308E72CCF7D3",

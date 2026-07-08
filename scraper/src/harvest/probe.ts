@@ -139,6 +139,10 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // The clientkey is uppercased in portal URLs (stored lowercase as the slug).
   paycom: (slug) =>
     `https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=${slug.toUpperCase()}`,
+  // JobScore: the public feed on the shared host is the signal (200 + job
+  // JSON on a live slug, a clean 404 on an unknown slug — verified live). The
+  // feed returns the whole board, so no size param is needed.
+  jobscore: (slug) => `https://careers.jobscore.com/jobs/${slug}/feed.json`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
   // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe
@@ -529,6 +533,9 @@ const PROBE_HOST_CONCURRENCY: Partial<Record<ATSId, number>> = {
   // Every manatal tenant probe hits the single shared host
   // www.careers-page.com, so it caps like the other shared-host ATSes.
   manatal: 2,
+  // Every jobscore tenant probe hits the single shared host
+  // careers.jobscore.com, so it caps like the other shared-host ATSes.
+  jobscore: 2,
 };
 
 // Inter-probe delay (ms) injected before every probe of a shared-host
@@ -550,6 +557,7 @@ const PROBE_HOST_DELAY_MS: Partial<Record<ATSId, number>> = {
   ashby: 100,
   hirebridge: 200,
   manatal: 200,
+  jobscore: 200,
 };
 
 // Hard ceiling on how long a single probe may take before we declare it

@@ -345,6 +345,22 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("api")).toBe(true);
   });
 
+  it("jobscore pattern extracts the slug after /jobs/ on the shared host", () => {
+    const { regex, denyList } = harvestPatternFor("jobscore");
+    const sample =
+      "https://careers.jobscore.com/jobs/gooddayfarm/feed.json " +
+      "https://careers.jobscore.com/jobs/pacificprogrammanagement?utm=x " +
+      "https://careers.jobscore.com/jobs/solutions2go/ " +
+      "https://careers.jobscore.com/jobs/api/health";
+    const re = new RegExp(regex.source, regex.flags);
+    const matches = Array.from(sample.matchAll(re)).map((m) => m[1] as string);
+    expect(matches).toContain("gooddayfarm");
+    expect(matches).toContain("pacificprogrammanagement");
+    expect(matches).toContain("solutions2go");
+    // Reserved path words on the shared host are not tenants.
+    expect(denyList.has("api")).toBe(true);
+  });
+
   it("rippling pattern extracts the first path segment on the shared board host", () => {
     const { regex, denyList } = harvestPatternFor("rippling");
     const sample =
