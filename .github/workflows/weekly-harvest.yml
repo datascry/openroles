@@ -337,6 +337,12 @@ jobs:
           # JobScore boards (careers.jobscore.com/{slug}); CDX-discovered (also
           # in the discover matrix above), reprobed weekly.
           - jobscore
+          # TalentBrew (Radancy) per-brand career sites. Each brand runs on its
+          # own vanity host, so there is no CDX pattern to discover them — they
+          # are operator-seeded and reprobe-only (metadata.host tenancy, like
+          # phenom/oraclecloud). Weekly reprobing promotes the epoch-stamped
+          # seeds out of transient_failure.
+          - talentbrew
     steps:
       - uses: actions/checkout@v7
 

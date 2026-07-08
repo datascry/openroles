@@ -145,6 +145,11 @@ jobs:
           # Every tenant feed hits ONE shared host (careers.jobscore.com), so
           # it caps like the other shared-host ATSes below.
           - jobscore
+          # TalentBrew (Radancy) per-brand career sites. Each tenant is its own
+          # vanity host ({host}/search-jobs, paginated by ?p=N), so no
+          # shared-host concurrency cap applies — it runs at the per-host
+          # default like the other subdomain/vanity-host connectors.
+          - talentbrew
         # icims (~14,810 tenants) and teamtailor (~1,624 tenants today
         # but each tenant requires its own subdomain TLS handshake, so
         # the per-tenant cost is higher than icims's JSON walk) both

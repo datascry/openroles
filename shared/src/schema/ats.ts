@@ -293,6 +293,20 @@ export const ATS_IDS = Object.freeze([
   // segment), so no metadata is required. Verified seeds: Good Day Farm,
   // Cresa (pacificprogrammanagement), Solutions 2 GO.
   "jobscore",
+  // TalentBrew (Radancy) per-brand career sites. Each brand runs its own
+  // vanity host whose public job listing is server-rendered HTML at
+  // `{host}/search-jobs`, paginated by `?p=N`. Tenant identity = the vanity
+  // host, carried as mandatory `metadata.host` (SSRF-guarded like phenom's
+  // vanity domains) — there is no shared host or slug-derivable URL. The
+  // listing renders in several markup skins whose only invariant is the job
+  // anchor (`href="/job/…"` + `data-job-id`), so the parser keys off that
+  // anchor and reads the optional location/date/brand columns by class from
+  // each anchor's row block; `data-total-results` bounds the page walk and a
+  // page past the end renders zero anchors. Everything the index needs lives
+  // on the listing, so jobs are built from it alone (no detail fetch).
+  // Verified seeds: Disney (jobs.disneycareers.com), Boeing (jobs.boeing.com),
+  // Comcast (jobs.comcast.com).
+  "talentbrew",
 ] as const);
 
 export type ATSId = (typeof ATS_IDS)[number];

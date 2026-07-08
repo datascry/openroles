@@ -319,6 +319,28 @@ describe("probeUrlForWithMetadata", () => {
       probeUrlForWithMetadata("workstream", "acme-grill", { company_id: "../admin" }),
     ).toBeUndefined();
   });
+
+  it("composes the talentbrew search-jobs URL from the vanity host", () => {
+    expect(
+      probeUrlForWithMetadata("talentbrew", "disney", { host: "jobs.disneycareers.com" }),
+    ).toBe("https://jobs.disneycareers.com/search-jobs");
+  });
+
+  it("rejects talentbrew with a missing, malformed or unsafe host", () => {
+    expect(probeUrlForWithMetadata("talentbrew", "disney", {})).toBeUndefined();
+    // Bare IPv4 literal fails the DNS-label regex.
+    expect(
+      probeUrlForWithMetadata("talentbrew", "disney", { host: "169.254.169.254" }),
+    ).toBeUndefined();
+    // Regex-valid but SSRF-unsafe suffix → isSafeFetchHost rejects.
+    expect(
+      probeUrlForWithMetadata("talentbrew", "disney", { host: "jobs.disney.internal" }),
+    ).toBeUndefined();
+    // Userinfo masking: hostname parses to evil.com, so the round-trip fails.
+    expect(
+      probeUrlForWithMetadata("talentbrew", "disney", { host: "jobs.disney.com@evil.com" }),
+    ).toBeUndefined();
+  });
 });
 
 describe("probeOne", () => {
@@ -376,6 +398,46 @@ describe("probeOne", () => {
     });
     expect(t.status).toBe("transient_failure");
     // Never fetched — the URL builder returned undefined before any request.
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it("probes talentbrew with redirect:manual and classifies a direct 200 as live", async () => {
+    let seenRedirect: string | undefined;
+    let seenUrl: string | undefined;
+    const fetchFn = mock(async (input: Request | string, init?: RequestInit) => {
+      seenRedirect = init?.redirect;
+      seenUrl = typeof input === "string" ? input : input.url;
+      return new Response('<section data-total-results="757"></section>', { status: 200 });
+    });
+    const meta = { host: "jobs.disneycareers.com" };
+    const t = await probeOne("talentbrew", "disney", clientWith(fetchFn), OBSERVED_AT, meta);
+    expect(t.status).toBe("live");
+    expect(t.metadata).toEqual(meta);
+    expect(seenRedirect).toBe("manual");
+    expect(seenUrl).toBe("https://jobs.disneycareers.com/search-jobs");
+  });
+
+  it("classifies a talentbrew decommissioned brand (off-host redirect) as dead", async () => {
+    // A dead brand's vanity host redirects off to a parent/marketing page
+    // (which serves 200), so following it would look live. The redirect:manual
+    // probe reads the 3xx itself as the dead signal.
+    const fetchFn = mock(
+      async () =>
+        new Response(null, {
+          status: 301,
+          headers: { location: "https://www.disney.com/" },
+        }),
+    );
+    const t = await probeOne("talentbrew", "disney", clientWith(fetchFn), OBSERVED_AT, {
+      host: "jobs.disneycareers.com",
+    });
+    expect(t.status).toBe("dead");
+  });
+
+  it("keeps a talentbrew tenant transient when metadata.host is missing", async () => {
+    const fetchFn = mock(async () => new Response("", { status: 200 }));
+    const t = await probeOne("talentbrew", "disney", clientWith(fetchFn), OBSERVED_AT, {});
+    expect(t.status).toBe("transient_failure");
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
