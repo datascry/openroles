@@ -75,7 +75,7 @@ Implementation details for each ATS live in `scraper/src/ats/{ats}.ts`. Each imp
 - Surface a `TenantResult.status` even when the response was empty — never silently drop tenants.
 
 Representative ATS shapes (high-level — the contract above holds for
-all 51 adapters in `ATS_IDS`, not only these examples):
+all 52 adapters in `ATS_IDS`, not only these examples):
 
 | ATS | Endpoint shape | Response |
 |---|---|---|
@@ -108,6 +108,7 @@ all 51 adapters in `ATS_IDS`, not only these examples):
 | pageup | GET `{metadata.host}/{metadata.instance}/{metadata.clientkey}/en/listing/`, then `?page=N` | server-rendered HTML; one or more `job-link` anchors per role (title + `/en/job/{id}/{slug}` deep link) plus a `location` cell — parsed directly, no detail fetch. Composite (host, instance, clientkey) tenancy, slug = `{instance}-{clientkey}` (a clientkey is not globally unique); exposes only an application close-date, so posted_at is never emitted. Walk terminates on the first page with no fresh job ids (the load-more button and facet counts are not reliable end signals) |
 | manatal | GET `www.careers-page.com/{slug}` (server-rendered link list of `/{slug}/job/{code}` anchors), then walk each linked job page | HTML board → `schema.org/JobPosting` JSON-LD per job page (shared jsonld-core); no list JSON endpoint, so a bounded N+1 detail fan-out; dead/unknown slug answers a clean 404 |
 | rippling | GET `api.rippling.com/platform/api/ats/v1/board/{slug}/jobs` (top-level array, unpaginated), then a bounded concurrency-limited detail GET `…/jobs/{uuid}` per role | JSON array of list rows (uuid, title, department, workLocation, canonical url); the list carries no date/description, so each detail GET adds the HTML `description.role`, `createdOn` post date, `workLocations`, `payRangeDetails` and `companyName`. Detail is enrichment — a failed detail GET keeps the list-only row; a board past the 500-role cap is emitted list-only with a "capped" note |
+| paycom | GET `www.paycomonline.net/v4/ats/web.php/portal/{CLIENTKEY}/career-page` (HTML embeds `configsFromHost` → auto-issued `sessionJWT` + per-tenant `libConfig.atsPortalMantleServiceUrl` API base), then POST `{apiBase}api/ats/job-posting-previews/search` (skip/take paginated) and a bounded concurrency-limited detail GET `{apiBase}api/ats/job-postings/{jobId}` per role | two-step; slug = 32-hex `clientkey` (uppercased in URLs). Search returns preview rows (jobId, title, positionType, remoteType, description) with `jobPostingPreviewsCount`; previews omit location/salary/date, so each detail GET adds `location`/`city`, `salaryRange` and `startDate`. Detail is enrichment — a failed detail GET keeps the preview-only row; a board past the 500-role cap is emitted preview-only with a "capped" note. The API host (`portal-applicant-tracking.{pod}.paycomonline.net`) is read from libConfig and SSRF-guarded; a missing JWT/API base or SSRF-rejected host → dead |
 
 ## Invariants
 

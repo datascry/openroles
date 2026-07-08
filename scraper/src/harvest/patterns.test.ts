@@ -359,6 +359,23 @@ describe("harvestPatternFor", () => {
     expect(denyList.has("internal")).toBe(true);
   });
 
+  it("paycom pattern captures the 32-hex clientkey from both URL surfaces (lowercased)", () => {
+    const { regex, denyList } = harvestPatternFor("paycom");
+    const sample =
+      "https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=B2BD1063BF1B0A2978EA308E72CCF7D3 " +
+      "https://www.paycomonline.net/v4/ats/web.php/portal/091EC3604A527BCAA57D140E2BFAE4A1/career-page " +
+      "https://evil.example.com/?clientkey=00000000000000000000000000000000";
+    const re = new RegExp(regex.source, regex.flags);
+    // extractSlugs lowercases group 1; mirror that here.
+    const matches = Array.from(sample.matchAll(re)).map((m) => (m[1] as string).toLowerCase());
+    expect(matches).toContain("b2bd1063bf1b0a2978ea308e72ccf7d3");
+    expect(matches).toContain("091ec3604a527bcaa57d140e2bfae4a1");
+    // The off-host URL is not on paycomonline.net, so it never matches.
+    expect(matches).not.toContain("00000000000000000000000000000000");
+    // A numeric-hex capture can never collide with a reserved word.
+    expect(denyList.size).toBe(0);
+  });
+
   it("throws for unknown ats id", () => {
     expect(() => harvestPatternFor("not-a-real-ats" as any)).toThrow();
   });

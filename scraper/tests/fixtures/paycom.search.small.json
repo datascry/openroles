@@ -1,0 +1,35 @@
+{
+  "jobPostingPreviews": [
+    {
+      "jobId": 53229,
+      "jobTitle": "Driver",
+      "positionType": "",
+      "remoteType": "",
+      "locations": "",
+      "description": "Must be responsible, energetic, enthusiastic, compassionate, & enjoy working with people.",
+      "postedOn": "",
+      "isHotJob": true
+    },
+    {
+      "jobId": 73957,
+      "jobTitle": "Life Enrichment Facilitator",
+      "positionType": "Full Time",
+      "remoteType": "",
+      "locations": "",
+      "description": "Job Purpose:\n- The Life Enrichment Facilitator plays a crucial role in enhancing lives.",
+      "postedOn": "",
+      "isHotJob": true
+    },
+    {
+      "jobId": 105020,
+      "jobTitle": "Recreation Facilitator",
+      "positionType": "",
+      "remoteType": "",
+      "locations": "",
+      "description": "This pivotal role requires close collaboration with all stakeholders.",
+      "postedOn": "",
+      "isHotJob": false
+    }
+  ],
+  "jobPostingPreviewsCount": 3
+}

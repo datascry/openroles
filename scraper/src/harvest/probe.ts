@@ -132,6 +132,13 @@ const PROBE_URL: Partial<Record<ATSId, ProbeUrlBuilder>> = {
   // a live tenant, 404 `RESOURCE_NOT_FOUND` on an unknown slug — verified
   // live). The whole board is one small array so no size param is needed.
   rippling: (slug) => `https://api.rippling.com/platform/api/ats/v1/board/${slug}/jobs`,
+  // Paycom: the shell `/jobs?clientkey={CK}` on the shared host is the probe.
+  // A LIVE clientkey 302-redirects to its `/portal/{CK}/career-page`, while a
+  // dead/unknown clientkey returns a direct HTTP 200 "portal does not exist"
+  // page — so the redirect itself is the live signal (see REDIRECT_MEANS_LIVE).
+  // The clientkey is uppercased in portal URLs (stored lowercase as the slug).
+  paycom: (slug) =>
+    `https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=${slug.toUpperCase()}`,
   // workday + ultipro + successfactors + oraclecloud + phenom need composite
   // metadata (host/site, board_id, locale) — see probeUrlForWithMetadata below.
   // workday + ultipro + successfactors + oraclecloud + phenom + taleotbe
@@ -173,6 +180,18 @@ const DEAD_ON_REDIRECT_META: Partial<Record<ATSId, true>> = {
 // `redirect: "manual"` and a 3xx whose Location matches the pattern is
 // dead; any other redirect stays live (same defensive posture as the
 // cross-host rule: only a provably-dead shape drops the tenant).
+// ATSes that INVERT the usual convention: a live tenant answers the probe
+// with a redirect while a dead one answers a direct 2xx. Paycom's shell
+// (`/jobs?clientkey={CK}`) 302-redirects a live clientkey to its
+// `/portal/{CK}/career-page`, but a dead/unknown clientkey returns a direct
+// HTTP 200 "portal does not exist" page. For these ATSes the probe runs
+// `redirect: "manual"` and a 3xx whose Location matches the pattern is LIVE;
+// anything else (including a direct 2xx) is dead. The regex keeps the signal
+// specific — only a redirect to the career page proves a live board.
+const REDIRECT_MEANS_LIVE: Partial<Record<ATSId, RegExp>> = {
+  paycom: /\/career-page\b/i,
+};
+
 const REDIRECT_PATH_MEANS_DEAD: Partial<Record<ATSId, RegExp>> = {
   // Hirebridge bounces an unknown cid from the listing to
   // `/v3/Application/AppErrMsg.aspx?cid={cid}&errorType=badurl`, which then
@@ -661,12 +680,25 @@ async function probeOneInner(
     const probeUrl = probeUrlFor(ats, slug);
     const redirectHostMeansDead = REDIRECT_HOST_MEANS_DEAD[ats] === true;
     const deadRedirectPath = REDIRECT_PATH_MEANS_DEAD[ats];
-    const inspectRedirects = redirectHostMeansDead || deadRedirectPath !== undefined;
+    const liveRedirectPath = REDIRECT_MEANS_LIVE[ats];
+    const inspectRedirects =
+      redirectHostMeansDead || deadRedirectPath !== undefined || liveRedirectPath !== undefined;
     const res = await client.request(probeUrl, {
       method: "GET",
       skipRobots: true,
       ...(inspectRedirects ? { redirect: "manual" as const } : {}),
     });
+    // Inverted convention: only a redirect to the live board (career page) is
+    // live; a direct 2xx is the vendor's "does not exist" placeholder.
+    if (liveRedirectPath !== undefined) {
+      const location = res.headers.get("location");
+      const isLive =
+        res.status >= 300 &&
+        res.status < 400 &&
+        location !== null &&
+        liveRedirectPath.test(location);
+      return { ats, slug, status: isLive ? "live" : "dead", last_probed_at: observedAt };
+    }
     // For these ATSes, a dead board answers with a redirect: either a
     // cross-host bounce to a generic vendor page (jazzhr/hrmdirect) or a
     // same-host bounce to the vendor error page (hirebridge). A same-host

@@ -717,6 +717,38 @@ describe("runScrape", () => {
     expect(out.tenant_results[0]?.status).toBe("success");
   });
 
+  it("dispatches paycom from the clientkey slug (career page + search + detail)", async () => {
+    const slug = "b2bd1063bf1b0a2978ea308e72ccf7d3";
+    const careerUrl = `https://www.paycomonline.net/v4/ats/web.php/portal/${slug.toUpperCase()}/career-page`;
+    const apiBase = "https://portal-applicant-tracking.us-cent.paycomonline.net/";
+    const search = readFixture("paycom.search.small.json") as {
+      jobPostingPreviews: unknown[];
+      jobPostingPreviewsCount: number;
+    };
+    const details = readFixture("paycom.details.json") as Record<string, unknown>;
+    server.use(
+      http.get(careerUrl, () => new HttpResponse(readFixtureText("paycom.portal.html"))),
+      http.post(`${apiBase}api/ats/job-posting-previews/search`, () => HttpResponse.json(search)),
+      http.get(`${apiBase}api/ats/job-postings/:id`, ({ params }) => {
+        const rec = details[params["id"] as string];
+        return rec ? HttpResponse.json({ jobPosting: rec }) : HttpResponse.json({ jobPosting: {} });
+      }),
+    );
+    const out = await runScrape({
+      input: {
+        ats: "paycom",
+        tenants: [{ slug, display_name: "Portal Inc" }],
+        userAgent: "openroles/0.0.0",
+        contactUrl: "https://example.com",
+      },
+      clock: fixedClock,
+      httpClient: clientWithRobotsAllowAll(),
+    });
+    expect(out.jobs).toHaveLength(3);
+    expect(out.tenant_results[0]?.status).toBe("success");
+    expect(out.ats).toBe("paycom");
+  });
+
   it("dispatches jibeapply against a vanity CNAME via metadata.host", async () => {
     server.use(
       http.get("https://careers.acme-example.com/api/jobs", () =>

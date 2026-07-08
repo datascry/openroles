@@ -122,6 +122,9 @@ jobs:
           # Rippling boards are path-addressed on ats.rippling.com/{slug};
           # CDX discovery captures the first path segment (like hireology).
           - rippling
+          # Paycom portals on www.paycomonline.net; CDX discovery captures the
+          # 32-hex clientkey from the `?clientkey=` / `/portal/{CK}/` surfaces.
+          - paycom
     steps:
       - uses: actions/checkout@v7
 
@@ -327,6 +330,7 @@ jobs:
           # (also in the discover matrix above), reprobed weekly.
           - manatal
           - rippling
+          - paycom
     steps:
       - uses: actions/checkout@v7
 
