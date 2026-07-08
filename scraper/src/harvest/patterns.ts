@@ -659,6 +659,20 @@ const HARVEST_PATTERNS: ReadonlyArray<AtsHarvestPattern> = [
     regex: /careers\.jobscore\.com\/jobs\/([a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?)(?:[/?#]|$)/gi,
     denyList: PATH_DENY,
   },
+  // TalentBrew (Radancy) brands each run on their own arbitrary vanity host
+  // (`jobs.disneycareers.com`, `jobs.boeing.com`, …), so there is no single
+  // CDX host pattern to enumerate them and no slug-derivable URL — tenant
+  // identity is the operator-seeded `metadata.host`. Like apploi/phenom, this
+  // is registered as a seed-only placeholder that never mints a fresh tenant
+  // from CDX (the regex matches the literal token against its own deny list),
+  // keeping the HARVEST_ATS_IDS == ATS_IDS invariant intact. Seeds are
+  // operator-curated in data/tenants/talentbrew.json.
+  {
+    ats: "talentbrew",
+    cdxQuery: "talentbrew",
+    regex: /\b(talentbrew)\b/gi,
+    denyList: new Set<string>(["talentbrew"]),
+  },
 ];
 
 const PATTERNS_BY_ATS: ReadonlyMap<ATSId, AtsHarvestPattern> = new Map(

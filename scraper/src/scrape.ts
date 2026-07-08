@@ -51,6 +51,7 @@ import { scrapeRipplingTenant } from "./ats/rippling.ts";
 import { scrapeSchoolSpringTenant } from "./ats/schoolspring.ts";
 import { scrapeSmartRecruitersTenant } from "./ats/smartrecruiters.ts";
 import { scrapeSuccessFactorsTenant } from "./ats/successfactors.ts";
+import { scrapeTalentbrewTenant } from "./ats/talentbrew.ts";
 import { scrapeTalentlyftTenant } from "./ats/talentlyft.ts";
 import { scrapeTaleoTenant } from "./ats/taleo.ts";
 import { scrapeTaleoTbeTenant } from "./ats/taleotbe.ts";
@@ -510,6 +511,26 @@ function dispatchPerAts(
       // `careers.jobscore.com/jobs/{slug}/feed.json`, which returns the whole
       // open-role list in one call, so no metadata is needed.
       return scrapeJobscoreTenant(opts);
+    case "talentbrew": {
+      // TalentBrew (Radancy) per-brand career sites. Each brand runs on its
+      // own vanity host; the listing lives at `{host}/search-jobs`. The host
+      // is not slug-derivable, so `metadata.host` is mandatory and
+      // SSRF-guarded in the adapter (like phenom's vanity domains). Host
+      // missing → dead, same convention as phenom/workday.
+      const host = opts.tenant.metadata?.["host"];
+      if (host === undefined) {
+        return Promise.resolve({
+          jobs: [],
+          result: {
+            slug: opts.tenant.slug,
+            status: "dead",
+            error: "talentbrew tenant missing metadata.host",
+            jobs_count: 0,
+          },
+        });
+      }
+      return scrapeTalentbrewTenant({ ...opts, host });
+    }
     case "paycom":
       // Slug-only tenancy: the slug is the 32-hex clientkey. The career page
       // (`.../portal/{CLIENTKEY}/career-page`) hands out the per-tenant JWT +

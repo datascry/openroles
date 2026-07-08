@@ -176,6 +176,11 @@ const REDIRECT_HOST_MEANS_DEAD: Partial<Record<ATSId, true>> = {
 // same-host to the pod's default board.
 const DEAD_ON_REDIRECT_META: Partial<Record<ATSId, true>> = {
   pageup: true,
+  // TalentBrew: a live brand answers `{host}/search-jobs` with a direct 200; a
+  // decommissioned brand's vanity host redirects off to a marketing / parent
+  // page (which itself serves 200), so following the redirect would mark it
+  // live. Treating any 3xx as dead keeps the signal honest.
+  talentbrew: true,
 };
 
 // ATSes whose dead tenants answer a probe with a *same-host* redirect to a
@@ -419,6 +424,26 @@ const PROBE_URL_META: Partial<Record<ATSId, ProbeUrlMetaBuilder>> = {
     }
     if (parsed.hostname !== host.toLowerCase() || !isSafeFetchHost(parsed)) return undefined;
     return `https://${host}/${locale}/search-results`;
+  },
+  talentbrew: (_slug, metadata) => {
+    // TalentBrew brands are addressed by their vanity host alone. The host is
+    // SSRF-guarded exactly as the adapter does (dotted DNS-label host, no
+    // userinfo/path, https, no private/loopback target); a record missing or
+    // failing the host check stays transient_failure. The `/search-jobs`
+    // listing is the public board itself — 200 for a live brand, an off-host
+    // redirect for a decommissioned one (see DEAD_ON_REDIRECT_META).
+    const host = metadata["host"];
+    if (typeof host !== "string" || host.length === 0) return undefined;
+    if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?\.)+[a-z]{2,}$/i.test(host)) return undefined;
+    let parsed: URL;
+    try {
+      parsed = new URL(`https://${host}`);
+      /* c8 ignore next 3 — host already passed the strict DNS-label regex above, so new URL cannot throw here. */
+    } catch {
+      return undefined;
+    }
+    if (parsed.hostname !== host.toLowerCase() || !isSafeFetchHost(parsed)) return undefined;
+    return `https://${host}/search-jobs`;
   },
   workstream: (slug, metadata) => {
     // Workstream boards are addressed by the composite (company_id, slug)
