@@ -1390,8 +1390,8 @@
   {
     "ats": "bamboohr",
     "slug": "accentonlanguages",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4253,8 +4253,8 @@
   {
     "ats": "bamboohr",
     "slug": "alliantinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7098,8 +7098,8 @@
   {
     "ats": "bamboohr",
     "slug": "artportunityknocks",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7168,8 +7168,8 @@
   {
     "ats": "bamboohr",
     "slug": "ascendanalytics",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7295,8 +7295,8 @@
   {
     "ats": "bamboohr",
     "slug": "ashesiuniversityfoundation",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9587,8 +9587,8 @@
   {
     "ats": "bamboohr",
     "slug": "baypres",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16883,8 +16883,8 @@
   {
     "ats": "bamboohr",
     "slug": "ccp1",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -19529,8 +19529,8 @@
   {
     "ats": "bamboohr",
     "slug": "ckcdllc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -23126,8 +23126,8 @@
   {
     "ats": "bamboohr",
     "slug": "crchc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -26327,8 +26327,8 @@
   {
     "ats": "bamboohr",
     "slug": "digacore",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -28953,8 +28953,8 @@
   {
     "ats": "bamboohr",
     "slug": "eesllc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -31020,8 +31020,8 @@
   {
     "ats": "bamboohr",
     "slug": "erescompanies",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -32527,8 +32527,8 @@
   {
     "ats": "bamboohr",
     "slug": "fahrneygroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -33323,8 +33323,8 @@
   {
     "ats": "bamboohr",
     "slug": "fetchpm",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -34887,8 +34887,8 @@
   {
     "ats": "bamboohr",
     "slug": "foodbanksbc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -36164,8 +36164,8 @@
   {
     "ats": "bamboohr",
     "slug": "ftgu",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -39153,8 +39153,8 @@
   {
     "ats": "bamboohr",
     "slug": "gpaconsulting",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -41408,8 +41408,8 @@
   {
     "ats": "bamboohr",
     "slug": "harmann",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -43396,8 +43396,8 @@
   {
     "ats": "bamboohr",
     "slug": "homeandhealthcaremgmt",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -43636,8 +43636,8 @@
   {
     "ats": "bamboohr",
     "slug": "hoppedevelopment",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -49350,8 +49350,8 @@
   {
     "ats": "bamboohr",
     "slug": "joplinmo",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -51666,8 +51666,8 @@
   {
     "ats": "bamboohr",
     "slug": "konarelaw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -53065,8 +53065,8 @@
   {
     "ats": "bamboohr",
     "slug": "ldpa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -55017,8 +55017,8 @@
   {
     "ats": "bamboohr",
     "slug": "ltecareplus",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -58943,8 +58943,8 @@
   {
     "ats": "bamboohr",
     "slug": "midwestbank",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -59642,8 +59642,8 @@
   {
     "ats": "bamboohr",
     "slug": "mmrengineering",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -61318,8 +61318,8 @@
   {
     "ats": "bamboohr",
     "slug": "muscalaw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -62297,8 +62297,8 @@
   {
     "ats": "bamboohr",
     "slug": "navabehavioralhealth",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -62356,8 +62356,8 @@
   {
     "ats": "bamboohr",
     "slug": "navsav",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -68086,8 +68086,8 @@
   {
     "ats": "bamboohr",
     "slug": "oxygenforensic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -70801,8 +70801,8 @@
   {
     "ats": "bamboohr",
     "slug": "pinnaclesprepcharterschool1",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -71431,8 +71431,8 @@
   {
     "ats": "bamboohr",
     "slug": "plusminusone",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -71488,8 +71488,8 @@
   {
     "ats": "bamboohr",
     "slug": "pmh",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -74423,8 +74423,8 @@
   {
     "ats": "bamboohr",
     "slug": "qualityip",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -74702,8 +74702,8 @@
   {
     "ats": "bamboohr",
     "slug": "quillarrowlaw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -79081,8 +79081,8 @@
   {
     "ats": "bamboohr",
     "slug": "s1medical",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -81006,8 +81006,8 @@
   {
     "ats": "bamboohr",
     "slug": "securiport1",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -81276,8 +81276,8 @@
   {
     "ats": "bamboohr",
     "slug": "selfcarecounseling",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -82617,8 +82617,8 @@
   {
     "ats": "bamboohr",
     "slug": "sildsc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -94986,8 +94986,8 @@
   {
     "ats": "bamboohr",
     "slug": "trustpoint",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -97852,8 +97852,8 @@
   {
     "ats": "bamboohr",
     "slug": "vgsystems",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:58.829Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

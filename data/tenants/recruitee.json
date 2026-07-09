@@ -11885,8 +11885,8 @@
   {
     "ats": "recruitee",
     "slug": "eworgmbh",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.581Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16944,8 +16944,8 @@
   {
     "ats": "recruitee",
     "slug": "hydrosat",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.581Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

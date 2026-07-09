@@ -72,8 +72,8 @@
   {
     "ats": "hrmdirect",
     "slug": "5812investmentgroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -191,8 +191,8 @@
   {
     "ats": "hrmdirect",
     "slug": "abskidsbt",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -373,15 +373,15 @@
   {
     "ats": "hrmdirect",
     "slug": "adobeanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "advancedexteriorsystems",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -520,15 +520,15 @@
   {
     "ats": "hrmdirect",
     "slug": "airassurance",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "aircoservice",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -639,8 +639,8 @@
   {
     "ats": "hrmdirect",
     "slug": "alliednwa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -681,15 +681,15 @@
   {
     "ats": "hrmdirect",
     "slug": "amatriot",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "ambercare",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -779,8 +779,8 @@
   {
     "ats": "hrmdirect",
     "slug": "amicalolafallslodge",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -821,8 +821,8 @@
   {
     "ats": "hrmdirect",
     "slug": "animalblessingspethospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -856,8 +856,8 @@
   {
     "ats": "hrmdirect",
     "slug": "aphealth",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1241,8 +1241,8 @@
   {
     "ats": "hrmdirect",
     "slug": "autobodyevolution",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1311,15 +1311,15 @@
   {
     "ats": "hrmdirect",
     "slug": "avifoodsystems",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "avocethospitality",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1528,8 +1528,8 @@
   {
     "ats": "hrmdirect",
     "slug": "bct",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1633,8 +1633,8 @@
   {
     "ats": "hrmdirect",
     "slug": "beoseniorliving",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1780,8 +1780,8 @@
   {
     "ats": "hrmdirect",
     "slug": "bis",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1836,8 +1836,8 @@
   {
     "ats": "hrmdirect",
     "slug": "blueroseconsultinggroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1976,8 +1976,8 @@
   {
     "ats": "hrmdirect",
     "slug": "bradburybrothers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2060,8 +2060,8 @@
   {
     "ats": "hrmdirect",
     "slug": "bridgewoodgardens",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2109,8 +2109,8 @@
   {
     "ats": "hrmdirect",
     "slug": "brrarch",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2151,8 +2151,8 @@
   {
     "ats": "hrmdirect",
     "slug": "buckeyepace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2193,8 +2193,8 @@
   {
     "ats": "hrmdirect",
     "slug": "butlerhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2277,8 +2277,8 @@
   {
     "ats": "hrmdirect",
     "slug": "cal-am",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2319,8 +2319,8 @@
   {
     "ats": "hrmdirect",
     "slug": "campusadv",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2473,8 +2473,8 @@
   {
     "ats": "hrmdirect",
     "slug": "carenewenglandmedicalgroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2494,8 +2494,8 @@
   {
     "ats": "hrmdirect",
     "slug": "carltonseniorliving",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2522,8 +2522,8 @@
   {
     "ats": "hrmdirect",
     "slug": "carrveterinaryhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2550,8 +2550,8 @@
   {
     "ats": "hrmdirect",
     "slug": "cascadestech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2599,8 +2599,8 @@
   {
     "ats": "hrmdirect",
     "slug": "castlewoodsplace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3334,8 +3334,8 @@
   {
     "ats": "hrmdirect",
     "slug": "chamblissplumbing",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3355,8 +3355,8 @@
   {
     "ats": "hrmdirect",
     "slug": "chateaugardnerville",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3474,8 +3474,8 @@
   {
     "ats": "hrmdirect",
     "slug": "chisholmtrail",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3607,8 +3607,8 @@
   {
     "ats": "hrmdirect",
     "slug": "cityofkm",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3670,8 +3670,8 @@
   {
     "ats": "hrmdirect",
     "slug": "clearfield",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3859,15 +3859,15 @@
   {
     "ats": "hrmdirect",
     "slug": "communicationtechnologyservices",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "communityhealthcenters",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3887,8 +3887,8 @@
   {
     "ats": "hrmdirect",
     "slug": "companionpethospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4062,8 +4062,8 @@
   {
     "ats": "hrmdirect",
     "slug": "cordatacourt",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4090,8 +4090,8 @@
   {
     "ats": "hrmdirect",
     "slug": "cornerstoneconcilium",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4118,15 +4118,15 @@
   {
     "ats": "hrmdirect",
     "slug": "corsocarepc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "corsocarepharmacy",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4174,8 +4174,8 @@
   {
     "ats": "hrmdirect",
     "slug": "coveanimalhealth",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4293,15 +4293,15 @@
   {
     "ats": "hrmdirect",
     "slug": "crosslanesveterinaryhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "crossroadsanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4503,15 +4503,15 @@
   {
     "ats": "hrmdirect",
     "slug": "cwpnonproviders",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "cwpproviders",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4706,8 +4706,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ddc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4727,8 +4727,8 @@
   {
     "ats": "hrmdirect",
     "slug": "dejana",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4923,8 +4923,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ditsch",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4958,15 +4958,15 @@
   {
     "ats": "hrmdirect",
     "slug": "doctorcool",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "doctorsofficeforpets",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4979,8 +4979,8 @@
   {
     "ats": "hrmdirect",
     "slug": "doeren",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5070,8 +5070,8 @@
   {
     "ats": "hrmdirect",
     "slug": "duckduckrooter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5084,8 +5084,8 @@
   {
     "ats": "hrmdirect",
     "slug": "duvallplumbingco",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5203,8 +5203,8 @@
   {
     "ats": "hrmdirect",
     "slug": "eastwest",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5343,8 +5343,8 @@
   {
     "ats": "hrmdirect",
     "slug": "eliteclinicalnetwork",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5624,8 +5624,8 @@
   {
     "ats": "hrmdirect",
     "slug": "familypetclinicnewberg",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5995,8 +5995,8 @@
   {
     "ats": "hrmdirect",
     "slug": "franklincovey",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6198,8 +6198,8 @@
   {
     "ats": "hrmdirect",
     "slug": "gearycounty",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6233,8 +6233,8 @@
   {
     "ats": "hrmdirect",
     "slug": "generatorstore",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6282,8 +6282,8 @@
   {
     "ats": "hrmdirect",
     "slug": "getmurray",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6303,8 +6303,8 @@
   {
     "ats": "hrmdirect",
     "slug": "gigharborcourt",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6338,8 +6338,8 @@
   {
     "ats": "hrmdirect",
     "slug": "glenwoodvillage",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6415,8 +6415,8 @@
   {
     "ats": "hrmdirect",
     "slug": "goodshepherds",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6457,8 +6457,8 @@
   {
     "ats": "hrmdirect",
     "slug": "gpshouston",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6478,8 +6478,8 @@
   {
     "ats": "hrmdirect",
     "slug": "grantcreekveterinaryservices",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6499,8 +6499,8 @@
   {
     "ats": "hrmdirect",
     "slug": "greatwesternleasing",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6520,8 +6520,8 @@
   {
     "ats": "hrmdirect",
     "slug": "greenhavenplace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6667,8 +6667,8 @@
   {
     "ats": "hrmdirect",
     "slug": "havensantelopevalley",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6709,8 +6709,8 @@
   {
     "ats": "hrmdirect",
     "slug": "hbtbank",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7017,8 +7017,8 @@
   {
     "ats": "hrmdirect",
     "slug": "hoamco",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7031,8 +7031,8 @@
   {
     "ats": "hrmdirect",
     "slug": "hollerdriversmart",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7073,8 +7073,8 @@
   {
     "ats": "hrmdirect",
     "slug": "hometownservices",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7304,8 +7304,8 @@
   {
     "ats": "hrmdirect",
     "slug": "igtglasshardware",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7514,8 +7514,8 @@
   {
     "ats": "hrmdirect",
     "slug": "integra",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7752,8 +7752,8 @@
   {
     "ats": "hrmdirect",
     "slug": "jandwheatingandair",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7780,8 +7780,8 @@
   {
     "ats": "hrmdirect",
     "slug": "jasint",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7899,8 +7899,8 @@
   {
     "ats": "hrmdirect",
     "slug": "johnscreeksedationdentist",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8082,8 +8082,8 @@
   {
     "ats": "hrmdirect",
     "slug": "kennonhvac",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8124,8 +8124,8 @@
   {
     "ats": "hrmdirect",
     "slug": "kierlandanimalclinic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8236,8 +8236,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ktvn",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8313,8 +8313,8 @@
   {
     "ats": "hrmdirect",
     "slug": "laketownvillage",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8348,8 +8348,8 @@
   {
     "ats": "hrmdirect",
     "slug": "landingqueensbury",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8383,15 +8383,15 @@
   {
     "ats": "hrmdirect",
     "slug": "laseraway",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "laurushomecare",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8488,8 +8488,8 @@
   {
     "ats": "hrmdirect",
     "slug": "lennyscollisioncenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8523,8 +8523,8 @@
   {
     "ats": "hrmdirect",
     "slug": "lgcy",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8705,8 +8705,8 @@
   {
     "ats": "hrmdirect",
     "slug": "liveeatsurf",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8719,15 +8719,15 @@
   {
     "ats": "hrmdirect",
     "slug": "liveuncertain",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "livhc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8782,15 +8782,15 @@
   {
     "ats": "hrmdirect",
     "slug": "longeviti",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "lostmountaindental",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8929,8 +8929,8 @@
   {
     "ats": "hrmdirect",
     "slug": "magnoliaplace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8950,8 +8950,8 @@
   {
     "ats": "hrmdirect",
     "slug": "manchesternh",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8964,8 +8964,8 @@
   {
     "ats": "hrmdirect",
     "slug": "mandercollision",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9223,8 +9223,8 @@
   {
     "ats": "hrmdirect",
     "slug": "medfordanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9321,15 +9321,15 @@
   {
     "ats": "hrmdirect",
     "slug": "meridianhs",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "meridianks",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9447,8 +9447,8 @@
   {
     "ats": "hrmdirect",
     "slug": "michedcu",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9482,8 +9482,8 @@
   {
     "ats": "hrmdirect",
     "slug": "midpac",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9888,8 +9888,8 @@
   {
     "ats": "hrmdirect",
     "slug": "msssolutions",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9930,8 +9930,8 @@
   {
     "ats": "hrmdirect",
     "slug": "mullininc-ba",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10133,8 +10133,8 @@
   {
     "ats": "hrmdirect",
     "slug": "nationalpavementpartnerscom",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10168,8 +10168,8 @@
   {
     "ats": "hrmdirect",
     "slug": "naylor",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10217,8 +10217,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ne-arc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10252,8 +10252,8 @@
   {
     "ats": "hrmdirect",
     "slug": "neesehvac",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10504,8 +10504,8 @@
   {
     "ats": "hrmdirect",
     "slug": "northaustinparmerwoods",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10546,8 +10546,8 @@
   {
     "ats": "hrmdirect",
     "slug": "northolmstedcollision",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10574,8 +10574,8 @@
   {
     "ats": "hrmdirect",
     "slug": "northpointvillage",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10693,8 +10693,8 @@
   {
     "ats": "hrmdirect",
     "slug": "nwestco",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10707,8 +10707,8 @@
   {
     "ats": "hrmdirect",
     "slug": "oakmontmanagement",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10756,8 +10756,8 @@
   {
     "ats": "hrmdirect",
     "slug": "obriencc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10770,8 +10770,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ocdanxietycenters",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10798,8 +10798,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ohanapethospitalofsantapaula",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10840,15 +10840,15 @@
   {
     "ats": "hrmdirect",
     "slug": "oneatlas",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "onesc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10945,8 +10945,8 @@
   {
     "ats": "hrmdirect",
     "slug": "origence",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11001,8 +11001,8 @@
   {
     "ats": "hrmdirect",
     "slug": "oxfordbank",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11043,15 +11043,15 @@
   {
     "ats": "hrmdirect",
     "slug": "pacificoffice",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pacificwest",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11204,8 +11204,8 @@
   {
     "ats": "hrmdirect",
     "slug": "paveamerica",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11288,8 +11288,8 @@
   {
     "ats": "hrmdirect",
     "slug": "pdc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11316,8 +11316,8 @@
   {
     "ats": "hrmdirect",
     "slug": "pediatrichc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11330,106 +11330,106 @@
   {
     "ats": "hrmdirect",
     "slug": "pediatrichomeservicenursing",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "peerless",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofarlington",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofmesa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofnorthrichlandhills",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofroundrock",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofsanmarcos",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingoftanglewood",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuslandingofvintagepark",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuspreserveofclearlake",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuspreserveoffirstcolony",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuspreserveofmemorialcity",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuspreserveofvintagepark",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasuspreserveofwestuniversity",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "pegasusseniorliving",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11589,8 +11589,8 @@
   {
     "ats": "hrmdirect",
     "slug": "piepermemorialveterinaryhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11702,8 +11702,8 @@
   {
     "ats": "hrmdirect",
     "slug": "porscheriverside",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11765,8 +11765,8 @@
   {
     "ats": "hrmdirect",
     "slug": "precisioncollision",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12038,8 +12038,8 @@
   {
     "ats": "hrmdirect",
     "slug": "qualityautobody",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12101,8 +12101,8 @@
   {
     "ats": "hrmdirect",
     "slug": "raleighortho",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12248,8 +12248,8 @@
   {
     "ats": "hrmdirect",
     "slug": "renaissance",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12269,8 +12269,8 @@
   {
     "ats": "hrmdirect",
     "slug": "rentonwestvet",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12311,8 +12311,8 @@
   {
     "ats": "hrmdirect",
     "slug": "rescueairtx",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12360,8 +12360,8 @@
   {
     "ats": "hrmdirect",
     "slug": "reynoldsroadanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12388,8 +12388,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ridgelandplace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12437,8 +12437,8 @@
   {
     "ats": "hrmdirect",
     "slug": "riverspuyallup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12458,8 +12458,8 @@
   {
     "ats": "hrmdirect",
     "slug": "robinsonairhvac",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12668,8 +12668,8 @@
   {
     "ats": "hrmdirect",
     "slug": "saukvalleybank",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12710,8 +12710,8 @@
   {
     "ats": "hrmdirect",
     "slug": "scadpinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13312,8 +13312,8 @@
   {
     "ats": "hrmdirect",
     "slug": "solveretechnical",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13340,8 +13340,8 @@
   {
     "ats": "hrmdirect",
     "slug": "sonnenalp",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13354,15 +13354,15 @@
   {
     "ats": "hrmdirect",
     "slug": "sonsray",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "soonerveterinaryhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13494,8 +13494,8 @@
   {
     "ats": "hrmdirect",
     "slug": "spscorporation",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13676,8 +13676,8 @@
   {
     "ats": "hrmdirect",
     "slug": "stjosephhospice",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13774,8 +13774,8 @@
   {
     "ats": "hrmdirect",
     "slug": "summerlinanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13788,8 +13788,8 @@
   {
     "ats": "hrmdirect",
     "slug": "summitmidstream",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13809,8 +13809,8 @@
   {
     "ats": "hrmdirect",
     "slug": "suncitywestvillage",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13942,8 +13942,8 @@
   {
     "ats": "hrmdirect",
     "slug": "sydist",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14145,8 +14145,8 @@
   {
     "ats": "hrmdirect",
     "slug": "tedscollisioncenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14215,8 +14215,8 @@
   {
     "ats": "hrmdirect",
     "slug": "texasairzone",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14285,8 +14285,8 @@
   {
     "ats": "hrmdirect",
     "slug": "theboysclubofnewyork",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14334,15 +14334,15 @@
   {
     "ats": "hrmdirect",
     "slug": "theforgecompanies",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "theglenatheatherfarm",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14411,50 +14411,50 @@
   {
     "ats": "hrmdirect",
     "slug": "thelegacycimarron",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacycrystalfalls",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacyfalconpoint",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacyforestridge",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacysantafe",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacysouthplains",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thelegacytownsquare",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14474,8 +14474,8 @@
   {
     "ats": "hrmdirect",
     "slug": "theorchards",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14488,8 +14488,8 @@
   {
     "ats": "hrmdirect",
     "slug": "thepcacompanies",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14502,15 +14502,15 @@
   {
     "ats": "hrmdirect",
     "slug": "thermo",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "thermokingnortheast",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14551,8 +14551,8 @@
   {
     "ats": "hrmdirect",
     "slug": "thewoodlandsplumbingandair",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14600,8 +14600,8 @@
   {
     "ats": "hrmdirect",
     "slug": "threecbodyshops",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14614,8 +14614,8 @@
   {
     "ats": "hrmdirect",
     "slug": "threeforks",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14691,8 +14691,8 @@
   {
     "ats": "hrmdirect",
     "slug": "tnquality",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14789,8 +14789,8 @@
   {
     "ats": "hrmdirect",
     "slug": "transformationchurch",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14810,8 +14810,8 @@
   {
     "ats": "hrmdirect",
     "slug": "trelevate",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14915,8 +14915,8 @@
   {
     "ats": "hrmdirect",
     "slug": "trustvip",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14943,15 +14943,15 @@
   {
     "ats": "hrmdirect",
     "slug": "tualatinanimalclinic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "tucsonplace",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15076,8 +15076,8 @@
   {
     "ats": "hrmdirect",
     "slug": "unifyhealth",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15118,8 +15118,8 @@
   {
     "ats": "hrmdirect",
     "slug": "univstech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15153,8 +15153,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ursmedical",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15231,8 +15231,8 @@
   {
     "ats": "hrmdirect",
     "slug": "ussc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15280,8 +15280,8 @@
   {
     "ats": "hrmdirect",
     "slug": "vafb",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15301,8 +15301,8 @@
   {
     "ats": "hrmdirect",
     "slug": "vallartasupermarkets",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15378,8 +15378,8 @@
   {
     "ats": "hrmdirect",
     "slug": "venturacommunitypartners",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15518,8 +15518,8 @@
   {
     "ats": "hrmdirect",
     "slug": "villageranchosolano",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15532,15 +15532,15 @@
   {
     "ats": "hrmdirect",
     "slug": "villagesquareportolavalleyvethospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "villageveterinaryclinic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15917,8 +15917,8 @@
   {
     "ats": "hrmdirect",
     "slug": "wellshireanimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15980,15 +15980,15 @@
   {
     "ats": "hrmdirect",
     "slug": "westportproperties",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "westsidepethospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16008,8 +16008,8 @@
   {
     "ats": "hrmdirect",
     "slug": "wgyates",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16022,15 +16022,15 @@
   {
     "ats": "hrmdirect",
     "slug": "wheelersburganimalhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "whisperingwinds",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16141,15 +16141,15 @@
   {
     "ats": "hrmdirect",
     "slug": "wisteria",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hrmdirect",
     "slug": "womeninfantshospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16190,8 +16190,8 @@
   {
     "ats": "hrmdirect",
     "slug": "workriteergo",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:07.102Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

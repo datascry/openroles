@@ -597,8 +597,8 @@
   {
     "ats": "hireology",
     "slug": "aloftfortlauderdaleairport",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1661,8 +1661,8 @@
   {
     "ats": "hireology",
     "slug": "anytimefitnesscantonct",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1724,8 +1724,8 @@
   {
     "ats": "hireology",
     "slug": "applechryslerdodgejeepram",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1878,8 +1878,8 @@
   {
     "ats": "hireology",
     "slug": "arniebauerbuickcadillacgmc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2690,8 +2690,8 @@
   {
     "ats": "hireology",
     "slug": "bambinimontessoriacademy",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2802,8 +2802,8 @@
   {
     "ats": "hireology",
     "slug": "beauregardequipmentinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2956,8 +2956,8 @@
   {
     "ats": "hireology",
     "slug": "bettenautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3222,8 +3222,8 @@
   {
     "ats": "hireology",
     "slug": "bluecompassrv",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3425,8 +3425,8 @@
   {
     "ats": "hireology",
     "slug": "bobvalentiautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5637,8 +5637,8 @@
   {
     "ats": "hireology",
     "slug": "carerunnershomecareservicesinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6519,15 +6519,15 @@
   {
     "ats": "hireology",
     "slug": "chrisauffenbergautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "chrisauffenberghyundaiofcapegirardeau",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7086,29 +7086,29 @@
   {
     "ats": "hireology",
     "slug": "commonwealthseniorliving",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "commonwealthseniorlivingathaddam",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "commonwealthseniorlivingatsalisbury",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "commonwealthseniorlivingattheballentine",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7296,8 +7296,8 @@
   {
     "ats": "hireology",
     "slug": "confidenceautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7849,8 +7849,8 @@
   {
     "ats": "hireology",
     "slug": "deancarterchevrolet",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8983,15 +8983,15 @@
   {
     "ats": "hireology",
     "slug": "elkhornmotorsinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "elmchevroletcoinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9011,8 +9011,8 @@
   {
     "ats": "hireology",
     "slug": "embassysuitesjacksonridgelandms",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9053,8 +9053,8 @@
   {
     "ats": "hireology",
     "slug": "empowerhealthcaremanagement",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9081,8 +9081,8 @@
   {
     "ats": "hireology",
     "slug": "englewoodford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9200,8 +9200,8 @@
   {
     "ats": "hireology",
     "slug": "executivejeepnissan",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9858,8 +9858,8 @@
   {
     "ats": "hireology",
     "slug": "flynnhospitalityhireologycareers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9893,8 +9893,8 @@
   {
     "ats": "hireology",
     "slug": "fordofnorthampton",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9977,8 +9977,8 @@
   {
     "ats": "hireology",
     "slug": "fourpointsbysheratonrichmondairport",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10187,8 +10187,8 @@
   {
     "ats": "hireology",
     "slug": "franklinauto",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10425,15 +10425,15 @@
   {
     "ats": "hireology",
     "slug": "garavelchryslerjeepdodgeram",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "garavelsubaru",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10488,8 +10488,8 @@
   {
     "ats": "hireology",
     "slug": "gastonelementdalea",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10607,8 +10607,8 @@
   {
     "ats": "hireology",
     "slug": "genesisofstcharles",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11048,8 +11048,8 @@
   {
     "ats": "hireology",
     "slug": "gordieboucherfordofmenomoneefallsinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11146,8 +11146,8 @@
   {
     "ats": "hireology",
     "slug": "grandislandmotorcompany",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11167,8 +11167,8 @@
   {
     "ats": "hireology",
     "slug": "grandreserveinn",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11279,8 +11279,8 @@
   {
     "ats": "hireology",
     "slug": "greggsmithfordlincolninc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12056,8 +12056,8 @@
   {
     "ats": "hireology",
     "slug": "grubbshyundaiofwichitafalls",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12210,8 +12210,8 @@
   {
     "ats": "hireology",
     "slug": "hamptoninnwaldorf",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12434,8 +12434,8 @@
   {
     "ats": "hireology",
     "slug": "healthyheartofwisconsin",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12728,8 +12728,8 @@
   {
     "ats": "hireology",
     "slug": "hiltongardeninnabilenetx",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12791,8 +12791,8 @@
   {
     "ats": "hireology",
     "slug": "hodgessubaru",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12812,8 +12812,8 @@
   {
     "ats": "hireology",
     "slug": "holidayinnexpresssuitesblythe",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13043,8 +13043,8 @@
   {
     "ats": "hireology",
     "slug": "homeinsteadsd790",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13071,15 +13071,15 @@
   {
     "ats": "hireology",
     "slug": "homerskelton",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "homerskeltonchrysler",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13127,8 +13127,8 @@
   {
     "ats": "hireology",
     "slug": "homewoodsuitesdallascentral",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13274,8 +13274,8 @@
   {
     "ats": "hireology",
     "slug": "hotelgenevieve",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13379,8 +13379,8 @@
   {
     "ats": "hireology",
     "slug": "hublertoyota",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13617,15 +13617,15 @@
   {
     "ats": "hireology",
     "slug": "ildertonauto",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "ildertonconversioncharleston",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13638,8 +13638,8 @@
   {
     "ats": "hireology",
     "slug": "imageonefacilitysolutions",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13722,8 +13722,8 @@
   {
     "ats": "hireology",
     "slug": "integratedhomecaregroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14800,8 +14800,8 @@
   {
     "ats": "hireology",
     "slug": "ivyhospitality",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14828,8 +14828,8 @@
   {
     "ats": "hireology",
     "slug": "jacobsenterprises",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15024,8 +15024,8 @@
   {
     "ats": "hireology",
     "slug": "jimfalkautomotivegroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15227,8 +15227,8 @@
   {
     "ats": "hireology",
     "slug": "kayserautomotive",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15409,8 +15409,8 @@
   {
     "ats": "hireology",
     "slug": "ketterhagenmotorsalesinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15556,15 +15556,15 @@
   {
     "ats": "hireology",
     "slug": "kiddieacademycorporate",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "kiddieacademyofnewmarket",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15710,8 +15710,8 @@
   {
     "ats": "hireology",
     "slug": "koonsbaltimoreford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15920,8 +15920,8 @@
   {
     "ats": "hireology",
     "slug": "lamborghininewportbeach",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16263,15 +16263,15 @@
   {
     "ats": "hireology",
     "slug": "leifjohnsonford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "lemenparentaccount",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16816,8 +16816,8 @@
   {
     "ats": "hireology",
     "slug": "lutherautojobshtml",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17180,8 +17180,8 @@
   {
     "ats": "hireology",
     "slug": "markleyhonda",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17201,8 +17201,8 @@
   {
     "ats": "hireology",
     "slug": "markporterautoplexinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17516,8 +17516,8 @@
   {
     "ats": "hireology",
     "slug": "mehrconsultancy",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17747,8 +17747,8 @@
   {
     "ats": "hireology",
     "slug": "mhghotels",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17838,8 +17838,8 @@
   {
     "ats": "hireology",
     "slug": "mikesavoiechevroletinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -17943,15 +17943,15 @@
   {
     "ats": "hireology",
     "slug": "miracleford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "missioncommunityhospital",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -18090,8 +18090,8 @@
   {
     "ats": "hireology",
     "slug": "moritzkia",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -18167,8 +18167,8 @@
   {
     "ats": "hireology",
     "slug": "mossyhondaoflemongrove",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -18314,8 +18314,8 @@
   {
     "ats": "hireology",
     "slug": "murfreesboroparent",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -19056,15 +19056,15 @@
   {
     "ats": "hireology",
     "slug": "olneyrehabilitationcarecenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "olympiahospitality",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -19084,8 +19084,8 @@
   {
     "ats": "hireology",
     "slug": "opalsol",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -19350,15 +19350,15 @@
   {
     "ats": "hireology",
     "slug": "parettiautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "parettiimports",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -19539,29 +19539,29 @@
   {
     "ats": "hireology",
     "slug": "paulthigpenautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "paulthigpencdjrofwaynesboro",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "paulthigpenchevroletoflafayette",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "paulthigpenfordlincoln",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -20190,8 +20190,8 @@
   {
     "ats": "hireology",
     "slug": "pricefordlincoln",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -20876,8 +20876,8 @@
   {
     "ats": "hireology",
     "slug": "rosenford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -20904,8 +20904,8 @@
   {
     "ats": "hireology",
     "slug": "rosenmotorgroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -20953,8 +20953,8 @@
   {
     "ats": "hireology",
     "slug": "route44automile",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21205,8 +21205,8 @@
   {
     "ats": "hireology",
     "slug": "rydellchevroletbuickgmc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21254,8 +21254,8 @@
   {
     "ats": "hireology",
     "slug": "samosetresort",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21317,8 +21317,8 @@
   {
     "ats": "hireology",
     "slug": "saratford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21639,8 +21639,8 @@
   {
     "ats": "hireology",
     "slug": "seniorhelpersofannapolismd",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21695,8 +21695,8 @@
   {
     "ats": "hireology",
     "slug": "seniorsolutionsmanagementgroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21835,8 +21835,8 @@
   {
     "ats": "hireology",
     "slug": "sheboyganauto",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21870,15 +21870,15 @@
   {
     "ats": "hireology",
     "slug": "sheehycollisioncentergaithersburg",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "sheehydivision",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21905,8 +21905,8 @@
   {
     "ats": "hireology",
     "slug": "sheehynissanofwaldorf",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21968,8 +21968,8 @@
   {
     "ats": "hireology",
     "slug": "shottenkirktoyotagranbury",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -22171,8 +22171,8 @@
   {
     "ats": "hireology",
     "slug": "skybokx109sportsbarandgrill",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -22598,8 +22598,8 @@
   {
     "ats": "hireology",
     "slug": "stevemoyersubaru",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -22969,8 +22969,8 @@
   {
     "ats": "hireology",
     "slug": "sylvanlearning",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -23410,8 +23410,8 @@
   {
     "ats": "hireology",
     "slug": "thehaciendamissionsanluisrey",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -23788,15 +23788,15 @@
   {
     "ats": "hireology",
     "slug": "therubyhotelbar",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "therydellcompany",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -23998,8 +23998,8 @@
   {
     "ats": "hireology",
     "slug": "tltsolutions",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24572,8 +24572,8 @@
   {
     "ats": "hireology",
     "slug": "tubbssonsfordsalesinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24586,8 +24586,8 @@
   {
     "ats": "hireology",
     "slug": "turnerchevrolet",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24635,8 +24635,8 @@
   {
     "ats": "hireology",
     "slug": "tutordoctorarizona",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24803,8 +24803,8 @@
   {
     "ats": "hireology",
     "slug": "universityfordinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24950,8 +24950,8 @@
   {
     "ats": "hireology",
     "slug": "uppermarlboroford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -25202,8 +25202,8 @@
   {
     "ats": "hireology",
     "slug": "vermilionchevroletbuickgmc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -25244,8 +25244,8 @@
   {
     "ats": "hireology",
     "slug": "victorautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -25328,8 +25328,8 @@
   {
     "ats": "hireology",
     "slug": "villageontheparksteeplechase",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -25391,8 +25391,8 @@
   {
     "ats": "hireology",
     "slug": "virginiamotorvehicledealerboard",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -25769,15 +25769,15 @@
   {
     "ats": "hireology",
     "slug": "webbautogroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "webbhyundaihighland",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -26154,15 +26154,15 @@
   {
     "ats": "hireology",
     "slug": "woodyfolsomautomotiveinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "hireology",
     "slug": "woodyfolsomcdjrdouglas",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -26350,8 +26350,8 @@
   {
     "ats": "hireology",
     "slug": "zumbrotaford",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:17.254Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

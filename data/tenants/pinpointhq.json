@@ -38,8 +38,8 @@
   {
     "ats": "pinpointhq",
     "slug": "aciedge",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -95,7 +95,7 @@
     "ats": "pinpointhq",
     "slug": "advantagedental",
     "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -755,8 +755,8 @@
   {
     "ats": "pinpointhq",
     "slug": "caturus",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -855,8 +855,8 @@
   {
     "ats": "pinpointhq",
     "slug": "ci-designinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1557,8 +1557,8 @@
   {
     "ats": "pinpointhq",
     "slug": "foxconnwi",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1980,8 +1980,8 @@
   {
     "ats": "pinpointhq",
     "slug": "holtgrp",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2279,8 +2279,8 @@
   {
     "ats": "pinpointhq",
     "slug": "jobs-aligntech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2352,8 +2352,8 @@
   {
     "ats": "pinpointhq",
     "slug": "keystoneclear",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2643,8 +2643,8 @@
   {
     "ats": "pinpointhq",
     "slug": "masteryprep",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2864,8 +2864,8 @@
   {
     "ats": "pinpointhq",
     "slug": "mybrio",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2938,8 +2938,8 @@
   {
     "ats": "pinpointhq",
     "slug": "neptuneretailsolutions",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3054,8 +3054,8 @@
   {
     "ats": "pinpointhq",
     "slug": "nxcus",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3584,8 +3584,8 @@
   {
     "ats": "pinpointhq",
     "slug": "ritzcarltonyachtcollection",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3914,8 +3914,8 @@
   {
     "ats": "pinpointhq",
     "slug": "spinplaygames",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4434,8 +4434,8 @@
   {
     "ats": "pinpointhq",
     "slug": "utilitiesone",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4465,8 +4465,8 @@
   {
     "ats": "pinpointhq",
     "slug": "versa-networks",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4637,8 +4637,8 @@
   {
     "ats": "pinpointhq",
     "slug": "wolfe",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:29:40.713Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

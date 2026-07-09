@@ -58,8 +58,8 @@
   {
     "ats": "rippling",
     "slug": "7factor-software",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -212,8 +212,8 @@
   {
     "ats": "rippling",
     "slug": "accommodations-plus-international",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -940,8 +940,8 @@
   {
     "ats": "rippling",
     "slug": "arkansas-baptist-children-family-ministries",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1164,8 +1164,8 @@
   {
     "ats": "rippling",
     "slug": "augment-risk-services-llc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1542,8 +1542,8 @@
   {
     "ats": "rippling",
     "slug": "bluejack-management-partners",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1584,8 +1584,8 @@
   {
     "ats": "rippling",
     "slug": "bolt-graphics",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1689,8 +1689,8 @@
   {
     "ats": "rippling",
     "slug": "bridge-defense",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1962,8 +1962,8 @@
   {
     "ats": "rippling",
     "slug": "carbon-health",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2102,8 +2102,8 @@
   {
     "ats": "rippling",
     "slug": "carv-careers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3411,8 +3411,8 @@
   {
     "ats": "rippling",
     "slug": "dlrdmv",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3516,8 +3516,8 @@
   {
     "ats": "rippling",
     "slug": "dunham-jones-law-careers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3537,8 +3537,8 @@
   {
     "ats": "rippling",
     "slug": "dyadlaw-pc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -4160,8 +4160,8 @@
   {
     "ats": "rippling",
     "slug": "falcon-wealth-planning-careers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5539,8 +5539,8 @@
   {
     "ats": "rippling",
     "slug": "insight-xcite",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6246,8 +6246,8 @@
   {
     "ats": "rippling",
     "slug": "lastwall",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6372,8 +6372,8 @@
   {
     "ats": "rippling",
     "slug": "lendmarq-capital-llc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6561,8 +6561,8 @@
   {
     "ats": "rippling",
     "slug": "loam-bio",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6799,8 +6799,8 @@
   {
     "ats": "rippling",
     "slug": "marketonce",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6939,8 +6939,8 @@
   {
     "ats": "rippling",
     "slug": "mdjobboard",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7030,8 +7030,8 @@
   {
     "ats": "rippling",
     "slug": "meridian-counseling-careers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8346,8 +8346,8 @@
   {
     "ats": "rippling",
     "slug": "pediatrica-health-group-inc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8808,8 +8808,8 @@
   {
     "ats": "rippling",
     "slug": "ptmacareers",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8843,8 +8843,8 @@
   {
     "ats": "rippling",
     "slug": "qpwblaw",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9242,8 +9242,8 @@
   {
     "ats": "rippling",
     "slug": "results-contracting",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9326,8 +9326,8 @@
   {
     "ats": "rippling",
     "slug": "rgausa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10411,8 +10411,8 @@
   {
     "ats": "rippling",
     "slug": "sperry-rail-inc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10978,8 +10978,8 @@
   {
     "ats": "rippling",
     "slug": "tesolife-us-inc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11181,8 +11181,8 @@
   {
     "ats": "rippling",
     "slug": "therabody",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11398,8 +11398,8 @@
   {
     "ats": "rippling",
     "slug": "tract",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11741,8 +11741,8 @@
   {
     "ats": "rippling",
     "slug": "usi-consultants",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11811,8 +11811,8 @@
   {
     "ats": "rippling",
     "slug": "vbh",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12028,8 +12028,8 @@
   {
     "ats": "rippling",
     "slug": "vortex-companies-llc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12217,8 +12217,8 @@
   {
     "ats": "rippling",
     "slug": "welmade",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:24.838Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

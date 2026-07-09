@@ -3356,8 +3356,8 @@
   {
     "ats": "applicantpro",
     "slug": "auntieannes",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12471,8 +12471,8 @@
   {
     "ats": "applicantpro",
     "slug": "easterseals",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16420,8 +16420,8 @@
   {
     "ats": "applicantpro",
     "slug": "gotpi",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -18570,8 +18570,8 @@
   {
     "ats": "applicantpro",
     "slug": "hudsonsimport",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -21809,8 +21809,8 @@
   {
     "ats": "applicantpro",
     "slug": "lakeshorepaving",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -24385,8 +24385,8 @@
   {
     "ats": "applicantpro",
     "slug": "membranes",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -27905,8 +27905,8 @@
   {
     "ats": "applicantpro",
     "slug": "nxtmgtcorporate",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -30083,8 +30083,8 @@
   {
     "ats": "applicantpro",
     "slug": "pleasantviewcity",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -33222,8 +33222,8 @@
   {
     "ats": "applicantpro",
     "slug": "saratogaspringsut",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -39814,8 +39814,8 @@
   {
     "ats": "applicantpro",
     "slug": "vaim",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -40641,8 +40641,8 @@
   {
     "ats": "applicantpro",
     "slug": "wasatchcounty",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T01:30:06.265Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
