@@ -17677,13 +17677,6 @@
   },
   {
     "ats": "lever",
-    "slug": "istaridigital.ai",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "lever",
     "slug": "italic",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -30904,13 +30897,6 @@
   },
   {
     "ats": "lever",
-    "slug": "sgff.org",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "lever",
     "slug": "shadow",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -34486,13 +34472,6 @@
     "slug": "the-yes",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
-  },
-  {
-    "ats": "lever",
-    "slug": "thea.energy",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
