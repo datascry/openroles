@@ -85,20 +85,6 @@
   },
   {
     "ats": "isolvedhire",
-    "slug": "Lakelandrx",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "isolvedhire",
-    "slug": "RedGroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "isolvedhire",
     "slug": "a1garage",
     "status": "live",
     "last_probed_at": "2026-07-06T17:19:03.925Z",
@@ -12271,13 +12257,6 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:19:03.925Z",
     "first_seen_at": "2026-07-06T06:55:01.252Z"
-  },
-  {
-    "ats": "isolvedhire",
-    "slug": "rightathomeND",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "isolvedhire",

@@ -22,12 +22,5 @@
     "status": "live",
     "last_probed_at": "2026-07-03T00:00:00.000Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
-  },
-  {
-    "ats": "hirebridge",
-    "slug": "Applause",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   }
 ]

@@ -11728,13 +11728,6 @@
   },
   {
     "ats": "ashby",
-    "slug": "kos.ai",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "ashby",
     "slug": "kota",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -12908,13 +12901,6 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
-  },
-  {
-    "ats": "ashby",
-    "slug": "makermaker.ai",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -16252,13 +16238,6 @@
   },
   {
     "ats": "ashby",
-    "slug": "patch.io",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "ashby",
     "slug": "pathmentalhealth",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -16565,13 +16544,6 @@
     "slug": "persona",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
-  },
-  {
-    "ats": "ashby",
-    "slug": "persona.ai",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -18939,13 +18911,6 @@
   {
     "ats": "ashby",
     "slug": "rivet",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "ashby",
-    "slug": "rivianvw.tech",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
@@ -22865,13 +22830,6 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
-  },
-  {
-    "ats": "ashby",
-    "slug": "tldr.tech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",

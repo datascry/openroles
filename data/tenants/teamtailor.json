@@ -1763,13 +1763,6 @@
   },
   {
     "ats": "teamtailor",
-    "slug": "allenagency.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "teamtailor",
     "slug": "allenmotorgroup",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:27.391Z"
@@ -12627,13 +12620,6 @@
   },
   {
     "ats": "teamtailor",
-    "slug": "elevatedentalpartners.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "teamtailor",
     "slug": "elevatepeople",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:27.391Z"
@@ -15172,13 +15158,6 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:27.391Z",
     "first_seen_at": "2026-06-08T07:15:27.547Z"
-  },
-  {
-    "ats": "teamtailor",
-    "slug": "fonrochelightingamerica.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "teamtailor",
@@ -20916,13 +20895,6 @@
   },
   {
     "ats": "teamtailor",
-    "slug": "ipostal.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
-  },
-  {
-    "ats": "teamtailor",
     "slug": "iprally",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:27.391Z"
@@ -25794,13 +25766,6 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:27.391Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
-  },
-  {
-    "ats": "teamtailor",
-    "slug": "maxwoodfurniture.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "teamtailor",
@@ -32352,13 +32317,6 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:27.391Z",
     "first_seen_at": "2026-05-01T14:35:14.592Z"
-  },
-  {
-    "ats": "teamtailor",
-    "slug": "primeteamagency.na",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
-    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "teamtailor",
