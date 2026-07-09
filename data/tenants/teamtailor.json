@@ -15647,8 +15647,8 @@
   {
     "ats": "teamtailor",
     "slug": "frey-1749635265",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.207Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -34894,8 +34894,8 @@
   {
     "ats": "teamtailor",
     "slug": "roxen",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.207Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -41224,8 +41224,8 @@
   {
     "ats": "teamtailor",
     "slug": "theindepedents-1746536688",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.207Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {

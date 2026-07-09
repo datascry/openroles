@@ -345,8 +345,8 @@
   {
     "ats": "isolvedhire",
     "slug": "advcr",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -646,8 +646,8 @@
   {
     "ats": "isolvedhire",
     "slug": "allstateexteriorsinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1192,8 +1192,8 @@
   {
     "ats": "isolvedhire",
     "slug": "attentionhome",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -1528,8 +1528,8 @@
   {
     "ats": "isolvedhire",
     "slug": "bcccinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2340,8 +2340,8 @@
   {
     "ats": "isolvedhire",
     "slug": "cacbentonco",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -2480,8 +2480,8 @@
   {
     "ats": "isolvedhire",
     "slug": "capecodortho",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3131,8 +3131,8 @@
   {
     "ats": "isolvedhire",
     "slug": "cirtronics",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3166,8 +3166,8 @@
   {
     "ats": "isolvedhire",
     "slug": "civilianhotel",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3656,8 +3656,8 @@
   {
     "ats": "isolvedhire",
     "slug": "cpindustries",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -3929,8 +3929,8 @@
   {
     "ats": "isolvedhire",
     "slug": "customcontrolmfr",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -5344,8 +5344,8 @@
   {
     "ats": "isolvedhire",
     "slug": "finanta",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -6668,8 +6668,8 @@
   {
     "ats": "isolvedhire",
     "slug": "healthysmiles",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7557,8 +7557,8 @@
   {
     "ats": "isolvedhire",
     "slug": "jarscannabis",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7592,8 +7592,8 @@
   {
     "ats": "isolvedhire",
     "slug": "jclewishealth",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -7837,8 +7837,8 @@
   {
     "ats": "isolvedhire",
     "slug": "karshhaganmadden",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8278,8 +8278,8 @@
   {
     "ats": "isolvedhire",
     "slug": "lcgi",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8614,8 +8614,8 @@
   {
     "ats": "isolvedhire",
     "slug": "lyon",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -8628,8 +8628,8 @@
   {
     "ats": "isolvedhire",
     "slug": "macallangroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9314,8 +9314,8 @@
   {
     "ats": "isolvedhire",
     "slug": "montezumacounty",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -9888,8 +9888,8 @@
   {
     "ats": "isolvedhire",
     "slug": "nirvanacenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -10469,8 +10469,8 @@
   {
     "ats": "isolvedhire",
     "slug": "ourismanmazda",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11155,8 +11155,8 @@
   {
     "ats": "isolvedhire",
     "slug": "pinnaclecleaning",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11400,8 +11400,8 @@
   {
     "ats": "isolvedhire",
     "slug": "pmgsm",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11498,8 +11498,8 @@
   {
     "ats": "isolvedhire",
     "slug": "powertempsystems",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -11834,8 +11834,8 @@
   {
     "ats": "isolvedhire",
     "slug": "racsb",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12282,8 +12282,8 @@
   {
     "ats": "isolvedhire",
     "slug": "riversideepicenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12394,15 +12394,15 @@
   {
     "ats": "isolvedhire",
     "slug": "rootsiteourismanauto",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "isolvedhire",
     "slug": "rosegardennj",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -12913,8 +12913,8 @@
   {
     "ats": "isolvedhire",
     "slug": "sedulous",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -13340,8 +13340,8 @@
   {
     "ats": "isolvedhire",
     "slug": "slcann",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14201,8 +14201,8 @@
   {
     "ats": "isolvedhire",
     "slug": "tattoopartnersoperations",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14313,8 +14313,8 @@
   {
     "ats": "isolvedhire",
     "slug": "terrapincarestation",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -14873,8 +14873,8 @@
   {
     "ats": "isolvedhire",
     "slug": "ttinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15174,8 +15174,8 @@
   {
     "ats": "isolvedhire",
     "slug": "valleyfair",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15377,8 +15377,8 @@
   {
     "ats": "isolvedhire",
     "slug": "viomedsparochester",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15440,8 +15440,8 @@
   {
     "ats": "isolvedhire",
     "slug": "vmgmech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15790,8 +15790,8 @@
   {
     "ats": "isolvedhire",
     "slug": "wildwestsystems",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -15909,8 +15909,8 @@
   {
     "ats": "isolvedhire",
     "slug": "woodsong",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16161,8 +16161,8 @@
   {
     "ats": "isolvedhire",
     "slug": "zaxbysomnipotent",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
@@ -16182,8 +16182,8 @@
   {
     "ats": "isolvedhire",
     "slug": "zermount",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-09T02:36:15.070Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
