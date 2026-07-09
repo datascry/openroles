@@ -2,211 +2,211 @@
   {
     "ats": "jobscore",
     "slug": "1904labs",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "adroll",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "atlanticbt",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "attendware",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "beachmint",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "blueleaf",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "brooklynbrewshop",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "bspot",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "buzzfeed",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "cadinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "calhouninternationalllc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "cavalrysecurityinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "cdi",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "champrosports",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "chartboost",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "cloudflare",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "controlconceptsinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "cytracom",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "damilic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "dramafever",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "edgespring",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "enterahc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "exvocom",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "facefoundri",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "finalsite",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "fotomoto",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "foursquare",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "freemotion",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "fulfillmentcorporationofamerica",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "gadflyzone",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
@@ -219,113 +219,113 @@
   {
     "ats": "jobscore",
     "slug": "guidebook",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "harmelinmedia",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "iac",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "imvu",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "ldproducts",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "linkjobs",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "linkwellhealthinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "logik",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "longfordmanagement",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "loutech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "loveinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "mediaplatform",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "meridianpropertycompany",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "oaklandshelter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "olapic",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "omnigon",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
@@ -338,78 +338,78 @@
   {
     "ats": "jobscore",
     "slug": "pacificurbaninvestors",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "paloaltoresearchcenter",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "pcowinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "petrelocation",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "pkf",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "rainbowusa",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "sharethisinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "sicksports",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "slatemagazine",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "slide",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "sociallybuzz",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
@@ -422,50 +422,50 @@
   {
     "ats": "jobscore",
     "slug": "stashhotelrewards",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "stellarlabsinc",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "taskrabbit",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "thetriumgroup",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "tulatech",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "twilio",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   },
   {
     "ats": "jobscore",
     "slug": "wildfireapp",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "dead",
+    "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
   }
 ]

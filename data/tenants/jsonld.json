@@ -25,8 +25,8 @@
     "ats": "jsonld",
     "slug": "wizehire",
     "display_name": "WizeHire",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:25.931Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z",
     "metadata": {
       "sitemap_url": "https://jobs.wizehire.com/sitemap.xml"
@@ -36,8 +36,8 @@
     "ats": "jsonld",
     "slug": "vivahr",
     "display_name": "VivaHR",
-    "status": "transient_failure",
-    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "status": "live",
+    "last_probed_at": "2026-07-08T22:28:25.931Z",
     "first_seen_at": "2026-07-08T00:00:00.000Z",
     "metadata": {
       "sitemap_url": "https://jobs.avahr.com/sitemap-jobs.xml"
