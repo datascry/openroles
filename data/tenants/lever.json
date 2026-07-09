@@ -577,6 +577,13 @@
   },
   {
     "ats": "lever",
+    "slug": "activetheory",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "actriv",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -6415,6 +6422,13 @@
   },
   {
     "ats": "lever",
+    "slug": "ceso",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "cfgi",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -8782,6 +8796,13 @@
     "slug": "cuttlesoft",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "cwsc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -11278,6 +11299,13 @@
     "slug": "episci",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "epoch-ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -14083,6 +14111,13 @@
   },
   {
     "ats": "lever",
+    "slug": "givinghhc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "givingli",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -15262,6 +15297,13 @@
     "slug": "harrisonst",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "hartizenhomes",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -17632,6 +17674,13 @@
     "slug": "issuu",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "istaridigital.ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -21319,6 +21368,13 @@
   },
   {
     "ats": "lever",
+    "slug": "mayer-llp",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "mayvenn",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:11.263Z"
@@ -22354,6 +22410,13 @@
     "slug": "momenti-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:11.263Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "momentshospice-2",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -30841,6 +30904,13 @@
   },
   {
     "ats": "lever",
+    "slug": "sgff.org",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "shadow",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -32245,6 +32315,13 @@
   },
   {
     "ats": "lever",
+    "slug": "sphere-laboratories",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "sphinxdefense",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -33088,6 +33165,13 @@
     "slug": "summitmgmt-corp",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "summitwashholdings",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -34402,6 +34486,13 @@
     "slug": "the-yes",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "thea.energy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -37591,6 +37682,13 @@
   },
   {
     "ats": "lever",
+    "slug": "vitana-pediatric",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "lever",
     "slug": "vitrolabsinc",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
@@ -37672,6 +37770,13 @@
     "slug": "vo2-group",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "vogo",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -38248,6 +38353,13 @@
     "slug": "welocalize",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "weloglobal",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",
@@ -39196,6 +39308,13 @@
     "slug": "zaimler",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.728Z"
+  },
+  {
+    "ats": "lever",
+    "slug": "zambezi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "lever",

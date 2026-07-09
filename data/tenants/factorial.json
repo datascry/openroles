@@ -45,6 +45,13 @@
   },
   {
     "ats": "factorial",
+    "slug": "adaptingsocial",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "factorial",
     "slug": "admin-crisalix",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:59:04.315Z"
@@ -831,6 +838,13 @@
     "slug": "ev-renting",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:04.315Z"
+  },
+  {
+    "ats": "factorial",
+    "slug": "excelia",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "factorial",
@@ -1688,6 +1702,13 @@
     "slug": "mailbiz",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:59:04.315Z"
+  },
+  {
+    "ats": "factorial",
+    "slug": "matrixrenewables",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "factorial",
@@ -2732,6 +2753,13 @@
     "slug": "xceed",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:04.315Z"
+  },
+  {
+    "ats": "factorial",
+    "slug": "xevio",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "factorial",

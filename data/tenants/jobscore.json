@@ -8,6 +8,13 @@
   },
   {
     "ats": "jobscore",
+    "slug": "activesurfaces",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
     "slug": "adroll",
     "status": "dead",
     "last_probed_at": "2026-07-08T22:28:21.072Z",
@@ -232,10 +239,24 @@
   },
   {
     "ats": "jobscore",
+    "slug": "hotworxfranchisingllc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
     "slug": "iac",
     "status": "live",
     "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
+  },
+  {
+    "ats": "jobscore",
+    "slug": "ierustechnologiesinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jobscore",
@@ -295,6 +316,13 @@
   },
   {
     "ats": "jobscore",
+    "slug": "massmutualgreaterphiladelphia",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
     "slug": "mediaplatform",
     "status": "dead",
     "last_probed_at": "2026-07-08T22:28:21.072Z",
@@ -327,6 +355,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
+  },
+  {
+    "ats": "jobscore",
+    "slug": "onehospitality",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jobscore",
@@ -372,10 +407,24 @@
   },
   {
     "ats": "jobscore",
+    "slug": "professionalplastics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobscore",
     "slug": "rainbowusa",
     "status": "dead",
     "last_probed_at": "2026-07-08T22:28:21.072Z",
     "first_seen_at": "2026-07-08T22:24:54.281Z"
+  },
+  {
+    "ats": "jobscore",
+    "slug": "saltai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jobscore",

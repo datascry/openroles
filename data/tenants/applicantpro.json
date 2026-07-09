@@ -3355,6 +3355,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "auntieannes",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "auroramedicalpark",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z",
@@ -12463,6 +12470,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "easterseals",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "eastersealshouston",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z"
@@ -16405,6 +16419,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "gotpi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "governorsclub",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z"
@@ -18545,6 +18566,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "hudsonsimport",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpro",
@@ -21780,6 +21808,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "lakeshorepaving",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "lakeviewproducts",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z"
@@ -24346,6 +24381,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "membranes",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpro",
@@ -27862,6 +27904,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "nxtmgtcorporate",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "nycovenanthouse",
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z"
@@ -30030,6 +30079,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:59:57.085Z",
     "first_seen_at": "2026-05-01T14:35:14.733Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "pleasantviewcity",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpro",
@@ -33162,6 +33218,13 @@
     "slug": "sarahseneca",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:11.764Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "saratogaspringsut",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpro",
@@ -39750,6 +39813,13 @@
   },
   {
     "ats": "applicantpro",
+    "slug": "vaim",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpro",
     "slug": "valenciadraper",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:11.764Z"
@@ -40567,6 +40637,13 @@
     "slug": "wasatch",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:11.764Z"
+  },
+  {
+    "ats": "applicantpro",
+    "slug": "wasatchcounty",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpro",

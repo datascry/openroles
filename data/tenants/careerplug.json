@@ -15,10 +15,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "1-800-water-damage-washtenaw-county-taylor",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "1-stop-design-shop-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "100-chiropractic-mcdonough-ga",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -1338,6 +1352,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "9round-orlando",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "9round-orleans",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -1863,6 +1884,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "acca-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "accurate-construction",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -1874,6 +1902,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ace-wellness-center",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -2392,6 +2427,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "american-sign-studio",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -3004,6 +3046,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "arch-environmental-group-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "archadeck-akron",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3116,6 +3165,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "ashby-management-corporation-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "aspcareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3141,6 +3197,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "atqipartners-related-entities",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -3487,6 +3550,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "bars",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "bates-collision-centers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3627,6 +3697,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "best-in-class-education-farmington-hills",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "bestinclasseducationcareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3648,10 +3725,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "big-bad-breakfast-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "big-i-ky-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "big-i-mn-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -3753,6 +3844,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "blo-blow-dry-bar-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "blo-homewood",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "bloomfield-hills-sterling-heights",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3802,6 +3907,27 @@
   },
   {
     "ats": "careerplug",
+    "slug": "bluefrog-plumbing-drain-of-columbus-ga",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bluefrog-plumbing-drain-of-nw-houston-tx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "bluefrog-plumbing-drain-of-w-houston-tx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "blvd",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -3827,6 +3953,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "body20-salt-lake-city",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -4289,6 +4422,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "calvaryccm",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "calvert-commercial-services",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -5265,6 +5412,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "child-evangelism-fellowship-of-virginia-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "chipwilliamsgroup",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5276,6 +5430,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "chop-chop-rice",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -5370,6 +5531,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "cmtd-solutions-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "cnextbank",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "co-arvada",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5416,6 +5591,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "code-ninjas-altadena-pasadena-ca",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -5479,6 +5661,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "collier-development-restaurants-inc-dba-golden-corral",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -5552,6 +5741,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "compassionate-care-in-christ-home-h",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "comprehensive-health-clinics",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5608,10 +5804,38 @@
   },
   {
     "ats": "careerplug",
+    "slug": "cooper-tacia-general-contracting-company",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "core-services-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "corporate",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "corral-of-tricounty-inc-dba-golden-corral",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "correll-ins-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -5650,6 +5874,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "cowboysfit",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "cplugjobs",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5685,6 +5916,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "cresta-exploration-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "crossroads",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5713,6 +5951,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "crunch-fitness-fit-fusion-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "crunchfitness-fitnessholdings",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -5724,6 +5969,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "crux-manufacturing-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -6182,6 +6434,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "dane-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "danimer-scientific",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -6224,6 +6483,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "deka-lash-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "del-mar",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -6249,6 +6515,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "dematteos-restaurant-inc-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -6291,6 +6564,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "devlin-koa-yukimura-allstate-agency",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -6427,6 +6707,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "do-it-best-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "dolphin-swim-club",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -6438,6 +6725,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "double-star-maryland-heights-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -6823,6 +7117,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ellisvillewoodhousespas",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -9766,6 +10067,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "fcbb-sf-bay",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "fci-buxmont",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -9822,6 +10130,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "ferguson-faces-of-the-future-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "fggspacareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -9854,6 +10169,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "firehouse-first-watch",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -10165,6 +10487,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "five-or-free-electrical-solutions-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "fivestarpaintingcareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -10312,6 +10641,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "flecha-restaurant",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "floor-coverings-international-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -10330,6 +10666,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "florida-title-center-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -10372,6 +10715,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "four-roots",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -10550,6 +10900,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "fyzicalcareers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "g-c-services-servpro",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -10617,6 +10974,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "garber-corp",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -10851,6 +11215,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "gilsan-ventures-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gio-hanningbean-com",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "gjertsen-enterprises-corporation",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -10977,10 +11355,31 @@
   },
   {
     "ats": "careerplug",
+    "slug": "glenmonroe",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "global-language-system-llc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "glow-brands-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "gmi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -11002,6 +11401,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "golden-wolf-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -12258,6 +12664,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "guardian",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "gulfcoastalabama",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -12615,6 +13028,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "handandstonecostamesahuntingtonbeach",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "handandstonecranberry",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -12713,10 +13133,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "handandstonesanantonio",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "handandstonespringhilltrinityorlando",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "handandstoneturnersvillemayslanding",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13322,6 +13756,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "handymanshawnee",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "handymanspokane",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -13525,6 +13966,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "heating-air-paramedics-marietta",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "heights-wellness-retreat-dallas-coppell",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -13536,6 +13984,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "here-to-serve-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13592,6 +14047,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hk-salon-inc-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "hoehnplastics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13735,6 +14204,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "home2-tru-flagstaff",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "homegrown-jobs",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -13753,6 +14229,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "homewatch-caregivers-austin",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13816,6 +14299,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "honey-cosmetics-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13966,10 +14456,45 @@
   },
   {
     "ats": "careerplug",
+    "slug": "i9-sports-dade-county-fl",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "i9-sports-hatchard",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "i9-sports-jacobs",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "i9-sports-rockwall-wylie-forney-mesquite-tx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "i9-sports-seminole-county-wellington-lake-worth-fl",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "i9-sports-the-woodlands-katy-pearland-nw-san-antonio-tx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -13998,6 +14523,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "iian-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -14103,6 +14635,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "indycc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -14278,6 +14817,27 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "isight-technology-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "issa-fitness-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "issa-sales-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -14960,6 +15520,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "jt-legal-group-apc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "jump-bunch-co-springs",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -15076,6 +15643,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "katelyn-tenholder-allstate-agency",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -15275,6 +15849,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "kindergarten-round-up-childcare-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "kinetic-sports-club",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -15349,6 +15930,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "kitchentuneupnovimi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -15786,6 +16374,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "lcmgroupinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "leander-veterinary-clinic",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "learningrx-appleton",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -15909,6 +16511,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "lee-roofing-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -16049,6 +16658,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "live-2-b-healthy-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "live-2-b-healthy-of-northeast-dallas",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -16259,6 +16882,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "maryland-medical-day-services-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -17092,6 +17722,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "medicilon-usa-corp",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -18166,6 +18803,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "moranch",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "morgan-financial",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -18376,6 +19020,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "mr-electric-of-columbus",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "mr-electric-of-farmington",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -18471,6 +19122,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "mr-electric-of-tri-cities",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -18936,6 +19594,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "mr-rooter-of-eastern-wa",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "mr-rooter-of-macomb",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -19139,10 +19804,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "newviews-productions-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "nhe",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nickypeacemaker",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -19178,6 +19857,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nj-pediatric-neuroscience-institute",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -19356,6 +20042,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-245",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "nothing-bundt-cakes-248",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -19374,6 +20067,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-27",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -19475,6 +20175,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-charlotte-nc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "nothing-bundt-cakes-cincinnati",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -19521,6 +20228,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "nothing-bundt-cakes-marvin",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -19916,6 +20630,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "orangetheory-corporate-studios",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "orangetheory-fitness-10006",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -20049,10 +20770,73 @@
   },
   {
     "ats": "careerplug",
+    "slug": "orangetheory-fitness-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0049",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0169",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0204",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "orangetheory-franchise-0279",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0317",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0320",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0321",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0324",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "orangetheory-franchise-0407",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -20161,6 +20945,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "palm-beach-tan-johnson-clarke-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "panhandle-cleaning-restoration",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "parc-auto-group",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -20179,6 +20977,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "parrishmedicalcenter",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -20242,6 +21047,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "patton-trial-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -20494,6 +21306,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-03T22:21:34.300Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "perian-cg-round-table-pizza",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -21197,6 +22016,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "pigtails-crewcuts-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pigtails-crewcuts-fayetteville-rogers-ar",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "pikespeakprep",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21477,6 +22310,27 @@
   },
   {
     "ats": "careerplug",
+    "slug": "pjs-coffee-of-berlin-turnpike",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pjs-coffee-of-crowley-la",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pjs-coffee-of-davenport",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "pjs-coffee-of-lafayette-broussard-areas",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21484,10 +22338,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "pjs-coffee-of-lutcher",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "pjs-coffee-of-missouri-city",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pjs-coffee-of-nashville",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -21624,6 +22492,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "plant-based-heat-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "plant-therapy",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21642,6 +22517,27 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "plumbing-paramedics-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "plumbing-paramedics-of-madison",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pmi-indianapolis",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -21820,6 +22716,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "primrose-school-bloomfield",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "primrose-school-bulverde-road",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21855,10 +22758,24 @@
   },
   {
     "ats": "careerplug",
+    "slug": "primrose-school-cupertino",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "primrose-school-east-allen",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "primrose-school-ellicott-city",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -21925,6 +22842,34 @@
   },
   {
     "ats": "careerplug",
+    "slug": "primrose-school-north-olathe",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "primrose-school-peachtree-city",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "primrose-school-prairie-village",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "primrose-school-summerwood",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "primrosecareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21939,6 +22884,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "pritchard-global-alliance-limited-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "pro-fitness",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -21950,6 +22902,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "pro-motion-pix-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -22027,6 +22986,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "purcell-mulcahy-flanagan-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -22527,6 +23493,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "raz-logic-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "rbcb-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -22664,6 +23637,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "renewable-energy-corporation",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -22891,6 +23871,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "retro-fitness-of-kenvil",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "retro-fitness-of-neptune-city-neptune-city",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -22965,6 +23952,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rgv-tire-pros",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -23070,6 +24064,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "rolling-suds-columbus-auburn",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -23185,6 +24186,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "rural-office-of-community-services",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "russellcellular",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -23196,6 +24204,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "ryanyoung",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -24928,10 +25943,31 @@
   },
   {
     "ats": "careerplug",
+    "slug": "sharkeys-broken-arrow",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "sharkeys-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sharkeys-katy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sharkeys-limerick",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -24960,6 +25996,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "shine-sanford",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -25432,6 +26475,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "snapfitnesshartford",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "snapfitnessks",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -25562,6 +26612,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "solar-energy-partners",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -25726,6 +26783,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "st-georgias-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "st-paul-east",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -25772,6 +26836,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "staybridge-suites-jackson-ridgeland",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -25880,6 +26951,20 @@
   },
   {
     "ats": "careerplug",
+    "slug": "strongin-burger-llp",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "suess-insurance-services",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "sugaringla-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -25957,6 +27042,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "summit-express-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "summit-resort",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -26031,6 +27123,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "sv",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -26461,6 +27560,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "the-grounds-guys-of-iowa-city",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "the-grounds-guys-of-lake-charles",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -26486,6 +27592,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-grounds-guys-of-temple",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -26710,6 +27823,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "the-learning-experience-509",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -27448,6 +28568,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "titan-brands-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "titleboxingcareers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -28057,6 +29184,27 @@
   },
   {
     "ats": "careerplug",
+    "slug": "uc-roswell",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "uc-university-park",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "uc-white-marsh",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "ufc-gym-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -28131,6 +29279,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "united-defense-tactical-careers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -28778,6 +29933,13 @@
   },
   {
     "ats": "careerplug",
+    "slug": "vogt-enterprises-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "careerplug",
     "slug": "vondohlen-enterprises-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
@@ -28831,6 +29993,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "waynegeneralhospital",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
@@ -29069,6 +30238,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:15.627Z",
     "first_seen_at": "2026-07-06T06:55:02.117Z"
+  },
+  {
+    "ats": "careerplug",
+    "slug": "wire-cloth-filter-mfg-co",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "careerplug",
