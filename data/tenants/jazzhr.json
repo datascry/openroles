@@ -1422,6 +1422,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "advyzon",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "adwerx",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -3193,6 +3200,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "anniesflooringcommercialservices",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "anokion",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -4397,6 +4411,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "athletesglobalcorporation",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "athlosacademies",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -4765,6 +4786,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "automotiveart",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -5335,6 +5363,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "bamslandscaping",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "bancrofttechnologygroupinc",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -5486,6 +5521,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "basinholdings",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -5717,6 +5759,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "beaconveterinaryspecialists",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -6102,6 +6151,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "beryllineinsurancegroup",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -8199,6 +8255,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "buildingservicesgroup",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "buildwittmediagroup",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -8826,6 +8889,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "canteyfoundationspecialists",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -9984,6 +10054,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "cginfinity",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "chadwellsupply",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -10450,6 +10527,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "christchurchoakbrook",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -11136,6 +11220,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "clearlyfiltered",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -12896,6 +12987,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "corvuspharmaceutical",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "cosan",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -13460,6 +13558,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "cryptocouncilforinnovation",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -14128,6 +14233,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "dataideology",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "datalex",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -14286,6 +14398,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "dbinsus",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -15269,6 +15388,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "dobbsdefensesolutions",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "dobigthings",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -15315,6 +15441,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "doingthings",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -16369,6 +16502,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "ecswmi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "ed3dao",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -16604,6 +16744,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "eggsunlimited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -17272,6 +17419,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "englewoodlab",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "engoodenhealth",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -17451,6 +17605,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T00:51:14.332Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "environmentcontrolofbeachwoodinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -18133,6 +18294,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "exceptionalhealthcareinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "exechq",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -18613,6 +18781,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "farrisjeep",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -19169,6 +19344,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "flagstaffacademy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "flanaganfoodservice",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -19635,6 +19817,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T00:51:14.332Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "founderinstituteincorporated",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -20468,6 +20657,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "gatelesis",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -21976,6 +22172,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "greenrack",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "greenrose",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -22099,6 +22302,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "gridstor",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -26450,6 +26660,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "ipinfo",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "ipohs",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -26468,6 +26685,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "ipsunsolar",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -26541,6 +26765,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "isaiah",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "isdrcareers",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -26559,6 +26790,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "isienterprises",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -26958,6 +27196,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "jcceastbay",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -27815,6 +28060,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "kapurinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "kapwing",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -27938,6 +28190,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "keenlogic",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -29222,6 +29481,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "lbarealty",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "lbmcpc",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -29593,6 +29859,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "lesker",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "letsgetready",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -29702,6 +29975,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "lifefamilychurch",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -30622,6 +30902,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "loureiroengineeringassociatesinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "love146inc",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -30731,6 +31018,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "lroserecruiting",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -32107,6 +32401,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "mavenmachines",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "maventri",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -32244,6 +32545,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "mccabeweisbergconwayllc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -32804,6 +33112,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "merrimackmanufacturing",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -33486,6 +33801,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "mlmhi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "mmihospitality",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -33927,6 +34249,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "morganakinsjackson",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "morganautismcenter",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -34169,6 +34498,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "mscmanagementservicesllc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -36741,6 +37077,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "oceanpm",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "oclgroupinc",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -36787,6 +37130,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "odmhsas",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -36913,6 +37263,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "oja",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -37599,6 +37956,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "originmine",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -38351,6 +38715,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "parkerplasticsinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "parkhillvet",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -38775,6 +39146,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "paymitto",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -39758,6 +40136,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "pitchhealthsolutions",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "pitchup",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -40218,6 +40603,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "porterlogistics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -40778,6 +41170,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T00:51:14.332Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "prismbiotech",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -41453,6 +41852,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "purepropertygroup",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "purity",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -41978,10 +42384,24 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "ragleinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "railroadmarketing",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "rainbowacresnaturalfoods",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -42171,6 +42591,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T00:51:14.332Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "rantecpowersystemsinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -43007,6 +43434,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "resolutionthinked",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "resolvevisionary",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -43546,6 +43980,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "rippleeffectstrategies",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "riscpoint",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -43763,6 +44204,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "roadranger",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "roadrunnerjobs",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -43872,6 +44320,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "roctitlellc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -45807,6 +46262,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "setofx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "setoncatholicschools",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -46343,6 +46805,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "signatureheatingcoolingandplumbing",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -47732,6 +48201,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "spectraaerospacedefense",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "spectrahire",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -47834,6 +48310,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "spieldennerfinancialgroup",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -49000,6 +49483,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "stretchlabrye",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "strike",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -49319,6 +49809,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "sunnyhealthfitness",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -49767,6 +50264,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "sympositllc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -51255,6 +51759,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "thegoodfeetstoremidwest",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "thegrandlakeveterinaryhospital",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
@@ -51798,6 +52309,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "theviolandagencyofocala",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -53618,6 +54136,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "twineagleterminalsholdingsllc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -55617,6 +56142,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "voteriders",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "votingrightslab",
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -56380,6 +56912,13 @@
   },
   {
     "ats": "jazzhr",
+    "slug": "westshore",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jazzhr",
     "slug": "wetdesign",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
@@ -56783,6 +57322,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:24.715Z",
     "first_seen_at": "2026-06-09T01:28:53.352Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "wisepathgroup",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",
@@ -57875,6 +58421,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T17:18:12.020Z",
     "first_seen_at": "2026-06-15T08:39:46.536Z"
+  },
+  {
+    "ats": "jazzhr",
+    "slug": "zonar",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jazzhr",

@@ -484,6 +484,13 @@
   },
   {
     "ats": "applicantpool",
+    "slug": "eocfwacareers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpool",
     "slug": "eostransitions",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
@@ -604,6 +611,13 @@
   },
   {
     "ats": "applicantpool",
+    "slug": "ginoskodevelopment",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpool",
     "slug": "gli",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
@@ -692,6 +706,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
     "first_seen_at": "2026-07-06T20:36:10.396Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "grandspecialty",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpool",
@@ -790,6 +811,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
     "first_seen_at": "2026-07-06T20:36:10.396Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "hiltongardenlou",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpool",
@@ -1346,6 +1374,13 @@
   },
   {
     "ats": "applicantpool",
+    "slug": "richsmith",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantpool",
     "slug": "richstree",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
@@ -1449,6 +1484,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
     "first_seen_at": "2026-07-06T20:36:10.396Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "siertek",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpool",
@@ -1575,6 +1617,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:42.814Z",
     "first_seen_at": "2026-07-06T20:36:10.396Z"
+  },
+  {
+    "ats": "applicantpool",
+    "slug": "teamelmers",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantpool",

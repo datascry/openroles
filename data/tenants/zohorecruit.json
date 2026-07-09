@@ -2002,6 +2002,13 @@
   },
   {
     "ats": "zohorecruit",
+    "slug": "brox",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "zohorecruit",
     "slug": "bruntwork",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z"
@@ -3128,6 +3135,13 @@
   },
   {
     "ats": "zohorecruit",
+    "slug": "coorb",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "zohorecruit",
     "slug": "copa90",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
@@ -3254,6 +3268,13 @@
     "slug": "craftkettle",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "cravingcode",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",
@@ -3503,6 +3524,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
     "first_seen_at": "2026-05-01T14:35:14.593Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "data2",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",
@@ -5835,6 +5863,13 @@
     "slug": "hanchey",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "hanini",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",
@@ -8437,6 +8472,13 @@
   },
   {
     "ats": "zohorecruit",
+    "slug": "mgisinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "zohorecruit",
     "slug": "mgroup",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
@@ -8950,6 +8992,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
     "first_seen_at": "2026-05-01T14:35:14.593Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "nextonicsolutions",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",
@@ -10284,6 +10333,13 @@
   },
   {
     "ats": "zohorecruit",
+    "slug": "pubninja",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "zohorecruit",
     "slug": "pulselive",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z"
@@ -10462,6 +10518,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
     "first_seen_at": "2026-05-01T14:35:14.593Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "radcube",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",
@@ -11465,6 +11528,13 @@
   },
   {
     "ats": "zohorecruit",
+    "slug": "securin",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "zohorecruit",
     "slug": "securitylicenseflorida",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
@@ -11824,6 +11894,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.382Z",
     "first_seen_at": "2026-05-01T14:35:14.593Z"
+  },
+  {
+    "ats": "zohorecruit",
+    "slug": "smartswitchconsulting",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "zohorecruit",

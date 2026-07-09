@@ -11884,6 +11884,13 @@
   },
   {
     "ats": "recruitee",
+    "slug": "eworgmbh",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "recruitee",
     "slug": "ewsgmbh",
     "status": "transient_failure",
     "last_probed_at": "2026-07-06T09:57:40.698Z",
@@ -16933,6 +16940,13 @@
     "slug": "hydriveengineeringgmbh",
     "status": "live",
     "last_probed_at": "2026-07-06T09:57:40.698Z"
+  },
+  {
+    "ats": "recruitee",
+    "slug": "hydrosat",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "recruitee",

@@ -144,6 +144,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "a16z-new-media",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "aacigroup",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -333,6 +340,13 @@
     "slug": "adaptive",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "adaptive-innovations",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -706,6 +720,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "allen-control-systems",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -1848,6 +1869,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "atomos",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "atrato",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -1924,6 +1952,13 @@
     "slug": "august-health",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "augustus",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -2049,6 +2084,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "aviator",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -2210,6 +2252,13 @@
     "slug": "backpack",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "badrobotgames",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -2754,6 +2803,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "blackstar",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "bland",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -3259,6 +3315,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "build",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "builder-prime",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -3466,6 +3529,13 @@
     "slug": "canvas-medical",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "capable",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -4241,6 +4311,13 @@
     "slug": "clearvector",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "clera",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -5717,6 +5794,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "deeter-analytics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "default",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -6700,6 +6784,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "emergence",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "emergence-capital-partners",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -6743,6 +6834,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "encord",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "endeavor",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -6783,6 +6881,13 @@
     "slug": "engflow",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "engram",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -6895,6 +7000,13 @@
     "slug": "equal1",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "equall",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -7088,6 +7200,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "evvy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "exa",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -7248,6 +7367,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "familiarmachines",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -8130,6 +8256,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "frec",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "freckle",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -8509,6 +8642,13 @@
     "slug": "generalintelligencecompany",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "generalintuition",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -8977,6 +9117,13 @@
     "slug": "gradientnetwork",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "grai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -9733,6 +9880,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "hightop-health",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "hiive",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -9786,6 +9940,13 @@
     "slug": "hipeople-official",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "hipp",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -10759,6 +10920,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "ivo-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "iyo",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -11547,15 +11715,36 @@
   },
   {
     "ats": "ashby",
+    "slug": "kontakt",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "konvu",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
   },
   {
     "ats": "ashby",
+    "slug": "kos.ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "kota",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "kovari",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -11968,6 +12157,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "lens",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "leona",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -12171,6 +12367,13 @@
     "slug": "linear",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "linero",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -12708,6 +12911,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "makermaker.ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "maki",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -12755,6 +12965,13 @@
     "slug": "manifest-law",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "manifest-os",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -13226,6 +13443,13 @@
     "slug": "mercura",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "merge",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -14202,6 +14426,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-06-29T07:14:24.106Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "nebulock",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -15590,6 +15821,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "outmarket",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "outpostnow",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -16014,6 +16252,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "patch.io",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "pathmentalhealth",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -16320,6 +16565,13 @@
     "slug": "persona",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "persona.ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -16827,6 +17079,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "poetic",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "poetiq",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -17105,10 +17364,24 @@
   },
   {
     "ats": "ashby",
+    "slug": "precharm",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "prediko",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "preemptive",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -18665,6 +18938,20 @@
   },
   {
     "ats": "ashby",
+    "slug": "rivet",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "rivianvw.tech",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "riza",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -18964,6 +19251,13 @@
     "slug": "s2",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "sabi",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -19777,6 +20071,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-06-08T07:15:41.702Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "sheerhealth",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -20885,6 +21186,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "starfish-space-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "stargate-foundation",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -21077,6 +21385,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-06-29T07:14:24.106Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "stillbright",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -21454,6 +21769,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "swaprail",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "swarmaero",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -21655,6 +21977,13 @@
     "slug": "tabz",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "tacit",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -22296,6 +22625,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "thesirius",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "thesis",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -22529,6 +22865,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
     "first_seen_at": "2026-05-01T14:32:30.881Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "tldr.tech",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -22806,6 +23149,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "treeswift",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "tremendous",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -22861,6 +23211,13 @@
     "slug": "trilitech",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "triomics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -22924,6 +23281,13 @@
     "slug": "truemed",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "trueshort",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -22998,6 +23362,13 @@
     "slug": "tuesday-lab",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "turbopuffer",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -23537,6 +23908,13 @@
     "slug": "vasco",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "vastai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",
@@ -24241,6 +24619,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "webfx",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "weekend",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z",
@@ -24297,6 +24682,13 @@
   },
   {
     "ats": "ashby",
+    "slug": "wescale",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "ashby",
     "slug": "wetransfer",
     "status": "dead",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
@@ -24348,6 +24740,13 @@
     "slug": "whitecircle",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:21.697Z"
+  },
+  {
+    "ats": "ashby",
+    "slug": "whoop",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "ashby",

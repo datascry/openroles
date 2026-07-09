@@ -7203,6 +7203,13 @@
   },
   {
     "ats": "applicantstack",
+    "slug": "lockerroomhc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantstack",
     "slug": "londonbridgeresort",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:22.115Z"
@@ -10545,6 +10552,13 @@
   },
   {
     "ats": "applicantstack",
+    "slug": "securusap",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applicantstack",
     "slug": "seedmiami",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:22.115Z",
@@ -10649,6 +10663,13 @@
     "slug": "seventhsenseconsulting",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:22.115Z"
+  },
+  {
+    "ats": "applicantstack",
+    "slug": "sgcaptrading",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applicantstack",

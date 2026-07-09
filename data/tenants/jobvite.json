@@ -1787,6 +1787,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "baystateveterinaryemergencyandspecialtyservices",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "baytreecharleston",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z"
@@ -6575,6 +6582,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "hackbarthdelivery",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "hamburgveterinaryclinic",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z",
@@ -6991,6 +7005,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z",
     "first_seen_at": "2026-05-01T14:35:14.553Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "hoodindustries",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jobvite",
@@ -10552,6 +10573,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "newdayveterinarycare",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "newforestcare",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z",
@@ -13086,6 +13114,13 @@
   },
   {
     "ats": "jobvite",
+    "slug": "rivasolutions",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "jobvite",
     "slug": "riversideinsights",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z"
@@ -13295,6 +13330,13 @@
     "slug": "safecu",
     "status": "live",
     "last_probed_at": "2026-07-06T09:55:23.338Z"
+  },
+  {
+    "ats": "jobvite",
+    "slug": "safehaven",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "jobvite",

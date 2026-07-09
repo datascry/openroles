@@ -1478,6 +1478,13 @@
   },
   {
     "ats": "applitrack",
+    "slug": "beebe",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "ats": "applitrack",
     "slug": "beevilleisd",
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:23.387Z",
@@ -2700,6 +2707,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:23.387Z",
     "first_seen_at": "2026-07-03T22:22:19.827Z"
+  },
+  {
+    "ats": "applitrack",
+    "slug": "caddomillsisd",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applitrack",
@@ -17514,6 +17528,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T17:18:23.387Z",
     "first_seen_at": "2026-07-03T22:22:19.827Z"
+  },
+  {
+    "ats": "applitrack",
+    "slug": "pender",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-07-08T00:00:00.000Z"
   },
   {
     "ats": "applitrack",
