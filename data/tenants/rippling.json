@@ -253,6 +253,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "ad-hoc-group",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "adden-energy",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -292,6 +299,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "advocate-accounting",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -491,6 +505,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "alaan-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "albers-aersopace",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -544,6 +565,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "allegiance-flag",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "alleyoop",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -603,6 +638,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "aloha",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "altom-transport-jobs",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -642,6 +684,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "american-spoon-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -708,6 +757,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "amplo",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "ams",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -729,10 +785,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "analyticsmart",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "anchorhome",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "ancor",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -827,6 +897,27 @@
   },
   {
     "ats": "rippling",
+    "slug": "apfcareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "apmc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "appliedeco-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "appriss-retail",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -880,6 +971,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "arcade-job-board",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1009,6 +1107,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "arva-intelligence-career-page",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "asc-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1079,6 +1184,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "aspire-general-insurance-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "assurancelab-open-roles",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1118,6 +1230,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "athlon-studio",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1205,6 +1324,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "axio",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "axiomatic-ai-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "axisair-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1244,6 +1377,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "balentine",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1352,6 +1492,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "bcbm",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "beam-benefits",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1380,6 +1527,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "behavior-genius",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "bellhop",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1391,6 +1545,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "benevolent-family-services",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "berkshire-receptionists",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1457,6 +1625,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "bh-links",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "bhscareers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "bid-employment-opportunities",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1489,6 +1671,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "black6",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1534,6 +1723,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "blueearth-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "bluefin-payment-systems",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1552,6 +1748,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "bluetree",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1580,6 +1783,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "bold-hat-productions",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1751,6 +1961,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "brokkr-labs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "bronco-ai",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1762,6 +1979,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "brook-health",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1863,6 +2087,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "cable-hill-partners",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "cabrini-care",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1870,10 +2101,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "cache-dna",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "caddy",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "cadencia",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1888,6 +2133,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "caliza",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -1933,6 +2185,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "cape-analytics",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "capital-b",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -1944,6 +2203,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "captiv8-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2073,6 +2339,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "careers-redeux-energy",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "careers-tendit-group",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2091,6 +2364,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "careersmedeloop",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2122,6 +2402,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "castle",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "cat5-resources-llc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2133,6 +2420,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "catch-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2168,6 +2462,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "ccfcu-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2224,6 +2525,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "center-for-new-beginnings-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "centil-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2297,10 +2612,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "charterup",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "chartis-interactive",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "chatbooks",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2360,6 +2689,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "chroma-ate-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "chrome-hearts-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2416,6 +2752,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "clarimed-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "clarity-clinic",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2469,6 +2812,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "clearview-health-open-positions",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2759,6 +3109,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "conduce-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "conductor",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2812,6 +3169,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "contraline-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -2899,6 +3263,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "cos-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "coterie-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -2941,10 +3312,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "cp-hire",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "cpp-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "cprs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3186,6 +3571,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "darkroom-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "darwin-homes",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -3253,6 +3645,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "demand-chain",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3354,6 +3753,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "dinguscareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "dirac",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "dirty-hands",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -3361,10 +3774,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "disability-law-group-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "disabilityrightswi",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "disco",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3386,6 +3813,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "district-works-jobs-page",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "diverse-computing",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3431,6 +3872,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "docuvault-genvault",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "domaine-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -3456,6 +3904,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "dripos",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3543,10 +3998,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "dyna-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "dynagenlending",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "dynamic-slr",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3561,6 +4030,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "early-careers-job-board",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3620,6 +4096,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "econorthwest",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "ecotrak-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "ecotrust",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -3631,6 +4121,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "edgedelta",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3701,6 +4198,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "elevate-consulting",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -3872,6 +4376,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "epicio",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "epiphany-school",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4019,6 +4530,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "evercharge-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "everfi",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4030,6 +4548,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "evergreen-park-recreation-district",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4065,6 +4590,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "evommune",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "evosus-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4131,6 +4670,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "ez-texting",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "fabric",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4187,6 +4733,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "faros-ai-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "fastsigns",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4208,6 +4761,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "felix",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "fellers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4219,6 +4779,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "felux",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4259,7 +4826,7 @@
     "ats": "rippling",
     "slug": "fifth-season-careers",
     "status": "live",
-    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
   },
   {
@@ -4268,6 +4835,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "fine-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4341,6 +4915,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "flex-dental",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "flexai",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4352,6 +4933,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "flipsystem-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4516,10 +5104,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "free-market-health",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "freedom-house",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "freeworld",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4544,6 +5146,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "fsm-apply",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "fuelingbrainscareers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4555,6 +5164,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "fum",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4572,10 +5188,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "fusionsleep",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "futuri-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "gaia",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4614,6 +5244,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "galley-solutions",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "galtrasolutions",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4649,10 +5286,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "garden-state-labs-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "gearhead-outfitters-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "gelberg-signs-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4705,6 +5356,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "gevo-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "gfg-career-page",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4751,6 +5409,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "global-press-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -4817,6 +5482,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "goodkind",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "gordian-biotechnology",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -4842,6 +5514,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "govly",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5083,6 +5762,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "harvey",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "havenlybrands",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5115,6 +5801,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "healthcaresolutions-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5157,6 +5850,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "heitekautomation",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5230,6 +5930,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "hiive",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "hlthxcareers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5251,6 +5958,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "holocene",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "home-carpet-one",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5262,6 +5976,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "homewav-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5293,6 +6014,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "httpsjbprocomcompanycareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "htx-labs-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5304,6 +6032,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "hunterstrategy",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5356,6 +6091,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "iclacademy",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "icon-property-management",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5374,6 +6116,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "icp-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5433,6 +6182,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "imstrat",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "in-time-tec",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5472,6 +6228,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "infactory",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5524,6 +6287,27 @@
   },
   {
     "ats": "rippling",
+    "slug": "inkit-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "inlyte",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "innovatecareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "inquired-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5549,6 +6333,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "integral",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5601,6 +6392,27 @@
   },
   {
     "ats": "rippling",
+    "slug": "intercarve",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "internal-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "international-center-for-research-on-women",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "interplaylearning",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5619,6 +6431,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "intrinsic-llc",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5703,6 +6522,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "issa",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -5867,6 +6693,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "jobs-memorang",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "jobsitecare-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -5885,6 +6718,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "join-the-auctus-team",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6000,6 +6840,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "kaporfoundation",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "kaptyn-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6112,6 +6959,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "klientboost-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "kline-company-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6182,6 +7036,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "krakenbaltimore",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "krakenbryantst",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6207,6 +7068,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "kuvare-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6336,10 +7204,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "leapenergy",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "leapfrog-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "learnla-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6473,6 +7355,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "linqcare-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6651,6 +7540,27 @@
   },
   {
     "ats": "rippling",
+    "slug": "lucid-bots-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "luma-financial-technologies",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "luminai-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "luminarycloud",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6665,10 +7575,31 @@
   },
   {
     "ats": "rippling",
+    "slug": "luther-seminary-job-board",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "luupli",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "luxgive",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "luxuriavacations",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6728,6 +7659,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "mainstay",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "makers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6739,6 +7677,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "makro-agency",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6791,6 +7736,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "maps",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "marcus-thomas-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6809,6 +7761,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "martin-aquatic",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -6882,6 +7841,48 @@
   },
   {
     "ats": "rippling",
+    "slug": "mdb-branding-and-marketing",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-consumer-support",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-finance",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-general-application",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-internship",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-it-pitt",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "mdb-logistics",
     "status": "dead",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -6921,6 +7922,13 @@
     "status": "dead",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mdb-talent-management",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7085,6 +8093,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "mila-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "mile-marker",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7124,6 +8139,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "mindplay",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7215,6 +8237,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "montaratx",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7442,6 +8471,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "nest-collaborative",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "nest-collaborative-nursing",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7554,6 +8590,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "nivo-solar",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "nl-nl",
     "status": "dead",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7631,6 +8674,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "northwest-extremity-specialists",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "noteworthy-ai-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7698,6 +8748,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "nucleus-biologics-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7799,6 +8856,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "ogp",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "oguz-law",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7820,6 +8884,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "oncologycarepartners-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "one8t-wellness-basecamp",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7831,6 +8902,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "oneorigin",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7859,6 +8937,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "onfleet-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7911,6 +8996,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "open-positions-at-gateway",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "open-roles",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -7922,6 +9014,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "openpositions",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -7957,6 +9056,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "orbee-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8034,6 +9140,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "outgo",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8121,6 +9234,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "pace-equity",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "pacific-exteriors-llc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8132,6 +9252,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "packback-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8212,6 +9339,27 @@
   },
   {
     "ats": "rippling",
+    "slug": "parkside-bookshop",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "parsyl",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "partee-shack",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "partnerco",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8223,6 +9371,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "patchrxcareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8387,6 +9542,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "perfect-venue",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "performance-systems-development-of-ny-llc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8450,6 +9612,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "phillips-farms-employment",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "phoenix-lender-services",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8485,6 +9654,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "planettogether-jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "planhub-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8503,6 +9679,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "plcjobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8667,6 +9850,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "pricing-io",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "primary-diagnostics-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8681,6 +9871,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "prince-of-travel",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "princeton10jobs",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "priorities",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8688,10 +9892,38 @@
   },
   {
     "ats": "rippling",
+    "slug": "prisma-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "pro-sport-job-board",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "pro-vizion",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "processunity",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "procogia",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8730,6 +9962,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "prokeep",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "pronto",
     "status": "dead",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8765,6 +10004,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "proto-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "protopie-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -8790,6 +10036,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "psg-opportunities",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8825,6 +10078,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "purespectrum",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -8933,6 +10193,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "raise-cre",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "rallyware-careers",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9010,6 +10277,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "realmhealth",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "realwork",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9028,6 +10302,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "redbaycoffeecareers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9157,6 +10438,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "relentless",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "relo-metrics-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "rely-health",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9196,6 +10491,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "resibrands-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9252,6 +10554,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "retention-express",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9350,6 +10659,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "ribbon",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9493,6 +10809,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "roligo-dental",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "rollkall-technologies-llc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9516,8 +10839,15 @@
     "ats": "rippling",
     "slug": "routeware-careers",
     "status": "live",
-    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "roxbox-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9553,6 +10883,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "rubix-agency",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9689,6 +11026,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "sapeon-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "sapient-bioanalytics",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9714,6 +11058,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "savinginnocence",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9801,10 +11152,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "scs-job-board",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "sdl",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "seadc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9819,6 +11184,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "searchspring-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -9913,6 +11285,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "seo-werkz-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "servicesanitation",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -9966,6 +11345,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "shepherd",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10053,6 +11439,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "silvaco-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "silver-lining-mentoring",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10099,6 +11492,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "sipcam-agro-solutions-llc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10165,6 +11565,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "sleuth",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "slick-rock-tanning-spa",
     "status": "dead",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10190,6 +11597,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "smartwyre",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10368,6 +11782,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "sparkcharge",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "sparq",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10410,6 +11831,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "sperra",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "sperry-rail-inc",
     "status": "live",
     "last_probed_at": "2026-07-09T01:30:24.838Z",
@@ -10421,6 +11849,27 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "spineone-asc",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "spineone-clinic",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "spiraledge",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10442,6 +11891,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "sprig-oral-health-technologies-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "spring",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10473,6 +11936,20 @@
   },
   {
     "ats": "rippling",
+    "slug": "sqr-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "srg-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "stambaughness",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10491,6 +11968,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "starry",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10522,6 +12006,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "stem-school-highlands-ranch",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "steno-careers-page",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10533,6 +12024,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "stewart-lubricants-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10571,6 +12069,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "stringo-media-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "strivr",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10589,6 +12094,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "studentu",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10655,6 +12167,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "summer-discovery",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "summerset",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10704,6 +12223,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "supersocial-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "supper",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10729,6 +12255,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "surrealdb",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10781,6 +12314,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "switchboardsoftware",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "swoopishiring",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -10792,6 +12332,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "symposia",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -10839,7 +12386,7 @@
     "ats": "rippling",
     "slug": "talentneuroncareers",
     "status": "live",
-    "last_probed_at": "2026-07-03T00:00:00.000Z",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
   },
   {
@@ -11005,6 +12552,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "texicare",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "the-33rd-team",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11089,10 +12643,24 @@
   },
   {
     "ats": "rippling",
+    "slug": "the-kings-trust-usa",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "the-lactation-network",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "the-manchester-hotel-granddam-and-lost-palm",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -11152,6 +12720,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "the-uep-group-job-board",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "the-wonder-project",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11173,6 +12748,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "theimagineteam",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "theinformation-jobs",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11191,6 +12773,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "thoroughcare-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -11226,6 +12815,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "tiki-labs-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -11376,6 +12972,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "totus-ats",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "touchstone-climbing",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11453,6 +13056,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "trellis",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "tri-merit-job-openings",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11495,6 +13105,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "true-key-hotels-resorts-ltd",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "truecomp",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11516,6 +13133,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "trustlab-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "trustlayer-inc",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11527,6 +13151,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "turn-company-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -11698,6 +13329,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "urban-redevelopment-authority-of-pittsburgh",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "urban-sdk",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11789,6 +13427,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "valmarholdings",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "valmarmerchantservices",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11852,6 +13497,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "velocity-risk-careers",
+    "status": "dead",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "vendorpanel",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11863,6 +13515,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "ventriclehealth",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -11950,6 +13609,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "victorylive",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "vilya",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11978,6 +13644,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "vipholiday",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "virtual-front-office",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -11999,6 +13672,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "vizcom",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "vo-brothers-mechanical",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -12017,6 +13697,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "voltaiq-careers",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -12136,6 +13823,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "wdba",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -12311,6 +14005,13 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "wildfire-defense-systems-inc",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
@@ -12524,6 +14225,13 @@
   },
   {
     "ats": "rippling",
+    "slug": "ybca",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
     "slug": "yembo",
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
@@ -12619,6 +14327,20 @@
     "status": "live",
     "last_probed_at": "2026-07-06T21:12:36.927Z",
     "first_seen_at": "2026-07-06T20:36:17.892Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "zoneenterprises",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
+  },
+  {
+    "ats": "rippling",
+    "slug": "zoneservicesgroup",
+    "status": "live",
+    "last_probed_at": "2026-07-13T08:54:55.009Z",
+    "first_seen_at": "2026-07-13T05:54:25.833Z"
   },
   {
     "ats": "rippling",
