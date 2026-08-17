@@ -4,7 +4,7 @@
     "slug": "438-caw",
     "display_name": "Just Group",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -17,7 +17,7 @@
     "slug": "541-ce",
     "display_name": "Compass Group Education",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z",
     "metadata": {
       "host": "careersmanager.pageuppeople.com",
@@ -30,7 +30,7 @@
     "slug": "959-cw",
     "display_name": "PageUp",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -102,7 +102,7 @@
     "ats": "pageup",
     "slug": "aw",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -126,7 +126,7 @@
     "ats": "pageup",
     "slug": "cai",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -150,7 +150,7 @@
     "ats": "pageup",
     "slug": "caw",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -198,7 +198,7 @@
     "ats": "pageup",
     "slug": "cdw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -222,7 +222,7 @@
     "ats": "pageup",
     "slug": "cg",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -330,7 +330,7 @@
     "ats": "pageup",
     "slug": "cue",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careersmanager.pageuppeople.com",
@@ -354,7 +354,7 @@
     "ats": "pageup",
     "slug": "cw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -366,7 +366,7 @@
     "ats": "pageup",
     "slug": "cwlive",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -390,7 +390,7 @@
     "ats": "pageup",
     "slug": "cwtetratech",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careersmanager.pageuppeople.com",
@@ -414,7 +414,7 @@
     "ats": "pageup",
     "slug": "ehq",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-08-03T05:58:32.398Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -426,7 +426,7 @@
     "ats": "pageup",
     "slug": "en",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -438,7 +438,7 @@
     "ats": "pageup",
     "slug": "eon",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -522,7 +522,7 @@
     "ats": "pageup",
     "slug": "hiw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -534,7 +534,7 @@
     "ats": "pageup",
     "slug": "hn",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -558,7 +558,7 @@
     "ats": "pageup",
     "slug": "hnso",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -570,7 +570,7 @@
     "ats": "pageup",
     "slug": "ht",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -582,7 +582,7 @@
     "ats": "pageup",
     "slug": "idncw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -594,7 +594,7 @@
     "ats": "pageup",
     "slug": "in",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -678,7 +678,7 @@
     "ats": "pageup",
     "slug": "macq",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -702,7 +702,7 @@
     "ats": "pageup",
     "slug": "mw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -714,7 +714,7 @@
     "ats": "pageup",
     "slug": "nel",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -738,7 +738,7 @@
     "ats": "pageup",
     "slug": "new",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -762,7 +762,7 @@
     "ats": "pageup",
     "slug": "pa",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -786,7 +786,7 @@
     "ats": "pageup",
     "slug": "prs",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -834,7 +834,7 @@
     "ats": "pageup",
     "slug": "saffire",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -882,7 +882,7 @@
     "ats": "pageup",
     "slug": "smiggle",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -930,7 +930,7 @@
     "ats": "pageup",
     "slug": "sus",
     "status": "dead",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
@@ -1002,7 +1002,7 @@
     "ats": "pageup",
     "slug": "usw",
     "status": "live",
-    "last_probed_at": "2026-08-03T06:14:48.009Z",
+    "last_probed_at": "2026-08-17T03:37:34.686Z",
     "first_seen_at": "2026-07-06T20:37:11.182Z",
     "metadata": {
       "host": "careers.pageuppeople.com",
