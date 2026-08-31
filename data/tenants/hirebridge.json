@@ -4,7 +4,7 @@
     "slug": "5535",
     "display_name": "Menard Inc",
     "status": "live",
-    "last_probed_at": "2026-08-24T03:36:43.157Z",
+    "last_probed_at": "2026-08-31T09:01:25.412Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
   },
   {
@@ -12,7 +12,7 @@
     "slug": "7997",
     "display_name": "Avenue5 Residential",
     "status": "live",
-    "last_probed_at": "2026-08-24T03:36:43.157Z",
+    "last_probed_at": "2026-08-31T09:01:25.412Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
   },
   {
@@ -20,7 +20,7 @@
     "slug": "8419",
     "display_name": "Rinker Materials",
     "status": "live",
-    "last_probed_at": "2026-08-24T03:36:43.157Z",
+    "last_probed_at": "2026-08-31T09:01:25.412Z",
     "first_seen_at": "2026-07-03T00:00:00.000Z"
   }
 ]
