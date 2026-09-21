@@ -1,6 +1,20 @@
 [
   {
     "ats": "workable",
+    "slug": "011h",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "1-resource-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "1-stopasia",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -129,6 +143,13 @@
     "slug": "15below-ltd",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "15resources",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -840,6 +861,13 @@
   },
   {
     "ats": "workable",
+    "slug": "aanaab",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "aand-m-architects-sa",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
@@ -1071,6 +1099,13 @@
     "slug": "acadia-center",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "accelerasia",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -1438,6 +1473,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "acquisity",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -3735,6 +3777,13 @@
   },
   {
     "ats": "workable",
+    "slug": "alivo",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "alix-ventures",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -4636,6 +4685,13 @@
   },
   {
     "ats": "workable",
+    "slug": "american-income-life-95",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "american-income-life-insurance-company-11",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -5364,6 +5420,13 @@
   },
   {
     "ats": "workable",
+    "slug": "apcera",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "apella",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -5463,6 +5526,13 @@
     "slug": "apogee",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "apogee-global-rms",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -6384,6 +6454,13 @@
   },
   {
     "ats": "workable",
+    "slug": "arne",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "arnold-oil-company-of-austin-lp",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -6466,6 +6543,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "arsenale-bioyards",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -9136,6 +9220,13 @@
   },
   {
     "ats": "workable",
+    "slug": "beamcircular",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "beame",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
@@ -9280,6 +9371,13 @@
   },
   {
     "ats": "workable",
+    "slug": "behaviorlive",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "being",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -9322,6 +9420,13 @@
   },
   {
     "ats": "workable",
+    "slug": "belle-2",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "bellman",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -9357,6 +9462,13 @@
     "slug": "beloved-community-1",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "beloved-community-incubator-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -9846,6 +9958,13 @@
   },
   {
     "ats": "workable",
+    "slug": "bgcop",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "bgf-ventures",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -9857,6 +9976,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "bhaasha",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -10145,6 +10271,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "binagora-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -11393,6 +11526,13 @@
   },
   {
     "ats": "workable",
+    "slug": "boca-recovery",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "boclips",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -11807,6 +11947,13 @@
   },
   {
     "ats": "workable",
+    "slug": "bots-unlimited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "botsync-1",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
@@ -12205,9 +12352,23 @@
   },
   {
     "ats": "workable",
+    "slug": "breedens-orchard",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "breederdao",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "brego",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -13340,6 +13501,13 @@
   },
   {
     "ats": "workable",
+    "slug": "c1-insurance-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "c12-quantum-electronics",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -13956,6 +14124,13 @@
     "slug": "canopy-7",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "canopy-cloud",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -15842,6 +16017,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "chattacademy-community-school",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -22259,6 +22441,13 @@
   },
   {
     "ats": "workable",
+    "slug": "dean-dorton",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "deanslist",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -22738,6 +22927,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "demo-s-dot-a",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -25196,6 +25392,13 @@
   },
   {
     "ats": "workable",
+    "slug": "dropthought",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "drover",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -25285,6 +25488,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "dtid",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -25496,6 +25706,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "dz-grinders-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -26203,6 +26420,13 @@
   },
   {
     "ats": "workable",
+    "slug": "education-design-lab",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "education-first-consulting",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -26403,6 +26627,13 @@
     "slug": "egret-aaa",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "egypt-education-platform",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -26716,6 +26947,13 @@
     "slug": "elevate-47",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "elevate-7",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -27361,6 +27599,13 @@
   },
   {
     "ats": "workable",
+    "slug": "enableall-limited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "enartia",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -27568,6 +27813,13 @@
   },
   {
     "ats": "workable",
+    "slug": "enerstaff",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "enervee",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -27643,6 +27895,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "engender-technologies",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -28063,6 +28322,13 @@
   },
   {
     "ats": "workable",
+    "slug": "epplautoscan",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "epsconsultants",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -28203,6 +28469,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "erg-media",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -29143,6 +29416,13 @@
   },
   {
     "ats": "workable",
+    "slug": "executive-title-agency",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "executive-travel-inc",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -29193,6 +29473,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "exerizon",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -31243,6 +31530,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "flats-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -33405,6 +33699,13 @@
   },
   {
     "ats": "workable",
+    "slug": "full-stack-supply-co",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "fullfind",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -35125,6 +35426,13 @@
   },
   {
     "ats": "workable",
+    "slug": "gigabrands",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "gigaenergy",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -35242,6 +35550,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "girls-who-invest",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -35670,6 +35985,13 @@
     "slug": "go-city",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "go-media",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -38141,6 +38463,13 @@
   },
   {
     "ats": "workable",
+    "slug": "healthcare-information-management-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "healthcare-management-administrators",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -38594,6 +38923,13 @@
   },
   {
     "ats": "workable",
+    "slug": "helloaoa",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "hellobody",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -38747,6 +39083,13 @@
   },
   {
     "ats": "workable",
+    "slug": "heritage-and-company-inc-mbe",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "heritage-exposition-services",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -38857,6 +39200,13 @@
   },
   {
     "ats": "workable",
+    "slug": "hexagon-recruitment-partners-ltd",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "hextrust",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -38879,6 +39229,13 @@
     "slug": "heymane",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "heyra-io",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -40546,6 +40903,13 @@
   },
   {
     "ats": "workable",
+    "slug": "hungry-marketplace",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "hunt-st",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -41193,6 +41557,13 @@
     "slug": "idwall",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "idyl-ltd",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -41976,6 +42347,13 @@
   },
   {
     "ats": "workable",
+    "slug": "indiana-professional-management-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "indiancreekschool",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -42066,6 +42444,13 @@
     "slug": "induprotx",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "industrial-cleaning-equipment",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -45080,6 +45465,13 @@
   },
   {
     "ats": "workable",
+    "slug": "joinimmortals",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "joinmakropro",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -45927,6 +46319,13 @@
   },
   {
     "ats": "workable",
+    "slug": "kasama",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "kaseware-inc",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -46138,6 +46537,20 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "kenshohotels",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "kent-companies",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -46495,6 +46908,20 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "king-city-gardens",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "kingdom-homes",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -48389,6 +48816,13 @@
   },
   {
     "ats": "workable",
+    "slug": "legacy-food-group",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "legacybox",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -48465,6 +48899,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "legion-consulting",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -49055,6 +49496,13 @@
     "slug": "lifeisbeautiful",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "lifeisgood",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -49659,6 +50107,13 @@
   },
   {
     "ats": "workable",
+    "slug": "livecommonplace",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "livedata",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
@@ -49920,6 +50375,13 @@
   },
   {
     "ats": "workable",
+    "slug": "lockrose-limited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "lockthreat",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -50124,6 +50586,13 @@
   },
   {
     "ats": "workable",
+    "slug": "london-childrens-ballet-uk",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "london-energy-1",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -50305,6 +50774,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "louisville-black-media",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -50988,6 +51464,13 @@
   },
   {
     "ats": "workable",
+    "slug": "mactaggart-scott",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "mactay",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -51084,6 +51567,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "madrona-hospice-care",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -51447,6 +51937,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "malama-health",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -51951,6 +52448,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "marks-and-spencer-greece",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -53258,6 +53762,20 @@
     "slug": "mental-health-america-of-greenville-county",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "mental-health-association-of-maryland-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "mental-health-association-western-ma",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -54580,6 +55098,13 @@
     "slug": "mlacanada",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "mm-coaching-limited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -56156,6 +56681,13 @@
   },
   {
     "ats": "workable",
+    "slug": "multiplicaa",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "multiplicatalent",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -57638,6 +58170,13 @@
   },
   {
     "ats": "workable",
+    "slug": "new-automotive-2",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "new-casino-canada",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -57936,6 +58475,13 @@
     "slug": "nextgrowth-labs",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "nextladder",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -58705,6 +59251,13 @@
   },
   {
     "ats": "workable",
+    "slug": "northoak",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "northpass",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -59209,6 +59762,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "nus-enterprise",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -61074,6 +61634,13 @@
   },
   {
     "ats": "workable",
+    "slug": "ordermesh",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "ordermygear",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -61274,6 +61841,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "orquest",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -61701,6 +62275,13 @@
   },
   {
     "ats": "workable",
+    "slug": "ouzinkie",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "ova2-consultants-pvt-ltd",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -62103,6 +62684,13 @@
     "slug": "pacificaviation",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "pack-gamified-shopping",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -63546,6 +64134,13 @@
   },
   {
     "ats": "workable",
+    "slug": "peach-2",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "peachpay",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -64416,6 +65011,13 @@
   },
   {
     "ats": "workable",
+    "slug": "phathompharma",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "phazero",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -64532,6 +65134,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "photon-queue-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -66061,6 +66670,13 @@
   },
   {
     "ats": "workable",
+    "slug": "portland-immigrant-rights-coalition",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "portland-internetworks",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -66543,6 +67159,13 @@
   },
   {
     "ats": "workable",
+    "slug": "prescoinc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "prescotts-inc",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -66670,6 +67293,13 @@
     "slug": "pricehubble",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "pricelabs",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -66973,6 +67603,13 @@
     "slug": "prochant-us",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "procon-consulting",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -67321,6 +67958,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "pronexus-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -67958,6 +68602,13 @@
   },
   {
     "ats": "workable",
+    "slug": "purpose-union",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "purposeventuregroup",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -68170,6 +68821,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "qhms",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -69400,6 +70058,13 @@
   },
   {
     "ats": "workable",
+    "slug": "rditrials",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "rdlab",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -70206,6 +70871,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-06-29T07:14:37.711Z",
     "first_seen_at": "2026-06-29T07:14:37.711Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "release-recovery",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -71151,6 +71823,13 @@
   },
   {
     "ats": "workable",
+    "slug": "rhondos-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "rhoworld",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -71711,6 +72390,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "robinsonsiom",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -72609,6 +73295,13 @@
   },
   {
     "ats": "workable",
+    "slug": "ryvit",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "rzero",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -72812,6 +73505,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "sakana-ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -73352,6 +74052,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "savoia-investments-llc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -74101,6 +74808,13 @@
     "slug": "secret-6",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "secure-iq-services",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -75854,6 +76568,13 @@
   },
   {
     "ats": "workable",
+    "slug": "simpara",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "simpay",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
@@ -76060,6 +76781,13 @@
     "slug": "singledigits",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "singleid",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -76552,6 +77280,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "slapendrijkbv",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -77699,6 +78434,13 @@
   },
   {
     "ats": "workable",
+    "slug": "solr-ai",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "solriver-capital",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -77957,6 +78699,13 @@
   },
   {
     "ats": "workable",
+    "slug": "sorting-robotics",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "sortly",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -77985,6 +78734,13 @@
     "slug": "soulhouse",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "sound-specialists",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -79399,6 +80155,13 @@
   },
   {
     "ats": "workable",
+    "slug": "stakemate",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "stakha",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -79554,6 +80317,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "starttech-ventures",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -79902,6 +80672,13 @@
     "slug": "stigg",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "stiiizy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -81139,6 +81916,13 @@
   },
   {
     "ats": "workable",
+    "slug": "supersummary",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "supertech-group",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -81437,6 +82221,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "swiftx-express",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -81908,6 +82699,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "t45-labs",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -83695,6 +84493,13 @@
   },
   {
     "ats": "workable",
+    "slug": "texas-sports-academy",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "texas-sports-academy-main",
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
@@ -83991,6 +84796,13 @@
   },
   {
     "ats": "workable",
+    "slug": "the-cruise-globe",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "the-dermatology-center-1",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -84268,6 +85080,13 @@
   },
   {
     "ats": "workable",
+    "slug": "the-june",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "the-just-trust",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -84447,6 +85266,13 @@
     "slug": "the-neighborhood-an-urban-center-for-jewish-life",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "the-new-foreign-assistance",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -84855,6 +85681,13 @@
   },
   {
     "ats": "workable",
+    "slug": "theconnective",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "thecowanconnection",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -85202,6 +86035,13 @@
   },
   {
     "ats": "workable",
+    "slug": "therideplatform",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "thermalengint",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -85358,6 +86198,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "thinking-machines-data-science-inc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -85687,6 +86534,13 @@
     "slug": "thriva",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "thrive-7",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -86123,6 +86977,13 @@
     "slug": "titos-handmade-vodka",
     "status": "live",
     "last_probed_at": "2026-06-04T23:55:00.000Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "tjm-labs-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -87950,6 +88811,13 @@
   },
   {
     "ats": "workable",
+    "slug": "turbine-1",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "turbine-finance",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -88248,6 +89116,13 @@
     "slug": "tyde-digital-1",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "tydeco",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -88878,6 +89753,13 @@
   },
   {
     "ats": "workable",
+    "slug": "unique-training-solutions",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "unirac",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -89139,6 +90021,13 @@
   },
   {
     "ats": "workable",
+    "slug": "unpack-holdings-limited",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "unreal-gigs",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -89330,6 +90219,13 @@
     "slug": "upstream",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "upstreet",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -89611,6 +90507,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "usemate",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -89975,6 +90878,13 @@
   },
   {
     "ats": "workable",
+    "slug": "valinor",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "valis-insights-1",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -90211,6 +91121,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "vecten",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -90521,6 +91438,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "vera-cadillac-buick-gmc",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -90846,6 +91770,13 @@
     "slug": "vetcelerator-1",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "vetcheck-for-pets",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -91257,6 +92188,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "virti",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -92595,6 +93533,13 @@
   },
   {
     "ats": "workable",
+    "slug": "we-are-chorus",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "we-are-futures",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
@@ -92677,6 +93622,13 @@
     "status": "transient_failure",
     "last_probed_at": "1970-01-01T00:00:00.000Z",
     "first_seen_at": "2026-08-31T08:53:29.229Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "wealth-without-wallstreet",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -93277,6 +94229,13 @@
     "slug": "werkenbijcpm",
     "status": "dead",
     "last_probed_at": "2026-04-28T19:42:37.880Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "wernerplumbingandheating",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
@@ -95686,6 +96645,13 @@
   },
   {
     "ats": "workable",
+    "slug": "yugo",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
+  },
+  {
+    "ats": "workable",
     "slug": "yummy-bazaar",
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
@@ -95725,6 +96691,13 @@
     "status": "transient_failure",
     "last_probed_at": "2026-05-01T14:35:14.534Z",
     "first_seen_at": "2026-05-01T14:35:14.534Z"
+  },
+  {
+    "ats": "workable",
+    "slug": "zadient-technologies-sas",
+    "status": "transient_failure",
+    "last_probed_at": "1970-01-01T00:00:00.000Z",
+    "first_seen_at": "2026-09-21T08:11:17.368Z"
   },
   {
     "ats": "workable",
