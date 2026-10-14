@@ -442,6 +442,94 @@ describe("runBuildDbCommand", () => {
     expect(manifest.tenants_live).toBe(1);
   });
 
+  it("skips invalid tenant rows and builds from the valid ones", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    writeFileSync(join(inputDir, "out.json"), JSON.stringify(emptyOutput()));
+    const tenantsPath = join(dir, "tenants.json");
+    writeFileSync(
+      tenantsPath,
+      JSON.stringify([
+        {
+          ats: "greenhouse",
+          slug: "alpha",
+          status: "live",
+          last_probed_at: "2026-04-26T00:00:00Z",
+        },
+        // Invalid: underscore in slug — the row that used to abort the whole build.
+        {
+          ats: "workable",
+          slug: "foo_bar",
+          status: "live",
+          last_probed_at: "2026-04-26T00:00:00Z",
+        },
+        // Invalid: dotted vendor domain in slug.
+        { ats: "ashby", slug: "kos.ai", status: "live", last_probed_at: "2026-04-26T00:00:00Z" },
+        { ats: "lever", slug: "beta", status: "dead", last_probed_at: "2026-04-26T00:00:00Z" },
+      ]),
+    );
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+      "--tenants",
+      tenantsPath,
+    ]);
+    expect(code).toBe(0);
+    expect(existsSync(join(outputDir, "jobs.abc1234.sqlite"))).toBe(true);
+    const manifest = JSON.parse(readFileSync(join(outputDir, "manifest.json"), "utf8"));
+    // Only the two valid rows land; the two malformed slugs are dropped.
+    expect(manifest.tenants_total).toBe(2);
+    expect(manifest.tenants_live).toBe(1);
+  });
+
+  it("skips invalid job rows within a valid scrape output and keeps the rest", async () => {
+    const dir = tmpDir();
+    const inputDir = join(dir, "in");
+    const outputDir = join(dir, "out");
+    mkdirSync(inputDir);
+    const goodJob = {
+      id: "a".repeat(64),
+      ats: "greenhouse",
+      tenant_slug: "acme",
+      source_id: "req-1",
+      title: "Staff Engineer",
+      company: "Acme",
+      level: "staff",
+      level_rank: 5,
+      workplace_type: "remote",
+      is_recruiter_post: false,
+      first_seen_at: "2026-04-26T00:00:00Z",
+      last_seen_at: "2026-04-26T00:00:00Z",
+      url: "https://boards.greenhouse.io/acme/jobs/1",
+    };
+    const badJob = {
+      ...goodJob,
+      id: "b".repeat(64),
+      tenant_slug: "bad_slug",
+      url: "https://boards.greenhouse.io/acme/jobs/2",
+    };
+    const output = { ...(emptyOutput() as Record<string, unknown>), jobs: [goodJob, badJob] };
+    writeFileSync(join(inputDir, "greenhouse.json"), JSON.stringify(output));
+    const code = await runBuildDbCommand([
+      "--input",
+      inputDir,
+      "--output-dir",
+      outputDir,
+      "--short-sha",
+      "abc1234",
+    ]);
+    expect(code).toBe(0);
+    const manifest = JSON.parse(readFileSync(join(outputDir, "manifest.json"), "utf8"));
+    // The malformed job is dropped; the well-formed one survives.
+    expect(manifest.total_rows).toBe(1);
+  });
+
   it("wraps malformed scrape JSON with the file path in the error", async () => {
     const dir = tmpDir();
     const inputDir = join(dir, "in");

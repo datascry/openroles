@@ -23,6 +23,12 @@ import { z } from "zod";
 import { isSafeFetchHost } from "./ats/common.ts";
 import { fetchWorkdaySite } from "./ats/workday-site-fetch.ts";
 import { buildDb } from "./db/build-db.ts";
+import {
+  formatSkipSummary,
+  partitionScrapeOutput,
+  partitionTenants,
+  type SkippedRow,
+} from "./db/resilient-parse.ts";
 import { emitSlimIndex } from "./db/slim-index.ts";
 import { diskClusterIdxCache } from "./harvest/cc-s3.ts";
 import { SNAPSHOT_ID_RE } from "./harvest/cdx.ts";
@@ -408,25 +414,28 @@ export async function runBuildDbCommand(argv: ReadonlyArray<string>): Promise<nu
   // not crash the daily refresh.
   const entries = (await readdir(args.input)).sort();
   const outputs: ScrapeOutput[] = [];
+  const skippedJobs: SkippedRow[] = [];
   for (const name of entries) {
     if (!name.endsWith(".json")) continue;
     const path = join(args.input, name);
     const raw = await readJsonOrThrow(path, "build-db");
-    const parsed = ScrapeOutputSchema.safeParse(raw);
-    if (!parsed.success) {
-      console.error(
-        `build-db: skipping ${name}: ${parsed.error.issues
-          .map((i) => `${i.path.join(".")} ${i.message}`)
-          .join("; ")}`,
-      );
+    const part = partitionScrapeOutput(raw);
+    if (part.output === null) {
+      console.error(`build-db: skipping ${name}: ${part.envelopeError}`);
       continue;
     }
-    outputs.push(parsed.data);
+    outputs.push(part.output);
+    for (const s of part.skipped) skippedJobs.push(s);
   }
+  const jobSummary = formatSkipSummary("job", skippedJobs);
+  if (jobSummary !== null) console.error(jobSummary);
 
   let tenants: Tenant[] = [];
   if (args.tenants !== undefined) {
-    tenants = z.array(TenantSchema).parse(await readJsonOrThrow(args.tenants, "build-db"));
+    const part = partitionTenants(await readJsonOrThrow(args.tenants, "build-db"));
+    tenants = part.valid;
+    const tenantSummary = formatSkipSummary("tenant", part.skipped);
+    if (tenantSummary !== null) console.error(tenantSummary);
   }
 
   const builtAt = new Date().toISOString();

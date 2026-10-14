@@ -1,0 +1,66 @@
+name: Deploy freshness
+
+# Watchdog for a silently-frozen deploy. The daily refresh chain
+# (Scrape → Build + deploy) can fail after the scrape succeeds — e.g. a
+# malformed tenant row that aborts build-db — in which case the live
+# manifest simply stops advancing while every check stays green. Nothing
+# surfaces the freeze.
+#
+# This job fetches the live manifest and fails when its built_at is older
+# than the threshold. A failed scheduled run shows up as a red check and
+# triggers GitHub's standard failed-workflow notification, so a stalled
+# deploy can no longer go unnoticed.
+#
+# Threshold is 36h — comfortably past the ~24h refresh cadence so a single
+# skipped/late run doesn't false-alarm, but tight enough to catch a real
+# freeze within a day.
+
+on:
+  schedule:
+    # Every 6 hours (00:00, 06:00, 12:00, 18:00 UTC).
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  freshness:
+    name: Check live manifest freshness
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Fail if the live deploy is stale
+        env:
+          # Must match site/src/lib/site-config.ts SITE_ORIGIN and the
+          # PAGES_BASE mirror in build-deploy.yml — update in lockstep
+          # when the domain moves.
+          MANIFEST_URL: "https://openroles.today/data/manifest.json"
+          MAX_AGE_HOURS: "36"
+        run: |
+          set -euo pipefail
+          if ! body="$(curl -fsSL --max-time 30 "$MANIFEST_URL")"; then
+            echo "::error::could not fetch $MANIFEST_URL — the site may be down or Pages unreachable"
+            exit 1
+          fi
+          built_at="$(printf '%s' "$body" | jq -r '.built_at // empty')"
+          if [ -z "$built_at" ]; then
+            echo "::error::manifest at $MANIFEST_URL has no built_at field"
+            exit 1
+          fi
+          if ! built_epoch="$(date -u -d "$built_at" +%s 2>/dev/null)"; then
+            echo "::error::manifest built_at is not a parseable timestamp: $built_at"
+            exit 1
+          fi
+          now_epoch="$(date -u +%s)"
+          age_hours=$(( (now_epoch - built_epoch) / 3600 ))
+          echo "manifest built_at=$built_at — age ${age_hours}h (threshold ${MAX_AGE_HOURS}h)"
+          if [ "$age_hours" -ge "$MAX_AGE_HOURS" ]; then
+            echo "::error::deploy is stale: live manifest built_at=$built_at is ${age_hours}h old (threshold ${MAX_AGE_HOURS}h). The Scrape → Build + deploy chain is likely failing — check the build-deploy workflow."
+            exit 1
+          fi
+          echo "deploy is fresh (${age_hours}h < ${MAX_AGE_HOURS}h)"
